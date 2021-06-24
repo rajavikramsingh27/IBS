@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
@@ -57,8 +58,7 @@ class _IntroState extends State<Intro> {
             padding: EdgeInsets.only(
                 top: context.mediaQuerySize.width > 400
                     ? ScreenConstant.defaultHeightOneHundred * 1.2
-                    : ScreenConstant.defaultHeightSeventy
-            ),
+                    : ScreenConstant.defaultHeightSeventy),
             child: PageView.builder(
               controller: _pageController,
               onPageChanged: (int page) {
@@ -230,7 +230,9 @@ class _IntroState extends State<Intro> {
 
   _getStartedButton() {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        Get.toNamed(myprofile);
+      },
       style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(
               horizontal: ScreenConstant.defaultWidthSixty,

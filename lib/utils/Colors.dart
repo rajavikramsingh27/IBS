@@ -18,8 +18,11 @@ class AppColors {
   static const Color iconColorBlue = const Color(0xFF6191BE);
 
   static const Color colorBackground = const Color(0xFF49358B);
-
+  static const Color colorMyProfileBackground = const Color(0xFFF3F9FD);
+  static const Color colorTextDescription = const Color(0xFF373737);
+  static const Color colorskip_also_proceed = const Color(0xFF585858);
   static const Color colorButton = const Color(0xFF4A358B);
+  static const Color colorYesButton = const Color(0xFF75CBC3);
   static const Color colorDot = const Color(0xFFC7358B);
   static const Color colorDotNotFocused = const Color(0xFF7869A9);
 

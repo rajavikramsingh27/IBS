@@ -15,10 +15,15 @@ class TextStyles {
       fontWeight: FontWeight.w500);
   
   static TextStyle get appBarTitle => TextStyle(
-        color: AppColors.white,
-        fontSize: FontSize.s18,
-        fontFamily: 'Roboto',
-        fontWeight: FontWeight.w400,
+        color: Colors.black,
+        fontSize: FontSize.s14,
+        fontFamily: 'Roboto-Medium',
+        fontWeight: FontWeight.w500,
+      );
+       static TextStyle get textDescription => TextStyle(
+        color: AppColors.colorTextDescription,
+        fontSize: FontSize.s14,
+        fontFamily: 'Roboto-Medium',
       );
   static TextStyle get loginSignUpBoldText => TextStyle(
         fontFamily: 'Proxima Nova Semibold',
