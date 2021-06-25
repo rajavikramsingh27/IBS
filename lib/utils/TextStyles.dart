@@ -18,7 +18,7 @@ class TextStyles {
         color: Colors.black,
         fontSize: FontSize.s14,
         fontFamily: 'Roboto-Medium',
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.bold,
       );
        static TextStyle get textDescription => TextStyle(
         color: AppColors.colorTextDescription,

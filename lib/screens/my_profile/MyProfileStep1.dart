@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ibs/controllers/my_profile/MyProfileStep1Controller.dart';
+import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
+import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
+import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
@@ -9,14 +11,15 @@ import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 
 class MyProfileStep1 extends StatelessWidget {
-  final MyProfileStep1Controller _controller =
-      Get.put(MyProfileStep1Controller());
+  final MyProfileController _controller =
+      Get.put(MyProfileController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.colorMyProfileBackground,
         appBar: AppBar(
+          elevation: 0,
           leading: Obx(() => _controller.pagecount.value >= 1
               ? LeadingBackButton(
                   onPressed: () => _controller.pagecount.value--,
@@ -56,7 +59,20 @@ class MyProfileStep1 extends StatelessWidget {
                   ],
                 ),
               )
-            : Offstage()),
+            : _controller.pagecount.value >= 3
+                ? Container(
+                    padding: ScreenConstant.spacingAllLarge,
+                    color: Colors.white,
+                    child: CustomElevatedButton(
+                      widthFactor: 0.8,
+                      text: "Continue",
+                      onTap: () {
+                        _controller.pagecount.value++;
+                        print("count:${_controller.pagecount.value}");
+                      },
+                    ),
+                  )
+                : Offstage()),
         body: Obx(() => Stack(
               children: [_toggleView(_controller.pagecount.value)],
             )));
@@ -72,6 +88,11 @@ class MyProfileStep1 extends StatelessWidget {
         break;
       case 2:
         return _buildProfileStep3();
+        break;
+      case 3:
+        return _buildProfileStep4();
+        
+      
         break;
       default:
         break;
@@ -186,7 +207,9 @@ class MyProfileStep1 extends StatelessWidget {
             children: [
               Expanded(
                 child: CustomElevatedButton2(
-                  onTap: () {},
+                  onTap: () {
+                    _controller.pagecount.value++;
+                  },
                   text: "Yes, I have",
                   textColor: Colors.white,
                   buttonColor: AppColors.colorYesButton,
@@ -195,7 +218,9 @@ class MyProfileStep1 extends StatelessWidget {
               SizedBox(width: ScreenConstant.defaultWidthTwenty),
               Expanded(
                 child: CustomElevatedButton2(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(myprofile2);
+                  },
                   text: "No, not yet",
                   textColor: AppColors.colorButton,
                   buttonColor: Colors.white,
@@ -207,4 +232,93 @@ class MyProfileStep1 extends StatelessWidget {
       ],
     );
   }
+
+  _buildProfileStep4() {
+    return ListView(
+      physics: ClampingScrollPhysics(),
+      children: [
+        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        Text("Excellent. That's good \n to know.",
+            textAlign: TextAlign.center,
+            style: TextStyles.textStyleIntroDescription
+                .apply(color: Colors.black)),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        Padding(
+          padding: ScreenConstant.spacingAllLarge,
+          child: Card(
+            elevation: 0,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Padding(
+              padding: ScreenConstant.spacingAllLarge,
+              child: Text(
+                "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
+                style: TextStyles.textDescription,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        Padding(
+          padding: EdgeInsets.only(left: ScreenConstant.defaultWidthTwenty),
+          child: Text("Do you know which type of IBS you have ?",
+              textAlign: TextAlign.left,
+              style: TextStyles.textStyleIntroDescription
+                  .apply(color: Colors.black, fontSizeDelta: -4)),
+        ),
+        SizedBox(height: ScreenConstant.defaultHeightTen),
+        _buildListIbsType(),
+      ],
+    );
+  }
+
+  _buildListIbsType() {
+    return ListView.builder(
+      padding:
+          EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: DummyData.ibsType.length,
+      itemBuilder: (BuildContext context, int index) {
+        var model = DummyData.ibsType[index];
+        return Card(
+          elevation: 0,
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: ListTile(
+            dense: true,
+            leading: Image.asset(model.image,
+                width: ScreenConstant.defaultWidthTwenty),
+            title: Text("${model.text}",
+                style: TextStyles.textStyleIntroDescription
+                    .apply(color: Colors.black, fontSizeDelta: -3)),
+            trailing: InkWell(
+              onTap: () {
+                _controller.checkBoxValue.value =
+                    !_controller.checkBoxValue.value;
+              },
+              child: _controller.checkBoxValue.value
+                  ? Icon(
+                      Icons.check_box_outlined,
+                      size: FontSize.s20,
+                      color: AppColors.colorDot,
+                    )
+                  : Icon(
+                      Icons.check_box_outline_blank,
+                      size: FontSize.s20,
+                      color: AppColors.colorBackground.withOpacity(0.19),
+                    ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+ 
 }
