@@ -115,6 +115,8 @@ class ScreenConstant {
   static EdgeInsets spacingAllSmall = EdgeInsets.all(sizeSmall);
   static EdgeInsets spacingAllMedium = EdgeInsets.all(sizeMedium);
   static EdgeInsets spacingAllLarge = EdgeInsets.all(sizeLarge);
+  static EdgeInsets spacingXL = EdgeInsets.all(sizeXL);
+
   static EdgeInsets spacingOnlySmall =
       EdgeInsets.only(top: sizeSmall, bottom: sizeSmall);
   static EdgeInsets spacingLeftOnly = EdgeInsets.only(left: sizeDefault);
