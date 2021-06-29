@@ -32,7 +32,10 @@ class AppColors {
 
   static const Color colorCanada = const Color(0xFFC6358B);
   static const Color colorTextMoreLess = const Color(0xFF232323);
+  static const Color colorTextRegular = const Color(0xFF1C1C1C);
 
   static const Color colorCloseDark = const Color(0xFFBE285B);
   static const Color colorCloseLight = const Color(0xFFD43169);
+  static const Color colordropdownArrow = const Color(0xFF6AC7BE);
+  static const Color colordropdownArrowBg = const Color(0xFFF9F9FC);
 }

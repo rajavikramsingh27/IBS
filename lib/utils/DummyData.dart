@@ -55,3 +55,21 @@ class StoolChartModel {
   String text;
   String type;
 }
+
+class CheckBoxListTileModel {
+  int userId;
+
+  String title;
+  bool isCheck;
+
+  CheckBoxListTileModel({this.userId, this.title, this.isCheck});
+
+  static List<CheckBoxListTileModel> getUsers() {
+    return <CheckBoxListTileModel>[
+      CheckBoxListTileModel(userId: 1, title: "Female", isCheck: true),
+      CheckBoxListTileModel(userId: 2, title: "Male", isCheck: false),
+      CheckBoxListTileModel(
+          userId: 3, title: "Prefer Not to Respond", isCheck: false),
+    ];
+  }
+}

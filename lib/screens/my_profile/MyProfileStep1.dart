@@ -11,8 +11,7 @@ import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 
 class MyProfileStep1 extends StatelessWidget {
-  final MyProfileController _controller =
-      Get.put(MyProfileController());
+  final MyProfileController _controller = Get.put(MyProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +58,8 @@ class MyProfileStep1 extends StatelessWidget {
                   ],
                 ),
               )
-            : _controller.pagecount.value >= 3
+            : _controller.pagecount.value == 2 ||
+                    _controller.pagecount.value == 3
                 ? Container(
                     padding: ScreenConstant.spacingAllLarge,
                     color: Colors.white,
@@ -67,7 +67,11 @@ class MyProfileStep1 extends StatelessWidget {
                       widthFactor: 0.8,
                       text: "Continue",
                       onTap: () {
-                        _controller.pagecount.value++;
+                        if (_controller.pagecount.value == 2)
+                          _controller.pagecount.value++;
+                        else {
+                          Get.toNamed(signup);
+                        }
                         print("count:${_controller.pagecount.value}");
                       },
                     ),
@@ -91,8 +95,7 @@ class MyProfileStep1 extends StatelessWidget {
         break;
       case 3:
         return _buildProfileStep4();
-        
-      
+
         break;
       default:
         break;
@@ -319,6 +322,4 @@ class MyProfileStep1 extends StatelessWidget {
       },
     );
   }
-
- 
 }

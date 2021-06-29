@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep1.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep2.dart';
+import 'package:flutter_ibs/screens/signup/SignupStep1.dart';
 import 'package:flutter_ibs/splash.dart';
 import 'package:get/get.dart';
 
@@ -19,15 +20,16 @@ class NavRouter {
     ),
     GetPage(
       name: myprofile,
-      page: () => SafeArea(
-        child: MyProfileStep1(),
-      ),
+      page: () => MyProfileStep1(),
     ),
     GetPage(
       name: myprofile2,
-      page: () => SafeArea(
-        child: MyProfileStep2(),
-      ),
+      page: () => MyProfileStep2(),
     ),
+    GetPage(
+      name: signup,
+      page: () => SignupStep1(),
+    ),
+    
   ];
 }

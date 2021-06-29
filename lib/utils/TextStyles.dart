@@ -21,9 +21,14 @@ class TextStyles {
         fontWeight: FontWeight.bold,
       );
        static TextStyle get textDescription => TextStyle(
+        color: AppColors.colorTextRegular,
+        fontSize: FontSize.s12,
+        fontFamily: 'Roboto-Medium',
+      );
+      static TextStyle get textStyleRegular => TextStyle(
         color: AppColors.colorTextDescription,
         fontSize: FontSize.s14,
-        fontFamily: 'Roboto-Medium',
+        fontFamily: 'Roboto-Regular',
       );
   static TextStyle get loginSignUpBoldText => TextStyle(
         fontFamily: 'Proxima Nova Semibold',

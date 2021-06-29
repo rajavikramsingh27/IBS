@@ -11,6 +11,8 @@ class Assets {
   static const String ibTypeM = "$baseImage/ibs_type/mixed.png";
   static const String ibTypeU = "$baseImage/ibs_type/untyped.png";
   static const String mask_emoji = "$baseImage/ibs_type/mask_emoji.png";
+  static const String curl4 = "$baseImage/ibs_type/curl4.png";
+
 //stool chart
   static const String hard_lump =
       "$baseImage/bristol_stool_chart/hard_lump.png";
@@ -25,8 +27,20 @@ class Assets {
   static const String soft_lump =
       "$baseImage/bristol_stool_chart/soft_lump.png";
 
+//signup
+  static const String ask_emoji = "$baseImage/signup/ask_emoji.png";
+  static const String book = "$baseImage/signup/book.png";
+  static const String check = "$baseImage/signup/check.png";
+
+
+
+
   static const String settings = "assets/images/setting.png";
   static const String logout = "assets/images/logout.png";
 
   static const String noInternet = "assets/images/nointernet.gif";
+
+
+
+
 }
