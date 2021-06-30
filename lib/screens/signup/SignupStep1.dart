@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/HeaderCard.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
-import 'package:flutter_ibs/utils/DummyData.dart';
 
 class SignupStep1 extends StatelessWidget {
   @override
@@ -33,7 +33,9 @@ class SignupStep1 extends StatelessWidget {
           child: CustomElevatedButton(
             widthFactor: 0.8,
             text: "Next",
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(signup2);
+            },
           ),
         ),
         body: ListView(
@@ -77,7 +79,7 @@ class SignupStep1 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding:  EdgeInsets.only(
+            padding: EdgeInsets.only(
                 left: ScreenConstant.defaultWidthTen * 1.5,
                 right: ScreenConstant.defaultWidthTen * 1.5,
                 top: ScreenConstant.defaultHeightTen * 1.5),
@@ -212,7 +214,7 @@ class SignupStep1 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding:  EdgeInsets.only(
+            padding: EdgeInsets.only(
                 left: ScreenConstant.defaultWidthTen * 1.5,
                 right: ScreenConstant.defaultWidthTen * 1.5,
                 top: ScreenConstant.defaultHeightTen * 1.5),

@@ -56,7 +56,7 @@ class HeaderCard extends StatelessWidget {
         Positioned(
           left: 60,
           right: 60,
-          bottom: 40,
+          bottom: 20,
           child: Column(
             children: [
               Text(title,
@@ -67,7 +67,7 @@ class HeaderCard extends StatelessWidget {
               Text(description,
                   textAlign: TextAlign.center,
                   style: TextStyles.textDescription
-                      .apply(color: Colors.white, fontSizeDelta: -3)),
+                      .apply(color: Colors.white, fontSizeDelta: 2)),
             ],
           ),
         ),

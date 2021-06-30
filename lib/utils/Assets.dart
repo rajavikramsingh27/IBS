@@ -31,6 +31,8 @@ class Assets {
   static const String ask_emoji = "$baseImage/signup/ask_emoji.png";
   static const String book = "$baseImage/signup/book.png";
   static const String check = "$baseImage/signup/check.png";
+  static const String verified = "$baseImage/signup/verified.png";
+  static const String lock = "$baseImage/signup/lock.png";
 
 
 

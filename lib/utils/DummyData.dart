@@ -41,6 +41,18 @@ class DummyData {
         image: Assets.liquid_lump,
         type: "Type 7"),
   ];
+  static List<TrackingOptionsModel> symptomsList = [
+    TrackingOptionsModel(title: "Abdominal Pain/Bloating/Cramps"),
+    TrackingOptionsModel(title: "Intensity of Symptoms"),
+    TrackingOptionsModel(title: "Describe how you Feel"),
+    TrackingOptionsModel(title: "Duration of Symptoms"),
+  ];
+   static List<TrackingOptionsModel> healthList = [
+    TrackingOptionsModel(title: "Stress level"),
+    TrackingOptionsModel(title: "Fatigue"),
+    TrackingOptionsModel(title: "Describe how you Feel"),
+    TrackingOptionsModel(title: "Duration of Symptoms"),
+  ];
 }
 
 class IBSTypeModel {
@@ -72,4 +84,12 @@ class CheckBoxListTileModel {
           userId: 3, title: "Prefer Not to Respond", isCheck: false),
     ];
   }
+}
+
+class TrackingOptionsModel {
+  String title;
+
+  TrackingOptionsModel({
+    this.title,
+  });
 }

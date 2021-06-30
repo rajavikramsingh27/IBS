@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep1.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep2.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep1.dart';
+import 'package:flutter_ibs/screens/signup/SignupStep2.dart';
+import 'package:flutter_ibs/screens/signup/SignupStep3.dart';
 import 'package:flutter_ibs/splash.dart';
 import 'package:get/get.dart';
 
@@ -30,6 +32,13 @@ class NavRouter {
       name: signup,
       page: () => SignupStep1(),
     ),
-    
+    GetPage(
+      name: signup2,
+      page: () => SignupStep2(),
+    ),
+    GetPage(
+      name: signup3,
+      page: () => SignupStep3(),
+    ),
   ];
 }
