@@ -33,6 +33,10 @@ class Assets {
   static const String check = "$baseImage/signup/check.png";
   static const String verified = "$baseImage/signup/verified.png";
   static const String lock = "$baseImage/signup/lock.png";
+  static const String curl5 = "$baseImage/signup/curl5.png";
+  static const String curl6 = "$baseImage/signup/curl6.png";
+
+
 
 
 

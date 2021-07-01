@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
+import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -41,7 +42,9 @@ class MyProfileStep2 extends StatelessWidget {
                   widthFactor: 0.8,
                   text: "Continue",
                   onTap: () {
-                    _controller.pagecount2.value++;
+                  (_controller.pagecount2.value<=1)?
+                    _controller.pagecount2.value++:Get.toNamed(signup);
+                    
                     print("count:${_controller.pagecount2.value}");
                   },
                 ),
@@ -355,97 +358,100 @@ class MyProfileStep2 extends StatelessWidget {
 
   _buildDialogStool() {
     return Get.dialog(
-      Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.white,
-            ),
-            margin: ScreenConstant.spacingAllLarge,
-            child: ListView(
-              children: [
-                Padding(
-                  padding: ScreenConstant.spacingAllLarge,
-                  child: Text("Bristol Stool Chart",
-                      textAlign: TextAlign.start,
-                      style: TextStyles.textStyleIntroDescription
-                          .apply(color: AppColors.colorButton)),
-                ),
-                GridView.builder(
-                  padding: ScreenConstant.spacingAllLarge,
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: DummyData.stoolChart.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: ScreenConstant.sizeExtraSmall,
-                    mainAxisSpacing: ScreenConstant.sizeExtraSmall,
-                    //  childAspectRatio:screenHeight<743?screenHeight / (screenHeight /.9):screenHeight / (screenHeight /.8),
+      Material(
+        type: MaterialType.transparency,
+              child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white,
+              ),
+              margin: ScreenConstant.spacingAllLarge,
+              child: ListView(
+                children: [
+                  Padding(
+                    padding: ScreenConstant.spacingAllLarge,
+                    child: Text("Bristol Stool Chart",
+                        textAlign: TextAlign.start,
+                        style: TextStyles.textStyleIntroDescription
+                            .apply(color: AppColors.colorButton)),
                   ),
-                  itemBuilder: (BuildContext context, int index) {
-                    var model = DummyData.stoolChart[index];
-                    return Container(
-                      color: AppColors.white,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            model.image,
-                            width: ScreenConstant.defaultWidthOneHundredSeven,
-                            height: ScreenConstant.defaultHeightOneHundred,
-                          ),
-                          SizedBox(height: ScreenConstant.sizeExtraSmall),
-                          Text(model.text,
-                              textAlign: TextAlign.center,
-                              style: TextStyles.textStyleIntroDescription.apply(
-                                  color: Colors.black, fontSizeDelta: -6)),
-                          SizedBox(height: ScreenConstant.sizeExtraSmall),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              color: AppColors.colorButton,
+                  GridView.builder(
+                    padding: ScreenConstant.spacingAllLarge,
+                    physics: ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: DummyData.stoolChart.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: ScreenConstant.sizeExtraSmall,
+                      mainAxisSpacing: ScreenConstant.sizeExtraSmall,
+                      //  childAspectRatio:screenHeight<743?screenHeight / (screenHeight /.9):screenHeight / (screenHeight /.8),
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      var model = DummyData.stoolChart[index];
+                      return Container(
+                        color: AppColors.white,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              model.image,
+                              width: ScreenConstant.defaultWidthOneHundredSeven,
+                              height: ScreenConstant.defaultHeightOneHundred,
                             ),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: ScreenConstant.sizeExtraSmall,
-                                vertical: 1),
-                            child: FittedBox(
-                              fit: BoxFit.contain,
-                              child: Text(model.type,
-                                  style: TextStyles.textStyleIntroDescription
-                                      .apply(
-                                          color: Colors.white,
-                                          fontSizeDelta: -9)),
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            right: 10,
-            top: 10,
-            child: GestureDetector(
-              onTap: ()=>Get.back(),
-              child: CircleAvatar(
-                backgroundColor: AppColors.colorCloseLight,
-                radius: 20,
-                child: CircleAvatar(
-                    backgroundColor: AppColors.colorCloseLight,
-                    radius: 18,
-                    child: Icon(
-                      Icons.close,
-                      color: Colors.white,
-                      size: FontSize.s15,
-                    )),
+                            SizedBox(height: ScreenConstant.sizeExtraSmall),
+                            Text(model.text,
+                                textAlign: TextAlign.center,
+                                style: TextStyles.textStyleIntroDescription.apply(
+                                    color: Colors.black, fontSizeDelta: -6)),
+                            SizedBox(height: ScreenConstant.sizeExtraSmall),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: AppColors.colorButton,
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: ScreenConstant.sizeExtraSmall,
+                                  vertical: 1),
+                              child: FittedBox(
+                                fit: BoxFit.contain,
+                                child: Text(model.type,
+                                    style: TextStyles.textStyleIntroDescription
+                                        .apply(
+                                            color: Colors.white,
+                                            fontSizeDelta: -9)),
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+            Positioned(
+              right: 10,
+              top: 10,
+              child: GestureDetector(
+                onTap: ()=>Get.back(),
+                child: CircleAvatar(
+                  backgroundColor: AppColors.colorCloseLight,
+                  radius: 20,
+                  child: CircleAvatar(
+                      backgroundColor: AppColors.colorCloseLight,
+                      radius: 18,
+                      child: Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: FontSize.s15,
+                      )),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
