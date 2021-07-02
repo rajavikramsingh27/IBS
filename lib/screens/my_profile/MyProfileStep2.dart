@@ -7,6 +7,7 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/CustomCheckBox.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
@@ -42,9 +43,10 @@ class MyProfileStep2 extends StatelessWidget {
                   widthFactor: 0.8,
                   text: "Continue",
                   onTap: () {
-                  (_controller.pagecount2.value<=1)?
-                    _controller.pagecount2.value++:Get.toNamed(signup);
-                    
+                    (_controller.pagecount2.value <= 1)
+                        ? _controller.pagecount2.value++
+                        : Get.toNamed(signup);
+
                     print("count:${_controller.pagecount2.value}");
                   },
                 ),
@@ -312,47 +314,47 @@ class MyProfileStep2 extends StatelessWidget {
   }
 
   _buildListIbsType() {
-    return ListView.builder(
-      padding:
-          EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: DummyData.ibsTypemedium.length,
-      itemBuilder: (BuildContext context, int index) {
-        var model = DummyData.ibsTypemedium[index];
-        return Card(
-          elevation: 0,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: ListTile(
-            dense: true,
-            leading: Image.asset(model.image,
-                width: ScreenConstant.defaultWidthTwenty),
-            title: Text("${model.text}",
-                style: TextStyles.textStyleIntroDescription
-                    .apply(color: Colors.black, fontSizeDelta: -3)),
-            trailing: InkWell(
-              onTap: () {
-                _controller.checkBoxValue.value =
-                    !_controller.checkBoxValue.value;
-              },
-              child: _controller.checkBoxValue.value
-                  ? Icon(
-                      Icons.check_box_outlined,
-                      size: FontSize.s20,
-                      color: AppColors.colorDot,
-                    )
-                  : Icon(
-                      Icons.check_box_outline_blank,
-                      size: FontSize.s20,
-                      color: AppColors.colorBackground.withOpacity(0.19),
-                    ),
-            ),
-          ),
-        );
+    return InkWell(
+      onTap: () {
+        Get.toNamed(myprofile3);
       },
+      child: ListView.builder(
+        padding:
+            EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: DummyData.ibsTypemedium.length,
+        itemBuilder: (BuildContext context, int index) {
+          var model = DummyData.ibsTypemedium[index];
+          return Card(
+            elevation: 0,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: ListTile(
+              dense: true,
+              leading: Image.asset(model.image,
+                  width: ScreenConstant.defaultWidthTwenty),
+              title: Text("${model.text}",
+                  style: TextStyles.textStyleIntroDescription
+                      .apply(color: Colors.black, fontSizeDelta: -3)),
+              trailing: InkWell(
+                  onTap: () {
+                    _controller.checkBoxValue.value =
+                        !_controller.checkBoxValue.value;
+                  },
+                  child: _controller.checkBoxValue.value
+                      ? CustomCheckBox(
+                          value: _controller.checkBoxValue.value,
+                        )
+                      : CustomCheckBox(
+                          value: _controller.checkBoxValue.value,
+                        )),
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -360,7 +362,7 @@ class MyProfileStep2 extends StatelessWidget {
     return Get.dialog(
       Material(
         type: MaterialType.transparency,
-              child: Stack(
+        child: Stack(
           children: [
             Container(
               decoration: BoxDecoration(
@@ -403,8 +405,10 @@ class MyProfileStep2 extends StatelessWidget {
                             SizedBox(height: ScreenConstant.sizeExtraSmall),
                             Text(model.text,
                                 textAlign: TextAlign.center,
-                                style: TextStyles.textStyleIntroDescription.apply(
-                                    color: Colors.black, fontSizeDelta: -6)),
+                                style: TextStyles.textStyleIntroDescription
+                                    .apply(
+                                        color: Colors.black,
+                                        fontSizeDelta: -6)),
                             SizedBox(height: ScreenConstant.sizeExtraSmall),
                             Container(
                               decoration: BoxDecoration(
@@ -435,7 +439,7 @@ class MyProfileStep2 extends StatelessWidget {
               right: 10,
               top: 10,
               child: GestureDetector(
-                onTap: ()=>Get.back(),
+                onTap: () => Get.back(),
                 child: CircleAvatar(
                   backgroundColor: AppColors.colorCloseLight,
                   radius: 20,

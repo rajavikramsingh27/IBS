@@ -39,4 +39,6 @@ class AppColors {
   static const Color colorCloseLight = const Color(0xFFD43169);
   static const Color colordropdownArrow = const Color(0xFF6AC7BE);
   static const Color colordropdownArrowBg = const Color(0xFFF9F9FC);
+
+  static const Color colorHomeBg = const Color(0xFFEFF3FF);
 }

@@ -12,6 +12,7 @@ class Assets {
   static const String ibTypeU = "$baseImage/ibs_type/untyped.png";
   static const String mask_emoji = "$baseImage/ibs_type/mask_emoji.png";
   static const String curl4 = "$baseImage/ibs_type/curl4.png";
+  static const String ibstype = "$baseImage/ibs_type/ibstype.png";
 
 //stool chart
   static const String hard_lump =
@@ -36,17 +37,10 @@ class Assets {
   static const String curl5 = "$baseImage/signup/curl5.png";
   static const String curl6 = "$baseImage/signup/curl6.png";
 
+//home
+  static const String settings = "$baseImage/home/settings.png";
 
-
-
-
-
-  static const String settings = "assets/images/setting.png";
   static const String logout = "assets/images/logout.png";
 
   static const String noInternet = "assets/images/nointernet.gif";
-
-
-
-
 }

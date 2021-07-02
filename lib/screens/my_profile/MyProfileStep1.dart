@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
@@ -127,7 +128,7 @@ class MyProfileStep1 extends StatelessWidget {
               padding: ScreenConstant.spacingAllLarge,
               child: Text(
                 "Did you know that over 5 million Canadians have Irritable Bowel Syndrome? Living with IBS can be a confusing and a frustrating journey",
-                style: TextStyles.textDescription,
+                style: TextStyles.textStyleRegular,
               ),
             ),
           ),
@@ -161,7 +162,7 @@ class MyProfileStep1 extends StatelessWidget {
               padding: ScreenConstant.spacingAllLarge,
               child: Text(
                 "Research shows that the average person will wait 4 years before a diagnosis of IBS is established. \n \n Tracking your symptoms is a positive step towards managing your IBS.",
-                style: TextStyles.textDescription,
+                style: TextStyles.textStyleRegular,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -197,7 +198,7 @@ class MyProfileStep1 extends StatelessWidget {
               padding: ScreenConstant.spacingAllLarge,
               child: Text(
                 "Have you been diagnosed with IBS by a health care provider ?",
-                style: TextStyles.textDescription,
+                style: TextStyles.textStyleRegular,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -258,7 +259,7 @@ class MyProfileStep1 extends StatelessWidget {
               padding: ScreenConstant.spacingAllLarge,
               child: Text(
                 "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
-                style: TextStyles.textDescription,
+                style: TextStyles.textStyleRegular,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -266,12 +267,30 @@ class MyProfileStep1 extends StatelessWidget {
         ),
         SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
         Padding(
-          padding: EdgeInsets.only(left: ScreenConstant.defaultWidthTwenty),
-          child: Text("Do you know which type of IBS you have ?",
-              textAlign: TextAlign.left,
-              style: TextStyles.textStyleIntroDescription
-                  .apply(color: Colors.black, fontSizeDelta: -4)),
-        ),
+            padding: EdgeInsets.only(left: ScreenConstant.defaultWidthTwenty),
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                text: "Do you know ",
+                style: TextStyles.textStyleIntroDescription
+                    .apply(color: Colors.black, fontSizeDelta: -4),
+                children: <TextSpan>[
+                  TextSpan(
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => _buildDialogTermsandPolicy(),
+                      text: "which type of IBS ",
+                      style: TextStyles.textStyleIntroDescription.apply(
+                          color: AppColors.colorBackground, fontSizeDelta: -4)),
+                  TextSpan(text: "you have ?")
+                ],
+              ),
+            )
+
+            // Text("Do you know which type of IBS you have ?",
+            //     textAlign: TextAlign.left,
+            //     style: TextStyles.textStyleIntroDescription
+            //         .apply(color: Colors.black, fontSizeDelta: -4)),
+            ),
         SizedBox(height: ScreenConstant.defaultHeightTen),
         _buildListIbsType(),
       ],
@@ -320,6 +339,108 @@ class MyProfileStep1 extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  _buildDialogTermsandPolicy() {
+    Get.dialog(
+      Material(
+        type: MaterialType.transparency,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: ScreenConstant.defaultHeightTwenty),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16)),
+                        ),
+                        height: ScreenConstant.screenHeightHalf * 1.5,
+                        margin: EdgeInsets.symmetric(
+                            horizontal: ScreenConstant.defaultWidthTwenty),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: ScreenConstant.spacingAllLarge,
+                              child: Text("Sub Types of IBS",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyles.textStyleIntroDescription
+                                      .apply(color: Colors.black87)),
+                            ),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightFifteen),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      ScreenConstant.defaultWidthTwenty),
+                              child: Text(
+                                  '''There are four sub-types of IBS. The sub- types are determined by the frequency and consistency of your stool.  IBS-C: IBS with constipation. Common symptoms are stomach pain, bloating, abnormally delayed or infrequent bowel movements, or lumpy/hard stool.  IBS-D: IBS with diarrhea. This comes with stomach pain, an urgent need to move your bowels, abnormally frequent bowel movements, or loose/watery stool.  IBS-M: IBS with mixed bowel habits. Both constipation and diarrhea.  IBS-U: This is an undefined subtype associated with symptoms that vary.  There are about an equal number of people ''',
+                                  textAlign: TextAlign.start,
+                                  style: TextStyles.textStyleRegular.apply(
+                                      color: AppColors.colorDialogDescription)),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: ScreenConstant.screenHeightTwelve,
+                        margin: EdgeInsets.symmetric(
+                            horizontal: ScreenConstant.defaultWidthTwenty),
+
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(16),
+                              bottomRight: Radius.circular(16)),
+                          color: AppColors.colorBackground,
+                        ),
+                        child: Row(
+                          children: [
+                            Image.asset(Assets.curl6),
+                            SizedBox(width: ScreenConstant.defaultWidthTwenty),
+                            Image.asset(Assets.curl5)
+                          ],
+                        ),
+                        // padding: ScreenConstant.spacingAllLarge,
+                        // margin: ScreenConstant.spacingAllLarge,
+                      )
+                    ],
+                  ),
+                ),
+                Positioned(
+                  right: 10,
+                  top: 10,
+                  child: GestureDetector(
+                    onTap: () => Get.back(),
+                    child: CircleAvatar(
+                      backgroundColor: AppColors.colorCloseLight,
+                      radius: 20,
+                      child: CircleAvatar(
+                          backgroundColor: AppColors.colorCloseLight,
+                          radius: 18,
+                          child: Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: FontSize.s15,
+                          )),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

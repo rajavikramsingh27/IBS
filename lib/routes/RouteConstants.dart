@@ -4,6 +4,7 @@ const String intro = 'intro';
 
 const String myprofile = '/myprofile';
 const String myprofile2 = '/myprofile2';
+const String myprofile3 = '/myprofile3';
 
 const String signup = '/signup';
 const String signup2 = '/signup2';
