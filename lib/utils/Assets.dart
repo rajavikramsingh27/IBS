@@ -40,6 +40,13 @@ class Assets {
 //home
   static const String settings = "$baseImage/home/settings.png";
 
+// track_flow
+  static const String bowel = "$baseImage/track_flow/bowel.png";
+  static const String food = "$baseImage/track_flow/food.png";
+  static const String health = "$baseImage/track_flow/health.png";
+  static const String medication = "$baseImage/track_flow/medication.png";
+  static const String symptoms = "$baseImage/track_flow/symptoms.png";
+
   static const String logout = "assets/images/logout.png";
 
   static const String noInternet = "assets/images/nointernet.gif";

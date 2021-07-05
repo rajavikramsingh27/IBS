@@ -53,6 +53,15 @@ class DummyData {
     TrackingOptionsModel(title: "Describe how you Feel"),
     TrackingOptionsModel(title: "Duration of Symptoms"),
   ];
+
+  static List<IBSTypeModel> trackFlow = [
+    IBSTypeModel(text: "Symptoms", image: Assets.symptoms),
+    IBSTypeModel(text: "Bowel Movements", image: Assets.bowel),
+    IBSTypeModel(text: "Medication & Supplements", image: Assets.medication),
+    IBSTypeModel(text: "Health & Wellness", image: Assets.health),
+    IBSTypeModel(text: "Food & Drink", image: Assets.food),
+
+  ];
 }
 
 class IBSTypeModel {

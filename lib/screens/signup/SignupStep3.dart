@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -40,7 +41,9 @@ class SignupStep3 extends StatelessWidget {
           child: CustomElevatedButton(
             widthFactor: 0.8,
             text: "Create Account",
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(home);
+            },
           ),
         ),
         body: InkWell(
@@ -183,7 +186,7 @@ class SignupStep3 extends StatelessWidget {
         CustomTextFormField(
           currentFocus: focusPassWord,
           nextFocus: focusRePassWord,
-           suffixIcon: Padding(
+          suffixIcon: Padding(
             padding: ScreenConstant.spacingAllSmall,
             child: Image.asset(
               Assets.lock,
@@ -200,7 +203,7 @@ class SignupStep3 extends StatelessWidget {
           textInputAction: TextInputAction.done,
           currentFocus: focusRePassWord,
           nextFocus: focusNone,
-           suffixIcon: Padding(
+          suffixIcon: Padding(
             padding: ScreenConstant.spacingAllSmall,
             child: Image.asset(
               Assets.lock,
