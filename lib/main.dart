@@ -15,7 +15,7 @@ class IBS extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: splash,
+      initialRoute: symptoms,
       defaultTransition: Transition.fade,
       getPages: NavRouter.generateRoute,
       title: AppStrings.appName,

@@ -66,7 +66,7 @@ class HeaderCard extends StatelessWidget {
               SizedBox(height: ScreenConstant.defaultHeightTen),
               Text(description,
                   textAlign: TextAlign.center,
-                  style: TextStyles.textDescription
+                  style: TextStyles.textStyleRegular
                       .apply(color: Colors.white, fontSizeDelta: 2)),
             ],
           ),

@@ -47,7 +47,7 @@ class DummyData {
     TrackingOptionsModel(title: "Describe how you Feel"),
     TrackingOptionsModel(title: "Duration of Symptoms"),
   ];
-   static List<TrackingOptionsModel> healthList = [
+  static List<TrackingOptionsModel> healthList = [
     TrackingOptionsModel(title: "Stress level"),
     TrackingOptionsModel(title: "Fatigue"),
     TrackingOptionsModel(title: "Describe how you Feel"),
@@ -60,7 +60,6 @@ class DummyData {
     IBSTypeModel(text: "Medication & Supplements", image: Assets.medication),
     IBSTypeModel(text: "Health & Wellness", image: Assets.health),
     IBSTypeModel(text: "Food & Drink", image: Assets.food),
-
   ];
 }
 
@@ -101,4 +100,11 @@ class TrackingOptionsModel {
   TrackingOptionsModel({
     this.title,
   });
+}
+
+class TrackModel {
+  TrackModel({this.image, this.text,this.onTap});
+  String image;
+  String text;
+  Function onTap;
 }

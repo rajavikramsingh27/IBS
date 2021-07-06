@@ -6,6 +6,7 @@ import 'package:flutter_ibs/screens/my_profile/MyProfileStep3.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep1.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep2.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep3.dart';
+import 'package:flutter_ibs/screens/symptoms/Symptoms.dart';
 import 'package:flutter_ibs/splash.dart';
 import 'package:get/get.dart';
 
@@ -49,6 +50,10 @@ class NavRouter {
      GetPage(
       name: home,
       page: () => Home(),
+    ),
+    GetPage(
+      name: symptoms,
+      page: () => Symptoms(),
     ),
   ];
 }

@@ -37,15 +37,25 @@ class Assets {
   static const String curl5 = "$baseImage/signup/curl5.png";
   static const String curl6 = "$baseImage/signup/curl6.png";
 
-//home
+//track
+  static const String clock = "$baseImage/track/clock.png";
+  static const String symptomsBg = "$baseImage/track/symptomsBg.png";
+
+
+
+// home
   static const String settings = "$baseImage/home/settings.png";
 
-// track_flow
-  static const String bowel = "$baseImage/track_flow/bowel.png";
-  static const String food = "$baseImage/track_flow/food.png";
-  static const String health = "$baseImage/track_flow/health.png";
-  static const String medication = "$baseImage/track_flow/medication.png";
-  static const String symptoms = "$baseImage/track_flow/symptoms.png";
+  static const String bowel = "$baseImage/home/bowel.png";
+  static const String food = "$baseImage/home/food.png";
+  static const String health = "$baseImage/home/health.png";
+  static const String medication = "$baseImage/home/medication.png";
+  static const String symptoms = "$baseImage/home/symptoms.png";
+  static const String profile = "$baseImage/home/profile.png";
+  static const String report = "$baseImage/home/report.png";
+  static const String resources = "$baseImage/home/resources.png";
+  static const String track = "$baseImage/home/track.png";
+  static const String treatPlans = "$baseImage/home/treatPlans.png";
 
   static const String logout = "assets/images/logout.png";
 

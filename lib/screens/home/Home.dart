@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/home/HomeController.dart';
+import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -53,6 +54,87 @@ class Home extends StatelessWidget {
           )
         ],
       ),
+      bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+              height: ScreenConstant.defaultHeightNinety,
+              child: Card(
+                elevation: 0,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24)),
+                child: Wrap(
+                    direction: Axis.horizontal,
+                    alignment: WrapAlignment.spaceAround,
+                    runAlignment: WrapAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          Image.asset(
+                            Assets.treatPlans,
+                            fit: BoxFit.fill,
+                            width: ScreenConstant.defaultWidthTen * 1.5,
+                          ),
+                          SizedBox(height: ScreenConstant.defaultHeightTen),
+                          Text(
+                            "Treatment \nPlans",
+                            style: TextStyles.textStylebottom,
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
+                      InkWell(
+                        onTap: () {},
+                        child: Column(
+                          children: [
+                            Image.asset(Assets.report,
+                                fit: BoxFit.fill,
+                                width: ScreenConstant.defaultWidthTen * 1.8),
+                            SizedBox(height: ScreenConstant.defaultHeightTen),
+                            Text(
+                              "Reports",
+                              style: TextStyles.textStylebottom,
+                            )
+                          ],
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Image.asset(Assets.track,
+                              fit: BoxFit.fill,
+                              width: ScreenConstant.defaultWidthTen * 1.8),
+                          SizedBox(height: ScreenConstant.defaultHeightTen),
+                          Text(
+                            "Track",
+                            style: TextStyles.textStylebottom,
+                          )
+                        ],
+                      ),
+                      InkWell(
+                        onTap: () {},
+                        child: Column(children: [
+                          Image.asset(Assets.resources,
+                              fit: BoxFit.fill,
+                              width: ScreenConstant.defaultWidthTwenty),
+                          SizedBox(height: ScreenConstant.defaultHeightTen),
+                          Text(
+                            "Resources",
+                            style: TextStyles.textStylebottom,
+                          )
+                        ]),
+                      ),
+                      Column(children: [
+                        Image.asset(Assets.profile,
+                            fit: BoxFit.fill,
+                            width: ScreenConstant.defaultWidthTwenty),
+                        SizedBox(height: ScreenConstant.defaultHeightTen),
+                        Text(
+                          "My IBS",
+                          style: TextStyles.textStylebottom,
+                        )
+                      ])
+                    ]),
+              ))),
       body: ListView(
         padding: ScreenConstant.spacingAllLarge,
         children: [
@@ -157,29 +239,32 @@ class Home extends StatelessWidget {
       itemCount: DummyData.trackFlow.length,
       itemBuilder: (BuildContext context, int index) {
         var model = DummyData.trackFlow[index];
-        return Container(
-          height: ScreenConstant.defaultHeightSeventy,
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(12)),
-          child: Row(
-            children: [
-              Container(
-                padding: ScreenConstant.spacingAllLarge,
-                height: ScreenConstant.defaultHeightSeventy,
-                decoration: BoxDecoration(
-                    color: AppColors.colorYesButton,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        bottomLeft: Radius.circular(12),
-                        topRight: Radius.circular(20),
-                        bottomRight: Radius.circular(20))),
-                child: Image.asset(model.image),
-              ),
-              SizedBox(width: ScreenConstant.defaultWidthTen),
-              Text(model.text,
-                  style: TextStyles.textStyleRegular
-                      .apply(fontSizeDelta: 2, color: Colors.black))
-            ],
+        return GestureDetector(
+          onTap: () =>_navigateToScreen(index),
+          child: Container(
+            height: ScreenConstant.defaultHeightSeventy,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(12)),
+            child: Row(
+              children: [
+                Container(
+                  padding: ScreenConstant.spacingAllLarge,
+                  height: ScreenConstant.defaultHeightSeventy,
+                  decoration: BoxDecoration(
+                      color: AppColors.colorYesButton,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          bottomLeft: Radius.circular(12),
+                          topRight: Radius.circular(20),
+                          bottomRight: Radius.circular(20))),
+                  child: Image.asset(model.image),
+                ),
+                SizedBox(width: ScreenConstant.defaultWidthTen),
+                Text(model.text,
+                    style: TextStyles.textStyleRegular
+                        .apply(fontSizeDelta: 2, color: Colors.black))
+              ],
+            ),
           ),
         );
       },
@@ -241,7 +326,6 @@ class Home extends StatelessWidget {
 
   _datePicker() {
     return showDatePicker(
-    
       context: Get.context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1970),
@@ -261,5 +345,16 @@ class Home extends StatelessWidget {
       },
       lastDate: DateTime(2100),
     );
+  }
+
+  _navigateToScreen(int index) {
+    switch (index) {
+      case 0:
+        return Get.toNamed(symptoms);
+        break;
+     
+      default:
+        return ;
+    }
   }
 }

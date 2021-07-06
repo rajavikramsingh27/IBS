@@ -93,7 +93,7 @@ class MyProfileStep2 extends StatelessWidget {
             padding: ScreenConstant.spacingAllLarge,
             child: Text(
               "No problem. This app can help you track the frequency and nature of your symptoms. Physicians worldwide follow the Rome IV Criteria when diagnosing IBS. \n \n The following questions are for informational purposes only and should not substitute for the medical care and advice of your doctor.",
-              style: TextStyles.textDescription,
+              style: TextStyles.textStyleRegular,
               textAlign: TextAlign.center,
             ),
           ),
@@ -155,7 +155,7 @@ class MyProfileStep2 extends StatelessWidget {
           ),
           child: Text(
             "Does your abdominal pain occur around the same time you have a bowel movement ?",
-            style: TextStyles.textDescription,
+            style: TextStyles.textStyleRegular,
             textAlign: TextAlign.center,
           ),
         ),
@@ -195,7 +195,7 @@ class MyProfileStep2 extends StatelessWidget {
           ),
           child: Text(
             "When you have  abdominal pain do you have bowel movements either more often or less often than normal ?",
-            style: TextStyles.textDescription,
+            style: TextStyles.textStyleRegular,
             textAlign: TextAlign.center,
           ),
         ),
@@ -292,7 +292,7 @@ class MyProfileStep2 extends StatelessWidget {
               textAlign: TextAlign.center,
               text: TextSpan(
                 text: 'Reference the ',
-                style: TextStyles.textDescription,
+                style: TextStyles.textStyleRegular,
                 children: <TextSpan>[
                   TextSpan(
                     recognizer: TapGestureRecognizer()

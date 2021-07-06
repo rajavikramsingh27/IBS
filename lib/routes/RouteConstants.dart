@@ -10,6 +10,9 @@ const String signup = '/signup';
 const String signup2 = '/signup2';
 const String signup3 = '/signup3';
 
+const String symptoms = '/symptoms';
+
+
 const String login = '/login';
 const String oTPVerifyScreen = '/oTPVerifyScreen';
 const String home = '/Home';

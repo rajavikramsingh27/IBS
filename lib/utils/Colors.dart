@@ -41,9 +41,10 @@ class AppColors {
   static const Color colordropdownArrowBg = const Color(0xFFF9F9FC);
 
   static const Color colorCardSeen = const Color(0xFFF8FAFF);
+  static const Color colorBottomNavText= const Color(0xFF6C6582);
+
 
 
   
-
   static const Color colorHomeBg = const Color(0xFFEFF3FF);
 }
