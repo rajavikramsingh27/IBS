@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
+import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 
@@ -34,50 +37,96 @@ class MyProfileStep1 extends StatelessWidget {
             style: TextStyles.appBarTitle,
           ),
         ),
-        bottomNavigationBar: Obx(() => _controller.pagecount.value <= 1
-            ? Container(
-                color: Colors.white,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.end,
+        bottomNavigationBar: Container(
+          child: Stack(children: [
+              CustomPaint(
+                  painter: BottomCustomPainter(),
+                  size: Size(context.mediaQuerySize.width,
+                      context.mediaQuerySize.height * 0.2)),
+              Positioned(
+                bottom: ScreenConstant.defaultHeightFifteen,
+                left: ScreenConstant.defaultWidthTwenty,
+                child: Row(
                   children: [
-                    SizedBox(height: ScreenConstant.defaultHeightTen),
-                    CustomElevatedButton(
-                      widthFactor: 0.8,
-                      text: "Tell me more",
-                      onTap: () {
-                        _controller.pagecount.value++;
-                        print("count:${_controller.pagecount.value}");
-                      },
-                    ),
                     TextButton(
-                        onPressed: () {},
-                        child: Text("Skip set up, get to tracking!",
+                      onPressed: () {},
+                      child: Text("Skip",
+                          style: TextStyles.textStyleRegular.apply(
+                              color: AppColors.colorSkipButton,
+                              fontSizeDelta: 3)),
+                    ),
+                    SizedBox(width: ScreenConstant.defaultWidthNinetyEight),
+                     TextButton(
+                        onPressed: () {
+                          _controller.pagecount.value++;
+                        },
+                        child: Text("Continue",
                             style: TextStyles.textStyleIntroDescription.apply(
-                              color: AppColors.colorskip_also_proceed,
-                            )))
+                                color: AppColors.white, fontSizeDelta: -3)),
+                      ),
+                  
+                    // SizedBox(width: ScreenConstant.defaultWidthTwenty ),
+                   InkWell(
+                        onTap: () {
+                          _controller.pagecount.value++;
+                        },
+                        child: Container(
+                            width: ScreenConstant.defaultWidthNinetyEight,
+                            height: ScreenConstant.defaultHeightNinetyEight,
+                            child: _buildCircleAvatar()),
+                      ),
+                    
                   ],
                 ),
-              )
-            : _controller.pagecount.value == 2 ||
-                    _controller.pagecount.value == 3
-                ? Container(
-                    padding: ScreenConstant.spacingAllLarge,
-                    color: Colors.white,
-                    child: CustomElevatedButton(
-                      widthFactor: 0.8,
-                      text: "Continue",
-                      onTap: () {
-                        if (_controller.pagecount.value == 2)
-                          _controller.pagecount.value++;
-                        else {
-                          Get.toNamed(signup);
-                        }
-                        print("count:${_controller.pagecount.value}");
-                      },
-                    ),
-                  )
-                : Offstage()),
+              ),
+            ]),
+        ),
+        
+
+        // Obx(() => _controller.pagecount.value <= 1
+        //     ? Container(
+        //         color: Colors.white,
+        //         child: Column(
+        //           mainAxisSize: MainAxisSize.min,
+        //           mainAxisAlignment: MainAxisAlignment.end,
+        //           children: [
+        //             SizedBox(height: ScreenConstant.defaultHeightTen),
+        //             CustomElevatedButton(
+        //               widthFactor: 0.8,
+        //               text: "Tell me more",
+        //               onTap: () {
+        //                 _controller.pagecount.value++;
+        //                 print("count:${_controller.pagecount.value}");
+        //               },
+        //             ),
+        //             TextButton(
+        //                 onPressed: () {},
+        //                 child: Text("Skip set up, get to tracking!",
+        //                     style: TextStyles.textStyleIntroDescription.apply(
+        //                       color: AppColors.colorskip_also_proceed,
+        //                     )))
+        //           ],
+        //         ),
+        //       )
+        //     : _controller.pagecount.value == 2 ||
+        //             _controller.pagecount.value == 3
+        //         ? Container(
+        //             padding: ScreenConstant.spacingAllLarge,
+        //             color: Colors.white,
+        //             child: CustomElevatedButton(
+        //               widthFactor: 0.8,
+        //               text: "Continue",
+        //               onTap: () {
+        //                 if (_controller.pagecount.value == 2)
+        //                   _controller.pagecount.value++;
+        //                 else {
+        //                   Get.toNamed(signup);
+        //                 }
+        //                 print("count:${_controller.pagecount.value}");
+        //               },
+        //             ),
+        //           )
+        //         : Offstage()),
         body: Obx(() => Stack(
               children: [_toggleView(_controller.pagecount.value)],
             )));
@@ -109,7 +158,7 @@ class MyProfileStep1 extends StatelessWidget {
       children: [
         SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
         Center(
-            child: Image.asset(Assets.mprofile1,
+            child: Image.asset(Assets.myProfile1,
                 width: ScreenConstant.defaultHeightTwoHundredTen)),
         SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
         Text("You are not alone.",
@@ -143,7 +192,7 @@ class MyProfileStep1 extends StatelessWidget {
       children: [
         SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
         Center(
-            child: Image.asset(Assets.mprofile2,
+            child: Image.asset(Assets.myProfile2,
                 width: ScreenConstant.defaultHeightTwoHundredTen)),
         SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
         Text("Your journey begins today.",
@@ -178,7 +227,7 @@ class MyProfileStep1 extends StatelessWidget {
       children: [
         SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
         Center(
-            child: Image.asset(Assets.mprofile3,
+            child: Image.asset(Assets.myProfile3,
                 width: ScreenConstant.defaultHeightTwoHundredTen)),
         SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
         Text("First, let's understood more \n about you.",
@@ -205,34 +254,34 @@ class MyProfileStep1 extends StatelessWidget {
           ),
         ),
         SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-        Padding(
-          padding: ScreenConstant.spacingAllLarge,
-          child: Row(
-            children: [
-              Expanded(
-                child: CustomElevatedButton2(
-                  onTap: () {
-                    _controller.pagecount.value++;
-                  },
-                  text: "Yes, I have",
-                  textColor: Colors.white,
-                  buttonColor: AppColors.colorYesButton,
-                ),
-              ),
-              SizedBox(width: ScreenConstant.defaultWidthTwenty),
-              Expanded(
-                child: CustomElevatedButton2(
-                  onTap: () {
-                    Get.toNamed(myprofile2);
-                  },
-                  text: "No, not yet",
-                  textColor: AppColors.colorButton,
-                  buttonColor: Colors.white,
-                ),
-              )
-            ],
-          ),
-        )
+        // Padding(
+        //   padding: ScreenConstant.spacingAllLarge,
+        //   child: Row(
+        //     children: [
+        //       Expanded(
+        //         child: CustomElevatedButton2(
+        //           onTap: () {
+        //             _controller.pagecount.value++;
+        //           },
+        //           text: "Yes, I have",
+        //           textColor: Colors.white,
+        //           buttonColor: AppColors.colorYesButton,
+        //         ),
+        //       ),
+        //       SizedBox(width: ScreenConstant.defaultWidthTwenty),
+        //       Expanded(
+        //         child: CustomElevatedButton2(
+        //           onTap: () {
+        //             Get.toNamed(myprofile2);
+        //           },
+        //           text: "No, not yet",
+        //           textColor: AppColors.colorButton,
+        //           buttonColor: Colors.white,
+        //         ),
+        //       )
+        //     ],
+        //   ),
+        // )
       ],
     );
   }
@@ -443,4 +492,25 @@ class MyProfileStep1 extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildCircleAvatar() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final radius = min(constraints.maxHeight / 3, constraints.maxWidth / 3);
+        return Center(
+          child: CircleAvatar(
+            radius: radius,
+            backgroundColor: AppColors.colorArrowButton,
+            child: Icon(
+              Icons.arrow_forward_ios,
+              size: 10,
+              color: Colors.white,
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
+
+

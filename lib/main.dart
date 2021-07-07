@@ -15,7 +15,7 @@ class IBS extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: symptoms,
+      initialRoute: splash,
       defaultTransition: Transition.fade,
       getPages: NavRouter.generateRoute,
       title: AppStrings.appName,
@@ -28,6 +28,7 @@ class IBS extends StatelessWidget {
         primaryColor: AppColors.primaryColor,
         // textTheme: GoogleFonts.redHatDisplayTextTheme(),
         //    primarySwatch: AppColors.primaryColor,
+         splashColor: Colors.transparent,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
     );

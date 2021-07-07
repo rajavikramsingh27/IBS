@@ -43,6 +43,9 @@ class AppColors {
   static const Color colorCardSeen = const Color(0xFFF8FAFF);
   static const Color colorBottomNavText= const Color(0xFF6C6582);
 
+  static const Color colorSkipButton = const Color(0xFFD5C9E1);
+  static const Color colorArrowButton = const Color(0xFFD43169);
+  
 
 
   
