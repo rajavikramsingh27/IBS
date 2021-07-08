@@ -20,7 +20,7 @@ class MyProfileStep1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.colorMyProfileBackground,
+        backgroundColor: AppColors.colorProfileBg,
         appBar: AppBar(
           elevation: 0,
           leading: Obx(() => _controller.pagecount.value >= 1
@@ -37,52 +37,8 @@ class MyProfileStep1 extends StatelessWidget {
             style: TextStyles.appBarTitle,
           ),
         ),
-        bottomNavigationBar: Container(
-          child: Stack(children: [
-              CustomPaint(
-                  painter: BottomCustomPainter(),
-                  size: Size(context.mediaQuerySize.width,
-                      context.mediaQuerySize.height * 0.2)),
-              Positioned(
-                bottom: ScreenConstant.defaultHeightFifteen,
-                left: ScreenConstant.defaultWidthTwenty,
-                child: Row(
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: Text("Skip",
-                          style: TextStyles.textStyleRegular.apply(
-                              color: AppColors.colorSkipButton,
-                              fontSizeDelta: 3)),
-                    ),
-                    SizedBox(width: ScreenConstant.defaultWidthNinetyEight),
-                     TextButton(
-                        onPressed: () {
-                          _controller.pagecount.value++;
-                        },
-                        child: Text("Continue",
-                            style: TextStyles.textStyleIntroDescription.apply(
-                                color: AppColors.white, fontSizeDelta: -3)),
-                      ),
-                  
-                    // SizedBox(width: ScreenConstant.defaultWidthTwenty ),
-                   InkWell(
-                        onTap: () {
-                          _controller.pagecount.value++;
-                        },
-                        child: Container(
-                            width: ScreenConstant.defaultWidthNinetyEight,
-                            height: ScreenConstant.defaultHeightNinetyEight,
-                            child: _buildCircleAvatar()),
-                      ),
-                    
-                  ],
-                ),
-              ),
-            ]),
-        ),
-        
-
+        // bottomNavigationBar: _buildBottom(),
+        // bottomNavigationBar:
         // Obx(() => _controller.pagecount.value <= 1
         //     ? Container(
         //         color: Colors.white,
@@ -128,7 +84,10 @@ class MyProfileStep1 extends StatelessWidget {
         //           )
         //         : Offstage()),
         body: Obx(() => Stack(
-              children: [_toggleView(_controller.pagecount.value)],
+              children: [
+                _toggleView(_controller.pagecount.value),
+                _buildBottom(),
+              ],
             )));
   }
 
@@ -145,11 +104,68 @@ class MyProfileStep1 extends StatelessWidget {
         break;
       case 3:
         return _buildProfileStep4();
-
         break;
+
       default:
         break;
     }
+  }
+
+  _buildBottom() {
+    return Stack(
+      children: [
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: CustomPaint(
+              painter: BottomCustomPainter(),
+              size: Size(Get.context.mediaQuerySize.width,
+                  Get.context.mediaQuerySize.height * 0.2)),
+        ),
+        Positioned(
+          bottom: ScreenConstant.defaultHeightFifteen,
+          left: ScreenConstant.defaultWidthTwenty,
+          child: Row(
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: Text("Skip",
+                    style: TextStyles.textStyleRegular.apply(
+                        color: AppColors.colorSkipButton, fontSizeDelta: 3)),
+              ),
+              SizedBox(width: ScreenConstant.defaultWidthNinetyEight),
+              TextButton(
+                onPressed: () {
+                  if (_controller.pagecount.value <= 2)
+                    _controller.pagecount.value++;
+                  else
+                    Get.toNamed(signup);
+                },
+                child: Text("Continue",
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: AppColors.white, fontSizeDelta: -3)),
+              ),
+
+              // SizedBox(width: ScreenConstant.defaultWidthTwenty ),
+              InkWell(
+                onTap: () {
+                  if (_controller.pagecount.value <= 2) {
+                    _controller.pagecount.value++;
+                    print("count==:${_controller.pagecount.value} ");
+                  } else
+                    Get.toNamed(signup);
+                },
+                child: Container(
+                    width: ScreenConstant.defaultWidthNinetyEight,
+                    height: ScreenConstant.defaultHeightNinetyEight,
+                    child: _buildCircleAvatar()),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
   }
 
   _buildProfileStep1() {
@@ -176,8 +192,9 @@ class MyProfileStep1 extends StatelessWidget {
             child: Padding(
               padding: ScreenConstant.spacingAllLarge,
               child: Text(
-                "Did you know that over 5 million Canadians have Irritable Bowel Syndrome? Living with IBS can be a confusing and a frustrating journey",
+                "Did you know that over 5 million Canadians have Irritable Bowel Syndrome?\n\nLiving with IBS can be a confusing and a frustrating journey",
                 style: TextStyles.textStyleRegular,
+                textAlign: TextAlign.center,
               ),
             ),
           ),
@@ -210,7 +227,7 @@ class MyProfileStep1 extends StatelessWidget {
             child: Padding(
               padding: ScreenConstant.spacingAllLarge,
               child: Text(
-                "Research shows that the average person will wait 4 years before a diagnosis of IBS is established. \n \n Tracking your symptoms is a positive step towards managing your IBS.",
+                "Research shows that the average person will wait 4 years before a diagnosis of IBS is established.\n\nTracking your symptoms is a positive step towards managing your IBS.",
                 style: TextStyles.textStyleRegular,
                 textAlign: TextAlign.center,
               ),
@@ -253,35 +270,35 @@ class MyProfileStep1 extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-        // Padding(
-        //   padding: ScreenConstant.spacingAllLarge,
-        //   child: Row(
-        //     children: [
-        //       Expanded(
-        //         child: CustomElevatedButton2(
-        //           onTap: () {
-        //             _controller.pagecount.value++;
-        //           },
-        //           text: "Yes, I have",
-        //           textColor: Colors.white,
-        //           buttonColor: AppColors.colorYesButton,
-        //         ),
-        //       ),
-        //       SizedBox(width: ScreenConstant.defaultWidthTwenty),
-        //       Expanded(
-        //         child: CustomElevatedButton2(
-        //           onTap: () {
-        //             Get.toNamed(myprofile2);
-        //           },
-        //           text: "No, not yet",
-        //           textColor: AppColors.colorButton,
-        //           buttonColor: Colors.white,
-        //         ),
-        //       )
-        //     ],
-        //   ),
-        // )
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: ScreenConstant.defaultWidthTwenty),
+          child: Row(
+            children: [
+              Expanded(
+                child: CustomElevatedButton2(
+                  onTap: () {
+                    _controller.pagecount.value++;
+                  },
+                  text: "Yes, I have",
+                  textColor: AppColors.colorButton,
+                  buttonColor: Colors.white,
+                ),
+              ),
+              SizedBox(width: ScreenConstant.defaultWidthTwenty),
+              Expanded(
+                child: CustomElevatedButton2(
+                  onTap: () {
+                    Get.toNamed(myprofile2);
+                  },
+                  text: "No, not yet",
+                  textColor: AppColors.colorButton,
+                  buttonColor: Colors.white,
+                ),
+              )
+            ],
+          ),
+        )
       ],
     );
   }
@@ -291,7 +308,11 @@ class MyProfileStep1 extends StatelessWidget {
       physics: ClampingScrollPhysics(),
       children: [
         SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-        Text("Excellent. That's good \n to know.",
+        Center(
+            child: Image.asset(Assets.mprofile3,
+                width: ScreenConstant.defaultHeightTwoHundredTen)),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        Text("Excellent. That's good\nto know.",
             textAlign: TextAlign.center,
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.black)),
@@ -305,91 +326,145 @@ class MyProfileStep1 extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
             child: Padding(
-              padding: ScreenConstant.spacingAllLarge,
-              child: Text(
-                "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
-                style: TextStyles.textStyleRegular,
-                textAlign: TextAlign.center,
-              ),
-            ),
+                padding: ScreenConstant.spacingAllLarge,
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: "Do you know ",
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.black, fontSizeDelta: -4),
+                    children: <TextSpan>[
+                      TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => _buildDialogTermsandPolicy(),
+                          text: "which type of IBS ",
+                          style: TextStyles.textStyleIntroDescription.apply(
+                              color: AppColors.colorBackground,
+                              fontSizeDelta: -4)),
+                      TextSpan(text: "you have ?")
+                    ],
+                  ),
+                )
+
+                // Text(
+                //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
+                //   style: TextStyles.textStyleRegular,
+                //   textAlign: TextAlign.center,
+                // ),
+                ),
           ),
         ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-        Padding(
-            padding: EdgeInsets.only(left: ScreenConstant.defaultWidthTwenty),
-            child: RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                text: "Do you know ",
-                style: TextStyles.textStyleIntroDescription
-                    .apply(color: Colors.black, fontSizeDelta: -4),
-                children: <TextSpan>[
-                  TextSpan(
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => _buildDialogTermsandPolicy(),
-                      text: "which type of IBS ",
-                      style: TextStyles.textStyleIntroDescription.apply(
-                          color: AppColors.colorBackground, fontSizeDelta: -4)),
-                  TextSpan(text: "you have ?")
-                ],
-              ),
-            )
+        // SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        // Padding(
+        //     padding: EdgeInsets.only(left: ScreenConstant.defaultWidthTwenty),
+        //     child: RichText(
+        //       textAlign: TextAlign.center,
+        //       text: TextSpan(
+        //         text: "Do you know ",
+        //         style: TextStyles.textStyleIntroDescription
+        //             .apply(color: Colors.black, fontSizeDelta: -4),
+        //         children: <TextSpan>[
+        //           TextSpan(
+        //               recognizer: TapGestureRecognizer()
+        //                 ..onTap = () => _buildDialogTermsandPolicy(),
+        //               text: "which type of IBS ",
+        //               style: TextStyles.textStyleIntroDescription.apply(
+        //                   color: AppColors.colorBackground, fontSizeDelta: -4)),
+        //           TextSpan(text: "you have ?")
+        //         ],
+        //       ),
+        //     )
 
-            // Text("Do you know which type of IBS you have ?",
-            //     textAlign: TextAlign.left,
-            //     style: TextStyles.textStyleIntroDescription
-            //         .apply(color: Colors.black, fontSizeDelta: -4)),
-            ),
+        // Text("Do you know which type of IBS you have ?",
+        //     textAlign: TextAlign.left,
+        //     style: TextStyles.textStyleIntroDescription
+        //         .apply(color: Colors.black, fontSizeDelta: -4)),
+        // ),
         SizedBox(height: ScreenConstant.defaultHeightTen),
         _buildListIbsType(),
+        SizedBox(
+          height: 100,
+        )
       ],
     );
   }
 
   _buildListIbsType() {
-    return ListView.builder(
+    return GridView.builder(
       padding:
           EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: DummyData.ibsType.length,
+      itemCount: DummyData.iBsType.length,
       itemBuilder: (BuildContext context, int index) {
-        var model = DummyData.ibsType[index];
+        var model = DummyData.iBsType[index];
         return Card(
-          elevation: 0,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: ListTile(
-            dense: true,
-            leading: Image.asset(model.image,
-                width: ScreenConstant.defaultWidthTwenty),
-            title: Text("${model.text}",
-                style: TextStyles.textStyleIntroDescription
-                    .apply(color: Colors.black, fontSizeDelta: -3)),
-            trailing: InkWell(
-              onTap: () {
-                _controller.checkBoxValue.value =
-                    !_controller.checkBoxValue.value;
-              },
-              child: _controller.checkBoxValue.value
-                  ? Icon(
-                      Icons.check_box_outlined,
-                      size: FontSize.s20,
-                      color: AppColors.colorDot,
-                    )
-                  : Icon(
-                      Icons.check_box_outline_blank,
-                      size: FontSize.s20,
-                      color: AppColors.colorBackground.withOpacity(0.19),
-                    ),
+            elevation: 0,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
             ),
-          ),
-        );
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("${model.title}",
+                    style: TextStyles.textStyleIntroDescription.apply(
+                        color: AppColors.colorBackground, fontSizeDelta: -3)),
+                Text("${model.description}",
+                    style: TextStyles.textStyleIntroDescription.apply(
+                        color: AppColors.colorBackground, fontSizeDelta: -9)),
+              ],
+            ));
       },
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, childAspectRatio: 3),
     );
   }
+
+  // _buildListIbsType() {
+  //   return ListView.builder(
+  //     padding:
+  //         EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
+  //     shrinkWrap: true,
+  //     physics: NeverScrollableScrollPhysics(),
+  //     itemCount: DummyData.ibsType.length,
+  //     itemBuilder: (BuildContext context, int index) {
+  //       var model = DummyData.ibsType[index];
+  //       return Card(
+  //         elevation: 0,
+  //         color: Colors.white,
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(16),
+  //         ),
+  //         child: ListTile(
+  //           dense: true,
+  //           leading: Image.asset(model.image,
+  //               width: ScreenConstant.defaultWidthTwenty),
+  //           title: Text("${model.text}",
+  //               style: TextStyles.textStyleIntroDescription
+  //                   .apply(color: Colors.black, fontSizeDelta: -3)),
+  //           trailing: InkWell(
+  //             onTap: () {
+  //               _controller.checkBoxValue.value =
+  //                   !_controller.checkBoxValue.value;
+  //             },
+  //             child: _controller.checkBoxValue.value
+  //                 ? Icon(
+  //                     Icons.check_box_outlined,
+  //                     size: FontSize.s20,
+  //                     color: AppColors.colorDot,
+  //                   )
+  //                 : Icon(
+  //                     Icons.check_box_outline_blank,
+  //                     size: FontSize.s20,
+  //                     color: AppColors.colorBackground.withOpacity(0.19),
+  //                   ),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   _buildDialogTermsandPolicy() {
     Get.dialog(
@@ -512,5 +587,3 @@ class MyProfileStep1 extends StatelessWidget {
     );
   }
 }
-
-

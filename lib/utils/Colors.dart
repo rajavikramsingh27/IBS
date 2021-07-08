@@ -17,6 +17,9 @@ class AppColors {
   static const Color borderColor = const Color(0xFFEAEFF5);
   static const Color iconColorBlue = const Color(0xFF6191BE);
 
+  static const Color colorProfileBg = const Color(0xFFEFF3FF);
+
+
   static const Color colorBackground = const Color(0xFF49358B);
   static const Color colorBlue2 = const Color(0xFF513C97);
   static const Color colorBlue3 = const Color(0xFF57419E);

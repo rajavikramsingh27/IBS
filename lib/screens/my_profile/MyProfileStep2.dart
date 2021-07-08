@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
@@ -8,7 +10,9 @@ import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomCheckBox.dart';
+import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
+import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 
@@ -35,27 +39,86 @@ class MyProfileStep2 extends StatelessWidget {
             style: TextStyles.appBarTitle,
           ),
         ),
-        bottomNavigationBar: Obx(() => _controller.pagecount2.value <= 2
-            ? Container(
-                padding: ScreenConstant.spacingAllLarge,
-                color: Colors.white,
-                child: CustomElevatedButton(
-                  widthFactor: 0.8,
-                  text: "Continue",
-                  onTap: () {
-                    (_controller.pagecount2.value <= 1)
-                        ? _controller.pagecount2.value++
-                        : Get.toNamed(signup);
+        // bottomNavigationBar: Obx(() => _controller.pagecount2.value <= 2
+        //     ? Container(
+        //         padding: ScreenConstant.spacingAllLarge,
+        //         color: Colors.white,
+        //         child: CustomElevatedButton(
+        //           widthFactor: 0.8,
+        //           text: "Continue",
+        //           onTap: () {
+        //             (_controller.pagecount2.value <= 1)
+        //                 ? _controller.pagecount2.value++
+        //                 : Get.toNamed(signup);
 
-                    print("count:${_controller.pagecount2.value}");
-                  },
-                ),
-              )
-            : Offstage()),
+        //             print("count:${_controller.pagecount2.value}");
+        //           },
+        //         ),
+        //       )
+        //     : Offstage()),
         body: Obx(() => Stack(
               fit: StackFit.expand,
-              children: [_toggleView(_controller.pagecount2.value)],
+              children: [
+                _toggleView(_controller.pagecount2.value),
+                _buildBottom(),
+              ],
             )));
+  }
+
+  _buildBottom() {
+    return Stack(
+      children: [
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: CustomPaint(
+              painter: BottomCustomPainter(),
+              size: Size(Get.context.mediaQuerySize.width,
+                  Get.context.mediaQuerySize.height * 0.2)),
+        ),
+        Positioned(
+          bottom: ScreenConstant.defaultHeightFifteen,
+          left: ScreenConstant.defaultWidthTwenty,
+          child: Row(
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: Text("Skip",
+                    style: TextStyles.textStyleRegular.apply(
+                        color: AppColors.colorSkipButton, fontSizeDelta: 3)),
+              ),
+              SizedBox(width: ScreenConstant.defaultWidthNinetyEight),
+              TextButton(
+                onPressed: () {
+                  if (_controller.pagecount2.value <= 2)
+                    _controller.pagecount2.value++;
+                  else
+                    Get.toNamed(signup);
+                },
+                child: Text("Continue",
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: AppColors.white, fontSizeDelta: -3)),
+              ),
+
+              // SizedBox(width: ScreenConstant.defaultWidthTwenty ),
+              InkWell(
+                onTap: () {
+                  if (_controller.pagecount2.value <= 2)
+                    _controller.pagecount2.value++;
+                  else
+                    Get.toNamed(signup);
+                },
+                child: Container(
+                    width: ScreenConstant.defaultWidthNinetyEight,
+                    height: ScreenConstant.defaultHeightNinetyEight,
+                    child: _buildCircleAvatar()),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
   }
 
   _toggleView(int pageCount) {
@@ -64,10 +127,10 @@ class MyProfileStep2 extends StatelessWidget {
         return _buildRomeIVCriteria();
         break;
       case 1:
-        return _buildInformationalQuestions();
+        return _buildAbdominalPain();
         break;
       case 2:
-        return _buildBristolChart();
+        return _buildInformationalQuestions();
       default:
         break;
     }
@@ -76,73 +139,250 @@ class MyProfileStep2 extends StatelessWidget {
   _buildRomeIVCriteria() {
     return ListView(physics: ClampingScrollPhysics(), children: [
       SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-      Text("Rome IV Criteria",
+      Center(
+          child: Image.asset(Assets.myProfile5,
+              width: ScreenConstant.defaultHeightTwoHundredTen)),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+      Text("No problem. This app can help you understand your IBS",
           textAlign: TextAlign.center,
           style:
               TextStyles.textStyleIntroDescription.apply(color: Colors.black)),
       SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-      Padding(
-        padding: ScreenConstant.spacingAllLarge,
-        child: Card(
+      Card(
+        elevation: 0,
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Padding(
+            padding: ScreenConstant.spacingAllLarge,
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                text: "Physicains worldwide follow the ",
+                style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
+                children: <TextSpan>[
+                  TextSpan(
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => _buildDialogTermsandPolicy(),
+                      text: "Rome IV Criteria ",
+                      style: TextStyles.textStyleIntroDescription.apply(
+                          color: AppColors.colorBackground, fontSizeDelta: -4)),
+                  TextSpan(
+                      text:
+                          "when diagnosing IBS.\n\nThe following questions are for informational purposes only and should not substitute for the medical advice of you doctor.")
+                ],
+              ),
+            )
+
+            // Text(
+            //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
+            //   style: TextStyles.textStyleRegular,
+            //   textAlign: TextAlign.center,
+            // ),
+            ),
+      ),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+    ]);
+  }
+
+  _buildDialogTermsandPolicy() {
+    Get.dialog(
+      Material(
+        type: MaterialType.transparency,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: ScreenConstant.defaultHeightTwenty),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16)),
+                        ),
+                        height: ScreenConstant.screenHeightHalf * 1.5,
+                        margin: EdgeInsets.symmetric(
+                            horizontal: ScreenConstant.defaultWidthTwenty),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: ScreenConstant.spacingAllLarge,
+                              child: Text("Rome IV Criteria",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyles.textStyleIntroDescription
+                                      .apply(color: Colors.black87)),
+                            ),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightFifteen),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      ScreenConstant.defaultWidthTwenty),
+                              child: Text(
+                                  '''Symptom-based criteria of IBS were first developed in 1989 by an international working group based in Rome (the Rome criteria). These criteria have been updated in the Rome Il, III, and most recently, in 2016, the Rome IV criteria for IBS.  According to the Rome IV diagnostic criteria, IBS is characterised by recurrent abdominal pain for, on average, at least one day per week in the past three months, associated with two or more of the following: * Symptoms related to defecation. * Symptoms associated with a  change in stool frequency. * Symptoms associated with a  change in stool form or appearance, based on the Bristol Stool Form Scale (BSFS).''',
+                                  textAlign: TextAlign.start,
+                                  style: TextStyles.textStyleRegular.apply(
+                                      color: AppColors.colorDialogDescription)),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: ScreenConstant.screenHeightTwelve,
+                        margin: EdgeInsets.symmetric(
+                            horizontal: ScreenConstant.defaultWidthTwenty),
+
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(16),
+                              bottomRight: Radius.circular(16)),
+                          color: AppColors.colorBackground,
+                        ),
+                        child: Row(
+                          children: [
+                            Image.asset(Assets.curl6),
+                            SizedBox(width: ScreenConstant.defaultWidthTwenty),
+                            Image.asset(Assets.curl5)
+                          ],
+                        ),
+                        // padding: ScreenConstant.spacingAllLarge,
+                        // margin: ScreenConstant.spacingAllLarge,
+                      )
+                    ],
+                  ),
+                ),
+                Positioned(
+                  right: 10,
+                  top: 10,
+                  child: GestureDetector(
+                    onTap: () => Get.back(),
+                    child: CircleAvatar(
+                      backgroundColor: AppColors.colorCloseLight,
+                      radius: 20,
+                      child: CircleAvatar(
+                          backgroundColor: AppColors.colorCloseLight,
+                          radius: 18,
+                          child: Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: FontSize.s15,
+                          )),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildAbdominalPain() {
+    return Column(
+      children: [
+        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        Center(
+            child: Image.asset(Assets.myProfile5,
+                width: ScreenConstant.defaultHeightTwoHundredTen)),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        Card(
           elevation: 0,
           color: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
           child: Padding(
-            padding: ScreenConstant.spacingAllLarge,
-            child: Text(
-              "No problem. This app can help you track the frequency and nature of your symptoms. Physicians worldwide follow the Rome IV Criteria when diagnosing IBS. \n \n The following questions are for informational purposes only and should not substitute for the medical care and advice of your doctor.",
-              style: TextStyles.textStyleRegular,
-              textAlign: TextAlign.center,
-            ),
+              padding: ScreenConstant.spacingAllLarge,
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: "Have you experienced ",
+                  style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
+                  children: <TextSpan>[
+                    TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => _buildAbdominalPainDialog(),
+                        text: "abdominal pain ",
+                        style: TextStyles.textStyleIntroDescription.apply(
+                            color: AppColors.colorBackground,
+                            fontSizeDelta: -4)),
+                    TextSpan(
+                        text:
+                            "for at least one day per week in the last 3 months?")
+                  ],
+                ),
+              )
+
+              // Text(
+              //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
+              //   style: TextStyles.textStyleRegular,
+              //   textAlign: TextAlign.center,
+              // ),
+              ),
+        ),
+        Padding(
+          padding: ScreenConstant.spacingAllLarge,
+          child: Row(
+            children: [
+              Expanded(
+                child: CustomElevatedButton2(
+                  onTap: () {
+                    _controller.pagecount2.value++;
+                  },
+                  text: "Yes",
+                  textColor: Colors.white,
+                  buttonColor: AppColors.colorYesButton,
+                ),
+              ),
+              SizedBox(width: ScreenConstant.defaultWidthTwenty),
+              Expanded(
+                child: CustomElevatedButton2(
+                  onTap: () {
+                    _controller.pagecount2.value++;
+                  },
+                  text: "No",
+                  textColor: AppColors.colorButton,
+                  buttonColor: Colors.white,
+                ),
+              )
+            ],
           ),
-        ),
-      ),
-      SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-      Padding(
-        padding: EdgeInsets.only(left: ScreenConstant.defaultWidthTwenty),
-        child: Text(
-            "Have you experienced abdominal pain for at least one day per week in the last 3 months ?",
-            textAlign: TextAlign.center,
-            style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.black, fontSizeDelta: -4)),
-      ),
-      SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-      Padding(
-        padding: ScreenConstant.spacingAllLarge,
-        child: Row(
-          children: [
-            Expanded(
-              child: CustomElevatedButton2(
-                onTap: () {
-                  _controller.pagecount2.value++;
-                },
-                text: "Yes",
-                textColor: Colors.white,
-                buttonColor: AppColors.colorYesButton,
-              ),
-            ),
-            SizedBox(width: ScreenConstant.defaultWidthTwenty),
-            Expanded(
-              child: CustomElevatedButton2(
-                onTap: () {
-                  _controller.pagecount2.value++;
-                },
-                text: "No",
-                textColor: AppColors.colorButton,
-                buttonColor: Colors.white,
-              ),
-            )
-          ],
-        ),
-      )
-    ]);
+        )
+      ],
+    );
+  }
+
+  _buildAbdominalPainDialog() {
+     Get.dialog(
+        CustomDialog(
+        height: ScreenConstant.defaultHeightTwoHundred,
+        title: "Abdominal Pain",
+        description:
+            '''Other terms used to describe abdominal pain are stomach ache, tummy ache, gut ache, and bellyache.''',
+    ),
+     );
   }
 
   _buildInformationalQuestions() {
     return Column(
       children: [
+        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        Center(
+            child: Image.asset(Assets.myProfile5,
+                width: ScreenConstant.defaultHeightTwoHundredTen)),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
         Container(
           margin: ScreenConstant.spacingAllLarge,
           padding: ScreenConstant.spacingAllLarge,
@@ -167,8 +407,8 @@ class MyProfileStep2 extends StatelessWidget {
                 child: CustomElevatedButton2(
                   onTap: () {},
                   text: "Yes",
-                  textColor: Colors.white,
-                  buttonColor: AppColors.colorYesButton,
+                  textColor: AppColors.colorTextMoreLess,
+                  buttonColor: Colors.white,
                 ),
               ),
               SizedBox(width: ScreenConstant.defaultWidthTwenty),
@@ -457,6 +697,25 @@ class MyProfileStep2 extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildCircleAvatar() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final radius = min(constraints.maxHeight / 3, constraints.maxWidth / 3);
+        return Center(
+          child: CircleAvatar(
+            radius: radius,
+            backgroundColor: AppColors.colorArrowButton,
+            child: Icon(
+              Icons.arrow_forward_ios,
+              size: 10,
+              color: Colors.white,
+            ),
+          ),
+        );
+      },
     );
   }
 }

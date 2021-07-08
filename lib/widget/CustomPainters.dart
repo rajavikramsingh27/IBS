@@ -6,8 +6,8 @@ class BottomCustomPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Paint paint = new Paint()
       ..color = AppColors.colorBackground
-      ..style = PaintingStyle.fill
-      ..strokeWidth = 1;
+      ..style = PaintingStyle.fill;
+    // ..strokeWidth = 1;
 
     Path path = Path();
     path.moveTo(0, size.height);

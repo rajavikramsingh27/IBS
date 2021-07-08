@@ -7,6 +7,10 @@ class Assets {
   static const String myProfile1 = "$baseImage/my_profile/myProfile1.png";
   static const String myProfile2 = "$baseImage/my_profile/myProfile2.png";
   static const String myProfile3 = "$baseImage/my_profile/myProfile3.png";
+  static const String myProfile4 = "$baseImage/my_profile/myProfile4.png";
+  static const String myProfile5 = "$baseImage/my_profile/myProfile5.png";
+
+
 
 //ibs type
   static const String ibTypeC = "$baseImage/ibs_type/constipation.png";

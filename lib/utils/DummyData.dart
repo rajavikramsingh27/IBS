@@ -7,6 +7,7 @@ class DummyData {
     IBSTypeModel(text: "IBS - M (Mixed)", image: Assets.ibTypeM),
     IBSTypeModel(text: "IBS - U (Untyped)", image: Assets.ibTypeU),
   ];
+
   static List<IBSTypeModel> ibsTypemedium = [
     IBSTypeModel(text: "Constipated (Types 1 and 2)", image: Assets.ibTypeC),
     IBSTypeModel(text: "Diarrhea (Types 6 and 7)", image: Assets.ibTypeD),
@@ -61,6 +62,13 @@ class DummyData {
     IBSTypeModel(text: "Health & Wellness", image: Assets.health),
     IBSTypeModel(text: "Food & Drink", image: Assets.food),
   ];
+
+  static List<IbsModel> iBsType = [
+    IbsModel(title: "IBS - C", description: "(Constipation)"),
+    IbsModel(title: "IBS - D", description: "(Diarrhea)"),
+    IbsModel(title: "IBS - M", description: "(Mixed)"),
+    IbsModel(title: "IBS - U", description: "(Untyped)"),
+  ];
 }
 
 class IBSTypeModel {
@@ -102,8 +110,14 @@ class TrackingOptionsModel {
   });
 }
 
+class IbsModel {
+  IbsModel({this.title, this.description});
+  String title;
+  String description;
+}
+
 class TrackModel {
-  TrackModel({this.image, this.text,this.onTap});
+  TrackModel({this.image, this.text, this.onTap});
   String image;
   String text;
   Function onTap;
