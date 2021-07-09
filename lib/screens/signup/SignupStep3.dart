@@ -7,6 +7,7 @@ import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomCheckBox.dart';
+import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomTextFormField%20.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
@@ -37,10 +38,10 @@ class SignupStep3 extends StatelessWidget {
         ),
         bottomNavigationBar: Container(
           padding: ScreenConstant.spacingAllLarge,
-          color: Colors.white,
-          child: CustomElevatedButton(
+          color: AppColors.colorBackground,
+          child: CustomElevatedButton3(
             widthFactor: 0.8,
-            text: "Create Account",
+            text: "I am done!",
             onTap: () {
               Get.toNamed(home);
             },
@@ -58,25 +59,28 @@ class SignupStep3 extends StatelessWidget {
               ListView(
                 physics: ClampingScrollPhysics(),
                 padding: ScreenConstant.spacingAllLarge,
-                children: [_buildLoginForm()],
+                children: [
+                  _buildLoginForm(),
+                  SizedBox(height: ScreenConstant.defaultHeightOneHundred)
+                ],
               ),
-              Align(
-                alignment: Alignment(0, 0.8),
-                child: TextButton(
-                  onPressed: () {
-                    _buildDialogAccount();
-                  },
-                  style: TextButton.styleFrom(
-                      primary: AppColors.colorButton,
-                      textStyle: TextStyles.textStyleIntroDescription
-                          .apply(fontSizeFactor: 0.7)),
-                  child: Text(
-                    "Why create an account ?",
-                    style: TextStyles.textStyleIntroDescription
-                        .apply(fontSizeDelta: -4),
-                  ),
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment(0, 0.8),
+              //   child: TextButton(
+              //     onPressed: () {
+              //       _buildDialogAccount();
+              //     },
+              //     style: TextButton.styleFrom(
+              //         primary: AppColors.colorButton,
+              //         textStyle: TextStyles.textStyleIntroDescription
+              //             .apply(fontSizeFactor: 0.7)),
+              //     child: Text(
+              //       "Why create an account ?",
+              //       style: TextStyles.textStyleIntroDescription
+              //           .apply(fontSizeDelta: -4),
+              //     ),
+              //   ),
+              // ),
               Align(
                 alignment: Alignment(0, 0.99),
                 child: Container(
@@ -127,40 +131,27 @@ class SignupStep3 extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Stack(children: [
-          Container(
-              height: ScreenConstant.defaultHeightNinety,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    AppColors.colorBackground,
-                    AppColors.colorBlue2,
-                    AppColors.colorBlue3,
+        Stack(
+          children: [
+            AspectRatio(aspectRatio: 1.6, child: Image.asset(Assets.signupBg1)),
+            Positioned(
+                bottom: ScreenConstant.defaultHeightSixty,
+                left: ScreenConstant.sizeXXXL,
+                right: ScreenConstant.sizeXXXL,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Would you like to create an account?",
+                      style: TextStyles.textStyleIntroDescription
+                          .apply(color: Colors.white, fontSizeDelta: -3),
+                      textAlign: TextAlign.center,
+                    ),
                   ],
-                  begin: FractionalOffset.topCenter,
-                  end: FractionalOffset.bottomCenter,
-                  tileMode: TileMode.repeated,
-                ),
-              )),
-          Positioned(
-              right: 0,
-              child: Image.asset(
-                Assets.curl4,
-                height: Get.mediaQuery.size.height * 0.3,
-              )),
-          Container(
-            height: ScreenConstant.defaultHeightNinety,
-            alignment: Alignment.center,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Text("Would you like to create \nan account ?",
-                  textAlign: TextAlign.center,
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.white, fontSizeDelta: -4)),
-            ),
-          ),
-        ]),
+                ))
+          ],
+        ),
         SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.5),
         Text("Email address:",
             textAlign: TextAlign.center,
@@ -178,22 +169,6 @@ class SignupStep3 extends StatelessWidget {
           ),
         ),
         SizedBox(height: ScreenConstant.defaultHeightFifteen),
-        Text("Confirm Password:",
-            textAlign: TextAlign.center,
-            style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.black, fontSizeDelta: -6)),
-        SizedBox(height: ScreenConstant.defaultHeightTen * 0.8),
-        CustomTextFormField(
-          currentFocus: focusPassWord,
-          nextFocus: focusRePassWord,
-          suffixIcon: Padding(
-            padding: ScreenConstant.spacingAllSmall,
-            child: Image.asset(
-              Assets.lock,
-            ),
-          ),
-        ),
-        SizedBox(height: ScreenConstant.defaultHeightFifteen),
         Text("Password:",
             textAlign: TextAlign.center,
             style: TextStyles.textStyleIntroDescription
@@ -206,218 +181,65 @@ class SignupStep3 extends StatelessWidget {
           suffixIcon: Padding(
             padding: ScreenConstant.spacingAllSmall,
             child: Image.asset(
-              Assets.lock,
+              Assets.password,
             ),
           ),
         ),
         SizedBox(height: ScreenConstant.defaultHeightFifteen),
+        Text("Confirm Password:",
+            textAlign: TextAlign.center,
+            style: TextStyles.textStyleIntroDescription
+                .apply(color: Colors.black, fontSizeDelta: -6)),
+        SizedBox(height: ScreenConstant.defaultHeightTen * 0.8),
+        CustomTextFormField(
+          currentFocus: focusPassWord,
+          nextFocus: focusRePassWord,
+          suffixIcon: Padding(
+            padding: ScreenConstant.spacingAllSmall,
+            child: Image.asset(
+              Assets.password,
+            ),
+          ),
+        ),
+        SizedBox(height: ScreenConstant.defaultHeightForty),
+        Center(
+          child: TextButton(
+            onPressed: () {
+              _buildDialogAccount();
+            },
+            style: TextButton.styleFrom(
+                primary: AppColors.colorButton,
+                textStyle: TextStyles.textStyleIntroDescription
+                    .apply(fontSizeFactor: 0.7)),
+            child: Text(
+              "Why create an account ?",
+              style:
+                  TextStyles.textStyleIntroDescription.apply(fontSizeDelta: -4),
+            ),
+          ),
+        ),
       ],
     );
   }
 
   _buildDialogAccount() {
     Get.dialog(
-      Material(
-        type: MaterialType.transparency,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Stack(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: ScreenConstant.defaultHeightTwenty),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              topRight: Radius.circular(16)),
-                        ),
-                        height: ScreenConstant.screenHeightFourth,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: ScreenConstant.defaultWidthTwenty),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: ScreenConstant.spacingAllLarge,
-                              child: Text("Why create an Account?",
-                                  textAlign: TextAlign.start,
-                                  style: TextStyles.textStyleIntroDescription
-                                      .apply(color: Colors.black87)),
-                            ),
-                            SizedBox(
-                                height: ScreenConstant.defaultHeightFifteen),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ScreenConstant.defaultWidthTwenty),
-                              child: Text(
-                                  '''Creating an account is NOT required to use this app however an account will allow you to retrieve your data if you lose your device, and will also allow you to access your data across multiple devices.
-                                               ''',
-                                  textAlign: TextAlign.start,
-                                  style: TextStyles.textStyleRegular.apply(
-                                      color: AppColors.colorDialogDescription)),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: ScreenConstant.screenHeightTwelve,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: ScreenConstant.defaultWidthTwenty),
-
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(16),
-                              bottomRight: Radius.circular(16)),
-                          color: AppColors.colorBackground,
-                        ),
-                        child: Row(
-                          children: [
-                            Image.asset(Assets.curl6),
-                            SizedBox(width: ScreenConstant.defaultWidthTwenty),
-                            Image.asset(Assets.curl5)
-                          ],
-                        ),
-                        // padding: ScreenConstant.spacingAllLarge,
-                        // margin: ScreenConstant.spacingAllLarge,
-                      )
-                    ],
-                  ),
-                ),
-                Positioned(
-                  right: 10,
-                  top: 10,
-                  child: GestureDetector(
-                    onTap: () => Get.back(),
-                    child: CircleAvatar(
-                      backgroundColor: AppColors.colorCloseLight,
-                      radius: 20,
-                      child: CircleAvatar(
-                          backgroundColor: AppColors.colorCloseLight,
-                          radius: 18,
-                          child: Icon(
-                            Icons.close,
-                            color: Colors.white,
-                            size: FontSize.s15,
-                          )),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+      CustomDialog(
+        title: "Why Create an Account?",
+        description:
+            '''Creating an account is NOT required to use this app however an account will allow you to retrieve your data if you lose your device, and will also allow you to access your data across multiple devices.''',
       ),
     );
   }
 
   _buildDialogTermsandPolicy() {
     Get.dialog(
-      Material(
-        type: MaterialType.transparency,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Stack(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: ScreenConstant.defaultHeightTwenty),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              topRight: Radius.circular(16)),
-                        ),
-                        height: ScreenConstant.screenHeightHalf * 1.5,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: ScreenConstant.defaultWidthTwenty),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: ScreenConstant.spacingAllLarge,
-                              child: Text("Terms and Privacy Policy",
-                                  textAlign: TextAlign.start,
-                                  style: TextStyles.textStyleIntroDescription
-                                      .apply(color: Colors.black87)),
-                            ),
-                            SizedBox(
-                                height: ScreenConstant.defaultHeightFifteen),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ScreenConstant.defaultWidthTwenty),
-                              child: Text(
-                                  '''Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+      CustomDialog(
+        title: "Terms and Privacy Policy",
+        description:
+            '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet gravida augue, id eleifend mi. Morbi eget tempus felis, semper placerat erat. Sed nec ligula vestibulum, sagittis libero at, dapibus lectus. Duis fermentum diam mauris. 
 
-The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.''',
-                                  textAlign: TextAlign.start,
-                                  style: TextStyles.textStyleRegular.apply(
-                                      color: AppColors.colorDialogDescription)),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: ScreenConstant.screenHeightTwelve,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: ScreenConstant.defaultWidthTwenty),
-
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(16),
-                              bottomRight: Radius.circular(16)),
-                          color: AppColors.colorBackground,
-                        ),
-                        child: Row(
-                          children: [
-                            Image.asset(Assets.curl6),
-                            SizedBox(width: ScreenConstant.defaultWidthTwenty),
-                            Image.asset(Assets.curl5)
-                          ],
-                        ),
-                        // padding: ScreenConstant.spacingAllLarge,
-                        // margin: ScreenConstant.spacingAllLarge,
-                      )
-                    ],
-                  ),
-                ),
-                Positioned(
-                  right: 10,
-                  top: 10,
-                  child: GestureDetector(
-                    onTap: () => Get.back(),
-                    child: CircleAvatar(
-                      backgroundColor: AppColors.colorCloseLight,
-                      radius: 20,
-                      child: CircleAvatar(
-                          backgroundColor: AppColors.colorCloseLight,
-                          radius: 18,
-                          child: Icon(
-                            Icons.close,
-                            color: Colors.white,
-                            size: FontSize.s15,
-                          )),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+Aliquam elementum, massa sed vulputate vestibulum, elit nunc ultrices est, eget placerat mauris orci nec sapien. Nam  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet gravida augue, id eleifend mi. Morbi eget tempus felis, semper placerat erat. Sed nec ligula vestibulum, sagittis libero at, dapibus lectus. Duis fermentum diam mauris. Aliquam''',
       ),
     );
   }

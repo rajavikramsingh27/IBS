@@ -22,7 +22,7 @@ class MyProfileStep2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.colorMyProfileBackground,
+        backgroundColor: AppColors.colorProfileBg,
         appBar: AppBar(
           elevation: 0,
           leading: Obx(() => _controller.pagecount2.value >= 2
@@ -91,7 +91,7 @@ class MyProfileStep2 extends StatelessWidget {
               SizedBox(width: ScreenConstant.defaultWidthNinetyEight),
               TextButton(
                 onPressed: () {
-                  if (_controller.pagecount2.value <= 2)
+                  if (_controller.pagecount2.value <= 3)
                     _controller.pagecount2.value++;
                   else
                     Get.toNamed(signup);
@@ -104,7 +104,7 @@ class MyProfileStep2 extends StatelessWidget {
               // SizedBox(width: ScreenConstant.defaultWidthTwenty ),
               InkWell(
                 onTap: () {
-                  if (_controller.pagecount2.value <= 2)
+                  if (_controller.pagecount2.value <= 3)
                     _controller.pagecount2.value++;
                   else
                     Get.toNamed(signup);
@@ -131,6 +131,10 @@ class MyProfileStep2 extends StatelessWidget {
         break;
       case 2:
         return _buildInformationalQuestions();
+      case 3:
+        return _buildBowelMovement();
+      case 4:
+        return _buildBristol();
       default:
         break;
     }
@@ -164,7 +168,7 @@ class MyProfileStep2 extends StatelessWidget {
                 children: <TextSpan>[
                   TextSpan(
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () => _buildDialogTermsandPolicy(),
+                        ..onTap = () => _buildRomeIVCriteriaDialog(),
                       text: "Rome IV Criteria ",
                       style: TextStyles.textStyleIntroDescription.apply(
                           color: AppColors.colorBackground, fontSizeDelta: -4)),
@@ -187,154 +191,68 @@ class MyProfileStep2 extends StatelessWidget {
     ]);
   }
 
-  _buildDialogTermsandPolicy() {
+  _buildRomeIVCriteriaDialog() {
     Get.dialog(
-      Material(
-        type: MaterialType.transparency,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Stack(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: ScreenConstant.defaultHeightTwenty),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              topRight: Radius.circular(16)),
-                        ),
-                        height: ScreenConstant.screenHeightHalf * 1.5,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: ScreenConstant.defaultWidthTwenty),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: ScreenConstant.spacingAllLarge,
-                              child: Text("Rome IV Criteria",
-                                  textAlign: TextAlign.start,
-                                  style: TextStyles.textStyleIntroDescription
-                                      .apply(color: Colors.black87)),
-                            ),
-                            SizedBox(
-                                height: ScreenConstant.defaultHeightFifteen),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ScreenConstant.defaultWidthTwenty),
-                              child: Text(
-                                  '''Symptom-based criteria of IBS were first developed in 1989 by an international working group based in Rome (the Rome criteria). These criteria have been updated in the Rome Il, III, and most recently, in 2016, the Rome IV criteria for IBS.  According to the Rome IV diagnostic criteria, IBS is characterised by recurrent abdominal pain for, on average, at least one day per week in the past three months, associated with two or more of the following: * Symptoms related to defecation. * Symptoms associated with a  change in stool frequency. * Symptoms associated with a  change in stool form or appearance, based on the Bristol Stool Form Scale (BSFS).''',
-                                  textAlign: TextAlign.start,
-                                  style: TextStyles.textStyleRegular.apply(
-                                      color: AppColors.colorDialogDescription)),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: ScreenConstant.screenHeightTwelve,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: ScreenConstant.defaultWidthTwenty),
-
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(16),
-                              bottomRight: Radius.circular(16)),
-                          color: AppColors.colorBackground,
-                        ),
-                        child: Row(
-                          children: [
-                            Image.asset(Assets.curl6),
-                            SizedBox(width: ScreenConstant.defaultWidthTwenty),
-                            Image.asset(Assets.curl5)
-                          ],
-                        ),
-                        // padding: ScreenConstant.spacingAllLarge,
-                        // margin: ScreenConstant.spacingAllLarge,
-                      )
-                    ],
-                  ),
-                ),
-                Positioned(
-                  right: 10,
-                  top: 10,
-                  child: GestureDetector(
-                    onTap: () => Get.back(),
-                    child: CircleAvatar(
-                      backgroundColor: AppColors.colorCloseLight,
-                      radius: 20,
-                      child: CircleAvatar(
-                          backgroundColor: AppColors.colorCloseLight,
-                          radius: 18,
-                          child: Icon(
-                            Icons.close,
-                            color: Colors.white,
-                            size: FontSize.s15,
-                          )),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+      CustomDialog(
+        title: "Rome IV Criteria",
+        description:
+            '''Symptom-based criteria of IBS were first developed in 1989 by an international working group based in Rome (the Rome criteria). These criteria have been updated in the Rome Il, III, and most recently, in 2016, the Rome IV criteria for IBS.  According to the Rome IV diagnostic criteria, IBS is characterised by recurrent abdominal pain for, on average, at least one day per week in the past three months, associated with two or more of the following: * Symptoms related to defecation. * Symptoms associated with a  change in stool frequency. * Symptoms associated with a  change in stool form or appearance, based on the Bristol Stool Form Scale (BSFS).''',
       ),
     );
   }
 
   _buildAbdominalPain() {
-    return Column(
-      children: [
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-        Center(
-            child: Image.asset(Assets.myProfile5,
-                width: ScreenConstant.defaultHeightTwoHundredTen)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-        Card(
-          elevation: 0,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Padding(
-              padding: ScreenConstant.spacingAllLarge,
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: "Have you experienced ",
-                  style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
-                  children: <TextSpan>[
-                    TextSpan(
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () => _buildAbdominalPainDialog(),
-                        text: "abdominal pain ",
-                        style: TextStyles.textStyleIntroDescription.apply(
-                            color: AppColors.colorBackground,
-                            fontSizeDelta: -4)),
-                    TextSpan(
-                        text:
-                            "for at least one day per week in the last 3 months?")
-                  ],
-                ),
-              )
+    return Padding(
+      padding: ScreenConstant.spacingAllLarge,
+      child: Column(
+        children: [
+          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          Center(
+              child: Image.asset(Assets.myProfile5,
+                  width: ScreenConstant.defaultHeightTwoHundredTen)),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          Text("Rome IV Questionnaire.",
+              textAlign: TextAlign.center,
+              style: TextStyles.textStyleIntroDescription
+                  .apply(color: Colors.black)),
+          SizedBox(height: ScreenConstant.defaultHeightForty),
+          Card(
+            elevation: 0,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Padding(
+                padding: ScreenConstant.spacingAllLarge,
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: "Have you experienced ",
+                    style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
+                    children: <TextSpan>[
+                      TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => _buildAbdominalPainDialog(),
+                          text: "abdominal pain ",
+                          style: TextStyles.textStyleIntroDescription.apply(
+                              color: AppColors.colorBackground,
+                              fontSizeDelta: -4)),
+                      TextSpan(
+                          text:
+                              "for at least one day per week in the last 3 months?")
+                    ],
+                  ),
+                )
 
-              // Text(
-              //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
-              //   style: TextStyles.textStyleRegular,
-              //   textAlign: TextAlign.center,
-              // ),
-              ),
-        ),
-        Padding(
-          padding: ScreenConstant.spacingAllLarge,
-          child: Row(
+                // Text(
+                //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
+                //   style: TextStyles.textStyleRegular,
+                //   textAlign: TextAlign.center,
+                // ),
+                ),
+          ),
+          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          Row(
             children: [
               Expanded(
                 child: CustomElevatedButton2(
@@ -342,8 +260,8 @@ class MyProfileStep2 extends StatelessWidget {
                     _controller.pagecount2.value++;
                   },
                   text: "Yes",
-                  textColor: Colors.white,
-                  buttonColor: AppColors.colorYesButton,
+                  textColor: AppColors.colorButton,
+                  buttonColor: Colors.white,
                 ),
               ),
               SizedBox(width: ScreenConstant.defaultWidthTwenty),
@@ -358,200 +276,429 @@ class MyProfileStep2 extends StatelessWidget {
                 ),
               )
             ],
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 
   _buildAbdominalPainDialog() {
-     Get.dialog(
-        CustomDialog(
-        height: ScreenConstant.defaultHeightTwoHundred,
+    Get.dialog(
+      CustomDialog(
         title: "Abdominal Pain",
         description:
             '''Other terms used to describe abdominal pain are stomach ache, tummy ache, gut ache, and bellyache.''',
-    ),
-     );
+      ),
+    );
   }
 
   _buildInformationalQuestions() {
-    return Column(
+    return ListView(
+      padding: ScreenConstant.spacingAllLarge,
       children: [
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-        Center(
-            child: Image.asset(Assets.myProfile5,
-                width: ScreenConstant.defaultHeightTwoHundredTen)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-        Container(
-          margin: ScreenConstant.spacingAllLarge,
-          padding: ScreenConstant.spacingAllLarge,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16)),
-          ),
-          child: Text(
-            "Does your abdominal pain occur around the same time you have a bowel movement ?",
-            style: TextStyles.textStyleRegular,
+        SizedBox(height: ScreenConstant.defaultHeightFifteen),
+        Text("Rome IV Questionnaire.",
             textAlign: TextAlign.center,
-          ),
-        ),
-        Padding(
-          padding: ScreenConstant.spacingAllLarge,
-          child: Row(
-            children: [
-              Expanded(
-                child: CustomElevatedButton2(
-                  onTap: () {},
-                  text: "Yes",
-                  textColor: AppColors.colorTextMoreLess,
-                  buttonColor: Colors.white,
-                ),
-              ),
-              SizedBox(width: ScreenConstant.defaultWidthTwenty),
-              Expanded(
-                child: CustomElevatedButton2(
-                  onTap: () {},
-                  text: "No",
-                  textColor: AppColors.colorTextMoreLess,
-                  buttonColor: Colors.white,
-                ),
-              )
-            ],
-          ),
-        ),
-        Container(
-          margin: ScreenConstant.spacingAllLarge,
-          padding: ScreenConstant.spacingAllLarge,
-          decoration: BoxDecoration(
+            style: TextStyles.textStyleIntroDescription
+                .apply(color: Colors.black)),
+        SizedBox(height: ScreenConstant.defaultHeightForty),
+        Card(
+            elevation: 0,
             color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16)),
-          ),
-          child: Text(
-            "When you have  abdominal pain do you have bowel movements either more often or less often than normal ?",
-            style: TextStyles.textStyleRegular,
-            textAlign: TextAlign.center,
-          ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Padding(
+              padding: ScreenConstant.spacingAllLarge,
+              child: Text(
+                "Does your abdominal pain occur around the same time you have a bowel movement?",
+                textAlign: TextAlign.center,
+                style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
+              ),
+            )),
+        SizedBox(height: ScreenConstant.defaultHeightFifteen),
+        Row(
+          children: [
+            Expanded(
+              child: CustomElevatedButton2(
+                onTap: () {
+                  _controller.pagecount2.value++;
+                },
+                text: "Yes",
+                textColor: AppColors.colorButton,
+                buttonColor: Colors.white,
+              ),
+            ),
+            SizedBox(width: ScreenConstant.defaultWidthTwenty),
+            Expanded(
+              child: CustomElevatedButton2(
+                onTap: () {
+                  _controller.pagecount2.value++;
+                },
+                text: "No",
+                textColor: AppColors.colorButton,
+                buttonColor: Colors.white,
+              ),
+            )
+          ],
         ),
-        Padding(
-          padding: ScreenConstant.spacingAllLarge,
-          child: Row(
-            children: [
-              Expanded(
-                child: CustomElevatedButton2(
-                  onTap: () {},
-                  text: "Less",
-                  textColor: AppColors.colorTextMoreLess,
-                  buttonColor: Colors.white,
-                ),
+        SizedBox(height: ScreenConstant.defaultHeightForty * 2.5),
+        Card(
+            elevation: 0,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Padding(
+              padding: ScreenConstant.spacingAllLarge,
+              child: Text(
+                "When you have abdominal pain do you have bowel movements either more often or less often than normal?",
+                textAlign: TextAlign.center,
+                style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
               ),
-              SizedBox(width: ScreenConstant.defaultWidthTwenty),
-              Expanded(
-                child: CustomElevatedButton2(
-                  onTap: () {},
-                  text: "More",
-                  textColor: AppColors.white,
-                  buttonColor: AppColors.colorYesButton,
-                ),
+            )),
+        SizedBox(height: ScreenConstant.defaultHeightFifteen),
+        Row(
+          children: [
+            Expanded(
+              child: CustomElevatedButton2(
+                onTap: () {
+                  _controller.pagecount2.value++;
+                },
+                text: "Yes",
+                textColor: AppColors.colorButton,
+                buttonColor: Colors.white,
               ),
-            ],
-          ),
-        )
+            ),
+            SizedBox(width: ScreenConstant.defaultWidthTwenty),
+            Expanded(
+              child: CustomElevatedButton2(
+                onTap: () {
+                  _controller.pagecount2.value++;
+                },
+                text: "No",
+                textColor: AppColors.colorButton,
+                buttonColor: Colors.white,
+              ),
+            )
+          ],
+        ),
+        SizedBox(height: 100),
       ],
     );
   }
 
-  _buildBristolChart() {
-    return ListView(
-      physics: ClampingScrollPhysics(),
-      children: [
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-        Stack(
-          children: [
-            Container(
-                height: ScreenConstant.defaultWidthOneNinety,
-                margin: ScreenConstant.spacingAllLarge,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  gradient: LinearGradient(
-                    colors: <Color>[
-                      AppColors.colorBackground,
-                      AppColors.colorBlue2,
-                      AppColors.colorBlue3,
-                    ],
-                    begin: FractionalOffset.topCenter,
-                    end: FractionalOffset.bottomCenter,
-                    tileMode: TileMode.repeated,
-                  ),
-                )),
-            Positioned(
-                top: 0,
-                child: RotatedBox(
-                  quarterTurns: 1,
-                  child: Image.asset(
-                    "assets/images/intro/curl3.png",
-                    height: Get.mediaQuery.size.height / 4,
-                  ),
-                )),
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                alignment: Alignment.center,
-                height: ScreenConstant.defaultWidthNinetyEight,
-                width: ScreenConstant.defaultHeightNinetyEight,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.colorYesButton,
-                ),
-                child: Image.asset(Assets.mask_emoji,
-                    width: ScreenConstant.defaultWidthTwenty * 2),
+  // _buildInformationalQuestions() {
+  //   return Column(
+  //     children: [
+  //       SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+  //       Center(
+  //           child: Image.asset(Assets.myProfile5,
+  //               width: ScreenConstant.defaultHeightTwoHundredTen)),
+  //       SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+  //       Container(
+  //         margin: ScreenConstant.spacingAllLarge,
+  //         padding: ScreenConstant.spacingAllLarge,
+  //         decoration: BoxDecoration(
+  //           color: Colors.white,
+  //           borderRadius: BorderRadius.only(
+  //               topRight: Radius.circular(16),
+  //               bottomLeft: Radius.circular(16),
+  //               bottomRight: Radius.circular(16)),
+  //         ),
+  //         child: Text(
+  //           "Does your abdominal pain occur around the same time you have a bowel movement ?",
+  //           style: TextStyles.textStyleRegular,
+  //           textAlign: TextAlign.center,
+  //         ),
+  //       ),
+  //       Padding(
+  //         padding: ScreenConstant.spacingAllLarge,
+  //         child: Row(
+  //           children: [
+  //             Expanded(
+  //               child: CustomElevatedButton2(
+  //                 onTap: () {},
+  //                 text: "Yes",
+  //                 textColor: AppColors.colorTextMoreLess,
+  //                 buttonColor: Colors.white,
+  //               ),
+  //             ),
+  //             SizedBox(width: ScreenConstant.defaultWidthTwenty),
+  //             Expanded(
+  //               child: CustomElevatedButton2(
+  //                 onTap: () {},
+  //                 text: "No",
+  //                 textColor: AppColors.colorTextMoreLess,
+  //                 buttonColor: Colors.white,
+  //               ),
+  //             )
+  //           ],
+  //         ),
+  //       ),
+  //       Container(
+  //         margin: ScreenConstant.spacingAllLarge,
+  //         padding: ScreenConstant.spacingAllLarge,
+  //         decoration: BoxDecoration(
+  //           color: Colors.white,
+  //           borderRadius: BorderRadius.only(
+  //               topRight: Radius.circular(16),
+  //               bottomLeft: Radius.circular(16),
+  //               bottomRight: Radius.circular(16)),
+  //         ),
+  //         child: Text(
+  //           "When you have  abdominal pain do you have bowel movements either more often or less often than normal ?",
+  //           style: TextStyles.textStyleRegular,
+  //           textAlign: TextAlign.center,
+  //         ),
+  //       ),
+  //       Padding(
+  //         padding: ScreenConstant.spacingAllLarge,
+  //         child: Row(
+  //           children: [
+  //             Expanded(
+  //               child: CustomElevatedButton2(
+  //                 onTap: () {},
+  //                 text: "Less",
+  //                 textColor: AppColors.colorTextMoreLess,
+  //                 buttonColor: Colors.white,
+  //               ),
+  //             ),
+  //             SizedBox(width: ScreenConstant.defaultWidthTwenty),
+  //             Expanded(
+  //               child: CustomElevatedButton2(
+  //                 onTap: () {},
+  //                 text: "More",
+  //                 textColor: AppColors.white,
+  //                 buttonColor: AppColors.colorYesButton,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       )
+  //     ],
+  //   );
+  // }
+  _buildBowelMovement() {
+    return Padding(
+      padding: ScreenConstant.spacingAllLarge,
+      child: Column(
+        children: [
+          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          Center(
+              child: Image.asset(Assets.myProfile5,
+                  width: ScreenConstant.defaultHeightTwoHundredTen)),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          Text("Rome IV Questionnaire.",
+              textAlign: TextAlign.center,
+              style: TextStyles.textStyleIntroDescription
+                  .apply(color: Colors.black)),
+          SizedBox(height: ScreenConstant.defaultHeightForty),
+          Card(
+            elevation: 0,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              // borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(16),
+                bottomRight: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
               ),
             ),
-            Positioned(
-              left: 60,
-              right: 60,
-              bottom: 40,
-              child: Text(
-                  "When you have abnormal bowel movements, what does your stool usually look like ?",
+            child: Padding(
+                padding: ScreenConstant.spacingAllLarge,
+                child: RichText(
                   textAlign: TextAlign.center,
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.white, fontSizeDelta: -3)),
-            ),
-          ],
+                  text: TextSpan(
+                    text:
+                        "When you have abdominal pain, do your bowel movements appear ",
+                    style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
+                    children: <TextSpan>[
+                      TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => _buildBowelMovementDialog(),
+                          text: "different than normal?",
+                          style: TextStyles.textStyleIntroDescription.apply(
+                              color: AppColors.colorBackground,
+                              fontSizeDelta: -4)),
+                    ],
+                  ),
+                )),
+          ),
+          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          Row(
+            children: [
+              Expanded(
+                child: CustomElevatedButton2(
+                  onTap: () {
+                    _controller.pagecount2.value++;
+                  },
+                  text: "Yes",
+                  textColor: AppColors.colorButton,
+                  buttonColor: Colors.white,
+                ),
+              ),
+              SizedBox(width: ScreenConstant.defaultWidthTwenty),
+              Expanded(
+                child: CustomElevatedButton2(
+                  onTap: () {
+                    _controller.pagecount2.value++;
+                  },
+                  text: "No",
+                  textColor: AppColors.colorButton,
+                  buttonColor: Colors.white,
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  _buildBowelMovementDialog() {
+    Get.dialog(
+      CustomDialog(
+        title: "Bowel Movement Changes",
+        description:
+            '''Differences can be either softer or harder than your usual bowel movements.''',
+      ),
+    );
+  }
+
+  _buildBristol() {
+    return ListView(padding: ScreenConstant.spacingAllLarge, children: [
+      SizedBox(height: ScreenConstant.defaultHeightFifteen),
+      Text("Rome IV Questionnaire.",
+          textAlign: TextAlign.center,
+          style:
+              TextStyles.textStyleIntroDescription.apply(color: Colors.black)),
+      SizedBox(height: ScreenConstant.defaultHeightForty),
+      Card(
+        elevation: 0,
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          // borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(16),
+            bottomRight: Radius.circular(16),
+            bottomLeft: Radius.circular(16),
+          ),
         ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-        Padding(
+        child: Padding(
             padding: ScreenConstant.spacingAllLarge,
             child: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
-                text: 'Reference the ',
-                style: TextStyles.textStyleRegular,
+                text:
+                    'When you have abnormal bowel movements, what does your stool usually look like?\n\nReference the ',
+                style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
                 children: <TextSpan>[
                   TextSpan(
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () => _buildDialogStool(),
-                    text: 'Bristol Stool Chart ',
-                  ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => _buildDialogStool(),
+                      text: 'Bristol Stool Chart ',
+                      style: TextStyles.textStyleIntroDescription.apply(
+                          fontSizeDelta: -4, color: AppColors.colorBackground)),
                   TextSpan(
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () => print('Tap Here onTap'),
                     text: 'to select the appropriate response',
                   ),
                 ],
               ),
             )),
-        SizedBox(height: ScreenConstant.defaultHeightTen),
-        _buildListIbsType(),
-      ],
-    );
+      ),
+      SizedBox(height: ScreenConstant.defaultHeightTen),
+      _buildListIbsType(),
+      SizedBox(height: ScreenConstant.defaultHeightOneHundred),
+    ]);
   }
+
+  // _buildBristolChart() {
+  //   return ListView(
+  //     physics: ClampingScrollPhysics(),
+  //     children: [
+  //       SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+  //       Stack(
+  //         children: [
+  //           Container(
+  //               height: ScreenConstant.defaultWidthOneNinety,
+  //               margin: ScreenConstant.spacingAllLarge,
+  //               decoration: BoxDecoration(
+  //                 borderRadius: BorderRadius.circular(16),
+  //                 gradient: LinearGradient(
+  //                   colors: <Color>[
+  //                     AppColors.colorBackground,
+  //                     AppColors.colorBlue2,
+  //                     AppColors.colorBlue3,
+  //                   ],
+  //                   begin: FractionalOffset.topCenter,
+  //                   end: FractionalOffset.bottomCenter,
+  //                   tileMode: TileMode.repeated,
+  //                 ),
+  //               )),
+  //           Positioned(
+  //               top: 0,
+  //               child: RotatedBox(
+  //                 quarterTurns: 1,
+  //                 child: Image.asset(
+  //                   "assets/images/intro/curl3.png",
+  //                   height: Get.mediaQuery.size.height / 4,
+  //                 ),
+  //               )),
+  //           Align(
+  //             alignment: Alignment.center,
+  //             child: Container(
+  //               alignment: Alignment.center,
+  //               height: ScreenConstant.defaultWidthNinetyEight,
+  //               width: ScreenConstant.defaultHeightNinetyEight,
+  //               decoration: BoxDecoration(
+  //                 shape: BoxShape.circle,
+  //                 color: AppColors.colorYesButton,
+  //               ),
+  //               child: Image.asset(Assets.mask_emoji,
+  //                   width: ScreenConstant.defaultWidthTwenty * 2),
+  //             ),
+  //           ),
+  //           Positioned(
+  //             left: 60,
+  //             right: 60,
+  //             bottom: 40,
+  //             child: Text(
+  //                 "When you have abnormal bowel movements, what does your stool usually look like ?",
+  //                 textAlign: TextAlign.center,
+  //                 style: TextStyles.textStyleIntroDescription
+  //                     .apply(color: Colors.white, fontSizeDelta: -3)),
+  //           ),
+  //         ],
+  //       ),
+  //       SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+  //       Padding(
+  //           padding: ScreenConstant.spacingAllLarge,
+  //           child: RichText(
+  //             textAlign: TextAlign.center,
+  //             text: TextSpan(
+  //               text: 'Reference the ',
+  //               style: TextStyles.textStyleRegular,
+  //               children: <TextSpan>[
+  //                 TextSpan(
+  //                   recognizer: TapGestureRecognizer()
+  //                     ..onTap = () => _buildDialogStool(),
+  //                   text: 'Bristol Stool Chart ',
+  //                 ),
+  //                 TextSpan(
+  //                   recognizer: TapGestureRecognizer()
+  //                     ..onTap = () => print('Tap Here onTap'),
+  //                   text: 'to select the appropriate response',
+  //                 ),
+  //               ],
+  //             ),
+  //           )),
+  //       SizedBox(height: ScreenConstant.defaultHeightTen),
+  //       _buildListIbsType(),
+  //       SizedBox(height: ScreenConstant.defaultHeightOneHundred),
+  //     ],
+  //   );
+  // }
 
   _buildListIbsType() {
     return InkWell(
@@ -572,26 +719,35 @@ class MyProfileStep2 extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            child: ListTile(
-              dense: true,
-              leading: Image.asset(model.image,
-                  width: ScreenConstant.defaultWidthTwenty),
-              title: Text("${model.text}",
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.black, fontSizeDelta: -3)),
-              trailing: InkWell(
-                  onTap: () {
-                    _controller.checkBoxValue.value =
-                        !_controller.checkBoxValue.value;
-                  },
-                  child: _controller.checkBoxValue.value
-                      ? CustomCheckBox(
-                          value: _controller.checkBoxValue.value,
-                        )
-                      : CustomCheckBox(
-                          value: _controller.checkBoxValue.value,
-                        )),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: ScreenConstant.defaultHeightFifteen),
+              child: Text(model.text,
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleIntroDescription.apply(
+                      color: AppColors.colorBackground, fontSizeDelta: -3)),
             ),
+
+            //  ListTile(
+            //   dense: true,
+            //   leading: Image.asset(model.image,
+            //       width: ScreenConstant.defaultWidthTwenty),
+            //   title: Text("${model.text}",
+            //       style: TextStyles.textStyleIntroDescription
+            //           .apply(color: Colors.black, fontSizeDelta: -3)),
+            //   trailing: InkWell(
+            //       onTap: () {
+            //         _controller.checkBoxValue.value =
+            //             !_controller.checkBoxValue.value;
+            //       },
+            //       child: _controller.checkBoxValue.value
+            //           ? CustomCheckBox(
+            //               value: _controller.checkBoxValue.value,
+            //             )
+            //           : CustomCheckBox(
+            //               value: _controller.checkBoxValue.value,
+            //             )),
+            // ),
           );
         },
       ),

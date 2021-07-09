@@ -54,10 +54,9 @@ class CustomElevatedButton2 extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: widthFactor,
       child: ElevatedButton(
-
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
-          elevation: 0,
+            elevation: 0,
             padding: ScreenConstant.spacingAllMedium,
             primary: buttonColor,
             shape: RoundedRectangleBorder(
@@ -72,3 +71,33 @@ class CustomElevatedButton2 extends StatelessWidget {
     );
   }
 }
+class CustomElevatedButton3 extends StatelessWidget {
+  final Function onTap;
+  final String text;
+  final double widthFactor;
+
+  const CustomElevatedButton3({Key key, this.onTap, this.text, this.widthFactor})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FractionallySizedBox(
+      widthFactor: widthFactor,
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: ElevatedButton.styleFrom(
+            padding: ScreenConstant.spacingAllMedium,
+            primary: AppColors.colorCloseLight,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20))),
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyles.textStyleIntroDescription
+              .apply(fontSizeDelta: -3, color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+

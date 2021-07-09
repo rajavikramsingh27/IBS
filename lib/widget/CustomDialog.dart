@@ -46,8 +46,10 @@ class CustomDialog extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          SizedBox(height: ScreenConstant.defaultHeightForty),
                           Padding(
-                            padding: ScreenConstant.spacingAllLarge,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: ScreenConstant.defaultWidthTwenty),
                             child: Text("$title",
                                 textAlign: TextAlign.start,
                                 style: TextStyles.textStyleIntroDescription
@@ -62,6 +64,7 @@ class CustomDialog extends StatelessWidget {
                                 style: TextStyles.textStyleRegular.apply(
                                     color: AppColors.colorDialogDescription)),
                           ),
+                          SizedBox(height: ScreenConstant.defaultHeightForty),
                         ],
                       ),
                     ),

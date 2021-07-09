@@ -5,6 +5,7 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/BottomWidget.dart';
 import 'package:flutter_ibs/widget/CustomCheckBox.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomExpansionTile.dart';
@@ -29,42 +30,79 @@ class SignupStep2 extends StatelessWidget {
             style: TextStyles.appBarTitle,
           ),
         ),
-        bottomNavigationBar: Container(
-          padding: ScreenConstant.spacingAllLarge,
-          color: Colors.white,
-          child: CustomElevatedButton(
-            widthFactor: 0.8,
-            text: "Track Selected Options",
-            onTap: () {
-              Get.toNamed(signup3);
-            },
-          ),
-        ),
-        body: ListView(
-          physics: ClampingScrollPhysics(),
-          padding: ScreenConstant.spacingAllLarge,
+        // bottomNavigationBar: Container(
+        //   padding: ScreenConstant.spacingAllLarge,
+        //   color: Colors.white,
+        //   child: CustomElevatedButton(
+        //     widthFactor: 0.8,
+        //     text: "Track Selected Options",
+        //     onTap: () {
+        //       Get.toNamed(signup3);
+        //     },
+        //   ),
+        // ),
+        body: Stack(
           children: [
-            _buildTrackingOptions(),
-            _buildSymptoms(),
-            SizedBox(height: ScreenConstant.defaultHeightFifteen),
-            _buildBowelMovements()
+            ListView(
+              physics: ClampingScrollPhysics(),
+              padding: ScreenConstant.spacingAllLarge,
+              children: [
+                _buildTrackingOptions(),
+                _buildSymptoms(),
+                SizedBox(height: ScreenConstant.defaultHeightFifteen),
+                _buildBowelMovements(),
+                SizedBox(height: ScreenConstant.defaultHeightOneHundred)
+              ],
+            ),
+              BottomWidget(
+                onContinueTap: () => Get.toNamed(signup3),
+                onCircleTap: () => Get.toNamed(signup3))
           ],
         ));
   }
 
   _buildTrackingOptions() {
-    return Column(
+    return Stack(
       children: [
-        SizedBox(height: ScreenConstant.defaultHeightTwenty),
-        HeaderCard(
-          height: ScreenConstant.defaultHeightTwoHundred,
-          imageText: Assets.book,
-          title: "Tracking Options",
-          description: "These can be changed later in settings.",
-        ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        AspectRatio(aspectRatio: 1.6, child: Image.asset(Assets.signupBg2)),
+        Positioned(
+            bottom: ScreenConstant.defaultHeightSixty,
+            left: ScreenConstant.sizeXXXL,
+            right: ScreenConstant.sizeXXXL,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  "Set your tracking options",
+                  style: TextStyles.textStyleIntroDescription
+                      .apply(color: Colors.white, fontSizeDelta: -3),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: ScreenConstant.sizeDefault),
+                Text(
+                  "Default tracking options are selected below. These can be changed later in settings.",
+                  style: TextStyles.textStyleRegular
+                      .apply(color: Colors.white, fontSizeDelta: -1),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ))
       ],
     );
+
+    // Column(
+    //   children: [
+    //     SizedBox(height: ScreenConstant.defaultHeightTwenty),
+    //     HeaderCard(
+    //       height: ScreenConstant.defaultHeightTwoHundred,
+    //       imageText: Assets.book,
+    //       title: "Tracking Options",
+    //       description: "These can be changed later in settings.",
+    //     ),
+    //     SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+    //   ],
+    // );
   }
 
   _buildSymptoms() {

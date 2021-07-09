@@ -9,6 +9,7 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
@@ -336,7 +337,7 @@ class MyProfileStep1 extends StatelessWidget {
                     children: <TextSpan>[
                       TextSpan(
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () => _buildDialogTermsandPolicy(),
+                            ..onTap = () => _buildIbsDialog(),
                           text: "which type of IBS ",
                           style: TextStyles.textStyleIntroDescription.apply(
                               color: AppColors.colorBackground,
@@ -366,7 +367,7 @@ class MyProfileStep1 extends StatelessWidget {
         //         children: <TextSpan>[
         //           TextSpan(
         //               recognizer: TapGestureRecognizer()
-        //                 ..onTap = () => _buildDialogTermsandPolicy(),
+        //                 ..onTap = () => _buildIbsDialog(),
         //               text: "which type of IBS ",
         //               style: TextStyles.textStyleIntroDescription.apply(
         //                   color: AppColors.colorBackground, fontSizeDelta: -4)),
@@ -466,106 +467,113 @@ class MyProfileStep1 extends StatelessWidget {
   //   );
   // }
 
-  _buildDialogTermsandPolicy() {
-    Get.dialog(
-      Material(
-        type: MaterialType.transparency,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Stack(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: ScreenConstant.defaultHeightTwenty),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              topRight: Radius.circular(16)),
-                        ),
-                        height: ScreenConstant.screenHeightHalf * 1.5,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: ScreenConstant.defaultWidthTwenty),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: ScreenConstant.spacingAllLarge,
-                              child: Text("Sub Types of IBS",
-                                  textAlign: TextAlign.start,
-                                  style: TextStyles.textStyleIntroDescription
-                                      .apply(color: Colors.black87)),
-                            ),
-                            SizedBox(
-                                height: ScreenConstant.defaultHeightFifteen),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ScreenConstant.defaultWidthTwenty),
-                              child: Text(
-                                  '''There are four sub-types of IBS. The sub- types are determined by the frequency and consistency of your stool.  IBS-C: IBS with constipation. Common symptoms are stomach pain, bloating, abnormally delayed or infrequent bowel movements, or lumpy/hard stool.  IBS-D: IBS with diarrhea. This comes with stomach pain, an urgent need to move your bowels, abnormally frequent bowel movements, or loose/watery stool.  IBS-M: IBS with mixed bowel habits. Both constipation and diarrhea.  IBS-U: This is an undefined subtype associated with symptoms that vary.  There are about an equal number of people ''',
-                                  textAlign: TextAlign.start,
-                                  style: TextStyles.textStyleRegular.apply(
-                                      color: AppColors.colorDialogDescription)),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: ScreenConstant.screenHeightTwelve,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: ScreenConstant.defaultWidthTwenty),
+  _buildIbsDialog() {
+    Get.dialog(CustomDialog(
+      title: "Sub-types of IBS",
+      description: '''There are four sub-types of IBS. The sub- types are determined by the frequency and consistency of your stool.  
 
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(16),
-                              bottomRight: Radius.circular(16)),
-                          color: AppColors.colorBackground,
-                        ),
-                        child: Row(
-                          children: [
-                            Image.asset(Assets.curl6),
-                            SizedBox(width: ScreenConstant.defaultWidthTwenty),
-                            Image.asset(Assets.curl5)
-                          ],
-                        ),
-                        // padding: ScreenConstant.spacingAllLarge,
-                        // margin: ScreenConstant.spacingAllLarge,
-                      )
-                    ],
-                  ),
-                ),
-                Positioned(
-                  right: 10,
-                  top: 10,
-                  child: GestureDetector(
-                    onTap: () => Get.back(),
-                    child: CircleAvatar(
-                      backgroundColor: AppColors.colorCloseLight,
-                      radius: 20,
-                      child: CircleAvatar(
-                          backgroundColor: AppColors.colorCloseLight,
-                          radius: 18,
-                          child: Icon(
-                            Icons.close,
-                            color: Colors.white,
-                            size: FontSize.s15,
-                          )),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+IBS-C: IBS with constipation. Common symptoms are stomach pain, bloating, abnormally delayed or infrequent bowel movements, or lumpy/hard stool.  
+
+IBS-D: IBS with diarrhea. This comes with stomach pain, an urgent need to move your bowels, abnormally frequent bowel movements, or loose/watery stool.  IBS-M: IBS with mixed bowel habits. Both constipation and diarrhea.  ''',
+    ));
+    //   Material(
+    //     type: MaterialType.transparency,
+    //     child: Column(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         Stack(
+    //           children: [
+    //             Container(
+    //               padding: EdgeInsets.symmetric(
+    //                   vertical: ScreenConstant.defaultHeightTwenty),
+    //               child: Column(
+    //                 mainAxisAlignment: MainAxisAlignment.center,
+    //                 children: [
+    //                   Container(
+    //                     decoration: BoxDecoration(
+    //                       color: Colors.white,
+    //                       borderRadius: BorderRadius.only(
+    //                           topLeft: Radius.circular(16),
+    //                           topRight: Radius.circular(16)),
+    //                     ),
+    //                     height: ScreenConstant.screenHeightHalf * 1.5,
+    //                     margin: EdgeInsets.symmetric(
+    //                         horizontal: ScreenConstant.defaultWidthTwenty),
+    //                     child: Column(
+    //                       crossAxisAlignment: CrossAxisAlignment.start,
+    //                       mainAxisAlignment: MainAxisAlignment.start,
+    //                       children: [
+    //                         Padding(
+    //                           padding: ScreenConstant.spacingAllLarge,
+    //                           child: Text("Sub Types of IBS",
+    //                               textAlign: TextAlign.start,
+    //                               style: TextStyles.textStyleIntroDescription
+    //                                   .apply(color: Colors.black87)),
+    //                         ),
+    //                         SizedBox(
+    //                             height: ScreenConstant.defaultHeightFifteen),
+    //                         Padding(
+    //                           padding: EdgeInsets.symmetric(
+    //                               horizontal:
+    //                                   ScreenConstant.defaultWidthTwenty),
+    //                           child: Text(
+    //                               '''There are four sub-types of IBS. The sub- types are determined by the frequency and consistency of your stool.  IBS-C: IBS with constipation. Common symptoms are stomach pain, bloating, abnormally delayed or infrequent bowel movements, or lumpy/hard stool.  IBS-D: IBS with diarrhea. This comes with stomach pain, an urgent need to move your bowels, abnormally frequent bowel movements, or loose/watery stool.  IBS-M: IBS with mixed bowel habits. Both constipation and diarrhea.  IBS-U: This is an undefined subtype associated with symptoms that vary.  There are about an equal number of people ''',
+    //                               textAlign: TextAlign.start,
+    //                               style: TextStyles.textStyleRegular.apply(
+    //                                   color: AppColors.colorDialogDescription)),
+    //                         ),
+    //                       ],
+    //                     ),
+    //                   ),
+    //                   Container(
+    //                     height: ScreenConstant.screenHeightTwelve,
+    //                     margin: EdgeInsets.symmetric(
+    //                         horizontal: ScreenConstant.defaultWidthTwenty),
+
+    //                     decoration: BoxDecoration(
+    //                       borderRadius: BorderRadius.only(
+    //                           bottomLeft: Radius.circular(16),
+    //                           bottomRight: Radius.circular(16)),
+    //                       color: AppColors.colorBackground,
+    //                     ),
+    //                     child: Row(
+    //                       children: [
+    //                         Image.asset(Assets.curl6),
+    //                         SizedBox(width: ScreenConstant.defaultWidthTwenty),
+    //                         Image.asset(Assets.curl5)
+    //                       ],
+    //                     ),
+    //                     // padding: ScreenConstant.spacingAllLarge,
+    //                     // margin: ScreenConstant.spacingAllLarge,
+    //                   )
+    //                 ],
+    //               ),
+    //             ),
+    //             Positioned(
+    //               right: 10,
+    //               top: 10,
+    //               child: GestureDetector(
+    //                 onTap: () => Get.back(),
+    //                 child: CircleAvatar(
+    //                   backgroundColor: AppColors.colorCloseLight,
+    //                   radius: 20,
+    //                   child: CircleAvatar(
+    //                       backgroundColor: AppColors.colorCloseLight,
+    //                       radius: 18,
+    //                       child: Icon(
+    //                         Icons.close,
+    //                         color: Colors.white,
+    //                         size: FontSize.s15,
+    //                       )),
+    //                 ),
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 
   Widget _buildCircleAvatar() {

@@ -4,6 +4,7 @@ import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/BottomWidget.dart';
 import 'package:flutter_ibs/widget/CustomCheckBox.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/HeaderCard.dart';
@@ -27,43 +28,67 @@ class SignupStep1 extends StatelessWidget {
             style: TextStyles.appBarTitle,
           ),
         ),
-        bottomNavigationBar: Container(
-          padding: ScreenConstant.spacingAllLarge,
-          color: Colors.white,
-          child: CustomElevatedButton(
-            widthFactor: 0.8,
-            text: "Next",
-            onTap: () {
-              Get.toNamed(signup2);
-            },
-          ),
-        ),
-        body: ListView(
-          physics: ClampingScrollPhysics(),
-          padding: ScreenConstant.spacingAllLarge,
+        // bottomNavigationBar: Container(
+        //   padding: ScreenConstant.spacingAllLarge,
+        //   color: Colors.white,
+        //   child: CustomElevatedButton(
+        //     widthFactor: 0.8,
+        //     text: "Next",
+        //     onTap: () {
+        //       Get.toNamed(signup2);
+        //     },
+        //   ),
+        // ),
+        body: Stack(
           children: [
-            _buildAboutYourself(),
-            SizedBox(height: ScreenConstant.defaultHeightFifteen),
-            _buildGenderCard(),
-            SizedBox(height: ScreenConstant.defaultHeightFifteen),
-            _buildAgeCard(),
-            SizedBox(height: ScreenConstant.defaultHeightFifteen),
-            _buildFamilyIBSHistory()
+            ListView(
+              physics: ClampingScrollPhysics(),
+              padding: ScreenConstant.spacingAllLarge,
+              children: [
+                _buildAboutYourself(),
+                SizedBox(height: ScreenConstant.defaultHeightFifteen),
+                _buildGenderCard(),
+                SizedBox(height: ScreenConstant.defaultHeightFifteen),
+                _buildAgeCard(),
+                SizedBox(height: ScreenConstant.defaultHeightFifteen),
+                _buildFamilyIBSHistory(),
+                SizedBox(height: ScreenConstant.defaultHeightOneHundred),
+              ],
+            ),
+            BottomWidget(
+                onContinueTap: () => Get.toNamed(signup2),
+                onCircleTap: () => Get.toNamed(signup2))
           ],
         ));
   }
 
   _buildAboutYourself() {
-    return Column(
+    return Stack(
       children: [
-        SizedBox(height: ScreenConstant.defaultHeightTwenty),
-        HeaderCard(
-          height: ScreenConstant.defaultHeightTwoHundred,
-          imageText: Assets.ask_emoji,
-          title: "Tell us a bit about yourself",
-          description:
-              "IBS can impact people differently. Sex, age and family history can play a role in ibs",
-        )
+        AspectRatio(aspectRatio: 1.6, child: Image.asset(Assets.signupBg1)),
+        Positioned(
+            bottom: ScreenConstant.defaultHeightSixty,
+            left: ScreenConstant.sizeXXXL,
+            right: ScreenConstant.sizeXXXL,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  "Tell us a bit about yourself",
+                  style: TextStyles.textStyleIntroDescription
+                      .apply(color: Colors.white, fontSizeDelta: -3),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: ScreenConstant.sizeDefault),
+                Text(
+                  "IBS can impact people differently. Sex, age and family history can play a role in IBS",
+                  style: TextStyles.textStyleRegular
+                      .apply(color: Colors.white, fontSizeDelta: -1),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ))
       ],
     );
   }

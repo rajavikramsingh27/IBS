@@ -69,6 +69,12 @@ class DummyData {
     IbsModel(title: "IBS - M", description: "(Mixed)"),
     IbsModel(title: "IBS - U", description: "(Untyped)"),
   ];
+  static List<IbsModel> iBsTypeReference = [
+    IbsModel(title: "Constipated (Types 1 and 2)"),
+    IbsModel(title: "Diarrhea (Types 6 and 7)"),
+    IbsModel(title: "Normal (Types 3 and 4)"),
+    IbsModel(title: "Constipated and Diarrhea")
+  ];
 }
 
 class IBSTypeModel {
