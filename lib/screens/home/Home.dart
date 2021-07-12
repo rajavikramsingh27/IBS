@@ -6,144 +6,203 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/BottomTabPainter.dart';
 import 'package:get/get.dart';
 
 class Home extends StatelessWidget {
   final _controller = Get.put(HomeController());
+  
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: AppColors.colorHomeBg,
-      appBar: AppBar(
-        centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-                icon: Icon(
-                  Icons.arrow_back_ios_outlined,
-                  color: AppColors.colorButton,
-                ),
-                onPressed: () {
-                  _datePicker();
-                }),
-            // SizedBox(width: ScreenConstant.defaultWidthTen),
-            Text(
-              "fdgdfg",
-              style: TextStyles.appBarTitle,
-            ),
-            IconButton(
-                icon: Icon(Icons.arrow_forward_ios_outlined,
-                    color: AppColors.colorButton),
-                onPressed: () {
-                  _datePicker();
-                }),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(ScreenConstant.defaultHeightTwoHundred),
+        child: AppBar(
+          flexibleSpace: Image.asset(
+            Assets.morning,
+            fit: BoxFit.fill,
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios_outlined,
+                    color: AppColors.colorButton,
+                  ),
+                  onPressed: () {
+                    _datePicker();
+                  }),
+              // SizedBox(width: ScreenConstant.defaultWidthTen),
+              Text(
+                "fdgdfg",
+                style: TextStyles.appBarTitle,
+              ),
+              IconButton(
+                  icon: Icon(Icons.arrow_forward_ios_outlined,
+                      color: AppColors.colorButton),
+                  onPressed: () {
+                    _datePicker();
+                  }),
+            ],
+          ),
+          elevation: 0,
+          backgroundColor: Colors.white,
+          actions: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: ScreenConstant.defaultWidthTwenty),
+              child: Image.asset(
+                Assets.settings,
+                width: ScreenConstant.defaultWidthTwenty,
+              ),
+            )
           ],
+          automaticallyImplyLeading: false,
         ),
-        elevation: 0,
-        backgroundColor: Colors.white,
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTwenty),
-            child: Image.asset(
-              Assets.settings,
-              width: ScreenConstant.defaultWidthTwenty,
-            ),
-          )
-        ],
       ),
-      bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-              height: ScreenConstant.defaultHeightNinety,
-              child: Card(
-                elevation: 0,
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24)),
-                child: Wrap(
-                    direction: Axis.horizontal,
-                    alignment: WrapAlignment.spaceAround,
-                    runAlignment: WrapAlignment.spaceAround,
-                    children: [
-                      Column(
-                        children: [
-                          Image.asset(
-                            Assets.treatPlans,
-                            fit: BoxFit.fill,
-                            width: ScreenConstant.defaultWidthTen * 1.5,
-                          ),
-                          SizedBox(height: ScreenConstant.defaultHeightTen),
-                          Text(
-                            "Treatment \nPlans",
-                            style: TextStyles.textStylebottom,
-                            textAlign: TextAlign.center,
-                          )
-                        ],
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        child: Column(
-                          children: [
-                            Image.asset(Assets.report,
-                                fit: BoxFit.fill,
-                                width: ScreenConstant.defaultWidthTen * 1.8),
-                            SizedBox(height: ScreenConstant.defaultHeightTen),
-                            Text(
-                              "Reports",
-                              style: TextStyles.textStylebottom,
-                            )
-                          ],
-                        ),
-                      ),
-                      Column(
-                        children: [
-                          Image.asset(Assets.track,
-                              fit: BoxFit.fill,
-                              width: ScreenConstant.defaultWidthTen * 1.8),
-                          SizedBox(height: ScreenConstant.defaultHeightTen),
-                          Text(
-                            "Track",
-                            style: TextStyles.textStylebottom,
-                          )
-                        ],
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        child: Column(children: [
-                          Image.asset(Assets.resources,
-                              fit: BoxFit.fill,
-                              width: ScreenConstant.defaultWidthTwenty),
-                          SizedBox(height: ScreenConstant.defaultHeightTen),
-                          Text(
-                            "Resources",
-                            style: TextStyles.textStylebottom,
-                          )
-                        ]),
-                      ),
-                      Column(children: [
-                        Image.asset(Assets.profile,
-                            fit: BoxFit.fill,
-                            width: ScreenConstant.defaultWidthTwenty),
-                        SizedBox(height: ScreenConstant.defaultHeightTen),
-                        Text(
-                          "My IBS",
-                          style: TextStyles.textStylebottom,
-                        )
-                      ])
-                    ]),
-              ))),
-      body: ListView(
-        padding: ScreenConstant.spacingAllLarge,
+
+      // bottomNavigationBar: Padding(
+      //     padding: const EdgeInsets.all(8.0),
+      //     child: SizedBox(
+      //         height: ScreenConstant.defaultHeightNinety,
+      //         child: Card(
+      //           elevation: 0,
+      //           color: Colors.white,
+      //           shape: RoundedRectangleBorder(
+      //               borderRadius: BorderRadius.circular(24)),
+      //           child: Wrap(
+      //               direction: Axis.horizontal,
+      //               alignment: WrapAlignment.spaceAround,
+      //               runAlignment: WrapAlignment.spaceAround,
+      //               children: [
+      //                 Column(
+      //                   children: [
+      //                     Image.asset(
+      //                       Assets.treatPlans,
+      //                       fit: BoxFit.fill,
+      //                       width: ScreenConstant.defaultWidthTen * 1.5,
+      //                     ),
+      //                     SizedBox(height: ScreenConstant.defaultHeightTen),
+      //                     Text(
+      //                       "Treatment \nPlans",
+      //                       style: TextStyles.textStylebottom,
+      //                       textAlign: TextAlign.center,
+      //                     )
+      //                   ],
+      //                 ),
+      //                 InkWell(
+      //                   onTap: () {},
+      //                   child: Column(
+      //                     children: [
+      //                       Image.asset(Assets.report,
+      //                           fit: BoxFit.fill,
+      //                           width: ScreenConstant.defaultWidthTen * 1.8),
+      //                       SizedBox(height: ScreenConstant.defaultHeightTen),
+      //                       Text(
+      //                         "Reports",
+      //                         style: TextStyles.textStylebottom,
+      //                       )
+      //                     ],
+      //                   ),
+      //                 ),
+      //                 Column(
+      //                   children: [
+      //                     Image.asset(Assets.track,
+      //                         fit: BoxFit.fill,
+      //                         width: ScreenConstant.defaultWidthTen * 1.8),
+      //                     SizedBox(height: ScreenConstant.defaultHeightTen),
+      //                     Text(
+      //                       "Track",
+      //                       style: TextStyles.textStylebottom,
+      //                     )
+      //                   ],
+      //                 ),
+      //                 InkWell(
+      //                   onTap: () {},
+      //                   child: Column(children: [
+      //                     Image.asset(Assets.resources,
+      //                         fit: BoxFit.fill,
+      //                         width: ScreenConstant.defaultWidthTwenty),
+      //                     SizedBox(height: ScreenConstant.defaultHeightTen),
+      //                     Text(
+      //                       "Resources",
+      //                       style: TextStyles.textStylebottom,
+      //                     )
+      //                   ]),
+      //                 ),
+      //                 Column(children: [
+      //                   Image.asset(Assets.profile,
+      //                       fit: BoxFit.fill,
+      //                       width: ScreenConstant.defaultWidthTwenty),
+      //                   SizedBox(height: ScreenConstant.defaultHeightTen),
+      //                   Text(
+      //                     "My IBS",
+      //                     style: TextStyles.textStylebottom,
+      //                   )
+      //                 ])
+      //               ]),
+      //         ))),
+      body: Stack(
         children: [
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
-          _buildTrackAndLogBar(),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-          Obx(() => _controller.selectedDailyLogin.value
-              ? _buildDailyLogList()
-              : _buildTrackList())
+          // Positioned(
+          //   top: 0,
+          //   left: 0,
+          //   right: 0,
+          //   child: CustomPaint(
+          //       painter: BottomTabPainter(),
+          //       size: Size(Get.context.mediaQuerySize.width,
+          //           Get.context.mediaQuerySize.height * 0.15)),
+          // ),
+          Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            margin: EdgeInsets.zero,
+            clipBehavior: Clip.antiAlias,
+            child: ListView(
+              physics: ClampingScrollPhysics(),
+              padding: ScreenConstant.spacingAllLarge,
+              children: [
+                SizedBox(height: ScreenConstant.defaultHeightFifteen),
+                _buildTrackAndLogBar(),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                Obx(() => _controller.selectedDailyLogin.value
+                    ? _buildDailyLogList()
+                    : _buildTrackList()),
+                SizedBox(height: ScreenConstant.defaultHeightOneHundred),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: CustomPaint(
+                painter: BottomTabPainter(),
+                size: Size(Get.context.mediaQuerySize.width,
+                    Get.context.mediaQuerySize.height * 0.15)),
+          ),
+          Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Wrap(
+                  direction: Axis.horizontal,
+                  alignment: WrapAlignment.spaceAround,
+                  runAlignment: WrapAlignment.spaceAround,
+                  children: [
+                    _buildTabItem(
+                        title: "Treatment\nPlans",
+                        imageText: Assets.treatPlans),
+                    _buildTabItem(title: "Reports", imageText: Assets.report),
+                    _buildMiddleTabItem(),
+                    _buildTabItem(
+                        title: "Resources", imageText: Assets.resources),
+                    _buildTabItem(title: "My IBS", imageText: Assets.profile),
+                  ]))
         ],
       ),
     );
@@ -154,16 +213,16 @@ class Home extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(4),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
-              color: Colors.white,
-            ),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    bottomLeft: Radius.circular(8)),
+                color: AppColors.colorHomeTabBg),
             child: Container(
               height: ScreenConstant.defaultHeightForty * 1.2,
               width: ScreenConstant.defaultWidthOneSeventy,
               decoration: BoxDecoration(
                 color: _controller.selectedDailyLogin.value
-                    ? Colors.white
+                    ? AppColors.colorHomeTabBg
                     : AppColors.colorButton,
                 borderRadius: BorderRadius.all(
                   Radius.circular(8.0),
@@ -197,7 +256,7 @@ class Home extends StatelessWidget {
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(8),
                   bottomRight: Radius.circular(8)),
-              color: Colors.white,
+              color: AppColors.colorHomeTabBg,
             ),
             child: Container(
               height: ScreenConstant.defaultHeightForty * 1.2,
@@ -205,7 +264,7 @@ class Home extends StatelessWidget {
               decoration: BoxDecoration(
                 color: _controller.selectedDailyLogin.value
                     ? AppColors.colorButton
-                    : Colors.white,
+                    : AppColors.colorHomeTabBg,
                 borderRadius: BorderRadius.all(
                   Radius.circular(8.0),
                 ),
@@ -240,29 +299,36 @@ class Home extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         var model = DummyData.trackFlow[index];
         return GestureDetector(
-          onTap: () =>_navigateToScreen(index),
+          onTap: () => _navigateToScreen(index),
           child: Container(
             height: ScreenConstant.defaultHeightSeventy,
+            padding: ScreenConstant.spacingAllDefault,
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(12)),
             child: Row(
               children: [
                 Container(
-                  padding: ScreenConstant.spacingAllLarge,
+                  padding: ScreenConstant.spacingAllDefault,
                   height: ScreenConstant.defaultHeightSeventy,
                   decoration: BoxDecoration(
-                      color: AppColors.colorYesButton,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          bottomLeft: Radius.circular(12),
-                          topRight: Radius.circular(20),
-                          bottomRight: Radius.circular(20))),
-                  child: Image.asset(model.image),
+                      color: AppColors.colorArrowButton.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(50)),
+                  child: Image.asset(
+                    model.image,
+                    color: AppColors.colorArrowButton,
+                  ),
                 ),
                 SizedBox(width: ScreenConstant.defaultWidthTen),
                 Text(model.text,
                     style: TextStyles.textStyleRegular
-                        .apply(fontSizeDelta: 2, color: Colors.black))
+                        .apply(fontSizeDelta: 2, color: Colors.black)),
+                Spacer(),
+                Icon(
+                  Icons.arrow_forward_ios_outlined,
+                  color: AppColors.colorArrowButton,
+                  size: FontSize.s12,
+                ),
+                SizedBox(width: ScreenConstant.defaultWidthTen),
               ],
             ),
           ),
@@ -352,9 +418,63 @@ class Home extends StatelessWidget {
       case 0:
         return Get.toNamed(symptoms);
         break;
-     
+
       default:
-        return ;
+        return;
     }
+  }
+
+  Widget _buildTabItem({
+    String title,
+    String imageText,
+    int index,
+    ValueChanged<int> onPressed,
+  }) {
+    Color color = _controller.selectedIndex.value == index
+        ? AppColors.colorArrowButton
+        : AppColors.colorBackground;
+    return InkWell(
+      onTap: () => onPressed(index),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Image.asset(
+            imageText,
+            fit: BoxFit.fill,
+            width: ScreenConstant.defaultWidthTen * 1.5,
+          ),
+          SizedBox(height: ScreenConstant.defaultHeightTen),
+          Text(
+            title,
+            style: TextStyles.textStylebottom,
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMiddleTabItem() {
+    return CircleAvatar(
+      radius: 30,
+      backgroundColor: AppColors.colorArrowButton,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Image.asset(
+            Assets.track,
+            fit: BoxFit.fill,
+            width: ScreenConstant.defaultWidthTen * 1.5,
+          ),
+          SizedBox(height: ScreenConstant.defaultHeightTen),
+          Text(
+            "Track",
+            style: TextStyles.textStylebottom.apply(color: Colors.white),
+          ),
+        ],
+      ),
+    );
   }
 }

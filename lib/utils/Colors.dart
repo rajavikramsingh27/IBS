@@ -49,8 +49,10 @@ class AppColors {
   static const Color colorSkipButton = const Color(0xFFD5C9E1);
   static const Color colorArrowButton = const Color(0xFFD43169);
   
+  static const Color colorHomeTabBg = const Color(0xFFF1EFF8);
 
 
-  
+
+
   static const Color colorHomeBg = const Color(0xFFEFF3FF);
 }

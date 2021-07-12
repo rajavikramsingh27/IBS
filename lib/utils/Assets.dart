@@ -10,8 +10,6 @@ class Assets {
   static const String myProfile4 = "$baseImage/my_profile/myProfile4.png";
   static const String myProfile5 = "$baseImage/my_profile/myProfile5.png";
 
-
-
 //ibs type
   static const String ibTypeC = "$baseImage/ibs_type/constipation.png";
   static const String ibTypeD = "$baseImage/ibs_type/diarrhea.png";
@@ -21,7 +19,6 @@ class Assets {
   static const String curl4 = "$baseImage/ibs_type/curl4.png";
   static const String ibstype = "$baseImage/ibs_type/ibstype.png";
   static const String ibs = "$baseImage/ibs_type/ibs.png";
-
 
 //stool chart
   static const String hard_lump =
@@ -50,12 +47,9 @@ class Assets {
   static const String signupBg1 = "$baseImage/signup/signupBg1.png";
   static const String signupBg2 = "$baseImage/signup/signupBg2.png";
 
-
 //track
   static const String clock = "$baseImage/track/clock.png";
   static const String symptomsBg = "$baseImage/track/symptomsBg.png";
-
-
 
 // home
   static const String settings = "$baseImage/home/settings.png";
@@ -70,6 +64,10 @@ class Assets {
   static const String resources = "$baseImage/home/resources.png";
   static const String track = "$baseImage/home/track.png";
   static const String treatPlans = "$baseImage/home/treatPlans.png";
+  static const String morning = "$baseImage/home/morning.png";
+  static const String evening = "$baseImage/home/evening.png";
+  static const String afternoon = "$baseImage/home/afternoon.png";
+  static const String night = "$baseImage/home/night.png";
 
   static const String logout = "assets/images/logout.png";
 

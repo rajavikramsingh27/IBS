@@ -5,6 +5,8 @@ class HomeController extends GetxController {
 
   RxInt currentIndex = 0.obs;
 
+  RxInt selectedIndex = 0.obs;
+
   onTapped(int index) async {
     currentIndex.value = index;
   }
