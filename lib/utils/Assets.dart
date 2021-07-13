@@ -68,6 +68,8 @@ class Assets {
   static const String evening = "$baseImage/home/evening.png";
   static const String afternoon = "$baseImage/home/afternoon.png";
   static const String night = "$baseImage/home/night.png";
+  static const String edit = "$baseImage/home/edit.png";
+
 
   static const String logout = "assets/images/logout.png";
 

@@ -50,7 +50,10 @@ class AppColors {
   static const Color colorArrowButton = const Color(0xFFD43169);
   
   static const Color colorHomeTabBg = const Color(0xFFF1EFF8);
+  static const Color colorHomeCard = const Color(0xFFD46161);
 
+  static const Color colorTrackButton = const Color(0xFF4E369A);
+  static const Color colorTracBg = const Color(0xFFF9F8FF);
 
 
 

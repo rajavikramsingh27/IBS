@@ -11,20 +11,67 @@ import 'package:get/get.dart';
 
 class Home extends StatelessWidget {
   final _controller = Get.put(HomeController());
-  
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: AppColors.colorHomeBg,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(ScreenConstant.defaultHeightTwoHundred),
         child: AppBar(
-          flexibleSpace: Image.asset(
-            Assets.morning,
-            fit: BoxFit.fill,
+          flexibleSpace: Stack(
+            fit: StackFit.expand,
+            children: [
+              // (_controller.formattedTime.value >= 5 &&
+              //         _controller.formattedTime.value < 12)
+              //     ?
+              Image.asset(
+                (_controller.formattedTime.value >= 5 &&
+                        _controller.formattedTime.value < 12)
+                    ? Assets.morning
+                    : (_controller.formattedTime.value >= 12 &&
+                            _controller.formattedTime.value < 18)
+                        ? Assets.afternoon
+                        : (_controller.formattedTime.value >= 18 &&
+                                _controller.formattedTime.value < 22)
+                            ? Assets.evening
+                            : Assets.night,
+                fit: BoxFit.fill,
+              ),
+              // : Image.asset(
+              //     Assets.afternoon,
+              //     fit: BoxFit.fill,
+              //   ),
+              Positioned(
+                  bottom: ScreenConstant.defaultHeightTwenty,
+                  left: ScreenConstant.defaultWidthTwenty,
+                  child: Container(
+                    padding: ScreenConstant.spacingAllDefault,
+                    decoration: BoxDecoration(
+                      color: AppColors.colorHomeCard,
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(16),
+                          bottomLeft: Radius.circular(16),
+                          bottomRight: Radius.circular(16)),
+                    ),
+                    child: Text(
+                      (_controller.formattedTime.value >= 5 &&
+                              _controller.formattedTime.value < 12)
+                          ? "Good Morning"
+                          : (_controller.formattedTime.value >= 12 &&
+                                  _controller.formattedTime.value < 18)
+                              ? "Good Afternoon"
+                              : (_controller.formattedTime.value >= 18 &&
+                                      _controller.formattedTime.value < 22)
+                                  ? "Good Evening"
+                                  : "Good Night",
+                      style: TextStyles.textStyleIntroDescription
+                          .apply(fontSizeDelta: -4, color: Colors.white),
+                    ),
+                  ))
+            ],
           ),
+          centerTitle: true,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -162,6 +209,7 @@ class Home extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             margin: EdgeInsets.zero,
             clipBehavior: Clip.antiAlias,
+            color: AppColors.colorTracBg,
             child: ListView(
               physics: ClampingScrollPhysics(),
               padding: ScreenConstant.spacingAllLarge,
@@ -180,29 +228,51 @@ class Home extends StatelessWidget {
             bottom: 0,
             left: 0,
             right: 0,
-            child: CustomPaint(
-                painter: BottomTabPainter(),
-                size: Size(Get.context.mediaQuerySize.width,
-                    Get.context.mediaQuerySize.height * 0.15)),
+            child: Container(
+              width: context.mediaQuerySize.width,
+              height: Get.context.mediaQuerySize.height * 0.13,
+              child: Stack(
+                children: [
+                  CustomPaint(
+                      painter: BottomTabPainter(),
+                      size: Size(Get.context.mediaQuerySize.width,
+                          Get.context.mediaQuerySize.height * 0.13)),
+                  Center(
+                      heightFactor: 1.5,
+                      child: FloatingActionButton(
+                        onPressed: () {},
+                        child: _buildMiddleTabItem(),
+                      )),
+                  Positioned(
+                    bottom: 0, right: 0, left: 0,
+                    // height: Get.context.mediaQuerySize.height * 0.12,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenConstant.defaultHeightTen),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.ideographic,
+                          children: [
+                            _buildTabItem(
+                                title: "Treatment\nPlans",
+                                imageText: Assets.treatPlans),
+                            _buildTabItem(
+                                title: "Reports", imageText: Assets.report),
+                            Container(
+                                width: context.mediaQuerySize.width * 0.13),
+                            _buildTabItem(
+                                title: "Resources",
+                                imageText: Assets.resources),
+                            _buildTabItem(
+                                title: "My IBS", imageText: Assets.profile),
+                          ]),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
-          Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Wrap(
-                  direction: Axis.horizontal,
-                  alignment: WrapAlignment.spaceAround,
-                  runAlignment: WrapAlignment.spaceAround,
-                  children: [
-                    _buildTabItem(
-                        title: "Treatment\nPlans",
-                        imageText: Assets.treatPlans),
-                    _buildTabItem(title: "Reports", imageText: Assets.report),
-                    _buildMiddleTabItem(),
-                    _buildTabItem(
-                        title: "Resources", imageText: Assets.resources),
-                    _buildTabItem(title: "My IBS", imageText: Assets.profile),
-                  ]))
         ],
       ),
     );
@@ -307,16 +377,17 @@ class Home extends StatelessWidget {
                 color: Colors.white, borderRadius: BorderRadius.circular(12)),
             child: Row(
               children: [
-                Container(
-                  padding: ScreenConstant.spacingAllDefault,
-                  height: ScreenConstant.defaultHeightSeventy,
-                  decoration: BoxDecoration(
-                      color: AppColors.colorArrowButton.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(50)),
-                  child: Image.asset(
-                    model.image,
-                    color: AppColors.colorArrowButton,
-                  ),
+                CircleAvatar(
+                  radius: 20,
+                  // padding: ScreenConstant.spacingAllMedium,
+                  // height: ScreenConstant.defaultHeightSeventy,
+                  // decoration: BoxDecoration(
+                      backgroundColor: AppColors.colorArrowButton.withOpacity(0.1),
+                      // borderRadius: BorderRadius.circular(50)),
+                  child: Image.asset(model.image,
+                      width: ScreenConstant.defaultWidthTwenty
+                      // color: AppColors.colorArrowButton,
+                      ),
                 ),
                 SizedBox(width: ScreenConstant.defaultWidthTen),
                 Text(model.text,
@@ -363,27 +434,48 @@ class Home extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             var model = DummyData.trackFlow[index];
             return Container(
-              height: ScreenConstant.defaultHeightSeventy,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  )),
-              child: Row(
-                children: [
-                  Container(
-                    padding: ScreenConstant.spacingAllLarge,
-                    height: ScreenConstant.defaultHeightSeventy,
-                    child: Image.asset(model.image,
-                        color: AppColors.colorYesButton),
-                  ),
-                  SizedBox(width: ScreenConstant.defaultWidthTen),
-                  Text(model.text,
-                      style: TextStyles.textStyleRegular
-                          .apply(fontSizeDelta: 2, color: Colors.black))
-                ],
-              ),
-            );
+                height: ScreenConstant.defaultHeightSeventy,
+                decoration: BoxDecoration(
+                  color: index.isEven ? AppColors.colorCardSeen : Colors.white,
+                  // borderRadius: BorderRadius.all(
+                  //   Radius.circular(12),
+                  // ),
+                ),
+                child: ListTile(
+                    dense: true,
+                    leading: Container(
+                      // padding: ScreenConstant.spacingAll,
+                      height: ScreenConstant.defaultHeightSeventy,
+                      child: Image.asset(
+                        model.image,
+                        width: ScreenConstant.defaultWidthTwenty,
+                      ),
+                    ),
+                    title: Text(model.text,
+                        style: TextStyles.textStyleRegular
+                            .apply(fontSizeDelta: 2, color: Colors.black)),
+                    subtitle: Text(model.text,
+                        style: TextStyles.textStyleRegular.apply(
+                            fontSizeDelta: -2,
+                            color: Colors.black.withOpacity(0.54))),
+                    trailing: Image.asset(Assets.edit,
+                        width: ScreenConstant.defaultWidthTen * 1.2))
+
+                // Row(
+                //   children: [
+                //     Container(
+                //       padding: ScreenConstant.spacingAllLarge,
+                //       height: ScreenConstant.defaultHeightSeventy,
+                //       child: Image.asset(model.image
+                //           ),
+                //     ),
+                //     SizedBox(width: ScreenConstant.defaultWidthTen),
+                //     Text(model.text,
+                //         style: TextStyles.textStyleRegular
+                //             .apply(fontSizeDelta: 2, color: Colors.black))
+                //   ],
+                // ),
+                );
           },
         ),
       ],
@@ -457,23 +549,27 @@ class Home extends StatelessWidget {
 
   Widget _buildMiddleTabItem() {
     return CircleAvatar(
-      radius: 30,
-      backgroundColor: AppColors.colorArrowButton,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image.asset(
-            Assets.track,
-            fit: BoxFit.fill,
-            width: ScreenConstant.defaultWidthTen * 1.5,
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightTen),
-          Text(
-            "Track",
-            style: TextStyles.textStylebottom.apply(color: Colors.white),
-          ),
-        ],
+      radius: 37,
+      backgroundColor: AppColors.colorTrackButton,
+      child: CircleAvatar(
+        radius: 30,
+        backgroundColor: AppColors.colorArrowButton,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(
+              Assets.track,
+              fit: BoxFit.fill,
+              width: ScreenConstant.defaultWidthTen * 1.5,
+            ),
+            SizedBox(height: ScreenConstant.defaultHeightTen),
+            Text(
+              "Track",
+              style: TextStyles.textStylebottom.apply(color: Colors.white),
+            ),
+          ],
+        ),
       ),
     );
   }

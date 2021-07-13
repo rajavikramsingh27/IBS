@@ -9,7 +9,7 @@ class Symptoms extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.colorBackground,
+      backgroundColor: Color(0xff1A103E).withOpacity(0.61),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.colorBackground,

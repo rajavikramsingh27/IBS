@@ -15,9 +15,9 @@ class BottomTabPainter extends CustomPainter {
     path.quadraticBezierTo(size.width * 0.0090, size.height * 0.26,
         size.width * 0.035, size.height * 0.25);
     path.cubicTo(size.width * 0.075, size.height * 0.25, size.width * 0.35,
-        size.height * 0.25, size.width * 0.40, size.height * 0.25);
+        size.height * 0.25, size.width * 0.42, size.height * 0.25);
     path.cubicTo(size.width * 0.45, size.height * 0.030, size.width * 0.55,
-        size.height * 0.025, size.width * 0.60, size.height * 0.25);
+        size.height * 0.025, size.width * 0.58, size.height * 0.25);
     path.cubicTo(size.width * 0.65, size.height * 0.25, size.width * 0.90,
         size.height * 0.25, size.width * 0.95, size.height * 0.25);
     path.quadraticBezierTo(
