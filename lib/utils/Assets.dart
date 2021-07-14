@@ -50,6 +50,21 @@ class Assets {
 //track
   static const String clock = "$baseImage/track/clock.png";
   static const String symptomsBg = "$baseImage/track/symptomsBg.png";
+  static const String burningSensation =
+      "$baseImage/track/burningSensation.png";
+  static const String clogged = "$baseImage/track/clogged.png";
+  static const String gassyGut = "$baseImage/track/gassyGut.png";
+  static const String gutWring = "$baseImage/track/gutWring.png";
+  static const String heavy_feeling = "$baseImage/track/heavy_feeling.png";
+  static const String nausea = "$baseImage/track/nausea.png";
+  static const String painrazors = "$baseImage/track/painrazors.png";
+  static const String punchStomach = "$baseImage/track/punch_stomach.png";
+  static const String rollingSensation =
+      "$baseImage/track/rollingSensation.png";
+  static const String sharpStabbing = "$baseImage/track/sharpStabbing.png";
+  static const String stomachKnots = "$baseImage/track/stomachKnots.png";
+  static const String volcanoInStomach =
+      "$baseImage/track/volcanoInStomach.png";
 
 // home
   static const String settings = "$baseImage/home/settings.png";
@@ -69,7 +84,6 @@ class Assets {
   static const String afternoon = "$baseImage/home/afternoon.png";
   static const String night = "$baseImage/home/night.png";
   static const String edit = "$baseImage/home/edit.png";
-
 
   static const String logout = "assets/images/logout.png";
 

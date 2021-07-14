@@ -28,6 +28,7 @@ dependencies:
   get: 
   http: 
   intl: 
+  syncfusion_flutter_sliders:
 
 dev_dependencies:
   flutter_test:

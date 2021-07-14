@@ -19,7 +19,6 @@ class AppColors {
 
   static const Color colorProfileBg = const Color(0xFFEFF3FF);
 
-
   static const Color colorBackground = const Color(0xFF49358B);
   static const Color colorBlue2 = const Color(0xFF513C97);
   static const Color colorBlue3 = const Color(0xFF57419E);
@@ -44,18 +43,26 @@ class AppColors {
   static const Color colordropdownArrowBg = const Color(0xFFF9F9FC);
 
   static const Color colorCardSeen = const Color(0xFFF8FAFF);
-  static const Color colorBottomNavText= const Color(0xFF6C6582);
+  static const Color colorBottomNavText = const Color(0xFF6C6582);
 
   static const Color colorSkipButton = const Color(0xFFD5C9E1);
   static const Color colorArrowButton = const Color(0xFFD43169);
-  
+
   static const Color colorHomeTabBg = const Color(0xFFF1EFF8);
   static const Color colorHomeCard = const Color(0xFFD46161);
 
   static const Color colorTrackButton = const Color(0xFF4E369A);
   static const Color colorTracBg = const Color(0xFFF9F8FF);
 
-
+  static const Color colorTrackSlider = const Color(0xFF9083B8);
 
   static const Color colorHomeBg = const Color(0xFFEFF3FF);
+  static const Color colorSymptomsGridBg = const Color(0xFF5B4997
+);
+
+
+
+
+
+  static const Color colorInactiveDividerSlider = const Color(0xFF4C398D);
 }

@@ -22,9 +22,6 @@ class Home extends StatelessWidget {
           flexibleSpace: Stack(
             fit: StackFit.expand,
             children: [
-              // (_controller.formattedTime.value >= 5 &&
-              //         _controller.formattedTime.value < 12)
-              //     ?
               Image.asset(
                 (_controller.formattedTime.value >= 5 &&
                         _controller.formattedTime.value < 12)
@@ -38,10 +35,6 @@ class Home extends StatelessWidget {
                             : Assets.night,
                 fit: BoxFit.fill,
               ),
-              // : Image.asset(
-              //     Assets.afternoon,
-              //     fit: BoxFit.fill,
-              //   ),
               Positioned(
                   bottom: ScreenConstant.defaultHeightTwenty,
                   left: ScreenConstant.defaultWidthTwenty,
@@ -83,7 +76,6 @@ class Home extends StatelessWidget {
                   onPressed: () {
                     _datePicker();
                   }),
-              // SizedBox(width: ScreenConstant.defaultWidthTen),
               Text(
                 "fdgdfg",
                 style: TextStyles.appBarTitle,
@@ -195,15 +187,6 @@ class Home extends StatelessWidget {
       //         ))),
       body: Stack(
         children: [
-          // Positioned(
-          //   top: 0,
-          //   left: 0,
-          //   right: 0,
-          //   child: CustomPaint(
-          //       painter: BottomTabPainter(),
-          //       size: Size(Get.context.mediaQuerySize.width,
-          //           Get.context.mediaQuerySize.height * 0.15)),
-          // ),
           Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -382,8 +365,8 @@ class Home extends StatelessWidget {
                   // padding: ScreenConstant.spacingAllMedium,
                   // height: ScreenConstant.defaultHeightSeventy,
                   // decoration: BoxDecoration(
-                      backgroundColor: AppColors.colorArrowButton.withOpacity(0.1),
-                      // borderRadius: BorderRadius.circular(50)),
+                  backgroundColor: AppColors.colorArrowButton.withOpacity(0.1),
+                  // borderRadius: BorderRadius.circular(50)),
                   child: Image.asset(model.image,
                       width: ScreenConstant.defaultWidthTwenty
                       // color: AppColors.colorArrowButton,

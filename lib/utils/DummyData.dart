@@ -75,6 +75,12 @@ class DummyData {
     IbsModel(title: "Normal (Types 3 and 4)"),
     IbsModel(title: "Constipated and Diarrhea")
   ];
+  static List<IBSTypeModel> symptoms = [
+    IBSTypeModel(text: "IBS - C (Constipation)", image: Assets.ibTypeC),
+    IBSTypeModel(text: "IBS - D (Diarrhea)", image: Assets.ibTypeD),
+    IBSTypeModel(text: "IBS - M (Mixed)", image: Assets.ibTypeM),
+    IBSTypeModel(text: "IBS - U (Untyped)", image: Assets.ibTypeU),
+  ];
 }
 
 class IBSTypeModel {
