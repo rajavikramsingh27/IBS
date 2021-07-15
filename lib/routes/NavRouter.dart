@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
 import 'package:flutter_ibs/screens/home/Home.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep1.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep2.dart';
@@ -54,6 +55,10 @@ class NavRouter {
     GetPage(
       name: symptoms,
       page: () => Symptoms(),
+    ),
+     GetPage(
+      name: bowel,
+      page: () => BowelMovement(),
     ),
   ];
 }

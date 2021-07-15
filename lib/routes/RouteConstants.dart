@@ -11,6 +11,8 @@ const String signup2 = '/signup2';
 const String signup3 = '/signup3';
 
 const String symptoms = '/symptoms';
+const String bowel = '/bowel';
+
 
 
 const String login = '/login';

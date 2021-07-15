@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class SymptomsController extends GetxController {
+class BowelMovementController extends GetxController {
   Rx<DateTime> now = DateTime.now().obs;
   RxDouble sliderValue = 1.0.obs;
   RxInt formattedTime = 0.obs;

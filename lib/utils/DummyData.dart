@@ -76,10 +76,19 @@ class DummyData {
     IbsModel(title: "Constipated and Diarrhea")
   ];
   static List<IBSTypeModel> symptoms = [
-    IBSTypeModel(text: "IBS - C (Constipation)", image: Assets.ibTypeC),
-    IBSTypeModel(text: "IBS - D (Diarrhea)", image: Assets.ibTypeD),
-    IBSTypeModel(text: "IBS - M (Mixed)", image: Assets.ibTypeM),
-    IBSTypeModel(text: "IBS - U (Untyped)", image: Assets.ibTypeU),
+    IBSTypeModel(text: "Gassy Gut", image: Assets.gassyGut),
+    IBSTypeModel(text: "Punch to the Stomach", image: Assets.punchStomach),
+    IBSTypeModel(text: "Heavy Feeling", image: Assets.heavy_feeling),
+    IBSTypeModel(text: "Clogged Up", image: Assets.clogged),
+    IBSTypeModel(
+        text: "Volcano in the Stomach", image: Assets.volcanoInStomach),
+    IBSTypeModel(text: "Pain like Razors", image: Assets.painrazors),
+    IBSTypeModel(text: "Burning Sensation", image: Assets.burningSensation),
+    IBSTypeModel(text: "Gut Wringing", image: Assets.gutWring),
+    IBSTypeModel(text: "Stomach in Knots", image: Assets.stomachKnots),
+    IBSTypeModel(text: "Sharp/Stabbing Pains", image: Assets.sharpStabbing),
+    IBSTypeModel(text: "Rolling Sensation", image: Assets.rollingSensation),
+    IBSTypeModel(text: "Nausea", image: Assets.nausea),
   ];
 }
 
