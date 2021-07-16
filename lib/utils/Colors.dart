@@ -64,5 +64,6 @@ class AppColors {
 
 
 
+
   static const Color colorInactiveDividerSlider = const Color(0xFF4C398D);
 }

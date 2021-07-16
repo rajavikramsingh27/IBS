@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_ibs/controllers/bowel_movement/BowelMovementController.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
-import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/AdditionalNoteWidget.dart';
+import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
-import 'package:flutter_ibs/widget/CustomTextFormField%20.dart';
+import 'package:flutter_ibs/widget/CustomSwitch.dart';
+import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -43,270 +44,181 @@ class BowelMovement extends StatelessWidget {
         ),
       ),
       backgroundColor: Color(0xff1A103E).withOpacity(0.6),
-      body: Padding(
-        padding: EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
-        child: Stack(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty),
-              child: Card(
-                margin: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(24),
-                  topRight: Radius.circular(24),
-                )),
-                child: ListView(
-                  children: [
-                    SizedBox(height: ScreenConstant.defaultHeightForty),
-                    Text(
-                      "Track Bowel Movement",
-                      style: TextStyles.textStyleIntroDescription
-                          .apply(color: Colors.black, fontSizeDelta: -2),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: ScreenConstant.defaultHeightForty),
-                    _buildDateTimeCard(),
-                    SizedBox(height: ScreenConstant.defaultHeightForty * 1.25),
-                    Text(
-                      "What does your poop look like?",
-                      style: TextStyles.textStyleIntroDescription
-                          .apply(color: Colors.black, fontSizeDelta: -2),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.5),
-                    Center(
-                      child: Stack(
-                        children: [
-                          Image.asset(
-                            Assets.hard_lump,
-                            width: ScreenConstant.defaultWidthOneHundredSeven,
-                            height: ScreenConstant.defaultHeightOneHundred,
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            left: ScreenConstant.defaultWidthTwenty,
-                            right: ScreenConstant.defaultWidthTwenty,
-                            child: Container(
-                              height: ScreenConstant.defaultHeightTwenty,
-                              width: ScreenConstant.sizeXXXL,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: AppColors.colorButton,
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: ScreenConstant.sizeExtraSmall,
-                                  vertical: 1),
-                              child: FittedBox(
-                                fit: BoxFit.contain,
-                                child: Text("Type 1",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyles.textStyleIntroDescription
-                                        .apply(
-                                            color: Colors.white,
-                                            fontSizeDelta: -9)),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: ScreenConstant.sizeMedium),
-                    Text("Separate hard lumps, like nuts ",
-                        textAlign: TextAlign.center,
-                        style: TextStyles.textStyleRegular),
-                    SizedBox(height: ScreenConstant.sizeMedium),
-                    _buildSlider(),
-                    SizedBox(height: ScreenConstant.defaultHeightForty),
-                    Text("Additional Notes",
-                        textAlign: TextAlign.center,
-                        style: TextStyles.textStyleIntroDescription
-                            .apply(color: Colors.black, fontSizeDelta: -3)),
-                    Padding(
-                      padding: ScreenConstant.spacingAllMedium,
-                      child: TextFormField(
-                        inputFormatters: <TextInputFormatter>[],
-                        readOnly: true,
-
-                        textInputAction: TextInputAction.newline,
-                        maxLines: 4,
-                        minLines: 4,
-                        // maxLength: 100,
-                        decoration: hintedInputDecoration(""),
-                      ),
-                    ),
-                    SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-                    Text(
-                      '''For best results track every time you\nexperience a symptom.\n\nClick “Save” to log your results.''',
-                      textAlign: TextAlign.center,
-                      style: TextStyles.textStyleRegular,
-                    ),
-                    SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-                    Stack(
+      body: ListView(
+        children: [
+          Padding(
+            padding:
+                EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
+            child: Stack(
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty),
+                  child: Card(
+                    margin: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(24),
+                      topRight: Radius.circular(24),
+                    )),
+                    child: Column(
                       children: [
-                        Positioned.fill(
-                          top: ScreenConstant.defaultHeightOneHundred,
-                          child: _buildWavePainter(),
+                        SizedBox(height: ScreenConstant.defaultHeightSixty),
+                        Text(
+                          "Track Bowel Movement",
+                          style: TextStyles.textStyleIntroDescription
+                              .apply(color: Colors.black, fontSizeDelta: -2),
+                          textAlign: TextAlign.center,
                         ),
-                        Container(
-                          margin: ScreenConstant.spacingAllMedium,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Column(
+                        SizedBox(height: ScreenConstant.defaultHeightForty),
+                        DateTimeCardWidget(),
+                        SizedBox(
+                            height: ScreenConstant.defaultHeightForty * 1.25),
+                        Text(
+                          "What does your poop look like?",
+                          style: TextStyles.textStyleIntroDescription
+                              .apply(color: Colors.black, fontSizeDelta: -2),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                            height: ScreenConstant.defaultHeightTwenty * 1.5),
+                        Center(
+                          child: Stack(
                             children: [
-                              _buildUrgency(),
-                              _buildColorPOrtion(),
-                              _buildRelief(),
+                              Image.asset(
+                                Assets.hard_lump,
+                                width:
+                                    ScreenConstant.defaultWidthOneHundredSeven,
+                                height: ScreenConstant.defaultHeightOneHundred,
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                left: ScreenConstant.defaultWidthTwenty,
+                                right: ScreenConstant.defaultWidthTwenty,
+                                child: Container(
+                                  height: ScreenConstant.defaultHeightTwenty,
+                                  width: ScreenConstant.sizeXXXL,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    color: AppColors.colorButton,
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: ScreenConstant.sizeExtraSmall,
+                                      vertical: 1),
+                                  child: FittedBox(
+                                    fit: BoxFit.contain,
+                                    child: Text("Type 1",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyles
+                                            .textStyleIntroDescription
+                                            .apply(
+                                                color: Colors.white,
+                                                fontSizeDelta: -9)),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
+                        SizedBox(height: ScreenConstant.sizeMedium),
+                        Text("Separate hard lumps, like nuts ",
+                            textAlign: TextAlign.center,
+                            style: TextStyles.textStyleRegular),
+                        SizedBox(height: ScreenConstant.sizeMedium),
+                        _buildBowelTypeSlider(),
+                        SizedBox(height: ScreenConstant.defaultHeightForty),
+                        Stack(
+                          children: [
+                            Positioned.fill(
+                              top: ScreenConstant.defaultHeightOneHundred,
+                              child: _buildWavePainter(),
+                            ),
+                            Container(
+                              margin: ScreenConstant.spacingAllMedium,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Column(
+                                children: [
+                                  _buildUrgency(),
+                                  _buildColorPOrtion(),
+                                  _buildRelief(),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        AdditionalNoteWidget(),
+                        SizedBox(
+                            height: ScreenConstant.defaultHeightTwentyThree),
                       ],
                     ),
-                     Text("Additional Notes",
-                        textAlign: TextAlign.center,
-                        style: TextStyles.textStyleIntroDescription
-                            .apply(color: Colors.black, fontSizeDelta: -3)),
-                    Padding(
-                      padding: ScreenConstant.spacingAllMedium,
-                      child: TextFormField(
-                        inputFormatters: <TextInputFormatter>[],
-                        readOnly: true,
-
-                        textInputAction: TextInputAction.newline,
-                        maxLines: 4,
-                        minLines: 4,
-                        // maxLength: 100,
-                        decoration: hintedInputDecoration(""),
-                      ),
-                    ),
-                    SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-
-                    Text(
-                      '''For best results track every time you\nexperience a symptom.\n\nClick “Save” to log your results.''',
-                      textAlign: TextAlign.center,
-                      style: TextStyles.textStyleRegular,
-                    ),
-                    SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-                  ],
+                  ),
                 ),
-              ),
+                Positioned(right: 0, left: 0, child: CustomArcPainter())
+              ],
             ),
-            _buildArrow()
-          ],
-        ),
-      ),
-    );
-  }
-
-  _buildArrow() {
-    return Positioned(
-      top: 0,
-      left: Get.context.mediaQuerySize.width / 2.2,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10.0),
-            topRight: Radius.circular(10.0),
-            bottomLeft: Radius.circular(10.0),
-            bottomRight: Radius.circular(10.0),
           ),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.colorYesButton.withOpacity(0.27),
-              offset: const Offset(
-                5.0,
-                2.0,
-              ),
-              blurRadius: 10.0,
-              spreadRadius: 10.0,
-            ),
-            BoxShadow(
-              color: AppColors.colorYesButton.withOpacity(0.27),
-              offset: const Offset(
-                -5.0,
-                -5.0,
-              ),
-              blurRadius: 10.0,
-              spreadRadius: 10.0,
-            ), //BoxShadow
-            //BoxShadow
-          ],
-        ),
-        child: CircleAvatar(
-          backgroundColor: AppColors.colorYesButton,
-          child: Icon(
-            Icons.keyboard_arrow_up_outlined,
-            color: Colors.white,
-          ),
-        ),
+        ],
       ),
     );
   }
 
-  _buildDateTimeCard() {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(38)),
-      margin:
-          EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthSixty),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Image.asset(
-              Assets.clock,
-              width: ScreenConstant.defaultWidthTen * 1.3,
-            ),
-            Text("3 pm EST", style: TextStyles.textStyleRegular),
-            CircleAvatar(
-              backgroundColor: AppColors.colorTextRegular,
-              radius: 1,
-            ),
-            Text("Monday, May 31", style: TextStyles.textStyleRegular),
-          ],
-        ),
-      ),
-    );
-  }
-
-  _buildSlider() {
+  _buildBowelTypeSlider() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
       child: SfSliderTheme(
         data: SfSliderThemeData(
-          thumbColor: AppColors.colorArrowButton,
-          thumbStrokeWidth: 5,
-          thumbRadius: 16,
-          thumbStrokeColor: Colors.white,
-          activeTrackHeight: 4,
-          overlayRadius: 0,
-          disabledActiveTrackColor: AppColors.colorTrackSlider,
-          disabledInactiveTrackColor: AppColors.colorTrackSlider,
-          activeDividerStrokeWidth: 2,
-          inactiveDividerStrokeWidth: 2,
-          inactiveTrackHeight: 4,
-          activeTrackColor: AppColors.colorTrackSlider,
-          inactiveTrackColor: AppColors.colorTrackSlider,
-          inactiveDividerStrokeColor: AppColors.white,
-          inactiveDividerRadius: 8,
-          inactiveDividerColor: AppColors.colorInactiveDividerSlider,
-          activeDividerColor: AppColors.colorInactiveDividerSlider,
-          activeDividerStrokeColor: Colors.white,
-          activeDividerRadius: 8,
-        ),
+            thumbColor: AppColors.colorArrowButton,
+            thumbStrokeWidth: 5,
+            thumbRadius: 16,
+            thumbStrokeColor: AppColors.colorBackground,
+            activeTrackHeight: 4,
+            overlayRadius: 0,
+            disabledActiveTrackColor: AppColors.colorTrackSlider,
+            disabledInactiveTrackColor: AppColors.colorTrackSlider,
+            activeDividerStrokeWidth: 2,
+            inactiveDividerStrokeWidth: 2,
+            inactiveTrackHeight: 4,
+            activeTrackColor: AppColors.colorTrackSlider,
+            inactiveTrackColor: AppColors.colorTrackSlider,
+            inactiveDividerStrokeColor: AppColors.colorTrackSlider,
+            inactiveDividerRadius: 8,
+            inactiveDividerColor: AppColors.white,
+            activeDividerColor: AppColors.white,
+            activeDividerStrokeColor: AppColors.colorTrackSlider,
+            activeDividerRadius: 8,
+            activeLabelStyle: TextStyles.textStyleRegular,
+            inactiveLabelStyle: TextStyles.textStyleRegular),
         child: Obx(
           () => SfSlider(
             showDividers: true,
             min: 1.0,
-            max: 4.0,
+            max: 7.0,
             interval: 1,
             stepSize: 1,
             showLabels: true,
+
+            labelFormatterCallback:
+                (dynamic actualValue, String formattedText) {
+              return actualValue == 1
+                  ? ' Type 1'
+                  : actualValue == 2
+                      ? "Type 2"
+                      : actualValue == 3
+                          ? "Type 3"
+                          : actualValue == 4
+                              ? "Type4"
+                              : actualValue == 5
+                                  ? "Type 5"
+                                  : actualValue == 6
+                                      ? " Type 6"
+                                      : "Type 7";
+            },
             value: _controller.sliderValue.value,
             onChanged: (dynamic newValue) {
               print("cahnged");
-              _controller.sliderValue.value = newValue;
+              // _controller.sliderValue.value = newValue;
             },
             // labelFormatterCallback: (String,newval){},
           ),
@@ -336,7 +248,7 @@ class BowelMovement extends StatelessWidget {
                   .apply(color: AppColors.colorSkipButton),
             ),
             SizedBox(height: ScreenConstant.defaultHeightTwenty),
-            _buildSlider(),
+            _buildUrgencySlider(),
           ],
         ),
       ),
@@ -361,11 +273,11 @@ class BowelMovement extends StatelessWidget {
                 radius: 20,
                 backgroundColor: Colors.black,
               ),
-               CircleAvatar(
+              CircleAvatar(
                 radius: 20,
                 backgroundColor: AppColors.colorArrowButton,
               ),
-               CircleAvatar(
+              CircleAvatar(
                 radius: 20,
                 backgroundColor: AppColors.colorBackground,
               )
@@ -403,14 +315,39 @@ class BowelMovement extends StatelessWidget {
                   .apply(color: AppColors.colorSkipButton),
             ),
             SizedBox(height: ScreenConstant.defaultHeightTwenty),
-            _buildSlider(),
+            _buildReliefSlider(),
+            SizedBox(height: ScreenConstant.defaultHeightTwenty),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Straining at defecation",
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: TextStyles.textStyleRegular
+                        .apply(color: Colors.black, fontSizeDelta: 2),
+                  ),
+                  Obx(
+                    () => CustomSwitch(
+                      value: _controller.switchValue.value,
+                      onChanged: (val) {
+                        _controller.switchValue.value = val;
+                      },
+                    ),
+                  )
+                ],
+              ),
+              margin: ScreenConstant.spacingAllLarge,
+              padding: ScreenConstant.spacingAllLarge,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16), color: Colors.white),
+            )
           ],
         ),
       ),
     );
   }
-
-  
 
   _buildWavePainter() {
     return Container(
@@ -424,44 +361,119 @@ class BowelMovement extends StatelessWidget {
     );
   }
 
- 
-
-  _buildSelector() {
-    return Container(
-      height: ScreenConstant.defaultHeightForty,
-      width: double.maxFinite,
-      margin: EdgeInsets.only(
-          left: ScreenConstant.defaultWidthTen * 1.5,
-          right: ScreenConstant.defaultWidthTen * 1.5,
-          bottom: ScreenConstant.defaultHeightTen * 1.5),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-      decoration: BoxDecoration(
-          color: AppColors.colordropdownArrowBg,
-          borderRadius: BorderRadius.all(Radius.circular(8))),
-      // dropdown below..
-      child: DropdownButton<String>(
-          isExpanded: true,
-          dropdownColor: AppColors.white,
-          value: "Less than 1 hour",
-          elevation: 30,
-          icon: Icon(
-            Icons.keyboard_arrow_down_outlined,
-            color: AppColors.colorBackground,
+  _buildUrgencySlider() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
+      child: SfSliderTheme(
+        data: SfSliderThemeData(
+          thumbColor: AppColors.colorArrowButton,
+          thumbStrokeWidth: 5,
+          thumbRadius: 16,
+          thumbStrokeColor: Colors.white,
+          activeTrackHeight: 4,
+          overlayRadius: 0,
+          disabledActiveTrackColor: AppColors.colorTrackSlider,
+          disabledInactiveTrackColor: AppColors.colorTrackSlider,
+          activeDividerStrokeWidth: 2,
+          inactiveDividerStrokeWidth: 2,
+          inactiveTrackHeight: 4,
+          activeTrackColor: AppColors.colorTrackSlider,
+          inactiveTrackColor: AppColors.colorTrackSlider,
+          inactiveDividerStrokeColor: AppColors.white,
+          inactiveDividerRadius: 8,
+          inactiveDividerColor: AppColors.colorInactiveDividerSlider,
+          activeDividerColor: AppColors.colorInactiveDividerSlider,
+          activeDividerStrokeColor: Colors.white,
+          activeDividerRadius: 8,
+          activeLabelStyle: TextStyles.textStyleRegular
+              .apply(color: AppColors.colorTrackSlider),
+          inactiveLabelStyle: TextStyles.textStyleRegular
+              .apply(color: AppColors.colorTrackSlider),
+        ),
+        child: Obx(
+          () => SfSlider(
+            showDividers: true,
+            min: 1.0,
+            max: 4.0,
+            interval: 1,
+            stepSize: 1,
+            showLabels: true,
+            value: _controller.sliderValue.value,
+            onChanged: (dynamic newValue) {
+              print("cahnged");
+              _controller.sliderValue.value = newValue;
+            },
+            labelFormatterCallback:
+                (dynamic actualValue, String formattedText) {
+              return actualValue == 1
+                  ? "Not at All"
+                  : actualValue == 2
+                      ? ""
+                      : actualValue == 3
+                          ? ""
+                          : "Extremely";
+            },
           ),
-          iconSize: 20,
-          underline: SizedBox(),
-          onChanged: (String newValue) {
-            // setState(() {
-            //   dropdownValue = newValue;
-            // });
-          },
-          items: <String>["Less than 1 hour", "2", "3", "4", "5", "more"]
-              .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value.toString(),
-              child: Text(value.toString(), style: TextStyles.textStyleRegular),
-            );
-          }).toList()),
+        ),
+      ),
+    );
+  }
+
+  _buildReliefSlider() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
+      child: SfSliderTheme(
+        data: SfSliderThemeData(
+          thumbColor: AppColors.colorArrowButton,
+          thumbStrokeWidth: 5,
+          thumbRadius: 16,
+          thumbStrokeColor: Colors.white,
+          activeTrackHeight: 4,
+          overlayRadius: 0,
+          disabledActiveTrackColor: AppColors.colorTrackSlider,
+          disabledInactiveTrackColor: AppColors.colorTrackSlider,
+          activeDividerStrokeWidth: 2,
+          inactiveDividerStrokeWidth: 2,
+          inactiveTrackHeight: 4,
+          activeTrackColor: AppColors.colorTrackSlider,
+          inactiveTrackColor: AppColors.colorTrackSlider,
+          inactiveDividerStrokeColor: AppColors.white,
+          inactiveDividerRadius: 8,
+          inactiveDividerColor: AppColors.colorInactiveDividerSlider,
+          activeDividerColor: AppColors.colorInactiveDividerSlider,
+          activeDividerStrokeColor: Colors.white,
+          activeDividerRadius: 8,
+          activeLabelStyle: TextStyles.textStyleRegular
+              .apply(color: AppColors.colorTrackSlider),
+          inactiveLabelStyle: TextStyles.textStyleRegular
+              .apply(color: AppColors.colorTrackSlider),
+        ),
+        child: Obx(
+          () => SfSlider(
+            showDividers: true,
+            min: 1.0,
+            max: 4.0,
+            interval: 1,
+            stepSize: 1,
+            showLabels: true,
+            value: _controller.sliderValue.value,
+            onChanged: (dynamic newValue) {
+              print("cahnged");
+              _controller.sliderValue.value = newValue;
+            },
+            labelFormatterCallback:
+                (dynamic actualValue, String formattedText) {
+              return actualValue == 1
+                  ? "Complete"
+                  : actualValue == 2
+                      ? ""
+                      : actualValue == 3
+                          ? ""
+                          : "No relief";
+            },
+          ),
+        ),
+      ),
     );
   }
 }

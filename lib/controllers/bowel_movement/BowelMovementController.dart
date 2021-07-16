@@ -7,7 +7,7 @@ class BowelMovementController extends GetxController {
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
 
-  RxInt selectedIndex = 0.obs;
+  RxBool switchValue = true.obs;
 
   onTapped(int index) async {
     currentIndex.value = index;
@@ -17,6 +17,5 @@ class BowelMovementController extends GetxController {
   void onInit() {
     super.onInit();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
-    
   }
 }
