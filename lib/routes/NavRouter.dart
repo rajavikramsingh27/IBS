@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
+import 'package:flutter_ibs/screens/health/Health.dart';
 import 'package:flutter_ibs/screens/home/Home.dart';
+import 'package:flutter_ibs/screens/medication/Medication.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep1.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep2.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep3.dart';
@@ -59,6 +60,14 @@ class NavRouter {
      GetPage(
       name: bowel,
       page: () => BowelMovement(),
+    ),
+     GetPage(
+      name: medication,
+      page: () => Medication(),
+    ),
+     GetPage(
+      name: health,
+      page: () => Health(),
     ),
   ];
 }

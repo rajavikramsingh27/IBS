@@ -493,10 +493,14 @@ class Home extends StatelessWidget {
       case 0:
         return Get.toNamed(symptoms);
         break;
-          case 1:
+      case 1:
         return Get.toNamed(bowel);
         break;
-
+      case 2:
+        return Get.toNamed(medication);
+         case 3:
+        return Get.toNamed(health);
+        break;
       default:
         return;
     }

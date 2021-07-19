@@ -13,8 +13,11 @@ class AdditionalNoteWidget extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.black, fontSizeDelta: -3)),
-        Padding(
-          padding: ScreenConstant.spacingAllMedium,
+        Card(
+          margin: ScreenConstant.spacingAllMedium,
+          shadowColor: Colors.grey,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: TextFormField(
             inputFormatters: <TextInputFormatter>[],
             readOnly: true,
@@ -23,7 +26,7 @@ class AdditionalNoteWidget extends StatelessWidget {
             maxLines: 4,
             minLines: 4,
             // maxLength: 100,
-            decoration: hintedInputDecoration(""),
+            decoration: InputDecoration(border: InputBorder.none),
           ),
         ),
         SizedBox(height: ScreenConstant.defaultHeightTwentyThree),

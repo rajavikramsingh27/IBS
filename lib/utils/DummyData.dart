@@ -90,16 +90,26 @@ class DummyData {
     IBSTypeModel(text: "Rolling Sensation", image: Assets.rollingSensation),
     IBSTypeModel(text: "Nausea", image: Assets.nausea),
   ];
+  static List<TrackingOptionsModel> medicationList = [
+    TrackingOptionsModel(title: "Immodium"),
+    TrackingOptionsModel(title: "Milk of Magnesia"),
+    TrackingOptionsModel(title: "Rifaximin"),
+    TrackingOptionsModel(title: "Eluxadoline"),
+    TrackingOptionsModel(title: "Peppermint Oil"),
+    TrackingOptionsModel(title: "Metamucil"),
+  ];
 }
 
 class IBSTypeModel {
   IBSTypeModel({this.image, this.text});
+
   String image;
   String text;
 }
 
 class StoolChartModel {
   StoolChartModel({this.image, this.text, this.type});
+
   String image;
   String text;
   String type;
@@ -133,12 +143,14 @@ class TrackingOptionsModel {
 
 class IbsModel {
   IbsModel({this.title, this.description});
+
   String title;
   String description;
 }
 
 class TrackModel {
   TrackModel({this.image, this.text, this.onTap});
+
   String image;
   String text;
   Function onTap;

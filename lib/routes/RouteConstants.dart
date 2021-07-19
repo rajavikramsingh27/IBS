@@ -12,6 +12,10 @@ const String signup3 = '/signup3';
 
 const String symptoms = '/symptoms';
 const String bowel = '/bowel';
+const String medication = '/medication';
+const String health = '/health';
+
+
 
 
 

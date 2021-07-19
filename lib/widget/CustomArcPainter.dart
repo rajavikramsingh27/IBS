@@ -4,7 +4,6 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/widget/CustomPainters.dart';
 
 class CustomArcPainter extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -15,7 +14,7 @@ class CustomArcPainter extends StatelessWidget {
           RotatedBox(
               quarterTurns: 2,
               child: CustomPaint(
-                painter: MyPainter(),
+                painter: MyPainter(AppColors.colorYesButton.withOpacity(0.27)),
                 size: Size(ScreenConstant.defaultHeightEightyTwo,
                     ScreenConstant.defaultHeightEightyTwo),
               )),
@@ -29,5 +28,32 @@ class CustomArcPainter extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class CustomArcPainter2 extends StatelessWidget {
+  final double heightFactor;
+  final int quarterTurns;
+  final double height;
+  final double width;
+  final CustomPainter painter;
+
+  const CustomArcPainter2(
+      {Key key,
+      this.heightFactor,
+      this.quarterTurns,
+      this.height,
+      this.width,
+      @required this.painter})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return RotatedBox(
+        quarterTurns: quarterTurns,
+        child: CustomPaint(
+          painter: painter,
+          size: Size(width, height),
+        ));
   }
 }

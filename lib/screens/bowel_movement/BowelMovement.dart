@@ -131,6 +131,8 @@ class BowelMovement extends StatelessWidget {
                           children: [
                             Positioned.fill(
                               top: ScreenConstant.defaultHeightOneHundred,
+                              bottom: ScreenConstant.defaultHeightOneHundred,
+
                               child: _buildWavePainter(),
                             ),
                             Container(
@@ -350,14 +352,10 @@ class BowelMovement extends StatelessWidget {
   }
 
   _buildWavePainter() {
-    return Container(
-      margin: EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty * 1.5),
-      width: Get.context.mediaQuerySize.width,
-      child: CustomPaint(
-        size: Size(Get.context.mediaQuerySize.width,
-            Get.context.mediaQuerySize.height),
-        painter: WavePainter(),
-      ),
+    return CustomPaint(
+      size: Size(Get.context.mediaQuerySize.width,
+          Get.context.mediaQuerySize.height),
+      painter: WavePainter(),
     );
   }
 

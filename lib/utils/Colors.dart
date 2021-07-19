@@ -57,13 +57,9 @@ class AppColors {
   static const Color colorTrackSlider = const Color(0xFF9083B8);
 
   static const Color colorHomeBg = const Color(0xFFEFF3FF);
-  static const Color colorSymptomsGridBg = const Color(0xFF5B4997
-);
+  static const Color colorSymptomsGridBg = const Color(0xFF5B4997);
 
-
-
-
-
+  static const Color colorTextHint = const Color(0xFFD1D1D1);
 
   static const Color colorInactiveDividerSlider = const Color(0xFF4C398D);
 }

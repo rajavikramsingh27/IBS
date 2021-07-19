@@ -219,7 +219,8 @@ class Symptoms extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTen * 1.6),
+                horizontal: ScreenConstant.defaultWidthTen * 1.6,
+                ),
             child: Card(
               margin: EdgeInsets.zero,
               color: AppColors.colorBackground,
