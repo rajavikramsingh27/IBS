@@ -5,7 +5,9 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 class CustomSwitch extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
+
   CustomSwitch({Key key, this.value, this.onChanged}) : super(key: key);
+
   @override
   _CustomSwitchState createState() => _CustomSwitchState();
 }
@@ -14,6 +16,7 @@ class _CustomSwitchState extends State<CustomSwitch>
     with SingleTickerProviderStateMixin {
   Animation _circleAnimation;
   AnimationController _animationController;
+
   @override
   void initState() {
     super.initState();

@@ -470,7 +470,8 @@ class MyProfileStep1 extends StatelessWidget {
   _buildIbsDialog() {
     Get.dialog(CustomDialog(
       title: "Sub-types of IBS",
-      description: '''There are four sub-types of IBS. The sub- types are determined by the frequency and consistency of your stool.  
+      description:
+          '''There are four sub-types of IBS. The sub- types are determined by the frequency and consistency of your stool.  
 
 IBS-C: IBS with constipation. Common symptoms are stomach pain, bloating, abnormally delayed or infrequent bowel movements, or lumpy/hard stool.  
 

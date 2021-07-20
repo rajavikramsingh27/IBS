@@ -58,6 +58,7 @@ class AppColors {
 
   static const Color colorHomeBg = const Color(0xFFEFF3FF);
   static const Color colorSymptomsGridBg = const Color(0xFF5B4997);
+  static const Color colorBorder = const Color(0xFFE9E9E9);
 
   static const Color colorTextHint = const Color(0xFFD1D1D1);
 

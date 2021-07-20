@@ -14,6 +14,7 @@ class HeaderCard extends StatelessWidget {
   const HeaderCard(
       {Key key, this.height, this.imageText, this.title, this.description})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Stack(

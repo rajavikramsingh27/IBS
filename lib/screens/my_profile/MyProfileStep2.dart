@@ -294,6 +294,7 @@ class MyProfileStep2 extends StatelessWidget {
 
   _buildInformationalQuestions() {
     return ListView(
+      physics: ClampingScrollPhysics(),
       padding: ScreenConstant.spacingAllLarge,
       children: [
         SizedBox(height: ScreenConstant.defaultHeightFifteen),
@@ -567,50 +568,54 @@ class MyProfileStep2 extends StatelessWidget {
   }
 
   _buildBristol() {
-    return ListView(padding: ScreenConstant.spacingAllLarge, children: [
-      SizedBox(height: ScreenConstant.defaultHeightFifteen),
-      Text("Rome IV Questionnaire.",
-          textAlign: TextAlign.center,
-          style:
-              TextStyles.textStyleIntroDescription.apply(color: Colors.black)),
-      SizedBox(height: ScreenConstant.defaultHeightForty),
-      Card(
-        elevation: 0,
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
-          // borderRadius: BorderRadius.circular(16),
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(16),
-            bottomRight: Radius.circular(16),
-            bottomLeft: Radius.circular(16),
-          ),
-        ),
-        child: Padding(
-            padding: ScreenConstant.spacingAllLarge,
-            child: RichText(
+    return ListView(
+        physics: ClampingScrollPhysics(),
+        padding: ScreenConstant.spacingAllLarge,
+        children: [
+          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          Text("Rome IV Questionnaire.",
               textAlign: TextAlign.center,
-              text: TextSpan(
-                text:
-                    'When you have abnormal bowel movements, what does your stool usually look like?\n\nReference the ',
-                style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
-                children: <TextSpan>[
-                  TextSpan(
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => _buildDialogStool(),
-                      text: 'Bristol Stool Chart ',
-                      style: TextStyles.textStyleIntroDescription.apply(
-                          fontSizeDelta: -4, color: AppColors.colorBackground)),
-                  TextSpan(
-                    text: 'to select the appropriate response',
-                  ),
-                ],
+              style: TextStyles.textStyleIntroDescription
+                  .apply(color: Colors.black)),
+          SizedBox(height: ScreenConstant.defaultHeightForty),
+          Card(
+            elevation: 0,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              // borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(16),
+                bottomRight: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
               ),
-            )),
-      ),
-      SizedBox(height: ScreenConstant.defaultHeightTen),
-      _buildListIbsType(),
-      SizedBox(height: ScreenConstant.defaultHeightOneHundred),
-    ]);
+            ),
+            child: Padding(
+                padding: ScreenConstant.spacingAllLarge,
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text:
+                        'When you have abnormal bowel movements, what does your stool usually look like?\n\nReference the ',
+                    style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
+                    children: <TextSpan>[
+                      TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => _buildDialogStool(),
+                          text: 'Bristol Stool Chart ',
+                          style: TextStyles.textStyleIntroDescription.apply(
+                              fontSizeDelta: -4,
+                              color: AppColors.colorBackground)),
+                      TextSpan(
+                        text: 'to select the appropriate response',
+                      ),
+                    ],
+                  ),
+                )),
+          ),
+          SizedBox(height: ScreenConstant.defaultHeightTen),
+          _buildListIbsType(),
+          SizedBox(height: ScreenConstant.defaultHeightOneHundred),
+        ]);
   }
 
   // _buildBristolChart() {
@@ -767,6 +772,7 @@ class MyProfileStep2 extends StatelessWidget {
               ),
               margin: ScreenConstant.spacingAllLarge,
               child: ListView(
+                physics: ClampingScrollPhysics(),
                 children: [
                   Padding(
                     padding: ScreenConstant.spacingAllLarge,

@@ -1,7 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/services.dart';
 
-class ConnectionCheck{
+class ConnectionCheck {
   final Connectivity _connectivity = Connectivity();
 
   Future<bool> initConnectivity() async {
@@ -14,13 +14,14 @@ class ConnectionCheck{
     }
     return await _updateConnectionStatus(result);
   }
+
   Future<bool> _updateConnectionStatus(ConnectivityResult result) async {
     switch (result) {
       case ConnectivityResult.wifi:
-          return true;
+        return true;
         break;
       case ConnectivityResult.mobile:
-          return true;
+        return true;
         break;
       case ConnectivityResult.none:
         return false;

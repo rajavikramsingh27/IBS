@@ -71,12 +71,14 @@ class CustomElevatedButton2 extends StatelessWidget {
     );
   }
 }
+
 class CustomElevatedButton3 extends StatelessWidget {
   final Function onTap;
   final String text;
   final double widthFactor;
 
-  const CustomElevatedButton3({Key key, this.onTap, this.text, this.widthFactor})
+  const CustomElevatedButton3(
+      {Key key, this.onTap, this.text, this.widthFactor})
       : super(key: key);
 
   @override
@@ -100,4 +102,3 @@ class CustomElevatedButton3 extends StatelessWidget {
     );
   }
 }
-

@@ -28,7 +28,7 @@ class IBS extends StatelessWidget {
         primaryColor: AppColors.primaryColor,
         // textTheme: GoogleFonts.redHatDisplayTextTheme(),
         //    primarySwatch: AppColors.primaryColor,
-         splashColor: Colors.transparent,
+        splashColor: Colors.transparent,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
     );

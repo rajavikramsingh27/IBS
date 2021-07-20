@@ -98,6 +98,12 @@ class DummyData {
     TrackingOptionsModel(title: "Peppermint Oil"),
     TrackingOptionsModel(title: "Metamucil"),
   ];
+  static List<IBSTypeModel> trackFoodList = [
+    IBSTypeModel(text: "Breakfast", image: Assets.breakfast),
+    IBSTypeModel(text: "Lunch", image: Assets.lunch),
+    IBSTypeModel(text: "Dinner", image: Assets.dinner),
+    IBSTypeModel(text: "Snacks", image: Assets.snacks),
+  ];
 }
 
 class IBSTypeModel {

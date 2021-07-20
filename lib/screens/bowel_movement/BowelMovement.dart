@@ -45,6 +45,7 @@ class BowelMovement extends StatelessWidget {
       ),
       backgroundColor: Color(0xff1A103E).withOpacity(0.6),
       body: ListView(
+        physics: ClampingScrollPhysics(),
         children: [
           Padding(
             padding:
@@ -132,7 +133,6 @@ class BowelMovement extends StatelessWidget {
                             Positioned.fill(
                               top: ScreenConstant.defaultHeightOneHundred,
                               bottom: ScreenConstant.defaultHeightOneHundred,
-
                               child: _buildWavePainter(),
                             ),
                             Container(
@@ -353,8 +353,8 @@ class BowelMovement extends StatelessWidget {
 
   _buildWavePainter() {
     return CustomPaint(
-      size: Size(Get.context.mediaQuerySize.width,
-          Get.context.mediaQuerySize.height),
+      size: Size(
+          Get.context.mediaQuerySize.width, Get.context.mediaQuerySize.height),
       painter: WavePainter(),
     );
   }

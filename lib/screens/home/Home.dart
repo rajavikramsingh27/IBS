@@ -238,6 +238,9 @@ class Home extends StatelessWidget {
                           textBaseline: TextBaseline.ideographic,
                           children: [
                             _buildTabItem(
+                                onTap: () {
+                                  Get.toNamed(treatPlans);
+                                },
                                 title: "Treatment\nPlans",
                                 imageText: Assets.treatPlans),
                             _buildTabItem(
@@ -498,25 +501,28 @@ class Home extends StatelessWidget {
         break;
       case 2:
         return Get.toNamed(medication);
-         case 3:
+        break;
+      case 3:
         return Get.toNamed(health);
+        break;
+      case 4:
+        return Get.toNamed(foods);
         break;
       default:
         return;
     }
   }
 
-  Widget _buildTabItem({
-    String title,
-    String imageText,
-    int index,
-    ValueChanged<int> onPressed,
-  }) {
+  Widget _buildTabItem(
+      {String title, String imageText, int index, Function() onTap
+
+      // ValueChanged<int> onPressed,
+      }) {
     Color color = _controller.selectedIndex.value == index
         ? AppColors.colorArrowButton
         : AppColors.colorBackground;
-    return InkWell(
-      onTap: () => onPressed(index),
+    return GestureDetector(
+      onTap: onTap,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,

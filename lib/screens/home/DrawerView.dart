@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
@@ -50,17 +49,12 @@ class _DrawerViewState extends State<DrawerView> {
       _buildMenuItem(
           'My Profile',
           Image.asset(
-           Assets.book,
+            Assets.book,
             height: 22,
             color: Colors.black,
           ),
           () {}),
       Divider(height: 1.0, color: Colors.grey),
-   
     ]);
   }
-
- 
-
- 
 }

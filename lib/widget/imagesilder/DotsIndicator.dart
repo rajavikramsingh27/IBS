@@ -38,7 +38,7 @@ class DotsIndicator extends AnimatedWidget {
       max(
         0.0,
 //        1.0 -  (controller.hasClients ?  ( ((controller.page ?? controller.initialPage) - index).abs()) : 0),
-        1.0 -  ((controller.page ?? controller.initialPage) - index).abs(),
+        1.0 - ((controller.page ?? controller.initialPage) - index).abs(),
       ),
     );
     double zoom = 1.0 + (_kMaxZoom - 1.0) * selectedness;

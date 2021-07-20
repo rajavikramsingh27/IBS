@@ -19,14 +19,10 @@ class AppLabels {
   static const String Home = "Home";
 
   static const String Change = "Change";
-  
 }
 
 class AppStrings {
   static const String appName = "IBS";
- 
- 
-
 
   //static const String mapKey = "AIzaSyA3taPlQ7IhKydj01Qg8jLHjTMJe1eCvWs";
   static const String mapKey = "";
@@ -35,5 +31,6 @@ class AppStrings {
 class SortByData {
   String sortType;
   bool select;
+
   SortByData({this.select, this.sortType});
 }

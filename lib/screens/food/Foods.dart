@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ibs/controllers/bowel_movement/BowelMovementController.dart';
+import 'package:flutter_ibs/controllers/food/FoodController.dart';
+import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -9,16 +10,12 @@ import 'package:flutter_ibs/widget/AdditionalNoteWidget.dart';
 import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomPainters.dart';
-import 'package:flutter_ibs/widget/CustomSwitch.dart';
-import 'package:flutter_ibs/widget/CustomTextFormField%20.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:syncfusion_flutter_core/theme.dart';
 
-class Medication extends StatelessWidget {
-  final _controller = Get.put(BowelMovementController());
+class Foods extends StatelessWidget {
+  final _controller = Get.put(FoodController());
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +66,7 @@ class Medication extends StatelessWidget {
                       children: [
                         SizedBox(height: ScreenConstant.defaultHeightSixty),
                         Text(
-                          "Track Medication",
+                          "Track Food",
                           style: TextStyles.textStyleIntroDescription
                               .apply(color: Colors.black, fontSizeDelta: -2),
                           textAlign: TextAlign.center,
@@ -77,47 +74,37 @@ class Medication extends StatelessWidget {
                         SizedBox(height: ScreenConstant.defaultHeightForty),
                         DateTimeCardWidget(),
                         SizedBox(height: ScreenConstant.defaultHeightForty),
+                        Text(
+                          "What meal is this?",
+                          style: TextStyles.textStyleIntroDescription
+                              .apply(color: Colors.black, fontSizeDelta: -2),
+                          textAlign: TextAlign.center,
+                        ),
+                        _buildMealList(),
                         Stack(
                           children: [
                             Positioned.fill(
-                              top: ScreenConstant.defaultHeightOneHundred,
+                              top: ScreenConstant.defaultHeightSeventy,
                               child: _buildWavePainter(),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: ScreenConstant.defaultWidthTwenty,
-                                  vertical: ScreenConstant.defaultHeightSixty),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: _buildMedication(),
-                            ),
+                                margin: EdgeInsets.only(
+                                  left: ScreenConstant.defaultWidthTwenty,
+                                  right: ScreenConstant.defaultWidthTwenty,
+                                ),
+                                child: Column(
+                                  children: [
+                                    _buildFoods(),
+                                    SizedBox(
+                                        height:
+                                            ScreenConstant.defaultHeightSixty),
+                                    _buildHydration(),
+                                  ],
+                                )),
                           ],
                         ),
                         SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                        Text("Additional Notes",
-                            textAlign: TextAlign.center,
-                            style: TextStyles.textStyleIntroDescription
-                                .apply(color: Colors.black, fontSizeDelta: -3)),
-                        Padding(
-                          padding: ScreenConstant.spacingAllMedium,
-                          child: Card(
-                            shadowColor: Colors.grey,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16)),
-                            child: TextFormField(
-                              inputFormatters: <TextInputFormatter>[],
-                              readOnly: true,
-                              decoration:
-                                  InputDecoration(border: InputBorder.none),
-                              textInputAction: TextInputAction.newline,
-                              maxLines: 4,
-                              minLines: 4,
-                              // maxLength: 100,
-                              // decoration: hintedInputDecoration(""),
-                            ),
-                          ),
-                        ),
+                        AdditionalNoteWidget(),
                         SizedBox(
                             height: ScreenConstant.defaultHeightTwentyThree),
                       ],
@@ -133,7 +120,49 @@ class Medication extends StatelessWidget {
     );
   }
 
-  _buildMedication() {
+  _buildMealList() {
+    return GridView.builder(
+      padding: EdgeInsets.symmetric(
+          horizontal: ScreenConstant.defaultHeightForty * 1.2,
+          vertical: ScreenConstant.defaultHeightTwentyThree),
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: DummyData.trackFoodList.length,
+      itemBuilder: (BuildContext context, int index) {
+        var model = DummyData.trackFoodList[index];
+        return Container(
+          decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: AppColors.colorBorder, width: 1)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                model.image,
+                width: ScreenConstant.sizeXXXL,
+              ),
+              SizedBox(height: ScreenConstant.sizeDefault),
+              Text(
+                model.text,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyles.textStyleRegular
+                    .apply(color: Colors.black, fontSizeDelta: 2),
+              ),
+            ],
+          ),
+        );
+      },
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
+          crossAxisCount: 2,
+          childAspectRatio: 1.2),
+    );
+  }
+
+  _buildFoods() {
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -145,17 +174,17 @@ class Medication extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: ScreenConstant.defaultHeightForty),
-              Text("What Did you take?",
+              Text("What Did you Eat?",
                   style: TextStyles.textStyleIntroDescription
                       .apply(color: Colors.white, fontSizeDelta: -3)),
               SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
               Text(
-                "Select from this list of common medications and supplements or add your own",
+                "Select from this list of common foods or add another",
                 textAlign: TextAlign.center,
                 style: TextStyles.textStyleRegular
                     .apply(color: AppColors.colorSkipButton),
               ),
-              _buildListOfMedicineTaken(),
+              _buildListOfFoodsTaken(),
               Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
@@ -187,12 +216,15 @@ class Medication extends StatelessWidget {
                   ),
                   SizedBox(width: ScreenConstant.sizeDefault),
                   Text(
-                    "Add this medication",
+                    "Add this food",
                     style: TextStyles.textStyleRegular
                         .apply(color: AppColors.white),
                   )
                 ],
               ),
+              SizedBox(height: ScreenConstant.defaultHeightTwenty),
+              _buildRegularFoodsTaken(),
+              _buildLOWFODMAPFoods(),
               SizedBox(height: ScreenConstant.defaultHeightForty * 1.4),
             ],
           ),
@@ -217,7 +249,50 @@ class Medication extends StatelessWidget {
     );
   }
 
-  _buildListOfMedicineTaken() {
+  _buildHydration() {
+    return Column(
+      children: [
+        Text("Hydration",
+            style: TextStyles.textStyleIntroDescription
+                .apply(color: Colors.white, fontSizeDelta: -2)),
+        SizedBox(height: ScreenConstant.sizeDefault),
+        Text(
+          "How many glasses of water have you had today",
+          textAlign: TextAlign.center,
+          style: TextStyles.textStyleRegular.apply(color: AppColors.white),
+        ),
+        SizedBox(height: ScreenConstant.defaultHeightForty),
+        GridView.builder(
+          padding: EdgeInsets.symmetric(
+            horizontal: ScreenConstant.defaultWidthTwenty,
+          ),
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: 10,
+          itemBuilder: (BuildContext context, int index) {
+            return CircleAvatar(
+              backgroundColor: Colors.white.withOpacity(0.20),
+              child: Padding(
+                  padding: ScreenConstant.spacingAllMedium,
+                  child: Image.asset(
+                    Assets.emptyGlass,
+                    width: ScreenConstant.defaultWidthTwenty,
+                    height: ScreenConstant.defaultHeightTwenty * 1.5,
+                  )),
+            );
+          },
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              crossAxisCount: 5,
+              childAspectRatio: 0.99),
+        ),
+        SizedBox(height: ScreenConstant.defaultHeightSixty),
+      ],
+    );
+  }
+
+  _buildListOfFoodsTaken() {
     return GridView.builder(
       padding: EdgeInsets.symmetric(
           horizontal: ScreenConstant.sizeLarge,
@@ -248,14 +323,58 @@ class Medication extends StatelessWidget {
   }
 
   _buildWavePainter() {
-    return Container(
-      margin: EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty * 1.5),
-      width: Get.context.mediaQuerySize.width,
-      child: CustomPaint(
-        size: Size(Get.context.mediaQuerySize.width,
-            Get.context.mediaQuerySize.height),
-        painter: WavePainter(),
-      ),
+    return CustomPaint(
+      size: Size(
+          Get.context.mediaQuerySize.width, Get.context.mediaQuerySize.height),
+      painter: WavePainter(),
+    );
+  }
+
+  _buildRegularFoodsTaken() {
+    return Column(
+      children: [
+        Text("My Regular Breakfast Foods",
+            style: TextStyles.textStyleIntroDescription
+                .apply(color: Colors.white, fontSizeDelta: -2)),
+        _buildListOfFoodsTaken(),
+      ],
+    );
+  }
+
+  _buildLOWFODMAPFoods() {
+    return Column(
+      children: [
+        Text("Low FODMAP Favourites",
+            style: TextStyles.textStyleIntroDescription
+                .apply(color: Colors.white, fontSizeDelta: -2)),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        Text(
+          "Add some popular low FODMAP foods to your favourites in your food tracking journal.",
+          textAlign: TextAlign.center,
+          style: TextStyles.textStyleRegular
+              .apply(color: AppColors.colorSkipButton),
+        ),
+        _buildListOfFoodsTaken(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: ScreenConstant.defaultWidthTen * 1.5,
+              backgroundColor: AppColors.colorArrowButton,
+              child: Icon(
+                Icons.add,
+                size: FontSize.s11,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(width: ScreenConstant.sizeDefault),
+            Text(
+              "Show me more",
+              style: TextStyles.textStyleRegular.apply(color: AppColors.white),
+            )
+          ],
+        ),
+      ],
     );
   }
 }

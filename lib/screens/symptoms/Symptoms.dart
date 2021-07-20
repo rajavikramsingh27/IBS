@@ -45,6 +45,7 @@ class Symptoms extends StatelessWidget {
       ),
       backgroundColor: Color(0xff1A103E).withOpacity(0.6),
       body: ListView(
+        physics: ClampingScrollPhysics(),
         children: [
           Padding(
             padding:
@@ -94,7 +95,7 @@ class Symptoms extends StatelessWidget {
     );
   }
 
-   _buildAbdominalSlider() {
+  _buildAbdominalSlider() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
       child: SfSliderTheme(
@@ -219,8 +220,8 @@ class Symptoms extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTen * 1.6,
-                ),
+              horizontal: ScreenConstant.defaultWidthTen * 1.6,
+            ),
             child: Card(
               margin: EdgeInsets.zero,
               color: AppColors.colorBackground,

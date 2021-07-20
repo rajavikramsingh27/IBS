@@ -17,6 +17,5 @@ class SymptomsController extends GetxController {
   void onInit() {
     super.onInit();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
-    
   }
 }

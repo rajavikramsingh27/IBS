@@ -43,6 +43,7 @@ class MyPainter extends CustomPainter {
   final Color color;
 
   MyPainter(this.color);
+
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()..color = color;

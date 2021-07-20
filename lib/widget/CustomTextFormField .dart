@@ -50,7 +50,8 @@ class CustomTextFormField extends StatelessWidget {
           textAlignVertical: TextAlignVertical.bottom,
           enableInteractiveSelection: false,
           cursorColor: Colors.black,
-          style:TextStyles.textStyleIntroDescription.apply(fontSizeFactor: 0.7,color: Colors.black87),
+          style: TextStyles.textStyleIntroDescription
+              .apply(fontSizeFactor: 0.7, color: Colors.black87),
           onTap: onTap,
           textInputAction: textInputAction,
           keyboardType: keyboardType,
@@ -88,25 +89,25 @@ class CustomTextFormField extends StatelessWidget {
           )),
     );
   }
-   
 }
+
 InputDecoration hintedInputDecoration(String hint) {
-    return InputDecoration(
-      hintText: hint,
+  return InputDecoration(
+    hintText: hint,
 // suffixIcon: Icon(Icons.arrow_drop_down,),
-      border: UnderlineInputBorder(
-          borderSide:
-              new BorderSide(color: Colors.black, style: BorderStyle.solid)),
-      isDense: true,
-      contentPadding: EdgeInsets.all(8.0),
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.blue[900], width: 1.0),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Color(0xffE5E5E5), width: 1.0),
-      ),
-      errorBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: Colors.blue[900]),
-      ),
-    );
-  }
+    border: UnderlineInputBorder(
+        borderSide:
+            new BorderSide(color: Colors.black, style: BorderStyle.solid)),
+    isDense: true,
+    contentPadding: EdgeInsets.all(8.0),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.blue[900], width: 1.0),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Color(0xffE5E5E5), width: 1.0),
+    ),
+    errorBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.blue[900]),
+    ),
+  );
+}

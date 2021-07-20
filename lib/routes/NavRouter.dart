@@ -1,4 +1,5 @@
 import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
+import 'package:flutter_ibs/screens/food/Foods.dart';
 import 'package:flutter_ibs/screens/health/Health.dart';
 import 'package:flutter_ibs/screens/home/Home.dart';
 import 'package:flutter_ibs/screens/medication/Medication.dart';
@@ -8,7 +9,9 @@ import 'package:flutter_ibs/screens/my_profile/MyProfileStep3.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep1.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep2.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep3.dart';
+import 'package:flutter_ibs/screens/stress_management/StressManagement.dart';
 import 'package:flutter_ibs/screens/symptoms/Symptoms.dart';
+import 'package:flutter_ibs/screens/treatment_plans/TreatmentPlans.dart';
 import 'package:flutter_ibs/splash.dart';
 import 'package:get/get.dart';
 
@@ -33,7 +36,7 @@ class NavRouter {
       name: myprofile2,
       page: () => MyProfileStep2(),
     ),
-     GetPage(
+    GetPage(
       name: myprofile3,
       page: () => MyProfileStep3(),
     ),
@@ -49,7 +52,7 @@ class NavRouter {
       name: signup3,
       page: () => SignupStep3(),
     ),
-     GetPage(
+    GetPage(
       name: home,
       page: () => Home(),
     ),
@@ -57,17 +60,29 @@ class NavRouter {
       name: symptoms,
       page: () => Symptoms(),
     ),
-     GetPage(
+    GetPage(
       name: bowel,
       page: () => BowelMovement(),
     ),
-     GetPage(
+    GetPage(
       name: medication,
       page: () => Medication(),
     ),
-     GetPage(
+    GetPage(
       name: health,
       page: () => Health(),
+    ),
+    GetPage(
+      name: foods,
+      page: () => Foods(),
+    ),
+    GetPage(
+      name: treatPlans,
+      page: () => TreatmentPlans(),
+    ),
+    GetPage(
+      name: stressManagement,
+      page: () => StressManagement(),
     ),
   ];
 }

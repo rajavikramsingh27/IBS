@@ -66,6 +66,16 @@ class Assets {
   static const String volcanoInStomach =
       "$baseImage/track/volcanoInStomach.png";
 
+  static const String breakfast = "$baseImage/track/breakfast.png";
+  static const String lunch = "$baseImage/track/lunch.png";
+  static const String dinner = "$baseImage/track/dinner.png";
+  static const String snacks = "$baseImage/track/snacks.png";
+  static const String emptyGlass = "$baseImage/track/emptyGlass.png";
+  static const String fullGlass = "$baseImage/track/fullGlass.png";
+
+  static const String treatment = "$baseImage/track/treatment.png";
+  static const String stressManage = "$baseImage/track/stressManage.png";
+
 // home
   static const String settings = "$baseImage/home/settings.png";
 

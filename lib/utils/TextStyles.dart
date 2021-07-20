@@ -8,6 +8,7 @@ class TextStyles {
         fontSize: FontSize.s30,
         fontWeight: FontWeight.w800,
       );
+
   static TextStyle get textStyleIntroDescription => TextStyle(
       color: AppColors.colorButton,
       fontSize: FontSize.s20,
@@ -20,7 +21,7 @@ class TextStyles {
         fontFamily: 'Roboto-Medium',
         fontWeight: FontWeight.bold,
       );
-  
+
   static TextStyle get textStyleRegular => TextStyle(
         color: AppColors.colorTextDescription,
         fontSize: FontSize.s14,

@@ -14,11 +14,11 @@ const String symptoms = '/symptoms';
 const String bowel = '/bowel';
 const String medication = '/medication';
 const String health = '/health';
-
-
-
-
+const String foods = '/foods';
 
 const String login = '/login';
 const String oTPVerifyScreen = '/oTPVerifyScreen';
 const String home = '/Home';
+
+const String treatPlans = '/treatPlans';
+const String stressManagement = '/stressManagement';

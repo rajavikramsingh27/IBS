@@ -5,7 +5,6 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 
 class DateTimeCardWidget extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return Card(

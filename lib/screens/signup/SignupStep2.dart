@@ -54,7 +54,7 @@ class SignupStep2 extends StatelessWidget {
                 SizedBox(height: ScreenConstant.defaultHeightOneHundred)
               ],
             ),
-              BottomWidget(
+            BottomWidget(
                 onContinueTap: () => Get.toNamed(signup3),
                 onCircleTap: () => Get.toNamed(signup3))
           ],
