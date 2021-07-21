@@ -1,7 +1,5 @@
 import 'package:flutter_ibs/services/url.dart';
 
-import 'CoreService.dart';
-
 class ServiceApi {
   static var server = baseUrl;
 

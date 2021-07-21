@@ -63,4 +63,6 @@ class AppColors {
   static const Color colorTextHint = const Color(0xFFD1D1D1);
 
   static const Color colorInactiveDividerSlider = const Color(0xFF4C398D);
+
+  static const Color colorTextStop = const Color(0xFF504D64);
 }

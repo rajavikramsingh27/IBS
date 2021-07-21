@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
-import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomCheckBox.dart';
@@ -11,6 +10,7 @@ import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomTextFormField%20.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
+import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
 
 final FocusNode focusEmail = FocusNode();
@@ -49,10 +49,7 @@ class SignupStep3 extends StatelessWidget {
         ),
         body: InkWell(
           onTap: () {
-            FocusScopeNode currentFocus = FocusScope.of(context);
-            if (currentFocus.hasFocus) {
-              currentFocus.unfocus();
-            }
+            dismissKeyboard(context);
           },
           child: Stack(
             children: [

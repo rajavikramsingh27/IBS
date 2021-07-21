@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
+
 import 'ScreenConstants.dart';
 
 class TextStyles {

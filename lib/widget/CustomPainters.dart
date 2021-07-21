@@ -1,7 +1,8 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
-import 'dart:math' as math;
 
 class BottomCustomPainter extends CustomPainter {
   @override

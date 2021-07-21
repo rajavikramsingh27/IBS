@@ -75,6 +75,7 @@ class Assets {
 
   static const String treatment = "$baseImage/track/treatment.png";
   static const String stressManage = "$baseImage/track/stressManage.png";
+  static const String gutBrain = "$baseImage/track/gutBrain.png";
 
 // home
   static const String settings = "$baseImage/home/settings.png";

@@ -39,6 +39,7 @@ class CustomElevatedButton2 extends StatelessWidget {
   final double widthFactor;
   final Color textColor;
   final Color buttonColor;
+  final double elevation;
 
   const CustomElevatedButton2(
       {Key key,
@@ -46,7 +47,8 @@ class CustomElevatedButton2 extends StatelessWidget {
       this.text,
       this.widthFactor,
       this.textColor,
-      this.buttonColor})
+      this.buttonColor,
+      this.elevation = 0})
       : super(key: key);
 
   @override
@@ -56,7 +58,8 @@ class CustomElevatedButton2 extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
-            elevation: 0,
+            shadowColor: AppColors.colorInactiveDividerSlider.withOpacity(0.12),
+            elevation: elevation,
             padding: ScreenConstant.spacingAllMedium,
             primary: buttonColor,
             shape: RoundedRectangleBorder(

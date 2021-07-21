@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
+import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
@@ -52,14 +54,16 @@ class StressManagement extends StatelessWidget {
             ),
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
-          _buildTreatmentPlans("Stress management plan details", () {}),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          _buildStrssManage("Stress management plan details", () {}),
+          SizedBox(height: ScreenConstant.defaultHeightFifteen),
           CustomElevatedButton(
             text: "Start Plan",
-            widthFactor: 0.9,
-            onTap: () {},
+            widthFactor: 0.95,
+            onTap: () {
+              Get.toNamed(stressTreatPlan);
+            },
           ),
-          SizedBox(height: ScreenConstant.defaultHeightTwenty),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
           Text(
             "Additional Resources",
             style: TextStyles.textStyleIntroDescription
@@ -67,20 +71,14 @@ class StressManagement extends StatelessWidget {
             textAlign: TextAlign.start,
           ),
           SizedBox(height: ScreenConstant.defaultHeightTen),
-          _buildTreatmentPlans("Understand the gut-brain connection", () {}),
-          SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("Strategies for managing stress", () {}),
-          SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("Cognitive Behavioural Therapy", () {}),
-          SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("What to expect", () {}),
+          _buildListAdditionalResources(),
           SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
         ],
       ),
     );
   }
 
-  Widget _buildTreatmentPlans(String title, Function onPressed) {
+  Widget _buildStrssManage(String title, Function onPressed) {
     return Container(
       padding: ScreenConstant.spacingAllSmall,
       decoration: BoxDecoration(
@@ -108,6 +106,23 @@ class StressManagement extends StatelessWidget {
             onPressed: onPressed,
           ),
         ),
+      ),
+    );
+  }
+
+  _buildListAdditionalResources() {
+    return ListView.separated(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: DummyData.additionalResourcesList.length,
+      itemBuilder: (BuildContext context, int index) {
+        var model = DummyData.additionalResourcesList[index];
+        return _buildStrssManage(model.title, () {
+          Get.toNamed(stressManagementDetails);
+        });
+      },
+      separatorBuilder: (BuildContext context, int index) => SizedBox(
+        height: ScreenConstant.sizeDefault,
       ),
     );
   }

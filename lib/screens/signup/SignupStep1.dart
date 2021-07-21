@@ -6,8 +6,6 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/BottomWidget.dart';
 import 'package:flutter_ibs/widget/CustomCheckBox.dart';
-import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
-import 'package:flutter_ibs/widget/HeaderCard.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 
