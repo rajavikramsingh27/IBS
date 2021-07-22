@@ -3,6 +3,8 @@ import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
 import 'package:flutter_ibs/screens/food/Foods.dart';
 import 'package:flutter_ibs/screens/health/Health.dart';
 import 'package:flutter_ibs/screens/home/Home.dart';
+import 'package:flutter_ibs/screens/low_diet/LowDiet.dart';
+import 'package:flutter_ibs/screens/low_diet/LowDietTreatmentPlan.dart';
 import 'package:flutter_ibs/screens/medication/Medication.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep1.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep2.dart';
@@ -93,6 +95,14 @@ class NavRouter {
     GetPage(
       name: stressTreatPlan,
       page: () => StressTreatmentPlan(),
+    ),
+    GetPage(
+      name: lowDiet,
+      page: () => LowDiet(),
+    ),
+    GetPage(
+      name: lowDietTreatmentPlan,
+      page: () => LowDietTreatmentPlan(),
     ),
   ];
 }

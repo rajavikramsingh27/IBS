@@ -104,9 +104,14 @@ class DummyData {
     IBSTypeModel(text: "Dinner", image: Assets.dinner),
     IBSTypeModel(text: "Snacks", image: Assets.snacks),
   ];
-  static List<TrackingOptionsModel> additionalResourcesList = [
+  static List<TrackingOptionsModel> stressadditionalResourcesList = [
     TrackingOptionsModel(title: "Understand the gut-brain connection"),
     TrackingOptionsModel(title: "Strategies for managing stress"),
+    TrackingOptionsModel(title: "What to expect"),
+  ];
+   static List<TrackingOptionsModel> lowdietadditionalResourcesList = [
+    TrackingOptionsModel(title: "Understanding FODMAPs and IBS"),
+    TrackingOptionsModel(title: "Strategies for success"),
     TrackingOptionsModel(title: "What to expect"),
   ];
 }

@@ -11,7 +11,8 @@ class StressManagementDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.colorMyProfileBackground,
+           backgroundColor: AppColors.colorTracBg,
+
       appBar: AppBar(
         elevation: 0,
         leading: LeadingBackButton(

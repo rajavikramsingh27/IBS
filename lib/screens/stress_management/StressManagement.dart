@@ -13,7 +13,8 @@ class StressManagement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.colorMyProfileBackground,
+          backgroundColor: AppColors.colorTracBg,
+
       appBar: AppBar(
         elevation: 0,
         leading: LeadingBackButton(
@@ -101,8 +102,9 @@ class StressManagement extends StatelessWidget {
               shape: BoxShape.circle,
               border: Border.all(color: AppColors.colorArrowButton, width: 1)),
           child: IconButton(
+            visualDensity: VisualDensity(horizontal: -4, vertical: -4),
             icon: Icon(Icons.arrow_forward_ios_outlined,
-                color: AppColors.colorArrowButton),
+                color: AppColors.colorArrowButton, size: FontSize.s14),
             onPressed: onPressed,
           ),
         ),
@@ -114,9 +116,9 @@ class StressManagement extends StatelessWidget {
     return ListView.separated(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: DummyData.additionalResourcesList.length,
+      itemCount: DummyData.stressadditionalResourcesList.length,
       itemBuilder: (BuildContext context, int index) {
-        var model = DummyData.additionalResourcesList[index];
+        var model = DummyData.stressadditionalResourcesList[index];
         return _buildStrssManage(model.title, () {
           Get.toNamed(stressManagementDetails);
         });

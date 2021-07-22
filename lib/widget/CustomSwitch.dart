@@ -5,8 +5,14 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 class CustomSwitch extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
+  final Color color;
 
-  CustomSwitch({Key key, this.value, this.onChanged}) : super(key: key);
+  CustomSwitch(
+      {Key key,
+      this.value,
+      this.onChanged,
+      this.color = AppColors.colorArrowButton})
+      : super(key: key);
 
   @override
   _CustomSwitchState createState() => _CustomSwitchState();
@@ -52,7 +58,7 @@ class _CustomSwitchState extends State<CustomSwitch>
               borderRadius: BorderRadius.circular(40),
               color: _circleAnimation.value == Alignment.centerLeft
                   ? Colors.grey
-                  : AppColors.colorArrowButton,
+                  : widget.color,
             ),
             child: Padding(
               padding: const EdgeInsets.only(

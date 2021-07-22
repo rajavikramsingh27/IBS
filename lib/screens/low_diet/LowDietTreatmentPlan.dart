@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -8,11 +9,10 @@ import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomSwitch.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
-import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
 
-class StressTreatmentPlan extends StatelessWidget {
+class LowDietTreatmentPlan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +66,7 @@ class StressTreatmentPlan extends StatelessWidget {
                         children: [
                           SizedBox(height: ScreenConstant.defaultHeightSixty),
                           Text(
-                            "Treatment Plan: Stress Management",
+                            "Treatment Plan: Low FODMAP diet",
                             style: TextStyles.textStyleIntroDescription
                                 .apply(color: Colors.black, fontSizeDelta: -2),
                             textAlign: TextAlign.center,
@@ -88,7 +88,7 @@ class StressTreatmentPlan extends StatelessWidget {
                             children: [
                               Positioned.fill(
                                 top: ScreenConstant.defaultHeightOneHundred,
-                                child: _buildWavePainter(),
+                                child: _buildLowFodmapBg(),
                               ),
                               Container(
                                   margin: EdgeInsets.symmetric(
@@ -97,9 +97,8 @@ class StressTreatmentPlan extends StatelessWidget {
                                   ),
                                   child: Column(
                                     children: [
-                                      _buildRelxTechnique(),
+                                      _buildLowFodmapFoods(),
                                       _buildPlanDetails(),
-                                      _buildSetReminders()
                                     ],
                                   )),
                             ],
@@ -119,7 +118,7 @@ class StressTreatmentPlan extends StatelessWidget {
     );
   }
 
-  _buildRelxTechnique() {
+  _buildLowFodmapFoods() {
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -135,33 +134,17 @@ class StressTreatmentPlan extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: ScreenConstant.defaultHeightForty),
-                Text("Relaxation Techniques",
+                Text("Low FODMAP Foods",
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: Colors.white, fontSizeDelta: -2)),
                 SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
                 Text(
-                  "Select which relaxation techniques you will add to your routine.",
+                  "Add some popular low FODMAP foods to your favourites in your food tracking journal.",
                   textAlign: TextAlign.center,
                   style: TextStyles.textStyleRegular
-                      .apply(color: AppColors.colorSkipButton),
+                      .apply(color: Colors.white.withOpacity(0.39)),
                 ),
-                _buildRelxTechniqueList(),
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                  child: FractionallySizedBox(
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Medit...",
-                          hintStyle: TextStyles.textStyleRegular
-                              .apply(color: AppColors.colorTextHint),
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: ScreenConstant.sizeMedium,
-                          )),
-                    ),
-                  ),
-                ),
+                _buildLowFodmapFoodsList(),
                 SizedBox(height: ScreenConstant.defaultHeightFifteen),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -177,13 +160,22 @@ class StressTreatmentPlan extends StatelessWidget {
                     ),
                     SizedBox(width: ScreenConstant.sizeDefault),
                     Text(
-                      "Add relaxation technique",
+                      "Show me more",
                       style: TextStyles.textStyleRegular
                           .apply(color: AppColors.white),
                     )
                   ],
                 ),
-                _buildReminders(),
+                SizedBox(height: ScreenConstant.defaultHeightFifteen * 2),
+                Text(
+                  "Continue to track your food intake and symptoms in the app. Try your best to choose foods low in FODMAPs when selecting meals.",
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleRegular
+                      .apply(color: Colors.white.withOpacity(0.39)),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
+                _buildNotification(),
                 SizedBox(height: ScreenConstant.defaultHeightForty * 1.4),
               ],
             ),
@@ -209,10 +201,9 @@ class StressTreatmentPlan extends StatelessWidget {
     );
   }
 
-  _buildRelxTechniqueList() {
+  _buildLowFodmapFoodsList() {
     return GridView.builder(
       padding: EdgeInsets.symmetric(
-          horizontal: ScreenConstant.sizeLarge,
           vertical: ScreenConstant.defaultHeightTwentyThree),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -235,27 +226,26 @@ class StressTreatmentPlan extends StatelessWidget {
         );
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, childAspectRatio: 3.5),
+          crossAxisCount: 3, childAspectRatio: 2.5),
     );
   }
 
-  _buildWavePainter() {
+  _buildLowFodmapBg() {
     return Container(
+      decoration: BoxDecoration(color: AppColors.colorProfileBg,borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24),bottomRight:  Radius.circular(24))),
       margin: EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty * 1.5),
       width: Get.context.mediaQuerySize.width,
-      child: CustomPaint(
-        size: Size(Get.context.mediaQuerySize.width,
-            Get.context.mediaQuerySize.height),
-        painter: WavePainter(),
+      child: Image.asset(Assets.lowFoodbg,filterQuality: FilterQuality.high,fit: BoxFit.fill,
+       
       ),
     );
   }
 
-  _buildReminders() {
+  _buildNotification() {
     return Column(
       children: [
-        SizedBox(height: ScreenConstant.defaultHeightForty),
-        Text("Reminders",
+        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        Text("Notifications",
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.white, fontSizeDelta: -3)),
         SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
@@ -263,7 +253,7 @@ class StressTreatmentPlan extends StatelessWidget {
           "Would you like to set up app notifications to remind you?",
           textAlign: TextAlign.center,
           style: TextStyles.textStyleRegular
-              .apply(color: AppColors.colorSkipButton),
+              .apply(color: Colors.white.withOpacity(0.39)),
         ),
         SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
         Row(
@@ -334,7 +324,7 @@ class StressTreatmentPlan extends StatelessWidget {
             ),
             SizedBox(width: ScreenConstant.sizeDefault),
             Text(
-              "Add Reminders",
+              "Add Notifications",
               style: TextStyles.textStyleRegular.apply(color: AppColors.white),
             )
           ],
@@ -387,7 +377,7 @@ class StressTreatmentPlan extends StatelessWidget {
       SizedBox(height: ScreenConstant.defaultHeightForty * 1.3),
       Text("My Plan Details",
           style: TextStyles.textStyleIntroDescription
-              .apply(color: Colors.white, fontSizeDelta: -2)),
+              .apply(color: Colors.black, fontSizeDelta: -2)),
       SizedBox(height: ScreenConstant.defaultHeightForty * 1.2),
       Card(
           margin: EdgeInsets.zero,
@@ -398,65 +388,61 @@ class StressTreatmentPlan extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                 horizontal: ScreenConstant.defaultWidthTwenty,
               ),
-              child: Column(
+              child: Row(
                 children: [
-                  SizedBox(height: ScreenConstant.defaultHeightForty),
-                  Text("Relaxation Trackings",
-                      style: TextStyles.textStyleIntroDescription
-                          .apply(color: Colors.white, fontSizeDelta: -2)),
-                  SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-                  Text(
-                    "Relaxation tracking will be added to the Health & Wellness section accessed from the main tracking menu.\n\nThe options below will now be available for you to track.",
-                    textAlign: TextAlign.center,
-                    style: TextStyles.textStyleRegular
-                        .apply(color: AppColors.colorSkipButton),
-                  ),
-                  _buildRelxTechniqueList(),
-                ],
-              )))
-    ]);
-  }
-
-  _buildSetReminders() {
-    return Column(children: [
-      SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.5),
-      Card(
-          margin: EdgeInsets.zero,
-          color: AppColors.colorBackground,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTwenty,
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: ScreenConstant.defaultHeightForty),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Reminders set for this plan",
-                          style: TextStyles.textStyleIntroDescription
-                              .apply(color: Colors.white, fontSizeDelta: -2)),
-                      CustomSwitch(
-                        value: true,
-                        color: AppColors.colorYesButton,
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(
+                          vertical: ScreenConstant.sizeDefault),
+                      height: ScreenConstant.defaultHeightNinety,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                    ],
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        Assets.bread,
+                        width: ScreenConstant.sizeExtraLarge,
+                      ),
+                    ),
                   ),
-                  SizedBox(height: ScreenConstant.defaultHeightTen),
-                  Divider(
-                      thickness: 1, color: AppColors.white.withOpacity(0.12)),
-                  _buildTimeList(),
-                  SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                  SizedBox(width: ScreenConstant.sizeLarge),
+                  Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              CustomSwitch(
+                                value: true,
+                                color: AppColors.colorYesButton,
+                              ),
+                              SizedBox(width: ScreenConstant.sizeMedium),
+                              Text(
+                                "Reminder",
+                                style: TextStyles.textStyleIntroDescription
+                                    .apply(
+                                        fontSizeDelta: -4, color: Colors.white),
+                              )
+                            ],
+                          ),
+                          Divider(
+                              thickness: 1,
+                              color: AppColors.white.withOpacity(0.12)),
+                          _buildTimeList()
+                        ],
+                      ))
                 ],
-              )))
+              ))),
+              SizedBox(height: ScreenConstant.sizeXL,)
     ]);
   }
 
   _buildTimeList() {
     return ListView.separated(
-      itemCount: 2,
+      itemCount: 1,
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
@@ -470,18 +456,6 @@ class StressTreatmentPlan extends StatelessWidget {
             Text(
               "Daily at 4:00 PM",
               style: TextStyles.textStyleRegular.apply(color: Colors.white),
-            ),
-            TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Edit",
-                  style: TextStyles.textStyleRegular.apply(
-                      color: AppColors.colorSkipButton, fontSizeDelta: -2),
-                )),
-            Spacer(),
-            CustomSwitch(
-              color: AppColors.colorIcons,
-              value: true,
             ),
           ],
         );

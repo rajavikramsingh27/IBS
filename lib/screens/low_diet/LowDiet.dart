@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
+import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/Indicator.dart';
+import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 
-class TreatmentPlans extends StatelessWidget {
-  final _controller = Get.put(TreatmentPlanController());
-
+class LowDiet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          backgroundColor: AppColors.colorTracBg,
-
+      backgroundColor: AppColors.colorTracBg,
       appBar: AppBar(
         elevation: 0,
         leading: LeadingBackButton(
@@ -25,7 +22,7 @@ class TreatmentPlans extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          "TREATMENT PLANS",
+          "LOW FODMAP DIET",
           style: TextStyles.appBarTitle,
         ),
         actions: [
@@ -44,60 +41,44 @@ class TreatmentPlans extends StatelessWidget {
         physics: ClampingScrollPhysics(),
         children: [
           Center(
-              child: Image.asset(Assets.treatment,
+              child: Image.asset(Assets.lowDiet,
                   width: ScreenConstant.defaultHeightTwoHundredTen)),
           SizedBox(height: ScreenConstant.defaultHeightFifteen),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: ScreenConstant.defaultWidthTwenty * 2),
             child: Text(
-              "There is no cure for IBS but several treatments exist to help you manage your symptoms.",
+              "Changing your eating habits to a diet that is low in FODMAPs could help your IBS symptoms.",
               textAlign: TextAlign.center,
               style: TextStyles.textStyleRegular.apply(color: Colors.black),
             ),
           ),
+          SizedBox(height: ScreenConstant.defaultHeightTwenty),
+          _buildLowFodmapDiet("Low FODMAP diet plan details", () {}),
           SizedBox(height: ScreenConstant.defaultHeightFifteen),
-          Indicator(
-            controller: _controller.pageController,
-            itemCount: 4,
+          CustomElevatedButton(
+            text: "Start Plan",
+            widthFactor: 0.95,
+            onTap: () {
+              Get.toNamed(lowDietTreatmentPlan);
+            },
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
           Text(
-            "Lifestyle and Dietary Changes",
+            "Additional Resources",
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.black, fontSizeDelta: -4),
             textAlign: TextAlign.start,
           ),
           SizedBox(height: ScreenConstant.defaultHeightTen),
-          _buildTreatmentPlans("Stress management ", () {
-            Get.toNamed(stressManagement);
-          }),
-          SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("Low FODMAP diet", () {
-            Get.toNamed(lowDiet);
-          }),
-          SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("Increase exercise", () {}),
-          SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("Improve sleep", () {}),
-          SizedBox(height: ScreenConstant.defaultHeightTwenty),
-          Text(
-            "Physician Prescribed Changes",
-            style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.black, fontSizeDelta: -4),
-            textAlign: TextAlign.start,
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightTen),
-          _buildTreatmentPlans("Medication and supplements", () {}),
-          SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("Cognitive Behavioural Therapy", () {}),
+          _buildListAdditionalResources(),
           SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
         ],
       ),
     );
   }
 
-  Widget _buildTreatmentPlans(String title, Function onPressed) {
+  Widget _buildLowFodmapDiet(String title, Function onPressed) {
     return Container(
       padding: ScreenConstant.spacingAllSmall,
       decoration: BoxDecoration(
@@ -121,14 +102,28 @@ class TreatmentPlans extends StatelessWidget {
               border: Border.all(color: AppColors.colorArrowButton, width: 1)),
           child: IconButton(
             visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-            icon: Icon(
-              Icons.arrow_forward_ios_outlined,
-              color: AppColors.colorArrowButton,
-              size: FontSize.s14,
-            ),
+            icon: Icon(Icons.arrow_forward_ios_outlined,
+                color: AppColors.colorArrowButton, size: FontSize.s14),
             onPressed: onPressed,
           ),
         ),
+      ),
+    );
+  }
+
+  _buildListAdditionalResources() {
+    return ListView.separated(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: DummyData.lowdietadditionalResourcesList.length,
+      itemBuilder: (BuildContext context, int index) {
+        var model = DummyData.lowdietadditionalResourcesList[index];
+        return _buildLowFodmapDiet(model.title, () {
+          Get.toNamed(stressManagementDetails);
+        });
+      },
+      separatorBuilder: (BuildContext context, int index) => SizedBox(
+        height: ScreenConstant.sizeDefault,
       ),
     );
   }
