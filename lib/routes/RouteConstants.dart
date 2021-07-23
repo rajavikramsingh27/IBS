@@ -28,4 +28,5 @@ const String stressTreatPlan = '/stressTreatPlan';
 const String lowDiet = '/lowDiet';
 const String lowDietTreatmentPlan = '/lowDietTreatmentPlan';
 
-
+const String exercise = '/exercise';
+const String exerciseTreatmentPlan = '/exerciseTreatmentPlan';

@@ -1,5 +1,7 @@
 import 'package:flutter_ibs/screens/Intro.dart';
 import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
+import 'package:flutter_ibs/screens/exercise/Exercise.dart';
+import 'package:flutter_ibs/screens/exercise/ExerciseTreatmentPlan.dart';
 import 'package:flutter_ibs/screens/food/Foods.dart';
 import 'package:flutter_ibs/screens/health/Health.dart';
 import 'package:flutter_ibs/screens/home/Home.dart';
@@ -103,6 +105,14 @@ class NavRouter {
     GetPage(
       name: lowDietTreatmentPlan,
       page: () => LowDietTreatmentPlan(),
+    ),
+    GetPage(
+      name: exercise,
+      page: () => Exercise(),
+    ),
+    GetPage(
+      name: exerciseTreatmentPlan,
+      page: () => ExerciseTreatmentPlan(),
     ),
   ];
 }

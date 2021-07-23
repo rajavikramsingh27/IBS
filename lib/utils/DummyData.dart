@@ -109,10 +109,29 @@ class DummyData {
     TrackingOptionsModel(title: "Strategies for managing stress"),
     TrackingOptionsModel(title: "What to expect"),
   ];
-   static List<TrackingOptionsModel> lowdietadditionalResourcesList = [
+  static List<TrackingOptionsModel> lowdietadditionalResourcesList = [
     TrackingOptionsModel(title: "Understanding FODMAPs and IBS"),
     TrackingOptionsModel(title: "Strategies for success"),
     TrackingOptionsModel(title: "What to expect"),
+  ];
+  static List<TrackingOptionsModel> exerciseadditionalResourcesList = [
+    TrackingOptionsModel(title: "Exercise and IBS"),
+    TrackingOptionsModel(title: "Adding Exercise Safely"),
+    TrackingOptionsModel(title: "What to expect"),
+  ];
+  static List<IBSTypeModel> exerciseList = [
+    IBSTypeModel(text: "Walking", image: Assets.walking),
+    IBSTypeModel(text: "Aerobics/Dancing", image: Assets.aerobics),
+    IBSTypeModel(text: "Running", image: Assets.running),
+    IBSTypeModel(text: "Cycling", image: Assets.cycling),
+    IBSTypeModel(text: "Hiking", image: Assets.hiking),
+    IBSTypeModel(text: "Treadmill", image: Assets.treadmill),
+    IBSTypeModel(text: "Swimming", image: Assets.swimming),
+    IBSTypeModel(text: "Sports", image: Assets.sports),
+    IBSTypeModel(text: "Weight Lifting", image: Assets.weightLifting),
+    IBSTypeModel(text: "Yoga", image: Assets.yoga),
+    IBSTypeModel(text: "Stationary Bike", image: Assets.biking),
+    IBSTypeModel(text: "Equipment Training", image: Assets.equipmentTraining),
   ];
 }
 

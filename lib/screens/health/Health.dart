@@ -7,6 +7,7 @@ import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
+import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
@@ -79,9 +80,11 @@ class Health extends StatelessWidget {
                               child: _buildWavePainter(),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: ScreenConstant.defaultWidthTwenty,
-                                  vertical: ScreenConstant.defaultHeightSixty),
+                              margin: EdgeInsets.only(
+                                left: ScreenConstant.defaultWidthTwenty,
+                                right: ScreenConstant.defaultWidthTwenty,
+                                bottom: ScreenConstant.defaultHeightSixty,
+                              ),
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20)),
@@ -148,52 +151,60 @@ class Health extends StatelessWidget {
       child: Padding(
         padding:
             EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
-        child: Column(
+        child: Stack(
           children: [
-            SizedBox(height: ScreenConstant.defaultHeightForty),
-            Text("Stress",
-                style: TextStyles.textStyleIntroDescription
-                    .apply(color: Colors.white, fontSizeDelta: -3)),
-            SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-            Text(
-              "I’m feeling a heightened degree of stress",
-              textAlign: TextAlign.center,
-              style: TextStyles.textStyleRegular
-                  .apply(color: AppColors.colorSkipButton),
+            Column(
+              children: [
+                SizedBox(height: ScreenConstant.defaultHeightForty),
+                Text("Stress",
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.white, fontSizeDelta: -3)),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                Text(
+                  "I’m feeling a heightened degree of stress",
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleRegular
+                      .apply(color: AppColors.colorSkipButton),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                _buildStressSlider(),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
+                SizedBox(height: ScreenConstant.defaultHeightForty),
+                Text("Fatigue",
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.white, fontSizeDelta: -3)),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                Text(
+                  "I feel very tired but am still able to do most things",
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleRegular
+                      .apply(color: AppColors.colorSkipButton),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                _buildFatigueSlider(),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
+                SizedBox(height: ScreenConstant.defaultHeightForty),
+                Text("Activity level",
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.white, fontSizeDelta: -3)),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                Text(
+                  "I’ve been moving a lot today",
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleRegular
+                      .apply(color: AppColors.colorSkipButton),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                _buildActivityLevelSlider(),
+                SizedBox(height: ScreenConstant.defaultHeightForty),
+              ],
             ),
-            SizedBox(height: ScreenConstant.defaultHeightTwenty),
-            _buildStressSlider(),
-            SizedBox(height: ScreenConstant.defaultHeightTwenty),
-            Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
-            SizedBox(height: ScreenConstant.defaultHeightForty),
-            Text("Fatigue",
-                style: TextStyles.textStyleIntroDescription
-                    .apply(color: Colors.white, fontSizeDelta: -3)),
-            SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-            Text(
-              "I feel very tired but am still able to do most things",
-              textAlign: TextAlign.center,
-              style: TextStyles.textStyleRegular
-                  .apply(color: AppColors.colorSkipButton),
-            ),
-            SizedBox(height: ScreenConstant.defaultHeightTwenty),
-            _buildFatigueSlider(),
-            SizedBox(height: ScreenConstant.defaultHeightTwenty),
-            Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
-            SizedBox(height: ScreenConstant.defaultHeightForty),
-            Text("Activity level",
-                style: TextStyles.textStyleIntroDescription
-                    .apply(color: Colors.white, fontSizeDelta: -3)),
-            SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-            Text(
-              "I’ve been moving a lot today",
-              textAlign: TextAlign.center,
-              style: TextStyles.textStyleRegular
-                  .apply(color: AppColors.colorSkipButton),
-            ),
-            SizedBox(height: ScreenConstant.defaultHeightTwenty),
-            _buildActivityLevelSlider(),
-            SizedBox(height: ScreenConstant.defaultHeightForty),
+            Container(
+              height: ScreenConstant.defaultHeightOneHundred,
+              child: OvalPainterWidget(),
+            )
           ],
         ),
       ),

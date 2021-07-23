@@ -80,8 +80,6 @@ class Assets {
   static const String bread = "$baseImage/track/bread.png";
   static const String lowFoodbg = "$baseImage/track/lowFoodbg.png";
 
-
-
 // home
   static const String settings = "$baseImage/home/settings.png";
 
@@ -100,6 +98,22 @@ class Assets {
   static const String afternoon = "$baseImage/home/afternoon.png";
   static const String night = "$baseImage/home/night.png";
   static const String edit = "$baseImage/home/edit.png";
+
+  //exercise
+  static const String walking = "$baseImage/exercise/walking.png";
+  static const String aerobics = "$baseImage/exercise/aerobics.png";
+  static const String running = "$baseImage/exercise/running.png";
+  static const String cycling = "$baseImage/exercise/cycling.png";
+  static const String hiking = "$baseImage/exercise/hiking.png";
+  static const String treadmill = "$baseImage/exercise/treadmill.png";
+  static const String swimming = "$baseImage/exercise/swimming.png";
+  static const String sports = "$baseImage/exercise/sports.png";
+  static const String weightLifting = "$baseImage/exercise/weightLifting.png";
+  static const String yoga = "$baseImage/exercise/yoga.png";
+  static const String biking = "$baseImage/exercise/biking.png";
+  static const String equipmentTraining =
+      "$baseImage/exercise/equipmentTraining.png";
+  static const String planExercise = "$baseImage/exercise/planExercise.png";
 
   static const String logout = "assets/images/logout.png";
 

@@ -10,6 +10,7 @@ import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
+import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 
@@ -170,61 +171,69 @@ class Foods extends StatelessWidget {
           color: AppColors.colorBackground,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Column(
+          child: Stack(
             children: [
-              SizedBox(height: ScreenConstant.defaultHeightForty),
-              Text("What Did you Eat?",
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.white, fontSizeDelta: -3)),
-              SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-              Text(
-                "Select from this list of common foods or add another",
-                textAlign: TextAlign.center,
-                style: TextStyles.textStyleRegular
-                    .apply(color: AppColors.colorSkipButton),
-              ),
-              _buildListOfFoodsTaken(),
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                margin: ScreenConstant.spacingAllLarge,
-                child: FractionallySizedBox(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Add Medication",
-                        hintStyle: TextStyles.textStyleRegular
-                            .apply(color: AppColors.colorTextHint),
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: ScreenConstant.sizeMedium,
-                        )),
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Column(
                 children: [
-                  CircleAvatar(
-                    radius: ScreenConstant.defaultWidthTen * 1.5,
-                    backgroundColor: AppColors.colorArrowButton,
-                    child: Icon(
-                      Icons.add,
-                      size: FontSize.s11,
-                      color: Colors.white,
+                  SizedBox(height: ScreenConstant.defaultHeightForty),
+                  Text("What Did you Eat?",
+                      style: TextStyles.textStyleIntroDescription
+                          .apply(color: Colors.white, fontSizeDelta: -3)),
+                  SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                  Text(
+                    "Select from this list of common foods or add another",
+                    textAlign: TextAlign.center,
+                    style: TextStyles.textStyleRegular
+                        .apply(color: AppColors.colorSkipButton),
+                  ),
+                  _buildListOfFoodsTaken(),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    margin: ScreenConstant.spacingAllLarge,
+                    child: FractionallySizedBox(
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Add Medication",
+                            hintStyle: TextStyles.textStyleRegular
+                                .apply(color: AppColors.colorTextHint),
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: ScreenConstant.sizeMedium,
+                            )),
+                      ),
                     ),
                   ),
-                  SizedBox(width: ScreenConstant.sizeDefault),
-                  Text(
-                    "Add this food",
-                    style: TextStyles.textStyleRegular
-                        .apply(color: AppColors.white),
-                  )
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: ScreenConstant.defaultWidthTen * 1.5,
+                        backgroundColor: AppColors.colorArrowButton,
+                        child: Icon(
+                          Icons.add,
+                          size: FontSize.s11,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(width: ScreenConstant.sizeDefault),
+                      Text(
+                        "Add this food",
+                        style: TextStyles.textStyleRegular
+                            .apply(color: AppColors.white),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                  _buildRegularFoodsTaken(),
+                  _buildLOWFODMAPFoods(),
+                  SizedBox(height: ScreenConstant.defaultHeightForty * 1.4),
                 ],
               ),
-              SizedBox(height: ScreenConstant.defaultHeightTwenty),
-              _buildRegularFoodsTaken(),
-              _buildLOWFODMAPFoods(),
-              SizedBox(height: ScreenConstant.defaultHeightForty * 1.4),
+              Container(
+                height: ScreenConstant.defaultHeightOneHundred,
+                child: OvalPainterWidget(),
+              )
             ],
           ),
         ),

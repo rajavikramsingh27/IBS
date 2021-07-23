@@ -9,6 +9,7 @@ import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomSwitch.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
+import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
@@ -136,6 +137,7 @@ class BowelMovement extends StatelessWidget {
                               child: _buildWavePainter(),
                             ),
                             Container(
+                              
                               margin: ScreenConstant.spacingAllMedium,
                               decoration: BoxDecoration(
                                   color: Colors.white,
@@ -230,30 +232,36 @@ class BowelMovement extends StatelessWidget {
   }
 
   _buildUrgency() {
-    return AspectRatio(
-      aspectRatio: 1.3,
-      child: Card(
-        margin: EdgeInsets.zero,
-        color: AppColors.colorBackground,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Column(
-          children: [
-            SizedBox(height: ScreenConstant.defaultHeightForty),
-            Text("Urgency",
-                style: TextStyles.textStyleIntroDescription
-                    .apply(color: Colors.white, fontSizeDelta: -3)),
-            SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-            Text(
-              "I needed to get to the washroom quite quickly",
-              textAlign: TextAlign.center,
-              style: TextStyles.textStyleRegular
-                  .apply(color: AppColors.colorSkipButton),
-            ),
-            SizedBox(height: ScreenConstant.defaultHeightTwenty),
-            _buildUrgencySlider(),
-          ],
+    return Stack(
+      children: [
+        AspectRatio(
+            aspectRatio: 1.3,
+            child: Card(
+              margin: EdgeInsets.zero,
+              color: AppColors.colorBackground,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              child: Column(
+                children: [
+        SizedBox(height: ScreenConstant.defaultHeightForty),
+        Text("Urgency",
+            style: TextStyles.textStyleIntroDescription
+                .apply(color: Colors.white, fontSizeDelta: -3)),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        Text(
+          "I needed to get to the washroom quite quickly",
+          textAlign: TextAlign.center,
+          style: TextStyles.textStyleRegular
+              .apply(color: AppColors.colorSkipButton),
         ),
-      ),
+        SizedBox(height: ScreenConstant.defaultHeightTwenty),
+        _buildUrgencySlider(),
+                ],
+              ),
+            ),
+          ),
+        Container(height: ScreenConstant.defaultHeightOneHundred, child: OvalPainterWidget(),),
+
+      ],
     );
   }
 

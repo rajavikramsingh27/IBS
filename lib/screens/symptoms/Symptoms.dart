@@ -8,6 +8,7 @@ import 'package:flutter_ibs/widget/AdditionalNoteWidget.dart';
 import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
+import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
@@ -94,171 +95,63 @@ class Symptoms extends StatelessWidget {
     );
   }
 
-  _buildAbdominalSlider() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
-      child: SfSliderTheme(
-        data: SfSliderThemeData(
-          thumbColor: AppColors.colorArrowButton,
-          thumbStrokeWidth: 5,
-          thumbRadius: 16,
-          thumbStrokeColor: Colors.white,
-          activeTrackHeight: 4,
-          overlayRadius: 0,
-          disabledActiveTrackColor: AppColors.colorTrackSlider,
-          disabledInactiveTrackColor: AppColors.colorTrackSlider,
-          activeDividerStrokeWidth: 2,
-          inactiveDividerStrokeWidth: 2,
-          inactiveTrackHeight: 4,
-          activeTrackColor: AppColors.colorTrackSlider,
-          inactiveTrackColor: AppColors.colorTrackSlider,
-          inactiveDividerStrokeColor: AppColors.white,
-          inactiveDividerRadius: 8,
-          inactiveDividerColor: AppColors.colorInactiveDividerSlider,
-          activeDividerColor: AppColors.colorInactiveDividerSlider,
-          activeDividerStrokeColor: Colors.white,
-          activeDividerRadius: 8,
-          activeLabelStyle: TextStyles.textStyleRegular
-              .apply(color: AppColors.colorTrackSlider),
-          inactiveLabelStyle: TextStyles.textStyleRegular
-              .apply(color: AppColors.colorTrackSlider),
-        ),
-        child: Obx(
-          () => SfSlider(
-            showDividers: true,
-            min: 1.0,
-            max: 4.0,
-            interval: 1,
-            stepSize: 1,
-            showLabels: true,
-            value: _controller.sliderValue.value,
-            onChanged: (dynamic newValue) {
-              print("cahnged");
-              _controller.sliderValue.value = newValue;
-            },
-            labelFormatterCallback:
-                (dynamic actualValue, String formattedText) {
-              return actualValue == 1
-                  ? "None"
-                  : actualValue == 2
-                      ? ""
-                      : actualValue == 3
-                          ? ""
-                          : "Severe";
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  _buildBloatingSlider() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
-      child: SfSliderTheme(
-        data: SfSliderThemeData(
-          thumbColor: AppColors.colorArrowButton,
-          thumbStrokeWidth: 5,
-          thumbRadius: 16,
-          thumbStrokeColor: Colors.white,
-          activeTrackHeight: 4,
-          overlayRadius: 0,
-          disabledActiveTrackColor: AppColors.colorTrackSlider,
-          disabledInactiveTrackColor: AppColors.colorTrackSlider,
-          activeDividerStrokeWidth: 2,
-          inactiveDividerStrokeWidth: 2,
-          inactiveTrackHeight: 4,
-          activeTrackColor: AppColors.colorTrackSlider,
-          inactiveTrackColor: AppColors.colorTrackSlider,
-          inactiveDividerStrokeColor: AppColors.white,
-          inactiveDividerRadius: 8,
-          inactiveDividerColor: AppColors.colorInactiveDividerSlider,
-          activeDividerColor: AppColors.colorInactiveDividerSlider,
-          activeDividerStrokeColor: Colors.white,
-          activeDividerRadius: 8,
-          activeLabelStyle: TextStyles.textStyleRegular
-              .apply(color: AppColors.colorTrackSlider),
-          inactiveLabelStyle: TextStyles.textStyleRegular
-              .apply(color: AppColors.colorTrackSlider),
-        ),
-        child: Obx(
-          () => SfSlider(
-            showDividers: true,
-            min: 1.0,
-            max: 4.0,
-            interval: 1,
-            stepSize: 1,
-            showLabels: true,
-            value: _controller.sliderValue.value,
-            onChanged: (dynamic newValue) {
-              print("cahnged");
-              _controller.sliderValue.value = newValue;
-            },
-            labelFormatterCallback:
-                (dynamic actualValue, String formattedText) {
-              return actualValue == 1
-                  ? "None"
-                  : actualValue == 2
-                      ? ""
-                      : actualValue == 3
-                          ? ""
-                          : "Severe";
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
   _buildAbdominal() {
-    return Container(
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: _buildWavePainter(),
+    return Stack(
+      children: [
+        Positioned.fill(
+          top: ScreenConstant.defaultHeightOneHundred,
+          child: _buildWavePainter(),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: ScreenConstant.defaultWidthTen * 1.6,
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: ScreenConstant.defaultWidthTen * 1.6,
+          child: Card(
+            margin: EdgeInsets.zero,
+            color: AppColors.colorBackground,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20)),
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    SizedBox(
+                        height: ScreenConstant.defaultHeightTwenty * 1.6),
+                    Text("Abdominal Pain",
+                        style: TextStyles.textStyleIntroDescription
+                            .apply(color: Colors.white, fontSizeDelta: -3)),
+                    SizedBox(height: ScreenConstant.defaultHeightTen),
+                    Text(
+                      "I have no abdominal pain.",
+                      style: TextStyles.textStyleRegular
+                          .apply(color: AppColors.colorSkipButton),
+                    ),
+                    SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                    _buildAbdominalSlider(),
+                    _abdominalPainList(),
+                    Text("Bloating",
+                        style: TextStyles.textStyleIntroDescription
+                            .apply(color: Colors.white, fontSizeDelta: -3)),
+                    SizedBox(height: ScreenConstant.defaultHeightTen),
+                    Text(
+                      "I have no bloating.",
+                      style: TextStyles.textStyleRegular
+                          .apply(color: AppColors.colorSkipButton),
+                    ),
+                    SizedBox(height: ScreenConstant.defaultHeightTen),
+                    _buildBloatingSlider(),
+                    _buildBloatingList(),
+                  ],
+                ),
+                Container(
+                  height: ScreenConstant.defaultHeightOneHundred,
+                  child: OvalPainterWidget(),
+                )
+              ],
             ),
-            child: Card(
-              margin: EdgeInsets.zero,
-              color: AppColors.colorBackground,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              child: Column(
-                children: [
-                  SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                  Text("Abdominal Pain",
-                      style: TextStyles.textStyleIntroDescription
-                          .apply(color: Colors.white, fontSizeDelta: -3)),
-                  SizedBox(height: ScreenConstant.defaultHeightTen),
-                  Text(
-                    "I have no abdominal pain.",
-                    style: TextStyles.textStyleRegular
-                        .apply(color: AppColors.colorSkipButton),
-                  ),
-                  SizedBox(height: ScreenConstant.defaultHeightTen),
-                  _buildAbdominalSlider(),
-                  _abdominalPainList(),
-                  Text("Bloating",
-                      style: TextStyles.textStyleIntroDescription
-                          .apply(color: Colors.white, fontSizeDelta: -3)),
-                  SizedBox(height: ScreenConstant.defaultHeightTen),
-                  Text(
-                    "I have no bloating.",
-                    style: TextStyles.textStyleRegular
-                        .apply(color: AppColors.colorSkipButton),
-                  ),
-                  SizedBox(height: ScreenConstant.defaultHeightTen),
-                  _buildBloatingSlider(),
-                  _buildBloatingList(),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 
@@ -324,63 +217,130 @@ class Symptoms extends StatelessWidget {
       ),
     );
   }
+  
+  _buildAbdominalSlider() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
+      child: SfSliderTheme(
+        data: SfSliderThemeData(
+          thumbColor: AppColors.colorArrowButton,
+          thumbStrokeWidth: 5,
+          thumbRadius: 16,
+          thumbStrokeColor: Colors.white,
+          activeTrackHeight: 4,
+          overlayRadius: 0,
+          disabledActiveTrackColor: AppColors.colorTrackSlider,
+          disabledInactiveTrackColor: AppColors.colorTrackSlider,
+          activeDividerStrokeWidth: 2,
+          inactiveDividerStrokeWidth: 2,
+          inactiveTrackHeight: 4,
+          activeTrackColor: AppColors.colorTrackSlider,
+          inactiveTrackColor: AppColors.colorTrackSlider,
+          inactiveDividerStrokeColor: AppColors.white,
+          inactiveDividerRadius: 8,
+          inactiveDividerColor: AppColors.colorInactiveDividerSlider,
+          activeDividerColor: AppColors.colorInactiveDividerSlider,
+          activeDividerStrokeColor: Colors.white,
+          activeDividerRadius: 8,
+          activeLabelStyle: TextStyles.textStyleRegular
+              .apply(color: AppColors.colorTrackSlider),
+          inactiveLabelStyle: TextStyles.textStyleRegular
+              .apply(color: AppColors.colorTrackSlider),
+        ),
+        child: Obx(
+          () => SfSlider(
+            showDividers: true,
+            min: 1.0,
+            max: 4.0,
+            interval: 1,
+            stepSize: 1,
+            showLabels: true,
+            value: _controller.sliderValue.value,
+            onChanged: (dynamic newValue) {
+              print("cahnged");
+              _controller.sliderValue.value = newValue;
+            },
+            labelFormatterCallback:
+                (dynamic actualValue, String formattedText) {
+              return actualValue == 1
+                  ? "None"
+                  : actualValue == 2
+                      ? ""
+                      : actualValue == 3
+                          ? ""
+                          : "Severe";
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+ 
+
 
   _buildBloatingList() {
-    return Padding(
-      padding: ScreenConstant.spacingAllMedium,
-      child: Column(
-        children: [
-          SizedBox(height: ScreenConstant.defaultHeightTwenty),
-          Text("Describe How Your Pain Feels",
-              textAlign: TextAlign.center,
-              style: TextStyles.textStyleIntroDescription
-                  .apply(color: Colors.white, fontSizeDelta: -3)),
-          SizedBox(height: ScreenConstant.defaultHeightTen),
-          Text(
-            "Select from list below to help describe what you are feeling.",
-            textAlign: TextAlign.center,
-            style: TextStyles.textStyleRegular
-                .apply(color: AppColors.colorSkipButton),
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: DummyData.symptoms.length,
-            itemBuilder: (BuildContext context, int index) {
-              var model = DummyData.symptoms[index];
-              return Card(
-                  elevation: 0,
-                  color: AppColors.colorSymptomsGridBg,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Padding(
-                    padding: ScreenConstant.spacingAllDefault,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          model.image,
-                          width: ScreenConstant.defaultWidthTwenty * 1.5,
+    return Stack(
+      children: [
+        Padding(
+          padding: ScreenConstant.spacingAllMedium,
+          child: Column(
+            children: [
+              SizedBox(height: ScreenConstant.defaultHeightTwenty),
+              Text("Describe How Your Pain Feels",
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleIntroDescription
+                      .apply(color: Colors.white, fontSizeDelta: -3)),
+              SizedBox(height: ScreenConstant.defaultHeightTen),
+              Text(
+                "Select from list below to help describe what you are feeling.",
+                textAlign: TextAlign.center,
+                style: TextStyles.textStyleRegular
+                    .apply(color: AppColors.colorSkipButton),
+              ),
+              SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: DummyData.symptoms.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var model = DummyData.symptoms[index];
+                  return Card(
+                      elevation: 0,
+                      color: AppColors.colorSymptomsGridBg,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Padding(
+                        padding: ScreenConstant.spacingAllDefault,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              model.image,
+                              width: ScreenConstant.defaultWidthTwenty * 1.5,
+                            ),
+                            SizedBox(height: ScreenConstant.defaultHeightTen),
+                            Text("${model.text}",
+                                textAlign: TextAlign.center,
+                                style: TextStyles.textStyleRegular.apply(
+                                    color: AppColors.white, fontSizeDelta: -2)),
+                          ],
                         ),
-                        SizedBox(height: ScreenConstant.defaultHeightTen),
-                        Text("${model.text}",
-                            textAlign: TextAlign.center,
-                            style: TextStyles.textStyleRegular.apply(
-                                color: AppColors.white, fontSizeDelta: -2)),
-                      ],
-                    ),
-                  ));
-            },
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, childAspectRatio: 1),
+                      ));
+                },
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, childAspectRatio: 1),
+              ),
+              SizedBox(height: ScreenConstant.defaultHeightForty * 1.25),
+              _buildDuration(),
+              SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+            ],
           ),
-          SizedBox(height: ScreenConstant.defaultHeightForty * 1.25),
-          _buildDuration(),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-        ],
-      ),
+        ),
+        Container(height: ScreenConstant.defaultHeightOneHundred, child: OvalPainterWidget(bottom: 0,quarterTurns: 2,),),
+
+      ],
     );
   }
 
@@ -392,6 +352,63 @@ class Symptoms extends StatelessWidget {
         size: Size(Get.context.mediaQuerySize.width,
             Get.context.mediaQuerySize.height),
         painter: WavePainter(),
+      ),
+    );
+  }
+   _buildBloatingSlider() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
+      child: SfSliderTheme(
+        data: SfSliderThemeData(
+          thumbColor: AppColors.colorArrowButton,
+          thumbStrokeWidth: 5,
+          thumbRadius: 16,
+          thumbStrokeColor: Colors.white,
+          activeTrackHeight: 4,
+          overlayRadius: 0,
+          disabledActiveTrackColor: AppColors.colorTrackSlider,
+          disabledInactiveTrackColor: AppColors.colorTrackSlider,
+          activeDividerStrokeWidth: 2,
+          inactiveDividerStrokeWidth: 2,
+          inactiveTrackHeight: 4,
+          activeTrackColor: AppColors.colorTrackSlider,
+          inactiveTrackColor: AppColors.colorTrackSlider,
+          inactiveDividerStrokeColor: AppColors.white,
+          inactiveDividerRadius: 8,
+          inactiveDividerColor: AppColors.colorInactiveDividerSlider,
+          activeDividerColor: AppColors.colorInactiveDividerSlider,
+          activeDividerStrokeColor: Colors.white,
+          activeDividerRadius: 8,
+          activeLabelStyle: TextStyles.textStyleRegular
+              .apply(color: AppColors.colorTrackSlider),
+          inactiveLabelStyle: TextStyles.textStyleRegular
+              .apply(color: AppColors.colorTrackSlider),
+        ),
+        child: Obx(
+          () => SfSlider(
+            showDividers: true,
+            min: 1.0,
+            max: 4.0,
+            interval: 1,
+            stepSize: 1,
+            showLabels: true,
+            value: _controller.sliderValue.value,
+            onChanged: (dynamic newValue) {
+              print("cahnged");
+              _controller.sliderValue.value = newValue;
+            },
+            labelFormatterCallback:
+                (dynamic actualValue, String formattedText) {
+              return actualValue == 1
+                  ? "None"
+                  : actualValue == 2
+                      ? ""
+                      : actualValue == 3
+                          ? ""
+                          : "Severe";
+            },
+          ),
+        ),
       ),
     );
   }

@@ -9,6 +9,7 @@ import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
+import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 
@@ -75,13 +76,15 @@ class Medication extends StatelessWidget {
                         Stack(
                           children: [
                             Positioned.fill(
-                              top: ScreenConstant.defaultHeightOneHundred,
+                              top: ScreenConstant.defaultHeightOneHundred * 1.1,
                               child: _buildWavePainter(),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: ScreenConstant.defaultWidthTwenty,
-                                  vertical: ScreenConstant.defaultHeightSixty),
+                              margin: EdgeInsets.only(
+                                left: ScreenConstant.defaultWidthTwenty,
+                                right: ScreenConstant.defaultWidthTwenty,
+                                bottom: ScreenConstant.defaultHeightForty,
+                              ),
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20)),
@@ -130,84 +133,85 @@ class Medication extends StatelessWidget {
 
   _buildMedication() {
     return Stack(
-      alignment: Alignment.center,
       children: [
         Card(
           margin: EdgeInsets.zero,
           color: AppColors.colorBackground,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Column(
+          child: Stack(
             children: [
-              SizedBox(height: ScreenConstant.defaultHeightForty),
-              Text("What Did you take?",
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.white, fontSizeDelta: -3)),
-              SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-              Text(
-                "Select from this list of common medications and supplements or add your own",
-                textAlign: TextAlign.center,
-                style: TextStyles.textStyleRegular
-                    .apply(color: AppColors.colorSkipButton),
-              ),
-              _buildListOfMedicineTaken(),
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                margin: ScreenConstant.spacingAllLarge,
-                child: FractionallySizedBox(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Add Medication",
-                        hintStyle: TextStyles.textStyleRegular
-                            .apply(color: AppColors.colorTextHint),
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: ScreenConstant.sizeMedium,
-                        )),
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Column(
                 children: [
-                  CircleAvatar(
-                    radius: ScreenConstant.defaultWidthTen * 1.5,
-                    backgroundColor: AppColors.colorArrowButton,
-                    child: Icon(
-                      Icons.add,
-                      size: FontSize.s11,
-                      color: Colors.white,
+                  SizedBox(height: ScreenConstant.defaultHeightForty),
+                  Text("What Did you take?",
+                      style: TextStyles.textStyleIntroDescription
+                          .apply(color: Colors.white, fontSizeDelta: -3)),
+                  SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.6),
+                  Text(
+                    "Select from this list of common medications and supplements or add your own",
+                    textAlign: TextAlign.center,
+                    style: TextStyles.textStyleRegular
+                        .apply(color: AppColors.colorSkipButton),
+                  ),
+                  _buildListOfMedicineTaken(),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    margin: ScreenConstant.spacingAllLarge,
+                    child: FractionallySizedBox(
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Add Medication",
+                            hintStyle: TextStyles.textStyleRegular
+                                .apply(color: AppColors.colorTextHint),
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: ScreenConstant.sizeMedium,
+                            )),
+                      ),
                     ),
                   ),
-                  SizedBox(width: ScreenConstant.sizeDefault),
-                  Text(
-                    "Add this medication",
-                    style: TextStyles.textStyleRegular
-                        .apply(color: AppColors.white),
-                  )
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: ScreenConstant.defaultWidthTen * 1.5,
+                        backgroundColor: AppColors.colorArrowButton,
+                        child: Icon(
+                          Icons.add,
+                          size: FontSize.s11,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(width: ScreenConstant.sizeDefault),
+                      Text(
+                        "Add this medication",
+                        style: TextStyles.textStyleRegular
+                            .apply(color: AppColors.white),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: ScreenConstant.defaultHeightForty * 1.4),
                 ],
               ),
-              SizedBox(height: ScreenConstant.defaultHeightForty * 1.4),
+              Container(
+                height: ScreenConstant.defaultHeightOneHundred,
+                child: OvalPainterWidget(),
+              ),
+              //  Positioned(bottom:0,
+              //  left: 0,right: 0,
+              //                   child: Container(
+              //                     constraints: BoxConstraints.tight(Size(Get.context.mediaQuerySize.width*0.8,ScreenConstant.defaultHeightOneHundred)),
+              //       height: ScreenConstant.defaultHeightOneHundred,
+              //       child: OvalPainterWidget(
+              //         quarterTurns: 2,
+              //         bottom: 0,
+              //       ),),
+              //  )
             ],
           ),
         ),
-        Positioned(
-            bottom: -50,
-            child: CustomArcPainter2(
-                height: 100,
-                width: 100,
-                quarterTurns: 0,
-                painter:
-                    MyPainter(AppColors.colorSymptomsGridBg.withOpacity(0.5)))),
-        Positioned(
-            bottom: -100,
-            child: CustomArcPainter2(
-                height: 200,
-                width: 200,
-                quarterTurns: 0,
-                painter: MyPainter(
-                    AppColors.colorSymptomsGridBg.withOpacity(0.20)))),
       ],
     );
   }
@@ -238,7 +242,7 @@ class Medication extends StatelessWidget {
         );
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, childAspectRatio: 3.5),
+          crossAxisCount: 3, childAspectRatio: 2.5),
     );
   }
 

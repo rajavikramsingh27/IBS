@@ -67,7 +67,4 @@ class AppColors {
   static const Color colorTextStop = const Color(0xFF504D64);
 
   static const Color colorIcons = const Color(0xFFD2C5FC);
-
-  
-  
 }
