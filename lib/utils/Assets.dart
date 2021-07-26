@@ -79,6 +79,11 @@ class Assets {
   static const String lowDiet = "$baseImage/track/lowDiet.png";
   static const String bread = "$baseImage/track/bread.png";
   static const String lowFoodbg = "$baseImage/track/lowFoodbg.png";
+  static const String sleep = "$baseImage/track/sleep.png";
+  static const String medicationSuplements = "$baseImage/track/medicationSuplements.png";
+  static const String sleepemoji = "$baseImage/track/sleepEmoji.png";
+
+
 
 // home
   static const String settings = "$baseImage/home/settings.png";
@@ -98,6 +103,8 @@ class Assets {
   static const String afternoon = "$baseImage/home/afternoon.png";
   static const String night = "$baseImage/home/night.png";
   static const String edit = "$baseImage/home/edit.png";
+  static const String calendar = "$baseImage/home/calendar.png";
+
 
   //exercise
   static const String walking = "$baseImage/exercise/walking.png";

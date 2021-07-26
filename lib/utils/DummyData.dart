@@ -133,6 +133,16 @@ class DummyData {
     IBSTypeModel(text: "Stationary Bike", image: Assets.biking),
     IBSTypeModel(text: "Equipment Training", image: Assets.equipmentTraining),
   ];
+   static List<TrackingOptionsModel> sleepAdditionalResourcesList = [
+    TrackingOptionsModel(title: "Relationship Between Sleep and IBS"),
+    TrackingOptionsModel(title: "Tips for Healthy Sleep"),
+    TrackingOptionsModel(title: "What to expect"),
+  ];
+   static List<TrackingOptionsModel> medicationAdditionalResourcesList = [
+    TrackingOptionsModel(title: "When shoould a prescription medication"),
+    TrackingOptionsModel(title: "Tips for starting a new medication"),
+    TrackingOptionsModel(title: "What to expect"),
+  ];
 }
 
 class IBSTypeModel {

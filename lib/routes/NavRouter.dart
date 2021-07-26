@@ -1,5 +1,6 @@
 import 'package:flutter_ibs/screens/Intro.dart';
 import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
+import 'package:flutter_ibs/screens/daily_log/DailyLog.dart';
 import 'package:flutter_ibs/screens/exercise/Exercise.dart';
 import 'package:flutter_ibs/screens/exercise/ExerciseTreatmentPlan.dart';
 import 'package:flutter_ibs/screens/food/Foods.dart';
@@ -8,12 +9,15 @@ import 'package:flutter_ibs/screens/home/Home.dart';
 import 'package:flutter_ibs/screens/low_diet/LowDiet.dart';
 import 'package:flutter_ibs/screens/low_diet/LowDietTreatmentPlan.dart';
 import 'package:flutter_ibs/screens/medication/Medication.dart';
+import 'package:flutter_ibs/screens/medication_supplements/MedicationSuplements.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep1.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep2.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep3.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep1.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep2.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep3.dart';
+import 'package:flutter_ibs/screens/sleep/Sleep.dart';
+import 'package:flutter_ibs/screens/sleep/SleepTreatmentPlan.dart';
 import 'package:flutter_ibs/screens/stress_management/StressManagement.dart';
 import 'package:flutter_ibs/screens/stress_management/StressManagementDetails.dart';
 import 'package:flutter_ibs/screens/stress_management/StressTreatmentPlan.dart';
@@ -61,6 +65,10 @@ class NavRouter {
     GetPage(
       name: home,
       page: () => Home(),
+    ),
+     GetPage(
+      name: daily_log,
+      page: () => DailyLog(),
     ),
     GetPage(
       name: symptoms,
@@ -113,6 +121,18 @@ class NavRouter {
     GetPage(
       name: exerciseTreatmentPlan,
       page: () => ExerciseTreatmentPlan(),
+    ),
+     GetPage(
+      name: sleep,
+      page: () => Sleep(),
+    ),
+      GetPage(
+      name: sleepTreatmentPlan,
+      page: () => SleepTreatmentPlan(),
+    ),
+     GetPage(
+      name: medication_supplements,
+      page: () => MedicationSuplements(),
     ),
   ];
 }

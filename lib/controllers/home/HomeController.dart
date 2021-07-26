@@ -6,6 +6,7 @@ class HomeController extends GetxController {
   RxBool selectedDailyLogin = false.obs;
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
+  RxInt segmentedControlGroupValue=0.obs;
 
   RxInt selectedIndex = 0.obs;
 

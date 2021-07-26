@@ -20,6 +20,9 @@ const String login = '/login';
 const String oTPVerifyScreen = '/oTPVerifyScreen';
 const String home = '/Home';
 
+const String daily_log = '/daily_log';
+
+
 const String treatPlans = '/treatPlans';
 const String stressManagement = '/stressManagement';
 const String stressManagementDetails = '/stressManagementDetails';
@@ -30,3 +33,9 @@ const String lowDietTreatmentPlan = '/lowDietTreatmentPlan';
 
 const String exercise = '/exercise';
 const String exerciseTreatmentPlan = '/exerciseTreatmentPlan';
+
+const String sleep = '/sleep';
+const String sleepTreatmentPlan = '/sleepTreatmentPlan';
+
+const String medication_supplements = '/medication_supplements';
+

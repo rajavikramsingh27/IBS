@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
@@ -9,7 +10,12 @@ import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/BottomTabPainter.dart';
 import 'package:get/get.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   final _controller = Get.put(HomeController());
 
   @override
@@ -200,7 +206,7 @@ class Home extends StatelessWidget {
                 SizedBox(height: ScreenConstant.defaultHeightFifteen),
                 _buildTrackAndLogBar(),
                 SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-                Obx(() => _controller.selectedDailyLogin.value
+                Obx(() => _controller.segmentedControlGroupValue.value == 1
                     ? _buildDailyLogList()
                     : _buildTrackList()),
                 SizedBox(height: ScreenConstant.defaultHeightOneHundred),
@@ -265,86 +271,117 @@ class Home extends StatelessWidget {
   }
 
   _buildTrackAndLogBar() {
-    return Obx(() => Row(children: [
-          Container(
-            padding: EdgeInsets.all(4),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    bottomLeft: Radius.circular(8)),
-                color: AppColors.colorHomeTabBg),
-            child: Container(
-              height: ScreenConstant.defaultHeightForty * 1.2,
-              width: ScreenConstant.defaultWidthOneSeventy,
-              decoration: BoxDecoration(
-                color: _controller.selectedDailyLogin.value
-                    ? AppColors.colorHomeTabBg
-                    : AppColors.colorButton,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(8.0),
-                ),
-              ),
-              child: GestureDetector(
-                  onTap: () {
-                    _controller.selectedDailyLogin.value = false;
-                  },
-                  child: Align(
-                      // alignment: Alignment(-1, 0),
-                      child: Container(
-                    width: 70,
-                    height: ScreenConstant.defaultHeightForty * 1.2,
-                    color: Colors.transparent,
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Track",
-                      style: TextStyles.textStyleRegular.apply(
-                          color: _controller.selectedDailyLogin.value
-                              ? Colors.black
-                              : Colors.white,
-                          fontSizeDelta: 2),
-                    ),
-                  ))),
+    return Obx(
+      () => CupertinoSlidingSegmentedControl(
+          padding: ScreenConstant.spacingAllDefault,
+          groupValue: _controller.segmentedControlGroupValue.value,
+          thumbColor: AppColors.colorButton,
+          backgroundColor: AppColors.colorHomeTabBg,
+          children: <int, Widget>{
+            0: Text(
+              "Track",
+              style: TextStyles.textStyleRegular.apply(
+                  color: _controller.segmentedControlGroupValue.value == 1
+                      ? Colors.black
+                      : Colors.white,
+                  fontSizeDelta: 2),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(8),
-                  bottomRight: Radius.circular(8)),
-              color: AppColors.colorHomeTabBg,
-            ),
-            child: Container(
-              height: ScreenConstant.defaultHeightForty * 1.2,
-              width: ScreenConstant.defaultWidthOneSeventy,
-              decoration: BoxDecoration(
-                color: _controller.selectedDailyLogin.value
-                    ? AppColors.colorButton
-                    : AppColors.colorHomeTabBg,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(8.0),
-                ),
-              ),
-              child: GestureDetector(
-                onTap: () {
-                  _controller.selectedDailyLogin.value = true;
-                },
-                child: Align(
-                    child: Container(
-                        width: 70,
-                        height: ScreenConstant.defaultHeightForty * 1.2,
-                        color: Colors.transparent,
-                        alignment: Alignment.center,
-                        child: Text("Daily Log",
-                            style: TextStyles.textStyleRegular.apply(
-                                color: _controller.selectedDailyLogin.value
-                                    ? AppColors.white
-                                    : Colors.black,
-                                fontSizeDelta: 2)))),
-              ),
-            ),
-          ),
-        ]));
+            1: Text(
+              "Daily Log",
+              style: TextStyles.textStyleRegular.apply(
+                  color: _controller.segmentedControlGroupValue.value == 0
+                      ? Colors.black
+                      : Colors.white,
+                  fontSizeDelta: 2),
+            )
+          },
+          onValueChanged: (i) {
+            setState(() {
+              _controller.segmentedControlGroupValue.value = i as int;
+            });
+          }),
+    );
+
+    //  Obx(() => Row(children: [
+    //       Container(
+    //         padding: EdgeInsets.all(4),
+    //         decoration: BoxDecoration(
+    //             borderRadius: BorderRadius.only(
+    //                 topLeft: Radius.circular(8),
+    //                 bottomLeft: Radius.circular(8)),
+    //             color: AppColors.colorHomeTabBg),
+    //         child: Container(
+    //           height: ScreenConstant.defaultHeightForty * 1.2,
+    //           width: ScreenConstant.defaultWidthOneSeventy,
+    //           decoration: BoxDecoration(
+    //             color: _controller.selectedDailyLogin.value
+    //                 ? AppColors.colorHomeTabBg
+    //                 : AppColors.colorButton,
+    //             borderRadius: BorderRadius.all(
+    //               Radius.circular(8.0),
+    //             ),
+    //           ),
+    //           child: GestureDetector(
+    //               onTap: () {
+    //                 _controller.selectedDailyLogin.value = false;
+    //               },
+    //               child: Align(
+    //                   // alignment: Alignment(-1, 0),
+    //                   child: Container(
+    //                 width: 70,
+    //                 height: ScreenConstant.defaultHeightForty * 1.2,
+    //                 color: Colors.transparent,
+    //                 alignment: Alignment.center,
+    //                 child: Text(
+    //                   "Track",
+    //                   style: TextStyles.textStyleRegular.apply(
+    //                       color: _controller.selectedDailyLogin.value
+    //                           ? Colors.black
+    //                           : Colors.white,
+    //                       fontSizeDelta: 2),
+    //                 ),
+    //               ))),
+    //         ),
+    //       ),
+    //       Container(
+    //         padding: EdgeInsets.all(4),
+    //         decoration: BoxDecoration(
+    //           borderRadius: BorderRadius.only(
+    //               topRight: Radius.circular(8),
+    //               bottomRight: Radius.circular(8)),
+    //           color: AppColors.colorHomeTabBg,
+    //         ),
+    //         child: Container(
+    //           height: ScreenConstant.defaultHeightForty * 1.2,
+    //           width: ScreenConstant.defaultWidthOneSeventy,
+    //           decoration: BoxDecoration(
+    //             color: _controller.selectedDailyLogin.value
+    //                 ? AppColors.colorButton
+    //                 : AppColors.colorHomeTabBg,
+    //             borderRadius: BorderRadius.all(
+    //               Radius.circular(8.0),
+    //             ),
+    //           ),
+    //           child: GestureDetector(
+    //             onTap: () {
+    //               _controller.selectedDailyLogin.value = true;
+    //             },
+    //             child: Align(
+    //                 child: Container(
+    //                     width: 70,
+    //                     height: ScreenConstant.defaultHeightForty * 1.2,
+    //                     color: Colors.transparent,
+    //                     alignment: Alignment.center,
+    //                     child: Text("Daily Log",
+    //                         style: TextStyles.textStyleRegular.apply(
+    //                             color: _controller.selectedDailyLogin.value
+    //                                 ? AppColors.white
+    //                                 : Colors.black,
+    //                             fontSizeDelta: 2)))),
+    //           ),
+    //         ),
+    //       ),
+    //     ]));
   }
 
   _buildTrackList() {
@@ -401,6 +438,7 @@ class Home extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
+          clipBehavior: Clip.antiAlias,
           width: double.maxFinite,
           decoration: BoxDecoration(
               color: Colors.white,
@@ -419,49 +457,55 @@ class Home extends StatelessWidget {
           itemCount: DummyData.trackFlow.length,
           itemBuilder: (BuildContext context, int index) {
             var model = DummyData.trackFlow[index];
-            return Container(
-                height: ScreenConstant.defaultHeightSeventy,
-                decoration: BoxDecoration(
-                  color: index.isEven ? AppColors.colorCardSeen : Colors.white,
-                  // borderRadius: BorderRadius.all(
-                  //   Radius.circular(12),
-                  // ),
-                ),
-                child: ListTile(
-                    dense: true,
-                    leading: Container(
-                      // padding: ScreenConstant.spacingAll,
-                      height: ScreenConstant.defaultHeightSeventy,
-                      child: Image.asset(
-                        model.image,
-                        width: ScreenConstant.defaultWidthTwenty,
+            return InkWell(
+              onTap: () {
+                Get.toNamed(daily_log);
+              },
+              child: Container(
+                  height: ScreenConstant.defaultHeightSeventy,
+                  decoration: BoxDecoration(
+                    color:
+                        index.isEven ? AppColors.colorCardSeen : Colors.white,
+                    // borderRadius: BorderRadius.all(
+                    //   Radius.circular(12),
+                    // ),
+                  ),
+                  child: ListTile(
+                      dense: true,
+                      leading: Container(
+                        // padding: ScreenConstant.spacingAll,
+                        height: ScreenConstant.defaultHeightSeventy,
+                        child: Image.asset(
+                          model.image,
+                          width: ScreenConstant.defaultWidthTwenty,
+                        ),
                       ),
-                    ),
-                    title: Text(model.text,
-                        style: TextStyles.textStyleRegular
-                            .apply(fontSizeDelta: 2, color: Colors.black)),
-                    subtitle: Text(model.text,
-                        style: TextStyles.textStyleRegular.apply(
-                            fontSizeDelta: -2,
-                            color: Colors.black.withOpacity(0.54))),
-                    trailing: Image.asset(Assets.edit,
-                        width: ScreenConstant.defaultWidthTen * 1.2))
+                      title: Text(model.text,
+                          style: TextStyles.textStyleRegular
+                              .apply(fontSizeDelta: 2, color: Colors.black)),
+                      subtitle: Text(model.text,
+                          style: TextStyles.textStyleRegular.apply(
+                              fontSizeDelta: -2,
+                              color: Colors.black.withOpacity(0.54))),
+                      trailing: Image.asset(Assets.edit,
+                          width: ScreenConstant.defaultWidthTen * 1.2))
 
-                // Row(
-                //   children: [
-                //     Container(
-                //       padding: ScreenConstant.spacingAllLarge,
-                //       height: ScreenConstant.defaultHeightSeventy,
-                //       child: Image.asset(model.image
-                //           ),
-                //     ),
-                //     SizedBox(width: ScreenConstant.defaultWidthTen),
-                //     Text(model.text,
-                //         style: TextStyles.textStyleRegular
-                //             .apply(fontSizeDelta: 2, color: Colors.black))
-                //   ],
-                // ),
-                );
+                  // Row(
+                  //   children: [
+                  //     Container(
+                  //       padding: ScreenConstant.spacingAllLarge,
+                  //       height: ScreenConstant.defaultHeightSeventy,
+                  //       child: Image.asset(model.image
+                  //           ),
+                  //     ),
+                  //     SizedBox(width: ScreenConstant.defaultWidthTen),
+                  //     Text(model.text,
+                  //         style: TextStyles.textStyleRegular
+                  //             .apply(fontSizeDelta: 2, color: Colors.black))
+                  //   ],
+                  // ),
+                  ),
+            );
           },
         ),
       ],
