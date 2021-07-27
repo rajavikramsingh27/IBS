@@ -1,27 +1,19 @@
 import 'package:flutter_ibs/screens/Intro.dart';
-import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
-import 'package:flutter_ibs/screens/daily_log/DailyLog.dart';
+import 'package:flutter_ibs/screens/about_ibs/MyIbs.dart';
 import 'package:flutter_ibs/screens/exercise/Exercise.dart';
-import 'package:flutter_ibs/screens/exercise/ExerciseTreatmentPlan.dart';
-import 'package:flutter_ibs/screens/food/Foods.dart';
-import 'package:flutter_ibs/screens/health/Health.dart';
 import 'package:flutter_ibs/screens/home/Home.dart';
 import 'package:flutter_ibs/screens/low_diet/LowDiet.dart';
-import 'package:flutter_ibs/screens/low_diet/LowDietTreatmentPlan.dart';
-import 'package:flutter_ibs/screens/medication/Medication.dart';
 import 'package:flutter_ibs/screens/medication_supplements/MedicationSuplements.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep1.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep2.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep3.dart';
+import 'package:flutter_ibs/screens/settings/Settings.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep1.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep2.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep3.dart';
 import 'package:flutter_ibs/screens/sleep/Sleep.dart';
-import 'package:flutter_ibs/screens/sleep/SleepTreatmentPlan.dart';
 import 'package:flutter_ibs/screens/stress_management/StressManagement.dart';
 import 'package:flutter_ibs/screens/stress_management/StressManagementDetails.dart';
-import 'package:flutter_ibs/screens/stress_management/StressTreatmentPlan.dart';
-import 'package:flutter_ibs/screens/symptoms/Symptoms.dart';
 import 'package:flutter_ibs/screens/treatment_plans/TreatmentPlans.dart';
 import 'package:flutter_ibs/splash.dart';
 import 'package:get/get.dart';
@@ -66,30 +58,6 @@ class NavRouter {
       name: home,
       page: () => Home(),
     ),
-     GetPage(
-      name: daily_log,
-      page: () => DailyLog(),
-    ),
-    GetPage(
-      name: symptoms,
-      page: () => Symptoms(),
-    ),
-    GetPage(
-      name: bowel,
-      page: () => BowelMovement(),
-    ),
-    GetPage(
-      name: medication,
-      page: () => Medication(),
-    ),
-    GetPage(
-      name: health,
-      page: () => Health(),
-    ),
-    GetPage(
-      name: foods,
-      page: () => Foods(),
-    ),
     GetPage(
       name: treatPlans,
       page: () => TreatmentPlans(),
@@ -103,36 +71,28 @@ class NavRouter {
       page: () => StressManagementDetails(),
     ),
     GetPage(
-      name: stressTreatPlan,
-      page: () => StressTreatmentPlan(),
-    ),
-    GetPage(
       name: lowDiet,
       page: () => LowDiet(),
-    ),
-    GetPage(
-      name: lowDietTreatmentPlan,
-      page: () => LowDietTreatmentPlan(),
     ),
     GetPage(
       name: exercise,
       page: () => Exercise(),
     ),
     GetPage(
-      name: exerciseTreatmentPlan,
-      page: () => ExerciseTreatmentPlan(),
-    ),
-     GetPage(
       name: sleep,
       page: () => Sleep(),
     ),
-      GetPage(
-      name: sleepTreatmentPlan,
-      page: () => SleepTreatmentPlan(),
-    ),
-     GetPage(
+    GetPage(
       name: medication_supplements,
       page: () => MedicationSuplements(),
+    ),
+    GetPage(
+      name: settings,
+      page: () => Settings(),
+    ),
+    GetPage(
+      name: myIbs,
+      page: () => MyIbs(),
     ),
   ];
 }

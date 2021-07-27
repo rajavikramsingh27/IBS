@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -25,16 +24,6 @@ class MedicationSuplements extends StatelessWidget {
           "Medication and Supplements".toUpperCase(),
           style: TextStyles.appBarTitle,
         ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTwenty),
-            child: Image.asset(
-              Assets.settings,
-              width: ScreenConstant.defaultWidthTwenty,
-            ),
-          )
-        ],
       ),
       body: ListView(
         padding: ScreenConstant.spacingAllMedium,
@@ -43,7 +32,7 @@ class MedicationSuplements extends StatelessWidget {
           Center(
               child: Image.asset(Assets.medicationSuplements,
                   width: ScreenConstant.defaultHeightTwoHundredTen)),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: ScreenConstant.defaultWidthTwenty * 2),
@@ -55,13 +44,13 @@ class MedicationSuplements extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
           _buildExercise("Prescription medication for IBS", () {}),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           CustomElevatedButton(
             text: "Start Plan",
             widthFactor: 0.95,
             onTap: () {},
           ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Text(
             "Additional Resources",
             style: TextStyles.textStyleIntroDescription
@@ -70,7 +59,7 @@ class MedicationSuplements extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTen),
           _buildListAdditionalResources(),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         ],
       ),
     );
@@ -117,9 +106,7 @@ class MedicationSuplements extends StatelessWidget {
       itemCount: DummyData.medicationAdditionalResourcesList.length,
       itemBuilder: (BuildContext context, int index) {
         var model = DummyData.medicationAdditionalResourcesList[index];
-        return _buildExercise(model.title, () {
-          Get.toNamed(sleepTreatmentPlan);
-        });
+        return _buildExercise(model.title, () {});
       },
       separatorBuilder: (BuildContext context, int index) => SizedBox(
         height: ScreenConstant.sizeDefault,

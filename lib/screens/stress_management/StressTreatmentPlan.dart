@@ -83,7 +83,7 @@ class StressTreatmentPlan extends StatelessWidget {
                             buttonColor: AppColors.white,
                           ),
                           SizedBox(
-                              height: ScreenConstant.defaultHeightTwentyThree),
+                              height: ScreenConstant.defaultHeightTwentyFour),
                           Stack(
                             children: [
                               Positioned.fill(
@@ -138,7 +138,7 @@ class StressTreatmentPlan extends StatelessWidget {
                 Text("Relaxation Techniques",
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: Colors.white, fontSizeDelta: -2)),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 Text(
                   "Select which relaxation techniques you will add to your routine.",
                   textAlign: TextAlign.center,
@@ -162,7 +162,7 @@ class StressTreatmentPlan extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: ScreenConstant.defaultHeightFifteen),
+                SizedBox(height: ScreenConstant.defaultHeightSixteen),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -213,7 +213,7 @@ class StressTreatmentPlan extends StatelessWidget {
     return GridView.builder(
       padding: EdgeInsets.symmetric(
           horizontal: ScreenConstant.sizeLarge,
-          vertical: ScreenConstant.defaultHeightTwentyThree),
+          vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: DummyData.medicationList.length,
@@ -258,14 +258,14 @@ class StressTreatmentPlan extends StatelessWidget {
         Text("Reminders",
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.white, fontSizeDelta: -3)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text(
           "Would you like to set up app notifications to remind you?",
           textAlign: TextAlign.center,
           style: TextStyles.textStyleRegular
               .apply(color: AppColors.colorSkipButton),
         ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Row(
           children: [
             Expanded(
@@ -290,7 +290,7 @@ class StressTreatmentPlan extends StatelessWidget {
             Expanded(flex: 2, child: _buildDropDown())
           ],
         ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
@@ -404,7 +404,7 @@ class StressTreatmentPlan extends StatelessWidget {
                   Text("Relaxation Trackings",
                       style: TextStyles.textStyleIntroDescription
                           .apply(color: Colors.white, fontSizeDelta: -2)),
-                  SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                  SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                   Text(
                     "Relaxation tracking will be added to the Health & Wellness section accessed from the main tracking menu.\n\nThe options below will now be available for you to track.",
                     textAlign: TextAlign.center,
@@ -448,7 +448,7 @@ class StressTreatmentPlan extends StatelessWidget {
                   Divider(
                       thickness: 1, color: AppColors.white.withOpacity(0.12)),
                   _buildTimeList(),
-                  SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                  SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 ],
               )))
     ]);

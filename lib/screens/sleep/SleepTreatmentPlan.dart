@@ -3,13 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_ibs/controllers/exercise/ExerciseController.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
-import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomArcPainter.dart';
+import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomSwitch.dart';
-import 'package:flutter_ibs/widget/CustomTextFormField%20.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
@@ -83,13 +82,15 @@ class SleepTreatmentPlan extends StatelessWidget {
                           CustomElevatedButton2(
                             elevation: 16,
                             widthFactor: 0.7,
-                            onTap: () {},
+                            onTap: () {
+                              Get.dialog(CustomDialog2());
+                            },
                             textColor: AppColors.colorTextStop,
                             text: "Stop Plan",
                             buttonColor: AppColors.white,
                           ),
                           SizedBox(
-                              height: ScreenConstant.defaultHeightTwentyThree),
+                              height: ScreenConstant.defaultHeightTwentyFour),
                           Stack(
                             children: [
                               Positioned.fill(
@@ -143,7 +144,7 @@ class SleepTreatmentPlan extends StatelessWidget {
                 Text("Sleep Improvement",
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: Colors.white, fontSizeDelta: -2)),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 Text(
                   "Track your sleep patterns to help understand how fatigue may be negatively impacting your IBS symptoms",
                   textAlign: TextAlign.center,
@@ -152,9 +153,9 @@ class SleepTreatmentPlan extends StatelessWidget {
                 ),
                 SizedBox(height: ScreenConstant.defaultHeightForty),
                 _buildSleepActivities(),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 Text("Tiredness Upon Waking",
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: Colors.white, fontSizeDelta: -3)),
@@ -168,7 +169,6 @@ class SleepTreatmentPlan extends StatelessWidget {
                 SizedBox(height: ScreenConstant.defaultHeightTen),
                 _buildSleepImprovementIntensitySlider(),
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
-               
                 Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
                 _buildNotification(),
                 SizedBox(height: ScreenConstant.defaultHeightForty * 1.4),
@@ -259,23 +259,21 @@ class SleepTreatmentPlan extends StatelessWidget {
     );
   }
 
-  
-
   _buildNotification() {
     return Column(
       children: [
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text("Notifications",
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.white, fontSizeDelta: -3)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text(
           "Would you like to set up app notifications to remind you?",
           textAlign: TextAlign.center,
           style: TextStyles.textStyleRegular
               .apply(color: Colors.white.withOpacity(0.39)),
         ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Row(
           children: [
             Expanded(
@@ -300,7 +298,7 @@ class SleepTreatmentPlan extends StatelessWidget {
             Expanded(flex: 2, child: _buildDropDown())
           ],
         ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Align(
           alignment: Alignment.centerLeft,
           child: Text(

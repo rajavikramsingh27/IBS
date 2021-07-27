@@ -79,7 +79,7 @@ class Symptoms extends StatelessWidget {
 
                         AdditionalNoteWidget(),
                         SizedBox(
-                            height: ScreenConstant.defaultHeightTwentyThree),
+                            height: ScreenConstant.defaultHeightTwentyFour),
 
                         // _buildExcerciseDuration()
                       ],
@@ -109,14 +109,13 @@ class Symptoms extends StatelessWidget {
           child: Card(
             margin: EdgeInsets.zero,
             color: AppColors.colorBackground,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: Stack(
               children: [
                 Column(
                   children: [
-                    SizedBox(
-                        height: ScreenConstant.defaultHeightTwenty * 1.6),
+                    SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.6),
                     Text("Abdominal Pain",
                         style: TextStyles.textStyleIntroDescription
                             .apply(color: Colors.white, fontSizeDelta: -3)),
@@ -172,7 +171,7 @@ class Symptoms extends StatelessWidget {
             style: TextStyles.textStyleRegular
                 .apply(color: AppColors.colorSkipButton),
           ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           GridView.builder(
             //   padding: EdgeInsets.symmetric(
             //       horizontal: ScreenConstant.defaultWidthTwenty),
@@ -210,14 +209,14 @@ class Symptoms extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightForty * 1.25),
           _buildDuration(),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
         ],
       ),
     );
   }
-  
+
   _buildAbdominalSlider() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
@@ -276,9 +275,6 @@ class Symptoms extends StatelessWidget {
     );
   }
 
- 
-
-
   _buildBloatingList() {
     return Stack(
       children: [
@@ -298,7 +294,7 @@ class Symptoms extends StatelessWidget {
                 style: TextStyles.textStyleRegular
                     .apply(color: AppColors.colorSkipButton),
               ),
-              SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+              SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
               GridView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -334,12 +330,17 @@ class Symptoms extends StatelessWidget {
               ),
               SizedBox(height: ScreenConstant.defaultHeightForty * 1.25),
               _buildDuration(),
-              SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+              SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
             ],
           ),
         ),
-        Container(height: ScreenConstant.defaultHeightOneHundred, child: OvalPainterWidget(bottom: 0,quarterTurns: 2,),),
-
+        Container(
+          height: ScreenConstant.defaultHeightOneHundred,
+          child: OvalPainterWidget(
+            bottom: 0,
+            quarterTurns: 2,
+          ),
+        ),
       ],
     );
   }
@@ -355,7 +356,8 @@ class Symptoms extends StatelessWidget {
       ),
     );
   }
-   _buildBloatingSlider() {
+
+  _buildBloatingSlider() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
       child: SfSliderTheme(
@@ -427,7 +429,7 @@ class Symptoms extends StatelessWidget {
           style: TextStyles.textStyleRegular
               .apply(color: AppColors.colorSkipButton),
         ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         _buildSelector()
       ],
     );
@@ -462,9 +464,9 @@ class Symptoms extends StatelessWidget {
   //                   .apply(color: Colors.white.withOpacity(0.40)),
   //               textAlign: TextAlign.center,
   //             ),
-  //             SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+  //             SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
   //             _buildSelector(),
-  //             SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+  //             SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
 
   //              Align(alignment: Alignment(-0.9,0),
   //                               child: Text(

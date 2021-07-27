@@ -165,7 +165,7 @@ class SignupStep3 extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: ScreenConstant.defaultHeightFifteen),
+        SizedBox(height: ScreenConstant.defaultHeightSixteen),
         Text("Password:",
             textAlign: TextAlign.center,
             style: TextStyles.textStyleIntroDescription
@@ -182,7 +182,7 @@ class SignupStep3 extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: ScreenConstant.defaultHeightFifteen),
+        SizedBox(height: ScreenConstant.defaultHeightSixteen),
         Text("Confirm Password:",
             textAlign: TextAlign.center,
             style: TextStyles.textStyleIntroDescription

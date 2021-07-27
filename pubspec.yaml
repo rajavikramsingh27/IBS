@@ -55,6 +55,8 @@ flutter:
     - assets/images/home/
     - assets/images/track/
     - assets/images/exercise/
+    - assets/images/settings/
+
 
 
   #   - images/a_dot_ham.jpeg

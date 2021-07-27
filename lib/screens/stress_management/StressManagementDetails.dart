@@ -11,8 +11,7 @@ class StressManagementDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-           backgroundColor: AppColors.colorTracBg,
-
+      backgroundColor: AppColors.colorTracBg,
       appBar: AppBar(
         elevation: 0,
         leading: LeadingBackButton(
@@ -46,19 +45,19 @@ class StressManagementDetails extends StatelessWidget {
               fit: BoxFit.fill,
             ),
           ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Text(
             "The Gut - Brain Connection",
             style:
                 TextStyles.textStyleIntroDescription.apply(color: Colors.black),
           ),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Text(
             AppStrings.gutBrain,
             style: TextStyles.textStyleRegular.apply(
                 color: AppColors.colorskip_also_proceed, fontSizeDelta: 1),
           ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         ],
       ),
     );

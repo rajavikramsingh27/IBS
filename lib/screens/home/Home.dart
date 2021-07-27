@@ -2,6 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
+import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
+import 'package:flutter_ibs/screens/daily_log/DailyLog.dart';
+import 'package:flutter_ibs/screens/food/Foods.dart';
+import 'package:flutter_ibs/screens/health/Health.dart';
+import 'package:flutter_ibs/screens/medication/Medication.dart';
+import 'package:flutter_ibs/screens/symptoms/Symptoms.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -97,12 +103,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           elevation: 0,
           backgroundColor: Colors.white,
           actions: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: ScreenConstant.defaultWidthTwenty),
-              child: Image.asset(
-                Assets.settings,
-                width: ScreenConstant.defaultWidthTwenty,
+            InkWell(
+              onTap: () => Get.toNamed(settings),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: ScreenConstant.defaultWidthTwenty),
+                child: Image.asset(
+                  Assets.settings,
+                  width: ScreenConstant.defaultWidthTwenty,
+                ),
               ),
             )
           ],
@@ -203,9 +212,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               physics: ClampingScrollPhysics(),
               padding: ScreenConstant.spacingAllLarge,
               children: [
-                SizedBox(height: ScreenConstant.defaultHeightFifteen),
+                SizedBox(height: ScreenConstant.defaultHeightSixteen),
                 _buildTrackAndLogBar(),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 Obx(() => _controller.segmentedControlGroupValue.value == 1
                     ? _buildDailyLogList()
                     : _buildTrackList()),
@@ -257,7 +266,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                 title: "Resources",
                                 imageText: Assets.resources),
                             _buildTabItem(
-                                title: "My IBS", imageText: Assets.profile),
+                                onTap: () {
+                                  Get.toNamed(myIbs);
+                                },
+                                title: "My IBS",
+                                imageText: Assets.profile),
                           ]),
                     ),
                   )
@@ -392,7 +405,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       itemBuilder: (BuildContext context, int index) {
         var model = DummyData.trackFlow[index];
         return GestureDetector(
-          onTap: () => _navigateToScreen(index),
+          onTap: () => _returnBottomsheet(index),
           child: Container(
             height: ScreenConstant.defaultHeightSeventy,
             padding: ScreenConstant.spacingAllDefault,
@@ -459,7 +472,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             var model = DummyData.trackFlow[index];
             return InkWell(
               onTap: () {
-                Get.toNamed(daily_log);
+                Get.bottomSheet(DailyLog(),
+                    isScrollControlled: true,
+                    barrierColor: AppColors.barrierColor.withOpacity(0.60));
               },
               child: Container(
                   height: ScreenConstant.defaultHeightSeventy,
@@ -535,22 +550,36 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 
-  _navigateToScreen(int index) {
+  _returnBottomsheet(int index) {
     switch (index) {
       case 0:
-        return Get.toNamed(symptoms);
+        return Get.bottomSheet(Symptoms(),
+            barrierColor: AppColors.barrierColor.withOpacity(0.60),
+            isScrollControlled: true);
         break;
       case 1:
-        return Get.toNamed(bowel);
+        return Get.bottomSheet(BowelMovement(),
+            barrierColor: AppColors.barrierColor.withOpacity(0.60),
+            isScrollControlled: true);
+
         break;
       case 2:
-        return Get.toNamed(medication);
+        return Get.bottomSheet(Medication(),
+            barrierColor: AppColors.barrierColor.withOpacity(0.60),
+            isScrollControlled: true);
+
         break;
       case 3:
-        return Get.toNamed(health);
+        return Get.bottomSheet(Health(),
+            barrierColor: AppColors.barrierColor.withOpacity(0.60),
+            isScrollControlled: true);
+
         break;
       case 4:
-        return Get.toNamed(foods);
+        return Get.bottomSheet(Foods(),
+            barrierColor: AppColors.barrierColor.withOpacity(0.60),
+            isScrollControlled: true);
+
         break;
       default:
         return;

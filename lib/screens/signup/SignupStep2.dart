@@ -47,7 +47,7 @@ class SignupStep2 extends StatelessWidget {
               children: [
                 _buildTrackingOptions(),
                 _buildSymptoms(),
-                SizedBox(height: ScreenConstant.defaultHeightFifteen),
+                SizedBox(height: ScreenConstant.defaultHeightSixteen),
                 _buildBowelMovements(),
                 SizedBox(height: ScreenConstant.defaultHeightOneHundred)
               ],
@@ -98,7 +98,7 @@ class SignupStep2 extends StatelessWidget {
     //       title: "Tracking Options",
     //       description: "These can be changed later in settings.",
     //     ),
-    //     SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+    //     SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
     //   ],
     // );
   }

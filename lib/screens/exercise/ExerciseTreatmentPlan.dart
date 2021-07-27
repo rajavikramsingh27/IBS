@@ -89,7 +89,7 @@ class ExerciseTreatmentPlan extends StatelessWidget {
                             buttonColor: AppColors.white,
                           ),
                           SizedBox(
-                              height: ScreenConstant.defaultHeightTwentyThree),
+                              height: ScreenConstant.defaultHeightTwentyFour),
                           Stack(
                             children: [
                               Positioned.fill(
@@ -143,7 +143,7 @@ class ExerciseTreatmentPlan extends StatelessWidget {
                 Text("Exercise",
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: Colors.white, fontSizeDelta: -2)),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 Text(
                   "What Exercise activities do you enjoy doing?",
                   textAlign: TextAlign.center,
@@ -151,7 +151,7 @@ class ExerciseTreatmentPlan extends StatelessWidget {
                       .apply(color: Colors.white.withOpacity(0.39)),
                 ),
                 _buildExerciseList(),
-                SizedBox(height: ScreenConstant.defaultHeightFifteen),
+                SizedBox(height: ScreenConstant.defaultHeightSixteen),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -219,7 +219,7 @@ class ExerciseTreatmentPlan extends StatelessWidget {
   _buildExerciseList() {
     return GridView.builder(
       padding: EdgeInsets.symmetric(
-          vertical: ScreenConstant.defaultHeightTwentyThree),
+          vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: DummyData.exerciseList.length,
@@ -304,18 +304,18 @@ class ExerciseTreatmentPlan extends StatelessWidget {
   _buildNotification() {
     return Column(
       children: [
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text("Notifications",
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.white, fontSizeDelta: -3)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text(
           "Would you like to set up app notifications to remind you?",
           textAlign: TextAlign.center,
           style: TextStyles.textStyleRegular
               .apply(color: Colors.white.withOpacity(0.39)),
         ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Row(
           children: [
             Expanded(
@@ -340,7 +340,7 @@ class ExerciseTreatmentPlan extends StatelessWidget {
             Expanded(flex: 2, child: _buildDropDown())
           ],
         ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Align(
           alignment: Alignment.centerLeft,
           child: Text(

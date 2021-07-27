@@ -83,7 +83,7 @@ class LowDietTreatmentPlan extends StatelessWidget {
                             buttonColor: AppColors.white,
                           ),
                           SizedBox(
-                              height: ScreenConstant.defaultHeightTwentyThree),
+                              height: ScreenConstant.defaultHeightTwentyFour),
                           Stack(
                             children: [
                               Positioned.fill(
@@ -137,7 +137,7 @@ class LowDietTreatmentPlan extends StatelessWidget {
                 Text("Low FODMAP Foods",
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: Colors.white, fontSizeDelta: -2)),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 Text(
                   "Add some popular low FODMAP foods to your favourites in your food tracking journal.",
                   textAlign: TextAlign.center,
@@ -145,7 +145,7 @@ class LowDietTreatmentPlan extends StatelessWidget {
                       .apply(color: Colors.white.withOpacity(0.39)),
                 ),
                 _buildLowFodmapFoodsList(),
-                SizedBox(height: ScreenConstant.defaultHeightFifteen),
+                SizedBox(height: ScreenConstant.defaultHeightSixteen),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -166,7 +166,7 @@ class LowDietTreatmentPlan extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: ScreenConstant.defaultHeightFifteen * 2),
+                SizedBox(height: ScreenConstant.defaultHeightSixteen * 2),
                 Text(
                   "Continue to track your food intake and symptoms in the app. Try your best to choose foods low in FODMAPs when selecting meals.",
                   textAlign: TextAlign.center,
@@ -204,7 +204,7 @@ class LowDietTreatmentPlan extends StatelessWidget {
   _buildLowFodmapFoodsList() {
     return GridView.builder(
       padding: EdgeInsets.symmetric(
-          vertical: ScreenConstant.defaultHeightTwentyThree),
+          vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: DummyData.medicationList.length,
@@ -232,11 +232,17 @@ class LowDietTreatmentPlan extends StatelessWidget {
 
   _buildLowFodmapBg() {
     return Container(
-      decoration: BoxDecoration(color: AppColors.colorProfileBg,borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24),bottomRight:  Radius.circular(24))),
+      decoration: BoxDecoration(
+          color: AppColors.colorProfileBg,
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(24),
+              bottomRight: Radius.circular(24))),
       margin: EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty * 1.5),
       width: Get.context.mediaQuerySize.width,
-      child: Image.asset(Assets.lowFoodbg,filterQuality: FilterQuality.high,fit: BoxFit.fill,
-       
+      child: Image.asset(
+        Assets.lowFoodbg,
+        filterQuality: FilterQuality.high,
+        fit: BoxFit.fill,
       ),
     );
   }
@@ -244,18 +250,18 @@ class LowDietTreatmentPlan extends StatelessWidget {
   _buildNotification() {
     return Column(
       children: [
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text("Notifications",
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.white, fontSizeDelta: -3)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text(
           "Would you like to set up app notifications to remind you?",
           textAlign: TextAlign.center,
           style: TextStyles.textStyleRegular
               .apply(color: Colors.white.withOpacity(0.39)),
         ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Row(
           children: [
             Expanded(
@@ -280,7 +286,7 @@ class LowDietTreatmentPlan extends StatelessWidget {
             Expanded(flex: 2, child: _buildDropDown())
           ],
         ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
@@ -436,7 +442,9 @@ class LowDietTreatmentPlan extends StatelessWidget {
                       ))
                 ],
               ))),
-              SizedBox(height: ScreenConstant.sizeXL,)
+      SizedBox(
+        height: ScreenConstant.sizeXL,
+      )
     ]);
   }
 

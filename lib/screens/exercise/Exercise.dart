@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
+import 'package:flutter_ibs/screens/exercise/ExerciseTreatmentPlan.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -25,16 +26,6 @@ class Exercise extends StatelessWidget {
           "Increase Exercise".toUpperCase(),
           style: TextStyles.appBarTitle,
         ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTwenty),
-            child: Image.asset(
-              Assets.settings,
-              width: ScreenConstant.defaultWidthTwenty,
-            ),
-          )
-        ],
       ),
       body: ListView(
         padding: ScreenConstant.spacingAllMedium,
@@ -43,7 +34,7 @@ class Exercise extends StatelessWidget {
           Center(
               child: Image.asset(Assets.lowDiet,
                   width: ScreenConstant.defaultHeightTwoHundredTen)),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: ScreenConstant.defaultWidthTwenty * 2),
@@ -55,15 +46,17 @@ class Exercise extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
           _buildExercise("Regular Exercise Treatment Plan", () {}),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           CustomElevatedButton(
             text: "Start Plan",
             widthFactor: 0.95,
             onTap: () {
-              Get.toNamed(exerciseTreatmentPlan);
+              Get.bottomSheet(ExerciseTreatmentPlan(),
+                  isScrollControlled: true,
+                  barrierColor: AppColors.barrierColor.withOpacity(0.60));
             },
           ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Text(
             "Additional Resources",
             style: TextStyles.textStyleIntroDescription
@@ -72,7 +65,7 @@ class Exercise extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTen),
           _buildListAdditionalResources(),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         ],
       ),
     );

@@ -7,7 +7,6 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
-import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
@@ -117,7 +116,7 @@ class Medication extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                            height: ScreenConstant.defaultHeightTwentyThree),
+                            height: ScreenConstant.defaultHeightTwentyFour),
                       ],
                     ),
                   ),
@@ -220,7 +219,7 @@ class Medication extends StatelessWidget {
     return GridView.builder(
       padding: EdgeInsets.symmetric(
           horizontal: ScreenConstant.sizeLarge,
-          vertical: ScreenConstant.defaultHeightTwentyThree),
+          vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: DummyData.medicationList.length,

@@ -125,7 +125,7 @@ class MyProfileStep1 extends StatelessWidget {
                   Get.context.mediaQuerySize.height * 0.2)),
         ),
         Positioned(
-          bottom: ScreenConstant.defaultHeightFifteen,
+          bottom: ScreenConstant.defaultHeightSixteen,
           left: ScreenConstant.defaultWidthTwenty,
           child: Row(
             children: [
@@ -173,15 +173,15 @@ class MyProfileStep1 extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Center(
             child: Image.asset(Assets.myProfile1,
                 width: ScreenConstant.defaultHeightTwoHundredTen)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text("You are not alone.",
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.black)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Padding(
           padding: ScreenConstant.spacingAllLarge,
           child: Card(
@@ -208,15 +208,15 @@ class MyProfileStep1 extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Center(
             child: Image.asset(Assets.myProfile2,
                 width: ScreenConstant.defaultHeightTwoHundredTen)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text("Your journey begins today.",
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.black)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Padding(
           padding: ScreenConstant.spacingAllLarge,
           child: Card(
@@ -243,16 +243,16 @@ class MyProfileStep1 extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Center(
             child: Image.asset(Assets.myProfile3,
                 width: ScreenConstant.defaultHeightTwoHundredTen)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text("First, let's understood more \n about you.",
             textAlign: TextAlign.center,
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.black)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Padding(
           padding: ScreenConstant.spacingAllLarge,
           child: Card(
@@ -308,16 +308,16 @@ class MyProfileStep1 extends StatelessWidget {
     return ListView(
       physics: ClampingScrollPhysics(),
       children: [
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Center(
             child: Image.asset(Assets.mprofile3,
                 width: ScreenConstant.defaultHeightTwoHundredTen)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text("Excellent. That's good\nto know.",
             textAlign: TextAlign.center,
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.black)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Padding(
           padding: ScreenConstant.spacingAllLarge,
           child: Card(
@@ -355,7 +355,7 @@ class MyProfileStep1 extends StatelessWidget {
                 ),
           ),
         ),
-        // SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        // SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         // Padding(
         //     padding: EdgeInsets.only(left: ScreenConstant.defaultWidthTwenty),
         //     child: RichText(
@@ -512,7 +512,7 @@ IBS-D: IBS with diarrhea. This comes with stomach pain, an urgent need to move y
     //                                   .apply(color: Colors.black87)),
     //                         ),
     //                         SizedBox(
-    //                             height: ScreenConstant.defaultHeightFifteen),
+    //                             height: ScreenConstant.defaultHeightSixteen),
     //                         Padding(
     //                           padding: EdgeInsets.symmetric(
     //                               horizontal:

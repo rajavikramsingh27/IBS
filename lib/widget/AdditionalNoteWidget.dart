@@ -28,7 +28,7 @@ class AdditionalNoteWidget extends StatelessWidget {
             decoration: InputDecoration(border: InputBorder.none),
           ),
         ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text(
           '''For best results track every time you\nexperience a symptom.\n\nClick “Save” to log your results.''',
           textAlign: TextAlign.center,

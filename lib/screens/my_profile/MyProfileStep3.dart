@@ -63,16 +63,16 @@ class MyProfileStep3 extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Center(
               child: Image.asset(Assets.ibstype,
                   width: ScreenConstant.defaultHeightTwoHundredTen)),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Text("Based on the Rome IV criteria you may not have IBS.",
               textAlign: TextAlign.center,
               style: TextStyles.textStyleIntroDescription
                   .apply(color: Colors.black)),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Padding(
             padding: ScreenConstant.spacingAllLarge,
             child: Text(
@@ -99,7 +99,7 @@ class MyProfileStep3 extends StatelessWidget {
                   Get.context.mediaQuerySize.height * 0.2)),
         ),
         Positioned(
-          bottom: ScreenConstant.defaultHeightFifteen,
+          bottom: ScreenConstant.defaultHeightSixteen,
           left: ScreenConstant.defaultWidthTwenty,
           child: Row(
             children: [

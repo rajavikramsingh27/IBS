@@ -14,8 +14,8 @@ class ScreenConstant {
   static double defaultHeightSeventySix = 76;
   static double defaultHeightNinety = 90;
   static double defaultHeightForty = 40;
-  static double defaultHeightFifteen = 15;
-  static double defaultHeightTwentyThree = 23;
+  static double defaultHeightSixteen = 16;
+  static double defaultHeightTwentyFour = 24;
   static double defaultHeightTwenty = 20;
 
   static double defaultHeightSixty = 60;
@@ -248,9 +248,9 @@ class ScreenConstant {
     defaultHeightNinety = DeviceManager.instance.setHeight(90.0);
     defaultHeightForty = DeviceManager.instance.setHeight(40.0);
     defaultHeightSixty = DeviceManager.instance.setHeight(60.0);
-    defaultHeightTwentyThree = DeviceManager.instance.setHeight(23.0);
+    defaultHeightTwentyFour = DeviceManager.instance.setHeight(24.0);
     defaultHeightTwenty = DeviceManager.instance.setHeight(20.0);
-    defaultHeightFifteen = DeviceManager.instance.setHeight(15.0);
+    defaultHeightSixteen = DeviceManager.instance.setHeight(16.0);
     defaultHeightTen = DeviceManager.instance.setHeight(10.0);
     defaultHeightSeventy = DeviceManager.instance.setHeight(70.0);
     defaultHeightOneThirty = DeviceManager.instance.setHeight(130.0);

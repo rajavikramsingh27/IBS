@@ -117,7 +117,7 @@ class Health extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                            height: ScreenConstant.defaultHeightTwentyThree),
+                            height: ScreenConstant.defaultHeightTwentyFour),
                       ],
                     ),
                   ),
@@ -159,7 +159,7 @@ class Health extends StatelessWidget {
                 Text("Stress",
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: Colors.white, fontSizeDelta: -3)),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 Text(
                   "I’m feeling a heightened degree of stress",
                   textAlign: TextAlign.center,
@@ -174,7 +174,7 @@ class Health extends StatelessWidget {
                 Text("Fatigue",
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: Colors.white, fontSizeDelta: -3)),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 Text(
                   "I feel very tired but am still able to do most things",
                   textAlign: TextAlign.center,
@@ -189,7 +189,7 @@ class Health extends StatelessWidget {
                 Text("Activity level",
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: Colors.white, fontSizeDelta: -3)),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 Text(
                   "I’ve been moving a lot today",
                   textAlign: TextAlign.center,

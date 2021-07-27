@@ -34,7 +34,7 @@ class BottomWidget extends StatelessWidget {
                   Get.context.mediaQuerySize.height * 0.2)),
         ),
         Positioned(
-          bottom: ScreenConstant.defaultHeightFifteen,
+          bottom: ScreenConstant.defaultHeightSixteen,
           left: ScreenConstant.defaultWidthTwenty,
           child: Row(
             children: [

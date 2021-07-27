@@ -137,7 +137,6 @@ class BowelMovement extends StatelessWidget {
                               child: _buildWavePainter(),
                             ),
                             Container(
-                              
                               margin: ScreenConstant.spacingAllMedium,
                               decoration: BoxDecoration(
                                   color: Colors.white,
@@ -154,7 +153,7 @@ class BowelMovement extends StatelessWidget {
                         ),
                         AdditionalNoteWidget(),
                         SizedBox(
-                            height: ScreenConstant.defaultHeightTwentyThree),
+                            height: ScreenConstant.defaultHeightTwentyFour),
                       ],
                     ),
                   ),
@@ -235,32 +234,35 @@ class BowelMovement extends StatelessWidget {
     return Stack(
       children: [
         AspectRatio(
-            aspectRatio: 1.3,
-            child: Card(
-              margin: EdgeInsets.zero,
-              color: AppColors.colorBackground,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              child: Column(
-                children: [
-        SizedBox(height: ScreenConstant.defaultHeightForty),
-        Text("Urgency",
-            style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.white, fontSizeDelta: -3)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-        Text(
-          "I needed to get to the washroom quite quickly",
-          textAlign: TextAlign.center,
-          style: TextStyles.textStyleRegular
-              .apply(color: AppColors.colorSkipButton),
-        ),
-        SizedBox(height: ScreenConstant.defaultHeightTwenty),
-        _buildUrgencySlider(),
-                ],
-              ),
+          aspectRatio: 1.3,
+          child: Card(
+            margin: EdgeInsets.zero,
+            color: AppColors.colorBackground,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: Column(
+              children: [
+                SizedBox(height: ScreenConstant.defaultHeightForty),
+                Text("Urgency",
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.white, fontSizeDelta: -3)),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                Text(
+                  "I needed to get to the washroom quite quickly",
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleRegular
+                      .apply(color: AppColors.colorSkipButton),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                _buildUrgencySlider(),
+              ],
             ),
           ),
-        Container(height: ScreenConstant.defaultHeightOneHundred, child: OvalPainterWidget(),),
-
+        ),
+        Container(
+          height: ScreenConstant.defaultHeightOneHundred,
+          child: OvalPainterWidget(),
+        ),
       ],
     );
   }
@@ -269,13 +271,13 @@ class BowelMovement extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
           horizontal: ScreenConstant.sizeMedium,
-          vertical: ScreenConstant.defaultHeightTwentyThree),
+          vertical: ScreenConstant.defaultHeightTwentyFour),
       child: Column(
         children: [
           Text("Colour",
               style: TextStyles.textStyleIntroDescription
                   .apply(color: Colors.black, fontSizeDelta: -3)),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -293,7 +295,7 @@ class BowelMovement extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Text(
             "I feel only a little relief after bowel mowement",
             textAlign: TextAlign.center,
@@ -317,7 +319,7 @@ class BowelMovement extends StatelessWidget {
             Text("Relief",
                 style: TextStyles.textStyleIntroDescription
                     .apply(color: Colors.white, fontSizeDelta: -3)),
-            SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+            SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
             Text(
               "I feel only a little relief after bowel mowement",
               textAlign: TextAlign.center,

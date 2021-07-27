@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ibs/routes/RouteConstants.dart';
+import 'package:flutter_ibs/screens/sleep/SleepTreatmentPlan.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -25,16 +25,6 @@ class Sleep extends StatelessWidget {
           "Improve sleep".toUpperCase(),
           style: TextStyles.appBarTitle,
         ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTwenty),
-            child: Image.asset(
-              Assets.settings,
-              width: ScreenConstant.defaultWidthTwenty,
-            ),
-          )
-        ],
       ),
       body: ListView(
         padding: ScreenConstant.spacingAllMedium,
@@ -43,7 +33,7 @@ class Sleep extends StatelessWidget {
           Center(
               child: Image.asset(Assets.sleep,
                   width: ScreenConstant.defaultHeightTwoHundredTen)),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: ScreenConstant.defaultWidthTwenty * 2),
@@ -55,15 +45,17 @@ class Sleep extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
           _buildExercise("Improved Sleep Treatment Plan", () {}),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           CustomElevatedButton(
             text: "Start Plan",
             widthFactor: 0.95,
             onTap: () {
-              Get.toNamed(sleepTreatmentPlan);
+              Get.bottomSheet(SleepTreatmentPlan(),
+                  isScrollControlled: true,
+                  barrierColor: AppColors.barrierColor.withOpacity(0.60));
             },
           ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Text(
             "Additional Resources",
             style: TextStyles.textStyleIntroDescription
@@ -72,7 +64,7 @@ class Sleep extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTen),
           _buildListAdditionalResources(),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         ],
       ),
     );
@@ -120,7 +112,7 @@ class Sleep extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         var model = DummyData.sleepAdditionalResourcesList[index];
         return _buildExercise(model.title, () {
-          Get.toNamed(sleepTreatmentPlan);
+          // Get.toNamed(sleepTreatmentPlan);
         });
       },
       separatorBuilder: (BuildContext context, int index) => SizedBox(

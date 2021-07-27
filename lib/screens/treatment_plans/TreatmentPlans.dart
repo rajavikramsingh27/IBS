@@ -45,7 +45,7 @@ class TreatmentPlans extends StatelessWidget {
           Center(
               child: Image.asset(Assets.treatment,
                   width: ScreenConstant.defaultHeightTwoHundredTen)),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: ScreenConstant.defaultWidthTwenty * 2),
@@ -55,12 +55,12 @@ class TreatmentPlans extends StatelessWidget {
               style: TextStyles.textStyleRegular.apply(color: Colors.black),
             ),
           ),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Indicator(
             controller: _controller.pageController,
             itemCount: 4,
           ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Text(
             "Lifestyle and Dietary Changes",
             style: TextStyles.textStyleIntroDescription
@@ -96,7 +96,7 @@ class TreatmentPlans extends StatelessWidget {
           }),
           SizedBox(height: ScreenConstant.sizeDefault),
           _buildTreatmentPlans("Cognitive Behavioural Therapy", () {}),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         ],
       ),
     );

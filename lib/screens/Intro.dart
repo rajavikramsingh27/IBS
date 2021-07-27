@@ -93,8 +93,8 @@ class _IntroState extends State<Intro> {
                     ),
                     SizedBox(
                         height: context.mediaQuerySize.width >= 400
-                            ? ScreenConstant.defaultHeightTwentyThree
-                            : ScreenConstant.defaultHeightFifteen),
+                            ? ScreenConstant.defaultHeightTwentyFour
+                            : ScreenConstant.defaultHeightSixteen),
                     Indicator(
                       controller: _pageController,
                       itemCount: 5,
@@ -150,7 +150,7 @@ class _IntroState extends State<Intro> {
               ),
               SizedBox(height: ScreenConstant.defaultHeightTwenty),
               SizedBox(
-                height: ScreenConstant.defaultHeightFifteen * 3,
+                height: ScreenConstant.defaultHeightSixteen * 3,
                 child: Card(
                   color: AppColors.colorDot,
                   child: Row(
@@ -173,7 +173,7 @@ class _IntroState extends State<Intro> {
         break;
       case 1:
         return Positioned(
-          bottom: ScreenConstant.defaultHeightFifteen * 3,
+          bottom: ScreenConstant.defaultHeightSixteen * 3,
           left: ScreenConstant.screenWidthFifth,
           right: ScreenConstant.screenWidthFifth,
           child: Text(
@@ -186,7 +186,7 @@ class _IntroState extends State<Intro> {
         break;
       case 2:
         return Positioned(
-          bottom: ScreenConstant.defaultHeightFifteen * 3,
+          bottom: ScreenConstant.defaultHeightSixteen * 3,
           left: ScreenConstant.screenWidthFifth,
           right: ScreenConstant.screenWidthFifth,
           child: Text(
@@ -199,7 +199,7 @@ class _IntroState extends State<Intro> {
         break;
       case 3:
         return Positioned(
-          bottom: ScreenConstant.defaultHeightFifteen * 3,
+          bottom: ScreenConstant.defaultHeightSixteen * 3,
           left: ScreenConstant.screenWidthFifth,
           right: ScreenConstant.screenWidthFifth,
           child: Text(
@@ -212,7 +212,7 @@ class _IntroState extends State<Intro> {
         break;
       case 4:
         return Positioned(
-          bottom: ScreenConstant.defaultHeightFifteen * 3,
+          bottom: ScreenConstant.defaultHeightSixteen * 3,
           left: ScreenConstant.screenWidthFifth,
           right: ScreenConstant.screenWidthFifth,
           child: Text(
@@ -236,7 +236,7 @@ class _IntroState extends State<Intro> {
       style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(
               horizontal: ScreenConstant.defaultWidthSixty,
-              vertical: ScreenConstant.defaultHeightFifteen),
+              vertical: ScreenConstant.defaultHeightSixteen),
           onPrimary: AppColors.colorDot,
           primary: AppColors.white,
           shape:

@@ -106,7 +106,7 @@ class Foods extends StatelessWidget {
                         SizedBox(height: ScreenConstant.defaultHeightTwenty),
                         AdditionalNoteWidget(),
                         SizedBox(
-                            height: ScreenConstant.defaultHeightTwentyThree),
+                            height: ScreenConstant.defaultHeightTwentyFour),
                       ],
                     ),
                   ),
@@ -124,7 +124,7 @@ class Foods extends StatelessWidget {
     return GridView.builder(
       padding: EdgeInsets.symmetric(
           horizontal: ScreenConstant.defaultHeightForty * 1.2,
-          vertical: ScreenConstant.defaultHeightTwentyThree),
+          vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: DummyData.trackFoodList.length,
@@ -179,7 +179,7 @@ class Foods extends StatelessWidget {
                   Text("What Did you Eat?",
                       style: TextStyles.textStyleIntroDescription
                           .apply(color: Colors.white, fontSizeDelta: -3)),
-                  SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+                  SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                   Text(
                     "Select from this list of common foods or add another",
                     textAlign: TextAlign.center,
@@ -304,7 +304,7 @@ class Foods extends StatelessWidget {
     return GridView.builder(
       padding: EdgeInsets.symmetric(
           horizontal: ScreenConstant.sizeLarge,
-          vertical: ScreenConstant.defaultHeightTwentyThree),
+          vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: DummyData.medicationList.length,
@@ -355,7 +355,7 @@ class Foods extends StatelessWidget {
         Text("Low FODMAP Favourites",
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.white, fontSizeDelta: -2)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text(
           "Add some popular low FODMAP foods to your favourites in your food tracking journal.",
           textAlign: TextAlign.center,

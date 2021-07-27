@@ -10,32 +10,22 @@ const String signup = '/signup';
 const String signup2 = '/signup2';
 const String signup3 = '/signup3';
 
-const String symptoms = '/symptoms';
-const String bowel = '/bowel';
-const String medication = '/medication';
-const String health = '/health';
-const String foods = '/foods';
-
 const String login = '/login';
 const String oTPVerifyScreen = '/oTPVerifyScreen';
 const String home = '/Home';
 
-const String daily_log = '/daily_log';
-
-
 const String treatPlans = '/treatPlans';
 const String stressManagement = '/stressManagement';
 const String stressManagementDetails = '/stressManagementDetails';
-const String stressTreatPlan = '/stressTreatPlan';
 
 const String lowDiet = '/lowDiet';
-const String lowDietTreatmentPlan = '/lowDietTreatmentPlan';
 
 const String exercise = '/exercise';
-const String exerciseTreatmentPlan = '/exerciseTreatmentPlan';
 
 const String sleep = '/sleep';
-const String sleepTreatmentPlan = '/sleepTreatmentPlan';
 
 const String medication_supplements = '/medication_supplements';
 
+const String myIbs = '/myIbs';
+
+const String settings = '/settings';

@@ -77,7 +77,7 @@ class MyProfileStep2 extends StatelessWidget {
                   Get.context.mediaQuerySize.height * 0.2)),
         ),
         Positioned(
-          bottom: ScreenConstant.defaultHeightFifteen,
+          bottom: ScreenConstant.defaultHeightSixteen,
           left: ScreenConstant.defaultWidthTwenty,
           child: Row(
             children: [
@@ -141,16 +141,16 @@ class MyProfileStep2 extends StatelessWidget {
 
   _buildRomeIVCriteria() {
     return ListView(physics: ClampingScrollPhysics(), children: [
-      SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
       Center(
           child: Image.asset(Assets.myProfile5,
               width: ScreenConstant.defaultHeightTwoHundredTen)),
-      SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
       Text("No problem. This app can help you understand your IBS",
           textAlign: TextAlign.center,
           style:
               TextStyles.textStyleIntroDescription.apply(color: Colors.black)),
-      SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
       Card(
         elevation: 0,
         color: Colors.white,
@@ -185,8 +185,8 @@ class MyProfileStep2 extends StatelessWidget {
             // ),
             ),
       ),
-      SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
-      SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
     ]);
   }
 
@@ -205,11 +205,11 @@ class MyProfileStep2 extends StatelessWidget {
       padding: ScreenConstant.spacingAllLarge,
       child: Column(
         children: [
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Center(
               child: Image.asset(Assets.myProfile5,
                   width: ScreenConstant.defaultHeightTwoHundredTen)),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Text("Rome IV Questionnaire.",
               textAlign: TextAlign.center,
               style: TextStyles.textStyleIntroDescription
@@ -250,7 +250,7 @@ class MyProfileStep2 extends StatelessWidget {
                 // ),
                 ),
           ),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Row(
             children: [
               Expanded(
@@ -296,7 +296,7 @@ class MyProfileStep2 extends StatelessWidget {
       physics: ClampingScrollPhysics(),
       padding: ScreenConstant.spacingAllLarge,
       children: [
-        SizedBox(height: ScreenConstant.defaultHeightFifteen),
+        SizedBox(height: ScreenConstant.defaultHeightSixteen),
         Text("Rome IV Questionnaire.",
             textAlign: TextAlign.center,
             style: TextStyles.textStyleIntroDescription
@@ -316,7 +316,7 @@ class MyProfileStep2 extends StatelessWidget {
                 style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
               ),
             )),
-        SizedBox(height: ScreenConstant.defaultHeightFifteen),
+        SizedBox(height: ScreenConstant.defaultHeightSixteen),
         Row(
           children: [
             Expanded(
@@ -357,7 +357,7 @@ class MyProfileStep2 extends StatelessWidget {
                 style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
               ),
             )),
-        SizedBox(height: ScreenConstant.defaultHeightFifteen),
+        SizedBox(height: ScreenConstant.defaultHeightSixteen),
         Row(
           children: [
             Expanded(
@@ -391,11 +391,11 @@ class MyProfileStep2 extends StatelessWidget {
   // _buildInformationalQuestions() {
   //   return Column(
   //     children: [
-  //       SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+  //       SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
   //       Center(
   //           child: Image.asset(Assets.myProfile5,
   //               width: ScreenConstant.defaultHeightTwoHundredTen)),
-  //       SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+  //       SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
   //       Container(
   //         margin: ScreenConstant.spacingAllLarge,
   //         padding: ScreenConstant.spacingAllLarge,
@@ -484,11 +484,11 @@ class MyProfileStep2 extends StatelessWidget {
       padding: ScreenConstant.spacingAllLarge,
       child: Column(
         children: [
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Center(
               child: Image.asset(Assets.myProfile5,
                   width: ScreenConstant.defaultHeightTwoHundredTen)),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Text("Rome IV Questionnaire.",
               textAlign: TextAlign.center,
               style: TextStyles.textStyleIntroDescription
@@ -525,7 +525,7 @@ class MyProfileStep2 extends StatelessWidget {
                   ),
                 )),
           ),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Row(
             children: [
               Expanded(
@@ -571,7 +571,7 @@ class MyProfileStep2 extends StatelessWidget {
         physics: ClampingScrollPhysics(),
         padding: ScreenConstant.spacingAllLarge,
         children: [
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Text("Rome IV Questionnaire.",
               textAlign: TextAlign.center,
               style: TextStyles.textStyleIntroDescription
@@ -621,7 +621,7 @@ class MyProfileStep2 extends StatelessWidget {
   //   return ListView(
   //     physics: ClampingScrollPhysics(),
   //     children: [
-  //       SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+  //       SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
   //       Stack(
   //         children: [
   //           Container(
@@ -675,7 +675,7 @@ class MyProfileStep2 extends StatelessWidget {
   //           ),
   //         ],
   //       ),
-  //       SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+  //       SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
   //       Padding(
   //           padding: ScreenConstant.spacingAllLarge,
   //           child: RichText(
@@ -725,7 +725,7 @@ class MyProfileStep2 extends StatelessWidget {
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  vertical: ScreenConstant.defaultHeightFifteen),
+                  vertical: ScreenConstant.defaultHeightSixteen),
               child: Text(model.text,
                   textAlign: TextAlign.center,
                   style: TextStyles.textStyleIntroDescription.apply(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
+import 'package:flutter_ibs/screens/low_diet/LowDietTreatmentPlan.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -25,16 +26,6 @@ class LowDiet extends StatelessWidget {
           "LOW FODMAP DIET",
           style: TextStyles.appBarTitle,
         ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTwenty),
-            child: Image.asset(
-              Assets.settings,
-              width: ScreenConstant.defaultWidthTwenty,
-            ),
-          )
-        ],
       ),
       body: ListView(
         padding: ScreenConstant.spacingAllMedium,
@@ -43,7 +34,7 @@ class LowDiet extends StatelessWidget {
           Center(
               child: Image.asset(Assets.lowDiet,
                   width: ScreenConstant.defaultHeightTwoHundredTen)),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: ScreenConstant.defaultWidthTwenty * 2),
@@ -55,15 +46,17 @@ class LowDiet extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
           _buildLowFodmapDiet("Low FODMAP diet plan details", () {}),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           CustomElevatedButton(
             text: "Start Plan",
             widthFactor: 0.95,
             onTap: () {
-              Get.toNamed(lowDietTreatmentPlan);
+              Get.bottomSheet(LowDietTreatmentPlan(),
+                  isScrollControlled: true,
+                  barrierColor: AppColors.barrierColor.withOpacity(0.60));
             },
           ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Text(
             "Additional Resources",
             style: TextStyles.textStyleIntroDescription
@@ -72,7 +65,7 @@ class LowDiet extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTen),
           _buildListAdditionalResources(),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         ],
       ),
     );

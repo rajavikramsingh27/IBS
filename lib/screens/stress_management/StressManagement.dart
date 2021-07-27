@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
+import 'package:flutter_ibs/screens/stress_management/StressTreatmentPlan.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -13,8 +14,7 @@ class StressManagement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          backgroundColor: AppColors.colorTracBg,
-
+      backgroundColor: AppColors.colorTracBg,
       appBar: AppBar(
         elevation: 0,
         leading: LeadingBackButton(
@@ -44,7 +44,7 @@ class StressManagement extends StatelessWidget {
           Center(
               child: Image.asset(Assets.stressManage,
                   width: ScreenConstant.defaultHeightTwoHundredTen)),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: ScreenConstant.defaultWidthTwenty * 2),
@@ -56,15 +56,17 @@ class StressManagement extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
           _buildStrssManage("Stress management plan details", () {}),
-          SizedBox(height: ScreenConstant.defaultHeightFifteen),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
           CustomElevatedButton(
             text: "Start Plan",
             widthFactor: 0.95,
             onTap: () {
-              Get.toNamed(stressTreatPlan);
+              Get.bottomSheet(StressTreatmentPlan(),
+                  isScrollControlled: true,
+                  barrierColor: AppColors.barrierColor.withOpacity(0.60));
             },
           ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Text(
             "Additional Resources",
             style: TextStyles.textStyleIntroDescription
@@ -73,7 +75,7 @@ class StressManagement extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTen),
           _buildListAdditionalResources(),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyThree),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         ],
       ),
     );
