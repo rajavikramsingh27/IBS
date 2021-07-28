@@ -143,6 +143,13 @@ class DummyData {
     TrackingOptionsModel(title: "Tips for starting a new medication"),
     TrackingOptionsModel(title: "What to expect"),
   ];
+//   static List<TrackingOptionsModel> report = [
+//     TrackingOptionsModel(title: "After 5 days of tracking you will start to see
+// Reports of your symptoms here."),
+//     TrackingOptionsModel(title: "Fatigue"),
+//     TrackingOptionsModel(title: "Describe how you Feel"),
+//     TrackingOptionsModel(title: "Duration of Symptoms"),
+//   ];
 }
 
 class IBSTypeModel {

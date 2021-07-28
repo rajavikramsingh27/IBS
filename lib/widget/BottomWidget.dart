@@ -31,12 +31,15 @@ class BottomWidget extends StatelessWidget {
           child: CustomPaint(
               painter: BottomCustomPainter(),
               size: Size(Get.context.mediaQuerySize.width,
-                  Get.context.mediaQuerySize.height * 0.2)),
+                  Get.context.mediaQuerySize.height * 0.11)),
         ),
         Positioned(
-          bottom: ScreenConstant.defaultHeightSixteen,
-          left: ScreenConstant.defaultWidthTwenty,
+          bottom: 0,
+          left: 0,
+          right: 0,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               TextButton(
                 onPressed: onSkipTap,
@@ -44,15 +47,12 @@ class BottomWidget extends StatelessWidget {
                     style: TextStyles.textStyleRegular.apply(
                         color: AppColors.colorSkipButton, fontSizeDelta: 3)),
               ),
-              SizedBox(width: ScreenConstant.defaultWidthNinetyEight),
               TextButton(
                 onPressed: onContinueTap,
                 child: Text("Continue",
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: AppColors.white, fontSizeDelta: -3)),
               ),
-
-              // SizedBox(width: ScreenConstant.defaultWidthTwenty ),
               InkWell(
                 onTap: onCircleTap,
                 child: Container(

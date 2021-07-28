@@ -14,18 +14,13 @@ class BottomCustomPainter extends CustomPainter {
 
     Path path = Path();
     path.moveTo(0, size.height);
-    path.lineTo(0, size.height * 0.5000000);
-    path.quadraticBezierTo(size.width * 0.5003125, size.height * 0.4987500,
-        size.width * 0.6875000, size.height * 0.5000000);
-    path.cubicTo(
-        size.width * 0.7140625,
-        size.height * 0.30,
-        size.width * 0.8478125,
-        size.height * 0.30,
-        size.width * 0.8762500,
-        size.height * 0.4950000);
-    path.quadraticBezierTo(size.width * 0.9071875, size.height * 0.4950000,
-        size.width, size.height * 0.4950000);
+    path.lineTo(0, size.height * 0.2050000);
+    path.lineTo(size.width * 0.7250000, size.height * 0.2000000);
+    path.quadraticBezierTo(size.width * 0.7521875, size.height * 0.0087500,
+        size.width * 0.8137500, 0);
+    path.quadraticBezierTo(size.width * 0.8721875, size.height * 0.0012500,
+        size.width * 0.9025000, size.height * 0.1950000);
+    path.lineTo(size.width, size.height * 0.1950000);
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
     path.close();

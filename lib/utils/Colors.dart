@@ -69,4 +69,6 @@ class AppColors {
   static const Color colorIcons = const Color(0xFFD2C5FC);
 
   static const Color barrierColor = const Color(0xFF1A103E);
+
+  static const Color colorDotUnselected = const Color(0xFFA29BC2);
 }

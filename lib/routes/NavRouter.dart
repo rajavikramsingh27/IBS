@@ -7,6 +7,7 @@ import 'package:flutter_ibs/screens/medication_supplements/MedicationSuplements.
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep1.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep2.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep3.dart';
+import 'package:flutter_ibs/screens/report/Report.dart';
 import 'package:flutter_ibs/screens/settings/Settings.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep1.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep2.dart';
@@ -93,6 +94,10 @@ class NavRouter {
     GetPage(
       name: myIbs,
       page: () => MyIbs(),
+    ),
+    GetPage(
+      name: report,
+      page: () => Report(),
     ),
   ];
 }

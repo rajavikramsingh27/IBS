@@ -6,6 +6,7 @@ import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/BottomWidget.dart';
 import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
@@ -87,70 +88,12 @@ class MyProfileStep3 extends StatelessWidget {
   }
 
   _buildBottom() {
-    return Stack(
-      children: [
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: CustomPaint(
-              painter: BottomCustomPainter(),
-              size: Size(Get.context.mediaQuerySize.width,
-                  Get.context.mediaQuerySize.height * 0.2)),
-        ),
-        Positioned(
-          bottom: ScreenConstant.defaultHeightSixteen,
-          left: ScreenConstant.defaultWidthTwenty,
-          child: Row(
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: Text("Skip",
-                    style: TextStyles.textStyleRegular.apply(
-                        color: AppColors.colorSkipButton, fontSizeDelta: 3)),
-              ),
-              SizedBox(width: ScreenConstant.defaultWidthNinetyEight),
-              TextButton(
-                onPressed: () {
-                  Get.toNamed(signup);
-                },
-                child: Text("Continue",
-                    style: TextStyles.textStyleIntroDescription
-                        .apply(color: AppColors.white, fontSizeDelta: -3)),
-              ),
-
-              // SizedBox(width: ScreenConstant.defaultWidthTwenty ),
-              InkWell(
-                onTap: () {
-                  Get.toNamed(signup);
-                },
-                child: Container(
-                    width: ScreenConstant.defaultWidthNinetyEight,
-                    height: ScreenConstant.defaultHeightNinetyEight,
-                    child: _buildCircleAvatar()),
-              ),
-            ],
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _buildCircleAvatar() {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final radius = min(constraints.maxHeight / 3, constraints.maxWidth / 3);
-        return Center(
-          child: CircleAvatar(
-            radius: radius,
-            backgroundColor: AppColors.colorArrowButton,
-            child: Icon(
-              Icons.arrow_forward_ios,
-              size: 10,
-              color: Colors.white,
-            ),
-          ),
-        );
+    return BottomWidget(
+      onContinueTap: () {
+        Get.toNamed(signup);
+      },
+      onCircleTap: () {
+        Get.toNamed(signup);
       },
     );
   }
