@@ -81,8 +81,11 @@ class _IntroState extends State<Intro> {
                               aspectRatio: 01,
                               child: Align(
                                 alignment: Alignment(0, -1.5),
-                                child: Image.asset(
-                                  "assets/images/intro/intro$index.png",
+                                child: AspectRatio(
+                                  aspectRatio: index == 0 ? 1.35 : 0.8,
+                                  child: Image.asset(
+                                    "assets/images/intro/intro$index.png",
+                                  ),
                                 ),
                               ),
                             ),
