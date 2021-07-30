@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/home/HomeController.dart';
@@ -86,17 +88,23 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     color: AppColors.colorButton,
                   ),
                   onPressed: () {
-                    _datePicker();
+                    if (Platform.isIOS)
+                      _controller.getCupertinoDatePicker();
+                    else
+                      _controller.getAndroidDatePicker();
                   }),
               Text(
-                "fdgdfg",
+                _controller.dateController.text,
                 style: TextStyles.appBarTitle,
               ),
               IconButton(
                   icon: Icon(Icons.arrow_forward_ios_outlined,
                       color: AppColors.colorButton),
                   onPressed: () {
-                    _datePicker();
+                    if (Platform.isIOS)
+                      _controller.getCupertinoDatePicker();
+                    else
+                      _controller.getAndroidDatePicker();
                   }),
             ],
           ),
@@ -470,29 +478,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           },
         ),
       ],
-    );
-  }
-
-  _datePicker() {
-    return showDatePicker(
-      context: Get.context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1970),
-      builder: (BuildContext context, Widget child) {
-        return Theme(
-          data: ThemeData.dark().copyWith(
-            colorScheme: ColorScheme.dark(
-              primary: Colors.deepPurple,
-              onPrimary: Colors.white,
-              surface: Colors.white,
-              onSurface: AppColors.colorButton,
-            ),
-            dialogBackgroundColor: Colors.white,
-          ),
-          child: child,
-        );
-      },
-      lastDate: DateTime(2100),
     );
   }
 

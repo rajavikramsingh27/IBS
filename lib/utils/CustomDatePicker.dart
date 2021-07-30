@@ -1,31 +1,30 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class HomeController extends GetxController {
-  Rx<DateTime> now = DateTime.now().obs;
-  RxBool selectedDailyLogin = false.obs;
-  RxInt formattedTime = 0.obs;
-  RxInt currentIndex = 0.obs;
-  RxInt segmentedControlGroupValue = 0.obs;
-  DateTime selectedDate;
-  TextEditingController dateController = TextEditingController();
+class CustomDatePicker extends StatelessWidget {
+  final DateTime selectedDate;
+  final TextEditingController dateController;
 
-  RxInt selectedIndex = 0.obs;
-
-  onTapped(int index) async {
-    currentIndex.value = index;
-  }
+  const CustomDatePicker(this.selectedDate, this.dateController);
 
   @override
-  void onInit() {
-    super.onInit();
-    formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+  Widget build(BuildContext context) {
+    return Obx(() => datePicker());
   }
 
-  getAndroidDatePicker() {
+  Widget datePicker() {
+    return Platform.isIOS
+        ? getCupertinoDatePicker(selectedDate, dateController)
+        : getAndroidDatePicker(selectedDate, dateController);
+  }
+
+  getAndroidDatePicker(
+      DateTime selectedDate, TextEditingController textController) {
     return showDatePicker(
       context: Get.context,
       initialDate: DateTime.now() ?? selectedDate,
@@ -48,12 +47,13 @@ class HomeController extends GetxController {
     ).then((datePicked) {
       if (datePicked != selectedDate) {
         selectedDate = datePicked;
-        dateController.text = DateFormat.yMMMMd('en_US').format(selectedDate);
+        textController.text = DateFormat.yMMMMd('en_US').format(selectedDate);
       }
     });
   }
 
-  getCupertinoDatePicker() {
+  getCupertinoDatePicker(
+      DateTime selectedDate, TextEditingController textController) {
     Get.bottomSheet(
       Container(
         decoration: BoxDecoration(
@@ -66,13 +66,12 @@ class HomeController extends GetxController {
           onDateTimeChanged: (datePicked) {
             if (datePicked != selectedDate) {
               selectedDate = datePicked;
-              print("${dateController.text}");
-              dateController.text =
+              print("${textController.text}");
+              textController.text =
                   DateFormat.yMMMMd('en_US').format(selectedDate);
               // ?.toString()
               // ?.split(' ')
               // ?.first;
-
             }
           },
           initialDateTime: DateTime.now(),
@@ -83,5 +82,12 @@ class HomeController extends GetxController {
       barrierColor: Colors.black26,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     );
+
+    // showCupertinoModalPopup(
+    //   builder: (BuildContext context) {
+    //     return
+    //   },
+    //   context: Get.context,
+    // );
   }
 }
