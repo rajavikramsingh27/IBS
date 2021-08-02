@@ -48,6 +48,7 @@ class Assets {
   static const String curl6 = "$baseImage/signup/curl6.png";
   static const String signupBg1 = "$baseImage/signup/signupBg1.png";
   static const String signupBg2 = "$baseImage/signup/signupBg2.png";
+  static const String forgotBg = "$baseImage/signup/forgotBg.png";
 
 //track
   static const String clock = "$baseImage/track/clock.png";

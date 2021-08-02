@@ -57,7 +57,7 @@ class SignupStep3 extends StatelessWidget {
                 physics: ClampingScrollPhysics(),
                 padding: ScreenConstant.spacingAllLarge,
                 children: [
-                  _buildLoginForm(),
+                  _buildSignupForm(),
                   SizedBox(height: ScreenConstant.defaultHeightOneHundred)
                 ],
               ),
@@ -124,7 +124,7 @@ class SignupStep3 extends StatelessWidget {
         ));
   }
 
-  _buildLoginForm() {
+  _buildSignupForm() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

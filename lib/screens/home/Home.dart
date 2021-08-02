@@ -93,10 +93,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     else
                       _controller.getAndroidDatePicker();
                   }),
-              Text(
-                _controller.dateController.text,
-                style: TextStyles.appBarTitle,
-              ),
+              Text(_controller.dateController.text,
+                  style: TextStyles.appBarTitle),
               IconButton(
                   icon: Icon(Icons.arrow_forward_ios_outlined,
                       color: AppColors.colorButton),

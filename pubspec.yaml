@@ -25,11 +25,12 @@ dependencies:
     sdk: flutter
   connectivity: 
   cupertino_icons: 
-  flutter_local_notifications:
+  flutter_local_notifications: 
   get: 
   http: 
   intl: 
-  syncfusion_flutter_sliders:
+  pin_code_fields:
+  syncfusion_flutter_sliders: 
 
 dev_dependencies:
   flutter_test:
@@ -57,9 +58,6 @@ flutter:
     - assets/images/exercise/
     - assets/images/settings/
     - assets/images/report/
-
-
-
 
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

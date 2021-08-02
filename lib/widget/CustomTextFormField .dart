@@ -45,7 +45,7 @@ class CustomTextFormField extends StatelessWidget {
     return Container(
       height: ScreenConstant.defaultHeightForty * 1.2,
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(16)),
+          color: Colors.white, borderRadius: BorderRadius.circular(8)),
       child: TextFormField(
           textAlignVertical: TextAlignVertical.bottom,
           enableInteractiveSelection: false,
@@ -68,7 +68,7 @@ class CustomTextFormField extends StatelessWidget {
           onChanged: onchangedFunction,
           onFieldSubmitted: onSavedFunction,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(20.0),
+            contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             suffixIcon: suffixIcon,
             prefixIcon: prefixIcon,
             hintText: hintText,
@@ -99,7 +99,6 @@ InputDecoration hintedInputDecoration(String hint) {
         borderSide:
             new BorderSide(color: Colors.black, style: BorderStyle.solid)),
     isDense: true,
-    contentPadding: EdgeInsets.all(8.0),
     focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.blue[900], width: 1.0),
     ),
