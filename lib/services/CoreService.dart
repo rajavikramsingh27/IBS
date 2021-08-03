@@ -218,6 +218,10 @@ class CoreService {
         return responseJson;
       case 400:
         throw BadRequestException(response.body.toString());
+      case 422:
+        var responseJson = json.decode(response.body.toString());
+        print("Result : $responseJson");
+        return responseJson;
       case 401:
       case 403:
         throw UnauthorisedException(response.body.toString());

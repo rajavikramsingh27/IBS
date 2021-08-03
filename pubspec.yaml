@@ -27,6 +27,7 @@ dependencies:
   cupertino_icons: 
   flutter_local_notifications: 
   get: 
+  hive:
   http: 
   intl: 
   pin_code_fields:

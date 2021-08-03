@@ -121,9 +121,9 @@ class Login extends StatelessWidget {
         Center(
           child: TextButton(
             onPressed: () {
-              Get.toNamed(signup);
+              Navigator.pop(Get.context);
             },
-            child: Text("Return to Register Screen",
+            child: Text("Return to Home Screen",
                 style: TextStyles.textStyleRegular.apply(
                     color: Colors.white.withOpacity(0.70), fontSizeDelta: 3)),
           ),

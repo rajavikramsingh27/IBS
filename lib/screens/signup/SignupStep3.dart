@@ -1,10 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/utils/Validator.dart';
 import 'package:flutter_ibs/widget/CustomCheckBox.dart';
 import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
@@ -19,6 +21,7 @@ final FocusNode focusRePassWord = FocusNode();
 final FocusNode focusNone = FocusNode();
 
 class SignupStep3 extends StatelessWidget {
+  final _controller = Get.put(SignUpController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +46,7 @@ class SignupStep3 extends StatelessWidget {
             widthFactor: 0.8,
             text: "I am done!",
             onTap: () {
-              Get.toNamed(home);
+              _controller.onAutovalidate();
             },
           ),
         ),
@@ -156,6 +159,8 @@ class SignupStep3 extends StatelessWidget {
                 .apply(color: Colors.black, fontSizeDelta: -6)),
         SizedBox(height: ScreenConstant.defaultHeightTen * 0.8),
         CustomTextFormField(
+          validationFunction: Validator().validateEmail,
+          controller: _controller.emailController,
           currentFocus: focusEmail,
           nextFocus: focusPassWord,
           suffixIcon: Padding(
@@ -171,14 +176,24 @@ class SignupStep3 extends StatelessWidget {
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.black, fontSizeDelta: -6)),
         SizedBox(height: ScreenConstant.defaultHeightTen * 0.8),
-        CustomTextFormField(
-          textInputAction: TextInputAction.done,
-          currentFocus: focusRePassWord,
-          nextFocus: focusNone,
-          suffixIcon: Padding(
-            padding: ScreenConstant.spacingAllSmall,
-            child: Image.asset(
-              Assets.password,
+        Obx(
+          () => CustomTextFormField(
+            obscureText: _controller.isPasswordVisible.value,
+            controller: _controller.passwordController,
+            textInputAction: TextInputAction.done,
+            currentFocus: focusRePassWord,
+            nextFocus: focusNone,
+            suffixIcon: IconButton(
+              icon: Icon(
+                _controller.isPasswordVisible.value
+                    ? Icons.visibility_off_outlined
+                    : Icons.visibility_outlined,
+                color: AppColors.textRegular,
+              ),
+              onPressed: () {
+                _controller.isPasswordVisible.value =
+                    !_controller.isPasswordVisible.value;
+              },
             ),
           ),
         ),
@@ -188,13 +203,23 @@ class SignupStep3 extends StatelessWidget {
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.black, fontSizeDelta: -6)),
         SizedBox(height: ScreenConstant.defaultHeightTen * 0.8),
-        CustomTextFormField(
-          currentFocus: focusPassWord,
-          nextFocus: focusRePassWord,
-          suffixIcon: Padding(
-            padding: ScreenConstant.spacingAllSmall,
-            child: Image.asset(
-              Assets.password,
+        Obx(
+          () => CustomTextFormField(
+            obscureText: _controller.isPasswordVisible.value,
+            controller: _controller.confirmPasswordController,
+            currentFocus: focusPassWord,
+            nextFocus: focusRePassWord,
+            suffixIcon: IconButton(
+              icon: Icon(
+                _controller.isPasswordVisible.value
+                    ? Icons.visibility_off_outlined
+                    : Icons.visibility_outlined,
+                color: AppColors.textRegular,
+              ),
+              onPressed: () {
+                _controller.isPasswordVisible.value =
+                    !_controller.isPasswordVisible.value;
+              },
             ),
           ),
         ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
-import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _SplashState extends State<Splash> {
   initState() {
     super.initState();
     Future.delayed(Duration(seconds: 2), () {
-      Get.offAndToNamed(intro);
+      Get.offNamed(intro);
     });
   }
 

@@ -12,7 +12,6 @@ import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/BottomWidget.dart';
 import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
-import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 
@@ -116,16 +115,24 @@ class MyProfileStep1 extends StatelessWidget {
   _buildBottom() {
     return BottomWidget(
       onContinueTap: () {
-        if (_controller.pagecount.value <= 2)
-          _controller.pagecount.value++;
-        else
-          Get.toNamed(signup);
+        if (_controller.isDiagnoisedIbs.value == false)
+          Get.toNamed(myprofile2);
+        else {
+          if (_controller.pagecount.value <= 2)
+            _controller.pagecount.value++;
+          else
+            Get.toNamed(signup);
+        }
       },
       onCircleTap: () {
-        if (_controller.pagecount.value <= 2)
-          _controller.pagecount.value++;
-        else
-          Get.toNamed(signup);
+        if (_controller.isDiagnoisedIbs.value == false)
+          Get.toNamed(myprofile2);
+        else {
+          if (_controller.pagecount.value <= 2)
+            _controller.pagecount.value++;
+          else
+            Get.toNamed(signup);
+        }
       },
     );
   }
@@ -238,24 +245,38 @@ class MyProfileStep1 extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: CustomElevatedButton2(
-                  onTap: () {
-                    _controller.pagecount.value++;
-                  },
-                  text: "Yes, I have",
-                  textColor: AppColors.colorButton,
-                  buttonColor: Colors.white,
+                child: Obx(
+                  () => CustomElevatedButton2(
+                    onTap: () {
+                      _controller.isDiagnoisedIbs.value = true;
+                    },
+                    text: "Yes, I have",
+                    textColor: _controller.isDiagnoisedIbs.value == true
+                        ? AppColors.white
+                        : AppColors.colorButton,
+                    buttonColor: _controller.isDiagnoisedIbs.value == true
+                        ? AppColors.colorYesButton
+                        : Colors.white,
+                  ),
                 ),
               ),
               SizedBox(width: ScreenConstant.defaultWidthTwenty),
               Expanded(
-                child: CustomElevatedButton2(
-                  onTap: () {
-                    Get.toNamed(myprofile2);
-                  },
-                  text: "No, not yet",
-                  textColor: AppColors.colorButton,
-                  buttonColor: Colors.white,
+                child: Obx(
+                  () => CustomElevatedButton2(
+                    onTap: () {
+                      _controller.isDiagnoisedIbs.value = false;
+
+                      // Get.toNamed(myprofile2);
+                    },
+                    text: "No, not yet",
+                    textColor: _controller.isDiagnoisedIbs.value == false
+                        ? AppColors.white
+                        : AppColors.colorButton,
+                    buttonColor: _controller.isDiagnoisedIbs.value == false
+                        ? AppColors.colorYesButton
+                        : Colors.white,
+                  ),
                 ),
               )
             ],
@@ -537,6 +558,4 @@ IBS-D: IBS with diarrhea. This comes with stomach pain, an urgent need to move y
     //   ),
     // );
   }
-
- 
 }
