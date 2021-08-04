@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 
 class SignupStep1 extends StatelessWidget {
+  final _controller = Get.put(SignUpController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,19 +41,21 @@ class SignupStep1 extends StatelessWidget {
         // ),
         body: Stack(
           children: [
-            ListView(
-              physics: ClampingScrollPhysics(),
-              padding: ScreenConstant.spacingAllLarge,
-              children: [
-                _buildAboutYourself(),
-                SizedBox(height: ScreenConstant.defaultHeightSixteen),
-                _buildGenderCard(),
-                SizedBox(height: ScreenConstant.defaultHeightSixteen),
-                _buildAgeCard(),
-                SizedBox(height: ScreenConstant.defaultHeightSixteen),
-                _buildFamilyIBSHistory(),
-                SizedBox(height: ScreenConstant.defaultHeightOneHundred),
-              ],
+            Obx(
+              () => ListView(
+                physics: ClampingScrollPhysics(),
+                padding: ScreenConstant.spacingAllLarge,
+                children: [
+                  _buildAboutYourself(),
+                  SizedBox(height: ScreenConstant.defaultHeightSixteen),
+                  _buildGenderCard(),
+                  SizedBox(height: ScreenConstant.defaultHeightSixteen),
+                  _buildAgeCard(),
+                  SizedBox(height: ScreenConstant.defaultHeightSixteen),
+                  _buildFamilyIBSHistory(),
+                  SizedBox(height: ScreenConstant.defaultHeightOneHundred),
+                ],
+              ),
             ),
             BottomWidget(
                 onContinueTap: () => Get.toNamed(signup2),
@@ -65,7 +69,7 @@ class SignupStep1 extends StatelessWidget {
       children: [
         AspectRatio(aspectRatio: 1.6, child: Image.asset(Assets.signupBg1)),
         Positioned(
-            bottom: ScreenConstant.defaultHeightSixty,
+            bottom: ScreenConstant.defaultHeightTwentyFour,
             left: ScreenConstant.sizeXXXL,
             right: ScreenConstant.sizeXXXL,
             child: Column(
@@ -121,9 +125,15 @@ class SignupStep1 extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   title: Text("Female", style: TextStyles.textStyleRegular),
                   leading: CustomCheckBox(
-                    value: false,
+                    value: _controller.selectedFeMale.value,
                     onChanged: (val) {
-                      //do your stuff here
+                      _controller.selectedGender.value = "f";
+                      _controller.selectedFeMale.value =
+                          !_controller.selectedFeMale.value;
+                      if (_controller.selectedFeMale.value == true) {
+                        _controller.selectedMale.value = false;
+                        _controller.selectedOtherGender.value = false;
+                      }
                     },
                   ),
                 ),
@@ -137,9 +147,15 @@ class SignupStep1 extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   title: Text("Male", style: TextStyles.textStyleRegular),
                   leading: CustomCheckBox(
-                    value: true,
+                    value: _controller.selectedMale.value,
                     onChanged: (val) {
-                      //do your stuff here
+                      _controller.selectedGender.value = "m";
+                      _controller.selectedMale.value =
+                          !_controller.selectedMale.value;
+                      if (_controller.selectedMale.value == true) {
+                        _controller.selectedFeMale.value = false;
+                        _controller.selectedOtherGender.value = false;
+                      }
                     },
                   ),
                 ),
@@ -154,9 +170,15 @@ class SignupStep1 extends StatelessWidget {
                   title: Text("Prefer not to respond",
                       style: TextStyles.textStyleRegular),
                   leading: CustomCheckBox(
-                    value: false,
+                    value: _controller.selectedOtherGender.value,
                     onChanged: (val) {
-                      //do your stuff here
+                      _controller.selectedGender.value = "na";
+                      _controller.selectedOtherGender.value =
+                          !_controller.selectedOtherGender.value;
+                      if (_controller.selectedOtherGender.value == true) {
+                        _controller.selectedFeMale.value = false;
+                        _controller.selectedMale.value = false;
+                      }
                     },
                   ),
                 ),
@@ -199,7 +221,7 @@ class SignupStep1 extends StatelessWidget {
             child: DropdownButton<String>(
                 isExpanded: true,
                 dropdownColor: AppColors.white,
-                value: "Under 20 years",
+                value: _controller.selectedAge.value,
                 elevation: 30,
                 icon: Icon(
                   Icons.keyboard_arrow_down_outlined,
@@ -208,12 +230,17 @@ class SignupStep1 extends StatelessWidget {
                 iconSize: 20,
                 underline: SizedBox(),
                 onChanged: (String newValue) {
-                  // setState(() {
-                  //   dropdownValue = newValue;
-                  // });
+                  _controller.selectedAge.value = newValue;
                 },
-                items: <String>["Under 20 years", "2", "3", "4", "5", "more"]
-                    .map<DropdownMenuItem<String>>((String value) {
+                items: <String>[
+                  "<20",
+                  "20-29",
+                  "30-39",
+                  "40-49",
+                  "50-59",
+                  "60-69",
+                  "70+"
+                ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value.toString(),
                     child: Text(value.toString(),
@@ -256,9 +283,15 @@ class SignupStep1 extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   title: Text("Yes", style: TextStyles.textStyleRegular),
                   leading: CustomCheckBox(
-                    value: false,
+                    value: _controller.selectedIbsHistoryYes.value,
                     onChanged: (val) {
-                      //do your stuff here
+                      _controller.selectedIbsHistory.value = "yes";
+                      _controller.selectedIbsHistoryYes.value =
+                          !_controller.selectedIbsHistoryYes.value;
+                      if (_controller.selectedIbsHistoryYes.value == true) {
+                        _controller.selectedIbsHistoryNo.value = false;
+                        _controller.selectedIbsHistoryUnsure.value = false;
+                      }
                     },
                   ),
                 ),
@@ -272,9 +305,15 @@ class SignupStep1 extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   title: Text("No", style: TextStyles.textStyleRegular),
                   leading: CustomCheckBox(
-                    value: true,
+                    value: _controller.selectedIbsHistoryNo.value,
                     onChanged: (val) {
-                      //do your stuff here
+                      _controller.selectedIbsHistory.value = "no";
+                      _controller.selectedIbsHistoryNo.value =
+                          !_controller.selectedIbsHistoryNo.value;
+                      if (_controller.selectedIbsHistoryNo.value == true) {
+                        _controller.selectedIbsHistoryYes.value = false;
+                        _controller.selectedIbsHistoryUnsure.value = false;
+                      }
                     },
                   ),
                 ),
@@ -288,9 +327,15 @@ class SignupStep1 extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   title: Text("Unsure", style: TextStyles.textStyleRegular),
                   leading: CustomCheckBox(
-                    value: false,
+                    value: _controller.selectedIbsHistoryUnsure.value,
                     onChanged: (val) {
-                      //do your stuff here
+                      _controller.selectedIbsHistory.value = "unsure";
+                      _controller.selectedIbsHistoryUnsure.value =
+                          !_controller.selectedIbsHistoryUnsure.value;
+                      if (_controller.selectedIbsHistoryUnsure.value == true) {
+                        _controller.selectedIbsHistoryNo.value = false;
+                        _controller.selectedIbsHistoryYes.value = false;
+                      }
                     },
                   ),
                 ),

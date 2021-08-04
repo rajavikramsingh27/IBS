@@ -216,24 +216,40 @@ class MyProfileStep2 extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: CustomElevatedButton2(
-                  onTap: () {
-                    _controller.pagecount2.value++;
-                  },
-                  text: "Yes",
-                  textColor: AppColors.colorButton,
-                  buttonColor: Colors.white,
+                child: Obx(
+                  () => CustomElevatedButton2(
+                    onTap: () {
+                      _controller.isDiagnoisedAbdominalPain.value = true;
+                    },
+                    text: "Yes",
+                    textColor:
+                        _controller.isDiagnoisedAbdominalPain.value == false
+                            ? AppColors.colorButton
+                            : Colors.white,
+                    buttonColor:
+                        _controller.isDiagnoisedAbdominalPain.value == false
+                            ? Colors.white
+                            : AppColors.colorYesButton,
+                  ),
                 ),
               ),
               SizedBox(width: ScreenConstant.defaultWidthTwenty),
               Expanded(
-                child: CustomElevatedButton2(
-                  onTap: () {
-                    _controller.pagecount2.value++;
-                  },
-                  text: "No",
-                  textColor: AppColors.colorButton,
-                  buttonColor: Colors.white,
+                child: Obx(
+                  () => CustomElevatedButton2(
+                    onTap: () {
+                      _controller.isDiagnoisedAbdominalPain.value = false;
+                    },
+                    text: "No",
+                    textColor:
+                        _controller.isDiagnoisedAbdominalPain.value == true
+                            ? AppColors.colorButton
+                            : Colors.white,
+                    buttonColor:
+                        _controller.isDiagnoisedAbdominalPain.value == true
+                            ? Colors.white
+                            : AppColors.colorYesButton,
+                  ),
                 ),
               )
             ],
@@ -282,24 +298,38 @@ class MyProfileStep2 extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: CustomElevatedButton2(
-                onTap: () {
-                  _controller.pagecount2.value++;
-                },
-                text: "Yes",
-                textColor: AppColors.colorButton,
-                buttonColor: Colors.white,
+              child: Obx(
+                () => CustomElevatedButton2(
+                  onTap: () {
+                    _controller.isabdominalPainTimeBowel.value = true;
+                  },
+                  text: "Yes",
+                  textColor: _controller.isabdominalPainTimeBowel.value == true
+                      ? AppColors.white
+                      : AppColors.colorButton,
+                  buttonColor:
+                      _controller.isabdominalPainTimeBowel.value == true
+                          ? AppColors.colorYesButton
+                          : Colors.white,
+                ),
               ),
             ),
             SizedBox(width: ScreenConstant.defaultWidthTwenty),
             Expanded(
-              child: CustomElevatedButton2(
-                onTap: () {
-                  _controller.pagecount2.value++;
-                },
-                text: "No",
-                textColor: AppColors.colorButton,
-                buttonColor: Colors.white,
+              child: Obx(
+                () => CustomElevatedButton2(
+                  onTap: () {
+                    _controller.isabdominalPainTimeBowel.value = false;
+                  },
+                  text: "No",
+                  textColor: _controller.isabdominalPainTimeBowel.value == false
+                      ? AppColors.white
+                      : AppColors.colorButton,
+                  buttonColor:
+                      _controller.isabdominalPainTimeBowel.value == false
+                          ? AppColors.colorYesButton
+                          : Colors.white,
+                ),
               ),
             )
           ],
@@ -323,24 +353,40 @@ class MyProfileStep2 extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: CustomElevatedButton2(
-                onTap: () {
-                  _controller.pagecount2.value++;
-                },
-                text: "Yes",
-                textColor: AppColors.colorButton,
-                buttonColor: Colors.white,
+              child: Obx(
+                () => CustomElevatedButton2(
+                  onTap: () {
+                    _controller.isabdominalPainBowelMoreLess.value = true;
+                  },
+                  text: "Yes",
+                  textColor:
+                      _controller.isabdominalPainBowelMoreLess.value == true
+                          ? AppColors.white
+                          : AppColors.colorButton,
+                  buttonColor:
+                      _controller.isabdominalPainBowelMoreLess.value == true
+                          ? AppColors.colorYesButton
+                          : Colors.white,
+                ),
               ),
             ),
             SizedBox(width: ScreenConstant.defaultWidthTwenty),
             Expanded(
-              child: CustomElevatedButton2(
-                onTap: () {
-                  _controller.pagecount2.value++;
-                },
-                text: "No",
-                textColor: AppColors.colorButton,
-                buttonColor: Colors.white,
+              child: Obx(
+                () => CustomElevatedButton2(
+                  onTap: () {
+                    _controller.isabdominalPainBowelMoreLess.value = false;
+                  },
+                  text: "No",
+                  textColor:
+                      _controller.isabdominalPainBowelMoreLess.value == false
+                          ? AppColors.white
+                          : AppColors.colorButton,
+                  buttonColor:
+                      _controller.isabdominalPainBowelMoreLess.value == false
+                          ? AppColors.colorYesButton
+                          : Colors.white,
+                ),
               ),
             )
           ],
@@ -491,24 +537,42 @@ class MyProfileStep2 extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: CustomElevatedButton2(
-                  onTap: () {
-                    _controller.pagecount2.value++;
-                  },
-                  text: "Yes",
-                  textColor: AppColors.colorButton,
-                  buttonColor: Colors.white,
+                child: Obx(
+                  () => CustomElevatedButton2(
+                    onTap: () {
+                      _controller.isabdominalPainBowelAppearDifferent.value =
+                          true;
+                    },
+                    text: "Yes",
+                    textColor:
+                        _controller.isabdominalPainBowelMoreLess.value == true
+                            ? AppColors.white
+                            : AppColors.colorButton,
+                    buttonColor:
+                        _controller.isabdominalPainBowelMoreLess.value == true
+                            ? AppColors.colorYesButton
+                            : Colors.white,
+                  ),
                 ),
               ),
               SizedBox(width: ScreenConstant.defaultWidthTwenty),
               Expanded(
-                child: CustomElevatedButton2(
-                  onTap: () {
-                    _controller.pagecount2.value++;
-                  },
-                  text: "No",
-                  textColor: AppColors.colorButton,
-                  buttonColor: Colors.white,
+                child: Obx(
+                  () => CustomElevatedButton2(
+                    onTap: () {
+                      _controller.isabdominalPainBowelAppearDifferent.value =
+                          false;
+                    },
+                    text: "No",
+                    textColor:
+                        _controller.isabdominalPainBowelMoreLess.value == false
+                            ? AppColors.white
+                            : AppColors.colorButton,
+                    buttonColor:
+                        _controller.isabdominalPainBowelMoreLess.value == false
+                            ? AppColors.colorYesButton
+                            : Colors.white,
+                  ),
                 ),
               )
             ],
@@ -669,7 +733,7 @@ class MyProfileStep2 extends StatelessWidget {
   _buildListIbsType() {
     return InkWell(
       onTap: () {
-        Get.toNamed(myprofile3);
+        // Get.toNamed(myprofile3);
       },
       child: ListView.builder(
         padding:
@@ -679,41 +743,54 @@ class MyProfileStep2 extends StatelessWidget {
         itemCount: DummyData.ibsTypemedium.length,
         itemBuilder: (BuildContext context, int index) {
           var model = DummyData.ibsTypemedium[index];
-          return Card(
-            elevation: 0,
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: ScreenConstant.defaultHeightSixteen),
-              child: Text(model.text,
-                  textAlign: TextAlign.center,
-                  style: TextStyles.textStyleIntroDescription.apply(
-                      color: AppColors.colorBackground, fontSizeDelta: -3)),
-            ),
+          return Obx(
+            () => GestureDetector(
+              onTap: () {
+                _controller.selectedStoolType.value = index;
+                _controller.selectStoolType(index);
+              },
+              child: Card(
+                elevation: 0,
+                color: _controller.selectedStoolType.value == index
+                    ? AppColors.colorYesButton
+                    : Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: ScreenConstant.defaultHeightSixteen),
+                  child: Text(model.text,
+                      textAlign: TextAlign.center,
+                      style: TextStyles.textStyleIntroDescription.apply(
+                          color: _controller.selectedStoolType.value == index
+                              ? Colors.white
+                              : AppColors.colorBackground,
+                          fontSizeDelta: -3)),
+                ),
 
-            //  ListTile(
-            //   dense: true,
-            //   leading: Image.asset(model.image,
-            //       width: ScreenConstant.defaultWidthTwenty),
-            //   title: Text("${model.text}",
-            //       style: TextStyles.textStyleIntroDescription
-            //           .apply(color: Colors.black, fontSizeDelta: -3)),
-            //   trailing: InkWell(
-            //       onTap: () {
-            //         _controller.checkBoxValue.value =
-            //             !_controller.checkBoxValue.value;
-            //       },
-            //       child: _controller.checkBoxValue.value
-            //           ? CustomCheckBox(
-            //               value: _controller.checkBoxValue.value,
-            //             )
-            //           : CustomCheckBox(
-            //               value: _controller.checkBoxValue.value,
-            //             )),
-            // ),
+                //  ListTile(
+                //   dense: true,
+                //   leading: Image.asset(model.image,
+                //       width: ScreenConstant.defaultWidthTwenty),
+                //   title: Text("${model.text}",
+                //       style: TextStyles.textStyleIntroDescription
+                //           .apply(color: Colors.black, fontSizeDelta: -3)),
+                //   trailing: InkWell(
+                //       onTap: () {
+                //         _controller.checkBoxValue.value =
+                //             !_controller.checkBoxValue.value;
+                //       },
+                //       child: _controller.checkBoxValue.value
+                //           ? CustomCheckBox(
+                //               value: _controller.checkBoxValue.value,
+                //             )
+                //           : CustomCheckBox(
+                //               value: _controller.checkBoxValue.value,
+                //             )),
+                // ),
+              ),
+            ),
           );
         },
       ),
@@ -755,15 +832,20 @@ class MyProfileStep2 extends StatelessWidget {
                     ),
                     itemBuilder: (BuildContext context, int index) {
                       var model = DummyData.stoolChart[index];
-                      return Container(
-                        color: AppColors.white,
+                      return Card(
+                        margin: EdgeInsets.zero,
+                        elevation: 0,
+                        color: Colors.white,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              model.image,
-                              width: ScreenConstant.defaultWidthOneHundredSeven,
-                              height: ScreenConstant.defaultHeightOneHundred,
+                            Expanded(
+                              child: Image.asset(
+                                model.image,
+                                width:
+                                    ScreenConstant.defaultWidthOneHundredSeven,
+                                height: ScreenConstant.defaultHeightOneHundred,
+                              ),
                             ),
                             SizedBox(height: ScreenConstant.sizeExtraSmall),
                             Text(model.text,

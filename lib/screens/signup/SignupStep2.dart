@@ -64,7 +64,7 @@ class SignupStep2 extends StatelessWidget {
       children: [
         AspectRatio(aspectRatio: 1.6, child: Image.asset(Assets.signupBg2)),
         Positioned(
-            bottom: ScreenConstant.defaultHeightSixty,
+            bottom: ScreenConstant.defaultHeightTwentyFour,
             left: ScreenConstant.sizeXXXL,
             right: ScreenConstant.sizeXXXL,
             child: Column(

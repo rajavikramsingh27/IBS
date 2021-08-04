@@ -8,12 +8,34 @@ import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
+  RxString selectedGender = "".obs;
+  RxBool selectedMale = false.obs;
+  RxBool selectedFeMale = false.obs;
+  RxBool selectedOtherGender = false.obs;
+
+  RxString selectedAge = "<20".obs;
+  List<String> ageList = [
+    "<20",
+    "20-29",
+    "30-39",
+    "40-49",
+    "50-59",
+    "60-69",
+    "70+"
+  ];
+
+  RxString selectedIbsHistory = "".obs;
+  RxBool selectedIbsHistoryYes = false.obs;
+  RxBool selectedIbsHistoryNo = false.obs;
+  RxBool selectedIbsHistoryUnsure = false.obs;
+
   var formKey = GlobalKey<FormState>();
   TextEditingController emailController;
   TextEditingController phoneController;
   TextEditingController passwordController;
   TextEditingController confirmPasswordController;
   RxBool isPasswordVisible = true.obs;
+  RxBool agreeToTerms = false.obs;
 
   @override
   void onInit() {
@@ -58,7 +80,7 @@ class SignUpController extends GetxController {
         Get.back();
         // Get.back();
         CustomSnackBar().successSnackBar(
-            title: "Success", message: "RegisteredF Successfully");
+            title: "Success", message: "Registered Successfully");
         Get.offAllNamed(logIn);
       } else {
         Get.back();

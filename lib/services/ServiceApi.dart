@@ -18,6 +18,12 @@ class ServiceApi {
       return SignupResponseModel.fromJson(result);
   }
 
+  Future<dynamic> getTrackables() async {
+    var result = await CoreService()
+        .apiService(baseURL: baseUrl, method: METHOD.GET, endpoint: trackList);
+
+    return SignupResponseModel.fromJson(result);
+  }
 //  Future<DummyDataModel> getData({Map query}) async {
 
 //   // ChangePasswordDataModel model = ChangePasswordDataModel(

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
@@ -381,23 +379,39 @@ class MyProfileStep1 extends StatelessWidget {
       itemCount: DummyData.iBsType.length,
       itemBuilder: (BuildContext context, int index) {
         var model = DummyData.iBsType[index];
-        return Card(
-            elevation: 0,
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("${model.title}",
-                    style: TextStyles.textStyleIntroDescription.apply(
-                        color: AppColors.colorBackground, fontSizeDelta: -3)),
-                Text("${model.description}",
-                    style: TextStyles.textStyleIntroDescription.apply(
-                        color: AppColors.colorBackground, fontSizeDelta: -9)),
-              ],
-            ));
+        return Obx(
+          () => GestureDetector(
+            onTap: () {
+              _controller.selctedIbsType.value = index;
+              _controller.selectIbsType(_controller.selctedIbsType.value);
+            },
+            child: Card(
+                elevation: 0,
+                color: _controller.selctedIbsType.value == index
+                    ? AppColors.colorYesButton
+                    : Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("${model.title}",
+                        style: TextStyles.textStyleIntroDescription.apply(
+                            color: _controller.selctedIbsType.value == index
+                                ? Colors.white
+                                : AppColors.colorBackground,
+                            fontSizeDelta: -3)),
+                    Text("${model.description}",
+                        style: TextStyles.textStyleIntroDescription.apply(
+                            color: _controller.selctedIbsType.value == index
+                                ? Colors.white
+                                : AppColors.colorBackground,
+                            fontSizeDelta: -9)),
+                  ],
+                )),
+          ),
+        );
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, childAspectRatio: 3),

@@ -82,9 +82,9 @@ class CustomDialog extends StatelessWidget {
                       ),
                       child: Row(
                         children: [
-                          Image.asset(Assets.curl6),
+                          Expanded(child: Image.asset(Assets.curl6)),
                           SizedBox(width: ScreenConstant.defaultWidthTwenty),
-                          Image.asset(Assets.curl5)
+                          Expanded(child: Image.asset(Assets.curl5))
                         ],
                       ),
                       // padding: ScreenConstant.spacingAllLarge,

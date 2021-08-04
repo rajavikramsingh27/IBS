@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
@@ -91,8 +92,14 @@ class SignupStep3 extends StatelessWidget {
                   decoration: BoxDecoration(color: Colors.white),
                   child: Row(
                     children: [
-                      CustomCheckBox(
-                        value: false,
+                      Obx(
+                        () => CustomCheckBox(
+                          value: _controller.agreeToTerms.value,
+                          onChanged: (val) {
+                            _controller.agreeToTerms.value =
+                                !_controller.agreeToTerms.value;
+                          },
+                        ),
                       ),
                       RichText(
                         textAlign: TextAlign.center,
@@ -161,6 +168,7 @@ class SignupStep3 extends StatelessWidget {
         CustomTextFormField(
           validationFunction: Validator().validateEmail,
           controller: _controller.emailController,
+          inputFormatters: [LengthLimitingTextInputFormatter(50)],
           currentFocus: focusEmail,
           nextFocus: focusPassWord,
           suffixIcon: Padding(
@@ -180,6 +188,7 @@ class SignupStep3 extends StatelessWidget {
           () => CustomTextFormField(
             obscureText: _controller.isPasswordVisible.value,
             controller: _controller.passwordController,
+            inputFormatters: [LengthLimitingTextInputFormatter(50)],
             textInputAction: TextInputAction.done,
             currentFocus: focusRePassWord,
             nextFocus: focusNone,
@@ -207,6 +216,7 @@ class SignupStep3 extends StatelessWidget {
           () => CustomTextFormField(
             obscureText: _controller.isPasswordVisible.value,
             controller: _controller.confirmPasswordController,
+            inputFormatters: [LengthLimitingTextInputFormatter(50)],
             currentFocus: focusPassWord,
             nextFocus: focusRePassWord,
             suffixIcon: IconButton(
