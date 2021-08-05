@@ -131,7 +131,7 @@ class TreatmentPlans extends StatelessWidget {
               color: AppColors.colorArrowButton,
               size: FontSize.s14,
             ),
-            onPressed: onPressed,
+            onPressed: onPressed as void Function()?,
           ),
         ),
       ),

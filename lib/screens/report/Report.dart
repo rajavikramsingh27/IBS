@@ -16,7 +16,7 @@ class Report extends StatefulWidget {
 class _ReportState extends State<Report> {
   PageController _pageController = PageController(initialPage: 0);
   int selectedindex = 0;
-  double currentPage = 0;
+  double? currentPage = 0;
 
   @override
   void initState() {

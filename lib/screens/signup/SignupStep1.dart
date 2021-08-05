@@ -229,8 +229,8 @@ class SignupStep1 extends StatelessWidget {
                 ),
                 iconSize: 20,
                 underline: SizedBox(),
-                onChanged: (String newValue) {
-                  _controller.selectedAge.value = newValue;
+                onChanged: (String? newValue) {
+                  _controller.selectedAge.value = newValue!;
                 },
                 items: <String>[
                   "<20",

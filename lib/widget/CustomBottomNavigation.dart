@@ -12,13 +12,13 @@ class CustomBottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: context.mediaQuerySize.width,
-      height: Get.context.mediaQuerySize.height * 0.13,
+      height: Get.context!.mediaQuerySize.height * 0.13,
       child: Stack(
         children: [
           CustomPaint(
               painter: BottomTabPainter(),
-              size: Size(Get.context.mediaQuerySize.width,
-                  Get.context.mediaQuerySize.height * 0.13)),
+              size: Size(Get.context!.mediaQuerySize.width,
+                  Get.context!.mediaQuerySize.height * 0.13)),
           Center(
               heightFactor: 1.5,
               child: FloatingActionButton(
@@ -66,7 +66,7 @@ class CustomBottomNavigation extends StatelessWidget {
   }
 
   Widget _buildTabItem(
-      {String title, String imageText, int index, Function() onTap
+      {required String title, required String imageText, int? index, Function()? onTap
 
       // ValueChanged<int> onPressed,
       }) {

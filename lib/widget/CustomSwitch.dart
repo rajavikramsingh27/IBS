@@ -3,12 +3,12 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 
 class CustomSwitch extends StatefulWidget {
-  final bool value;
-  final ValueChanged<bool> onChanged;
+  final bool? value;
+  final ValueChanged<bool>? onChanged;
   final Color color;
 
   CustomSwitch(
-      {Key key,
+      {Key? key,
       this.value,
       this.onChanged,
       this.color = AppColors.colorArrowButton})
@@ -20,8 +20,8 @@ class CustomSwitch extends StatefulWidget {
 
 class _CustomSwitchState extends State<CustomSwitch>
     with SingleTickerProviderStateMixin {
-  Animation _circleAnimation;
-  AnimationController _animationController;
+  late Animation _circleAnimation;
+  late AnimationController _animationController;
 
   @override
   void initState() {
@@ -29,8 +29,8 @@ class _CustomSwitchState extends State<CustomSwitch>
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 60));
     _circleAnimation = AlignmentTween(
-            begin: widget.value ? Alignment.centerRight : Alignment.centerLeft,
-            end: widget.value ? Alignment.centerLeft : Alignment.centerRight)
+            begin: widget.value! ? Alignment.centerRight : Alignment.centerLeft,
+            end: widget.value! ? Alignment.centerLeft : Alignment.centerRight)
         .animate(CurvedAnimation(
             parent: _animationController, curve: Curves.linear));
   }
@@ -48,8 +48,8 @@ class _CustomSwitchState extends State<CustomSwitch>
               _animationController.forward();
             }
             widget.value == false
-                ? widget.onChanged(true)
-                : widget.onChanged(false);
+                ? widget.onChanged!(true)
+                : widget.onChanged!(false);
           },
           child: Container(
             width: ScreenConstant.sizeXXL,
@@ -68,7 +68,7 @@ class _CustomSwitchState extends State<CustomSwitch>
               ),
               child: Container(
                 alignment:
-                    widget.value ? Alignment.centerRight : Alignment.centerLeft,
+                    widget.value! ? Alignment.centerRight : Alignment.centerLeft,
                 child: Container(
                   width: 12.5,
                   height: 12.5,

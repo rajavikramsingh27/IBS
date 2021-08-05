@@ -4,25 +4,25 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  final Function onTap;
-  final Widget prefixIcon;
-  final Widget suffixIcon;
-  final String hintText;
+  final Function? onTap;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final String? hintText;
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
-  final FocusNode currentFocus;
-  final FocusNode nextFocus;
+  final FocusNode? currentFocus;
+  final FocusNode? nextFocus;
   final bool obscureText;
-  final List<TextInputFormatter> inputFormatters;
-  final Function(String value) validationFunction;
-  final Function(String value) onSavedFunction;
-  final Function(String value) onchangedFunction;
+  final List<TextInputFormatter>? inputFormatters;
+  final Function(String value)? validationFunction;
+  final Function(String? value)? onSavedFunction;
+  final Function(String value)? onchangedFunction;
 
   final bool readOnly;
-  final TextEditingController controller;
+  final TextEditingController? controller;
 
   const CustomTextFormField(
-      {Key key,
+      {Key? key,
       this.textInputAction = TextInputAction.next,
       this.keyboardType = TextInputType.text,
       this.currentFocus,
@@ -52,7 +52,7 @@ class CustomTextFormField extends StatelessWidget {
           cursorColor: Colors.black,
           style: TextStyles.textStyleIntroDescription
               .apply(fontSizeFactor: 0.7, color: Colors.black87),
-          onTap: onTap,
+          onTap: onTap as void Function()?,
           textInputAction: textInputAction,
           keyboardType: keyboardType,
           obscureText: obscureText,
@@ -63,7 +63,7 @@ class CustomTextFormField extends StatelessWidget {
           onEditingComplete: () =>
               FocusScope.of(context).requestFocus(nextFocus),
           controller: controller,
-          validator: validationFunction,
+          validator: validationFunction as String? Function(String?)?,
           onSaved: onSavedFunction,
           onChanged: onchangedFunction,
           onFieldSubmitted: onSavedFunction,
@@ -100,13 +100,13 @@ InputDecoration hintedInputDecoration(String hint) {
             new BorderSide(color: Colors.black, style: BorderStyle.solid)),
     isDense: true,
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.blue[900], width: 1.0),
+      borderSide: BorderSide(color: Colors.blue[900]!, width: 1.0),
     ),
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Color(0xffE5E5E5), width: 1.0),
     ),
     errorBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.blue[900]),
+      borderSide: BorderSide(color: Colors.blue[900]!),
     ),
   );
 }

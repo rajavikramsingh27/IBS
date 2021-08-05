@@ -10,16 +10,16 @@ import 'AppException.dart';
 
 class CoreService {
   Future apiService(
-      {GlobalKey key,
+      {GlobalKey? key,
       header,
       body,
       bool multiPart = false,
       params,
-      METHOD method,
+      METHOD? method,
       baseURL = baseUrl,
       endpoint,
       fileName,
-      String filePath}) async {
+      String? filePath}) async {
     var param;
     if (multiPart) {
       param = {

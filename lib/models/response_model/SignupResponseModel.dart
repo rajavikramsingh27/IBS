@@ -21,15 +21,15 @@ class SignupResponseModel {
         this.v,
     });
 
-    String email;
-    List<dynamic> tracking;
-    List<dynamic> onboarding;
-    String id;
-    String loginId;
-    Profile profile;
-    DateTime createdAt;
-    DateTime updatedAt;
-    int v;
+    String? email;
+    List<dynamic>? tracking;
+    List<dynamic>? onboarding;
+    String? id;
+    String? loginId;
+    Profile? profile;
+    DateTime? createdAt;
+    DateTime? updatedAt;
+    int? v;
 
     factory SignupResponseModel.fromJson(Map<String, dynamic> json) => SignupResponseModel(
         email: json["email"],
@@ -45,13 +45,13 @@ class SignupResponseModel {
 
     Map<String, dynamic> toJson() => {
         "email": email,
-        "tracking": List<dynamic>.from(tracking.map((x) => x)),
-        "onboarding": List<dynamic>.from(onboarding.map((x) => x)),
+        "tracking": List<dynamic>.from(tracking!.map((x) => x)),
+        "onboarding": List<dynamic>.from(onboarding!.map((x) => x)),
         "_id": id,
         "loginId": loginId,
-        "profile": profile.toJson(),
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        "profile": profile!.toJson(),
+        "createdAt": createdAt!.toIso8601String(),
+        "updatedAt": updatedAt!.toIso8601String(),
         "__v": v,
     };
 }
@@ -63,9 +63,9 @@ class Profile {
         this.diagnosedIbs,
     });
 
-    String sex;
-    String age;
-    DiagnosedIbs diagnosedIbs;
+    String? sex;
+    String? age;
+    DiagnosedIbs? diagnosedIbs;
 
     factory Profile.fromJson(Map<String, dynamic> json) => Profile(
         sex: json["sex"],
@@ -76,7 +76,7 @@ class Profile {
     Map<String, dynamic> toJson() => {
         "sex": sex,
         "age": age,
-        "diagnosedIbs": diagnosedIbs.toJson(),
+        "diagnosedIbs": diagnosedIbs!.toJson(),
     };
 }
 
@@ -87,9 +87,9 @@ class DiagnosedIbs {
         this.ibsType,
     });
 
-    bool isDiagnosed;
-    String id;
-    String ibsType;
+    bool? isDiagnosed;
+    String? id;
+    String? ibsType;
 
     factory DiagnosedIbs.fromJson(Map<String, dynamic> json) => DiagnosedIbs(
         isDiagnosed: json["isDiagnosed"],

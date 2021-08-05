@@ -250,7 +250,7 @@ class SleepTreatmentPlan extends StatelessWidget {
               bottomLeft: Radius.circular(24),
               bottomRight: Radius.circular(24))),
       margin: EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty * 1.5),
-      width: Get.context.mediaQuerySize.width,
+      width: Get.context!.mediaQuerySize.width,
       child: Image.asset(
         Assets.lowFoodbg,
         filterQuality: FilterQuality.high,
@@ -433,7 +433,7 @@ class SleepTreatmentPlan extends StatelessWidget {
           ),
           iconSize: 20,
           underline: SizedBox(),
-          onChanged: (String newValue) {
+          onChanged: (String? newValue) {
             // setState(() {T
             //   dropdownValue = newValue;
             // });

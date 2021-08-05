@@ -4,11 +4,11 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 
 class CustomElevatedButton extends StatelessWidget {
-  final Function onTap;
-  final String text;
-  final double widthFactor;
+  final Function? onTap;
+  final String? text;
+  final double? widthFactor;
 
-  const CustomElevatedButton({Key key, this.onTap, this.text, this.widthFactor})
+  const CustomElevatedButton({Key? key, this.onTap, this.text, this.widthFactor})
       : super(key: key);
 
   @override
@@ -16,14 +16,14 @@ class CustomElevatedButton extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: widthFactor,
       child: ElevatedButton(
-        onPressed: onTap,
+        onPressed: onTap as void Function()?,
         style: ElevatedButton.styleFrom(
             padding: ScreenConstant.spacingAllMedium,
             primary: AppColors.colorButton,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20))),
         child: Text(
-          text,
+          text!,
           textAlign: TextAlign.center,
           style: TextStyles.textStyleIntroDescription
               .apply(fontSizeDelta: -3, color: Colors.white),
@@ -34,15 +34,15 @@ class CustomElevatedButton extends StatelessWidget {
 }
 
 class CustomElevatedButton2 extends StatelessWidget {
-  final Function onTap;
-  final String text;
-  final double widthFactor;
-  final Color textColor;
-  final Color buttonColor;
+  final Function? onTap;
+  final String? text;
+  final double? widthFactor;
+  final Color? textColor;
+  final Color? buttonColor;
   final double elevation;
 
   const CustomElevatedButton2(
-      {Key key,
+      {Key? key,
       this.onTap,
       this.text,
       this.widthFactor,
@@ -56,7 +56,7 @@ class CustomElevatedButton2 extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: widthFactor,
       child: ElevatedButton(
-        onPressed: onTap,
+        onPressed: onTap as void Function()?,
         style: ElevatedButton.styleFrom(
             shadowColor: AppColors.colorInactiveDividerSlider.withOpacity(0.12),
             elevation: elevation,
@@ -65,7 +65,7 @@ class CustomElevatedButton2 extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20))),
         child: Text(
-          text,
+          text!,
           textAlign: TextAlign.center,
           style: TextStyles.textStyleIntroDescription
               .apply(fontSizeDelta: -3, color: textColor),
@@ -76,12 +76,12 @@ class CustomElevatedButton2 extends StatelessWidget {
 }
 
 class CustomElevatedButton3 extends StatelessWidget {
-  final Function onTap;
-  final String text;
-  final double widthFactor;
+  final Function? onTap;
+  final String? text;
+  final double? widthFactor;
 
   const CustomElevatedButton3(
-      {Key key, this.onTap, this.text, this.widthFactor})
+      {Key? key, this.onTap, this.text, this.widthFactor})
       : super(key: key);
 
   @override
@@ -89,14 +89,14 @@ class CustomElevatedButton3 extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: widthFactor,
       child: ElevatedButton(
-        onPressed: onTap,
+        onPressed: onTap as void Function()?,
         style: ElevatedButton.styleFrom(
             padding: ScreenConstant.spacingAllMedium,
             primary: AppColors.colorCloseLight,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20))),
         child: Text(
-          text,
+          text!,
           textAlign: TextAlign.center,
           style: TextStyles.textStyleIntroDescription
               .apply(fontSizeDelta: -3, color: Colors.white),

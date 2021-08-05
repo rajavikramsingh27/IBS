@@ -5,7 +5,7 @@ class ConnectionCheck {
   final Connectivity _connectivity = Connectivity();
 
   Future<bool> initConnectivity() async {
-    ConnectivityResult result;
+    ConnectivityResult? result;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       result = await _connectivity.checkConnectivity();
@@ -15,7 +15,7 @@ class ConnectionCheck {
     return await _updateConnectionStatus(result);
   }
 
-  Future<bool> _updateConnectionStatus(ConnectivityResult result) async {
+  Future<bool> _updateConnectionStatus(ConnectivityResult? result) async {
     switch (result) {
       case ConnectivityResult.wifi:
         return true;

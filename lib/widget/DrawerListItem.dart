@@ -3,10 +3,10 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 
 class DrawerListItem extends StatelessWidget {
-  final String title;
-  final VoidCallback onTap;
+  final String? title;
+  final VoidCallback? onTap;
 
-  const DrawerListItem({Key key, this.title, this.onTap}) : super(key: key);
+  const DrawerListItem({Key? key, this.title, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class DrawerListItem extends StatelessWidget {
               //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  title,
+                  title!,
                 ),
                 Spacer(),
                 Icon(

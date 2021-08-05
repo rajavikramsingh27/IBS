@@ -7,15 +7,15 @@ class DeviceManager {
   double height;
   bool allowFontScaling;
 
-  static MediaQueryData _mediaQueryData;
-  static double _screenWidth;
-  static double _screenHeight;
-  static double _pixelRatio;
-  static double _statusBarHeight;
+  static MediaQueryData? _mediaQueryData;
+  static double? _screenWidth;
+  static double? _screenHeight;
+  static double? _pixelRatio;
+  static late double _statusBarHeight;
 
-  static double _bottomBarHeight;
+  static late double _bottomBarHeight;
 
-  static double _textScaleFactor;
+  static double? _textScaleFactor;
 
   DeviceManager({
     this.width = 1080,
@@ -34,31 +34,31 @@ class DeviceManager {
     _screenWidth = mediaQuery.size.width;
     _screenHeight = mediaQuery.size.height;
     _statusBarHeight = mediaQuery.padding.top;
-    _bottomBarHeight = _mediaQueryData.padding.bottom;
+    _bottomBarHeight = _mediaQueryData!.padding.bottom;
     _textScaleFactor = mediaQuery.textScaleFactor;
   }
 
-  static MediaQueryData get mediaQueryData => _mediaQueryData;
+  static MediaQueryData? get mediaQueryData => _mediaQueryData;
 
-  static double get textScaleFactory => _textScaleFactor;
+  static double? get textScaleFactory => _textScaleFactor;
 
-  static double get pixelRatio => _pixelRatio;
+  static double? get pixelRatio => _pixelRatio;
 
-  static double get screenWidthDp => _screenWidth;
+  static double? get screenWidthDp => _screenWidth;
 
-  static double get screenHeightDp => _screenHeight;
+  static double? get screenHeightDp => _screenHeight;
 
-  static double get screenWidth => _screenWidth * _pixelRatio;
+  static double get screenWidth => _screenWidth! * _pixelRatio!;
 
-  static double get screenHeight => _screenHeight * _pixelRatio;
+  static double get screenHeight => _screenHeight! * _pixelRatio!;
 
-  static double get statusBarHeight => _statusBarHeight * _pixelRatio;
+  static double get statusBarHeight => _statusBarHeight * _pixelRatio!;
 
-  static double get bottomBarHeight => _bottomBarHeight * _pixelRatio;
+  static double get bottomBarHeight => _bottomBarHeight * _pixelRatio!;
 
-  get scaleWidth => _screenWidth / instance.width;
+  get scaleWidth => _screenWidth! / instance.width;
 
-  get scaleHeight => _screenHeight / instance.height;
+  get scaleHeight => _screenHeight! / instance.height;
 
   setWidth(double width) => width * scaleWidth;
 

@@ -3,7 +3,7 @@ import 'package:flutter_ibs/utils/Colors.dart';
 
 class Indicator extends StatelessWidget {
   Indicator({
-    this.controller,
+    required this.controller,
     this.itemCount: 0,
   }) : assert(controller != null);
 
@@ -37,7 +37,7 @@ class Indicator extends StatelessWidget {
     //   isCurrentPageSelected=false;
     try {
       isCurrentPageSelected =
-          index == (controller.page.round() % pageCount) ?? 0;
+          index == (controller.page!.round() % pageCount) ?? 0 as bool;
     } catch (_) {
       return AnimatedContainer(
         decoration: BoxDecoration(

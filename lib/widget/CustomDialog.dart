@@ -7,11 +7,11 @@ import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:get/get.dart';
 
 class CustomDialog extends StatelessWidget {
-  final double height;
-  final String title;
-  final String description;
+  final double? height;
+  final String? title;
+  final String? description;
 
-  const CustomDialog({Key key, this.height, this.title, this.description})
+  const CustomDialog({Key? key, this.height, this.title, this.description})
       : super(key: key);
 
   @override
@@ -121,11 +121,11 @@ class CustomDialog extends StatelessWidget {
 }
 
 class CustomDialog2 extends StatelessWidget {
-  final double height;
-  final String title;
-  final String description;
+  final double? height;
+  final String? title;
+  final String? description;
 
-  const CustomDialog2({Key key, this.height, this.title, this.description})
+  const CustomDialog2({Key? key, this.height, this.title, this.description})
       : super(key: key);
 
   @override

@@ -1,6 +1,6 @@
 const String landing = '/';
-const String splash = 'splash';
-const String intro = 'intro';
+const String splash = '/splash';
+const String intro = '/intro';
 
 const String myprofile = '/myprofile';
 const String myprofile2 = '/myprofile2';

@@ -8,12 +8,12 @@ import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:get/get.dart';
 
 class BottomWidget extends StatelessWidget {
-  final Function() onSkipTap;
-  final Function() onContinueTap;
-  final Function() onCircleTap;
+  final Function()? onSkipTap;
+  final Function()? onContinueTap;
+  final Function()? onCircleTap;
 
   const BottomWidget(
-      {Key key, this.onSkipTap, this.onContinueTap, this.onCircleTap})
+      {Key? key, this.onSkipTap, this.onContinueTap, this.onCircleTap})
       : super(key: key);
 
   @override
@@ -30,8 +30,8 @@ class BottomWidget extends StatelessWidget {
           right: 0,
           child: CustomPaint(
               painter: BottomCustomPainter(),
-              size: Size(Get.context.mediaQuerySize.width,
-                  Get.context.mediaQuerySize.height * 0.11)),
+              size: Size(Get.context!.mediaQuerySize.width,
+                  Get.context!.mediaQuerySize.height * 0.11)),
         ),
         Positioned(
           bottom: 0,

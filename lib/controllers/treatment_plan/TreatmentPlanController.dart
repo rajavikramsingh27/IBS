@@ -10,7 +10,7 @@ class TreatmentPlanController extends GetxController {
   void onInit() {
     super.onInit();
     pageController.addListener(() {
-      currentPage.value = pageController.page;
+      currentPage.value = pageController.page!;
     });
   }
 }

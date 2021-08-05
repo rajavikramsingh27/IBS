@@ -6,7 +6,7 @@ import 'package:flutter_ibs/services/url.dart';
 class ServiceApi {
   static var server = baseUrl;
 
-  Future<dynamic> signupApi({Map bodyData, Map header}) async {
+  Future<dynamic> signupApi({Map? bodyData, Map? header}) async {
     var result = await CoreService().apiService(
         body: bodyData,
         baseURL: baseUrl,

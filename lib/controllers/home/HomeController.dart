@@ -10,7 +10,7 @@ class HomeController extends GetxController {
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   RxInt segmentedControlGroupValue = 0.obs;
-  DateTime selectedDate;
+  DateTime? selectedDate;
   TextEditingController dateController = TextEditingController();
 
   RxInt selectedIndex = 0.obs;
@@ -27,10 +27,10 @@ class HomeController extends GetxController {
 
   getAndroidDatePicker() {
     return showDatePicker(
-      context: Get.context,
-      initialDate: DateTime.now() ?? selectedDate,
+      context: Get.context!,
+      initialDate: DateTime.now() ?? selectedDate!,
       firstDate: DateTime(1970),
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.dark().copyWith(
             colorScheme: ColorScheme.dark(
@@ -41,14 +41,14 @@ class HomeController extends GetxController {
             ),
             dialogBackgroundColor: Colors.white,
           ),
-          child: child,
+          child: child!,
         );
       },
       lastDate: DateTime(2100),
     ).then((datePicked) {
       if (datePicked != selectedDate) {
         selectedDate = datePicked;
-        dateController.text = DateFormat.yMMMMd('en_US').format(selectedDate);
+        dateController.text = DateFormat.yMMMMd('en_US').format(selectedDate!);
       }
     });
   }
@@ -68,7 +68,7 @@ class HomeController extends GetxController {
               selectedDate = datePicked;
               print("${dateController.text}");
               dateController.text =
-                  DateFormat.yMMMMd('en_US').format(selectedDate);
+                  DateFormat.yMMMMd('en_US').format(selectedDate!);
               // ?.toString()
               // ?.split(' ')
               // ?.first;

@@ -5,12 +5,12 @@ import 'package:flutter_ibs/widget/OvalPainter.dart';
 import 'package:get/get.dart';
 
 class OvalPainterWidget extends StatelessWidget {
-  final double top;
-  final double bottom;
+  final double? top;
+  final double? bottom;
   final int quarterTurns;
 
   const OvalPainterWidget(
-      {Key key, this.top, this.bottom, this.quarterTurns = 0})
+      {Key? key, this.top, this.bottom, this.quarterTurns = 0})
       : super(key: key);
 
   @override
@@ -29,7 +29,7 @@ class OvalPainterWidget extends StatelessWidget {
                 child: CustomPaint(
                   painter: OvalPainter(
                       AppColors.colorSymptomsGridBg.withOpacity(0.5)),
-                  size: Size(Get.context.mediaQuerySize.width * 0.3,
+                  size: Size(Get.context!.mediaQuerySize.width * 0.3,
                       ScreenConstant.defaultHeightTwenty * 1.5),
                 ),
               ),
@@ -46,7 +46,7 @@ class OvalPainterWidget extends StatelessWidget {
                 child: CustomPaint(
                   painter: OvalPainter(
                       AppColors.colorSymptomsGridBg.withOpacity(0.2)),
-                  size: Size(Get.context.mediaQuerySize.width * 0.8,
+                  size: Size(Get.context!.mediaQuerySize.width * 0.8,
                       ScreenConstant.defaultHeightOneHundred),
                 ),
               ),

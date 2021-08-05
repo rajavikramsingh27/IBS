@@ -155,23 +155,23 @@ class DummyData {
 class IBSTypeModel {
   IBSTypeModel({this.image, this.text});
 
-  String image;
-  String text;
+  String? image;
+  String? text;
 }
 
 class StoolChartModel {
   StoolChartModel({this.image, this.text, this.type});
 
-  String image;
-  String text;
-  String type;
+  String? image;
+  String? text;
+  String? type;
 }
 
 class CheckBoxListTileModel {
-  int userId;
+  int? userId;
 
-  String title;
-  bool isCheck;
+  String? title;
+  bool? isCheck;
 
   CheckBoxListTileModel({this.userId, this.title, this.isCheck});
 
@@ -186,7 +186,7 @@ class CheckBoxListTileModel {
 }
 
 class TrackingOptionsModel {
-  String title;
+  String? title;
 
   TrackingOptionsModel({
     this.title,
@@ -196,14 +196,14 @@ class TrackingOptionsModel {
 class IbsModel {
   IbsModel({this.title, this.description});
 
-  String title;
-  String description;
+  String? title;
+  String? description;
 }
 
 class TrackModel {
   TrackModel({this.image, this.text, this.onTap});
 
-  String image;
-  String text;
-  Function onTap;
+  String? image;
+  String? text;
+  Function? onTap;
 }

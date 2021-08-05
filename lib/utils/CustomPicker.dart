@@ -11,7 +11,7 @@ class CustomPicker extends StatefulWidget {
 }
 
 class _CustomPickerState extends State<CustomPicker> {
-  String selectedDropdownValue;
+  String? selectedDropdownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class _CustomPickerState extends State<CustomPicker> {
 
     return DropdownButton<String>(
       value: selectedDropdownValue,
-      items: dropDownitems,
+      items: dropDownitems as List<DropdownMenuItem<String>>?,
       onChanged: (val) {
         selectedDropdownValue = val;
       },

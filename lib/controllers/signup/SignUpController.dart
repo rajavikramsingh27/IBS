@@ -30,10 +30,10 @@ class SignUpController extends GetxController {
   RxBool selectedIbsHistoryUnsure = false.obs;
 
   var formKey = GlobalKey<FormState>();
-  TextEditingController emailController;
-  TextEditingController phoneController;
-  TextEditingController passwordController;
-  TextEditingController confirmPasswordController;
+  TextEditingController? emailController;
+  TextEditingController? phoneController;
+  TextEditingController? passwordController;
+  TextEditingController? confirmPasswordController;
   RxBool isPasswordVisible = true.obs;
   RxBool agreeToTerms = false.obs;
 
@@ -48,7 +48,7 @@ class SignUpController extends GetxController {
   }
 
   onAutovalidate() async {
-    if (formKey.currentState.validate()) {
+    if (formKey.currentState!.validate()) {
       print("validate");
       bool check = await ConnectionCheck().initConnectivity();
       if (check) {
@@ -70,13 +70,13 @@ class SignUpController extends GetxController {
 
   registrationApi() async {
     SignupSendModel model = SignupSendModel(
-      email: emailController.text,
-      password: passwordController.text,
+      email: emailController!.text,
+      password: passwordController!.text,
     );
     final data = await ServiceApi().signupApi(bodyData: model.toJson());
 
     if (data is SignupResponseModel) {
-      if (data.loginId.isNotEmpty) {
+      if (data.loginId!.isNotEmpty) {
         Get.back();
         // Get.back();
         CustomSnackBar().successSnackBar(

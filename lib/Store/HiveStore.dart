@@ -2,22 +2,21 @@ import 'package:hive/hive.dart';
 
 class Keys {
   static const String UUID = "UUID";
-  static const String REMEMBER="REMEMBER";
+  static const String REMEMBER = "REMEMBER";
   static const String PHONE = "PHONE";
   static const String LOGEDIN = "LOGEDIN";
-  static const String TOKEN="TOKEN";
-  static const String LOGINDATA="loginData";
-  static const String PROFILEIMAGE="PROFILEIMAGE";
-  static const String EMAIL="EMAIL";
+  static const String TOKEN = "TOKEN";
+  static const String LOGINDATA = "loginData";
+  static const String PROFILEIMAGE = "PROFILEIMAGE";
+  static const String EMAIL = "EMAIL";
   static const String ISLOGIN = "ISLOGIN";
   static const String ISSOCIALLOGIN = "ISSOCIALLOGIN";
-
 }
 
 class HiveStore {
   //Singleton Class
   static final HiveStore _default = new HiveStore._internal();
-  static Box defBox;
+  static late Box defBox;
 
   factory HiveStore() {
     return _default;
@@ -30,7 +29,7 @@ class HiveStore {
   }
 
   initBox() async {
-    defBox = await openBox();
+    defBox = await (openBox());
   }
 
   //Object Storage

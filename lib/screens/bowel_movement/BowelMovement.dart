@@ -364,7 +364,7 @@ class BowelMovement extends StatelessWidget {
   _buildWavePainter() {
     return CustomPaint(
       size: Size(
-          Get.context.mediaQuerySize.width, Get.context.mediaQuerySize.height),
+          Get.context!.mediaQuerySize.width, Get.context!.mediaQuerySize.height),
       painter: WavePainter(),
     );
   }

@@ -98,7 +98,7 @@ class Exercise extends StatelessWidget {
             visualDensity: VisualDensity(horizontal: -4, vertical: -4),
             icon: Icon(Icons.arrow_forward_ios_outlined,
                 color: AppColors.white, size: FontSize.s14),
-            onPressed: onPressed,
+            onPressed: onPressed as void Function()?,
           ),
         ),
       ),
@@ -112,7 +112,7 @@ class Exercise extends StatelessWidget {
       itemCount: DummyData.exerciseadditionalResourcesList.length,
       itemBuilder: (BuildContext context, int index) {
         var model = DummyData.exerciseadditionalResourcesList[index];
-        return _buildExercise(model.title, () {
+        return _buildExercise(model.title!, () {
           Get.toNamed(stressManagementDetails);
         });
       },

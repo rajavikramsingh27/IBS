@@ -18,12 +18,12 @@ class SignupSendModel {
         this.tracking,
     });
 
-    String label;
-    String email;
-    String password;
-    bool agreeTos;
-    Profile profile;
-    Tracking tracking;
+    String? label;
+    String? email;
+    String? password;
+    bool? agreeTos;
+    Profile? profile;
+    Tracking? tracking;
 
     factory SignupSendModel.fromJson(Map<String, dynamic> json) => SignupSendModel(
         label: json["label"],
@@ -39,8 +39,8 @@ class SignupSendModel {
         "email": email,
         "password": password,
         "agreeTos": agreeTos,
-        "profile": profile.toJson(),
-        "tracking": tracking.toJson(),
+        "profile": profile!.toJson(),
+        "tracking": tracking!.toJson(),
     };
 }
 
@@ -52,10 +52,10 @@ class Profile {
         this.diagnosedIbs,
     });
 
-    String sex;
-    String age;
-    String familyHistory;
-    DiagnosedIbs diagnosedIbs;
+    String? sex;
+    String? age;
+    String? familyHistory;
+    DiagnosedIbs? diagnosedIbs;
 
     factory Profile.fromJson(Map<String, dynamic> json) => Profile(
         sex: json["sex"],
@@ -68,7 +68,7 @@ class Profile {
         "sex": sex,
         "age": age,
         "familyHistory": familyHistory,
-        "diagnosedIbs": diagnosedIbs.toJson(),
+        "diagnosedIbs": diagnosedIbs!.toJson(),
     };
 }
 
@@ -78,8 +78,8 @@ class DiagnosedIbs {
         this.ibsType,
     });
 
-    bool isDiagnosed;
-    String ibsType;
+    bool? isDiagnosed;
+    String? ibsType;
 
     factory DiagnosedIbs.fromJson(Map<String, dynamic> json) => DiagnosedIbs(
         isDiagnosed: json["isDiagnosed"],
@@ -98,8 +98,8 @@ class Tracking {
         this.bowelMovements,
     });
 
-    List<String> symptoms;
-    List<String> bowelMovements;
+    List<String>? symptoms;
+    List<String>? bowelMovements;
 
     factory Tracking.fromJson(Map<String, dynamic> json) => Tracking(
         symptoms: List<String>.from(json["symptoms"].map((x) => x)),
@@ -107,7 +107,7 @@ class Tracking {
     );
 
     Map<String, dynamic> toJson() => {
-        "symptoms": List<dynamic>.from(symptoms.map((x) => x)),
-        "bowelMovements": List<dynamic>.from(bowelMovements.map((x) => x)),
+        "symptoms": List<dynamic>.from(symptoms!.map((x) => x)),
+        "bowelMovements": List<dynamic>.from(bowelMovements!.map((x) => x)),
     };
 }

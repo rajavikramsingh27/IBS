@@ -18,12 +18,12 @@ class SignupErrorModel {
         this.errors,
     });
 
-    String name;
-    String message;
-    int code;
-    String className;
-    Data data;
-    Errors errors;
+    String? name;
+    String? message;
+    int? code;
+    String? className;
+    Data? data;
+    Errors? errors;
 
     factory SignupErrorModel.fromJson(Map<String, dynamic> json) => SignupErrorModel(
         name: json["name"],
@@ -39,15 +39,15 @@ class SignupErrorModel {
         "message": message,
         "code": code,
         "className": className,
-        "data": data.toJson(),
-        "errors": errors.toJson(),
+        "data": data!.toJson(),
+        "errors": errors!.toJson(),
     };
 }
 
 class Data {
     Data();
 
-    factory Data.fromJson(Map<String, dynamic> json) => Data(
+    factory Data.fromJson(Map<String, dynamic>? json) => Data(
     );
 
     Map<String, dynamic> toJson() => {
@@ -59,14 +59,14 @@ class Errors {
         this.agreeTos,
     });
 
-    AgreeTos agreeTos;
+    AgreeTos? agreeTos;
 
     factory Errors.fromJson(Map<String, dynamic> json) => Errors(
         agreeTos: AgreeTos.fromJson(json["agreeTos"]),
     );
 
     Map<String, dynamic> toJson() => {
-        "agreeTos": agreeTos.toJson(),
+        "agreeTos": agreeTos!.toJson(),
     };
 }
 
@@ -76,8 +76,8 @@ class AgreeTos {
         this.message,
     });
 
-    String name;
-    String message;
+    String? name;
+    String? message;
 
     factory AgreeTos.fromJson(Map<String, dynamic> json) => AgreeTos(
         name: json["name"],

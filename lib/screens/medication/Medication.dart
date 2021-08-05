@@ -231,7 +231,7 @@ class Medication extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
           child: Center(
             child: Text(
-              model.title,
+              model.title!,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: TextStyles.textStyleRegular
@@ -248,10 +248,10 @@ class Medication extends StatelessWidget {
   _buildWavePainter() {
     return Container(
       margin: EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty * 1.5),
-      width: Get.context.mediaQuerySize.width,
+      width: Get.context!.mediaQuerySize.width,
       child: CustomPaint(
-        size: Size(Get.context.mediaQuerySize.width,
-            Get.context.mediaQuerySize.height),
+        size: Size(Get.context!.mediaQuerySize.width,
+            Get.context!.mediaQuerySize.height),
         painter: WavePainter(),
       ),
     );
