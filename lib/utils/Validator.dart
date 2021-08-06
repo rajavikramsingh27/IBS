@@ -29,7 +29,7 @@ class Validator {
       return null;
   }
 
-  String? textFieldValidation(String value, String msg) {
+  String? textFieldValidation(String? value, String? msg) {
     Pattern pattern = r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-.]';
     RegExp regex = new RegExp(pattern as String);
     if (value == null || value.isEmpty)

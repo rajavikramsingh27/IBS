@@ -1,5 +1,6 @@
 import 'package:flutter_ibs/models/error_model/SignupErrorModel.dart';
 import 'package:flutter_ibs/models/response_model/SignupResponseModel.dart';
+import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/url.dart';
 
@@ -18,11 +19,11 @@ class ServiceApi {
       return SignupResponseModel.fromJson(result);
   }
 
-  Future<dynamic> getTrackables() async {
+  Future<TrackablesListModel> getTrackables() async {
     var result = await CoreService()
         .apiService(baseURL: baseUrl, method: METHOD.GET, endpoint: trackList);
 
-    return SignupResponseModel.fromJson(result);
+    return TrackablesListModel.fromJson(result);
   }
 //  Future<DummyDataModel> getData({Map query}) async {
 

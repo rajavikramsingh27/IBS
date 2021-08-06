@@ -145,7 +145,7 @@ class SignupStep2 extends StatelessWidget {
               child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: DummyData.symptomsList?.length ?? 0,
+                itemCount: DummyData.symptomsList.length,
                 itemBuilder: (BuildContext context, int index) {
                   var model = DummyData.symptomsList[index];
                   return Row(
@@ -218,7 +218,7 @@ class SignupStep2 extends StatelessWidget {
               child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: DummyData.symptomsList?.length ?? 0,
+                itemCount: DummyData.symptomsList.length,
                 itemBuilder: (BuildContext context, int index) {
                   var model = DummyData.symptomsList[index];
                   return Row(

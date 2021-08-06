@@ -28,7 +28,7 @@ class HomeController extends GetxController {
   getAndroidDatePicker() {
     return showDatePicker(
       context: Get.context!,
-      initialDate: DateTime.now() ?? selectedDate!,
+      initialDate: DateTime.now(),
       firstDate: DateTime(1970),
       builder: (BuildContext context, Widget? child) {
         return Theme(

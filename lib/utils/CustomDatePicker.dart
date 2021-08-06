@@ -27,7 +27,7 @@ class CustomDatePicker extends StatelessWidget {
       DateTime? selectedDate, TextEditingController textController) {
     return showDatePicker(
       context: Get.context!,
-      initialDate: DateTime.now() ?? selectedDate!,
+      initialDate: DateTime.now(),
       firstDate: DateTime(1970),
       builder: (BuildContext context, Widget? child) {
         return Theme(

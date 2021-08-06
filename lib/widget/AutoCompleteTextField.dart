@@ -355,7 +355,7 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
     }
 
     suggestions =
-        suggestions.where((item) => filter!(item, query) ?? false).toList();
+        suggestions.where((item) => filter!(item, query) ).toList();
     suggestions.sort(sorter);
     if (suggestions.length > maxAmount) {
       suggestions = suggestions.sublist(0, maxAmount);

@@ -69,7 +69,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
     Color? fillColor;
     Color? iconColor;
 
-    switch (_status) {
+    switch (_status!) {
       case CheckStatus.checked:
         fillColor = widget.checkedFillColor;
         iconColor = widget.checkedIconColor;

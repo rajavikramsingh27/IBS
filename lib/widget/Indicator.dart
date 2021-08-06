@@ -37,7 +37,7 @@ class Indicator extends StatelessWidget {
     //   isCurrentPageSelected=false;
     try {
       isCurrentPageSelected =
-          index == (controller.page!.round() % pageCount) ?? 0 as bool;
+          index == (controller.page!.round() % pageCount) ;
     } catch (_) {
       return AnimatedContainer(
         decoration: BoxDecoration(

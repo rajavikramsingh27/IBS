@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/models/response_model/SignupResponseModel.dart';
+import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/send_model/SignupSendModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
@@ -37,14 +38,25 @@ class SignUpController extends GetxController {
   RxBool isPasswordVisible = true.obs;
   RxBool agreeToTerms = false.obs;
 
+  RxBool loader = false.obs;
+  RxBool connectionStatus = false.obs;
+
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
 
     emailController = TextEditingController();
     phoneController = TextEditingController();
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
+    loader.value = true;
+    connectionStatus.value = true;
+    bool isInternet = await ConnectionCheck().initConnectivity();
+    connectionStatus.value = isInternet;
+    if (connectionStatus.value) {
+      await getTrackList()();
+      loader.value = false;
+    }
   }
 
   onAutovalidate() async {
@@ -90,5 +102,9 @@ class SignUpController extends GetxController {
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
+  }
+
+  getTrackList() async {
+    final data = await ServiceApi().getTrackables();
   }
 }
