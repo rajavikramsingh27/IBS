@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 
 class SignupStep2 extends StatelessWidget {
+  final _controller=Get.put(SignUpController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,75 +106,83 @@ class SignupStep2 extends StatelessWidget {
   }
 
   _buildSymptoms() {
-    return Theme(
-      data: Get.theme.copyWith(dividerColor: Colors.transparent),
-      child: CustomExpansionTile(
-          tilePadding: EdgeInsets.zero,
-          onExpansionChanged: (isExpanding) {},
-          initiallyExpanded: true,
-          title: Container(
-            decoration: BoxDecoration(
-                color: AppColors.colorBackground,
-                borderRadius: BorderRadius.circular(16)),
-            child: Row(
-              children: [
-                CustomCheckBox(
-                  checkedFillColor: AppColors.colorYesButton,
-                  value: true,
-                  onChanged: (val) {
-                    //do your stuff here
-                  },
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: _controller.trackList.length,
+      itemBuilder: (_, index) {
+        var model= _controller.trackList[index];
+        return Theme(
+          data: Get.theme.copyWith(dividerColor: Colors.transparent),
+          child: CustomExpansionTile(
+              tilePadding: EdgeInsets.zero,
+              onExpansionChanged: (isExpanding) {},
+              initiallyExpanded: true,
+              title: Container(
+                decoration: BoxDecoration(
+                    color: AppColors.colorBackground,
+                    borderRadius: BorderRadius.circular(16)),
+                child: Row(
+                  children: [
+                    CustomCheckBox(
+                      checkedFillColor: AppColors.colorYesButton,
+                      value: true,
+                      onChanged: (val) {
+                        //do your stuff here
+                      },
+                    ),
+                    Text("${model.category}",
+                        style: TextStyles.textStyleIntroDescription
+                            .apply(color: Colors.white, fontSizeDelta: -3)),
+                    Spacer(),
+                    Icon(
+                      Icons.keyboard_arrow_down_outlined,
+                      color: Colors.white,
+                    ),
+                    SizedBox(width: ScreenConstant.defaultWidthTwenty)
+                  ],
                 ),
-                Text("Symptoms",
-                    style: TextStyles.textStyleIntroDescription
-                        .apply(color: Colors.white, fontSizeDelta: -3)),
-                Spacer(),
-                Icon(
-                  Icons.keyboard_arrow_down_outlined,
-                  color: Colors.white,
-                ),
-                SizedBox(width: ScreenConstant.defaultWidthTwenty)
-              ],
-            ),
-          ),
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(16),
-                      bottomRight: Radius.circular(16))),
-              child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: DummyData.symptomsList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var model = DummyData.symptomsList[index];
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CustomCheckBox(
-                        value: true,
-                        onChanged: (val) {
-                          //do your stuff here
-                        },
-                      ),
-                      Expanded(
-                        child: InkWell(
-                            onTap: () {},
-                            child: Text(
-                              "${model.title}",
-                              maxLines: 1,
-                              textAlign: TextAlign.left,
-                              overflow: TextOverflow.ellipsis,
-                            )),
-                      )
-                    ],
-                  );
-                },
               ),
-            ),
-          ]),
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(16),
+                          bottomRight: Radius.circular(16))),
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: DummyData.symptomsList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      var model = DummyData.symptomsList[index];
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          CustomCheckBox(
+                            value: true,
+                            onChanged: (val) {
+                              //do your stuff here
+                            },
+                          ),
+                          Expanded(
+                            child: InkWell(
+                                onTap: () {},
+                                child: Text(
+                                  "${model.title}",
+                                  maxLines: 1,
+                                  textAlign: TextAlign.left,
+                                  overflow: TextOverflow.ellipsis,
+                                )),
+                          )
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ]),
+        );
+      },
     );
   }
 

@@ -9,6 +9,7 @@ import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
+   RxList<Trackables1Model> trackList = RxList<Trackables1Model>();
   RxString selectedGender = "".obs;
   RxBool selectedMale = false.obs;
   RxBool selectedFeMale = false.obs;
@@ -89,7 +90,6 @@ class SignUpController extends GetxController {
 
     if (data is SignupResponseModel) {
       if (data.loginId!.isNotEmpty) {
-        Get.back();
         // Get.back();
         CustomSnackBar().successSnackBar(
             title: "Success", message: "Registered Successfully");
@@ -105,6 +105,7 @@ class SignUpController extends GetxController {
   }
 
   getTrackList() async {
+    // Trackables1Model model = Trackables1Model();
     final data = await ServiceApi().getTrackables();
   }
 }

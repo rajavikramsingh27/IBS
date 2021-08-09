@@ -6,6 +6,8 @@ import 'package:flutter_ibs/utils/Strings.dart';
 import 'package:get/get.dart';
 
 main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(IBS());
 }
 

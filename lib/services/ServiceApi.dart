@@ -5,25 +5,22 @@ import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/url.dart';
 
 class ServiceApi {
-  static var server = baseUrl;
-
-  Future<dynamic> signupApi({Map? bodyData, Map? header}) async {
-    var result = await CoreService().apiService(
-        body: bodyData,
-        baseURL: baseUrl,
-        method: METHOD.POST,
-        endpoint: signup);
+  Future<dynamic> signupApi(
+      {Map<String, dynamic>? bodyData, Map? header}) async {
+    var result = await CoreService()
+        .apiService(method: METHOD.CREATE, endpoint: SIGNUP, data: bodyData);
     if (result.name.toString().toLowerCase() == "Unprocessable".toLowerCase()) {
       return SignupErrorModel.fromJson(result);
     } else
       return SignupResponseModel.fromJson(result);
   }
 
-  Future<TrackablesListModel> getTrackables() async {
-    var result = await CoreService()
-        .apiService(baseURL: baseUrl, method: METHOD.GET, endpoint: trackList);
+  Future<Trackables1Model> getTrackables() async {
+    Trackables1Model model = Trackables1Model();
+    var result = await CoreService().apiService(
+        method: METHOD.GET, endpoint: TRACKLIST, objectId:  "610c57b689700681dab0b62f");
 
-    return TrackablesListModel.fromJson(result);
+    return Trackables1Model.fromJson(result);
   }
 //  Future<DummyDataModel> getData({Map query}) async {
 
