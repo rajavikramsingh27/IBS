@@ -35,18 +35,12 @@ class AutoCompleteTextField<T> extends StatefulWidget {
   final FocusNode? focusNode;
 
   AutoCompleteTextField(
-      {required
-          this.itemSubmitted, //Callback on item selected, this is the item selected of type <T>
-      required
-          this.autoKey, //GlobalKey used to enable addSuggestion etc
-      required
-          this.suggestions, //Suggestions that will be displayed
-      required
-          this.itemBuilder, //Callback to build each item, return a Widget
-      required
-          this.itemSorter, //Callback to sort items in the form (a of type <T>, b of type <T>)
-      required
-          this.itemFilter, //Callback to filter item: return true or false depending on input text
+      {required this.itemSubmitted, //Callback on item selected, this is the item selected of type <T>
+      required this.autoKey, //GlobalKey used to enable addSuggestion etc
+      required this.suggestions, //Suggestions that will be displayed
+      required this.itemBuilder, //Callback to build each item, return a Widget
+      required this.itemSorter, //Callback to sort items in the form (a of type <T>, b of type <T>)
+      required this.itemFilter, //Callback to filter item: return true or false depending on input text
       this.inputFormatters,
       this.style,
       this.decoration: const InputDecoration(),
@@ -354,8 +348,7 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
       return [];
     }
 
-    suggestions =
-        suggestions.where((item) => filter!(item, query) ).toList();
+    suggestions = suggestions.where((item) => filter!(item, query)).toList();
     suggestions.sort(sorter);
     if (suggestions.length > maxAmount) {
       suggestions = suggestions.sublist(0, maxAmount);

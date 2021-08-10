@@ -13,7 +13,8 @@ import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 
 class SignupStep2 extends StatelessWidget {
-  final _controller=Get.put(SignUpController());
+  final _controller = Get.put(SignUpController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,9 +49,8 @@ class SignupStep2 extends StatelessWidget {
               padding: ScreenConstant.spacingAllLarge,
               children: [
                 _buildTrackingOptions(),
-                _buildSymptoms(),
+                _buildTrackingList(),
                 SizedBox(height: ScreenConstant.defaultHeightSixteen),
-                _buildBowelMovements(),
                 SizedBox(height: ScreenConstant.defaultHeightOneHundred)
               ],
             ),
@@ -105,13 +105,13 @@ class SignupStep2 extends StatelessWidget {
     // );
   }
 
-  _buildSymptoms() {
+  _buildTrackingList() {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: _controller.trackList.length,
+      itemCount: _controller.trackList.value.data!.length,
       itemBuilder: (_, index) {
-        var model= _controller.trackList[index];
+        var model = _controller.trackList.value.data![index];
         return Theme(
           data: Get.theme.copyWith(dividerColor: Colors.transparent),
           child: CustomExpansionTile(
@@ -183,79 +183,6 @@ class SignupStep2 extends StatelessWidget {
               ]),
         );
       },
-    );
-  }
-
-  _buildBowelMovements() {
-    return Theme(
-      data: Get.theme.copyWith(dividerColor: Colors.transparent),
-      child: CustomExpansionTile(
-          tilePadding: EdgeInsets.zero,
-          onExpansionChanged: (isExpanding) {},
-          initiallyExpanded: true,
-          title: Container(
-            decoration: BoxDecoration(
-                color: AppColors.colorBackground,
-                borderRadius: BorderRadius.circular(16)),
-            child: Row(
-              children: [
-                CustomCheckBox(
-                  checkedFillColor: AppColors.colorYesButton,
-                  value: true,
-                  onChanged: (val) {
-                    //do your stuff here
-                  },
-                ),
-                Text("Bowel Movements",
-                    style: TextStyles.textStyleIntroDescription
-                        .apply(color: Colors.white, fontSizeDelta: -3)),
-                Spacer(),
-                Icon(
-                  Icons.keyboard_arrow_down_outlined,
-                  color: Colors.white,
-                ),
-                SizedBox(width: ScreenConstant.defaultWidthTwenty)
-              ],
-            ),
-          ),
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(16),
-                      bottomRight: Radius.circular(16))),
-              child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: DummyData.symptomsList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var model = DummyData.symptomsList[index];
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CustomCheckBox(
-                        value: true,
-                        onChanged: (val) {
-                          //do your stuff here
-                        },
-                      ),
-                      Expanded(
-                        child: InkWell(
-                            onTap: () {},
-                            child: Text(
-                              "${model.title}",
-                              maxLines: 1,
-                              textAlign: TextAlign.left,
-                              overflow: TextOverflow.ellipsis,
-                            )),
-                      )
-                    ],
-                  );
-                },
-              ),
-            ),
-          ]),
     );
   }
 }

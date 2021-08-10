@@ -15,12 +15,12 @@ class ServiceApi {
       return SignupResponseModel.fromJson(result);
   }
 
-  Future<Trackables1Model> getTrackables() async {
-    Trackables1Model model = Trackables1Model();
-    var result = await CoreService().apiService(
-        method: METHOD.GET, endpoint: TRACKLIST, objectId:  "610c57b689700681dab0b62f");
-
-    return Trackables1Model.fromJson(result);
+  Future<TrackablesListModel> getTrackables() async {
+    TrackablesListModel model = TrackablesListModel();
+    var result = await CoreService()
+        .apiService(method: METHOD.FIND, endpoint: TRACKLIST);
+    print("result: $result");
+    return TrackablesListModel.fromJson(result);
   }
 //  Future<DummyDataModel> getData({Map query}) async {
 

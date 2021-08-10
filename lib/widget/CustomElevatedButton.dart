@@ -8,7 +8,8 @@ class CustomElevatedButton extends StatelessWidget {
   final String? text;
   final double? widthFactor;
 
-  const CustomElevatedButton({Key? key, this.onTap, this.text, this.widthFactor})
+  const CustomElevatedButton(
+      {Key? key, this.onTap, this.text, this.widthFactor})
       : super(key: key);
 
   @override

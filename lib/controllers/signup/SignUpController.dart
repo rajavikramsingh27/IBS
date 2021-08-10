@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
 import 'package:flutter_ibs/models/response_model/SignupResponseModel.dart';
 import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/send_model/SignupSendModel.dart';
+
 import 'package:flutter_ibs/routes/RouteConstants.dart';
+import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
-   RxList<Trackables1Model> trackList = RxList<Trackables1Model>();
+
+  var trackList = TrackablesListModel().obs;
   RxString selectedGender = "".obs;
   RxBool selectedMale = false.obs;
   RxBool selectedFeMale = false.obs;
@@ -55,7 +59,7 @@ class SignUpController extends GetxController {
     bool isInternet = await ConnectionCheck().initConnectivity();
     connectionStatus.value = isInternet;
     if (connectionStatus.value) {
-      await getTrackList()();
+      await getTrackList();
       loader.value = false;
     }
   }
@@ -82,9 +86,18 @@ class SignUpController extends GetxController {
   }
 
   registrationApi() async {
+    final MyProfileController _myProFileController = Get.find();
+    Profile profile = Profile(
+        sex:selectedGender.value,
+      age: selectedAge.value,
+      // diagnosedIbs: selectedIbsHistory.value
+
+    );
     SignupSendModel model = SignupSendModel(
-      email: emailController!.text,
-      password: passwordController!.text,
+        email: emailController?.text,
+        password: passwordController?.text,
+        agreeTos: agreeToTerms.value,
+        // profile:
     );
     final data = await ServiceApi().signupApi(bodyData: model.toJson());
 
@@ -106,6 +119,8 @@ class SignUpController extends GetxController {
 
   getTrackList() async {
     // Trackables1Model model = Trackables1Model();
-    final data = await ServiceApi().getTrackables();
+    final data = await ServiceApi().getTrackables().then((value) {
+      trackList.value = value;
+    });
   }
 }

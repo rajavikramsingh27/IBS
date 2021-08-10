@@ -67,8 +67,9 @@ class _CustomSwitchState extends State<CustomSwitch>
                 //  right: 2.0, left: 2.0
               ),
               child: Container(
-                alignment:
-                    widget.value! ? Alignment.centerRight : Alignment.centerLeft,
+                alignment: widget.value!
+                    ? Alignment.centerRight
+                    : Alignment.centerLeft,
                 child: Container(
                   width: 12.5,
                   height: 12.5,

@@ -66,7 +66,10 @@ class CustomBottomNavigation extends StatelessWidget {
   }
 
   Widget _buildTabItem(
-      {required String title, required String imageText, int? index, Function()? onTap
+      {required String title,
+      required String imageText,
+      int? index,
+      Function()? onTap
 
       // ValueChanged<int> onPressed,
       }) {

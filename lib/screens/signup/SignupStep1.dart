@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 
 class SignupStep1 extends StatelessWidget {
   final _controller = Get.put(SignUpController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
