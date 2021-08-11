@@ -1,6 +1,6 @@
 import 'package:flutter_ibs/models/error_model/SignupErrorModel.dart';
-import 'package:flutter_ibs/models/response_model/SignupResponseModel.dart';
 import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
+import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
 import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/url.dart';
 
