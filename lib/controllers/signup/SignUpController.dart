@@ -53,11 +53,11 @@ class SignUpController extends GetxController {
     phoneController = TextEditingController();
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
-    loader.value = true;
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();
     connectionStatus.value = isInternet;
     if (connectionStatus.value) {
+      loader.value = true;
       await getTrackList();
       loader.value = false;
     }
@@ -117,8 +117,7 @@ class SignUpController extends GetxController {
   }
 
   getTrackList() async {
-    // Trackables1Model model = Trackables1Model();
-    final data = await ServiceApi().getTrackables().then((value) {
+    await ServiceApi().getTrackables().then((value) {
       trackList.value = value;
     });
   }

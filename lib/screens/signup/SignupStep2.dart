@@ -42,7 +42,7 @@ class SignupStep2 extends StatelessWidget {
         //     },
         //   ),
         // ),
-        body: Stack(
+        body: Obx(()=>_controller.loader.value?Center(child: CircularProgressIndicator(),):Stack(
           children: [
             ListView(
               physics: ClampingScrollPhysics(),
@@ -58,7 +58,7 @@ class SignupStep2 extends StatelessWidget {
                 onContinueTap: () => Get.toNamed(signup3),
                 onCircleTap: () => Get.toNamed(signup3))
           ],
-        ));
+        )));
   }
 
   _buildTrackingOptions() {
@@ -109,7 +109,7 @@ class SignupStep2 extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: _controller.trackList.value.data?.length,
+      itemCount: _controller.trackList.value.data?.length ?? 0,
       itemBuilder: (_, index) {
         var model = _controller.trackList.value.data[index];
         return Theme(
@@ -126,7 +126,7 @@ class SignupStep2 extends StatelessWidget {
                   children: [
                     CustomCheckBox(
                       checkedFillColor: AppColors.colorYesButton,
-                      value: true,
+                      value: model.enabled??true,
                       onChanged: (val) {
                         //do your stuff here
                       },
@@ -153,14 +153,14 @@ class SignupStep2 extends StatelessWidget {
                   child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: DummyData.symptomsList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var model = DummyData.symptomsList[index];
+                    itemCount: model.items.length,
+                    itemBuilder: (BuildContext context, int idx) {
+                      var subModel = model.items[idx];
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           CustomCheckBox(
-                            value: true,
+                            value: subModel.enabledDefault ?? true,
                             onChanged: (val) {
                               //do your stuff here
                             },
@@ -169,7 +169,7 @@ class SignupStep2 extends StatelessWidget {
                             child: InkWell(
                                 onTap: () {},
                                 child: Text(
-                                  "${model.title}",
+                                  "${subModel.name}",
                                   maxLines: 1,
                                   textAlign: TextAlign.left,
                                   overflow: TextOverflow.ellipsis,
