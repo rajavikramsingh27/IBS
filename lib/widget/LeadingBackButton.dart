@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class LeadingBackButton extends StatelessWidget {
-  final Function()? onPressed;
+  final Function() onPressed;
 
-  const LeadingBackButton({Key? key, this.onPressed}) : super(key: key);
+  const LeadingBackButton({Key key, this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

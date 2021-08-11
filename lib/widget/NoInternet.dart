@@ -4,9 +4,9 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 
 class NoInternet extends StatelessWidget {
-  final VoidCallback? onRetry;
+  final VoidCallback onRetry;
 
-  NoInternet({Key? key, this.onRetry}) : super(key: key);
+  NoInternet({Key key, this.onRetry}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

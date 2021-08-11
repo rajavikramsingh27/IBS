@@ -139,12 +139,12 @@ class Foods extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                model.image!,
+                model.image,
                 width: ScreenConstant.sizeXXXL,
               ),
               SizedBox(height: ScreenConstant.sizeDefault),
               Text(
-                model.text!,
+                model.text,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular
@@ -316,7 +316,7 @@ class Foods extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
           child: Center(
             child: Text(
-              model.title!,
+              model.title,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: TextStyles.textStyleRegular
@@ -332,8 +332,8 @@ class Foods extends StatelessWidget {
 
   _buildWavePainter() {
     return CustomPaint(
-      size: Size(Get.context!.mediaQuerySize.width,
-          Get.context!.mediaQuerySize.height),
+      size: Size(Get.context.mediaQuerySize.width,
+          Get.context.mediaQuerySize.height),
       painter: WavePainter(),
     );
   }

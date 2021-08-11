@@ -121,7 +121,7 @@ class Login extends StatelessWidget {
         Center(
           child: TextButton(
             onPressed: () {
-              Navigator.pop(Get.context!);
+              Navigator.pop(Get.context);
             },
             child: Text("Return to Home Screen",
                 style: TextStyles.textStyleRegular.apply(

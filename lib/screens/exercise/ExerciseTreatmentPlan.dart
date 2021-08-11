@@ -232,11 +232,11 @@ class ExerciseTreatmentPlan extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(model.image!,
+              Image.asset(model.image,
                   height: ScreenConstant.defaultHeightForty),
               SizedBox(height: ScreenConstant.sizeDefault),
               Text(
-                model.text!,
+                model.text,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular
@@ -259,7 +259,7 @@ class ExerciseTreatmentPlan extends StatelessWidget {
               bottomLeft: Radius.circular(24),
               bottomRight: Radius.circular(24))),
       margin: EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty * 1.5),
-      width: Get.context!.mediaQuerySize.width,
+      width: Get.context.mediaQuerySize.width,
       child: Image.asset(
         Assets.lowFoodbg,
         filterQuality: FilterQuality.high,
@@ -475,7 +475,7 @@ class ExerciseTreatmentPlan extends StatelessWidget {
           ),
           iconSize: 20,
           underline: SizedBox(),
-          onChanged: (String? newValue) {
+          onChanged: (String newValue) {
             // setState(() {T
             //   dropdownValue = newValue;
             // });

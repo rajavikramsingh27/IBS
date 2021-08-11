@@ -758,7 +758,7 @@ class MyProfileStep2 extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                       vertical: ScreenConstant.defaultHeightSixteen),
-                  child: Text(model.text!,
+                  child: Text(model.text,
                       textAlign: TextAlign.center,
                       style: TextStyles.textStyleIntroDescription.apply(
                           color: _controller.selectedStoolType.value == index
@@ -839,14 +839,14 @@ class MyProfileStep2 extends StatelessWidget {
                           children: [
                             Expanded(
                               child: Image.asset(
-                                model.image!,
+                                model.image,
                                 width:
                                     ScreenConstant.defaultWidthOneHundredSeven,
                                 height: ScreenConstant.defaultHeightOneHundred,
                               ),
                             ),
                             SizedBox(height: ScreenConstant.sizeExtraSmall),
-                            Text(model.text!,
+                            Text(model.text,
                                 textAlign: TextAlign.center,
                                 style: TextStyles.textStyleIntroDescription
                                     .apply(
@@ -863,7 +863,7 @@ class MyProfileStep2 extends StatelessWidget {
                                   vertical: 1),
                               child: FittedBox(
                                 fit: BoxFit.contain,
-                                child: Text(model.type!,
+                                child: Text(model.type,
                                     style: TextStyles.textStyleIntroDescription
                                         .apply(
                                             color: Colors.white,

@@ -32,28 +32,27 @@ class CustomArcPainter extends StatelessWidget {
 }
 
 class CustomArcPainter2 extends StatelessWidget {
-  final double? heightFactor;
-  final int? quarterTurns;
-  final double? height;
-  final double? width;
+  final double heightFactor;
+  final int quarterTurns;
+  final double height;
+  final double width;
   final CustomPainter painter;
 
   const CustomArcPainter2(
-      {Key? key,
+      {Key key,
       this.heightFactor,
       this.quarterTurns,
       this.height,
-      this.width,
-      required this.painter})
+      this.width,this.painter})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return RotatedBox(
-        quarterTurns: quarterTurns!,
+        quarterTurns: quarterTurns,
         child: CustomPaint(
           painter: painter,
-          size: Size(width!, height!),
+          size: Size(width, height),
         ));
   }
 }

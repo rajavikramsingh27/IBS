@@ -216,7 +216,7 @@ class LowDietTreatmentPlan extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
           child: Center(
             child: Text(
-              model.title!,
+              model.title,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: TextStyles.textStyleRegular
@@ -238,7 +238,7 @@ class LowDietTreatmentPlan extends StatelessWidget {
               bottomLeft: Radius.circular(24),
               bottomRight: Radius.circular(24))),
       margin: EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty * 1.5),
-      width: Get.context!.mediaQuerySize.width,
+      width: Get.context.mediaQuerySize.width,
       child: Image.asset(
         Assets.lowFoodbg,
         filterQuality: FilterQuality.high,
@@ -363,7 +363,7 @@ class LowDietTreatmentPlan extends StatelessWidget {
           ),
           iconSize: 20,
           underline: SizedBox(),
-          onChanged: (String? newValue) {
+          onChanged: (String newValue) {
             // setState(() {T
             //   dropdownValue = newValue;
             // });

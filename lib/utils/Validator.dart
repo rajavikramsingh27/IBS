@@ -1,5 +1,5 @@
 class Validator {
-  String? validateEmail(String? email) {
+  String validateEmail(String email) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern as String);
@@ -11,7 +11,7 @@ class Validator {
       return null;
   }
 
-  String? validatePassword(String? password) {
+  String validatePassword(String password) {
     if (password == null || password.isEmpty)
       return 'Enter Password';
     else if (password.length < 6)
@@ -20,7 +20,7 @@ class Validator {
       return null;
   }
 
-  String? validateConfirmPassword(String? password, String? cPassword) {
+  String validateConfirmPassword(String password, String cPassword) {
     if (cPassword == null || cPassword.isEmpty)
       return 'Enter Confirm Password';
     else if (cPassword != password)
@@ -29,7 +29,7 @@ class Validator {
       return null;
   }
 
-  String? textFieldValidation(String? value, String? msg) {
+  String textFieldValidation(String value, String msg) {
     Pattern pattern = r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-.]';
     RegExp regex = new RegExp(pattern as String);
     if (value == null || value.isEmpty)
@@ -42,7 +42,7 @@ class Validator {
       return null;
   }
 
-  String? emptyFieldValidation(String? value, String? msg) {
+  String emptyFieldValidation(String value, String msg) {
     Pattern pattern = r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-.]';
     RegExp regex = new RegExp(pattern as String);
     print("$regex");
@@ -54,7 +54,7 @@ class Validator {
       return null;
   }
 
-  String? validateMobile(String? value) {
+  String validateMobile(String value) {
     String pattern = r'(^[0-9]*$)';
     RegExp regExp = new RegExp(pattern);
     if (value == null || value.isEmpty)
@@ -67,7 +67,7 @@ class Validator {
       return null;
   }
 
-  String? validateEmailAndMobile(String value) {
+  String validateEmailAndMobile(String value) {
     if (value.isEmpty) {
       return "Enter Email/Mobile";
     } else if (value.length > 3) {

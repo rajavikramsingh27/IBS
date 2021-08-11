@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
 import 'package:flutter_ibs/models/response_model/SignupResponseModel.dart';
 import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
-import 'package:flutter_ibs/models/send_model/SignupSendModel.dart';
 
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/CoreService.dart';
@@ -36,10 +35,10 @@ class SignUpController extends GetxController {
   RxBool selectedIbsHistoryUnsure = false.obs;
 
   var formKey = GlobalKey<FormState>();
-  TextEditingController? emailController;
-  TextEditingController? phoneController;
-  TextEditingController? passwordController;
-  TextEditingController? confirmPasswordController;
+  TextEditingController emailController;
+  TextEditingController phoneController;
+  TextEditingController passwordController;
+  TextEditingController confirmPasswordController;
   RxBool isPasswordVisible = true.obs;
   RxBool agreeToTerms = false.obs;
 
@@ -65,7 +64,7 @@ class SignUpController extends GetxController {
   }
 
   onAutovalidate() async {
-    if (formKey.currentState!.validate()) {
+    if (formKey.currentState.validate()) {
       print("validate");
       bool check = await ConnectionCheck().initConnectivity();
       if (check) {
@@ -93,16 +92,16 @@ class SignUpController extends GetxController {
       // diagnosedIbs: selectedIbsHistory.value
 
     );
-    SignupSendModel model = SignupSendModel(
+    SignupResponseModel model = SignupResponseModel(
         email: emailController?.text,
-        password: passwordController?.text,
+        // password: passwordController?.text,
         agreeTos: agreeToTerms.value,
         // profile:
     );
     final data = await ServiceApi().signupApi(bodyData: model.toJson());
 
     if (data is SignupResponseModel) {
-      if (data.loginId!.isNotEmpty) {
+      if (data.loginId.isNotEmpty) {
         // Get.back();
         CustomSnackBar().successSnackBar(
             title: "Success", message: "Registered Successfully");

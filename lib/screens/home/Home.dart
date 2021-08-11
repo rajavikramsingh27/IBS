@@ -372,13 +372,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   // decoration: BoxDecoration(
                   backgroundColor: AppColors.colorArrowButton.withOpacity(0.1),
                   // borderRadius: BorderRadius.circular(50)),
-                  child: Image.asset(model.image!,
+                  child: Image.asset(model.image,
                       width: ScreenConstant.defaultWidthTwenty
                       // color: AppColors.colorArrowButton,
                       ),
                 ),
                 SizedBox(width: ScreenConstant.defaultWidthTen),
-                Text(model.text!,
+                Text(model.text,
                     style: TextStyles.textStyleRegular
                         .apply(fontSizeDelta: 2, color: Colors.black)),
                 Spacer(),
@@ -443,14 +443,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                         // padding: ScreenConstant.spacingAll,
                         height: ScreenConstant.defaultHeightSeventy,
                         child: Image.asset(
-                          model.image!,
+                          model.image,
                           width: ScreenConstant.defaultWidthTwenty,
                         ),
                       ),
-                      title: Text(model.text!,
+                      title: Text(model.text,
                           style: TextStyles.textStyleRegular
                               .apply(fontSizeDelta: 2, color: Colors.black)),
-                      subtitle: Text(model.text!,
+                      subtitle: Text(model.text,
                           style: TextStyles.textStyleRegular.apply(
                               fontSizeDelta: -2,
                               color: Colors.black.withOpacity(0.54))),

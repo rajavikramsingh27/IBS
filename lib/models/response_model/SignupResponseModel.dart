@@ -25,18 +25,18 @@ class SignupResponseModel {
     this.v,
   });
 
-  Profile? profile;
-  Tracking? tracking;
-  Tags? tags;
-  List<dynamic>? treatmentPlans;
-  String? id;
-  String? label;
-  String? email;
-  bool? agreeTos;
-  String? loginId;
-  Results? results;
+  Profile profile;
+  Tracking tracking;
+  Tags tags;
+  List<dynamic> treatmentPlans;
+  String id;
+  String label;
+  String email;
+  bool agreeTos;
+  String loginId;
+  Results results;
 
-  int? v;
+  int v;
 
   factory SignupResponseModel.fromJson(Map<String, dynamic> json) =>
       SignupResponseModel(
@@ -58,7 +58,7 @@ class SignupResponseModel {
         "profile": profile?.toJson(),
         "tracking": tracking?.toJson(),
         "tags": tags?.toJson(),
-        "treatmentPlans": List<dynamic>.from(treatmentPlans!.map((x) => x)),
+        "treatmentPlans": List<dynamic>.from(treatmentPlans.map((x) => x)),
         "_id": id,
         "label": label,
         "email": email,
@@ -78,11 +78,11 @@ class Profile {
     this.diagnosedIbs,
   });
 
-  Romeiv? romeiv;
-  String? sex;
-  String? age;
-  String? familyHistory;
-  DiagnosedIbs? diagnosedIbs;
+  Romeiv romeiv;
+  String sex;
+  String age;
+  String familyHistory;
+  DiagnosedIbs diagnosedIbs;
 
   factory Profile.fromJson(Map<String, dynamic> json) => Profile(
         romeiv: Romeiv.fromJson(json["romeiv"]),
@@ -108,9 +108,9 @@ class DiagnosedIbs {
     this.ibsType,
   });
 
-  bool? isDiagnosed;
-  String? id;
-  String? ibsType;
+  bool isDiagnosed;
+  String id;
+  String ibsType;
 
   factory DiagnosedIbs.fromJson(Map<String, dynamic> json) => DiagnosedIbs(
         isDiagnosed: json["isDiagnosed"],
@@ -134,11 +134,11 @@ class Romeiv {
     this.stool,
   });
 
-  bool? abdominalPain;
-  bool? abdominalPainTimeBowel;
-  bool? abdominalPainBowelMoreLess;
-  bool? abdominalPainBowelAppearDifferent;
-  String? stool;
+  bool abdominalPain;
+  bool abdominalPainTimeBowel;
+  bool abdominalPainBowelMoreLess;
+  bool abdominalPainBowelAppearDifferent;
+  String stool;
 
   factory Romeiv.fromJson(Map<String, dynamic> json) => Romeiv(
         abdominalPain: json["abdominalPain"],
@@ -163,7 +163,7 @@ class Results {
     this.romeiv,
   });
 
-  String? romeiv;
+  String romeiv;
 
   factory Results.fromJson(Map<String, dynamic> json) => Results(
         romeiv: json["romeiv"],
@@ -185,13 +185,13 @@ class Tags {
     this.otherMedications,
   });
 
-  List<dynamic>? breakfast;
-  List<dynamic>? lunch;
-  List<dynamic>? dinner;
-  List<dynamic>? snacks;
-  List<dynamic>? relaxationTechniques;
-  List<dynamic>? prescriptionMedications;
-  List<dynamic>? otherMedications;
+  List<dynamic> breakfast;
+  List<dynamic> lunch;
+  List<dynamic> dinner;
+  List<dynamic> snacks;
+  List<dynamic> relaxationTechniques;
+  List<dynamic> prescriptionMedications;
+  List<dynamic> otherMedications;
 
   factory Tags.fromJson(Map<String, dynamic> json) => Tags(
         breakfast: List<dynamic>.from(json["breakfast"].map((x) => x)),
@@ -207,15 +207,15 @@ class Tags {
       );
 
   Map<String, dynamic> toJson() => {
-        "breakfast": List<dynamic>.from(breakfast!.map((x) => x)),
-        "lunch": List<dynamic>.from(lunch!.map((x) => x)),
-        "dinner": List<dynamic>.from(dinner!.map((x) => x)),
-        "snacks": List<dynamic>.from(snacks!.map((x) => x)),
+        "breakfast": List<dynamic>.from(breakfast.map((x) => x)),
+        "lunch": List<dynamic>.from(lunch.map((x) => x)),
+        "dinner": List<dynamic>.from(dinner.map((x) => x)),
+        "snacks": List<dynamic>.from(snacks.map((x) => x)),
         "relaxationTechniques":
-            List<dynamic>.from(relaxationTechniques!.map((x) => x)),
+            List<dynamic>.from(relaxationTechniques.map((x) => x)),
         "prescriptionMedications":
-            List<dynamic>.from(prescriptionMedications!.map((x) => x)),
-        "otherMedications": List<dynamic>.from(otherMedications!.map((x) => x)),
+            List<dynamic>.from(prescriptionMedications.map((x) => x)),
+        "otherMedications": List<dynamic>.from(otherMedications.map((x) => x)),
       };
 }
 
@@ -228,11 +228,11 @@ class Tracking {
     this.foods,
   });
 
-  List<String>? symptoms;
-  List<String>? bowelMovements;
-  List<dynamic>? medications;
-  List<dynamic>? healthWelleness;
-  List<dynamic>? foods;
+  List<String> symptoms;
+  List<String> bowelMovements;
+  List<dynamic> medications;
+  List<dynamic> healthWelleness;
+  List<dynamic> foods;
 
   factory Tracking.fromJson(Map<String, dynamic> json) => Tracking(
         symptoms: List<String>.from(json["symptoms"].map((x) => x)),
@@ -244,10 +244,10 @@ class Tracking {
       );
 
   Map<String, dynamic> toJson() => {
-        "symptoms": List<dynamic>.from(symptoms!.map((x) => x)),
-        "bowelMovements": List<dynamic>.from(bowelMovements!.map((x) => x)),
-        "medications": List<dynamic>.from(medications!.map((x) => x)),
-        "healthWelleness": List<dynamic>.from(healthWelleness!.map((x) => x)),
-        "foods": List<dynamic>.from(foods!.map((x) => x)),
+        "symptoms": List<dynamic>.from(symptoms.map((x) => x)),
+        "bowelMovements": List<dynamic>.from(bowelMovements.map((x) => x)),
+        "medications": List<dynamic>.from(medications.map((x) => x)),
+        "healthWelleness": List<dynamic>.from(healthWelleness.map((x) => x)),
+        "foods": List<dynamic>.from(foods.map((x) => x)),
       };
 }

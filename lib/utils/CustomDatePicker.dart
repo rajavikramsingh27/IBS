@@ -24,12 +24,12 @@ class CustomDatePicker extends StatelessWidget {
   }
 
   getAndroidDatePicker(
-      DateTime? selectedDate, TextEditingController textController) {
+      DateTime selectedDate, TextEditingController textController) {
     return showDatePicker(
-      context: Get.context!,
+      context: Get.context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1970),
-      builder: (BuildContext context, Widget? child) {
+      builder: (BuildContext context, Widget child) {
         return Theme(
           data: ThemeData.dark().copyWith(
             colorScheme: ColorScheme.dark(
@@ -40,14 +40,14 @@ class CustomDatePicker extends StatelessWidget {
             ),
             dialogBackgroundColor: Colors.white,
           ),
-          child: child!,
+          child: child,
         );
       },
       lastDate: DateTime(2100),
     ).then((datePicked) {
       if (datePicked != selectedDate) {
         selectedDate = datePicked;
-        textController.text = DateFormat.yMMMMd('en_US').format(selectedDate!);
+        textController.text = DateFormat.yMMMMd('en_US').format(selectedDate);
       }
     });
   }

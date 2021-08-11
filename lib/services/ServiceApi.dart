@@ -6,7 +6,7 @@ import 'package:flutter_ibs/services/url.dart';
 
 class ServiceApi {
   Future<dynamic> signupApi(
-      {Map<String, dynamic>? bodyData, Map? header}) async {
+      {Map<String, dynamic> bodyData, Map header}) async {
     var result = await CoreService()
         .apiService(method: METHOD.CREATE, endpoint: SIGNUP, data: bodyData);
     if (result.name.toString().toLowerCase() == "Unprocessable".toLowerCase()) {

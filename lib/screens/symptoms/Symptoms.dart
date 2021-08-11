@@ -192,7 +192,7 @@ class Symptoms extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          model.image!,
+                          model.image,
                           width: ScreenConstant.defaultWidthTwenty * 1.5,
                         ),
                         SizedBox(height: ScreenConstant.defaultHeightTen),
@@ -313,7 +313,7 @@ class Symptoms extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(
-                              model.image!,
+                              model.image,
                               width: ScreenConstant.defaultWidthTwenty * 1.5,
                             ),
                             SizedBox(height: ScreenConstant.defaultHeightTen),
@@ -348,10 +348,10 @@ class Symptoms extends StatelessWidget {
   _buildWavePainter() {
     return Container(
       margin: EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty * 1.5),
-      width: Get.context!.mediaQuerySize.width,
+      width: Get.context.mediaQuerySize.width,
       child: CustomPaint(
-        size: Size(Get.context!.mediaQuerySize.width,
-            Get.context!.mediaQuerySize.height),
+        size: Size(Get.context.mediaQuerySize.width,
+            Get.context.mediaQuerySize.height),
         painter: WavePainter(),
       ),
     );
@@ -507,7 +507,7 @@ class Symptoms extends StatelessWidget {
           ),
           iconSize: 20,
           underline: SizedBox(),
-          onChanged: (String? newValue) {
+          onChanged: (String newValue) {
             // setState(() {
             //   dropdownValue = newValue;
             // });

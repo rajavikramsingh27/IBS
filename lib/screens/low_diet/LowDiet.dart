@@ -97,7 +97,7 @@ class LowDiet extends StatelessWidget {
             visualDensity: VisualDensity(horizontal: -4, vertical: -4),
             icon: Icon(Icons.arrow_forward_ios_outlined,
                 color: AppColors.colorArrowButton, size: FontSize.s14),
-            onPressed: onPressed as void Function()?,
+            onPressed: onPressed ,
           ),
         ),
       ),
@@ -111,7 +111,7 @@ class LowDiet extends StatelessWidget {
       itemCount: DummyData.lowdietadditionalResourcesList.length,
       itemBuilder: (BuildContext context, int index) {
         var model = DummyData.lowdietadditionalResourcesList[index];
-        return _buildLowFodmapDiet(model.title!, () {
+        return _buildLowFodmapDiet(model.title, () {
           Get.toNamed(stressManagementDetails);
         });
       },

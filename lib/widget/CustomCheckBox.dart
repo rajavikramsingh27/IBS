@@ -7,21 +7,21 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 
 class CustomCheckBox extends StatefulWidget {
-  final bool? value;
-  final ValueChanged<bool>? onChanged;
+  final bool value;
+  final ValueChanged<bool> onChanged;
   final Color checkedIconColor;
   final Color checkedFillColor;
   final IconData checkedIcon;
   final Color uncheckedIconColor;
   final Color uncheckedFillColor;
   final IconData uncheckedIcon;
-  final double? borderWidth;
+  final double borderWidth;
   final bool shouldShowBorder;
-  final Color? borderColor;
-  final double? borderRadius;
+  final Color borderColor;
+  final double borderRadius;
 
   const CustomCheckBox({
-    Key? key,
+    Key key,
     this.value,
     this.onChanged,
     this.checkedIconColor = Colors.white,
@@ -41,8 +41,8 @@ class CustomCheckBox extends StatefulWidget {
 }
 
 class _CustomCheckBoxState extends State<CustomCheckBox> {
-  bool? _checked;
-  CheckStatus? _status;
+  bool _checked;
+  CheckStatus _status;
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
 
   void _init() {
     _checked = widget.value;
-    if (_checked!) {
+    if (_checked) {
       _status = CheckStatus.checked;
     } else {
       _status = CheckStatus.unchecked;
@@ -66,10 +66,10 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
   }
 
   Widget _buildIcon() {
-    Color? fillColor;
-    Color? iconColor;
+    Color fillColor;
+    Color iconColor;
 
-    switch (_status!) {
+    switch (_status) {
       case CheckStatus.checked:
         fillColor = widget.checkedFillColor;
         iconColor = widget.checkedIconColor;
@@ -92,7 +92,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
           color: widget.shouldShowBorder
               ? (widget.borderColor ??
                   AppColors.colorBackground.withOpacity(0.19))
-              : (!widget.value!
+              : (!widget.value
                   ? (widget.borderColor ??
                       AppColors.colorBackground.withOpacity(0.19))
                   : AppColors.colorBackground.withOpacity(0.19)),
@@ -112,7 +112,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
   Widget build(BuildContext context) {
     return IconButton(
       icon: _buildIcon(),
-      onPressed: () => widget.onChanged!(!_checked!),
+      onPressed: () => widget.onChanged(!_checked),
     );
   }
 }

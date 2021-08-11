@@ -16,7 +16,7 @@ class Keys {
 class HiveStore {
   //Singleton Class
   static final HiveStore _default = new HiveStore._internal();
-  static late Box defBox;
+  static  Box defBox;
 
   factory HiveStore() {
     return _default;

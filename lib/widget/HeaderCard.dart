@@ -6,13 +6,13 @@ import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:get/get.dart';
 
 class HeaderCard extends StatelessWidget {
-  final double? height;
-  final String? imageText;
-  final String? title;
-  final String? description;
+  final double height;
+  final String imageText;
+  final String title;
+  final String description;
 
   const HeaderCard(
-      {Key? key, this.height, this.imageText, this.title, this.description})
+      {Key key, this.height, this.imageText, this.title, this.description})
       : super(key: key);
 
   @override
@@ -50,7 +50,7 @@ class HeaderCard extends StatelessWidget {
               shape: BoxShape.circle,
               color: AppColors.colorYesButton,
             ),
-            child: Image.asset(imageText!,
+            child: Image.asset(imageText,
                 width: ScreenConstant.defaultWidthTwenty * 2),
           ),
         ),
@@ -60,12 +60,12 @@ class HeaderCard extends StatelessWidget {
           bottom: 20,
           child: Column(
             children: [
-              Text(title!,
+              Text(title,
                   textAlign: TextAlign.center,
                   style: TextStyles.textStyleIntroDescription
                       .apply(color: Colors.white, fontSizeDelta: -4)),
               SizedBox(height: ScreenConstant.defaultHeightTen),
-              Text(description!,
+              Text(description,
                   textAlign: TextAlign.center,
                   style: TextStyles.textStyleRegular
                       .apply(color: Colors.white, fontSizeDelta: 2)),

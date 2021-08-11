@@ -14,7 +14,7 @@ class Intro extends StatefulWidget {
 
 class _IntroState extends State<Intro> {
   PageController _pageController = PageController(initialPage: 0);
-  double? currentPage = 0;
+  double currentPage = 0;
   int selectedindex = 0;
 
   @override

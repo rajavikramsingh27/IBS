@@ -92,7 +92,7 @@ class MedicationSuplements extends StatelessWidget {
             visualDensity: VisualDensity(horizontal: -4, vertical: -4),
             icon: Icon(Icons.arrow_forward_ios_outlined,
                 color: AppColors.white, size: FontSize.s14),
-            onPressed: onPressed as void Function()?,
+            onPressed: onPressed ,
           ),
         ),
       ),
@@ -106,7 +106,7 @@ class MedicationSuplements extends StatelessWidget {
       itemCount: DummyData.medicationAdditionalResourcesList.length,
       itemBuilder: (BuildContext context, int index) {
         var model = DummyData.medicationAdditionalResourcesList[index];
-        return _buildExercise(model.title!, () {});
+        return _buildExercise(model.title, () {});
       },
       separatorBuilder: (BuildContext context, int index) => SizedBox(
         height: ScreenConstant.sizeDefault,

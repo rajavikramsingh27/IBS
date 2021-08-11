@@ -3,7 +3,7 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:get/get.dart';
 
 class CustomSnackBar {
-  void successSnackBar({required String title, required String message}) {
+  void successSnackBar({ String title,  String message}) {
     Get.snackbar(title, message,
         backgroundColor: AppColors.borderColor,
         colorText: Colors.black,
@@ -17,7 +17,7 @@ class CustomSnackBar {
         ));
   }
 
-  void errorSnackBar({required String title, required String message}) {
+  void errorSnackBar({ String title,  String message}) {
     Get.snackbar(title, message,
         backgroundColor: AppColors.borderColor,
         colorText: Colors.black,

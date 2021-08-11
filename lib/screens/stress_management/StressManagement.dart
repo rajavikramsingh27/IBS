@@ -107,7 +107,7 @@ class StressManagement extends StatelessWidget {
             visualDensity: VisualDensity(horizontal: -4, vertical: -4),
             icon: Icon(Icons.arrow_forward_ios_outlined,
                 color: AppColors.colorArrowButton, size: FontSize.s14),
-            onPressed: onPressed as void Function()?,
+            onPressed: onPressed,
           ),
         ),
       ),
@@ -121,7 +121,7 @@ class StressManagement extends StatelessWidget {
       itemCount: DummyData.stressadditionalResourcesList.length,
       itemBuilder: (BuildContext context, int index) {
         var model = DummyData.stressadditionalResourcesList[index];
-        return _buildStrssManage(model.title!, () {
+        return _buildStrssManage(model.title, () {
           Get.toNamed(stressManagementDetails);
         });
       },

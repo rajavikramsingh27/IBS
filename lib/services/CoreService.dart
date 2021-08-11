@@ -13,8 +13,8 @@ class CoreService {
     ..init(baseUrl: BASE_URL);
 
   Future apiService(
-      {String? endpoint,
-      String? objectId,
+      {String endpoint,
+      String objectId,
       data,
       baseURL = BASE_URL,
       fileName,

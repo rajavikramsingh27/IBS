@@ -115,7 +115,7 @@ class Otp extends StatelessWidget {
             animationDuration: Duration(milliseconds: 300),
             enableActiveFill: true,
             onChanged: (sbd) {},
-            appContext: Get.context!,
+            appContext: Get.context,
           ),
         ),
         SizedBox(height: ScreenConstant.defaultHeightTwentyFour),

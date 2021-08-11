@@ -4,11 +4,9 @@
 
 import 'dart:convert';
 
-TrackablesListModel trackablesListModelFromJson(String str) =>
-    TrackablesListModel.fromJson(json.decode(str));
+TrackablesListModel trackablesListModelFromJson(String str) => TrackablesListModel.fromJson(json.decode(str));
 
-String trackablesListModelToJson(TrackablesListModel data) =>
-    json.encode(data.toJson());
+String trackablesListModelToJson(TrackablesListModel data) => json.encode(data.toJson());
 
 class TrackablesListModel {
   TrackablesListModel({
@@ -18,25 +16,24 @@ class TrackablesListModel {
     this.data,
   });
 
-  int? total;
-  int? limit;
-  int? skip;
-  List<Datum>? data;
+  int total;
+  int limit;
+  int skip;
+  List<Datum> data;
 
-  factory TrackablesListModel.fromJson(Map<String, dynamic> json) =>
-      TrackablesListModel(
-        total: json["total"],
-        limit: json["limit"],
-        skip: json["skip"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-      );
+  factory TrackablesListModel.fromJson(Map<String, dynamic> json) => TrackablesListModel(
+    total: json["total"],
+    limit: json["limit"],
+    skip: json["skip"],
+    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "total": total,
-        "limit": limit,
-        "skip": skip,
-        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
-      };
+    "total": total,
+    "limit": limit,
+    "skip": skip,
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+  };
 }
 
 class Datum {
@@ -46,65 +43,65 @@ class Datum {
     this.service,
     this.kind,
     this.category,
+    this.image,
     this.items,
     this.version,
     this.enabled,
-    this.image,
   });
 
-  String? id;
-  String? tid;
-  String? service;
-  String? kind;
-  String? category;
-  List<DatumItem>? items;
-  int? version;
-  bool? enabled;
-  Image? image;
+  String id;
+  String tid;
+  String service;
+  String kind;
+  String category;
+  Image image;
+  List<DatumItem> items;
+  int version;
+  bool enabled;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        id: json["_id"],
-        tid: json["tid"],
-        service: json["service"],
-        kind: json["kind"],
-        category: json["category"],
-        items: List<DatumItem>.from(
-            json["items"].map((x) => DatumItem.fromJson(x))),
-        version: json["version"] == null ? null : json["version"],
-        enabled: json["enabled"] == null ? null : json["enabled"],
-        image: Image.fromJson(json["image"]),
-      );
+    id: json["_id"],
+    tid: json["tid"],
+    service: json["service"],
+    kind: json["kind"],
+    category: json["category"],
+    image: Image.fromJson(json["image"]),
+    items: List<DatumItem>.from(json["items"].map((x) => DatumItem.fromJson(x))),
+    version: json["version"] == null ? null : json["version"],
+    enabled: json["enabled"] == null ? null : json["enabled"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "_id": id,
-        "tid": tid,
-        "service": service,
-        "kind": kind,
-        "category": category,
-        "items": List<dynamic>.from(items!.map((x) => x.toJson())),
-        "version": version == null ? null : version,
-        "enabled": enabled == null ? null : enabled,
-        "image": image?.toJson(),
-      };
+    "_id": id,
+    "tid": tid,
+    "service": service,
+    "kind": kind,
+    "category": category,
+    "image": image.toJson(),
+    "items": List<dynamic>.from(items.map((x) => x.toJson())),
+    "version": version == null ? null : version,
+    "enabled": enabled == null ? null : enabled,
+  };
 }
+
 class Image {
   Image({
     this.normal,
     this.active,
   });
 
-  String? normal;
-  String? active;
+  String normal;
+  String active;
 
   factory Image.fromJson(Map<String, dynamic> json) => Image(
-        normal: json["normal"],
-        active: json["active"],
-      );
+    normal: json["normal"],
+    active: json["active"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "normal": normal,
-        "active": active,
-      };
+    "normal": normal,
+    "active": active,
+  };
 }
 
 class DatumItem {
@@ -129,69 +126,66 @@ class DatumItem {
     this.boolList,
   });
 
-  String? tid;
-  String? name;
-  String? description;
-  String? category;
-  dynamic? style;
-  String? kind;
-  bool? enabledDefault;
-  FluffyRating? rating;
-  List<ItemChild>? children;
-  TextInput? textInput;
-  ListValidation? validation;
-  Color? color;
-  FluffyList? list;
-  FluffyTags? tags;
-  String? type;
-  String? value;
-  ItemCondition? condition;
-  BoolList? boolList;
+  String tid;
+  String name;
+  String description;
+  String category;
+  FluffyStyle style;
+  String kind;
+  bool enabledDefault;
+  FluffyRating rating;
+  List<ItemChild> children;
+  TextInput textInput;
+  ListValidation validation;
+  Color color;
+  FluffyList list;
+  FluffyTags tags;
+  String type;
+  String value;
+  ItemCondition condition;
+  BoolList boolList;
 
   factory DatumItem.fromJson(Map<String, dynamic> json) => DatumItem(
-        tid: json["tid"] == null ? null : json["tid"],
-        name: json["name"] == null ? null : json["name"],
-        description: json["description"] == null ? null : json["description"],
-        category: json["category"] == null ? null : json["category"],
-        style: json["style"] == null ? null : json["style"],
-        kind: json["kind"] == null ? null : json["kind"],
-        enabledDefault: json["enabledDefault"] == null ? null : json["enabledDefault"],
-        rating: json["rating"] == null ? null : FluffyRating.fromJson(json["rating"]),
-        children: json["children"] == null ? null : List<ItemChild>.from(json["children"].map((x) => ItemChild.fromJson(x))),
-        textInput: json["textInput"] == null ? null : TextInput.fromJson(json["textInput"]),
-        validation: json["validation"] == null ? null : ListValidation.fromJson(json["validation"]),
-        color: json["color"] == null ? null : Color.fromJson(json["color"]),
-        list: json["list"] == null ? null : FluffyList.fromJson(json["list"]),
-        tags: json["tags"] == null ? null : FluffyTags.fromJson(json["tags"]),
-        type: json["type"] == null ? null : json["type"],
-        value: json["value"] == null ? null : json["value"],
-        condition: json["condition"] == null ? null : ItemCondition.fromJson(json["condition"]),
-        boolList: json["boolList"] == null ? null : BoolList.fromJson(json["boolList"]),
-  
-      );
+    tid: json["tid"] == null ? null : json["tid"],
+    name: json["name"] == null ? null : json["name"],
+    description: json["description"] == null ? null : json["description"],
+    category: json["category"] == null ? null : json["category"],
+    style: json["style"] == null ? null : fluffyStyleValues.map[json["style"]],
+    kind: json["kind"] == null ? null : json["kind"],
+    enabledDefault: json["enabledDefault"] == null ? null : json["enabledDefault"],
+    rating: json["rating"] == null ? null : FluffyRating.fromJson(json["rating"]),
+    children: json["children"] == null ? null : List<ItemChild>.from(json["children"].map((x) => ItemChild.fromJson(x))),
+    textInput: json["textInput"] == null ? null : TextInput.fromJson(json["textInput"]),
+    validation: json["validation"] == null ? null : ListValidation.fromJson(json["validation"]),
+    color: json["color"] == null ? null : Color.fromJson(json["color"]),
+    list: json["list"] == null ? null : FluffyList.fromJson(json["list"]),
+    tags: json["tags"] == null ? null : FluffyTags.fromJson(json["tags"]),
+    type: json["type"] == null ? null : json["type"],
+    value: json["value"] == null ? null : json["value"],
+    condition: json["condition"] == null ? null : ItemCondition.fromJson(json["condition"]),
+    boolList: json["boolList"] == null ? null : BoolList.fromJson(json["boolList"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "tid": tid == null ? null : tid,
-        "name": name == null ? null : name,
-        "description": description == null ? null : description,
-        "category": category == null ? null : category,
-        "style": style == null ? null : style,
-        "kind": kind == null ? null : kind,
-        "enabledDefault": enabledDefault == null ? null : enabledDefault,
-        "rating": rating == null ? null : rating!.toJson(),
-        "children": children == null
-            ? null
-            : List<dynamic>.from(children!.map((x) => x.toJson())),
-        "textInput": textInput == null ? null : textInput?.toJson(),
-        "validation": validation == null ? null : validation?.toJson(),
-        "color": color == null ? null : color?.toJson(),
-        "list": list == null ? null : list!.toJson(),
-        "tags": tags == null ? null : tags?.toJson(),
-        "type": type == null ? null : type,
-        "value": value == null ? null : value,
-        "condition": condition == null ? null : condition!.toJson(),
-        "boolList": boolList == null ? null : boolList!.toJson(),
-      };
+    "tid": tid == null ? null : tid,
+    "name": name == null ? null : name,
+    "description": description == null ? null : description,
+    "category": category == null ? null : category,
+    "style": style == null ? null : fluffyStyleValues.reverse[style],
+    "kind": kind == null ? null : kind,
+    "enabledDefault": enabledDefault == null ? null : enabledDefault,
+    "rating": rating == null ? null : rating.toJson(),
+    "children": children == null ? null : List<dynamic>.from(children.map((x) => x.toJson())),
+    "textInput": textInput == null ? null : textInput.toJson(),
+    "validation": validation == null ? null : validation.toJson(),
+    "color": color == null ? null : color.toJson(),
+    "list": list == null ? null : list.toJson(),
+    "tags": tags == null ? null : tags.toJson(),
+    "type": type == null ? null : type,
+    "value": value == null ? null : value,
+    "condition": condition == null ? null : condition.toJson(),
+    "boolList": boolList == null ? null : boolList.toJson(),
+  };
 }
 
 class BoolList {
@@ -199,28 +193,23 @@ class BoolList {
     this.boolListDefault,
     this.source,
     this.relation,
-   
   });
 
-  List<BoolListDefault>? boolListDefault;
-  String? source;
-  BoolListRelation? relation;
-
-  
+  List<BoolListDefault> boolListDefault;
+  String source;
+  BoolListRelation relation;
 
   factory BoolList.fromJson(Map<String, dynamic> json) => BoolList(
-        boolListDefault: List<BoolListDefault>.from(json["default"].map((x) => BoolListDefault.fromJson(x))),
-        source: json["source"],
-        relation: BoolListRelation.fromJson(json["relation"]),     //     json["autocompleteId"] == null ? null : json["autocompleteId"],
-      );
+    boolListDefault: List<BoolListDefault>.from(json["default"].map((x) => BoolListDefault.fromJson(x))),
+    source: json["source"],
+    relation: BoolListRelation.fromJson(json["relation"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "default": List<dynamic>.from(boolListDefault!.map((x) => x)),
-        "source": source == null ? null : source,
-        "relation": relation == null ? null : relation?.toJson(),
-        // "limit": limit == null ? null : limit,
-        // "autocompleteId": autocompleteId == null ? null : autocompleteId,
-      };
+    "default": List<dynamic>.from(boolListDefault.map((x) => x.toJson())),
+    "source": source,
+    "relation": relation.toJson(),
+  };
 }
 
 class BoolListDefault {
@@ -229,19 +218,18 @@ class BoolListDefault {
     this.required,
   });
 
-  String? value;
-  bool? required;
+  String value;
+  bool required;
 
-  factory BoolListDefault.fromJson(Map<String, dynamic> json) =>
-      BoolListDefault(
-        value: json["value"],
-        required: json["required"],
-      );
+  factory BoolListDefault.fromJson(Map<String, dynamic> json) => BoolListDefault(
+    value: json["value"],
+    required: json["required"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "value": value,
-        "required": required,
-      };
+    "value": value,
+    "required": required,
+  };
 }
 
 class BoolListRelation {
@@ -250,19 +238,18 @@ class BoolListRelation {
     this.property,
   });
 
-  String? related;
-  String? property;
+  String related;
+  String property;
 
-  factory BoolListRelation.fromJson(Map<String, dynamic> json) =>
-      BoolListRelation(
-        related: json["related"],
-        property: json["property"],
-      );
+  factory BoolListRelation.fromJson(Map<String, dynamic> json) => BoolListRelation(
+    related: json["related"],
+    property: json["property"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "related": related,
-        "property": property,
-      };
+    "related": related,
+    "property": property,
+  };
 }
 
 class ItemChild {
@@ -272,24 +259,21 @@ class ItemChild {
     this.validation,
   });
 
-  PurpleCondition? condition;
-  List<PurpleItem>? items;
-  ListValidation? validation;
+  PurpleCondition condition;
+  List<PurpleItem> items;
+  ListValidation validation;
 
   factory ItemChild.fromJson(Map<String, dynamic> json) => ItemChild(
-        condition: PurpleCondition.fromJson(json["condition"]),
-        items: List<PurpleItem>.from(
-            json["items"].map((x) => PurpleItem.fromJson(x))),
-        validation: json["validation"] == null
-            ? null
-            : ListValidation.fromJson(json["validation"]),
-      );
+    condition: PurpleCondition.fromJson(json["condition"]),
+    items: List<PurpleItem>.from(json["items"].map((x) => PurpleItem.fromJson(x))),
+    validation: json["validation"] == null ? null : ListValidation.fromJson(json["validation"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "condition": condition!.toJson(),
-        "items": List<dynamic>.from(items!.map((x) => x.toJson())),
-        "validation": validation == null ? null : validation!.toJson(),
-      };
+    "condition": condition.toJson(),
+    "items": List<dynamic>.from(items.map((x) => x.toJson())),
+    "validation": validation == null ? null : validation.toJson(),
+  };
 }
 
 class PurpleCondition {
@@ -298,19 +282,18 @@ class PurpleCondition {
     this.value,
   });
 
-  String? conditionOperator;
+  String conditionOperator;
   dynamic value;
 
-  factory PurpleCondition.fromJson(Map<String, dynamic> json) =>
-      PurpleCondition(
-        conditionOperator: json["operator"],
-        value: json["value"],
-      );
+  factory PurpleCondition.fromJson(Map<String, dynamic> json) => PurpleCondition(
+    conditionOperator: json["operator"],
+    value: json["value"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "operator": conditionOperator,
-        "value": value,
-      };
+    "operator": conditionOperator,
+    "value": value,
+  };
 }
 
 class PurpleItem {
@@ -336,72 +319,79 @@ class PurpleItem {
     this.children,
   });
 
-  String? tid;
-  String? name;
-  String? description;
-  dynamic? category;
-  dynamic? style;
-  String? kind;
-  bool? enabledDefault;
-  PurpleList? list;
-  Select? select;
-  Toggle? toggle;
-  String? type;
-  String? value;
-  PurpleTags? tags;
-  Sum? sum;
-  TextInput? textInput;
-  PurpleRating? rating;
-  NumberInput? numberInput;
-  NumberInput? timePicker;
-  List<dynamic>? children;
+  String tid;
+  String name;
+  String description;
+  Category category;
+  PurpleStyle style;
+  String kind;
+  bool enabledDefault;
+  PurpleList list;
+  Select select;
+  Toggle toggle;
+  String type;
+  String value;
+  PurpleTags tags;
+  Sum sum;
+  TextInput textInput;
+  PurpleRating rating;
+  NumberInput numberInput;
+  NumberInput timePicker;
+  List<dynamic> children;
 
   factory PurpleItem.fromJson(Map<String, dynamic> json) => PurpleItem(
-        tid: json["tid"] == null ? null : json["tid"],
-        name: json["name"] == null ? null : json["name"],
-        description: json["description"] == null ? null : json["description"],
-        category: json["category"] == null ? null : json["category"],
-        style: json["style"] == null ? null : json["style"],
-        kind: json["kind"] == null ? null : json["kind"],
-        enabledDefault: json["enabledDefault"] == null ? null : json["enabledDefault"],
-        list: json["list"] == null ? null : PurpleList.fromJson(json["list"]),
-        select: json["select"] == null ? null : Select.fromJson(json["select"]),
-        toggle: json["toggle"] == null ? null : Toggle.fromJson(json["toggle"]),
-        type: json["type"] == null ? null : json["type"],
-        value: json["value"] == null ? null : json["value"],
-        tags: json["tags"] == null ? null : PurpleTags.fromJson(json["tags"]),
-        sum: json["sum"] == null ? null : Sum.fromJson(json["sum"]),
-        textInput: json["textInput"] == null ? null : TextInput.fromJson(json["textInput"]),
-        rating: json["rating"] == null ? null : PurpleRating.fromJson(json["rating"]),
-        numberInput: json["numberInput"] == null ? null : NumberInput.fromJson(json["numberInput"]),
-        timePicker: json["timePicker"] == null ? null : NumberInput.fromJson(json["timePicker"]),
-        children: json["children"] == null ? null : List<dynamic>.from(json["children"].map((x) => x)),
-     );
+    tid: json["tid"] == null ? null : json["tid"],
+    name: json["name"] == null ? null : json["name"],
+    description: json["description"] == null ? null : json["description"],
+    category: json["category"] == null ? null : categoryValues.map[json["category"]],
+    style: json["style"] == null ? null : purpleStyleValues.map[json["style"]],
+    kind: json["kind"] == null ? null : json["kind"],
+    enabledDefault: json["enabledDefault"] == null ? null : json["enabledDefault"],
+    list: json["list"] == null ? null : PurpleList.fromJson(json["list"]),
+    select: json["select"] == null ? null : Select.fromJson(json["select"]),
+    toggle: json["toggle"] == null ? null : Toggle.fromJson(json["toggle"]),
+    type: json["type"] == null ? null : json["type"],
+    value: json["value"] == null ? null : json["value"],
+    tags: json["tags"] == null ? null : PurpleTags.fromJson(json["tags"]),
+    sum: json["sum"] == null ? null : Sum.fromJson(json["sum"]),
+    textInput: json["textInput"] == null ? null : TextInput.fromJson(json["textInput"]),
+    rating: json["rating"] == null ? null : PurpleRating.fromJson(json["rating"]),
+    numberInput: json["numberInput"] == null ? null : NumberInput.fromJson(json["numberInput"]),
+    timePicker: json["timePicker"] == null ? null : NumberInput.fromJson(json["timePicker"]),
+    children: json["children"] == null ? null : List<dynamic>.from(json["children"].map((x) => x)),
+  );
 
   Map<String, dynamic> toJson() => {
-        "tid": tid == null ? null : tid,
-        "name": name == null ? null : name,
-        "description": description == null ? null : description,
-        "category": category == null ? null : category,
-        "style": style == null ? null : style,
-        "kind": kind == null ? null : kind,
-        "enabledDefault": enabledDefault == null ? null : enabledDefault,
-        "list": list == null ? null : list?.toJson(),
-        "select": select == null ? null : select?.toJson(),
-        "toggle": toggle == null ? null : toggle?.toJson(),
-        "type": type == null ? null : type,
-        "value": value == null ? null : value,
-        "tags": tags == null ? null : tags?.toJson(),
-        "sum": sum == null ? null : sum?.toJson(),
-        "textInput": textInput == null ? null : textInput?.toJson(),
-        "rating": rating == null ? null : rating?.toJson(),
-        "numberInput": numberInput == null ? null : numberInput?.toJson(),
-        "timePicker": timePicker == null ? null : timePicker?.toJson(),
-        "children": children == null
-            ? null
-            : List<dynamic>.from(children!.map((x) => x)),
-      };
+    "tid": tid == null ? null : tid,
+    "name": name == null ? null : name,
+    "description": description == null ? null : description,
+    "category": category == null ? null : categoryValues.reverse[category],
+    "style": style == null ? null : purpleStyleValues.reverse[style],
+    "kind": kind == null ? null : kind,
+    "enabledDefault": enabledDefault == null ? null : enabledDefault,
+    "list": list == null ? null : list.toJson(),
+    "select": select == null ? null : select.toJson(),
+    "toggle": toggle == null ? null : toggle.toJson(),
+    "type": type == null ? null : type,
+    "value": value == null ? null : value,
+    "tags": tags == null ? null : tags.toJson(),
+    "sum": sum == null ? null : sum.toJson(),
+    "textInput": textInput == null ? null : textInput.toJson(),
+    "rating": rating == null ? null : rating.toJson(),
+    "numberInput": numberInput == null ? null : numberInput.toJson(),
+    "timePicker": timePicker == null ? null : timePicker.toJson(),
+    "children": children == null ? null : List<dynamic>.from(children.map((x) => x)),
+  };
 }
+
+enum Category { SYMPTOMS, BOWEL_RELIEF, FOOD, WELLNESS }
+
+final categoryValues = EnumValues({
+  "bowel_relief": Category.BOWEL_RELIEF,
+  "food": Category.FOOD,
+  "symptoms": Category.SYMPTOMS,
+  "wellness": Category.WELLNESS
+});
 
 class PurpleList {
   PurpleList({
@@ -409,19 +399,18 @@ class PurpleList {
     this.validation,
   });
 
-  List<ListOption>? options;
-  ListValidation? validation;
+  List<ListOption> options;
+  ListValidation validation;
 
   factory PurpleList.fromJson(Map<String, dynamic> json) => PurpleList(
-        options: List<ListOption>.from(
-            json["options"].map((x) => ListOption.fromJson(x))),
-        validation: ListValidation.fromJson(json["validation"]),
-      );
+    options: List<ListOption>.from(json["options"].map((x) => ListOption.fromJson(x))),
+    validation: ListValidation.fromJson(json["validation"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "options": List<dynamic>.from(options!.map((x) => x.toJson())),
-        "validation": validation?.toJson(),
-      };
+    "options": List<dynamic>.from(options.map((x) => x.toJson())),
+    "validation": validation.toJson(),
+  };
 }
 
 class ListOption {
@@ -433,28 +422,27 @@ class ListOption {
     this.conditionalDefault,
   });
 
-  String? value;
-  String? label;
-  Image? image;
-  bool? optionDefault;
-  ConditionalDefault? conditionalDefault;
+  String value;
+  String label;
+  Image image;
+  bool optionDefault;
+  ConditionalDefault conditionalDefault;
 
   factory ListOption.fromJson(Map<String, dynamic> json) => ListOption(
-         value: json["value"],
-        label: json["label"],
-        image: Image.fromJson(json["image"]),
-        optionDefault: json["default"],
-        conditionalDefault: json["conditionalDefault"] == null ? null : ConditionalDefault.fromJson(json["conditionalDefault"]),
-    );
+    value: json["value"],
+    label: json["label"],
+    image: Image.fromJson(json["image"]),
+    optionDefault: json["default"],
+    conditionalDefault: json["conditionalDefault"] == null ? null : ConditionalDefault.fromJson(json["conditionalDefault"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "value": value,
-        "label": label,
-        "image": image?.toJson(),
-        "default": optionDefault,
-        "conditionalDefault":
-            conditionalDefault == null ? null : conditionalDefault?.toJson(),
-      };
+    "value": value,
+    "label": label,
+    "image": image.toJson(),
+    "default": optionDefault,
+    "conditionalDefault": conditionalDefault == null ? null : conditionalDefault.toJson(),
+  };
 }
 
 class ConditionalDefault {
@@ -462,16 +450,15 @@ class ConditionalDefault {
     this.time,
   });
 
-  Time? time;
+  Time time;
 
-  factory ConditionalDefault.fromJson(Map<String, dynamic> json) =>
-      ConditionalDefault(
-        time: Time.fromJson(json["time"]),
-      );
+  factory ConditionalDefault.fromJson(Map<String, dynamic> json) => ConditionalDefault(
+    time: Time.fromJson(json["time"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "time": time?.toJson(),
-      };
+    "time": time.toJson(),
+  };
 }
 
 class Time {
@@ -480,36 +467,34 @@ class Time {
     this.endTime,
   });
 
-  String? startTime;
-  String? endTime;
+  String startTime;
+  String endTime;
 
   factory Time.fromJson(Map<String, dynamic> json) => Time(
-        startTime: json["startTime"],
-        endTime: json["endTime"],
-      );
+    startTime: json["startTime"],
+    endTime: json["endTime"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "startTime": startTime,
-        "endTime": endTime,
-      };
+    "startTime": startTime,
+    "endTime": endTime,
+  };
 }
-
-
 
 class ListValidation {
   ListValidation({
     this.required,
   });
 
-  RequiredClass? required;
+  RequiredClass required;
 
   factory ListValidation.fromJson(Map<String, dynamic> json) => ListValidation(
-        required: RequiredClass.fromJson(json["required"]),
-      );
+    required: RequiredClass.fromJson(json["required"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "required": required?.toJson(),
-      };
+    "required": required.toJson(),
+  };
 }
 
 class RequiredClass {
@@ -518,19 +503,26 @@ class RequiredClass {
     this.copy,
   });
 
-  bool? required;
-  dynamic? copy;
+  bool required;
+  Copy copy;
 
   factory RequiredClass.fromJson(Map<String, dynamic> json) => RequiredClass(
-        required: json["required"],
-        copy: json["copy"],
-      );
+    required: json["required"],
+    copy: copyValues.map[json["copy"]],
+  );
 
   Map<String, dynamic> toJson() => {
-        "required": required,
-        "copy": copy,
-      };
+    "required": required,
+    "copy": copyValues.reverse[copy],
+  };
 }
+
+enum Copy { EMPTY, JOURNAL_ENTRY_REQUIRED }
+
+final copyValues = EnumValues({
+  "": Copy.EMPTY,
+  "journal-entry_required": Copy.JOURNAL_ENTRY_REQUIRED
+});
 
 class NumberInput {
   NumberInput({
@@ -539,17 +531,17 @@ class NumberInput {
   });
 
   dynamic numberInputDefault;
-  ListValidation? validation;
+  ListValidation validation;
 
   factory NumberInput.fromJson(Map<String, dynamic> json) => NumberInput(
-        numberInputDefault: json["default"],
-        validation: ListValidation.fromJson(json["validation"]),
-      );
+    numberInputDefault: json["default"],
+    validation: ListValidation.fromJson(json["validation"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "default": numberInputDefault,
-        "validation": validation?.toJson(),
-      };
+    "default": numberInputDefault,
+    "validation": validation.toJson(),
+  };
 }
 
 class PurpleRating {
@@ -560,25 +552,24 @@ class PurpleRating {
     this.validation,
   });
 
-  int? range;
-  int? ratingDefault;
-  List<PurpleOption>? options;
-  PurpleValidation? validation;
+  int range;
+  int ratingDefault;
+  List<PurpleOption> options;
+  PurpleValidation validation;
 
   factory PurpleRating.fromJson(Map<String, dynamic> json) => PurpleRating(
-        range: json["range"],
-        ratingDefault: json["default"],
-        options: List<PurpleOption>.from(
-            json["options"].map((x) => PurpleOption.fromJson(x))),
-        validation: PurpleValidation.fromJson(json["validation"]),
-      );
+    range: json["range"],
+    ratingDefault: json["default"],
+    options: List<PurpleOption>.from(json["options"].map((x) => PurpleOption.fromJson(x))),
+    validation: PurpleValidation.fromJson(json["validation"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "range": range,
-        "default": ratingDefault,
-        "options": List<dynamic>.from(options!.map((x) => x.toJson())),
-        "validation": validation?.toJson(),
-      };
+    "range": range,
+    "default": ratingDefault,
+    "options": List<dynamic>.from(options.map((x) => x.toJson())),
+    "validation": validation.toJson(),
+  };
 }
 
 class PurpleOption {
@@ -587,18 +578,18 @@ class PurpleOption {
     this.description,
   });
 
-  int? value;
-  String? description;
+  int value;
+  String description;
 
   factory PurpleOption.fromJson(Map<String, dynamic> json) => PurpleOption(
-        value: json["value"],
-        description: json["description"],
-      );
+    value: json["value"],
+    description: json["description"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "value": value,
-        "description": description,
-      };
+    "value": value,
+    "description": description,
+  };
 }
 
 class PurpleValidation {
@@ -607,19 +598,18 @@ class PurpleValidation {
     this.requiredCopy,
   });
 
-  bool? required;
-  String? requiredCopy;
+  bool required;
+  String requiredCopy;
 
-  factory PurpleValidation.fromJson(Map<String, dynamic> json) =>
-      PurpleValidation(
-        required: json["required"],
-        requiredCopy: json["requiredCopy"],
-      );
+  factory PurpleValidation.fromJson(Map<String, dynamic> json) => PurpleValidation(
+    required: json["required"],
+    requiredCopy: json["requiredCopy"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "required": required,
-        "requiredCopy": requiredCopy,
-      };
+    "required": required,
+    "requiredCopy": requiredCopy,
+  };
 }
 
 class Select {
@@ -629,22 +619,21 @@ class Select {
     this.validation,
   });
 
-  String? selectDefault;
-  List<SelectOption>? options;
-  ListValidation? validation;
+  String selectDefault;
+  List<SelectOption> options;
+  ListValidation validation;
 
   factory Select.fromJson(Map<String, dynamic> json) => Select(
-        selectDefault: json["default"],
-        options: List<SelectOption>.from(
-            json["options"].map((x) => SelectOption.fromJson(x))),
-        validation: ListValidation.fromJson(json["validation"]),
-      );
+    selectDefault: json["default"],
+    options: List<SelectOption>.from(json["options"].map((x) => SelectOption.fromJson(x))),
+    validation: ListValidation.fromJson(json["validation"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "default": selectDefault,
-        "options": List<dynamic>.from(options!.map((x) => x.toJson())),
-        "validation": validation?.toJson(),
-      };
+    "default": selectDefault,
+    "options": List<dynamic>.from(options.map((x) => x.toJson())),
+    "validation": validation.toJson(),
+  };
 }
 
 class SelectOption {
@@ -653,19 +642,27 @@ class SelectOption {
     this.label,
   });
 
-  String? value;
-  String? label;
+  String value;
+  String label;
 
   factory SelectOption.fromJson(Map<String, dynamic> json) => SelectOption(
-        value: json["value"],
-        label: json["label"],
-      );
+    value: json["value"],
+    label: json["label"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "value": value,
-        "label": label,
-      };
+    "value": value,
+    "label": label,
+  };
 }
+
+enum PurpleStyle { PURPLE_BLUE, GREY_PURPLE, BLUE_BLUE }
+
+final purpleStyleValues = EnumValues({
+  "BLUE_BLUE": PurpleStyle.BLUE_BLUE,
+  "GREY_PURPLE": PurpleStyle.GREY_PURPLE,
+  "PURPLE_BLUE": PurpleStyle.PURPLE_BLUE
+});
 
 class Sum {
   Sum({
@@ -674,21 +671,21 @@ class Sum {
     this.image,
   });
 
-  int? range;
-  int? sumDefault;
-  Image? image;
+  int range;
+  int sumDefault;
+  Image image;
 
   factory Sum.fromJson(Map<String, dynamic> json) => Sum(
-        range: json["range"],
-        sumDefault: json["default"],
-        image: Image.fromJson(json["image"]),
-      );
+    range: json["range"],
+    sumDefault: json["default"],
+    image: Image.fromJson(json["image"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "range": range,
-        "default": sumDefault,
-        "image": image?.toJson(),
-      };
+    "range": range,
+    "default": sumDefault,
+    "image": image.toJson(),
+  };
 }
 
 class PurpleTags {
@@ -698,9 +695,9 @@ class PurpleTags {
     this.children,
   });
 
-  List<TagsDefault>? tagsDefault;
-  String? autocompleteId;
-  List<TagsChild>? children;
+  List<TagsDefault> tagsDefault;
+  String autocompleteId;
+  List<TagsChild> children;
 
   factory PurpleTags.fromJson(Map<String, dynamic> json) => PurpleTags(
     tagsDefault: List<TagsDefault>.from(json["default"].map((x) => TagsDefault.fromJson(x))),
@@ -709,12 +706,11 @@ class PurpleTags {
   );
 
   Map<String, dynamic> toJson() => {
-    "default": List<dynamic>.from(tagsDefault!.map((x) => x.toJson())),
+    "default": List<dynamic>.from(tagsDefault.map((x) => x.toJson())),
     "autocompleteId": autocompleteId,
-    "children": List<dynamic>.from(children!.map((x) => x.toJson())),
+    "children": List<dynamic>.from(children.map((x) => x.toJson())),
   };
 }
-
 
 class TagsChild {
   TagsChild({
@@ -722,19 +718,18 @@ class TagsChild {
     this.items,
   });
 
-  FluffyCondition? condition;
-  List<FluffyItem>? items;
+  FluffyCondition condition;
+  List<FluffyItem> items;
 
   factory TagsChild.fromJson(Map<String, dynamic> json) => TagsChild(
-        condition: FluffyCondition.fromJson(json["condition"]),
-        items: List<FluffyItem>.from(
-            json["items"].map((x) => FluffyItem.fromJson(x))),
-      );
+    condition: FluffyCondition.fromJson(json["condition"]),
+    items: List<FluffyItem>.from(json["items"].map((x) => FluffyItem.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "condition": condition?.toJson(),
-        "items": List<dynamic>.from(items!.map((x) => x.toJson())),
-      };
+    "condition": condition.toJson(),
+    "items": List<dynamic>.from(items.map((x) => x.toJson())),
+  };
 }
 
 class FluffyCondition {
@@ -744,24 +739,21 @@ class FluffyCondition {
     this.relation,
   });
 
-  String? conditionOperator;
-  dynamic? value;
-  ConditionRelation? relation;
+  String conditionOperator;
+  dynamic value;
+  ConditionRelation relation;
 
-  factory FluffyCondition.fromJson(Map<String, dynamic> json) =>
-      FluffyCondition(
-        conditionOperator: json["operator"],
-        value: json["value"],
-        relation: json["relation"] == null
-            ? null
-            : ConditionRelation.fromJson(json["relation"]),
-      );
+  factory FluffyCondition.fromJson(Map<String, dynamic> json) => FluffyCondition(
+    conditionOperator: json["operator"],
+    value: json["value"],
+    relation: json["relation"] == null ? null : ConditionRelation.fromJson(json["relation"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "operator": conditionOperator,
-        "value": value,
-        "relation": relation == null ? null : relation?.toJson(),
-      };
+    "operator": conditionOperator,
+    "value": value,
+    "relation": relation == null ? null : relation.toJson(),
+  };
 }
 
 class ConditionRelation {
@@ -771,22 +763,21 @@ class ConditionRelation {
     this.contains,
   });
 
-  String? related;
-  String? property;
-  String? contains;
+  String related;
+  String property;
+  String contains;
 
-  factory ConditionRelation.fromJson(Map<String, dynamic> json) =>
-      ConditionRelation(
-        related: json["related"],
-        property: json["property"],
-        contains: json["contains"],
-      );
+  factory ConditionRelation.fromJson(Map<String, dynamic> json) => ConditionRelation(
+    related: json["related"],
+    property: json["property"],
+    contains: json["contains"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "related": related,
-        "property": property,
-        "contains": contains,
-      };
+    "related": related,
+    "property": property,
+    "contains": contains,
+  };
 }
 
 class FluffyItem {
@@ -800,34 +791,35 @@ class FluffyItem {
     this.tags,
   });
 
-  String? tid;
-  String? name;
-  String? description;
-  dynamic? category;
-  dynamic? style;
-  String? kind;
-  FluffyTags? tags;
+  String tid;
+  String name;
+  String description;
+  Category category;
+  PurpleStyle style;
+  String kind;
+  FluffyTags tags;
 
   factory FluffyItem.fromJson(Map<String, dynamic> json) => FluffyItem(
-        tid: json["tid"],
-        name: json["name"],
-        description: json["description"],
-        category: json["category"],
-        style: json["style"],
-        kind: json["kind"],
-        tags: FluffyTags.fromJson(json["tags"]),
-      );
+    tid: json["tid"],
+    name: json["name"],
+    description: json["description"],
+    category: categoryValues.map[json["category"]],
+    style: purpleStyleValues.map[json["style"]],
+    kind: json["kind"],
+    tags: FluffyTags.fromJson(json["tags"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "tid": tid,
-        "name": name,
-        "description": description,
-        "category": category,
-        "style": style,
-        "kind": kind,
-        "tags": tags?.toJson(),
-      };
+    "tid": tid,
+    "name": name,
+    "description": description,
+    "category": categoryValues.reverse[category],
+    "style": purpleStyleValues.reverse[style],
+    "kind": kind,
+    "tags": tags.toJson(),
+  };
 }
+
 class FluffyTags {
   FluffyTags({
     this.tagsDefault,
@@ -837,32 +829,29 @@ class FluffyTags {
     this.autocompleteId,
   });
 
-  List<TagsDefault>? tagsDefault;
-  String? source;
-  BoolListRelation? relation;
-  int? limit;
-  String? autocompleteId;
+  List<TagsDefault> tagsDefault;
+  String source;
+  BoolListRelation relation;
+  int limit;
+  String autocompleteId;
 
   factory FluffyTags.fromJson(Map<String, dynamic> json) => FluffyTags(
-        tagsDefault: List<TagsDefault>.from(
-            json["default"].map((x) => TagsDefault.fromJson(x))),
-        source: json["source"] == null ? null : json["source"],
-        relation: json["relation"] == null
-            ? null
-            : BoolListRelation.fromJson(json["relation"]),
-        limit: json["limit"] == null ? null : json["limit"],
-        autocompleteId:
-            json["autocompleteId"] == null ? null : json["autocompleteId"],
-      );
+    tagsDefault: List<TagsDefault>.from(json["default"].map((x) => TagsDefault.fromJson(x))),
+    source: json["source"] == null ? null : json["source"],
+    relation: json["relation"] == null ? null : BoolListRelation.fromJson(json["relation"]),
+    limit: json["limit"] == null ? null : json["limit"],
+    autocompleteId: json["autocompleteId"] == null ? null : json["autocompleteId"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "default": List<dynamic>.from(tagsDefault!.map((x) => x.toJson())),
-        "source": source == null ? null : source,
-        "relation": relation == null ? null : relation?.toJson(),
-        "limit": limit == null ? null : limit,
-        "autocompleteId": autocompleteId == null ? null : autocompleteId,
-      };
+    "default": List<dynamic>.from(tagsDefault.map((x) => x.toJson())),
+    "source": source == null ? null : source,
+    "relation": relation == null ? null : relation.toJson(),
+    "limit": limit == null ? null : limit,
+    "autocompleteId": autocompleteId == null ? null : autocompleteId,
+  };
 }
+
 class TagsDefault {
   TagsDefault({
     this.key,
@@ -870,21 +859,21 @@ class TagsDefault {
     this.required,
   });
 
-  String? key;
-  String? value;
-  bool? required;
+  String key;
+  String value;
+  bool required;
 
   factory TagsDefault.fromJson(Map<String, dynamic> json) => TagsDefault(
-        key: json["key"],
-        value: json["value"],
-        required: json["required"],
-      );
+    key: json["key"],
+    value: json["value"],
+    required: json["required"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "key": key,
-        "value": value,
-        "required": required,
-      };
+    "key": key,
+    "value": value,
+    "required": required,
+  };
 }
 
 class TextInput {
@@ -893,18 +882,18 @@ class TextInput {
     this.validation,
   });
 
-  String? textInputDefault;
-  TextInputValidation? validation;
+  String textInputDefault;
+  TextInputValidation validation;
 
   factory TextInput.fromJson(Map<String, dynamic> json) => TextInput(
-        textInputDefault: json["default"],
-        validation: TextInputValidation.fromJson(json["validation"]),
-      );
+    textInputDefault: json["default"],
+    validation: TextInputValidation.fromJson(json["validation"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "default": textInputDefault,
-        "validation": validation?.toJson(),
-      };
+    "default": textInputDefault,
+    "validation": validation.toJson(),
+  };
 }
 
 class TextInputValidation {
@@ -914,22 +903,21 @@ class TextInputValidation {
     this.max,
   });
 
-  RequiredClass? required;
-  Min? min;
-  Max? max;
+  RequiredClass required;
+  Min min;
+  Max max;
 
-  factory TextInputValidation.fromJson(Map<String, dynamic> json) =>
-      TextInputValidation(
-        required: RequiredClass.fromJson(json["required"]),
-        min: Min.fromJson(json["min"]),
-        max: Max.fromJson(json["max"]),
-      );
+  factory TextInputValidation.fromJson(Map<String, dynamic> json) => TextInputValidation(
+    required: RequiredClass.fromJson(json["required"]),
+    min: Min.fromJson(json["min"]),
+    max: Max.fromJson(json["max"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "required": required?.toJson(),
-        "min": min?.toJson(),
-        "max": max?.toJson(),
-      };
+    "required": required.toJson(),
+    "min": min.toJson(),
+    "max": max.toJson(),
+  };
 }
 
 class Max {
@@ -938,18 +926,18 @@ class Max {
     this.copy,
   });
 
-  int? max;
-  String? copy;
+  int max;
+  String copy;
 
   factory Max.fromJson(Map<String, dynamic> json) => Max(
-        max: json["max"],
-        copy: json["copy"],
-      );
+    max: json["max"],
+    copy: json["copy"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "max": max,
-        "copy": copy,
-      };
+    "max": max,
+    "copy": copy,
+  };
 }
 
 class Min {
@@ -958,18 +946,18 @@ class Min {
     this.copy,
   });
 
-  int? min;
-  String? copy;
+  int min;
+  String copy;
 
   factory Min.fromJson(Map<String, dynamic> json) => Min(
-        min: json["min"],
-        copy: json["copy"],
-      );
+    min: json["min"],
+    copy: json["copy"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "min": min,
-        "copy": copy,
-      };
+    "min": min,
+    "copy": copy,
+  };
 }
 
 class Toggle {
@@ -979,21 +967,21 @@ class Toggle {
     this.validation,
   });
 
-  bool? toggleDefault;
-  Options? options;
-  ListValidation? validation;
+  bool toggleDefault;
+  Options options;
+  ListValidation validation;
 
   factory Toggle.fromJson(Map<String, dynamic> json) => Toggle(
-        toggleDefault: json["default"],
-        options: Options.fromJson(json["options"]),
-        validation: ListValidation.fromJson(json["validation"]),
-      );
+    toggleDefault: json["default"],
+    options: Options.fromJson(json["options"]),
+    validation: ListValidation.fromJson(json["validation"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "default": toggleDefault,
-        "options": options?.toJson(),
-        "validation": validation?.toJson(),
-      };
+    "default": toggleDefault,
+    "options": options.toJson(),
+    "validation": validation.toJson(),
+  };
 }
 
 class Options {
@@ -1002,18 +990,18 @@ class Options {
     this.optionsFalse,
   });
 
-  False? optionsTrue;
-  False? optionsFalse;
+  False optionsTrue;
+  False optionsFalse;
 
   factory Options.fromJson(Map<String, dynamic> json) => Options(
-        optionsTrue: False.fromJson(json["true"]),
-        optionsFalse: False.fromJson(json["false"]),
-      );
+    optionsTrue: False.fromJson(json["true"]),
+    optionsFalse: False.fromJson(json["false"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "true": optionsTrue?.toJson(),
-        "false": optionsFalse?.toJson(),
-      };
+    "true": optionsTrue.toJson(),
+    "false": optionsFalse.toJson(),
+  };
 }
 
 class False {
@@ -1021,15 +1009,15 @@ class False {
     this.label,
   });
 
-  String? label;
+  String label;
 
   factory False.fromJson(Map<String, dynamic> json) => False(
-        label: json["label"],
-      );
+    label: json["label"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "label": label,
-      };
+    "label": label,
+  };
 }
 
 class Color {
@@ -1038,19 +1026,18 @@ class Color {
     this.options,
   });
 
-  dynamic? colorDefault;
-  List<ColorOption>? options;
+  dynamic colorDefault;
+  List<ColorOption> options;
 
   factory Color.fromJson(Map<String, dynamic> json) => Color(
-        colorDefault: json["default"],
-        options: List<ColorOption>.from(
-            json["options"].map((x) => ColorOption.fromJson(x))),
-      );
+    colorDefault: json["default"],
+    options: List<ColorOption>.from(json["options"].map((x) => ColorOption.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "default": colorDefault,
-        "options": List<dynamic>.from(options!.map((x) => x.toJson())),
-      };
+    "default": colorDefault,
+    "options": List<dynamic>.from(options.map((x) => x.toJson())),
+  };
 }
 
 class ColorOption {
@@ -1060,21 +1047,21 @@ class ColorOption {
     this.hex,
   });
 
-  String? value;
-  String? description;
-  String? hex;
+  String value;
+  String description;
+  String hex;
 
   factory ColorOption.fromJson(Map<String, dynamic> json) => ColorOption(
-        value: json["value"],
-        description: json["description"],
-        hex: json["hex"],
-      );
+    value: json["value"],
+    description: json["description"],
+    hex: json["hex"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "value": value,
-        "description": description,
-        "hex": hex,
-      };
+    "value": value,
+    "description": description,
+    "hex": hex,
+  };
 }
 
 class ItemCondition {
@@ -1083,18 +1070,18 @@ class ItemCondition {
     this.relation,
   });
 
-  String? conditionOperator;
-  ConditionRelation? relation;
+  String conditionOperator;
+  ConditionRelation relation;
 
   factory ItemCondition.fromJson(Map<String, dynamic> json) => ItemCondition(
-        conditionOperator: json["operator"],
-        relation: ConditionRelation.fromJson(json["relation"]),
-      );
+    conditionOperator: json["operator"],
+    relation: ConditionRelation.fromJson(json["relation"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "operator": conditionOperator,
-        "relation": relation?.toJson(),
-      };
+    "operator": conditionOperator,
+    "relation": relation.toJson(),
+  };
 }
 
 class FluffyList {
@@ -1102,16 +1089,15 @@ class FluffyList {
     this.options,
   });
 
-  List<ListOption>? options;
+  List<ListOption> options;
 
   factory FluffyList.fromJson(Map<String, dynamic> json) => FluffyList(
-        options: List<ListOption>.from(
-            json["options"].map((x) => ListOption.fromJson(x))),
-      );
+    options: List<ListOption>.from(json["options"].map((x) => ListOption.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "options": List<dynamic>.from(options!.map((x) => x.toJson())),
-      };
+    "options": List<dynamic>.from(options.map((x) => x.toJson())),
+  };
 }
 
 class FluffyRating {
@@ -1122,27 +1108,24 @@ class FluffyRating {
     this.validation,
   });
 
-  int? range;
-  int? ratingDefault;
-  List<FluffyOption>? options;
-  FluffyValidation? validation;
+  int range;
+  int ratingDefault;
+  List<FluffyOption> options;
+  FluffyValidation validation;
 
   factory FluffyRating.fromJson(Map<String, dynamic> json) => FluffyRating(
-        range: json["range"],
-        ratingDefault: json["default"],
-        options: List<FluffyOption>.from(
-            json["options"].map((x) => FluffyOption.fromJson(x))),
-        validation: json["validation"] == null
-            ? null
-            : FluffyValidation.fromJson(json["validation"]),
-      );
+    range: json["range"],
+    ratingDefault: json["default"],
+    options: List<FluffyOption>.from(json["options"].map((x) => FluffyOption.fromJson(x))),
+    validation: json["validation"] == null ? null : FluffyValidation.fromJson(json["validation"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "range": range,
-        "default": ratingDefault,
-        "options": List<dynamic>.from(options!.map((x) => x.toJson())),
-        "validation": validation == null ? null : validation?.toJson(),
-      };
+    "range": range,
+    "default": ratingDefault,
+    "options": List<dynamic>.from(options.map((x) => x.toJson())),
+    "validation": validation == null ? null : validation.toJson(),
+  };
 }
 
 class FluffyOption {
@@ -1153,24 +1136,24 @@ class FluffyOption {
     this.image,
   });
 
-  int? value;
-  String? label;
-  String? description;
-  Image? image;
+  int value;
+  String label;
+  String description;
+  Image image;
 
   factory FluffyOption.fromJson(Map<String, dynamic> json) => FluffyOption(
-        value: json["value"],
-        label: json["label"] == null ? null : json["label"],
-        description: json["description"] == null ? null : json["description"],
-        image: json["image"] == null ? null : Image.fromJson(json["image"]),
-      );
+    value: json["value"],
+    label: json["label"] == null ? null : json["label"],
+    description: json["description"] == null ? null : json["description"],
+    image: json["image"] == null ? null : Image.fromJson(json["image"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "value": value,
-        "label": label == null ? null : label,
-        "description": description == null ? null : description,
-        "image": image == null ? null : image?.toJson(),
-      };
+    "value": value,
+    "label": label == null ? null : label,
+    "description": description == null ? null : description,
+    "image": image == null ? null : image.toJson(),
+  };
 }
 
 class FluffyValidation {
@@ -1179,22 +1162,37 @@ class FluffyValidation {
     this.requiredCopy,
   });
 
-  dynamic? required;
-  String? requiredCopy;
+  dynamic required;
+  String requiredCopy;
 
-  factory FluffyValidation.fromJson(Map<String, dynamic> json) =>
-      FluffyValidation(
-        required: json["required"],
-        requiredCopy:
-            json["requiredCopy"] == null ? null : json["requiredCopy"],
-      );
+  factory FluffyValidation.fromJson(Map<String, dynamic> json) => FluffyValidation(
+    required: json["required"],
+    requiredCopy: json["requiredCopy"] == null ? null : json["requiredCopy"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "required": required,
-        "requiredCopy": requiredCopy == null ? null : requiredCopy,
-      };
+    "required": required,
+    "requiredCopy": requiredCopy == null ? null : requiredCopy,
+  };
 }
 
+enum FluffyStyle { PURPLE_BLUE, WHITE_WHITE }
 
+final fluffyStyleValues = EnumValues({
+  "PURPLE_BLUE": FluffyStyle.PURPLE_BLUE,
+  "WHITE_WHITE": FluffyStyle.WHITE_WHITE
+});
 
+class EnumValues<T> {
+  Map<String, T> map;
+  Map<T, String> reverseMap;
 
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    if (reverseMap == null) {
+      reverseMap = map.map((k, v) => new MapEntry(v, k));
+    }
+    return reverseMap;
+  }
+}
