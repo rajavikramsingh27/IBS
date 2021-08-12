@@ -11,7 +11,7 @@ import 'package:flutter_ibs/utils/Validator.dart';
 import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
-  var trackList = TrackablesListModel().obs;
+  Rx<TrackablesListModel> trackList = TrackablesListModel().obs;
   RxString selectedGender = "".obs;
   RxBool selectedMale = false.obs;
   RxBool selectedFeMale = false.obs;

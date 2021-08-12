@@ -132,8 +132,7 @@ class SignupStep2 extends StatelessWidget {
                       onChanged: (val) {
                         _controller.trackList.value.data[index].enabled =
                             !_controller.trackList.value.data[index].enabled;
-                        print(
-                            "bb:${_controller.trackList.value.data[index].enabled}");
+                        _controller.trackList.refresh();
                       },
                     ),
                     Text("${_controller.trackList.value.data[index].category}",
