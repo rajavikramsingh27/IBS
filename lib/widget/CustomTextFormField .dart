@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -56,8 +55,7 @@ class CustomTextFormField extends StatelessWidget {
         readOnly: readOnly,
         focusNode: currentFocus,
         inputFormatters: inputFormatters,
-        onEditingComplete: () =>
-            FocusScope.of(context).requestFocus(nextFocus),
+        onEditingComplete: () => FocusScope.of(context).requestFocus(nextFocus),
         controller: controller,
         validator: validationFunction as String Function(String),
         onSaved: onSavedFunction,
@@ -72,12 +70,11 @@ class CustomTextFormField extends StatelessWidget {
           hintText: hintText,
           hintStyle:
               TextStyles.textStyleIntroDescription.apply(fontSizeFactor: 0.7),
+          // border: InputBorder.none,
           border: OutlineInputBorder(
+            borderSide: BorderSide.none,
             borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Colors.transparent,width: 0)
-            
           ),
-
           isDense: true,
 
           // focusedBorder: OutlineInputBorder(

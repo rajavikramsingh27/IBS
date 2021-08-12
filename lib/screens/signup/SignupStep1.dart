@@ -58,9 +58,11 @@ class SignupStep1 extends StatelessWidget {
                 ],
               ),
             ),
-            BottomWidget(
-                onContinueTap: () => Get.toNamed(signup2),
-                onCircleTap: () => Get.toNamed(signup2))
+            BottomWidget(onContinueTap: () {
+              _controller.navigateTonextScreen();
+            }, onCircleTap: () {
+              _controller.navigateTonextScreen();
+            })
           ],
         ));
   }
@@ -134,7 +136,8 @@ class SignupStep1 extends StatelessWidget {
                       if (_controller.selectedFeMale.value == true) {
                         _controller.selectedMale.value = false;
                         _controller.selectedOtherGender.value = false;
-                      }
+                      } else
+                        _controller.selectedGender.value = "";
                     },
                   ),
                 ),
@@ -156,7 +159,8 @@ class SignupStep1 extends StatelessWidget {
                       if (_controller.selectedMale.value == true) {
                         _controller.selectedFeMale.value = false;
                         _controller.selectedOtherGender.value = false;
-                      }
+                      } else
+                        _controller.selectedGender.value = "";
                     },
                   ),
                 ),
@@ -179,7 +183,8 @@ class SignupStep1 extends StatelessWidget {
                       if (_controller.selectedOtherGender.value == true) {
                         _controller.selectedFeMale.value = false;
                         _controller.selectedMale.value = false;
-                      }
+                      } else
+                        _controller.selectedGender.value = "";
                     },
                   ),
                 ),
@@ -292,7 +297,8 @@ class SignupStep1 extends StatelessWidget {
                       if (_controller.selectedIbsHistoryYes.value == true) {
                         _controller.selectedIbsHistoryNo.value = false;
                         _controller.selectedIbsHistoryUnsure.value = false;
-                      }
+                      } else
+                        _controller.selectedIbsHistory.value = "";
                     },
                   ),
                 ),
@@ -314,7 +320,8 @@ class SignupStep1 extends StatelessWidget {
                       if (_controller.selectedIbsHistoryNo.value == true) {
                         _controller.selectedIbsHistoryYes.value = false;
                         _controller.selectedIbsHistoryUnsure.value = false;
-                      }
+                      } else
+                        _controller.selectedIbsHistory.value = "";
                     },
                   ),
                 ),
@@ -336,7 +343,8 @@ class SignupStep1 extends StatelessWidget {
                       if (_controller.selectedIbsHistoryUnsure.value == true) {
                         _controller.selectedIbsHistoryNo.value = false;
                         _controller.selectedIbsHistoryYes.value = false;
-                      }
+                      } else
+                        _controller.selectedIbsHistory.value = "";
                     },
                   ),
                 ),

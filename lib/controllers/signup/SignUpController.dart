@@ -7,7 +7,6 @@ import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
-import 'package:flutter_ibs/utils/Validator.dart';
 import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
@@ -16,6 +15,7 @@ class SignUpController extends GetxController {
   RxBool selectedMale = false.obs;
   RxBool selectedFeMale = false.obs;
   RxBool selectedOtherGender = false.obs;
+  List<String> symptomsList = [];
 
   RxString selectedAge = "<20".obs;
   List<String> ageList = [
@@ -67,7 +67,6 @@ class SignUpController extends GetxController {
       print("validate");
       bool check = await ConnectionCheck().initConnectivity();
       if (check) {
-        Get.dialog(Center(), barrierDismissible: false);
         try {
           registrationApi();
         } catch (e) {
@@ -86,21 +85,40 @@ class SignUpController extends GetxController {
   registrationApi() async {
     final MyProfileController _myProFileController = Get.find();
     DiagnosedIbsSendModel diagnoisedModel = DiagnosedIbsSendModel(
-      isDiagnosed: _myProFileController.isDiagnoisedIbs.value??false,
+      isDiagnosed: _myProFileController.isDiagnoisedIbs.value ?? false,
       ibsType: _myProFileController
           .selectIbsType(_myProFileController.selctedIbsType.value),
     );
     RomeivSendModel romeivSendModel = RomeivSendModel(
-      abdominalPain: _myProFileController.isDiagnoisedAbdominalPain.value??false,
+      abdominalPain:
+          _myProFileController.isDiagnoisedAbdominalPain.value ?? false,
       abdominalPainBowelAppearDifferent:
-          _myProFileController.isabdominalPainBowelAppearDifferent.value??false,
+          _myProFileController.isabdominalPainBowelAppearDifferent.value ??
+              false,
       abdominalPainBowelMoreLess:
-          _myProFileController.isabdominalPainBowelMoreLess.value??false,
+          _myProFileController.isabdominalPainBowelMoreLess.value ?? false,
       abdominalPainTimeBowel:
-          _myProFileController.isabdominalPainTimeBowel.value??false,
-      stool: _myProFileController
-          .selectStoolType(_myProFileController.selectedStoolType.value??null),
+          _myProFileController.isabdominalPainTimeBowel.value ?? false,
+      stool: _myProFileController.selectStoolType(
+          _myProFileController.selectedStoolType.value ?? null),
     );
+    trackList.value.data.forEach((element) {
+      if (element.tid == "symptoms") {
+        element.items.forEach((el) {
+          if (el.enabledDefault ?? false) {
+            symptomsList.add(el.name);
+          }
+        });
+      }
+      // if (element.tid == "symptoms") {}
+      // if (element.tid == "symptoms") {}
+      // if (element.tid == "symptoms") {}
+      // if (element.tid == "symptoms") {}
+      // if (element.tid == "symptoms") {}
+    });
+
+    TrackingSendModel trackModel = TrackingSendModel(symptoms: symptomsList);
+    print("track: ${trackModel.toJson()}");
     ProfileSendModel profileModel = ProfileSendModel(
         sex: selectedGender.value,
         age: selectedAge.value,
@@ -112,23 +130,15 @@ class SignUpController extends GetxController {
       password: passwordController?.text,
       agreeTos: agreeToTerms.value,
       profile: profileModel,
-      tracking:trackList.value,
-
-      // profile:
+      tracking: trackModel,
     );
+    print("data: ${model.toJson()}");
     final data = await ServiceApi().signupApi(bodyData: model.toJson());
 
     if (data is SignupResponseModel) {
-      if (data.loginId.isNotEmpty) {
-        // Get.back();
-        CustomSnackBar().successSnackBar(
-            title: "Success", message: "Registered Successfully");
-        Get.offAllNamed(logIn);
-      } else {
-        Get.back();
-        CustomSnackBar()
-            .errorSnackBar(title: "Error", message: "Something went wrong");
-      }
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Registered Successfully");
+      Get.offAllNamed(logIn);
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
@@ -139,27 +149,36 @@ class SignUpController extends GetxController {
       trackList.value = value;
     });
   }
+
   bool isFormValid() {
-    if (emailController.text.isEmpty ) {
-      CustomSnackBar().successSnackBar(title: "dhfd",
-          message: Validator().validateEmail(emailController.text));
+    if (agreeToTerms.value == false) {
+      CustomSnackBar().errorSnackBar(
+          title: "Terms and Condition",
+          message: "Agree to Terms and Condition");
 
       return false;
-
-    // } else if (_dobTextController.text.isEmpty) {
-    //   showEasyAlert(context, "Please Select Date of Birth", () {});
-    //   return false;
-    // } else if (_genderTextController.text.isEmpty) {
-    //   showEasyAlert(context, "Please Select Gender", () {});
-    //   return false;
-    // } else if (_stateController.text.isEmpty) {
-    //   showEasyAlert(context, "Please Select State", () {});
-    //   return false;
-    // } else if (_cityController.text.isEmpty) {
-    //   showEasyAlert(context, "Please Select City", () {});
-    //   return false;
-    // } else {
-    //   return true;
+    } else if (passwordController.text != confirmPasswordController.text) {
+      CustomSnackBar()
+          .errorSnackBar(title: "Password", message: "Password do not match");
     }
+    return false;
+  }
+
+  bool isFormStep1valid() {
+    if (selectedGender.isEmpty) {
+      CustomSnackBar().errorSnackBar(title: "Sex", message: "Select Your Sex");
+
+      return false;
+    } else if (selectedIbsHistory.isEmpty) {
+      CustomSnackBar().errorSnackBar(
+          title: "Ibs History", message: "Select Your Ibs History");
+
+      return false;
+    } else
+      return true;
+  }
+
+  navigateTonextScreen() {
+    if (isFormStep1valid()) Get.toNamed(signup2);
   }
 }

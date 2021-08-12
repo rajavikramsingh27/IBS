@@ -170,9 +170,14 @@ class SignupStep2 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             CustomCheckBox(
-                              value: subModel.enabledDefault,
+                              value: _controller.trackList.value.data[index]
+                                  .items[idx].enabledDefault,
                               onChanged: (val) {
-                                //do your stuff here
+                                _controller.trackList.value.data[index]
+                                        .items[idx].enabledDefault =
+                                    !_controller.trackList.value.data[index]
+                                        .items[idx].enabledDefault;
+                                _controller.trackList.refresh();
                               },
                             ),
                             Expanded(
@@ -202,15 +207,18 @@ class SignupStep2 extends StatelessWidget {
                                   itemBuilder: (BuildContext context, int idx) {
                                     var subModelChild =
                                         subModel.children.last.items[idx];
+
                                     return Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
                                         CustomCheckBox(
-                                          value:
-                                              subModel.enabledDefault,
+                                          value: subModelChild.enabledDefault ??
+                                              true,
                                           onChanged: (val) {
-                                            //do your stuff here
+                                            subModelChild.enabledDefault =
+                                                !subModelChild.enabledDefault;
+                                            _controller.trackList.refresh();
                                           },
                                         ),
                                         Expanded(

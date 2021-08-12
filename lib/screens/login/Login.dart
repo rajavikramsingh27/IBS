@@ -78,6 +78,7 @@ class Login extends StatelessWidget {
             padding: ScreenConstant.spacingAllSmall,
             child: Image.asset(
               Assets.verified,
+              height: 20,
             ),
           ),
         ),
@@ -94,6 +95,7 @@ class Login extends StatelessWidget {
             padding: ScreenConstant.spacingAllSmall,
             child: Image.asset(
               Assets.password,
+              height: 20,
             ),
           ),
         ),

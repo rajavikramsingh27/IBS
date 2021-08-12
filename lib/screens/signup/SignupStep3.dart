@@ -45,17 +45,17 @@ class SignupStep3 extends StatelessWidget {
           color: AppColors.colorBackground,
           child: _controller.loader.value
               ? CircularProgressIndicator(
-            backgroundColor: Colors.white,
-            strokeWidth: 2,
-          )
+                  backgroundColor: Colors.white,
+                  strokeWidth: 2,
+                )
               : CustomElevatedButton3(
-            widthFactor: 0.8,
-            text: "I am done!",
-            onTap: () {
-               if (_controller.isFormValid()==false || _controller.loader.value) return;
-              _controller.onAutovalidate();
-            },
-          ),
+                  widthFactor: 0.8,
+                  text: "I am done!",
+                  onTap: () {
+                    if (_controller.isFormValid() || !_controller.loader.value)
+                      _controller.onAutovalidate();
+                  },
+                ),
         ),
         body: InkWell(
           onTap: () {
@@ -143,14 +143,13 @@ class SignupStep3 extends StatelessWidget {
   _buildSignupForm() {
     return Form(
       key: _controller.formKey,
-      child: ListView(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        // crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
-              AspectRatio(aspectRatio: 1.6, child: Image.asset(Assets.signupBg1)),
+              AspectRatio(
+                  aspectRatio: 1.6, child: Image.asset(Assets.signupBg1)),
               Positioned(
                   bottom: ScreenConstant.defaultHeightSixty,
                   left: ScreenConstant.sizeXXXL,
@@ -230,7 +229,7 @@ class SignupStep3 extends StatelessWidget {
               inputFormatters: [LengthLimitingTextInputFormatter(50)],
               currentFocus: focusRePassWord,
               nextFocus: focusNone,
-              textInputAction : TextInputAction.done,
+              textInputAction: TextInputAction.done,
               suffixIcon: IconButton(
                 icon: Icon(
                   _controller.isPasswordVisible.value
@@ -257,8 +256,8 @@ class SignupStep3 extends StatelessWidget {
                       .apply(fontSizeFactor: 0.7)),
               child: Text(
                 "Why create an account ?",
-                style:
-                    TextStyles.textStyleIntroDescription.apply(fontSizeDelta: -4),
+                style: TextStyles.textStyleIntroDescription
+                    .apply(fontSizeDelta: -4),
               ),
             ),
           ),
