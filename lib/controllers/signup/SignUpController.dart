@@ -7,6 +7,7 @@ import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
+import 'package:flutter_ibs/utils/Validator.dart';
 import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
@@ -85,20 +86,20 @@ class SignUpController extends GetxController {
   registrationApi() async {
     final MyProfileController _myProFileController = Get.find();
     DiagnosedIbsSendModel diagnoisedModel = DiagnosedIbsSendModel(
-      isDiagnosed: _myProFileController.isDiagnoisedIbs.value,
+      isDiagnosed: _myProFileController.isDiagnoisedIbs.value??false,
       ibsType: _myProFileController
           .selectIbsType(_myProFileController.selctedIbsType.value),
     );
     RomeivSendModel romeivSendModel = RomeivSendModel(
-      abdominalPain: _myProFileController.isDiagnoisedAbdominalPain.value,
+      abdominalPain: _myProFileController.isDiagnoisedAbdominalPain.value??false,
       abdominalPainBowelAppearDifferent:
-          _myProFileController.isabdominalPainBowelAppearDifferent.value,
+          _myProFileController.isabdominalPainBowelAppearDifferent.value??false,
       abdominalPainBowelMoreLess:
-          _myProFileController.isabdominalPainBowelMoreLess.value,
+          _myProFileController.isabdominalPainBowelMoreLess.value??false,
       abdominalPainTimeBowel:
-          _myProFileController.isabdominalPainTimeBowel.value,
+          _myProFileController.isabdominalPainTimeBowel.value??false,
       stool: _myProFileController
-          .selectStoolType(_myProFileController.selectedStoolType.value),
+          .selectStoolType(_myProFileController.selectedStoolType.value??null),
     );
     ProfileSendModel profileModel = ProfileSendModel(
         sex: selectedGender.value,
@@ -137,5 +138,28 @@ class SignUpController extends GetxController {
     await ServiceApi().getTrackables().then((value) {
       trackList.value = value;
     });
+  }
+  bool isFormValid() {
+    if (emailController.text.isEmpty ) {
+      CustomSnackBar().successSnackBar(title: "dhfd",
+          message: Validator().validateEmail(emailController.text));
+
+      return false;
+
+    // } else if (_dobTextController.text.isEmpty) {
+    //   showEasyAlert(context, "Please Select Date of Birth", () {});
+    //   return false;
+    // } else if (_genderTextController.text.isEmpty) {
+    //   showEasyAlert(context, "Please Select Gender", () {});
+    //   return false;
+    // } else if (_stateController.text.isEmpty) {
+    //   showEasyAlert(context, "Please Select State", () {});
+    //   return false;
+    // } else if (_cityController.text.isEmpty) {
+    //   showEasyAlert(context, "Please Select City", () {});
+    //   return false;
+    // } else {
+    //   return true;
+    }
   }
 }

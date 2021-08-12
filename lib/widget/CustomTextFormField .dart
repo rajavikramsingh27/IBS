@@ -42,52 +42,54 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: ScreenConstant.defaultHeightForty * 1.2,
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(8)),
-      child: TextFormField(
-          textAlignVertical: TextAlignVertical.bottom,
-          enableInteractiveSelection: false,
-          cursorColor: Colors.black,
-          style: TextStyles.textStyleIntroDescription
-              .apply(fontSizeFactor: 0.7, color: Colors.black87),
-          onTap: onTap as void Function(),
-          textInputAction: textInputAction,
-          keyboardType: keyboardType,
-          obscureText: obscureText,
-          maxLines: 1,
-          readOnly: readOnly,
-          focusNode: currentFocus,
-          inputFormatters: inputFormatters,
-          onEditingComplete: () =>
-              FocusScope.of(context).requestFocus(nextFocus),
-          controller: controller,
-          validator: validationFunction as String Function(String),
-          onSaved: onSavedFunction,
-          onChanged: onchangedFunction,
-          onFieldSubmitted: onSavedFunction,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(left: 20, bottom: 16),
-            suffixIcon: suffixIcon,
-            prefixIcon: prefixIcon,
-            hintText: hintText,
-            hintStyle:
-                TextStyles.textStyleIntroDescription.apply(fontSizeFactor: 0.7),
-            border: InputBorder.none,
-            isDense: true,
+    return TextFormField(
+        textAlignVertical: TextAlignVertical.bottom,
+        enableInteractiveSelection: false,
+        cursorColor: Colors.black,
+        style: TextStyles.textStyleIntroDescription
+            .apply(fontSizeFactor: 0.7, color: Colors.black87),
+        onTap: onTap as void Function(),
+        textInputAction: textInputAction,
+        keyboardType: keyboardType,
+        obscureText: obscureText,
+        maxLines: 1,
+        readOnly: readOnly,
+        focusNode: currentFocus,
+        inputFormatters: inputFormatters,
+        onEditingComplete: () =>
+            FocusScope.of(context).requestFocus(nextFocus),
+        controller: controller,
+        validator: validationFunction as String Function(String),
+        onSaved: onSavedFunction,
+        onChanged: onchangedFunction,
+        onFieldSubmitted: onSavedFunction,
+        decoration: InputDecoration(
+          fillColor: Colors.white,
+          filled: true,
+          contentPadding: EdgeInsets.only(left: 20, bottom: 16),
+          suffixIcon: suffixIcon,
+          prefixIcon: prefixIcon,
+          hintText: hintText,
+          hintStyle:
+              TextStyles.textStyleIntroDescription.apply(fontSizeFactor: 0.7),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Colors.transparent,width: 0)
+            
+          ),
 
-            // focusedBorder: OutlineInputBorder(
-            //   borderSide: BorderSide(color: colorButtton, width: 1.0),
-            // ),
-            // enabledBorder: OutlineInputBorder(
-            //   borderSide: BorderSide(color: Colors.grey[50], width: 1.0),
-            // ),
-            // errorBorder: UnderlineInputBorder(
-            //   borderSide: BorderSide(color: colorButtton),
-            // ),
-          )),
-    );
+          isDense: true,
+
+          // focusedBorder: OutlineInputBorder(
+          //   borderSide: BorderSide(color: colorButtton, width: 1.0),
+          // ),
+          // enabledBorder: OutlineInputBorder(
+          //   borderSide: BorderSide(color: Colors.grey[50], width: 1.0),
+          // ),
+          // errorBorder: UnderlineInputBorder(
+          //   borderSide: BorderSide(color: colorButtton),
+          // ),
+        ));
   }
 }
 
