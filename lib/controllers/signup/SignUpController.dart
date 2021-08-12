@@ -111,6 +111,7 @@ class SignUpController extends GetxController {
       password: passwordController?.text,
       agreeTos: agreeToTerms.value,
       profile: profileModel,
+      tracking:trackList.value,
 
       // profile:
     );

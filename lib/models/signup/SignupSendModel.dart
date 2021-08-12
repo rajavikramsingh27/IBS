@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
+
 SignupSendModel loginResponseModelFromJson(String str) =>
     SignupSendModel.fromJson(json.decode(str));
 
@@ -27,7 +29,7 @@ class SignupSendModel {
   });
 
   ProfileSendModel profile;
-  Tracking tracking;
+  TrackablesListModel tracking;
   Tags tags;
   List<dynamic> treatmentPlans;
   String id;
@@ -43,7 +45,7 @@ class SignupSendModel {
   factory SignupSendModel.fromJson(Map<String, dynamic> json) =>
       SignupSendModel(
         profile: ProfileSendModel.fromJson(json["profile"]),
-        tracking: Tracking.fromJson(json["tracking"]),
+        tracking: TrackablesListModel.fromJson(json["tracking"]),
         tags: Tags.fromJson(json["tags"]),
         treatmentPlans:
             List<dynamic>.from(json["treatmentPlans"].map((x) => x)),
@@ -224,35 +226,4 @@ class Tags {
       };
 }
 
-class Tracking {
-  Tracking({
-    this.symptoms,
-    this.bowelMovements,
-    this.medications,
-    this.healthWelleness,
-    this.foods,
-  });
 
-  List<String> symptoms;
-  List<String> bowelMovements;
-  List<dynamic> medications;
-  List<dynamic> healthWelleness;
-  List<dynamic> foods;
-
-  factory Tracking.fromJson(Map<String, dynamic> json) => Tracking(
-        symptoms: List<String>.from(json["symptoms"].map((x) => x)),
-        bowelMovements: List<String>.from(json["bowelMovements"].map((x) => x)),
-        medications: List<dynamic>.from(json["medications"].map((x) => x)),
-        healthWelleness:
-            List<dynamic>.from(json["healthWelleness"].map((x) => x)),
-        foods: List<dynamic>.from(json["foods"].map((x) => x)),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "symptoms": List<dynamic>.from(symptoms.map((x) => x)),
-        "bowelMovements": List<dynamic>.from(bowelMovements.map((x) => x)),
-        "medications": List<dynamic>.from(medications.map((x) => x)),
-        "healthWelleness": List<dynamic>.from(healthWelleness.map((x) => x)),
-        "foods": List<dynamic>.from(foods.map((x) => x)),
-      };
-}

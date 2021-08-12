@@ -190,8 +190,8 @@ class SignupStep3 extends StatelessWidget {
             controller: _controller.passwordController,
             inputFormatters: [LengthLimitingTextInputFormatter(50)],
             textInputAction: TextInputAction.done,
-            currentFocus: focusRePassWord,
-            nextFocus: focusNone,
+            currentFocus: focusPassWord,
+            nextFocus: focusRePassWord,
             suffixIcon: IconButton(
               icon: Icon(
                 _controller.isPasswordVisible.value
@@ -217,8 +217,9 @@ class SignupStep3 extends StatelessWidget {
             obscureText: _controller.isPasswordVisible.value,
             controller: _controller.confirmPasswordController,
             inputFormatters: [LengthLimitingTextInputFormatter(50)],
-            currentFocus: focusPassWord,
-            nextFocus: focusRePassWord,
+            currentFocus: focusRePassWord,
+            nextFocus: focusNone,
+            textInputAction : TextInputAction.done,
             suffixIcon: IconButton(
               icon: Icon(
                 _controller.isPasswordVisible.value

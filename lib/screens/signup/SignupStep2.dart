@@ -3,7 +3,6 @@ import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
-import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/BottomWidget.dart';
@@ -42,23 +41,27 @@ class SignupStep2 extends StatelessWidget {
         //     },
         //   ),
         // ),
-        body: Obx(()=>_controller.loader.value?Center(child: CircularProgressIndicator(),):Stack(
-          children: [
-            ListView(
-              physics: ClampingScrollPhysics(),
-              padding: ScreenConstant.spacingAllLarge,
-              children: [
-                _buildTrackingOptions(),
-                _buildTrackingList(),
-                SizedBox(height: ScreenConstant.defaultHeightSixteen),
-                SizedBox(height: ScreenConstant.defaultHeightOneHundred)
-              ],
-            ),
-            BottomWidget(
-                onContinueTap: () => Get.toNamed(signup3),
-                onCircleTap: () => Get.toNamed(signup3))
-          ],
-        )));
+        body: Obx(() => _controller.loader.value
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Stack(
+                children: [
+                  ListView(
+                    physics: ClampingScrollPhysics(),
+                    padding: ScreenConstant.spacingAllLarge,
+                    children: [
+                      _buildTrackingOptions(),
+                      _buildTrackingList(),
+                      SizedBox(height: ScreenConstant.defaultHeightSixteen),
+                      SizedBox(height: ScreenConstant.defaultHeightOneHundred)
+                    ],
+                  ),
+                  BottomWidget(
+                      onContinueTap: () => Get.toNamed(signup3),
+                      onCircleTap: () => Get.toNamed(signup3))
+                ],
+              )));
   }
 
   _buildTrackingOptions() {
@@ -111,7 +114,6 @@ class SignupStep2 extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       itemCount: _controller.trackList.value.data?.length ?? 0,
       itemBuilder: (_, index) {
-        var model = _controller.trackList.value.data[index];
         return Theme(
           data: Get.theme.copyWith(dividerColor: Colors.transparent),
           child: CustomExpansionTile(
@@ -126,12 +128,16 @@ class SignupStep2 extends StatelessWidget {
                   children: [
                     CustomCheckBox(
                       checkedFillColor: AppColors.colorYesButton,
-                      value: model.enabled??true,
+                      value: _controller.trackList.value.data[index].enabled ??
+                          true,
                       onChanged: (val) {
-                        //do your stuff here
+                        _controller.trackList.value.data[index].enabled =
+                            !_controller.trackList.value.data[index].enabled;
+                        print(
+                            "bb:${_controller.trackList.value.data[index].enabled}");
                       },
                     ),
-                    Text("${model.category}",
+                    Text("${_controller.trackList.value.data[index].category}",
                         style: TextStyles.textStyleIntroDescription
                             .apply(color: Colors.white, fontSizeDelta: -3)),
                     Spacer(),
@@ -153,28 +159,75 @@ class SignupStep2 extends StatelessWidget {
                   child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: model.items.length,
+                    itemCount:
+                        _controller.trackList.value.data[index].items.length,
                     itemBuilder: (BuildContext context, int idx) {
-                      var subModel = model.items[idx];
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                      var subModel =
+                          _controller.trackList.value.data[index].items[idx];
+                      return CustomExpansionTile(
+                        tilePadding: EdgeInsets.zero,
+                        onExpansionChanged: (isExpanding) {},
+                        initiallyExpanded: true,
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CustomCheckBox(
+                              value: subModel.enabledDefault ?? true,
+                              onChanged: (val) {
+                                //do your stuff here
+                              },
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                  onTap: () {},
+                                  child: Text(
+                                    "${subModel.name}",
+                                    style: TextStyles.textStyleRegular
+                                        .apply(color: Colors.black),
+                                    maxLines: 1,
+                                    textAlign: TextAlign.left,
+                                    overflow: TextOverflow.ellipsis,
+                                  )),
+                            )
+                          ],
+                        ),
                         children: [
-                          CustomCheckBox(
-                            value: subModel.enabledDefault ?? true,
-                            onChanged: (val) {
-                              //do your stuff here
-                            },
-                          ),
-                          Expanded(
-                            child: InkWell(
-                                onTap: () {},
-                                child: Text(
-                                  "${subModel.name}",
-                                  maxLines: 1,
-                                  textAlign: TextAlign.left,
-                                  overflow: TextOverflow.ellipsis,
-                                )),
-                          )
+                          subModel?.children?.isEmpty ?? true
+                              ? Offstage()
+                              : ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  padding: EdgeInsets.only(
+                                      left: ScreenConstant.sizeExtraLarge),
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      subModel.children.last.items.length,
+                                  itemBuilder: (BuildContext context, int idx) {
+                                    var subModelChild =
+                                        subModel.children.last.items[idx];
+                                    return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        CustomCheckBox(
+                                          value:
+                                              subModel.enabledDefault ?? true,
+                                          onChanged: (val) {
+                                            //do your stuff here
+                                          },
+                                        ),
+                                        Expanded(
+                                          child: InkWell(
+                                              onTap: () {},
+                                              child: Text(
+                                                "${subModelChild.name}",
+                                                maxLines: 1,
+                                                textAlign: TextAlign.left,
+                                                overflow: TextOverflow.ellipsis,
+                                              )),
+                                        )
+                                      ],
+                                    );
+                                  })
                         ],
                       );
                     },

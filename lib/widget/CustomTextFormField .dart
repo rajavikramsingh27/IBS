@@ -68,7 +68,7 @@ class CustomTextFormField extends StatelessWidget {
           onChanged: onchangedFunction,
           onFieldSubmitted: onSavedFunction,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            contentPadding: EdgeInsets.only(left: 20, bottom: 16),
             suffixIcon: suffixIcon,
             prefixIcon: prefixIcon,
             hintText: hintText,
