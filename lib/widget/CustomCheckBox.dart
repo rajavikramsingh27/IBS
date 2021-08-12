@@ -115,7 +115,6 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
       onPressed: () {
         setState(() {
           widget.onChanged(!_checked);
-          print("sdfdf:${!_checked}");
         });
       },
     );
