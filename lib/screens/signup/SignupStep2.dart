@@ -128,8 +128,7 @@ class SignupStep2 extends StatelessWidget {
                   children: [
                     CustomCheckBox(
                       checkedFillColor: AppColors.colorYesButton,
-                      value: _controller.trackList.value.data[index].enabled ??
-                          true,
+                      value: _controller.trackList.value.data[index].enabled,
                       onChanged: (val) {
                         _controller.trackList.value.data[index].enabled =
                             !_controller.trackList.value.data[index].enabled;
@@ -172,7 +171,7 @@ class SignupStep2 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             CustomCheckBox(
-                              value: subModel.enabledDefault ?? true,
+                              value: subModel.enabledDefault,
                               onChanged: (val) {
                                 //do your stuff here
                               },
@@ -210,7 +209,7 @@ class SignupStep2 extends StatelessWidget {
                                       children: [
                                         CustomCheckBox(
                                           value:
-                                              subModel.enabledDefault ?? true,
+                                              subModel.enabledDefault,
                                           onChanged: (val) {
                                             //do your stuff here
                                           },
