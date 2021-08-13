@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
 import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
 import 'package:flutter_ibs/models/signup/SignupSendModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
+import 'package:flutter_ibs/screens/symptoms/Symptoms.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
@@ -15,7 +17,12 @@ class SignUpController extends GetxController {
   RxBool selectedMale = false.obs;
   RxBool selectedFeMale = false.obs;
   RxBool selectedOtherGender = false.obs;
-  List<String> symptomsList = [];
+  List<DatumItem> symptomsList = [];
+  List<DatumItem> bowelMoveList = [];
+  List<DatumItem> foodList = [];
+  List<DatumItem> wellnessList = [];
+  List<DatumItem> medicationList = [];
+  List<DatumItem> journalList = [];
 
   RxString selectedAge = "<20".obs;
   List<String> ageList = [
@@ -106,19 +113,49 @@ class SignUpController extends GetxController {
       if (element.tid == "symptoms") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
-            symptomsList.add(el.name);
+            symptomsList.add(el);
+          }
+        });
+      } else if (element.tid == "bowel_movements") {
+        element.items.forEach((el) {
+          if (el.enabledDefault ?? false) {
+            bowelMoveList.add(el);
           }
         });
       }
-      // if (element.tid == "symptoms") {}
-      // if (element.tid == "symptoms") {}
-      // if (element.tid == "symptoms") {}
-      // if (element.tid == "symptoms") {}
-      // if (element.tid == "symptoms") {}
+      if (element.tid == "food") {
+        element.items.forEach((el) {
+          if (el.enabledDefault ?? false) {
+            foodList.add(el);
+          }
+        });
+      }
+      if (element.tid == "wellness") {
+        element.items.forEach((el) {
+          if (el.enabledDefault ?? false) {
+            wellnessList.add(el);
+          }
+        });
+      }
+      if (element.tid == "medications") {
+        element.items.forEach((el) {
+          if (el.enabledDefault ?? false) {
+            bowelMoveList.add(el);
+          }
+        });
+      }
+      if (element.tid == "journal") {
+        element.items.forEach((el) {
+          if (el.enabledDefault ?? false) {
+            bowelMoveList.add(el);
+          }
+        });
+      }
     });
 
-    TrackingSendModel trackModel = TrackingSendModel(symptoms: symptomsList);
-    print("track: ${trackModel.toJson()}");
+    TrackingSendModel trackModel = TrackingSendModel(
+        symptoms: symptomsList, bowelMovements: bowelMoveList);
+    // print("track: ${trackModel.toJson()}");
     ProfileSendModel profileModel = ProfileSendModel(
         sex: selectedGender.value,
         age: selectedAge.value,
@@ -136,9 +173,12 @@ class SignUpController extends GetxController {
     final data = await ServiceApi().signupApi(bodyData: model.toJson());
 
     if (data is SignupResponseModel) {
+      HiveStore().put(Keys.LOGINID, data.loginId);
+      HiveStore().put(Keys.EMAIL, data.email);
+      Get.offAllNamed(logIn, arguments: [data.loginId, data.email]);
+
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Registered Successfully");
-      Get.offAllNamed(logIn);
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
@@ -180,5 +220,22 @@ class SignUpController extends GetxController {
 
   navigateTonextScreen() {
     if (isFormStep1valid()) Get.toNamed(signup2);
+  }
+
+  trackingDataSend(String tid) {
+    trackList.value.data.forEach((element) {
+      if (element.tid == tid) {
+        element.items.forEach((el) {
+          if (el.enabledDefault ?? false) {
+            symptomsList.add(el);
+          }
+        });
+      }
+      // if (element.tid == "symptoms") {}
+      // if (element.tid == "symptoms") {}
+      // if (element.tid == "symptoms") {}
+      // if (element.tid == "symptoms") {}
+      // if (element.tid == "symptoms") {}
+    });
   }
 }

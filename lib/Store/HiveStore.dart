@@ -1,7 +1,9 @@
+import 'package:flutter_ibs/Store/vm.dart';
 import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Keys {
-  static const String UUID = "UUID";
+  static const String LOGINID = "LOGINID";
   static const String REMEMBER = "REMEMBER";
   static const String PHONE = "PHONE";
   static const String LOGEDIN = "LOGEDIN";
@@ -16,7 +18,7 @@ class Keys {
 class HiveStore {
   //Singleton Class
   static final HiveStore _default = new HiveStore._internal();
-  static  Box defBox;
+  static Box defBox;
 
   factory HiveStore() {
     return _default;
@@ -53,10 +55,10 @@ class HiveStore {
   }
 
   Future openBox() async {
-    // if (!isBrowser) {
-    //   var dir = await getApplicationDocumentsDirectory();
-    //   Hive.init(dir.path);
-    // }
+    if (!isBrowser) {
+      var dir = await getApplicationDocumentsDirectory();
+      Hive.init(dir.path);
+    }
     return await Hive.openBox('Store');
   }
 }

@@ -1,14 +1,10 @@
 // To parse this JSON data, do
 //
-//     final signupSendModel = signupSendModelFromJson(jsonString);
+//     final signupResponseModel = signupResponseModelFromJson(jsonString);
 
 import 'dart:convert';
 
-SignupSendModel signupSendModelFromJson(String str) =>
-    SignupSendModel.fromJson(json.decode(str));
-
-String signupSendModelToJson(SignupSendModel data) =>
-    json.encode(data.toJson());
+import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 
 class SignupSendModel {
   SignupSendModel({
@@ -26,6 +22,11 @@ class SignupSendModel {
   bool agreeTos;
   ProfileSendModel profile;
   TrackingSendModel tracking;
+
+  factory SignupSendModel.fromRawJson(String str) =>
+      SignupSendModel.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
 
   factory SignupSendModel.fromJson(Map<String, dynamic> json) =>
       SignupSendModel(
@@ -66,6 +67,11 @@ class ProfileSendModel {
   DiagnosedIbsSendModel diagnosedIbs;
   RomeivSendModel romeiv;
 
+  factory ProfileSendModel.fromRawJson(String str) =>
+      ProfileSendModel.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
   factory ProfileSendModel.fromJson(Map<String, dynamic> json) =>
       ProfileSendModel(
         sex: json["sex"] == null ? null : json["sex"],
@@ -98,6 +104,11 @@ class DiagnosedIbsSendModel {
   bool isDiagnosed;
   String ibsType;
 
+  factory DiagnosedIbsSendModel.fromRawJson(String str) =>
+      DiagnosedIbsSendModel.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
   factory DiagnosedIbsSendModel.fromJson(Map<String, dynamic> json) =>
       DiagnosedIbsSendModel(
         isDiagnosed: json["isDiagnosed"] == null ? null : json["isDiagnosed"],
@@ -124,6 +135,11 @@ class RomeivSendModel {
   bool abdominalPainBowelMoreLess;
   bool abdominalPainBowelAppearDifferent;
   String stool;
+
+  factory RomeivSendModel.fromRawJson(String str) =>
+      RomeivSendModel.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
 
   factory RomeivSendModel.fromJson(Map<String, dynamic> json) =>
       RomeivSendModel(
@@ -161,56 +177,66 @@ class TrackingSendModel {
   TrackingSendModel({
     this.symptoms,
     this.bowelMovements,
+    this.food,
+    this.wellness,
     this.medications,
-    this.healthWelleness,
-    this.foods,
     this.journal,
   });
 
-  List<String> symptoms;
-  List<String> bowelMovements;
-  List<String> medications;
-  List<String> healthWelleness;
-  List<String> foods;
-  List<String> journal;
+  List<DatumItem> symptoms;
+  List<DatumItem> bowelMovements;
+  List<DatumItem> food;
+  List<DatumItem> wellness;
+  List<DatumItem> medications;
+  List<DatumItem> journal;
+
+  factory TrackingSendModel.fromRawJson(String str) =>
+      TrackingSendModel.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
 
   factory TrackingSendModel.fromJson(Map<String, dynamic> json) =>
       TrackingSendModel(
         symptoms: json["symptoms"] == null
             ? null
-            : List<String>.from(json["symptoms"].map((x) => x)),
+            : List<DatumItem>.from(
+                json["symptoms"].map((x) => DatumItem.fromJson(x))),
         bowelMovements: json["bowelMovements"] == null
             ? null
-            : List<String>.from(json["bowelMovements"].map((x) => x)),
-        medications: json["medications"] == null
+            : List<dynamic>.from(json["bowelMovements"].map((x) => x)),
+        food: json["food"] == null
             ? null
-            : List<String>.from(json["medications"].map((x) => x)),
-        healthWelleness: json["healthWelleness"] == null
+            : List<dynamic>.from(json["food"].map((x) => x)),
+        wellness: json["symptoms"] == null
             ? null
-            : List<String>.from(json["healthWelleness"].map((x) => x)),
-        foods: json["foods"] == null
+            : List<DatumItem>.from(
+                json["wellness"].map((x) => DatumItem.fromJson(x))),
+        medications: json["bowelMovements"] == null
             ? null
-            : List<String>.from(json["foods"].map((x) => x)),
-        journal: json["journal"] == null
+            : List<dynamic>.from(json["medications"].map((x) => x)),
+        journal: json["food"] == null
             ? null
-            : List<String>.from(json["journal"].map((x) => x)),
+            : List<dynamic>.from(json["journal"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "symptoms": symptoms == null
             ? null
-            : List<dynamic>.from(symptoms.map((x) => x)),
+            : List<dynamic>.from(symptoms.map((x) => x.toJson())),
         "bowelMovements": bowelMovements == null
             ? null
-            : List<dynamic>.from(bowelMovements.map((x) => x)),
+            : List<dynamic>.from(bowelMovements.map((x) => x.toJson())),
+        "food": food == null
+            ? null
+            : List<dynamic>.from(food.map((x) => x.toJson())),
+        "wellness": wellness == null
+            ? null
+            : List<dynamic>.from(wellness.map((x) => x.toJson())),
         "medications": medications == null
             ? null
-            : List<dynamic>.from(medications.map((x) => x)),
-        "healthWelleness": healthWelleness == null
+            : List<dynamic>.from(medications.map((x) => x.toJson())),
+        "journal": journal == null
             ? null
-            : List<dynamic>.from(healthWelleness.map((x) => x)),
-        "foods": foods == null ? null : List<dynamic>.from(foods.map((x) => x)),
-        "journal":
-            journal == null ? null : List<dynamic>.from(journal.map((x) => x)),
+            : List<dynamic>.from(journal.map((x) => x.toJson())),
       };
 }

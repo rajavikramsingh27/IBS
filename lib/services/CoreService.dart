@@ -1,11 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-// Main package
 import 'package:flutter_feathersjs/flutter_feathersjs.dart';
-// Contains helper like error handling, etc..
-import 'package:flutter_feathersjs/src/helper.dart';
+import 'package:flutter_ibs/Store/HiveStore.dart';
+import 'package:flutter_ibs/models/error_model/SignupErrorModel.dart';
 import 'package:flutter_ibs/services/url.dart';
+import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
 class CoreService {
@@ -18,7 +17,9 @@ class CoreService {
       data,
       baseURL = BASE_URL,
       fileName,
-      method}) async {
+      method,
+      password,
+      username}) async {
     switch (method) {
       case METHOD.GET:
         {
@@ -26,7 +27,7 @@ class CoreService {
           try {
             final response = await flutterFeathersjs.get(
                 serviceName: endpoint, objectId: objectId);
-                return response;
+            return response;
             print("res: $response");
             // responseJson = _returnResponse(response);
           } on SocketException {
@@ -52,8 +53,9 @@ class CoreService {
           try {
             final response = await flutterFeathersjs.create(
                 serviceName: endpoint, data: data);
-                return response;
-            print("res: $response");
+
+            return response;
+
             // responseJson = _returnResponse(response);
           } on SocketException {
             print("Socket");
@@ -62,6 +64,19 @@ class CoreService {
               Get.snackbar("Sorry", "No internet connection available!");
             });
           } on FeatherJsError catch (e) {
+            print("$e");
+            if (e.type == FeatherJsErrorType.IS_SERVER_ERROR) {
+              CustomSnackBar()
+                  .errorSnackBar(title: "Error", message: e.message);
+            }
+            if (e.type == FeatherJsErrorType.IS_CONFLICT_ERROR) {
+              CustomSnackBar()
+                  .errorSnackBar(title: "Error", message: e.message);
+            }
+
+            // SignupErrorModel errorMessage = SignupErrorModel.fromJson(e.error);
+            // CustomSnackBar().errorSnackBar(title: "Error", message: e);
+
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
@@ -107,7 +122,7 @@ class CoreService {
           try {
             final response = await flutterFeathersjs.update(
                 objectId: objectId, serviceName: endpoint, data: data);
-                return response;
+            return response;
             print("res: $response");
 
             // print(messageResponse); => feathers's get data format
@@ -135,7 +150,7 @@ class CoreService {
           try {
             final response = await flutterFeathersjs.remove(
                 serviceName: endpoint, objectId: objectId);
-                return response;
+            return response;
             print("res: $response");
             // responseJson = _returnResponse(response);
           } on SocketException {
@@ -182,17 +197,48 @@ class CoreService {
       case METHOD.PATCH:
         {
           var responseJson;
-         
+
           Get.dialog(Center(child: CircularProgressIndicator()),
               barrierDismissible: false);
 
           try {
             final response = await flutterFeathersjs.patch(
                 objectId: objectId, serviceName: endpoint, data: data);
-                return response;
+            return response;
             print("res: $response");
             // print(messageResponse); => feathers's get data format
             // responseJson = _returnResponse(response);
+          } on SocketException {
+            Future.delayed(const Duration(seconds: 2), () async {
+              print("delay");
+              Get.snackbar("Sorry", "No internet connection available!");
+            });
+          } on FeatherJsError catch (e) {
+            // When error is FeatherJsErrorType
+            // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
+            // Check the error type as above and handle it
+          } catch (er) {
+            // Catch  unknown error
+
+          }
+          return responseJson;
+        }
+        break;
+      case METHOD.AUTHENTICATE:
+        {
+          var responseJson;
+          print("pa: ${data["password"]}");
+          print("pa: ${data["strategy"]}");
+          print("pa: ${data["loginId"]}");
+
+          // print("ids: ${data.loginId}");
+          try {
+            final response = await flutterFeathersjs.authenticate(
+                strategy: data["strategy"],
+                password: data["password"],
+                userName: data["loginId"]);
+
+            return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
               print("delay");
@@ -233,4 +279,13 @@ class CoreService {
 // }
 }
 
-enum METHOD { GET, CREATE, UPDATE, DELETE, PATCH, MULTIPART, FIND }
+enum METHOD {
+  GET,
+  CREATE,
+  UPDATE,
+  DELETE,
+  PATCH,
+  MULTIPART,
+  FIND,
+  AUTHENTICATE
+}

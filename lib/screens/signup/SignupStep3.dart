@@ -199,7 +199,6 @@ class SignupStep3 extends StatelessWidget {
               obscureText: _controller.isPasswordVisible.value,
               controller: _controller.passwordController,
               inputFormatters: [LengthLimitingTextInputFormatter(50)],
-              textInputAction: TextInputAction.done,
               currentFocus: focusPassWord,
               nextFocus: focusRePassWord,
               suffixIcon: IconButton(
@@ -224,6 +223,7 @@ class SignupStep3 extends StatelessWidget {
           SizedBox(height: ScreenConstant.defaultHeightTen * 0.8),
           Obx(
             () => CustomTextFormField(
+              validationFunction: Validator().validatePassword,
               obscureText: _controller.isPasswordVisible.value,
               controller: _controller.confirmPasswordController,
               inputFormatters: [LengthLimitingTextInputFormatter(50)],

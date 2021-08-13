@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -15,6 +16,7 @@ class _SplashState extends State<Splash> {
   @override
   initState() {
     super.initState();
+    HiveStore().initBox();
     Future.delayed(Duration(seconds: 2), () {
       Get.offNamed(intro);
     });
