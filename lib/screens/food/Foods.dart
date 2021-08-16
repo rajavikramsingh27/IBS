@@ -132,7 +132,7 @@ class Foods extends StatelessWidget {
         var model = DummyData.trackFoodList[index];
         return Container(
           decoration: BoxDecoration(
-              color: AppColors.white,
+              color: model.color,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: AppColors.colorBorder, width: 1)),
           child: Column(
@@ -147,8 +147,11 @@ class Foods extends StatelessWidget {
                 model.text,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyles.textStyleRegular
-                    .apply(color: Colors.black, fontSizeDelta: 2),
+                style: TextStyles.textStyleRegular.apply(
+                    color: model.color == AppColors.colorBackground
+                        ? Colors.white
+                        : Colors.black,
+                    fontSizeDelta: 2),
               ),
             ],
           ),
@@ -195,7 +198,7 @@ class Foods extends StatelessWidget {
                       child: TextFormField(
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Add Medication",
+                            hintText: "Add Food",
                             hintStyle: TextStyles.textStyleRegular
                                 .apply(color: AppColors.colorTextHint),
                             contentPadding: EdgeInsets.symmetric(
@@ -307,20 +310,23 @@ class Foods extends StatelessWidget {
           vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: DummyData.medicationList.length,
+      itemCount: DummyData.foodTakenList.length,
       itemBuilder: (BuildContext context, int index) {
-        var model = DummyData.medicationList[index];
-        return Card(
-          color: AppColors.colorSymptomsGridBg,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-          child: Center(
-            child: Text(
-              model.title,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyles.textStyleRegular
-                  .apply(color: Colors.white, fontSizeDelta: -2),
+        var model = DummyData.foodTakenList[index];
+        return InkWell(
+          onTap: () {},
+          child: Card(
+            color: AppColors.colorSymptomsGridBg,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100)),
+            child: Center(
+              child: Text(
+                model.title,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyles.textStyleRegular
+                    .apply(color: Colors.white, fontSizeDelta: -2),
+              ),
             ),
           ),
         );
@@ -332,8 +338,8 @@ class Foods extends StatelessWidget {
 
   _buildWavePainter() {
     return CustomPaint(
-      size: Size(Get.context.mediaQuerySize.width,
-          Get.context.mediaQuerySize.height),
+      size: Size(
+          Get.context.mediaQuerySize.width, Get.context.mediaQuerySize.height),
       painter: WavePainter(),
     );
   }
