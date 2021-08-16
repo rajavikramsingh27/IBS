@@ -195,6 +195,8 @@ class CoreService {
               Get.snackbar("Sorry", "No internet connection available!");
             });
           } on FeatherJsError catch (e) {
+            print("res: $e");
+
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
@@ -244,10 +246,13 @@ class CoreService {
 
           // print("ids: ${data.loginId}");
           try {
+            print("Data: $data");
             final response = await flutterFeathersjs.authenticate(
                 strategy: data["strategy"],
                 password: data["password"],
-                userName: data["loginId"]);
+                userName: data["loginId"],
+              userNameFieldName: "loginId",
+            );
 
             return response;
           } on SocketException {
