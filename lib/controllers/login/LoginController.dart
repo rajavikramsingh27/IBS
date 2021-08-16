@@ -69,6 +69,7 @@ class LoginController extends GetxController {
     final data = await ServiceApi().signInApi(bodyData: model.toJson());
 
     if (data is LoginResponseModel) {
+      HiveStore().put(Keys.TOKEN, data.accessToken);
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Registered Successfully");
       Get.offAllNamed(home);
