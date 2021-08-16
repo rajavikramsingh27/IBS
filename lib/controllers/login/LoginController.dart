@@ -62,7 +62,7 @@ class LoginController extends GetxController {
   signInApi() async {
     LoginSendModel model = LoginSendModel(
       strategy: "local",
-      loginId: HiveStore().get("LOGINID"),
+      loginId: HiveStore().get(Keys.LOGINID),
       password: passwordController?.text,
     );
     print("data: ${model.toJson()}");
