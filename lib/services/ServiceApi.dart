@@ -35,6 +35,7 @@ class ServiceApi {
   Future<dynamic> getSymptomsApi({Map bodyData}) async {
     var result = await CoreService()
         .apiService(method: METHOD.FIND, endpoint: SYMPTOMS, data: bodyData);
+    return result;
   }
 
 

@@ -1,4 +1,5 @@
 import 'package:flutter_ibs/Store/HiveStore.dart';
+import 'package:flutter_ibs/models/TokenModel/TokenModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
@@ -23,8 +24,10 @@ class SymptomsController extends GetxController {
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
   getSymptoms()async{
-    var loginId = await HiveStore().get("LOGINID");
-    final data = await ServiceApi().getSymptomsApi(bodyData: {"loginid": loginId});
+    TokenModel model = TokenModel(
+      token: HiveStore().get(Keys.TOKEN),
+    );
+    final data = await ServiceApi().getSymptomsApi(bodyData: model.toJson());
     print("Data: $data");
   }
 }

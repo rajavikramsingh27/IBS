@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 class CoreService {
   FlutterFeathersjs flutterFeathersjs = FlutterFeathersjs()
     ..init(baseUrl: BASE_URL);
-
   Future apiService(
       {String endpoint,
       String objectId,
@@ -174,7 +173,7 @@ class CoreService {
           var responseJson;
           try {
             final response = await flutterFeathersjs.find(
-                serviceName: endpoint, query: data);
+                serviceName: endpoint, query: null);
             return response;
             print("res: $response");
             // responseJson = _returnResponse(response);
