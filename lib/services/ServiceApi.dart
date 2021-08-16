@@ -1,5 +1,6 @@
 import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/models/error_model/SignupErrorModel.dart';
+import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
@@ -38,5 +39,10 @@ class ServiceApi {
     return result;
   }
 
+  Future<dynamic> foodTrackApi({Map bodyData}) async {
+    var result = await CoreService()
+        .apiService(method: METHOD.CREATE, endpoint: SIGNIN, data: bodyData);
 
+    return FoodResponseModel.fromJson(result);
+  }
 }

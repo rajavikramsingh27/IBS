@@ -8,7 +8,19 @@ import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
 class CoreService {
-  FlutterFeathersjs flutterFeathersjs = FlutterFeathersjs()
+  static final CoreService _default = new CoreService._internal();
+
+  factory CoreService() {
+    return _default;
+  }
+
+  CoreService._internal();
+
+  static getInstance() {
+    return _default;
+  }
+
+  static FlutterFeathersjs flutterFeathersjs = FlutterFeathersjs()
     ..init(baseUrl: BASE_URL);
   Future apiService(
       {String endpoint,
