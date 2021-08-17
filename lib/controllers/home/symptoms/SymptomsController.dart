@@ -6,10 +6,9 @@ import 'package:intl/intl.dart';
 
 class SymptomsController extends GetxController {
   Rx<DateTime> now = DateTime.now().obs;
-  RxDouble sliderValue = 1.0.obs;
+  RxDouble sliderValue = 0.0.obs;
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
-  SignUpController _signUpController = Get.put(SignUpController());
   RxInt selectedIndex = 0.obs;
 
   onTapped(int index) async {
