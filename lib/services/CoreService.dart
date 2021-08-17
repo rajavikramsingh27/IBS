@@ -7,8 +7,10 @@ import 'package:get/get.dart';
 
 class CoreService {
   static final CoreService _default = new CoreService._internal();
-
+  static FlutterFeathersjs flutterFeathersjs;
   factory CoreService() {
+    flutterFeathersjs = FlutterFeathersjs()
+    ..init(baseUrl: BASE_URL);
     return _default;
   }
 
@@ -18,8 +20,7 @@ class CoreService {
     return _default;
   }
 
-  static FlutterFeathersjs flutterFeathersjs = FlutterFeathersjs()
-    ..init(baseUrl: BASE_URL);
+
   Future apiService(
       {String endpoint,
       String objectId,
@@ -32,7 +33,7 @@ class CoreService {
     switch (method) {
       case METHOD.GET:
         {
-          var responseJson;
+          
           try {
             final response = await flutterFeathersjs.get(
                 serviceName: endpoint, objectId: objectId);
@@ -51,13 +52,13 @@ class CoreService {
             // Catch  unknown error
 
           }
-          return responseJson;
+          
         }
         break;
 
       case METHOD.CREATE:
         {
-          var responseJson;
+          
           try {
             final response = await flutterFeathersjs.create(
                 serviceName: endpoint, data: data);
@@ -92,12 +93,12 @@ class CoreService {
             // Catch  unknown error
 
           }
-          return responseJson;
+          
         }
         break;
       case METHOD.MULTIPART:
         {
-          var responseJson;
+          
           //      Get.dialog(Center(child: CircularProgressIndicator()), barrierDismissible: false);
           try {
             var response = await flutterFeathersjs.create(
@@ -119,12 +120,12 @@ class CoreService {
             // Catch  unknown error
 
           }
-          return responseJson;
+          
         }
         break;
       case METHOD.UPDATE:
         {
-          var responseJson;
+          
 
           try {
             final response = await flutterFeathersjs.update(
@@ -144,12 +145,12 @@ class CoreService {
             // Catch  unknown error
 
           }
-          return responseJson;
+          
         }
         break;
       case METHOD.DELETE:
         {
-          var responseJson;
+          
 
           try {
             final response = await flutterFeathersjs.remove(
@@ -169,12 +170,12 @@ class CoreService {
             // Catch  unknown error
 
           }
-          return responseJson;
+          
         }
         break;
       case METHOD.FIND:
         {
-          var responseJson;
+          
           try {
             final response = await flutterFeathersjs.find(
                 serviceName: endpoint, query: null);
@@ -194,12 +195,12 @@ class CoreService {
             // Catch  unknown error
 
           }
-          return responseJson;
+          
         }
         break;
       case METHOD.PATCH:
         {
-          var responseJson;
+          
 
           Get.dialog(Center(child: CircularProgressIndicator()),
               barrierDismissible: false);
@@ -222,12 +223,12 @@ class CoreService {
             // Catch  unknown error
 
           }
-          return responseJson;
+          
         }
         break;
       case METHOD.AUTHENTICATE:
         {
-          var responseJson;
+          
           print("pa: ${data["password"]}");
           print("pa: ${data["strategy"]}");
           print("pa: ${data["loginId"]}");
@@ -241,7 +242,7 @@ class CoreService {
                 userName: data["loginId"],
               userNameFieldName: "loginId",
             );
-
+            debugPrint("Response: $response",wrapWidth: 1024);
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
@@ -257,7 +258,7 @@ class CoreService {
             // Catch  unknown error
 
           }
-          return responseJson;
+          
         }
         break;
       default:
@@ -270,7 +271,7 @@ class CoreService {
 //     case 200:
 //       var responseJson = json.decode(response.body.toString());
 //       print("Result : $responseJson");
-//       return responseJson;
+//       
 //     case 400:
 //       throw BadRequestException(response.body.toString());
 //     case 401:
