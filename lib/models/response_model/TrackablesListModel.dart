@@ -54,7 +54,7 @@ class Datum {
   String service;
   String kind;
   String category;
-  Image image;
+  ModelImage image;
   List<DatumItem> items;
   int version;
   bool enabled;
@@ -65,7 +65,7 @@ class Datum {
     service: json["service"],
     kind: json["kind"],
     category: json["category"],
-    image: Image.fromJson(json["image"]),
+    image: ModelImage.fromJson(json["image"]),
     items: List<DatumItem>.from(json["items"].map((x) => DatumItem.fromJson(x))),
     version: json["version"] == null ? null : json["version"],
     enabled: json["enabled"] == null ? false : json["enabled"],
@@ -84,8 +84,8 @@ class Datum {
   };
 }
 
-class Image {
-  Image({
+class ModelImage {
+  ModelImage({
     this.normal,
     this.active,
   });
@@ -93,7 +93,7 @@ class Image {
   String normal;
   String active;
 
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
+  factory ModelImage.fromJson(Map<String, dynamic> json) => ModelImage(
     normal: json["normal"],
     active: json["active"],
   );
@@ -137,7 +137,7 @@ class DatumItem {
   List<ItemChild> children;
   TextInput textInput;
   ListValidation validation;
-  Color color;
+  ModelColor color;
   FluffyList list;
   FluffyTags tags;
   String type;
@@ -157,7 +157,7 @@ class DatumItem {
     children: json["children"] == null ? null : List<ItemChild>.from(json["children"].map((x) => ItemChild.fromJson(x))),
     textInput: json["textInput"] == null ? null : TextInput.fromJson(json["textInput"]),
     validation: json["validation"] == null ? null : ListValidation.fromJson(json["validation"]),
-    color: json["color"] == null ? null : Color.fromJson(json["color"]),
+    color: json["color"] == null ? null : ModelColor.fromJson(json["color"]),
     list: json["list"] == null ? null : FluffyList.fromJson(json["list"]),
     tags: json["tags"] == null ? null : FluffyTags.fromJson(json["tags"]),
     type: json["type"] == null ? null : json["type"],
@@ -424,14 +424,14 @@ class ListOption {
 
   String value;
   String label;
-  Image image;
+  ModelImage image;
   bool optionDefault;
   ConditionalDefault conditionalDefault;
 
   factory ListOption.fromJson(Map<String, dynamic> json) => ListOption(
     value: json["value"],
     label: json["label"],
-    image: Image.fromJson(json["image"]),
+    image: ModelImage.fromJson(json["image"]),
     optionDefault: json["default"],
     conditionalDefault: json["conditionalDefault"] == null ? null : ConditionalDefault.fromJson(json["conditionalDefault"]),
   );
@@ -673,12 +673,12 @@ class Sum {
 
   int range;
   int sumDefault;
-  Image image;
+  ModelImage image;
 
   factory Sum.fromJson(Map<String, dynamic> json) => Sum(
     range: json["range"],
     sumDefault: json["default"],
-    image: Image.fromJson(json["image"]),
+    image: ModelImage.fromJson(json["image"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -1020,8 +1020,8 @@ class False {
   };
 }
 
-class Color {
-  Color({
+class ModelColor {
+  ModelColor({
     this.colorDefault,
     this.options,
   });
@@ -1029,7 +1029,7 @@ class Color {
   dynamic colorDefault;
   List<ColorOption> options;
 
-  factory Color.fromJson(Map<String, dynamic> json) => Color(
+  factory ModelColor.fromJson(Map<String, dynamic> json) => ModelColor(
     colorDefault: json["default"],
     options: List<ColorOption>.from(json["options"].map((x) => ColorOption.fromJson(x))),
   );
@@ -1108,8 +1108,8 @@ class FluffyRating {
     this.validation,
   });
 
-  int range;
-  int ratingDefault;
+  num range;
+  num ratingDefault;
   List<FluffyOption> options;
   FluffyValidation validation;
 
@@ -1139,13 +1139,13 @@ class FluffyOption {
   int value;
   String label;
   String description;
-  Image image;
+  ModelImage image;
 
   factory FluffyOption.fromJson(Map<String, dynamic> json) => FluffyOption(
     value: json["value"],
     label: json["label"] == null ? null : json["label"],
     description: json["description"] == null ? null : json["description"],
-    image: json["image"] == null ? null : Image.fromJson(json["image"]),
+    image: json["image"] == null ? null : ModelImage.fromJson(json["image"]),
   );
 
   Map<String, dynamic> toJson() => {
