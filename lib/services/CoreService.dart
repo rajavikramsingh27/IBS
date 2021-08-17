@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_feathersjs/flutter_feathersjs.dart';
-import 'package:flutter_ibs/Store/HiveStore.dart';
-import 'package:flutter_ibs/models/error_model/SignupErrorModel.dart';
 import 'package:flutter_ibs/services/url.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
@@ -39,14 +37,13 @@ class CoreService {
             final response = await flutterFeathersjs.get(
                 serviceName: endpoint, objectId: objectId);
             return response;
-            print("res: $response");
-            // responseJson = _returnResponse(response);
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
               print("delay");
               Get.snackbar("Sorry", "No internet connection available!");
             });
           } on FeatherJsError catch (e) {
+            print("CatchError: $e");
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
@@ -108,14 +105,13 @@ class CoreService {
               data: data,
             );
             return response;
-            print("res: $response");
-            // responseJson = _returnResponse(response);
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
               print("delay");
               Get.snackbar("Sorry", "No internet connection available!");
             });
           } on FeatherJsError catch (e) {
+            print("CatchError: $e");
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
@@ -134,16 +130,13 @@ class CoreService {
             final response = await flutterFeathersjs.update(
                 objectId: objectId, serviceName: endpoint, data: data);
             return response;
-            print("res: $response");
-
-            // print(messageResponse); => feathers's get data format
-            // responseJson = _returnResponse(response);
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
               print("delay");
               Get.snackbar("Sorry", "No internet connection available!");
             });
           } on FeatherJsError catch (e) {
+            print("CatchError: $e");
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
@@ -162,14 +155,13 @@ class CoreService {
             final response = await flutterFeathersjs.remove(
                 serviceName: endpoint, objectId: objectId);
             return response;
-            print("res: $response");
-            // responseJson = _returnResponse(response);
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
               print("delay");
               Get.snackbar("Sorry", "No internet connection available!");
             });
           } on FeatherJsError catch (e) {
+            print("CatchError: $e");
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
@@ -187,8 +179,6 @@ class CoreService {
             final response = await flutterFeathersjs.find(
                 serviceName: endpoint, query: null);
             return response;
-            print("res: $response");
-            // responseJson = _returnResponse(response);
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
               print("delay");
@@ -218,15 +208,13 @@ class CoreService {
             final response = await flutterFeathersjs.patch(
                 objectId: objectId, serviceName: endpoint, data: data);
             return response;
-            print("res: $response");
-            // print(messageResponse); => feathers's get data format
-            // responseJson = _returnResponse(response);
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
               print("delay");
               Get.snackbar("Sorry", "No internet connection available!");
             });
           } on FeatherJsError catch (e) {
+            print("CatchError: $e");
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
@@ -261,6 +249,7 @@ class CoreService {
               Get.snackbar("Sorry", "No internet connection available!");
             });
           } on FeatherJsError catch (e) {
+            print("CatchError: $e");
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it

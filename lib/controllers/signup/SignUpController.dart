@@ -46,7 +46,8 @@ class SignUpController extends GetxController {
   TextEditingController confirmPasswordController;
   RxBool isPasswordVisible = true.obs;
   RxBool agreeToTerms = false.obs;
-
+  Rx<Datum> symptoms = Datum().obs;
+  Rx<Datum> bowelMovements = Datum().obs;
   RxBool loader = false.obs;
   RxBool connectionStatus = false.obs;
 
@@ -64,6 +65,8 @@ class SignUpController extends GetxController {
     if (connectionStatus.value) {
       loader.value = true;
       await getTrackList();
+      getSymptoms();
+      getBowelMovements();
       loader.value = false;
     }
   }
@@ -235,6 +238,22 @@ class SignUpController extends GetxController {
       // if (element.tid == "symptoms") {}
       // if (element.tid == "symptoms") {}
       // if (element.tid == "symptoms") {}
+    });
+  }
+
+  getSymptoms() {
+    trackList.value.data.forEach((element) {
+      if (element.tid == "symptoms") {
+        symptoms.value = element;
+      }
+    });
+  }
+
+  getBowelMovements() {
+    trackList.value.data.forEach((element) {
+      if (element.tid == "bowel_movements") {
+        bowelMovements.value = element;
+      }
     });
   }
 }

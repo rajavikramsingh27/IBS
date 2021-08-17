@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/login/LoginSendModel.dart';
-import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
-import 'package:flutter_ibs/models/signup/SignupSendModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
-class LoginController extends GetxController {
+class SignInController extends GetxController {
   var formKey = GlobalKey<FormState>();
   TextEditingController emailController;
 
