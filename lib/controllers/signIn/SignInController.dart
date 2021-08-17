@@ -3,6 +3,7 @@ import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/login/LoginSendModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
+import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
@@ -63,13 +64,12 @@ class SignInController extends GetxController {
       loginId: HiveStore().get(Keys.LOGINID),
       password: passwordController?.text,
     );
-    print("data: ${model.toJson()}");
     final data = await ServiceApi().signInApi(bodyData: model.toJson());
-
     if (data is LoginResponseModel) {
-      HiveStore().put(Keys.TOKEN, data.accessToken);
+      HiveStore().put(Keys.USERID, data.id);
+
       CustomSnackBar().successSnackBar(
-          title: "Success", message: "Registered Successfully");
+          title: "Success", message: "SignIn Successfully");
       Get.offAllNamed(home);
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);

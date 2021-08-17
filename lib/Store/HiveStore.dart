@@ -7,7 +7,7 @@ class Keys {
   static const String REMEMBER = "REMEMBER";
   static const String PHONE = "PHONE";
   static const String LOGEDIN = "LOGEDIN";
-  static const String TOKEN = "TOKEN";
+  static const String USERID = "USERID";
   static const String LOGINDATA = "loginData";
   static const String PROFILEIMAGE = "PROFILEIMAGE";
   static const String EMAIL = "EMAIL";

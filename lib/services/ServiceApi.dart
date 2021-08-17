@@ -24,7 +24,7 @@ class ServiceApi {
 
   Future<dynamic> signInApi({Map bodyData}) async {
     var result = await CoreService()
-        .apiService(method: METHOD.AUTHENTICATE, endpoint: SIGNIN, data: bodyData);
+        .apiService(method: METHOD.AUTHENTICATE, data: bodyData);
     // if (result.name.toString().toLowerCase() == "Unprocessable".toLowerCase()) {
     //   return SignupErrorModel.fromJson(result);
     // } else
