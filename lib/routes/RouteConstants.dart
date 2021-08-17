@@ -31,7 +31,7 @@ const String settings = '/settings';
 
 const String report = '/report';
 
-const String logIn = '/logIn';
+const String signIn = '/signIn';
 const String forgotPass = '/forgotPass';
 const String otp = '/otp';
 const String resetPass = '/resetPass';

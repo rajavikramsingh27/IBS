@@ -104,7 +104,7 @@ class NavRouter {
       page: () => Report(),
     ),
     GetPage(
-      name: logIn,
+      name: signIn,
       page: () => SignIn(),
     ),
     GetPage(
