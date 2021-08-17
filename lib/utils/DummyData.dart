@@ -4,8 +4,6 @@ import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:get/instance_manager.dart';
 
-final _controller = Get.put(FoodController());
-
 class DummyData {
   static List<IBSTypeModel> ibsType = [
     IBSTypeModel(
@@ -107,38 +105,38 @@ class DummyData {
     TrackingOptionsModel(title: "Peppermint Oil"),
     TrackingOptionsModel(title: "Metamucil"),
   ];
-  static List<MealModel> trackFoodList = [
-    MealModel(
-        text: "Breakfast",
-        image: Assets.breakfast,
-        color: (_controller.formattedTime.value == 4 &&
-                _controller.formattedTime.value < 12)
-            ? AppColors.colorBackground
-            : AppColors.white),
-    MealModel(
-        text: "Lunch",
-        image: Assets.lunch,
-        color: (_controller.formattedTime.value == 12 &&
-                _controller.formattedTime.value < 15)
-            ? AppColors.colorBackground
-            : AppColors.white),
-    MealModel(
-        text: "Dinner",
-        image: Assets.dinner,
-        color: (_controller.formattedTime.value == 17 &&
-                _controller.formattedTime.value < 20)
-            ? AppColors.colorBackground
-            : AppColors.white),
-    MealModel(
-        text: "Snacks",
-        image: Assets.snacks,
-        color: (_controller.formattedTime.value == 15 &&
-                    _controller.formattedTime.value < 17) ||
-                (_controller.formattedTime.value == 21 &&
-                    _controller.formattedTime.value < 4)
-            ? AppColors.colorBackground
-            : AppColors.white),
-  ];
+  // static List<MealModel> trackFoodList = [
+  //   MealModel(
+  //       text: "Breakfast",
+  //       image: Assets.breakfast,
+  //       color: (_controller.formattedTime.value == 4 &&
+  //               _controller.formattedTime.value < 12)
+  //           ? AppColors.colorBackground
+  //           : AppColors.white),
+  //   MealModel(
+  //       text: "Lunch",
+  //       image: Assets.lunch,
+  //       color: (_controller.formattedTime.value == 12 &&
+  //               _controller.formattedTime.value < 15)
+  //           ? AppColors.colorBackground
+  //           : AppColors.white),
+  //   MealModel(
+  //       text: "Dinner",
+  //       image: Assets.dinner,
+  //       color: (_controller.formattedTime.value == 17 &&
+  //               _controller.formattedTime.value < 20)
+  //           ? AppColors.colorBackground
+  //           : AppColors.white),
+  //   MealModel(
+  //       text: "Snacks",
+  //       image: Assets.snacks,
+  //       color: (_controller.formattedTime.value == 15 &&
+  //                   _controller.formattedTime.value < 17) ||
+  //               (_controller.formattedTime.value == 21 &&
+  //                   _controller.formattedTime.value < 4)
+  //           ? AppColors.colorBackground
+  //           : AppColors.white),
+  // ];
   static List<TrackingOptionsModel> foodTakenList = [
     TrackingOptionsModel(title: "Dairy"),
     TrackingOptionsModel(title: "Greasy Food"),

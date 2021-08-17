@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/food/FoodController.dart';
+import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -13,12 +14,15 @@ import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
+// import 'package:flutter_ibs/widget/utils.dart';
 
 class Foods extends StatelessWidget {
   final _controller = Get.put(FoodController());
+  final _signUpController = Get.put(SignUpController());
 
   @override
   Widget build(BuildContext context) {
+    print("time:${_controller.formattedTime}");
     return Scaffold(
       bottomNavigationBar: Container(
         color: Colors.white,
@@ -44,78 +48,86 @@ class Foods extends StatelessWidget {
         ),
       ),
       backgroundColor: Color(0xff1A103E).withOpacity(0.6),
-      body: ListView(
-        physics: ClampingScrollPhysics(),
-        children: [
-          Padding(
-            padding:
-                EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
-            child: Stack(
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty),
-                  child: Card(
-                    margin: EdgeInsets.zero,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(24),
-                      topRight: Radius.circular(24),
-                    )),
-                    child: Column(
-                      children: [
-                        SizedBox(height: ScreenConstant.defaultHeightSixty),
-                        Text(
-                          "Track Food",
-                          style: TextStyles.textStyleIntroDescription
-                              .apply(color: Colors.black, fontSizeDelta: -2),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(height: ScreenConstant.defaultHeightForty),
-                        DateTimeCardWidget(),
-                        SizedBox(height: ScreenConstant.defaultHeightForty),
-                        Text(
-                          "What meal is this?",
-                          style: TextStyles.textStyleIntroDescription
-                              .apply(color: Colors.black, fontSizeDelta: -2),
-                          textAlign: TextAlign.center,
-                        ),
-                        _buildMealList(),
-                        Stack(
-                          children: [
-                            Positioned.fill(
-                              top: ScreenConstant.defaultHeightSeventy,
-                              child: _buildWavePainter(),
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(
-                                  left: ScreenConstant.defaultWidthTwenty,
-                                  right: ScreenConstant.defaultWidthTwenty,
-                                ),
-                                child: Column(
-                                  children: [
-                                    _buildFoods(),
-                                    SizedBox(
-                                        height:
-                                            ScreenConstant.defaultHeightSixty),
-                                    _buildHydration(),
-                                  ],
-                                )),
-                          ],
-                        ),
-                        SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                        AdditionalNoteWidget(),
-                        SizedBox(
-                            height: ScreenConstant.defaultHeightTwentyFour),
-                      ],
+      body:
+          // _signUpController.loader.value
+          //     ? Center(
+          //         child: CircularProgressIndicator(),
+          //       )
+          //     :
+          Obx(
+        () => ListView(
+          physics: ClampingScrollPhysics(),
+          children: [
+            Padding(
+              padding:
+                  EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: ScreenConstant.defaultHeightTwenty),
+                    child: Card(
+                      margin: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
+                      )),
+                      child: Column(
+                        children: [
+                          SizedBox(height: ScreenConstant.defaultHeightSixty),
+                          Text(
+                            "Track Food",
+                            style: TextStyles.textStyleIntroDescription
+                                .apply(color: Colors.black, fontSizeDelta: -2),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: ScreenConstant.defaultHeightForty),
+                          DateTimeCardWidget(),
+                          SizedBox(height: ScreenConstant.defaultHeightForty),
+                          Text(
+                            "What meal is this?",
+                            style: TextStyles.textStyleIntroDescription
+                                .apply(color: Colors.black, fontSizeDelta: -2),
+                            textAlign: TextAlign.center,
+                          ),
+                          _buildMealList(),
+                          Stack(
+                            children: [
+                              Positioned.fill(
+                                top: ScreenConstant.defaultHeightSeventy,
+                                child: _buildWavePainter(),
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(
+                                    left: ScreenConstant.defaultWidthTwenty,
+                                    right: ScreenConstant.defaultWidthTwenty,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      _buildFoods(),
+                                      SizedBox(
+                                          height: ScreenConstant
+                                              .defaultHeightSixty),
+                                      _buildHydration(),
+                                    ],
+                                  )),
+                            ],
+                          ),
+                          SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                          AdditionalNoteWidget(),
+                          SizedBox(
+                              height: ScreenConstant.defaultHeightTwentyFour),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Positioned(right: 0, left: 0, child: CustomArcPainter())
-              ],
+                  Positioned(right: 0, left: 0, child: CustomArcPainter())
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -127,28 +139,34 @@ class Foods extends StatelessWidget {
           vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: DummyData.trackFoodList.length,
+      itemCount:
+          _signUpController.food.value.items?.first?.list?.options?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
-        var model = DummyData.trackFoodList[index];
+        var model =
+            _signUpController.food.value.items.first.list.options[index];
         return Container(
           decoration: BoxDecoration(
-              color: model.color,
+              color: (_controller.formattedTime.value.toString() ==
+                      model.conditionalDefault.time.startTime)
+                  ? AppColors.colorBackground
+                  : Colors.white,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: AppColors.colorBorder, width: 1)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                model.image,
+                Assets.lunch,
                 width: ScreenConstant.sizeXXXL,
               ),
               SizedBox(height: ScreenConstant.sizeDefault),
               Text(
-                model.text,
+                model.value.capitalize ?? "",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular.apply(
-                    color: model.color == AppColors.colorBackground
+                    color: (_controller.formattedTime.value.toString() ==
+                            model.conditionalDefault.time.startTime)
                         ? Colors.white
                         : Colors.black,
                     fontSizeDelta: 2),
@@ -189,7 +207,7 @@ class Foods extends StatelessWidget {
                     style: TextStyles.textStyleRegular
                         .apply(color: AppColors.colorSkipButton),
                   ),
-                  _buildListOfFoodsTaken(),
+                  _buildListOfFoodsTaken(0),
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
@@ -303,16 +321,18 @@ class Foods extends StatelessWidget {
     );
   }
 
-  _buildListOfFoodsTaken() {
+  _buildListOfFoodsTaken(int indx) {
     return GridView.builder(
       padding: EdgeInsets.symmetric(
           horizontal: ScreenConstant.sizeLarge,
           vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: DummyData.foodTakenList.length,
+      itemCount:
+          _signUpController.food.value.items.first.children[indx].items.length,
       itemBuilder: (BuildContext context, int index) {
-        var model = DummyData.foodTakenList[index];
+        var model = _signUpController
+            .food.value.items.first.children[indx].items[index];
         return InkWell(
           onTap: () {},
           child: Card(
@@ -321,7 +341,7 @@ class Foods extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
               child: Text(
-                model.title,
+                model.tid ?? "",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular
@@ -350,7 +370,7 @@ class Foods extends StatelessWidget {
         Text("My Regular Breakfast Foods",
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.white, fontSizeDelta: -2)),
-        _buildListOfFoodsTaken(),
+        _buildListOfFoodsTaken(0),
       ],
     );
   }
@@ -368,7 +388,7 @@ class Foods extends StatelessWidget {
           style: TextStyles.textStyleRegular
               .apply(color: AppColors.colorSkipButton),
         ),
-        _buildListOfFoodsTaken(),
+        _buildListOfFoodsTaken(1),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

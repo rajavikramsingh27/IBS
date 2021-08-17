@@ -41,16 +41,24 @@ class ServiceApi {
       return SymptomsResponseModel.fromJson(result);
     }
   }
+
   Future<dynamic> getReAuthApi() async {
     var result = await CoreService()
         .apiService(method: METHOD.REAUTHENTICATE,);
 
+    return result;
   }
 
   Future<dynamic> foodTrackApi({Map bodyData}) async {
     var result = await CoreService()
-        .apiService(method: METHOD.CREATE, endpoint: SIGNIN, data: bodyData);
+        .apiService(method: METHOD.CREATE, endpoint: FOODS, data: bodyData);
 
     return FoodResponseModel.fromJson(result);
+  }
+
+  Future<dynamic> getFoodList() async {
+    var result =
+        await CoreService().apiService(method: METHOD.FIND, endpoint: FOODS);
+    return result;
   }
 }
