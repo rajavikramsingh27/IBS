@@ -2,10 +2,10 @@ import 'package:flutter_ibs/screens/Intro.dart';
 import 'package:flutter_ibs/screens/about_ibs/MyIbs.dart';
 import 'package:flutter_ibs/screens/exercise/Exercise.dart';
 import 'package:flutter_ibs/screens/home/Home.dart';
-import 'package:flutter_ibs/screens/login/ForgotPassword.dart';
-import 'package:flutter_ibs/screens/login/Login.dart';
-import 'package:flutter_ibs/screens/login/Otp.dart';
-import 'package:flutter_ibs/screens/login/ResetPassword.dart';
+import 'package:flutter_ibs/screens/signIn/ForgotPassword.dart';
+import 'package:flutter_ibs/screens/signIn/Login.dart';
+import 'package:flutter_ibs/screens/signIn/Otp.dart';
+import 'package:flutter_ibs/screens/signIn/ResetPassword.dart';
 import 'package:flutter_ibs/screens/low_diet/LowDiet.dart';
 import 'package:flutter_ibs/screens/medication_supplements/MedicationSuplements.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep1.dart';
@@ -105,7 +105,7 @@ class NavRouter {
     ),
     GetPage(
       name: logIn,
-      page: () => Login(),
+      page: () => SignIn(),
     ),
     GetPage(
       name: forgotPass,

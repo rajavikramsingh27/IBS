@@ -73,7 +73,7 @@ class ResetPassword extends StatelessWidget {
                     ),
                     SizedBox(height: ScreenConstant.defaultHeightSixteen),
                     Text(
-                      '''Enter a new password and confirm password. Then click the update password button. Once complete, you will be navigated to the login screen to log into the app. ''',
+                      '''Enter a new password and confirm password. Then click the update password button. Once complete, you will be navigated to the signIn screen to log into the app. ''',
                       style: TextStyles.textStyleRegular
                           .apply(color: Colors.white),
                       textAlign: TextAlign.center,

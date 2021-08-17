@@ -1,7 +1,5 @@
-import 'package:flutter_ibs/Store/HiveStore.dart';
-import 'package:flutter_ibs/models/TokenModel/TokenModel.dart';
+import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
-import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -10,7 +8,7 @@ class SymptomsController extends GetxController {
   RxDouble sliderValue = 1.0.obs;
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
-
+  SignUpController _signUpController = Get.put(SignUpController());
   RxInt selectedIndex = 0.obs;
 
   onTapped(int index) async {
@@ -24,10 +22,7 @@ class SymptomsController extends GetxController {
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
   getSymptoms()async{
-    TokenModel model = TokenModel(
-      token: HiveStore().get(Keys.TOKEN),
-    );
-    final data = await ServiceApi().getSymptomsApi(bodyData: model.toJson());
+    final data = await ServiceApi().getSymptomsApi();
     print("Data: $data");
   }
 }

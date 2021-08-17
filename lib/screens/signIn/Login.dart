@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ibs/controllers/login/LoginController.dart';
+import 'package:flutter_ibs/controllers/signIn/LoginController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
@@ -17,8 +17,8 @@ final FocusNode focusPassWord = FocusNode();
 
 final FocusNode focusNone = FocusNode();
 
-class Login extends StatelessWidget {
-  final _controller = Get.put(LoginController());
+class SignIn extends StatelessWidget {
+  final _controller = Get.put(SignInController());
 
   @override
   Widget build(BuildContext context) {
