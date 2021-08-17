@@ -1,4 +1,5 @@
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -23,6 +24,9 @@ class SymptomsController extends GetxController {
   }
   getSymptoms()async{
     final data = await ServiceApi().getSymptomsApi();
+    if(data == null){
+      Get.offAllNamed(signIn);
+    }
     print("Data: $data");
   }
 }

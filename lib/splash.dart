@@ -18,6 +18,7 @@ class _SplashState extends State<Splash> {
     super.initState();
     HiveStore().initBox();
     Future.delayed(Duration(seconds: 2), () {
+      //HiveStore().put(Keys.USERID, null);
       if ((HiveStore().get(Keys.USERID) != null)) {
         Get.offNamed(home);
       } else

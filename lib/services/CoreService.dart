@@ -7,10 +7,10 @@ import 'package:get/get.dart';
 
 class CoreService {
   static final CoreService _default = new CoreService._internal();
-  static FlutterFeathersjs flutterFeathersjs;
-  factory CoreService() {
-    flutterFeathersjs = FlutterFeathersjs()
+  static FlutterFeathersjs flutterFeathersjs = FlutterFeathersjs()
     ..init(baseUrl: BASE_URL);
+
+  factory CoreService() {
     return _default;
   }
 
@@ -19,7 +19,6 @@ class CoreService {
   static getInstance() {
     return _default;
   }
-
 
   Future apiService(
       {String endpoint,
@@ -33,7 +32,6 @@ class CoreService {
     switch (method) {
       case METHOD.GET:
         {
-          
           try {
             final response = await flutterFeathersjs.get(
                 serviceName: endpoint, objectId: objectId);
@@ -52,13 +50,11 @@ class CoreService {
             // Catch  unknown error
 
           }
-          
         }
         break;
 
       case METHOD.CREATE:
         {
-          
           try {
             final response = await flutterFeathersjs.create(
                 serviceName: endpoint, data: data);
@@ -93,12 +89,10 @@ class CoreService {
             // Catch  unknown error
 
           }
-          
         }
         break;
       case METHOD.MULTIPART:
         {
-          
           //      Get.dialog(Center(child: CircularProgressIndicator()), barrierDismissible: false);
           try {
             var response = await flutterFeathersjs.create(
@@ -120,13 +114,10 @@ class CoreService {
             // Catch  unknown error
 
           }
-          
         }
         break;
       case METHOD.UPDATE:
         {
-          
-
           try {
             final response = await flutterFeathersjs.update(
                 objectId: objectId, serviceName: endpoint, data: data);
@@ -145,13 +136,10 @@ class CoreService {
             // Catch  unknown error
 
           }
-          
         }
         break;
       case METHOD.DELETE:
         {
-          
-
           try {
             final response = await flutterFeathersjs.remove(
                 serviceName: endpoint, objectId: objectId);
@@ -170,15 +158,13 @@ class CoreService {
             // Catch  unknown error
 
           }
-          
         }
         break;
       case METHOD.FIND:
         {
-          
           try {
             final response = await flutterFeathersjs.find(
-                serviceName: endpoint, query: null);
+                serviceName: endpoint, query: data);
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
@@ -195,13 +181,10 @@ class CoreService {
             // Catch  unknown error
 
           }
-          
         }
         break;
       case METHOD.PATCH:
         {
-          
-
           Get.dialog(Center(child: CircularProgressIndicator()),
               barrierDismissible: false);
 
@@ -223,12 +206,10 @@ class CoreService {
             // Catch  unknown error
 
           }
-          
         }
         break;
       case METHOD.AUTHENTICATE:
         {
-          
           print("pa: ${data["password"]}");
           print("pa: ${data["strategy"]}");
           print("pa: ${data["loginId"]}");
@@ -237,12 +218,12 @@ class CoreService {
           try {
             print("Data: $data");
             final response = await flutterFeathersjs.authenticate(
-                strategy: data["strategy"],
-                password: data["password"],
-                userName: data["loginId"],
+              strategy: data["strategy"],
+              password: data["password"],
+              userName: data["loginId"],
               userNameFieldName: "loginId",
             );
-            debugPrint("Response: $response",wrapWidth: 1024);
+            debugPrint("Response: $response", wrapWidth: 1024);
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
@@ -258,7 +239,30 @@ class CoreService {
             // Catch  unknown error
 
           }
-          
+        }
+        break;
+      case METHOD.REAUTHENTICATE:
+        {
+        try {
+          bool isReAuthenticated = await flutterFeathersjs.reAuthenticate();
+
+          //print(isReAuthenticated); => true
+
+          return isReAuthenticated;
+        } on FeatherJsError catch (e) {
+          if (e.type == FeatherJsErrorType.IS_AUTH_FAILED_ERROR) {
+            //TODO: ReAutentication failed
+            // Redirect user to login page
+          }else{
+            //TODO: Check for other FeatherJsErrorType
+            // why => print(e.type);
+            // why => print(e.message);
+          }
+        } catch (e) {
+          //TODO: Authentication failed for unkknown reason.
+          // why => print(e.type);
+          // why => print(e.message);
+        }
         }
         break;
       default:
@@ -271,7 +275,7 @@ class CoreService {
 //     case 200:
 //       var responseJson = json.decode(response.body.toString());
 //       print("Result : $responseJson");
-//       
+//
 //     case 400:
 //       throw BadRequestException(response.body.toString());
 //     case 401:
@@ -293,5 +297,6 @@ enum METHOD {
   PATCH,
   MULTIPART,
   FIND,
-  AUTHENTICATE
+  AUTHENTICATE,
+  REAUTHENTICATE
 }

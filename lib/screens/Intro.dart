@@ -117,7 +117,7 @@ class _IntroState extends State<Intro> {
                         children: <TextSpan>[
                           TextSpan(
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () => Get.toNamed(logIn),
+                              ..onTap = () => Get.toNamed(signIn),
                             text: 'Log in',
                             style: TextStyles.textStyleIntroDescription
                                 .apply(fontSizeDelta: -3, color: Colors.white),

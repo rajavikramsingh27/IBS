@@ -36,6 +36,11 @@ class ServiceApi {
         .apiService(method: METHOD.FIND, endpoint: SYMPTOMS, data: bodyData);
     return result;
   }
+  Future<dynamic> getReAuthApi() async {
+    var result = await CoreService()
+        .apiService(method: METHOD.REAUTHENTICATE,);
+    return result;
+  }
 
   Future<dynamic> foodTrackApi({Map bodyData}) async {
     var result = await CoreService()

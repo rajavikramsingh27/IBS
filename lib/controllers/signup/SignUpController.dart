@@ -177,7 +177,7 @@ class SignUpController extends GetxController {
     if (data is SignupResponseModel) {
       HiveStore().put(Keys.LOGINID, data.loginId);
       HiveStore().put(Keys.EMAIL, data.email);
-      Get.offAllNamed(logIn, arguments: [data.loginId, data.email]);
+      Get.offAllNamed(signIn, arguments: [data.loginId, data.email]);
 
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Registered Successfully");
