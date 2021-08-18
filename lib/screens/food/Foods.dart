@@ -3,6 +3,7 @@ import 'package:flutter_ibs/controllers/food/FoodController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
+import 'package:flutter_ibs/utils/DateTime.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 // import 'package:flutter_ibs/widget/utils.dart';
 
 class Foods extends StatelessWidget {
@@ -22,7 +24,6 @@ class Foods extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("time:${_controller.formattedTime}");
     return Scaffold(
       bottomNavigationBar: Container(
         color: Colors.white,
@@ -143,11 +144,32 @@ class Foods extends StatelessWidget {
           _signUpController.food.value.items?.first?.list?.options?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
         var model =
-            _signUpController.food.value.items.first.list.options[index];
+            _signUpController.food.value.items?.first?.list?.options[index];
+
+        var startTime = CustomDateTime().parseTimeAsDateTime(
+            dateTime: model.conditionalDefault.time.startTime,
+            returnFormat: "HH:mm");
+        var endTime = CustomDateTime().parseTimeAsDateTime(
+            dateTime: model.conditionalDefault.time.endTime,
+            returnFormat: "HH:mm");
+
+        print("m:$endTime");
+        var s =
+            "${_controller.currentDateTime.value.hour}:${_controller.currentDateTime.value.minute}";
+        var u = CustomDateTime()
+            .parseTimeAsDateTime(dateTime: s, returnFormat: "HH:mm");
+        print("uefbjfe:$s");
+
+        var p = u.difference(startTime).inSeconds;
+        print("diff:$p");
+
+        print("date:$startTime");
+        print("currentdate:$u");
+
         return Container(
           decoration: BoxDecoration(
-              color: (_controller.formattedTime.value.toString() ==
-                      model.conditionalDefault.time.startTime)
+              color: (endTime.difference(u).inSeconds) > 0 &&
+                      (u.difference(startTime).inSeconds) > 0
                   ? AppColors.colorBackground
                   : Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -165,8 +187,8 @@ class Foods extends StatelessWidget {
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular.apply(
-                    color: (_controller.formattedTime.value.toString() ==
-                            model.conditionalDefault.time.startTime)
+                    color: (endTime.difference(u).inSeconds) > 0 &&
+                            (u.difference(startTime).inSeconds) > 0
                         ? Colors.white
                         : Colors.black,
                     fontSizeDelta: 2),
@@ -207,7 +229,7 @@ class Foods extends StatelessWidget {
                     style: TextStyles.textStyleRegular
                         .apply(color: AppColors.colorSkipButton),
                   ),
-                  _buildListOfFoodsTaken(0),
+                  // _buildListOfFoodsTaken(),
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
@@ -321,18 +343,18 @@ class Foods extends StatelessWidget {
     );
   }
 
-  _buildListOfFoodsTaken(int indx) {
+  _buildListOfFoodsTaken() {
     return GridView.builder(
       padding: EdgeInsets.symmetric(
           horizontal: ScreenConstant.sizeLarge,
           vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount:
-          _signUpController.food.value.items.first.children[indx].items.length,
+      itemCount: _signUpController.food.value.items?.first?.children?.first
+          ?.items?.first?.tags?.tagsDefault?.length,
       itemBuilder: (BuildContext context, int index) {
-        var model = _signUpController
-            .food.value.items.first.children[indx].items[index];
+        var model = _signUpController.food.value.items?.first?.children?.first
+            ?.items?.first?.tags?.tagsDefault[index];
         return InkWell(
           onTap: () {},
           child: Card(
@@ -341,7 +363,7 @@ class Foods extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
               child: Text(
-                model.tid ?? "",
+                model.value ?? "",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular
@@ -370,7 +392,7 @@ class Foods extends StatelessWidget {
         Text("My Regular Breakfast Foods",
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.white, fontSizeDelta: -2)),
-        _buildListOfFoodsTaken(0),
+        // _buildListOfFoodsTaken(2),
       ],
     );
   }
@@ -388,7 +410,7 @@ class Foods extends StatelessWidget {
           style: TextStyles.textStyleRegular
               .apply(color: AppColors.colorSkipButton),
         ),
-        _buildListOfFoodsTaken(1),
+        // _buildListOfFoodsTaken(1),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -411,4 +433,39 @@ class Foods extends StatelessWidget {
       ],
     );
   }
+
+  // _buildListofLowFatFood() {
+  //   return GridView.builder(
+  //     padding: EdgeInsets.symmetric(
+  //         horizontal: ScreenConstant.sizeLarge,
+  //         vertical: ScreenConstant.defaultHeightTwentyFour),
+  //     physics: NeverScrollableScrollPhysics(),
+  //     shrinkWrap: true,
+  //     itemCount: _signUpController.food.value.items?.first?.children?.first
+  //         ?.items?.first?.tags?.tagsDefault?.length,
+  //     itemBuilder: (BuildContext context, int index) {
+  //       var model = _signUpController.food.value.items?.first?.children?.first
+  //           ?.items?.first?.tags?.tagsDefault[index];
+  //       return InkWell(
+  //         onTap: () {},
+  //         child: Card(
+  //           color: AppColors.colorSymptomsGridBg,
+  //           shape: RoundedRectangleBorder(
+  //               borderRadius: BorderRadius.circular(100)),
+  //           child: Center(
+  //             child: Text(
+  //               model.value ?? "",
+  //               textAlign: TextAlign.center,
+  //               overflow: TextOverflow.ellipsis,
+  //               style: TextStyles.textStyleRegular
+  //                   .apply(color: Colors.white, fontSizeDelta: -2),
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+  //         crossAxisCount: 3, childAspectRatio: 3.5),
+  //   );
+  // }
 }

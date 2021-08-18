@@ -3,7 +3,7 @@ import 'dart:core';
 import 'package:intl/intl.dart';
 
 class CustomDateTime {
-  String parse({ String dateTime, String returnFormat}) {
+  String parse({String dateTime, String returnFormat}) {
     DateTime dt = DateTime.parse(dateTime);
     DateFormat dateFormat = DateFormat(returnFormat);
     String returnDT = dateFormat.format(dt);
@@ -14,12 +14,19 @@ class CustomDateTime {
     return DateFormat('yyyy-MM-dd').format(time);
   }
 
-  String parseTime({ String dateTime, String returnFormat}) {
-    DateFormat dtFor = DateFormat("HH:mm:ss");
+  String parseTime({String dateTime, String returnFormat}) {
+    DateFormat dtFor = DateFormat("HH:mm");
     DateTime dt = dtFor.parse(dateTime);
     DateFormat dateFormat = DateFormat(returnFormat);
     String returnDT = dateFormat.format(dt);
     return returnDT;
+  }
+
+  DateTime parseTimeAsDateTime({String dateTime, String returnFormat}) {
+    DateFormat dtFor = DateFormat("HH:mm");
+    DateTime dt = dtFor.parse(dateTime);
+
+    return dt;
   }
 
   DateTime convertDateFromString(String strDate) {

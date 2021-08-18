@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class FoodController extends GetxController {
-  Rx<DateTime> now = DateTime.now().obs;
+  Rx<DateTime> currentDateTime = DateTime.now().obs;
   RxDouble sliderValue = 1.0.obs;
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
@@ -25,9 +25,12 @@ class FoodController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    formattedTime = int.parse(DateFormat().format(now.value)).obs;
-    print("time:$formattedTime");
-    // bool isInternet = await ConnectionCheck().initConnectivity();
+
+    formattedTime = int.parse(
+            DateFormat.Hm().format(currentDateTime.value).split(":").first)
+        .obs;
+    print("timer:${formattedTime.value}");
+    // bool isInternet = await ConnectionCheck().();
     // connectionStatus.value = isInternet;
     // if (connectionStatus.value) {
     //   loader.value = true;
