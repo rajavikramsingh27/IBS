@@ -1,3 +1,4 @@
+import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
@@ -34,13 +35,17 @@ class ServiceApi {
   Future<dynamic> getSymptomsApi({Map bodyData}) async {
     var result = await CoreService()
         .apiService(method: METHOD.FIND, endpoint: SYMPTOMS, data: bodyData);
-    return result;
+    if(result == null){
+      return null;
+    }else{
+      return SymptomsResponseModel.fromJson(result);
+    }
   }
 
   Future<dynamic> getReAuthApi() async {
-    var result = await CoreService().apiService(
-      method: METHOD.REAUTHENTICATE,
-    );
+    var result = await CoreService()
+        .apiService(method: METHOD.REAUTHENTICATE,);
+
     return result;
   }
 

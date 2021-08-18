@@ -82,7 +82,9 @@ class Symptoms extends StatelessWidget {
                             Positioned.fill(
                               top: ScreenConstant.defaultHeightOneHundred,
                               child: Container(
-                                margin: EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty * 1.5),
+                                margin: EdgeInsets.only(
+                                    top: ScreenConstant.defaultHeightTwenty *
+                                        1.5),
                                 width: Get.context.mediaQuerySize.width,
                                 child: CustomPaint(
                                   size: Size(Get.context.mediaQuerySize.width,
@@ -129,11 +131,11 @@ class Symptoms extends StatelessWidget {
                                                   return ListView(
                                                     shrinkWrap: true,
                                                     physics:
-                                                    ClampingScrollPhysics(),
+                                                        ClampingScrollPhysics(),
                                                     children: [
                                                       SizedBox(
                                                           height: ScreenConstant
-                                                              .defaultHeightTwenty *
+                                                                  .defaultHeightTwenty *
                                                               1.6),
                                                       Text(
                                                         _signUpController
@@ -144,12 +146,12 @@ class Symptoms extends StatelessWidget {
                                                         style: TextStyles
                                                             .textStyleIntroDescription
                                                             .apply(
-                                                            color: Colors
-                                                                .white,
-                                                            fontSizeDelta:
-                                                            -3),
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSizeDelta:
+                                                                    -3),
                                                         textAlign:
-                                                        TextAlign.center,
+                                                            TextAlign.center,
                                                       ),
                                                       SizedBox(
                                                           height: ScreenConstant
@@ -159,10 +161,10 @@ class Symptoms extends StatelessWidget {
                                                         style: TextStyles
                                                             .textStyleRegular
                                                             .apply(
-                                                            color: AppColors
-                                                                .colorSkipButton),
+                                                                color: AppColors
+                                                                    .colorSkipButton),
                                                         textAlign:
-                                                        TextAlign.center,
+                                                            TextAlign.center,
                                                       ),
                                                       SizedBox(
                                                           height: ScreenConstant
@@ -170,73 +172,73 @@ class Symptoms extends StatelessWidget {
                                                       Padding(
                                                         padding: EdgeInsets.symmetric(
                                                             horizontal:
-                                                            ScreenConstant
-                                                                .defaultWidthTen),
+                                                                ScreenConstant
+                                                                    .defaultWidthTen),
                                                         child: SfSliderTheme(
                                                           data:
-                                                          SfSliderThemeData(
+                                                              SfSliderThemeData(
                                                             thumbColor: AppColors
                                                                 .colorArrowButton,
                                                             thumbStrokeWidth: 5,
                                                             thumbRadius: 16,
                                                             thumbStrokeColor:
-                                                            Colors.white,
+                                                                Colors.white,
                                                             activeTrackHeight:
-                                                            4,
+                                                                4,
                                                             overlayRadius: 0,
                                                             disabledActiveTrackColor:
-                                                            AppColors
-                                                                .colorTrackSlider,
+                                                                AppColors
+                                                                    .colorTrackSlider,
                                                             disabledInactiveTrackColor:
-                                                            AppColors
-                                                                .colorTrackSlider,
+                                                                AppColors
+                                                                    .colorTrackSlider,
                                                             activeDividerStrokeWidth:
-                                                            2,
+                                                                2,
                                                             inactiveDividerStrokeWidth:
-                                                            2,
+                                                                2,
                                                             inactiveTrackHeight:
-                                                            4,
+                                                                4,
                                                             activeTrackColor:
-                                                            AppColors
-                                                                .colorTrackSlider,
+                                                                AppColors
+                                                                    .colorTrackSlider,
                                                             inactiveTrackColor:
-                                                            AppColors
-                                                                .colorTrackSlider,
+                                                                AppColors
+                                                                    .colorTrackSlider,
                                                             inactiveDividerStrokeColor:
-                                                            AppColors.white,
+                                                                AppColors.white,
                                                             inactiveDividerRadius:
-                                                            8,
+                                                                8,
                                                             inactiveDividerColor:
-                                                            AppColors
-                                                                .colorInactiveDividerSlider,
+                                                                AppColors
+                                                                    .colorInactiveDividerSlider,
                                                             activeDividerColor:
-                                                            AppColors
-                                                                .colorInactiveDividerSlider,
+                                                                AppColors
+                                                                    .colorInactiveDividerSlider,
                                                             activeDividerStrokeColor:
-                                                            Colors.white,
+                                                                Colors.white,
                                                             activeDividerRadius:
-                                                            8,
+                                                                8,
                                                             activeLabelStyle: TextStyles
                                                                 .textStyleRegular
                                                                 .apply(
-                                                                color: AppColors
-                                                                    .colorTrackSlider),
+                                                                    color: AppColors
+                                                                        .colorTrackSlider),
                                                             inactiveLabelStyle: TextStyles
                                                                 .textStyleRegular
                                                                 .apply(
-                                                                color: AppColors
-                                                                    .colorTrackSlider),
+                                                                    color: AppColors
+                                                                        .colorTrackSlider),
                                                           ),
                                                           child: SfSlider(
                                                             showDividers: true,
                                                             min: 1.0,
                                                             max: _signUpController
-                                                                .symptoms
-                                                                .value
-                                                                .items[
-                                                            index]
-                                                                ?.rating
-                                                                ?.range ??
+                                                                    .symptoms
+                                                                    .value
+                                                                    .items[
+                                                                        index]
+                                                                    ?.rating
+                                                                    ?.range ??
                                                                 2,
                                                             interval: 1,
                                                             stepSize: 1,
@@ -248,33 +250,35 @@ class Symptoms extends StatelessWidget {
                                                                 .rating
                                                                 .ratingDefault,
                                                             onChanged: (dynamic
-                                                            newValue) {
+                                                                newValue) {
                                                               print(
                                                                   "New Value : $newValue");
                                                               _signUpController
-                                                                  .symptoms
-                                                                  .value
-                                                                  .items[index]
-                                                                  .rating
-                                                                  .ratingDefault =
+                                                                      .symptoms
+                                                                      .value
+                                                                      .items[index]
+                                                                      .rating
+                                                                      .ratingDefault =
                                                                   newValue;
-                                                              _signUpController.symptoms.refresh();
+                                                              _signUpController
+                                                                  .symptoms
+                                                                  .refresh();
                                                             },
                                                             labelFormatterCallback:
                                                                 (dynamic
-                                                            actualValue,
-                                                                String
-                                                                formattedText) {
+                                                                        actualValue,
+                                                                    String
+                                                                        formattedText) {
                                                               if (actualValue ==
                                                                   1.0) {
                                                                 return "None";
                                                               }
                                                               if (actualValue ==
                                                                   _signUpController
-                                                                      .symptoms
-                                                                      .value
-                                                                      .items
-                                                                      .length +
+                                                                          .symptoms
+                                                                          .value
+                                                                          .items
+                                                                          .length +
                                                                       1) {
                                                                 return "Severe";
                                                               }
@@ -284,181 +288,245 @@ class Symptoms extends StatelessWidget {
                                                         ),
                                                       ),
                                                       _signUpController
-                                                          .symptoms
-                                                          .value
-                                                          .items[index]
-                                                          .rating
-                                                          .ratingDefault !=
-                                                          1
+                                                                  .symptoms
+                                                                  .value
+                                                                  .items[index]
+                                                                  .rating
+                                                                  .ratingDefault !=
+                                                              1
                                                           ? Padding(
-                                                        padding:
-                                                        ScreenConstant
-                                                            .spacingAllMedium,
-                                                        child: Column(
-                                                          children: [
-                                                            SizedBox(
-                                                                height: ScreenConstant
-                                                                    .defaultHeightTwenty),
-                                                            Text(
-                                                                _signUpController
-                                                                    .symptoms
-                                                                    .value
-                                                                    .items[index].children.first.items.first.tid,
-                                                                textAlign:
-                                                                TextAlign
-                                                                    .center,
-                                                                style: TextStyles
-                                                                    .textStyleIntroDescription
-                                                                    .apply(
-                                                                    color: Colors.white,
-                                                                    fontSizeDelta: -3)),
-                                                            SizedBox(
-                                                                height: ScreenConstant
-                                                                    .defaultHeightTen),
-                                                            Text(
-                                                              _signUpController
-                                                                  .symptoms
-                                                                  .value
-                                                                  .items[index].children.first.items.first.description,
-                                                              textAlign:
-                                                              TextAlign
-                                                                  .center,
-                                                              style: TextStyles
-                                                                  .textStyleRegular
-                                                                  .apply(
-                                                                  color:
-                                                                  AppColors.colorSkipButton),
-                                                            ),
-                                                            SizedBox(
-                                                                height: ScreenConstant
-                                                                    .defaultHeightTwentyFour),
-                                                            GridView
-                                                                .builder(
-                                                              //   padding: EdgeInsets.symmetric(
-                                                              //       horizontal: ScreenConstant.defaultWidthTwenty),
-                                                              shrinkWrap:
-                                                              true,
-                                                              physics:
-                                                              NeverScrollableScrollPhysics(),
-                                                              itemCount: _signUpController
-                                                                  .symptoms
-                                                                  .value
-                                                                  .items[index].children.first.items.first.list.options.length,
-                                                              itemBuilder:
-                                                                  (BuildContext
-                                                              context,
-                                                                  int optIdx) {
-                                                                var model =_signUpController
-                                                                    .symptoms
-                                                                    .value
-                                                                    .items[index].children.first.items.first.list.options[optIdx];
-                                                                var imageModel = DummyData.symptoms[optIdx];
-                                                                return Card(
-                                                                    elevation:
-                                                                    0,
-                                                                    color: AppColors
-                                                                        .colorSymptomsGridBg,
-                                                                    shape:
-                                                                    RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                      BorderRadius.circular(16),
-                                                                    ),
-                                                                    child:
-                                                                    Padding(
-                                                                      padding:
-                                                                      ScreenConstant.spacingAllDefault,
-                                                                      child:
-                                                                      Column(
-                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                        children: [
-                                                                          Image.asset(
-                                                                            model.image.normal,
-                                                                            width: ScreenConstant.defaultWidthTwenty * 1.5,
+                                                              padding:
+                                                                  ScreenConstant
+                                                                      .spacingAllMedium,
+                                                              child: Column(
+                                                                children: [
+                                                                  SizedBox(
+                                                                      height: ScreenConstant
+                                                                          .defaultHeightTwenty),
+                                                                  Text(
+                                                                      _signUpController
+                                                                          .symptoms
+                                                                          .value
+                                                                          .items[
+                                                                              index]
+                                                                          .children
+                                                                          .first
+                                                                          .items
+                                                                          .first
+                                                                          .tid,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      style: TextStyles.textStyleIntroDescription.apply(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontSizeDelta:
+                                                                              -3)),
+                                                                  SizedBox(
+                                                                      height: ScreenConstant
+                                                                          .defaultHeightTen),
+                                                                  Text(
+                                                                    _signUpController
+                                                                        .symptoms
+                                                                        .value
+                                                                        .items[
+                                                                            index]
+                                                                        .children
+                                                                        .first
+                                                                        .items
+                                                                        .first
+                                                                        .description,
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: TextStyles
+                                                                        .textStyleRegular
+                                                                        .apply(
+                                                                            color:
+                                                                                AppColors.colorSkipButton),
+                                                                  ),
+                                                                  SizedBox(
+                                                                      height: ScreenConstant
+                                                                          .defaultHeightTwentyFour),
+                                                                  GridView
+                                                                      .builder(
+                                                                    //   padding: EdgeInsets.symmetric(
+                                                                    //       horizontal: ScreenConstant.defaultWidthTwenty),
+                                                                    shrinkWrap:
+                                                                        true,
+                                                                    physics:
+                                                                        NeverScrollableScrollPhysics(),
+                                                                    itemCount: _signUpController
+                                                                        .symptoms
+                                                                        .value
+                                                                        .items[
+                                                                            index]
+                                                                        .children
+                                                                        .first
+                                                                        .items
+                                                                        .first
+                                                                        .list
+                                                                        .options
+                                                                        .length,
+                                                                    itemBuilder:
+                                                                        (BuildContext
+                                                                                context,
+                                                                            int optIdx) {
+                                                                      var model = _signUpController
+                                                                          .symptoms
+                                                                          .value
+                                                                          .items[
+                                                                              index]
+                                                                          .children
+                                                                          .first
+                                                                          .items
+                                                                          .first
+                                                                          .list
+                                                                          .options[optIdx];
+                                                                      var imageModel =
+                                                                          DummyData
+                                                                              .symptoms[optIdx];
+                                                                      return Card(
+                                                                          elevation:
+                                                                              0,
+                                                                          color: AppColors
+                                                                              .colorSymptomsGridBg,
+                                                                          shape:
+                                                                              RoundedRectangleBorder(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(16),
                                                                           ),
-                                                                          SizedBox(height: ScreenConstant.defaultHeightTen),
-                                                                          Text("${model.label}", textAlign: TextAlign.center, style: TextStyles.textStyleRegular.apply(color: AppColors.white, fontSizeDelta: -2)),
-                                                                        ],
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                ScreenConstant.spacingAllDefault,
+                                                                            child:
+                                                                                Column(
+                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                              children: [
+                                                                                Image.asset(
+                                                                                  imageModel.image,
+                                                                                  width: ScreenConstant.defaultWidthTwenty * 1.5,
+                                                                                ),
+                                                                                SizedBox(height: ScreenConstant.defaultHeightTen),
+                                                                                Text("${model.label}", textAlign: TextAlign.center, style: TextStyles.textStyleRegular.apply(color: AppColors.white, fontSizeDelta: -2)),
+                                                                              ],
+                                                                            ),
+                                                                          ));
+                                                                    },
+                                                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                                        crossAxisCount:
+                                                                            3,
+                                                                        childAspectRatio:
+                                                                            1),
+                                                                  ),
+                                                                  SizedBox(
+                                                                      height: ScreenConstant
+                                                                              .defaultHeightForty *
+                                                                          1.25),
+                                                                  Column(
+                                                                    children: [
+                                                                      Text(
+                                                                          "Duration",
+                                                                          textAlign: TextAlign
+                                                                              .center,
+                                                                          style: TextStyles.textStyleIntroDescription.apply(
+                                                                              color: Colors.white,
+                                                                              fontSizeDelta: -3)),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              ScreenConstant.defaultHeightTen),
+                                                                      Text(
+                                                                        "How long have you been experiencing abdominal pain ?",
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: TextStyles
+                                                                            .textStyleRegular
+                                                                            .apply(color: AppColors.colorSkipButton),
                                                                       ),
-                                                                    ));
-                                                              },
-                                                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                                  crossAxisCount:
-                                                                  3,
-                                                                  childAspectRatio:
-                                                                  1),
-                                                            ),
-                                                            SizedBox(
-                                                                height: ScreenConstant
-                                                                    .defaultHeightForty *
-                                                                    1.25),
-                                                            Column(
-                                                              children: [
-                                                                Text("Duration",
-                                                                    textAlign: TextAlign.center,
-                                                                    style: TextStyles.textStyleIntroDescription
-                                                                        .apply(color: Colors.white, fontSizeDelta: -3)),
-                                                                SizedBox(height: ScreenConstant.defaultHeightTen),
-                                                                Text(
-                                                                  "How long have you been experiencing abdominal pain ?",
-                                                                  textAlign: TextAlign.center,
-                                                                  style: TextStyles.textStyleRegular
-                                                                      .apply(color: AppColors.colorSkipButton),
-                                                                ),
-                                                                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                                                                Container(
-                                                                  height: ScreenConstant.defaultHeightForty,
-                                                                  width: double.maxFinite,
-                                                                  margin: EdgeInsets.only(
-                                                                      left: ScreenConstant.defaultWidthTen * 1.5,
-                                                                      right: ScreenConstant.defaultWidthTen * 1.5,
-                                                                      bottom: ScreenConstant.defaultHeightTen * 1.5),
-                                                                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                                                                  decoration: BoxDecoration(
-                                                                      color: AppColors.colordropdownArrowBg,
-                                                                      borderRadius: BorderRadius.all(Radius.circular(8))),
-                                                                  // dropdown below..
-                                                                  child: DropdownButton<String>(
-                                                                      isExpanded: true,
-                                                                      dropdownColor: AppColors.white,
-                                                                      value: "Less than 1 hour",
-                                                                      elevation: 30,
-                                                                      icon: Icon(
-                                                                        Icons.keyboard_arrow_down_outlined,
-                                                                        color: AppColors.colorBackground,
-                                                                      ),
-                                                                      iconSize: 20,
-                                                                      underline: SizedBox(),
-                                                                      onChanged: (String newValue) {
-                                                                        // setState(() {
-                                                                        //   dropdownValue = newValue;
-                                                                        // });
-                                                                      },
-                                                                      items: <String>["Less than 1 hour", "2", "3", "4", "5", "more"]
-                                                                          .map<DropdownMenuItem<String>>((String value) {
-                                                                        return DropdownMenuItem<String>(
-                                                                          value: value.toString(),
-                                                                          child: Text(value.toString(), style: TextStyles.textStyleRegular),
-                                                                        );
-                                                                      }).toList()),
-                                                                )
-                                                              ],
-                                                            ),
-                                                            SizedBox(
-                                                                height: ScreenConstant
-                                                                    .defaultHeightTwentyFour),
-                                                            Divider(
-                                                                thickness:
-                                                                1,
-                                                                color: AppColors
-                                                                    .white
-                                                                    .withOpacity(
-                                                                    0.12)),
-                                                            SizedBox(
-                                                                height: ScreenConstant
-                                                                    .defaultHeightTwenty),
-                                                          ],
-                                                        ),
-                                                      )
+                                                                      SizedBox(
+                                                                          height:
+                                                                              ScreenConstant.defaultHeightTwentyFour),
+                                                                      Container(
+                                                                        height:
+                                                                            ScreenConstant.defaultHeightForty,
+                                                                        width: double
+                                                                            .maxFinite,
+                                                                        margin: EdgeInsets.only(
+                                                                            left: ScreenConstant.defaultWidthTen *
+                                                                                1.5,
+                                                                            right: ScreenConstant.defaultWidthTen *
+                                                                                1.5,
+                                                                            bottom:
+                                                                                ScreenConstant.defaultHeightTen * 1.5),
+                                                                        padding: EdgeInsets.symmetric(
+                                                                            horizontal:
+                                                                                10,
+                                                                            vertical:
+                                                                                0),
+                                                                        decoration: BoxDecoration(
+                                                                            color:
+                                                                                AppColors.colordropdownArrowBg,
+                                                                            borderRadius: BorderRadius.all(Radius.circular(8))),
+                                                                        // dropdown below..
+                                                                        child: DropdownButton<
+                                                                                String>(
+                                                                            isExpanded:
+                                                                                true,
+                                                                            dropdownColor: AppColors
+                                                                                .white,
+                                                                            value:
+                                                                                "Less than 1 hour",
+                                                                            elevation:
+                                                                                30,
+                                                                            icon:
+                                                                                Icon(
+                                                                              Icons.keyboard_arrow_down_outlined,
+                                                                              color: AppColors.colorBackground,
+                                                                            ),
+                                                                            iconSize:
+                                                                                20,
+                                                                            underline:
+                                                                                SizedBox(),
+                                                                            onChanged: (String
+                                                                                newValue) {
+                                                                              // setState(() {
+                                                                              //   dropdownValue = newValue;
+                                                                              // });
+                                                                            },
+                                                                            items:
+                                                                                <String>[
+                                                                              "Less than 1 hour",
+                                                                              "2",
+                                                                              "3",
+                                                                              "4",
+                                                                              "5",
+                                                                              "more"
+                                                                            ].map<DropdownMenuItem<String>>((String value) {
+                                                                              return DropdownMenuItem<String>(
+                                                                                value: value.toString(),
+                                                                                child: Text(value.toString(), style: TextStyles.textStyleRegular),
+                                                                              );
+                                                                            }).toList()),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                  SizedBox(
+                                                                      height: ScreenConstant
+                                                                          .defaultHeightTwentyFour),
+                                                                  Divider(
+                                                                      thickness:
+                                                                          1,
+                                                                      color: AppColors
+                                                                          .white
+                                                                          .withOpacity(
+                                                                              0.12)),
+                                                                  SizedBox(
+                                                                      height: ScreenConstant
+                                                                          .defaultHeightTwenty),
+                                                                ],
+                                                              ),
+                                                            )
                                                           : Offstage(),
                                                       SizedBox(
                                                           height: ScreenConstant
@@ -482,12 +550,9 @@ class Symptoms extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: ScreenConstant.defaultHeightForty),
-
                         AdditionalNoteWidget(),
                         SizedBox(
                             height: ScreenConstant.defaultHeightTwentyFour),
-
-                        // _buildExcerciseDuration()
                       ],
                     ),
                   ),
