@@ -168,12 +168,12 @@ class ItemValue {
   });
 
   List<dynamic> arr;
-  num numValue;
+  double numValue;
   String str;
 
   factory ItemValue.fromJson(Map<String, dynamic> json) => ItemValue(
     arr: json["arr"] == null ? null : List<dynamic>.from(json["arr"].map((x) => x)),
-    numValue: json["num"] == null ? 0 : json["num"],
+    numValue: json["num"] == null ? 0.0 : double.parse(json["num"].toString()),
     str: json["str"] == null ? null : json["str"],
   );
 

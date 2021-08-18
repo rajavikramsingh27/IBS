@@ -10,6 +10,7 @@ import 'package:flutter_ibs/widget/AdditionalNoteWidget.dart';
 import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
+import 'package:flutter_ibs/widget/DropDownList.dart';
 import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
@@ -251,8 +252,6 @@ class Symptoms extends StatelessWidget {
                                                                 .ratingDefault,
                                                             onChanged: (dynamic
                                                                 newValue) {
-                                                              print(
-                                                                  "New Value : $newValue");
                                                               _signUpController
                                                                       .symptoms
                                                                       .value
@@ -386,33 +385,38 @@ class Symptoms extends StatelessWidget {
                                                                       var imageModel =
                                                                           DummyData
                                                                               .symptoms[optIdx];
-                                                                      return Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          color: AppColors
-                                                                              .colorSymptomsGridBg,
-                                                                          shape:
-                                                                              RoundedRectangleBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(16),
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                ScreenConstant.spacingAllDefault,
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              children: [
-                                                                                Image.asset(
-                                                                                  imageModel.image,
-                                                                                  width: ScreenConstant.defaultWidthTwenty * 1.5,
-                                                                                ),
-                                                                                SizedBox(height: ScreenConstant.defaultHeightTen),
-                                                                                Text("${model.label}", textAlign: TextAlign.center, style: TextStyles.textStyleRegular.apply(color: AppColors.white, fontSizeDelta: -2)),
-                                                                              ],
+                                                                      return InkWell(
+                                                                        onTap: (){
+                                                                          _symptomsController
+                                                                              .onOptionTapped(model);
+                                                                        },
+                                                                        child: Card(
+                                                                            elevation:
+                                                                                0,
+                                                                            color: model.optionDefault?AppColors.colorCloseLight:AppColors.colorSymptomsGridBg,
+                                                                            shape:
+                                                                                RoundedRectangleBorder(
+                                                                              borderRadius:
+                                                                                  BorderRadius.circular(16),
                                                                             ),
-                                                                          ));
+                                                                            child:
+                                                                                Padding(
+                                                                              padding:
+                                                                                  ScreenConstant.spacingAllDefault,
+                                                                              child:
+                                                                                  Column(
+                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                children: [
+                                                                                  Image.asset(
+                                                                                    imageModel.image,
+                                                                                    width: ScreenConstant.defaultWidthTwenty * 1.5,
+                                                                                  ),
+                                                                                  SizedBox(height: ScreenConstant.defaultHeightTen),
+                                                                                  Text("${model.label}", textAlign: TextAlign.center, style: TextStyles.textStyleRegular.apply(color: AppColors.white, fontSizeDelta: -2)),
+                                                                                ],
+                                                                              ),
+                                                                            )),
+                                                                      );
                                                                     },
                                                                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                                                         crossAxisCount:
@@ -420,114 +424,114 @@ class Symptoms extends StatelessWidget {
                                                                         childAspectRatio:
                                                                             1),
                                                                   ),
-                                                                  SizedBox(
-                                                                      height: ScreenConstant
-                                                                              .defaultHeightForty *
-                                                                          1.25),
-                                                                  Column(
-                                                                    children: [
-                                                                      Text(
-                                                                          "Duration",
-                                                                          textAlign: TextAlign
-                                                                              .center,
-                                                                          style: TextStyles.textStyleIntroDescription.apply(
-                                                                              color: Colors.white,
-                                                                              fontSizeDelta: -3)),
-                                                                      SizedBox(
-                                                                          height:
-                                                                              ScreenConstant.defaultHeightTen),
-                                                                      Text(
-                                                                        "How long have you been experiencing abdominal pain ?",
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                        style: TextStyles
-                                                                            .textStyleRegular
-                                                                            .apply(color: AppColors.colorSkipButton),
-                                                                      ),
-                                                                      SizedBox(
-                                                                          height:
-                                                                              ScreenConstant.defaultHeightTwentyFour),
-                                                                      Container(
-                                                                        height:
-                                                                            ScreenConstant.defaultHeightForty,
-                                                                        width: double
-                                                                            .maxFinite,
-                                                                        margin: EdgeInsets.only(
-                                                                            left: ScreenConstant.defaultWidthTen *
-                                                                                1.5,
-                                                                            right: ScreenConstant.defaultWidthTen *
-                                                                                1.5,
-                                                                            bottom:
-                                                                                ScreenConstant.defaultHeightTen * 1.5),
-                                                                        padding: EdgeInsets.symmetric(
-                                                                            horizontal:
-                                                                                10,
-                                                                            vertical:
-                                                                                0),
-                                                                        decoration: BoxDecoration(
-                                                                            color:
-                                                                                AppColors.colordropdownArrowBg,
-                                                                            borderRadius: BorderRadius.all(Radius.circular(8))),
-                                                                        // dropdown below..
-                                                                        child: DropdownButton<
-                                                                                String>(
-                                                                            isExpanded:
-                                                                                true,
-                                                                            dropdownColor: AppColors
-                                                                                .white,
-                                                                            value:
-                                                                                "Less than 1 hour",
-                                                                            elevation:
-                                                                                30,
-                                                                            icon:
-                                                                                Icon(
-                                                                              Icons.keyboard_arrow_down_outlined,
-                                                                              color: AppColors.colorBackground,
-                                                                            ),
-                                                                            iconSize:
-                                                                                20,
-                                                                            underline:
-                                                                                SizedBox(),
-                                                                            onChanged: (String
-                                                                                newValue) {
-                                                                              // setState(() {
-                                                                              //   dropdownValue = newValue;
-                                                                              // });
-                                                                            },
-                                                                            items:
-                                                                                <String>[
-                                                                              "Less than 1 hour",
-                                                                              "2",
-                                                                              "3",
-                                                                              "4",
-                                                                              "5",
-                                                                              "more"
-                                                                            ].map<DropdownMenuItem<String>>((String value) {
-                                                                              return DropdownMenuItem<String>(
-                                                                                value: value.toString(),
-                                                                                child: Text(value.toString(), style: TextStyles.textStyleRegular),
-                                                                              );
-                                                                            }).toList()),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                  SizedBox(
-                                                                      height: ScreenConstant
-                                                                          .defaultHeightTwentyFour),
-                                                                  Divider(
-                                                                      thickness:
-                                                                          1,
-                                                                      color: AppColors
-                                                                          .white
-                                                                          .withOpacity(
-                                                                              0.12)),
-                                                                  SizedBox(
-                                                                      height: ScreenConstant
-                                                                          .defaultHeightTwenty),
+
                                                                 ],
                                                               ),
                                                             )
                                                           : Offstage(),
+                                                      SizedBox(
+                                                          height: ScreenConstant
+                                                              .defaultHeightForty *
+                                                              1.25),
+                                                      Padding(padding:
+                                                        ScreenConstant
+                                                        .spacingAllMedium,
+                                                        child: Column(
+                                                          children: [
+                                                            Text(
+                                                                "Duration",
+                                                                textAlign: TextAlign
+                                                                    .center,
+                                                                style: TextStyles.textStyleIntroDescription.apply(
+                                                                    color: Colors.white,
+                                                                    fontSizeDelta: -3)),
+                                                            SizedBox(
+                                                                height:
+                                                                ScreenConstant.defaultHeightTen),
+                                                            Text(
+                                                              "How long have you been experiencing abdominal pain ?",
+                                                              textAlign:
+                                                              TextAlign.center,
+                                                              style: TextStyles
+                                                                  .textStyleRegular
+                                                                  .apply(color: AppColors.colorSkipButton),
+                                                            ),
+                                                            SizedBox(
+                                                                height:
+                                                                ScreenConstant.defaultHeightTwentyFour),
+                                                            Container(
+                                                              height:
+                                                              ScreenConstant.defaultHeightForty,
+                                                              width: double
+                                                                  .maxFinite,
+                                                              margin: EdgeInsets.only(
+                                                                  left: ScreenConstant.defaultWidthTen *
+                                                                      1.5,
+                                                                  right: ScreenConstant.defaultWidthTen *
+                                                                      1.5,
+                                                                  bottom:
+                                                                  ScreenConstant.defaultHeightTen * 1.5),
+                                                              padding: EdgeInsets.symmetric(
+                                                                  horizontal:
+                                                                  10,
+                                                                  vertical:
+                                                                  0),
+                                                              decoration: BoxDecoration(
+                                                                  color:
+                                                                  AppColors.colordropdownArrowBg,
+                                                                  borderRadius: BorderRadius.all(Radius.circular(8))),
+                                                              // dropdown below..
+                                                              child: SelectDropList(
+                                                                _signUpController
+                                                                    .symptoms
+                                                                    .value
+                                                                    .items[
+                                                                index]
+                                                                    .children
+                                                                    .first
+                                                                    .items
+                                                                    .last.select.selectDefault,
+                                                                _signUpController
+                                                                    .symptoms
+                                                                    .value
+                                                                    .items[
+                                                                index]
+                                                                    .children
+                                                                    .first
+                                                                    .items
+                                                                    .last.select.options,
+                                                                    (optionItem) {
+                                                                      _signUpController
+                                                                          .symptoms
+                                                                          .value
+                                                                          .items[
+                                                                      index]
+                                                                          .children
+                                                                          .first
+                                                                          .items
+                                                                          .last.select.selectDefault = optionItem;
+                                                                      _signUpController.symptoms.refresh();
+                                                                },
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                                height: ScreenConstant
+                                                                    .defaultHeightTwentyFour),
+                                                            Divider(
+                                                                thickness:
+                                                                1,
+                                                                color: AppColors
+                                                                    .white
+                                                                    .withOpacity(
+                                                                    0.12)),
+                                                            SizedBox(
+                                                                height: ScreenConstant
+                                                                    .defaultHeightTwenty),
+                                                          ],
+                                                        ),
+                                                      ),
+
+
                                                       SizedBox(
                                                           height: ScreenConstant
                                                               .defaultHeightTwenty),
