@@ -432,7 +432,7 @@ class ListOption {
     value: json["value"],
     label: json["label"],
     image: ModelImage.fromJson(json["image"]),
-    optionDefault: json["default"],
+    optionDefault: json["default"] == null ? false : json["default"],
     conditionalDefault: json["conditionalDefault"] == null ? null : ConditionalDefault.fromJson(json["conditionalDefault"]),
   );
 
@@ -619,12 +619,12 @@ class Select {
     this.validation,
   });
 
-  String selectDefault;
+  SelectOption selectDefault;
   List<SelectOption> options;
   ListValidation validation;
 
   factory Select.fromJson(Map<String, dynamic> json) => Select(
-    selectDefault: json["default"],
+    selectDefault: json["default"] == null ? SelectOption() : SelectOption(value: json["default"],label: "option_less_than_1hr") ,
     options: List<SelectOption>.from(json["options"].map((x) => SelectOption.fromJson(x))),
     validation: ListValidation.fromJson(json["validation"]),
   );
@@ -1109,13 +1109,13 @@ class FluffyRating {
   });
 
   num range;
-  num ratingDefault;
+  double ratingDefault;
   List<FluffyOption> options;
   FluffyValidation validation;
 
   factory FluffyRating.fromJson(Map<String, dynamic> json) => FluffyRating(
     range: json["range"],
-    ratingDefault: json["default"],
+    ratingDefault: json["default"] == null ? 0.0 :  double.parse(json["default"].toString()),
     options: List<FluffyOption>.from(json["options"].map((x) => FluffyOption.fromJson(x))),
     validation: json["validation"] == null ? null : FluffyValidation.fromJson(json["validation"]),
   );

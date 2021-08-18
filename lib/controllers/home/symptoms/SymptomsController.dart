@@ -1,5 +1,6 @@
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
+import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:get/get.dart';
@@ -28,17 +29,33 @@ class SymptomsController extends GetxController {
     }else{
       SymptomsResponseModel symptomsResponseModel = data;
       if(symptomsResponseModel.data.length > 0){
-        /*symptomsResponseModel.data.first.items.forEach((element) {
-          _signUpController
-              .symptoms
-              .value
-              .items[0]
-              .rating
-              .ratingDefault = element.value.numValue;
-          _signUpController
-              .symptoms
-              .refresh();
-        });*/
+        for( var i = 0 ; i <symptomsResponseModel.data.first.items.length ; i++ ) {
+          if(symptomsResponseModel.data.first.items[i].tid != "symptoms-notes"){
+            symptomsResponseModel.data.first.items[i].children.first.value.arr.forEach((element) {
+              _signUpController
+                  .symptoms
+                  .value
+                  .items[i]
+                  .children.first.items.first.list.options.forEach((item) {
+                    if(item.value == element){
+                      item.optionDefault = true;
+                    }
+              });
+            });
+            _signUpController
+                .symptoms
+                .value
+                .items[i]
+                .rating
+                ?.ratingDefault = symptomsResponseModel.data.first.items[i].value.numValue;
+
+            _signUpController
+                .symptoms
+                .refresh();
+          }
+
+        }
+
         print("RSData : ${data.data.length}");
 
       }else{
@@ -46,6 +63,11 @@ class SymptomsController extends GetxController {
       }
 
     }
-
+  }
+  onOptionTapped([ListOption model]){
+    model.optionDefault = !model.optionDefault;
+    _signUpController
+        .symptoms
+        .refresh();
   }
 }
