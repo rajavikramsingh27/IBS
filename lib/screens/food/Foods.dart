@@ -318,46 +318,46 @@ class Foods extends StatelessWidget {
           style: TextStyles.textStyleRegular.apply(color: AppColors.white),
         ),
         SizedBox(height: ScreenConstant.defaultHeightForty),
-        _buildHydrationList(_controller.modelMealIndex.value),
+        // _buildHydrationList(_controller.modelMealIndex.value),
         SizedBox(height: ScreenConstant.defaultHeightSixty),
       ],
     );
   }
 
-  _buildHydrationList(int index) {
-    return GridView.builder(
-      padding: EdgeInsets.symmetric(
-        horizontal: ScreenConstant.defaultWidthTwenty,
-      ),
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: _signUpController.food.value.items
-          ?.elementAt(0)
-          ?.children
-          ?.elementAt(index)
-          ?.items
-          ?.elementAt(0)
-          ?.sum
-          ?.range,
-      itemBuilder: (BuildContext context, int index) {
-        return CircleAvatar(
-          backgroundColor: Colors.white.withOpacity(0.20),
-          child: Padding(
-              padding: ScreenConstant.spacingAllMedium,
-              child: Image.asset(
-                Assets.emptyGlass,
-                width: ScreenConstant.defaultWidthTwenty,
-                height: ScreenConstant.defaultHeightTwenty * 1.5,
-              )),
-        );
-      },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-          crossAxisCount: 5,
-          childAspectRatio: 0.99),
-    );
-  }
+  // _buildHydrationList(int index) {
+  //   return GridView.builder(
+  //     padding: EdgeInsets.symmetric(
+  //       horizontal: ScreenConstant.defaultWidthTwenty,
+  //     ),
+  //     physics: NeverScrollableScrollPhysics(),
+  //     shrinkWrap: true,
+  //     itemCount: _signUpController.food.value.items
+  //         ?.elementAt(0)
+  //         ?.children
+  //         ?.elementAt(index)
+  //         ?.items
+  //         ?.elementAt(0)
+  //         ?.sum
+  //         ?.range,
+  //     itemBuilder: (BuildContext context, int index) {
+  //       return CircleAvatar(
+  //         backgroundColor: Colors.white.withOpacity(0.20),
+  //         child: Padding(
+  //             padding: ScreenConstant.spacingAllMedium,
+  //             child: Image.asset(
+  //               Assets.emptyGlass,
+  //               width: ScreenConstant.defaultWidthTwenty,
+  //               height: ScreenConstant.defaultHeightTwenty * 1.5,
+  //             )),
+  //       );
+  //     },
+  //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+  //         crossAxisSpacing: 16,
+  //         mainAxisSpacing: 16,
+  //         crossAxisCount: 5,
+  //         childAspectRatio: 0.99),
+  //   );
+  // }
 
   _buildListOfFoodsTaken(int index) {
     return GridView.builder(
