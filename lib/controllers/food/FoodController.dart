@@ -17,6 +17,10 @@ class FoodController extends GetxController {
   RxBool loader = false.obs;
   RxBool switchValue = true.obs;
   RxBool connectionStatus = false.obs;
+  RxInt endTimeDifference = 0.obs;
+  RxInt startTimeDifference = 0.obs;
+
+  RxInt modelMealIndex = 0.obs;
 
   onTapped(int index) async {
     currentIndex.value = index;
@@ -65,7 +69,7 @@ class FoodController extends GetxController {
     print("Data: $data");
   }
 
-  timeList(int index) {
+  time(int index) {
     switch (index) {
       case 0:
         return (formattedTime.value == 04 && formattedTime.value < 12);
@@ -86,5 +90,9 @@ class FoodController extends GetxController {
       default:
         break;
     }
+  }
+
+  mealIndex(int index) {
+    modelMealIndex.value = index;
   }
 }
