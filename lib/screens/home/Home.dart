@@ -484,8 +484,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     switch (index) {
       case 0:
         {
-          SymptomsController _symptomsController = Get.put(SymptomsController());
-          _symptomsController.getSymptoms();
+          /*SymptomsController _symptomsController = Get.put(SymptomsController());
+          _symptomsController.getSymptoms();*/
           return Get.bottomSheet(Symptoms(),
               barrierColor: AppColors.barrierColor.withOpacity(0.60),
               isScrollControlled: true);

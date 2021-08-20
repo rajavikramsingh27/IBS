@@ -13,6 +13,8 @@ class SymptomsController extends GetxController {
   RxInt currentIndex = 0.obs;
   RxInt selectedIndex = 0.obs;
   SignUpController _signUpController = Get.put(SignUpController());
+  Rx<SelectOption> optionItemSelected = SelectOption(value: "ab",label: "AB").obs;
+  RxList<SelectOption> dropListModel = <SelectOption>[SelectOption(value: "ab",label: "AB"),SelectOption(value: "bc",label: "BC")].obs;
   onTapped(int index) async {
     currentIndex.value = index;
   }
