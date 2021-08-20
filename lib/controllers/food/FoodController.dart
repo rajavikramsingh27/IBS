@@ -15,6 +15,7 @@ class FoodController extends GetxController {
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   List<FoodIItemModel> items;
+  RxList<dynamic> selectedFood = [].obs;
   RxBool loader = false.obs;
   RxBool switchValue = true.obs;
   RxBool connectionStatus = false.obs;
@@ -94,19 +95,9 @@ class FoodController extends GetxController {
     }
   }
 
-  _lowfood() {
-    _signUpController.food.value.items
-        .elementAt(0)
-        .children
-        .elementAt(modelMealIndex.value)
-        .items
-        .forEach((element) {
-      element?.tags?.children?.forEach((element) {
-        element?.items?.forEach((element) {
-          listTagsDefault = element.tags.tagsDefault;
-        });
-      });
-    });
+  onOptionTapped([TagsDefault model]) {
+    model.required = !model.required;
+    _signUpController.food.refresh();
   }
 
   mealIndex(int index) {
