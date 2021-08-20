@@ -382,29 +382,64 @@ class Symptoms extends StatelessWidget {
                                                                           .first
                                                                           .list
                                                                           .options[optIdx];
+                                                                      _symptomsController.optionItemSelected.value = _signUpController
+                                                                          .symptoms
+                                                                          .value
+                                                                          .items[
+                                                                              index]
+                                                                          .children
+                                                                          .first
+                                                                          .items
+                                                                          .last
+                                                                          .select
+                                                                          .selectDefault;
+                                                                      _symptomsController.dropListModel.value = _signUpController
+                                                                          .symptoms
+                                                                          .value
+                                                                          .items[
+                                                                              index]
+                                                                          .children
+                                                                          .first
+                                                                          .items
+                                                                          .last
+                                                                          .select
+                                                                          .options;
+                                                                      print(
+                                                                          "Log value ${_signUpController.symptoms.value.items[index].children.first.items.last.select.options.length}");
+                                                                      _signUpController
+                                                                          .symptoms
+                                                                          .value
+                                                                          .items[
+                                                                              index]
+                                                                          .children
+                                                                          .first
+                                                                          .items
+                                                                          .last
+                                                                          .select
+                                                                          .options
+                                                                          .forEach(
+                                                                              (element) {
+                                                                        print(
+                                                                            "E: ${element.label}");
+                                                                      });
                                                                       var imageModel =
                                                                           DummyData
                                                                               .symptoms[optIdx];
                                                                       return InkWell(
-                                                                        onTap: (){
+                                                                        onTap:
+                                                                            () {
                                                                           _symptomsController
                                                                               .onOptionTapped(model);
                                                                         },
                                                                         child: Card(
-                                                                            elevation:
-                                                                                0,
-                                                                            color: model.optionDefault?AppColors.colorCloseLight:AppColors.colorSymptomsGridBg,
-                                                                            shape:
-                                                                                RoundedRectangleBorder(
-                                                                              borderRadius:
-                                                                                  BorderRadius.circular(16),
+                                                                            elevation: 0,
+                                                                            color: model.optionDefault ? AppColors.colorCloseLight : AppColors.colorSymptomsGridBg,
+                                                                            shape: RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(16),
                                                                             ),
-                                                                            child:
-                                                                                Padding(
-                                                                              padding:
-                                                                                  ScreenConstant.spacingAllDefault,
-                                                                              child:
-                                                                                  Column(
+                                                                            child: Padding(
+                                                                              padding: ScreenConstant.spacingAllDefault,
+                                                                              child: Column(
                                                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                                                 children: [
                                                                                   Image.asset(
@@ -424,114 +459,101 @@ class Symptoms extends StatelessWidget {
                                                                         childAspectRatio:
                                                                             1),
                                                                   ),
-
                                                                 ],
                                                               ),
                                                             )
                                                           : Offstage(),
                                                       SizedBox(
                                                           height: ScreenConstant
-                                                              .defaultHeightForty *
+                                                                  .defaultHeightForty *
                                                               1.25),
-                                                      Padding(padding:
-                                                        ScreenConstant
-                                                        .spacingAllMedium,
+                                                      Padding(
+                                                        padding: ScreenConstant
+                                                            .spacingAllMedium,
                                                         child: Column(
                                                           children: [
-                                                            Text(
-                                                                "Duration",
-                                                                textAlign: TextAlign
-                                                                    .center,
-                                                                style: TextStyles.textStyleIntroDescription.apply(
-                                                                    color: Colors.white,
-                                                                    fontSizeDelta: -3)),
+                                                            Text("Duration",
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: TextStyles
+                                                                    .textStyleIntroDescription
+                                                                    .apply(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSizeDelta:
+                                                                            -3)),
                                                             SizedBox(
-                                                                height:
-                                                                ScreenConstant.defaultHeightTen),
+                                                                height: ScreenConstant
+                                                                    .defaultHeightTen),
                                                             Text(
                                                               "How long have you been experiencing abdominal pain ?",
                                                               textAlign:
-                                                              TextAlign.center,
+                                                                  TextAlign
+                                                                      .center,
                                                               style: TextStyles
                                                                   .textStyleRegular
-                                                                  .apply(color: AppColors.colorSkipButton),
-                                                            ),
-                                                            SizedBox(
-                                                                height:
-                                                                ScreenConstant.defaultHeightTwentyFour),
-                                                            Container(
-                                                              height:
-                                                              ScreenConstant.defaultHeightForty,
-                                                              width: double
-                                                                  .maxFinite,
-                                                              margin: EdgeInsets.only(
-                                                                  left: ScreenConstant.defaultWidthTen *
-                                                                      1.5,
-                                                                  right: ScreenConstant.defaultWidthTen *
-                                                                      1.5,
-                                                                  bottom:
-                                                                  ScreenConstant.defaultHeightTen * 1.5),
-                                                              padding: EdgeInsets.symmetric(
-                                                                  horizontal:
-                                                                  10,
-                                                                  vertical:
-                                                                  0),
-                                                              decoration: BoxDecoration(
-                                                                  color:
-                                                                  AppColors.colordropdownArrowBg,
-                                                                  borderRadius: BorderRadius.all(Radius.circular(8))),
-                                                              // dropdown below..
-                                                              child: SelectDropList(
-                                                                _signUpController
-                                                                    .symptoms
-                                                                    .value
-                                                                    .items[
-                                                                index]
-                                                                    .children
-                                                                    .first
-                                                                    .items
-                                                                    .last.select.selectDefault,
-                                                                _signUpController
-                                                                    .symptoms
-                                                                    .value
-                                                                    .items[
-                                                                index]
-                                                                    .children
-                                                                    .first
-                                                                    .items
-                                                                    .last.select.options,
-                                                                    (optionItem) {
-                                                                      _signUpController
-                                                                          .symptoms
-                                                                          .value
-                                                                          .items[
-                                                                      index]
-                                                                          .children
-                                                                          .first
-                                                                          .items
-                                                                          .last.select.selectDefault = optionItem;
-                                                                      _signUpController.symptoms.refresh();
-                                                                },
-                                                              ),
+                                                                  .apply(
+                                                                      color: AppColors
+                                                                          .colorSkipButton),
                                                             ),
                                                             SizedBox(
                                                                 height: ScreenConstant
                                                                     .defaultHeightTwentyFour),
+                                                            Container(
+                                                              height: ScreenConstant
+                                                                  .defaultHeightForty,
+                                                              width: double
+                                                                  .maxFinite,
+                                                              margin: EdgeInsets.only(
+                                                                  left: ScreenConstant
+                                                                          .defaultWidthTen *
+                                                                      1.5,
+                                                                  right: ScreenConstant
+                                                                          .defaultWidthTen *
+                                                                      1.5,
+                                                                  bottom: ScreenConstant
+                                                                          .defaultHeightTen *
+                                                                      1.5),
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          10,
+                                                                      vertical:
+                                                                          0),
+                                                              decoration: BoxDecoration(
+                                                                  color: AppColors
+                                                                      .colordropdownArrowBg,
+                                                                  borderRadius:
+                                                                      BorderRadius.all(
+                                                                          Radius.circular(
+                                                                              8))),
+                                                              // dropdown below..
+                                                              child: Obx(
+                                                                    () => SelectDropList(
+                                                                  _symptomsController.optionItemSelected.value,
+                                                                      _symptomsController.dropListModel,
+                                                                      (optionItem) {
+                                                                        _symptomsController.optionItemSelected.value =
+                                                                        optionItem;
+                                                                  },
+                                                                ),
+                                                              ),),
+                                                            SizedBox(
+                                                                height: ScreenConstant
+                                                                    .defaultHeightTwentyFour),
                                                             Divider(
-                                                                thickness:
-                                                                1,
+                                                                thickness: 1,
                                                                 color: AppColors
                                                                     .white
                                                                     .withOpacity(
-                                                                    0.12)),
+                                                                        0.12)),
                                                             SizedBox(
                                                                 height: ScreenConstant
                                                                     .defaultHeightTwenty),
                                                           ],
                                                         ),
                                                       ),
-
-
                                                       SizedBox(
                                                           height: ScreenConstant
                                                               .defaultHeightTwenty),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
-import 'package:flutter_ibs/utils/ScreenConstants.dart';
+import 'package:get/get.dart';
 
 class DropListModel {
   DropListModel(this.listSelectOptions);
@@ -10,7 +10,7 @@ class DropListModel {
 
 class SelectDropList extends StatefulWidget {
   final SelectOption itemSelected;
-  final List<SelectOption> listSelectOptions;
+  final RxList<SelectOption> listSelectOptions;
   final Function(SelectOption selectOptionFn) onOptionSelected;
 
   SelectDropList(this.itemSelected, this.listSelectOptions, this.onOptionSelected,);
@@ -23,7 +23,7 @@ class SelectDropList extends StatefulWidget {
 class _SelectDropListState extends State<SelectDropList>
     with SingleTickerProviderStateMixin {
   SelectOption optionSelected;
-  final List<SelectOption> listSelectOptions;
+  final RxList<SelectOption> listSelectOptions;
 
   AnimationController expandController;
   Animation<double> animation;
