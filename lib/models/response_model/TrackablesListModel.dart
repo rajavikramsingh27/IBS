@@ -90,16 +90,16 @@ class Datum {
 
 class ModelImage {
   ModelImage({
-    this.normal,
-    this.active,
+    this.normal ="https://myibs.not4prod.com/images/pending.png",
+    this.active = "https://myibs.not4prod.com/images/pending.png",
   });
 
   String normal;
   String active;
 
   factory ModelImage.fromJson(Map<String, dynamic> json) => ModelImage(
-        normal: json["normal"],
-        active: json["active"],
+        //normal: json["normal"],
+        //active: json["active"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -677,7 +677,7 @@ class Select {
         selectDefault: json["default"] == null
             ? SelectOption()
             : SelectOption(
-                value: json["default"], label: "option_less_than_1hr"),
+                value: json["default"], label: null),
         options: List<SelectOption>.from(
             json["options"].map((x) => SelectOption.fromJson(x))),
         validation: ListValidation.fromJson(json["validation"]),
@@ -1177,7 +1177,7 @@ class FluffyRating {
   });
 
   num range;
-  double ratingDefault;
+  num ratingDefault;
   List<FluffyOption> options;
   FluffyValidation validation;
 

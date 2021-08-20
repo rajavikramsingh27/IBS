@@ -10,7 +10,7 @@ String symptomsModelToJson(SymptomsModel data) => json.encode(data.toJson());
 
 class SymptomsModel {
   SymptomsModel({
-    this.category,
+    this.category = "symptoms",
     this.items,
   });
 
@@ -31,8 +31,8 @@ class SymptomsModel {
 class Item {
   Item({
     this.tid,
-    this.kind,
-    this.dtype,
+    this.kind = "rating",
+    this.dtype = "num",
     this.value,
     this.children,
   });
@@ -63,8 +63,8 @@ class Item {
 class Child {
   Child({
     this.tid,
-    this.kind,
-    this.dtype,
+    this.kind = "list",
+    this.dtype = "arr",
     this.value,
   });
 
@@ -82,7 +82,7 @@ class Child {
 
   Map<String, dynamic> toJson() => {
     "tid": tid == null ? null : tid,
-    "kind": kind == null ? null : kind,
+    "kind": kind == null ? null: kind,
     "dtype": dtype == null ? null : dtype,
     "value": value == null ? null : value.toJson(),
   };
@@ -110,20 +110,20 @@ class ChildValue {
 
 class ItemValue {
   ItemValue({
-    this.num,
+    this.numValue,
     this.str,
   });
 
-  int num;
+  num numValue;
   String str;
 
   factory ItemValue.fromJson(Map<String, dynamic> json) => ItemValue(
-    num: json["num"] == null ? null : json["num"],
+    numValue: json["num"] == null ? null : json["num"],
     str: json["str"] == null ? null : json["str"],
   );
 
   Map<String, dynamic> toJson() => {
-    "num": num == null ? null : num,
+    "num": numValue == null ? null : numValue,
     "str": str == null ? null : str,
   };
 }

@@ -1,4 +1,5 @@
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
@@ -13,8 +14,9 @@ class SymptomsController extends GetxController {
   RxInt currentIndex = 0.obs;
   RxInt selectedIndex = 0.obs;
   SignUpController _signUpController = Get.put(SignUpController());
-  Rx<SelectOption> optionItemSelected = SelectOption(value: "ab",label: "AB").obs;
+  Rx<SelectOption> optionItemSelected = SelectOption().obs;
   RxList<SelectOption> dropListModel = <SelectOption>[SelectOption(value: "ab",label: "AB"),SelectOption(value: "bc",label: "BC")].obs;
+  Rx<SymptomsModel> symptomsModel = SymptomsModel().obs;
   onTapped(int index) async {
     currentIndex.value = index;
   }
@@ -66,10 +68,24 @@ class SymptomsController extends GetxController {
 
     }
   }
-  onOptionTapped([ListOption model]){
+  onOptionTapped({ListOption model}){
+    List<String> list =[];
     model.optionDefault = !model.optionDefault;
+    if(model.optionDefault){
+      if(!list.contains(model.value)){
+        list.add(model.value);
+      }
+    }else{
+      if(list.contains(model.value)){
+        list.remove(model.value);
+      }
+    }
     _signUpController
         .symptoms
         .refresh();
+    return list;
+  }
+  onSave(){
+    print("DATA Model : ${symptomsModel.toJson()}");
   }
 }
