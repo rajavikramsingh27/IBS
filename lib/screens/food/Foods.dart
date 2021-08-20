@@ -15,6 +15,7 @@ import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
+import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 // import 'package:flutter_ibs/widget/utils.dart';
@@ -26,111 +27,134 @@ class Foods extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        color: Colors.white,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            SizedBox(height: ScreenConstant.defaultHeightTen),
-            CustomElevatedButton(
-              widthFactor: 0.7,
-              text: "Save",
-              onTap: () {},
-            ),
-            TextButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: Text("Cancel",
-                    style: TextStyles.textStyleIntroDescription.apply(
-                      color: AppColors.colorskip_also_proceed,
-                    )))
-          ],
-        ),
-      ),
-      backgroundColor: Color(0xff1A103E).withOpacity(0.6),
-      body:
-          // _signUpController.loader.value
-          //     ? Center(
-          //         child: CircularProgressIndicator(),
-          //       )
-          //     :
-          Obx(
-        () => ListView(
-          physics: ClampingScrollPhysics(),
-          children: [
-            Padding(
-              padding:
-                  EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
-              child: Stack(
+      resizeToAvoidBottomInset: false,
+      bottomNavigationBar: _signUpController.loader.value
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Container(
+              color: Colors.white,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: ScreenConstant.defaultHeightTwenty),
-                    child: Card(
-                      margin: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24),
-                        topRight: Radius.circular(24),
-                      )),
-                      child: Column(
-                        children: [
-                          SizedBox(height: ScreenConstant.defaultHeightSixty),
-                          Text(
-                            "Track Food",
-                            style: TextStyles.textStyleIntroDescription
-                                .apply(color: Colors.black, fontSizeDelta: -2),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(height: ScreenConstant.defaultHeightForty),
-                          DateTimeCardWidget(),
-                          SizedBox(height: ScreenConstant.defaultHeightForty),
-                          Text(
-                            "What meal is this?",
-                            style: TextStyles.textStyleIntroDescription
-                                .apply(color: Colors.black, fontSizeDelta: -2),
-                            textAlign: TextAlign.center,
-                          ),
-                          _buildMealList(),
-                          Stack(
-                            children: [
-                              Positioned.fill(
-                                top: ScreenConstant.defaultHeightSeventy,
-                                child: _buildWavePainter(),
-                              ),
-                              Container(
-                                  margin: EdgeInsets.only(
-                                    left: ScreenConstant.defaultWidthTwenty,
-                                    right: ScreenConstant.defaultWidthTwenty,
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      _buildFoods(),
-                                      SizedBox(
-                                          height: ScreenConstant
-                                              .defaultHeightSixty),
-                                      _buildHydration(),
-                                    ],
-                                  )),
-                            ],
-                          ),
-                          SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                          AdditionalNoteWidget(),
-                          SizedBox(
-                              height: ScreenConstant.defaultHeightTwentyFour),
-                        ],
-                      ),
-                    ),
+                  SizedBox(height: ScreenConstant.defaultHeightTen),
+                  CustomElevatedButton(
+                    widthFactor: 0.7,
+                    text: "Save",
+                    onTap: () {},
                   ),
-                  Positioned(right: 0, left: 0, child: CustomArcPainter())
+                  TextButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Text("Cancel",
+                          style: TextStyles.textStyleIntroDescription.apply(
+                            color: AppColors.colorskip_also_proceed,
+                          )))
                 ],
               ),
             ),
-          ],
-        ),
-      ),
+      backgroundColor: Color(0xff1A103E).withOpacity(0.6),
+      body: _signUpController.loader.value
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Obx(
+              () => InkWell(
+                onTap: () => dismissKeyboard(context),
+                child: ListView(
+                  physics: ClampingScrollPhysics(),
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: ScreenConstant.defaultHeightOneThirty),
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: ScreenConstant.defaultHeightTwenty),
+                            child: Card(
+                              margin: EdgeInsets.zero,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(24),
+                                topRight: Radius.circular(24),
+                              )),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                      height:
+                                          ScreenConstant.defaultHeightSixty),
+                                  Text(
+                                    "Track Food",
+                                    style: TextStyles.textStyleIntroDescription
+                                        .apply(
+                                            color: Colors.black,
+                                            fontSizeDelta: -2),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          ScreenConstant.defaultHeightForty),
+                                  DateTimeCardWidget(),
+                                  SizedBox(
+                                      height:
+                                          ScreenConstant.defaultHeightForty),
+                                  Text(
+                                    "What meal is this?",
+                                    style: TextStyles.textStyleIntroDescription
+                                        .apply(
+                                            color: Colors.black,
+                                            fontSizeDelta: -2),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  _buildMealList(),
+                                  Stack(
+                                    children: [
+                                      Positioned.fill(
+                                        top:
+                                            ScreenConstant.defaultHeightSeventy,
+                                        child: _buildWavePainter(),
+                                      ),
+                                      Container(
+                                          margin: EdgeInsets.only(
+                                            left: ScreenConstant
+                                                .defaultWidthTwenty,
+                                            right: ScreenConstant
+                                                .defaultWidthTwenty,
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              _buildFoods(),
+                                              SizedBox(
+                                                  height: ScreenConstant
+                                                      .defaultHeightSixty),
+                                              _buildHydration(),
+                                            ],
+                                          )),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          ScreenConstant.defaultHeightTwenty),
+                                  AdditionalNoteWidget(),
+                                  SizedBox(
+                                      height: ScreenConstant
+                                          .defaultHeightTwentyFour),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                              right: 0, left: 0, child: CustomArcPainter())
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 
@@ -325,24 +349,31 @@ class Foods extends StatelessWidget {
   }
 
   _buildHydrationList(int index) {
-    print(
-        "num:${_signUpController.food.value.items?.elementAt(0)?.children?.elementAt(index)?.items?.elementAt(0)?.sum?.range}");
     return GridView.builder(
       padding:
           EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: 10,
-      itemBuilder: (BuildContext context, int index) {
-        return CircleAvatar(
-          backgroundColor: Colors.white.withOpacity(0.20),
-          child: Padding(
-              padding: ScreenConstant.spacingAllMedium,
-              child: Image.asset(
-                Assets.emptyGlass,
-                width: ScreenConstant.defaultWidthTwenty,
-                height: ScreenConstant.defaultHeightTwenty * 1.5,
-              )),
+      itemCount: _signUpController.food.value.items?.first?.children
+              ?.elementAt(index)
+              ?.items
+              ?.elementAt(1)
+              ?.sum
+              ?.range ??
+          0,
+      itemBuilder: (BuildContext context, int ind) {
+        return InkWell(
+          onTap: () {},
+          child: CircleAvatar(
+            backgroundColor: Colors.white.withOpacity(0.20),
+            child: Padding(
+                padding: ScreenConstant.spacingAllMedium,
+                child: Image.asset(
+                  Assets.emptyGlass,
+                  width: ScreenConstant.defaultWidthTwenty,
+                  height: ScreenConstant.defaultHeightTwenty * 1.5,
+                )),
+          ),
         );
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -380,9 +411,13 @@ class Foods extends StatelessWidget {
             ?.tags
             ?.tagsDefault[index];
         return InkWell(
-          onTap: () {},
+          onTap: () {
+            _controller.onOptionTapped(model);
+          },
           child: Card(
-            color: AppColors.colorSymptomsGridBg,
+            color: model.required
+                ? AppColors.colorArrowButton
+                : AppColors.colorSymptomsGridBg,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
@@ -403,20 +438,49 @@ class Foods extends StatelessWidget {
   }
 
   _buildListLowFood(int index) {
-    print("|count:${_controller.listTagsDefault.length}");
     return GridView.builder(
       padding: EdgeInsets.symmetric(
           horizontal: ScreenConstant.sizeLarge,
           vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: _controller.listTagsDefault?.length ?? 0,
-      itemBuilder: (BuildContext context, int index) {
-        var model = _controller.listTagsDefault[index];
+      itemCount: _signUpController.food.value.items
+              ?.elementAt(0)
+              ?.children
+              ?.elementAt(index)
+              ?.items
+              ?.first
+              ?.tags
+              ?.children
+              ?.last
+              ?.items
+              ?.first
+              ?.tags
+              ?.tagsDefault
+              ?.length ??
+          0,
+      itemBuilder: (BuildContext context, int ind) {
+        var model = _signUpController.food.value.items
+            ?.elementAt(0)
+            ?.children
+            ?.elementAt(index)
+            ?.items
+            ?.first
+            ?.tags
+            ?.children
+            ?.last
+            ?.items
+            ?.first
+            ?.tags
+            ?.tagsDefault[ind];
         return InkWell(
-          onTap: () {},
+          onTap: () {
+            _controller.onOptionTapped(model);
+          },
           child: Card(
-            color: AppColors.colorSymptomsGridBg,
+            color: model.required
+                ? AppColors.colorArrowButton
+                : AppColors.colorSymptomsGridBg,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
