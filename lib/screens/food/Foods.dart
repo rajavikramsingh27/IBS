@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/food/FoodController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DateTime.dart';
@@ -154,18 +155,17 @@ class Foods extends StatelessWidget {
             dateTime: model.conditionalDefault.time.endTime,
             returnFormat: "HH:mm");
 
-        print("m:$endTime");
         var s =
             "${_controller.currentDateTime.value.hour}:${_controller.currentDateTime.value.minute}";
         var u = CustomDateTime()
             .parseTimeAsDateTime(dateTime: s, returnFormat: "HH:mm");
-        print("uefbjfe:$s");
+        // print("uefbjfe:$s");
 
         var p = u.difference(startTime).inSeconds;
-        print("diff:$p");
+        // print("diff:$p");
 
-        print("date:$startTime");
-        print("currentdate:$u");
+        // print("date:$startTime");
+        // print("currentdate:$u");
         _controller.startTimeDifference.value =
             u.difference(startTime).inSeconds;
         _controller.startTimeDifference.value =
@@ -318,46 +318,40 @@ class Foods extends StatelessWidget {
           style: TextStyles.textStyleRegular.apply(color: AppColors.white),
         ),
         SizedBox(height: ScreenConstant.defaultHeightForty),
-        // _buildHydrationList(_controller.modelMealIndex.value),
+        _buildHydrationList(_controller.modelMealIndex.value),
         SizedBox(height: ScreenConstant.defaultHeightSixty),
       ],
     );
   }
 
-  // _buildHydrationList(int index) {
-  //   return GridView.builder(
-  //     padding: EdgeInsets.symmetric(
-  //       horizontal: ScreenConstant.defaultWidthTwenty,
-  //     ),
-  //     physics: NeverScrollableScrollPhysics(),
-  //     shrinkWrap: true,
-  //     itemCount: _signUpController.food.value.items
-  //         ?.elementAt(0)
-  //         ?.children
-  //         ?.elementAt(index)
-  //         ?.items
-  //         ?.elementAt(0)
-  //         ?.sum
-  //         ?.range,
-  //     itemBuilder: (BuildContext context, int index) {
-  //       return CircleAvatar(
-  //         backgroundColor: Colors.white.withOpacity(0.20),
-  //         child: Padding(
-  //             padding: ScreenConstant.spacingAllMedium,
-  //             child: Image.asset(
-  //               Assets.emptyGlass,
-  //               width: ScreenConstant.defaultWidthTwenty,
-  //               height: ScreenConstant.defaultHeightTwenty * 1.5,
-  //             )),
-  //       );
-  //     },
-  //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-  //         crossAxisSpacing: 16,
-  //         mainAxisSpacing: 16,
-  //         crossAxisCount: 5,
-  //         childAspectRatio: 0.99),
-  //   );
-  // }
+  _buildHydrationList(int index) {
+    print(
+        "num:${_signUpController.food.value.items?.elementAt(0)?.children?.elementAt(index)?.items?.elementAt(0)?.sum?.range}");
+    return GridView.builder(
+      padding:
+          EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: 10,
+      itemBuilder: (BuildContext context, int index) {
+        return CircleAvatar(
+          backgroundColor: Colors.white.withOpacity(0.20),
+          child: Padding(
+              padding: ScreenConstant.spacingAllMedium,
+              child: Image.asset(
+                Assets.emptyGlass,
+                width: ScreenConstant.defaultWidthTwenty,
+                height: ScreenConstant.defaultHeightTwenty * 1.5,
+              )),
+        );
+      },
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          crossAxisCount: 5,
+          childAspectRatio: 0.99),
+    );
+  }
 
   _buildListOfFoodsTaken(int index) {
     return GridView.builder(
@@ -409,41 +403,16 @@ class Foods extends StatelessWidget {
   }
 
   _buildListLowFood(int index) {
+    print("|count:${_controller.listTagsDefault.length}");
     return GridView.builder(
       padding: EdgeInsets.symmetric(
           horizontal: ScreenConstant.sizeLarge,
           vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: _signUpController.food.value.items
-              ?.elementAt(0)
-              ?.children
-              ?.elementAt(index)
-              ?.items
-              ?.elementAt(0)
-              ?.tags
-              ?.children
-              ?.elementAt(0)
-              ?.items
-              ?.elementAt(0)
-              ?.tags
-              ?.tagsDefault
-              ?.length ??
-          0,
+      itemCount: _controller.listTagsDefault?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
-        var model = _signUpController.food.value.items
-            ?.elementAt(0)
-            ?.children
-            ?.elementAt(index)
-            ?.items
-            ?.elementAt(0)
-            ?.tags
-            ?.children
-            ?.elementAt(0)
-            ?.items
-            ?.elementAt(0)
-            ?.tags
-            ?.tagsDefault[index];
+        var model = _controller.listTagsDefault[index];
         return InkWell(
           onTap: () {},
           child: Card(

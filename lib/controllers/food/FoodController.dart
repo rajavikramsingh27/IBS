@@ -1,6 +1,7 @@
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodSendModel.dart';
+import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
@@ -19,8 +20,9 @@ class FoodController extends GetxController {
   RxBool connectionStatus = false.obs;
   RxInt endTimeDifference = 0.obs;
   RxInt startTimeDifference = 0.obs;
-
+  SignUpController _signUpController = Get.put(SignUpController());
   RxInt modelMealIndex = 0.obs;
+  List<TagsDefault> listTagsDefault = [];
 
   onTapped(int index) async {
     currentIndex.value = index;
@@ -33,7 +35,7 @@ class FoodController extends GetxController {
     formattedTime = int.parse(
             DateFormat.Hm().format(currentDateTime.value).split(":").first)
         .obs;
-    print("timer:${formattedTime.value}");
+
     // bool isInternet = await ConnectionCheck().();
     // connectionStatus.value = isInternet;
     // if (connectionStatus.value) {
@@ -90,6 +92,21 @@ class FoodController extends GetxController {
       default:
         break;
     }
+  }
+
+  _lowfood() {
+    _signUpController.food.value.items
+        .elementAt(0)
+        .children
+        .elementAt(modelMealIndex.value)
+        .items
+        .forEach((element) {
+      element?.tags?.children?.forEach((element) {
+        element?.items?.forEach((element) {
+          listTagsDefault = element.tags.tagsDefault;
+        });
+      });
+    });
   }
 
   mealIndex(int index) {
