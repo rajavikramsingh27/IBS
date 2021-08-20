@@ -10,7 +10,7 @@ class DropListModel {
 
 class SelectDropList extends StatefulWidget {
   final SelectOption itemSelected;
-  final RxList<SelectOption> listSelectOptions;
+  final List<SelectOption> listSelectOptions;
   final Function(SelectOption selectOptionFn) onOptionSelected;
 
   SelectDropList(this.itemSelected, this.listSelectOptions, this.onOptionSelected,);
@@ -23,7 +23,7 @@ class SelectDropList extends StatefulWidget {
 class _SelectDropListState extends State<SelectDropList>
     with SingleTickerProviderStateMixin {
   SelectOption optionSelected;
-  final RxList<SelectOption> listSelectOptions;
+  final List<SelectOption> listSelectOptions;
 
   AnimationController expandController;
   Animation<double> animation;
