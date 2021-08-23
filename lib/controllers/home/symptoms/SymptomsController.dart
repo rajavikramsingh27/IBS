@@ -70,29 +70,27 @@ class SymptomsController extends GetxController {
 
     }
   }
-  onOptionTapped({ListOption model}){
-    List<String> list =[];
+  onOptionTapped({ListOption model, List<String> modelValue}){
     model.optionDefault = !model.optionDefault;
     if(model.optionDefault){
-      if(!list.contains(model.value)){
-        list.add(model.value);
+      if(!modelValue.contains(model.value)){
+        modelValue.add(model.value);
       }
     }else{
-      if(list.contains(model.value)){
-        list.remove(model.value);
+      if(modelValue.contains(model.value)){
+        modelValue.remove(model.value);
       }
     }
     _signUpController
         .symptoms
         .refresh();
-    return list;
+    return modelValue;
   }
   onSave(){
     if (symptomsModel.value.items ==
         null) {
       symptomsModel.value.items = [];
     }
-    print("String : ${noteTextController.text}");
     sym.Item item = sym.Item(tid: _signUpController.symptoms.value.items.last.tid,kind: _signUpController.symptoms.value.items.last.kind,dtype: "str",value: sym.ItemValue(str: noteTextController.text));
     symptomsModel.value.items.add(item);
     symptomsModel.refresh();
