@@ -13,7 +13,7 @@ class FoodResponseModel {
   });
 
   String id;
-  List<Item> items;
+  List<FoodList> items;
   String uid;
   int v;
 
@@ -27,7 +27,8 @@ class FoodResponseModel {
         id: json["_id"] == null ? null : json["_id"],
         items: json["items"] == null
             ? null
-            : List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
+            : List<FoodList>.from(
+                json["items"].map((x) => FoodList.fromJson(x))),
         uid: json["uid"] == null ? null : json["uid"],
         v: json["__v"] == null ? null : json["__v"],
       );
@@ -42,8 +43,8 @@ class FoodResponseModel {
       };
 }
 
-class Item {
-  Item({
+class FoodList {
+  FoodList({
     this.value,
     this.id,
     this.tid,
@@ -52,26 +53,28 @@ class Item {
     this.children,
   });
 
-  ItemValue value;
+  FoodValue value;
   String id;
   String tid;
   String kind;
   String dtype;
-  List<Child> children;
+  List<FoodSubList> children;
 
-  factory Item.fromRawJson(String str) => Item.fromJson(json.decode(str));
+  factory FoodList.fromRawJson(String str) =>
+      FoodList.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
-        value: json["value"] == null ? null : ItemValue.fromJson(json["value"]),
+  factory FoodList.fromJson(Map<String, dynamic> json) => FoodList(
+        value: json["value"] == null ? null : FoodValue.fromJson(json["value"]),
         id: json["_id"] == null ? null : json["_id"],
         tid: json["tid"] == null ? null : json["tid"],
         kind: json["kind"] == null ? null : json["kind"],
         dtype: json["dtype"] == null ? null : json["dtype"],
         children: json["children"] == null
             ? null
-            : List<Child>.from(json["children"].map((x) => Child.fromJson(x))),
+            : List<FoodSubList>.from(
+                json["children"].map((x) => FoodSubList.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -86,8 +89,8 @@ class Item {
       };
 }
 
-class Child {
-  Child({
+class FoodSubList {
+  FoodSubList({
     this.value,
     this.id,
     this.tid,
@@ -95,19 +98,20 @@ class Child {
     this.dtype,
   });
 
-  ChildValue value;
+  FoodSubValue value;
   String id;
   String tid;
   String kind;
   String dtype;
 
-  factory Child.fromRawJson(String str) => Child.fromJson(json.decode(str));
+  factory FoodSubList.fromRawJson(String str) =>
+      FoodSubList.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Child.fromJson(Map<String, dynamic> json) => Child(
+  factory FoodSubList.fromJson(Map<String, dynamic> json) => FoodSubList(
         value:
-            json["value"] == null ? null : ChildValue.fromJson(json["value"]),
+            json["value"] == null ? null : FoodSubValue.fromJson(json["value"]),
         id: json["_id"] == null ? null : json["_id"],
         tid: json["tid"] == null ? null : json["tid"],
         kind: json["kind"] == null ? null : json["kind"],
@@ -123,19 +127,19 @@ class Child {
       };
 }
 
-class ChildValue {
-  ChildValue({
+class FoodSubValue {
+  FoodSubValue({
     this.arr,
   });
 
   List<String> arr;
 
-  factory ChildValue.fromRawJson(String str) =>
-      ChildValue.fromJson(json.decode(str));
+  factory FoodSubValue.fromRawJson(String str) =>
+      FoodSubValue.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ChildValue.fromJson(Map<String, dynamic> json) => ChildValue(
+  factory FoodSubValue.fromJson(Map<String, dynamic> json) => FoodSubValue(
         arr: json["arr"] == null
             ? null
             : List<String>.from(json["arr"].map((x) => x)),
@@ -146,8 +150,8 @@ class ChildValue {
       };
 }
 
-class ItemValue {
-  ItemValue({
+class FoodValue {
+  FoodValue({
     this.arr,
     this.str,
   });
@@ -155,12 +159,12 @@ class ItemValue {
   List<dynamic> arr;
   String str;
 
-  factory ItemValue.fromRawJson(String str) =>
-      ItemValue.fromJson(json.decode(str));
+  factory FoodValue.fromRawJson(String str) =>
+      FoodValue.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ItemValue.fromJson(Map<String, dynamic> json) => ItemValue(
+  factory FoodValue.fromJson(Map<String, dynamic> json) => FoodValue(
         arr: json["arr"] == null
             ? null
             : List<dynamic>.from(json["arr"].map((x) => x)),

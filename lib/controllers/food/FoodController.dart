@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
-import 'package:flutter_ibs/models/food/FoodSendModel.dart';
+import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
@@ -13,8 +14,15 @@ class FoodController extends GetxController {
   RxDouble sliderValue = 1.0.obs;
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
-  RxList<FoodItemModel> foodItems = [].obs;
-  RxList<dynamic> selectedFood = [].obs;
+  RxString mealTypeValue = "".obs;
+  Rx<FoodResponseModel> foodSendModel = FoodResponseModel().obs;
+  Rx<FoodSubList> listFoodSub = FoodSubList().obs;
+  Rx<FoodList> listFood = FoodList().obs;
+
+  TextEditingController noteTextController = TextEditingController();
+
+  // RxList<FoodList> listFood = [].obs;
+
   RxBool loader = false.obs;
   RxBool switchValue = true.obs;
   RxBool connectionStatus = false.obs;
@@ -31,7 +39,6 @@ class FoodController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-
     formattedTime = int.parse(
             DateFormat.Hm().format(currentDateTime.value).split(":").first)
         .obs;
@@ -48,16 +55,32 @@ class FoodController extends GetxController {
   }
 
   onSave() async {
-    FoodSendModel model =
-        FoodSendModel(category: "food", items: foodItems.value);
-
-    print("data: ${model.toJson()}");
-    final data = await ServiceApi().foodTrackApi(bodyData: model.toJson());
+    if (foodSendModel.value.items == null) {
+      foodSendModel.value.items = [];
+    }
+    FoodSubList foodTypeModel = FoodSubList(
+        tid: "food-breakfast_eat",
+        kind: "tags",
+        dtype: "arr",
+        value: FoodSubValue(arr: onOptionTapped()));
+    listFood.value.children.add(foodTypeModel);
+    listFood.refresh();
+    FoodList foodItemModel = FoodList(
+        tid: _signUpController.food.value.items.last.tid,
+        kind: _signUpController.food.value.items.last.kind,
+        dtype: "str",
+        value: FoodValue(str: mealTypeValue.value));
+    print("meal:${mealTypeValue.value}");
+    foodSendModel.value.items.add(foodItemModel);
+    foodSendModel.refresh();
+    print("data: ${foodSendModel.toJson()}");
+    final data =
+        await ServiceApi().foodTrackApi(bodyData: foodSendModel.toJson());
 
     if (data is FoodResponseModel) {
+      Get.back();
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Registered Successfully");
-      Get.back();
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }

@@ -17,7 +17,10 @@ class SymptomsController extends GetxController {
   RxInt selectedIndex = 0.obs;
   SignUpController _signUpController = Get.put(SignUpController());
   Rx<SelectOption> optionItemSelected = SelectOption().obs;
-  RxList<SelectOption> dropListModel = <SelectOption>[SelectOption(value: "ab",label: "AB"),SelectOption(value: "bc",label: "BC")].obs;
+  RxList<SelectOption> dropListModel = <SelectOption>[
+    SelectOption(value: "ab", label: "AB"),
+    SelectOption(value: "bc", label: "BC")
+  ].obs;
   Rx<sym.SymptomsModel> symptomsModel = sym.SymptomsModel().obs;
   TextEditingController noteTextController = TextEditingController();
   onTapped(int index) async {
@@ -29,74 +32,72 @@ class SymptomsController extends GetxController {
     super.onInit();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
-  getSymptoms()async{
+
+  getSymptoms() async {
     final data = await ServiceApi().getSymptomsApi();
-    if(data == null){
+    if (data == null) {
       Get.offAllNamed(signIn);
-    }else{
+    } else {
       SymptomsResponseModel symptomsResponseModel = data;
-      if(symptomsResponseModel.data.length > 0){
-        for( var i = 0 ; i <symptomsResponseModel.data.first.items.length ; i++ ) {
-          if(symptomsResponseModel.data.first.items[i].tid != "symptoms-notes"){
-            symptomsResponseModel.data.first.items[i].children.first.value.arr.forEach((element) {
-              _signUpController
-                  .symptoms
-                  .value
-                  .items[i]
-                  .children.first.items.first.list.options.forEach((item) {
-                    if(item.value == element){
-                      item.optionDefault = true;
-                    }
+      if (symptomsResponseModel.data.length > 0) {
+        for (var i = 0;
+            i < symptomsResponseModel.data.first.items.length;
+            i++) {
+          if (symptomsResponseModel.data.first.items[i].tid !=
+              "symptoms-notes") {
+            symptomsResponseModel.data.first.items[i].children.first.value.arr
+                .forEach((element) {
+              _signUpController.symptoms.value.items[i].children.first.items
+                  .first.list.options
+                  .forEach((item) {
+                if (item.value == element) {
+                  item.optionDefault = true;
+                }
               });
             });
-            _signUpController
-                .symptoms
-                .value
-                .items[i]
-                .rating
-                ?.ratingDefault = symptomsResponseModel.data.first.items[i].value.numValue;
+            _signUpController.symptoms.value.items[i].rating?.ratingDefault =
+                symptomsResponseModel.data.first.items[i].value.numValue;
 
-            _signUpController
-                .symptoms
-                .refresh();
+            _signUpController.symptoms.refresh();
           }
-
         }
 
         print("RSData : ${data.data.length}");
-
-      }else{
+      } else {
         print("Data : ${data.data.length}");
       }
-
     }
   }
-  onOptionTapped({ListOption model, List<String> modelValue}){
+
+  onOptionTapped({ListOption model, List<String> modelValue}) {
     model.optionDefault = !model.optionDefault;
-    if(model.optionDefault){
-      if(!modelValue.contains(model.value)){
+    if (model.optionDefault) {
+      if (!modelValue.contains(model.value)) {
         modelValue.add(model.value);
       }
-    }else{
-      if(modelValue.contains(model.value)){
+    } else {
+      if (modelValue.contains(model.value)) {
         modelValue.remove(model.value);
       }
     }
-    _signUpController
-        .symptoms
-        .refresh();
+    _signUpController.symptoms.refresh();
     return modelValue;
   }
-  onSave()async{
-    if (symptomsModel.value.items ==
-        null) {
+
+  onSave() async {
+    if (symptomsModel.value.items == null) {
       symptomsModel.value.items = [];
     }
-    sym.Item item = sym.Item(tid: _signUpController.symptoms.value.items.last.tid,kind: _signUpController.symptoms.value.items.last.kind,dtype: "str",value: sym.ItemValue(str: noteTextController.text));
+    sym.Item item = sym.Item(
+        tid: _signUpController.symptoms.value.items.last.tid,
+        kind: _signUpController.symptoms.value.items.last.kind,
+        dtype: "str",
+        value: sym.ItemValue(str: noteTextController.text));
     symptomsModel.value.items.add(item);
     symptomsModel.refresh();
     print("DATA Model : ${symptomsModel.toJson()}");
-    final data = await ServiceApi().postSymptomsAPI(bodyData: symptomsModel.toJson());
+    final data =
+        await ServiceApi().postSymptomsAPI(bodyData: symptomsModel.toJson());
 
     if (data is SymptomsResponseModel) {
       Get.back();

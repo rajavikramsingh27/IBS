@@ -42,7 +42,9 @@ class Foods extends StatelessWidget {
                   CustomElevatedButton(
                     widthFactor: 0.7,
                     text: "Save",
-                    onTap: () {},
+                    onTap: () {
+                      _controller.onSave();
+                    },
                   ),
                   TextButton(
                       onPressed: () {
@@ -138,7 +140,10 @@ class Foods extends StatelessWidget {
                                   SizedBox(
                                       height:
                                           ScreenConstant.defaultHeightTwenty),
-                                  AdditionalNoteWidget(),
+                                  AdditionalNoteWidget(
+                                    textEditingController:
+                                        _controller.noteTextController,
+                                  ),
                                   SizedBox(
                                       height: ScreenConstant
                                           .defaultHeightTwentyFour),
@@ -194,7 +199,10 @@ class Foods extends StatelessWidget {
             u.difference(startTime).inSeconds;
         _controller.startTimeDifference.value =
             (endTime.difference(u).inSeconds);
-
+        if ((endTime.difference(u).inSeconds) > 0 &&
+            (u.difference(startTime).inSeconds) > 0) {
+          _controller.mealTypeValue.value = model.value;
+        }
         return Container(
           decoration: BoxDecoration(
               color: (endTime.difference(u).inSeconds) > 0 &&
@@ -317,14 +325,14 @@ class Foods extends StatelessWidget {
                 quarterTurns: 0,
                 painter:
                     MyPainter(AppColors.colorSymptomsGridBg.withOpacity(0.5)))),
-        Positioned(
-            bottom: -100,
-            child: CustomArcPainter2(
-                height: 200,
-                width: 200,
-                quarterTurns: 0,
-                painter: MyPainter(
-                    AppColors.colorSymptomsGridBg.withOpacity(0.20)))),
+        // Positioned(
+        //     bottom: -100,
+        //     child: CustomArcPainter2(
+        //         height: 200,
+        //         width: 200,
+        //         quarterTurns: 0,
+        //         painter: MyPainter(
+        //             AppColors.colorSymptomsGridBg.withOpacity(0.20)))),
       ],
     );
   }
@@ -363,10 +371,7 @@ class Foods extends StatelessWidget {
           0,
       itemBuilder: (BuildContext context, int ind) {
         return InkWell(
-          onTap: () {
-    
-
-          },
+          onTap: () {},
           child: CircleAvatar(
             backgroundColor: Colors.white.withOpacity(0.20),
             child: Padding(
