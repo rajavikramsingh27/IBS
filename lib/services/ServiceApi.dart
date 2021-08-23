@@ -61,4 +61,10 @@ class ServiceApi {
         await CoreService().apiService(method: METHOD.FIND, endpoint: FOODS);
     return result;
   }
+  Future<dynamic> postSymptomsAPI({Map bodyData}) async {
+    var result = await CoreService()
+        .apiService(method: METHOD.CREATE, endpoint: SYMPTOMS, data: bodyData);
+
+    return SymptomsResponseModel.fromJson(result);
+  }
 }

@@ -436,7 +436,7 @@ class Symptoms extends StatelessWidget {
                                                                       return InkWell(
                                                                         onTap:
                                                                             () {
-                                                                              _symptomsController.onOptionTapped(model: model,modelValue: _symptomsController.symptomsModel.value.items[index].children[index].value.arr);
+                                                                              _symptomsController.onOptionTapped(model: model,modelValue: _symptomsController.symptomsModel.value.items[index].children.first.value.arr);
                                                                         },
                                                                         child: Card(
                                                                             elevation: 0,

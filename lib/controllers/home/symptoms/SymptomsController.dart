@@ -5,6 +5,7 @@ import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
+import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -86,7 +87,7 @@ class SymptomsController extends GetxController {
         .refresh();
     return modelValue;
   }
-  onSave(){
+  onSave()async{
     if (symptomsModel.value.items ==
         null) {
       symptomsModel.value.items = [];
@@ -95,5 +96,14 @@ class SymptomsController extends GetxController {
     symptomsModel.value.items.add(item);
     symptomsModel.refresh();
     print("DATA Model : ${symptomsModel.toJson()}");
+    final data = await ServiceApi().postSymptomsAPI(bodyData: symptomsModel.toJson());
+
+    if (data is SymptomsResponseModel) {
+      Get.back();
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Symptoms Added Successfully");
+    } else {
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
   }
 }
