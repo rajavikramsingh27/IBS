@@ -4,6 +4,8 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 
 class AdditionalNoteWidget extends StatelessWidget {
+  final TextEditingController textEditingController;
+  AdditionalNoteWidget({this.textEditingController});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,9 +20,8 @@ class AdditionalNoteWidget extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: TextFormField(
+            controller: textEditingController,
             inputFormatters: <TextInputFormatter>[],
-            readOnly: true,
-
             textInputAction: TextInputAction.newline,
             maxLines: 4,
             minLines: 4,
