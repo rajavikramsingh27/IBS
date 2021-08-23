@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/home/symptoms/SymptomsController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart';
 import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -34,7 +35,7 @@ class Symptoms extends StatelessWidget {
             CustomElevatedButton(
               widthFactor: 0.7,
               text: "Save",
-              onTap: () {},
+              onTap: _symptomsController.onSave,
             ),
             TextButton(
                 onPressed: () {
@@ -259,6 +260,22 @@ class Symptoms extends StatelessWidget {
                                                                   .rating
                                                                   .ratingDefault =
                                                                   newValue;
+                                                              if(_symptomsController.symptomsModel.value.items == null){
+                                                                _symptomsController.symptomsModel.value.items = [];
+                                                              }
+                                                              ItemValue itemValue = ItemValue(numValue: newValue);
+                                                              Item item = Item(value: itemValue,tid: _signUpController
+                                                                  .symptoms
+                                                                  .value
+                                                                  .items[index].tid,);
+                                                              /*if(item.children == null){
+                                                                item.children = [];
+                                                              }
+                                                              item.children.add(Child(tid: _signUpController
+                                                                  .symptoms
+                                                                  .value
+                                                                  .items[index].tid));*/
+                                                              _symptomsController.symptomsModel.value.items.add(item);
                                                               _signUpController
                                                                   .symptoms
                                                                   .refresh();
@@ -387,8 +404,28 @@ class Symptoms extends StatelessWidget {
                                                                     .symptoms[optIdx];
                                                                 return InkWell(
                                                                   onTap: (){
-                                                                    _symptomsController
-                                                                        .onOptionTapped(model);
+                                                                    print(model.value);
+                                                                    Child child = Child(tid: _signUpController
+                                                                        .symptoms
+                                                                        .value
+                                                                        .items[
+                                                                    index]
+                                                                        .children
+                                                                        .first
+                                                                        .items
+                                                                        .first
+                                                                        .tid);
+                                                                    if(_symptomsController.symptomsModel.value.items[index].children == null){
+                                                                      _symptomsController.symptomsModel.value.items[index].children = [];
+                                                                    }
+
+                                                                    List<String> childValueList = _symptomsController
+                                                                        .onOptionTapped(model: model);
+                                                                    if(child.value == null){
+                                                                      child.value = ChildValue(arr: childValueList);
+                                                                    }
+                                                                    _symptomsController.symptomsModel.value.items[index].children.add(child);
+
                                                                   },
                                                                   child: Card(
                                                                       elevation:
@@ -407,8 +444,8 @@ class Symptoms extends StatelessWidget {
                                                                         Column(
                                                                           mainAxisAlignment: MainAxisAlignment.center,
                                                                           children: [
-                                                                            Image.asset(
-                                                                              imageModel.image,
+                                                                            Image.network(
+                                                                              model.image.normal,
                                                                               width: ScreenConstant.defaultWidthTwenty * 1.5,
                                                                             ),
                                                                             SizedBox(height: ScreenConstant.defaultHeightTen),
@@ -481,8 +518,8 @@ class Symptoms extends StatelessWidget {
                                                                   AppColors.colordropdownArrowBg,
                                                                   borderRadius: BorderRadius.all(Radius.circular(8))),
                                                               // dropdown below..
-                                                              child: SelectDropList(
-                                                                _signUpController
+                                                              child: CustomDropdown(
+                                                                value:_signUpController
                                                                     .symptoms
                                                                     .value
                                                                     .items[
@@ -490,8 +527,7 @@ class Symptoms extends StatelessWidget {
                                                                     .children
                                                                     .first
                                                                     .items
-                                                                    .last.select.selectDefault,
-                                                                _signUpController
+                                                                    .last.select.selectDefault.label != null? _signUpController
                                                                     .symptoms
                                                                     .value
                                                                     .items[
@@ -499,8 +535,40 @@ class Symptoms extends StatelessWidget {
                                                                     .children
                                                                     .first
                                                                     .items
-                                                                    .last.select.options,
+                                                                    .last.select.selectDefault : _signUpController
+                                                                    .symptoms
+                                                                    .value
+                                                                    .items[
+                                                                index]
+                                                                    .children
+                                                                    .first
+                                                                    .items
+                                                                    .last.select.options.first,
+                                                                dropdownMenuItemList: buildDropList(_signUpController
+                                                                    .symptoms
+                                                                    .value
+                                                                    .items[
+                                                                index]
+                                                                    .children
+                                                                    .first
+                                                                    .items
+                                                                    .last.select.options),
+                                                                    onChanged:
                                                                     (optionItem) {
+                                                                      Child child = Child(tid: _signUpController
+                                                                          .symptoms
+                                                                          .value
+                                                                          .items[
+                                                                      index]
+                                                                          .children
+                                                                          .first
+                                                                          .items
+                                                                          .first
+                                                                          .tid);
+                                                                      if(_symptomsController.symptomsModel.value.items[index].children == null){
+                                                                        _symptomsController.symptomsModel.value.items[index].children = [];
+                                                                      }
+                                                                      _symptomsController.symptomsModel.value.items[index].children.add(child);
                                                                   _signUpController
                                                                       .symptoms
                                                                       .value
@@ -510,8 +578,11 @@ class Symptoms extends StatelessWidget {
                                                                       .first
                                                                       .items
                                                                       .last.select.selectDefault = optionItem;
+                                                                  _symptomsController.symptomsModel.refresh();
+                                                                  _symptomsController.optionItemSelected.refresh();
                                                                   _signUpController.symptoms.refresh();
                                                                 },
+                                                                isEnabled: true,
                                                               ),
                                                             ),
                                                             SizedBox(
@@ -568,5 +639,16 @@ class Symptoms extends StatelessWidget {
         ],
       ),
     );
+  }
+  List<DropdownMenuItem<SelectOption>> buildDropList(
+      List favouriteFoodModelList) {
+    List<DropdownMenuItem<SelectOption>> items = [];
+    for (SelectOption favouriteFoodModel in favouriteFoodModelList) {
+      items.add(DropdownMenuItem(
+        value: favouriteFoodModel,
+        child: Text(favouriteFoodModel.label),
+      ));
+    }
+    return items;
   }
 }
