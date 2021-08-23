@@ -5,6 +5,7 @@ import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
+import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -70,32 +71,39 @@ class SymptomsController extends GetxController {
 
     }
   }
-  onOptionTapped({ListOption model}){
-    List<String> list =[];
+  onOptionTapped({ListOption model, List<String> modelValue}){
     model.optionDefault = !model.optionDefault;
     if(model.optionDefault){
-      if(!list.contains(model.value)){
-        list.add(model.value);
+      if(!modelValue.contains(model.value)){
+        modelValue.add(model.value);
       }
     }else{
-      if(list.contains(model.value)){
-        list.remove(model.value);
+      if(modelValue.contains(model.value)){
+        modelValue.remove(model.value);
       }
     }
     _signUpController
         .symptoms
         .refresh();
-    return list;
+    return modelValue;
   }
-  onSave(){
+  onSave()async{
     if (symptomsModel.value.items ==
         null) {
       symptomsModel.value.items = [];
     }
-    print("String : ${noteTextController.text}");
     sym.Item item = sym.Item(tid: _signUpController.symptoms.value.items.last.tid,kind: _signUpController.symptoms.value.items.last.kind,dtype: "str",value: sym.ItemValue(str: noteTextController.text));
     symptomsModel.value.items.add(item);
     symptomsModel.refresh();
     print("DATA Model : ${symptomsModel.toJson()}");
+    final data = await ServiceApi().postSymptomsAPI(bodyData: symptomsModel.toJson());
+
+    if (data is SymptomsResponseModel) {
+      Get.back();
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Symptoms Added Successfully");
+    } else {
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
   }
 }

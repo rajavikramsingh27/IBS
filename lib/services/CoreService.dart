@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_feathersjs/flutter_feathersjs.dart';
+import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/url.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
@@ -46,6 +47,11 @@ class CoreService {
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
+            if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
+              Get.offAllNamed(signIn);
+              CustomSnackBar()
+                  .errorSnackBar(title: "Error", message: e.message);
+            }
           } catch (er) {
             // Catch  unknown error
 
@@ -75,6 +81,11 @@ class CoreService {
                   .errorSnackBar(title: "Error", message: e.message);
             }
             if (e.type == FeatherJsErrorType.IS_CONFLICT_ERROR) {
+              CustomSnackBar()
+                  .errorSnackBar(title: "Error", message: e.message);
+            }
+            if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
+              Get.offAllNamed(signIn);
               CustomSnackBar()
                   .errorSnackBar(title: "Error", message: e.message);
             }
@@ -110,6 +121,11 @@ class CoreService {
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
+            if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
+              Get.offAllNamed(signIn);
+              CustomSnackBar()
+                  .errorSnackBar(title: "Error", message: e.message);
+            }
           } catch (er) {
             // Catch  unknown error
 
@@ -132,6 +148,11 @@ class CoreService {
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
+            if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
+              Get.offAllNamed(signIn);
+              CustomSnackBar()
+                  .errorSnackBar(title: "Error", message: e.message);
+            }
           } catch (er) {
             // Catch  unknown error
 
@@ -154,6 +175,11 @@ class CoreService {
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
+            if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
+              Get.offAllNamed(signIn);
+              CustomSnackBar()
+                  .errorSnackBar(title: "Error", message: e.message);
+            }
           } catch (er) {
             // Catch  unknown error
 
@@ -177,6 +203,11 @@ class CoreService {
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
+            if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
+              Get.offAllNamed(signIn);
+              CustomSnackBar()
+                  .errorSnackBar(title: "Error", message: e.message);
+            }
           } catch (er) {
             // Catch  unknown error
 
@@ -202,6 +233,11 @@ class CoreService {
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
+            if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
+              Get.offAllNamed(signIn);
+              CustomSnackBar()
+                  .errorSnackBar(title: "Error", message: e.message);
+            }
           } catch (er) {
             // Catch  unknown error
 
@@ -235,6 +271,11 @@ class CoreService {
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
+            if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
+              Get.offAllNamed(signIn);
+              CustomSnackBar()
+                  .errorSnackBar(title: "Error", message: e.message);
+            }
           } catch (er) {
             // Catch  unknown error
 

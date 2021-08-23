@@ -285,18 +285,31 @@ class Symptoms extends StatelessWidget {
                                                                         index]
                                                                     .tid,
                                                               );
-                                                              /*if(item.children == null){
-                                                                item.children = [];
-                                                              }
-                                                              item.children.add(Child(tid: _signUpController
-                                                                  .symptoms
-                                                                  .value
-                                                                  .items[index].tid));*/
                                                               _symptomsController
                                                                   .symptomsModel
                                                                   .value
                                                                   .items
                                                                   .add(item);
+                                                              Child
+                                                              child =
+                                                              Child(tid: _signUpController.symptoms.value.items[index].children.first.items.first.tid);
+                                                              if (_symptomsController.symptomsModel.value.items[index].children ==
+                                                                  null) {
+                                                                _symptomsController.symptomsModel.value.items[index].children =
+                                                                [];
+                                                              }
+                                                              if (child.value ==
+                                                                  null) {
+                                                                child.value =
+                                                                    ChildValue(arr: []);
+                                                              }
+                                                              _symptomsController
+                                                                  .symptomsModel
+                                                                  .value
+                                                                  .items[index]
+                                                                  .children
+                                                                  .add(child);
+                                                              _symptomsController.symptomsModel.refresh();
                                                               _signUpController
                                                                   .symptoms
                                                                   .refresh();
@@ -423,29 +436,7 @@ class Symptoms extends StatelessWidget {
                                                                       return InkWell(
                                                                         onTap:
                                                                             () {
-                                                                          Child
-                                                                              child =
-                                                                              Child(tid: _signUpController.symptoms.value.items[index].children.first.items.first.tid);
-                                                                          if (_symptomsController.symptomsModel.value.items[index].children ==
-                                                                              null) {
-                                                                            _symptomsController.symptomsModel.value.items[index].children =
-                                                                                [];
-                                                                          }
-
-                                                                          List<String>
-                                                                              childValueList =
-                                                                              _symptomsController.onOptionTapped(model: model);
-                                                                          if (child.value ==
-                                                                              null) {
-                                                                            child.value =
-                                                                                ChildValue(arr: childValueList);
-                                                                          }
-                                                                          _symptomsController
-                                                                              .symptomsModel
-                                                                              .value
-                                                                              .items[index]
-                                                                              .children
-                                                                              .add(child);
+                                                                              _symptomsController.onOptionTapped(model: model,modelValue: _symptomsController.symptomsModel.value.items[index].children.first.value.arr);
                                                                         },
                                                                         child: Card(
                                                                             elevation: 0,
