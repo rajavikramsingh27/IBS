@@ -363,7 +363,10 @@ class Foods extends StatelessWidget {
           0,
       itemBuilder: (BuildContext context, int ind) {
         return InkWell(
-          onTap: () {},
+          onTap: () {
+    
+
+          },
           child: CircleAvatar(
             backgroundColor: Colors.white.withOpacity(0.20),
             child: Padding(

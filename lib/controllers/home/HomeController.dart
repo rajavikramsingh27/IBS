@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -22,6 +23,11 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    //for login id
+    print ("loginId:${
+       HiveStore().get(Keys.LOGINID)
+
+    }");
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 

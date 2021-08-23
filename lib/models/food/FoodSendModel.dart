@@ -11,7 +11,7 @@ class FoodSendModel {
   });
 
   String category;
-  List<FoodIItemModel> items;
+  List<FoodItemModel> items;
 
   factory FoodSendModel.fromRawJson(String str) =>
       FoodSendModel.fromJson(json.decode(str));
@@ -22,8 +22,8 @@ class FoodSendModel {
         category: json["category"] == null ? null : json["category"],
         items: json["items"] == null
             ? null
-            : List<FoodIItemModel>.from(
-                json["items"].map((x) => FoodIItemModel.fromJson(x))),
+            : List<FoodItemModel>.from(
+                json["items"].map((x) => FoodItemModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,8 +34,8 @@ class FoodSendModel {
       };
 }
 
-class FoodIItemModel {
-  FoodIItemModel({
+class FoodItemModel {
+  FoodItemModel({
     this.tid,
     this.kind,
     this.dtype,
@@ -49,12 +49,12 @@ class FoodIItemModel {
   MealType value;
   List<Child> children;
 
-  factory FoodIItemModel.fromRawJson(String str) =>
-      FoodIItemModel.fromJson(json.decode(str));
+  factory FoodItemModel.fromRawJson(String str) =>
+      FoodItemModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory FoodIItemModel.fromJson(Map<String, dynamic> json) => FoodIItemModel(
+  factory FoodItemModel.fromJson(Map<String, dynamic> json) => FoodItemModel(
         tid: json["tid"] == null ? null : json["tid"],
         kind: json["kind"] == null ? null : json["kind"],
         dtype: json["dtype"] == null ? null : json["dtype"],
