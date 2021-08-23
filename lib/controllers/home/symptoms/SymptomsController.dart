@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
-import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart';
+import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart' as sym;
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
@@ -16,7 +17,8 @@ class SymptomsController extends GetxController {
   SignUpController _signUpController = Get.put(SignUpController());
   Rx<SelectOption> optionItemSelected = SelectOption().obs;
   RxList<SelectOption> dropListModel = <SelectOption>[SelectOption(value: "ab",label: "AB"),SelectOption(value: "bc",label: "BC")].obs;
-  Rx<SymptomsModel> symptomsModel = SymptomsModel().obs;
+  Rx<sym.SymptomsModel> symptomsModel = sym.SymptomsModel().obs;
+  TextEditingController noteTextController = TextEditingController();
   onTapped(int index) async {
     currentIndex.value = index;
   }
@@ -86,6 +88,14 @@ class SymptomsController extends GetxController {
     return list;
   }
   onSave(){
+    if (symptomsModel.value.items ==
+        null) {
+      symptomsModel.value.items = [];
+    }
+    print("String : ${noteTextController.text}");
+    sym.Item item = sym.Item(tid: _signUpController.symptoms.value.items.last.tid,kind: _signUpController.symptoms.value.items.last.kind,dtype: "str",value: sym.ItemValue(str: noteTextController.text));
+    symptomsModel.value.items.add(item);
+    symptomsModel.refresh();
     print("DATA Model : ${symptomsModel.toJson()}");
   }
 }
