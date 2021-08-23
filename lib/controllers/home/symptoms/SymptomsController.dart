@@ -15,7 +15,8 @@ class SymptomsController extends GetxController {
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   RxInt selectedIndex = 0.obs;
-  SignUpController _signUpController = Get.put(SignUpController());
+  RxBool loader = false.obs;
+  SignUpController _signUpController = Get.find();
   Rx<SelectOption> optionItemSelected = SelectOption().obs;
   RxList<SelectOption> dropListModel = <SelectOption>[
     SelectOption(value: "ab", label: "AB"),
@@ -30,6 +31,7 @@ class SymptomsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    checkData();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 
@@ -96,15 +98,24 @@ class SymptomsController extends GetxController {
     symptomsModel.value.items.add(item);
     symptomsModel.refresh();
     print("DATA Model : ${symptomsModel.toJson()}");
+    loader.value = true;
     final data =
         await ServiceApi().postSymptomsAPI(bodyData: symptomsModel.toJson());
-
+    loader.value = false;
     if (data is SymptomsResponseModel) {
       Get.back();
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Symptoms Added Successfully");
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
+  }
+
+  void checkData() {
+    if (_signUpController.symptoms.value == null) {
+      loader.value = true;
+    } else {
+      loader.value = false;
     }
   }
 }

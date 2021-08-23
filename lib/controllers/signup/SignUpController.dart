@@ -65,14 +65,6 @@ class SignUpController extends GetxController {
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();
     connectionStatus.value = isInternet;
-    if (connectionStatus.value) {
-      loader.value = true;
-      await getTrackList();
-      getSymptoms();
-      getBowelMovements();
-      getFoods();
-      loader.value = false;
-    }
   }
 
   onAutovalidate() async {
@@ -191,9 +183,16 @@ class SignUpController extends GetxController {
   }
 
   getTrackList() async {
-    await ServiceApi().getTrackables().then((value) {
-      trackList.value = value;
-    });
+    if (connectionStatus.value) {
+      loader.value = true;
+      await ServiceApi().getTrackables().then((value) {
+        trackList.value = value;
+      });
+      getSymptoms();
+      getBowelMovements();
+      getFoods();
+      loader.value = false;
+    }
   }
 
   bool isFormValid() {

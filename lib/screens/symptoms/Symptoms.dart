@@ -21,7 +21,7 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class Symptoms extends StatelessWidget {
   final SymptomsController _symptomsController = Get.put(SymptomsController());
-  final SignUpController _signUpController = Get.put(SignUpController());
+  final SignUpController _signUpController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +104,11 @@ class Symptoms extends StatelessWidget {
                                   horizontal:
                                       ScreenConstant.defaultWidthTen * 1.6,
                                 ),
-                                child: Card(
+                                child: Obx(
+                                      () =>_symptomsController.loader.value?Center(child: Padding(
+                                  padding: ScreenConstant.spacingAllLarge,
+                                  child: CircularProgressIndicator(),
+                                )):Card(
                                   margin: EdgeInsets.zero,
                                   color: AppColors.colorBackground,
                                   shape: RoundedRectangleBorder(
@@ -113,8 +117,7 @@ class Symptoms extends StatelessWidget {
                                     children: [
                                       Column(
                                         children: [
-                                          Obx(
-                                            () => ListView.builder(
+                                          ListView.builder(
                                                 shrinkWrap: true,
                                                 physics:
                                                     ClampingScrollPhysics(),
@@ -652,7 +655,6 @@ class Symptoms extends StatelessWidget {
                                                     );
                                                   }
                                                 }),
-                                          ),
                                         ],
                                       ),
                                       Container(
@@ -662,6 +664,7 @@ class Symptoms extends StatelessWidget {
                                       )
                                     ],
                                   ),
+                                ),
                                 ),
                               )
                             ],

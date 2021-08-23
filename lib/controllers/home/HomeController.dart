@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
+import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -13,6 +14,7 @@ class HomeController extends GetxController {
   RxInt segmentedControlGroupValue = 0.obs;
   DateTime selectedDate;
   TextEditingController dateController = TextEditingController();
+  final SignUpController _signUpController = Get.put(SignUpController());
 
   RxInt selectedIndex = 0.obs;
 
@@ -28,6 +30,7 @@ class HomeController extends GetxController {
        HiveStore().get(Keys.LOGINID)
 
     }");
+    _signUpController.getTrackList();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 
