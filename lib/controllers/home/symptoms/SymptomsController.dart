@@ -103,6 +103,8 @@ class SymptomsController extends GetxController {
         await ServiceApi().postSymptomsAPI(bodyData: symptomsModel.toJson());
     loader.value = false;
     if (data is SymptomsResponseModel) {
+      noteTextController.clear();
+      _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Symptoms Added Successfully");
