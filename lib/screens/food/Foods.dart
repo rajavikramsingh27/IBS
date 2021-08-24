@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/food/FoodController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
-import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DateTime.dart';
-import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/AdditionalNoteWidget.dart';
@@ -17,8 +15,6 @@ import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-// import 'package:flutter_ibs/widget/utils.dart';
 
 class Foods extends StatelessWidget {
   final _controller = Get.put(FoodController());
@@ -191,7 +187,7 @@ class Foods extends StatelessWidget {
         // print("uefbjfe:$s");
 
         var p = u.difference(startTime).inSeconds;
-        // print("diff:$p");
+        print("diff:$p");
 
         // print("date:$startTime");
         // print("currentdate:$u");

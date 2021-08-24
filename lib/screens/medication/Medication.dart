@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ibs/controllers/bowel_movement/BowelMovementController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -13,7 +12,6 @@ import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 
 class Medication extends StatelessWidget {
-  final _controller = Get.put(BowelMovementController());
 
   @override
   Widget build(BuildContext context) {
