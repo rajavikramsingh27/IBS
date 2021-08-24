@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/home/HomeController.dart';
-import 'package:flutter_ibs/controllers/home/symptoms/SymptomsController.dart';
+import 'package:flutter_ibs/controllers/symptoms/SymptomsController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
 import 'package:flutter_ibs/screens/daily_log/DailyLog.dart';
@@ -484,7 +484,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     switch (index) {
       case 0:
         {
-          SymptomsController _symptomsController = Get.put(SymptomsController());
+          SymptomsController _symptomsController =
+              Get.put(SymptomsController());
           _symptomsController.checkData();
           return Get.bottomSheet(Symptoms(),
               barrierColor: AppColors.barrierColor.withOpacity(0.60),
