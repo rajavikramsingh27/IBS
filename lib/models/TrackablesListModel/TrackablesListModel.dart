@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter_ibs/services/url.dart';
+
 TrackablesListModel trackablesListModelFromJson(String str) =>
     TrackablesListModel.fromJson(json.decode(str));
 
@@ -98,8 +100,8 @@ class ModelImage {
   String active;
 
   factory ModelImage.fromJson(Map<String, dynamic> json) => ModelImage(
-        normal: json["normal"] == null ? "https://myibs.not4prod.com/images/pending.png" : "",
-        active: json["active"] == null ? "https://myibs.not4prod.com/images/pending.png" : "",
+        normal: json["normal"] == null ? "https://myibs.not4prod.com/images/pending.png" : "$BASE_URL/${json["normal"]}",
+        active: json["active"] == null ? "https://myibs.not4prod.com/images/pending.png" : "$BASE_URL/${json["active"]}",
       );
 
   Map<String, dynamic> toJson() => {
