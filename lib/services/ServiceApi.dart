@@ -1,7 +1,7 @@
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
-import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
 import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/url.dart';

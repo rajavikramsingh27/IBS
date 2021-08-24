@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
-import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';

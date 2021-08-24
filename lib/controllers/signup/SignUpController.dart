@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
-import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
 import 'package:flutter_ibs/models/signup/SignupSendModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';

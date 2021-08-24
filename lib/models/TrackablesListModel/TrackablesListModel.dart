@@ -90,16 +90,16 @@ class Datum {
 
 class ModelImage {
   ModelImage({
-    this.normal ="https://myibs.not4prod.com/images/pending.png",
-    this.active = "https://myibs.not4prod.com/images/pending.png",
+    this.normal,
+    this.active,
   });
 
   String normal;
   String active;
 
   factory ModelImage.fromJson(Map<String, dynamic> json) => ModelImage(
-        //normal: json["normal"],
-        //active: json["active"],
+        normal: json["normal"] == null ? "https://myibs.not4prod.com/images/pending.png" : "",
+        active: json["active"] == null ? "https://myibs.not4prod.com/images/pending.png" : "",
       );
 
   Map<String, dynamic> toJson() => {

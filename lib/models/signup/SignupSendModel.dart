@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 
 class SignupSendModel {
   SignupSendModel({
