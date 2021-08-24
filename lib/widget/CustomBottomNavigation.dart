@@ -68,7 +68,6 @@ class CustomBottomNavigation extends StatelessWidget {
   Widget _buildTabItem(
       { String title,
        String imageText,
-      int index,
       Function() onTap
 
       // ValueChanged<int> onPressed,

@@ -489,7 +489,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           return Get.bottomSheet(Symptoms(),
               barrierColor: AppColors.barrierColor.withOpacity(0.60),
               isScrollControlled: true);
-          break;
         }
       case 1:
         return Get.bottomSheet(BowelMovement(),
