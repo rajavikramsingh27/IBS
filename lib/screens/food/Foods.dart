@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/food/FoodController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DateTime.dart';
@@ -414,9 +415,29 @@ class Foods extends StatelessWidget {
             ?.elementAt(0)
             ?.tags
             ?.tagsDefault[index];
+
         return InkWell(
           onTap: () {
-            _controller.onOptionTapped(model);
+            if (_controller.foodSendModel.value.items == null) {
+              _controller.foodSendModel.value.items = [];
+            }
+
+            FoodList foodlist = FoodList(
+                children: [],
+                value: FoodValue(str: _controller.mealTypeValue.value));
+            _controller.foodSendModel.value.items.add(foodlist);
+            FoodSubList child = FoodSubList(
+                tid: _signUpController
+                    .food.value.items.first.children.first.items.first.tid,
+                value: FoodSubValue(arr: []));
+
+            _controller.foodSendModel.value.items[index].children.add(child);
+            _controller.foodSendModel.refresh();
+            _signUpController.food.refresh();
+            _controller.onOptionTapped(
+                model: model,
+                modelValue: _controller
+                    .foodSendModel.value.items[index].children.first.value.arr);
           },
           child: Card(
             color: model.required
@@ -479,7 +500,26 @@ class Foods extends StatelessWidget {
             ?.tagsDefault[ind];
         return InkWell(
           onTap: () {
-            _controller.onOptionTapped(model);
+            if (_controller.foodSendModel.value.items == null) {
+              _controller.foodSendModel.value.items = [];
+            }
+
+            FoodList foodlist = FoodList(
+                children: [],
+                value: FoodValue(str: _controller.mealTypeValue.value));
+            _controller.foodSendModel.value.items.add(foodlist);
+            FoodSubList child = FoodSubList(
+                tid: _signUpController
+                    .food.value.items.first.children.first.items.first.tid,
+                value: FoodSubValue(arr: []));
+
+            _controller.foodSendModel.value.items[index].children.add(child);
+            _controller.foodSendModel.refresh();
+            _signUpController.food.refresh();
+            _controller.onOptionTapped(
+                model: model,
+                modelValue: _controller
+                    .foodSendModel.value.items[index].children.first.value.arr);
           },
           child: Card(
             color: model.required

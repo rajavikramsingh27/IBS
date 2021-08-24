@@ -47,9 +47,9 @@ class FoodList {
   FoodList({
     this.value,
     this.id,
-    this.tid,
-    this.kind,
-    this.dtype,
+    this.tid = "food-meal",
+    this.kind = "list",
+    this.dtype: "str",
     this.children,
   });
 
@@ -94,8 +94,8 @@ class FoodSubList {
     this.value,
     this.id,
     this.tid,
-    this.kind,
-    this.dtype,
+    this.kind = "tags",
+    this.dtype = "arr",
   });
 
   FoodSubValue value;

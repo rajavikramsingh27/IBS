@@ -64,6 +64,7 @@ class SignUpController extends GetxController {
     confirmPasswordController = TextEditingController();
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();
+    getTrackList();
     connectionStatus.value = isInternet;
   }
 
@@ -107,7 +108,7 @@ class SignUpController extends GetxController {
       stool: _myProFileController.selectStoolType(
           _myProFileController.selectedStoolType.value ?? null),
     );
-    /*trackList.value.data.forEach((element) {
+    trackList.value.data.forEach((element) {
       if (element.tid == "symptoms") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
@@ -149,7 +150,7 @@ class SignUpController extends GetxController {
           }
         });
       }
-    });*/
+    });
 
     TrackingSendModel trackModel = TrackingSendModel(
         symptoms: symptomsList, bowelMovements: bowelMoveList);

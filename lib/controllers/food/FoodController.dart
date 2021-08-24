@@ -57,13 +57,13 @@ class FoodController extends GetxController {
     if (foodSendModel.value.items == null) {
       foodSendModel.value.items = [];
     }
-    FoodSubList foodTypeModel = FoodSubList(
-        tid: "food-breakfast_eat",
-        kind: "tags",
-        dtype: "arr",
-        value: FoodSubValue(arr: onOptionTapped()));
-    listFood.value.children.add(foodTypeModel);
-    listFood.refresh();
+    // FoodSubList foodTypeModel = FoodSubList(
+    //     tid: "food-breakfast_eat",
+    //     kind: "tags",
+    //     dtype: "arr",
+    //     value: FoodSubValue(arr: onOptionTapped()));
+    // listFood.value.children.add(foodTypeModel);
+    // listFood.refresh();
     FoodList foodItemModel = FoodList(
         tid: _signUpController.food.value.items.last.tid,
         kind: _signUpController.food.value.items.last.kind,
@@ -72,17 +72,17 @@ class FoodController extends GetxController {
     print("meal:${mealTypeValue.value}");
     foodSendModel.value.items.add(foodItemModel);
     foodSendModel.refresh();
-    print("data: ${foodSendModel.toJson()}");
-    final data =
-        await ServiceApi().foodTrackApi(bodyData: foodSendModel.toJson());
+    print("food_data: ${foodSendModel.toJson()}");
+    // final data =
+    //     await ServiceApi().foodTrackApi(bodyData: foodSendModel.toJson());
 
-    if (data is FoodResponseModel) {
-      Get.back();
-      CustomSnackBar().successSnackBar(
-          title: "Success", message: "Registered Successfully");
-    } else {
-      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-    }
+    // if (data is FoodResponseModel) {
+    //   Get.back();
+    //   CustomSnackBar().successSnackBar(
+    //       title: "Success", message: "Registered Successfully");
+    // } else {
+    //   CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    // }
   }
 
   getFood() async {
@@ -93,9 +93,19 @@ class FoodController extends GetxController {
     print("Data: $data");
   }
 
-  onOptionTapped([TagsDefault model]) {
+  onOptionTapped({TagsDefault model, List<String> modelValue}) {
     model.required = !model.required;
+    if (model.required) {
+      if (!modelValue.contains(model.value)) {
+        modelValue.add(model.value);
+      }
+    } else {
+      if (modelValue.contains(model.value)) {
+        modelValue.remove(model.value);
+      }
+    }
     _signUpController.food.refresh();
+    return modelValue;
   }
 
   mealIndex(int index) {
