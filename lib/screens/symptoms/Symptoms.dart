@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/home/symptoms/SymptomsController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart';
-import 'package:flutter_ibs/models/response_model/TrackablesListModel.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
@@ -570,7 +570,7 @@ class Symptoms extends StatelessWidget {
                                                                               BorderRadius.all(Radius.circular(8))),
                                                                       // dropdown below..
                                                                       child:
-                                                                          CustomDropdown(
+                                                                          CustomDropdown<SelectOption>(
                                                                         value: _signUpController.symptoms.value.items[index].children.first.items.last.select.selectDefault.label !=
                                                                                 null
                                                                             ? _signUpController.symptoms.value.items[index].children.first.items.last.select.selectDefault
