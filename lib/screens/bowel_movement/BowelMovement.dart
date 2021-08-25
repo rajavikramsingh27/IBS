@@ -16,7 +16,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class BowelMovement extends StatelessWidget {
-  final _controller = Get.put(BowelMovementController());
+  final _bowelMovementController = Get.put(BowelMovementController());
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class BowelMovement extends StatelessWidget {
             CustomElevatedButton(
               widthFactor: 0.7,
               text: "Save",
-              onTap: () {},
+              onTap: _bowelMovementController.onSave,
             ),
             TextButton(
                 onPressed: () {
@@ -218,7 +218,7 @@ class BowelMovement extends StatelessWidget {
                                       ? " Type 6"
                                       : "Type 7";
             },
-            value: _controller.sliderValue.value,
+            value: _bowelMovementController.sliderValue.value,
             onChanged: (dynamic newValue) {
               print("cahnged");
               // _controller.sliderValue.value = newValue;
@@ -342,9 +342,9 @@ class BowelMovement extends StatelessWidget {
                   ),
                   Obx(
                     () => CustomSwitch(
-                      value: _controller.switchValue.value,
+                      value: _bowelMovementController.switchValue.value,
                       onChanged: (val) {
-                        _controller.switchValue.value = val;
+                        _bowelMovementController.switchValue.value = val;
                       },
                     ),
                   )
@@ -406,10 +406,10 @@ class BowelMovement extends StatelessWidget {
             interval: 1,
             stepSize: 1,
             showLabels: true,
-            value: _controller.sliderValue.value,
+            value: _bowelMovementController.sliderValue.value,
             onChanged: (dynamic newValue) {
               print("cahnged");
-              _controller.sliderValue.value = newValue;
+              _bowelMovementController.sliderValue.value = newValue;
             },
             labelFormatterCallback:
                 (dynamic actualValue, String formattedText) {
@@ -464,10 +464,10 @@ class BowelMovement extends StatelessWidget {
             interval: 1,
             stepSize: 1,
             showLabels: true,
-            value: _controller.sliderValue.value,
+            value: _bowelMovementController.sliderValue.value,
             onChanged: (dynamic newValue) {
               print("cahnged");
-              _controller.sliderValue.value = newValue;
+              _bowelMovementController.sliderValue.value = newValue;
             },
             labelFormatterCallback:
                 (dynamic actualValue, String formattedText) {
