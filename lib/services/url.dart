@@ -4,3 +4,4 @@ const TRACKLIST = "/trackables";
 const SIGNIN = "/authentication";
 const SYMPTOMS = "/user/symptoms";
 const FOODS = "/foods";
+const BOWELMOVEMENTS = "/user/bowel-movements";
