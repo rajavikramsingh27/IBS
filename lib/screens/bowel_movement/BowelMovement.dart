@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/bowel_movement/BowelMovementController.dart';
+import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -17,7 +18,7 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class BowelMovement extends StatelessWidget {
   final _bowelMovementController = Get.put(BowelMovementController());
-
+  final SignUpController _signUpController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
