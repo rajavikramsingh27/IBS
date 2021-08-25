@@ -10,7 +10,7 @@ String bowelMovementsModelToJson(BowelMovementsModel data) => json.encode(data.t
 
 class BowelMovementsModel {
   BowelMovementsModel({
-    this.category,
+    this.category = "bowel_movements",
     this.items,
   });
 

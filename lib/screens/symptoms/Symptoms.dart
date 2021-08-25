@@ -441,8 +441,8 @@ class Symptoms extends StatelessWidget {
                                                                                         mainAxisAlignment: MainAxisAlignment.center,
                                                                                         children: [
                                                                                           Image.network(
-                                                                                            model.image.normal,
-                                                                                            width: ScreenConstant.defaultWidthTwenty * 1.5,
+                                                                                            model.image.active,
+                                                                                            width: ScreenConstant.defaultWidthTwenty * 2.0,
                                                                                           ),
                                                                                           SizedBox(height: ScreenConstant.defaultHeightTen),
                                                                                           Text("${model.label}", textAlign: TextAlign.center, style: TextStyles.textStyleRegular.apply(color: AppColors.white, fontSizeDelta: -2)),
