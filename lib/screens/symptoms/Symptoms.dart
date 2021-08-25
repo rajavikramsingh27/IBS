@@ -173,17 +173,13 @@ class Symptoms extends StatelessWidget {
                                                               SizedBox(
                                                                   height: ScreenConstant
                                                                       .defaultHeightTen),
-                                                              Text(
-                                                                "I have no ${_signUpController.symptoms.value.items[index].tid}",
-                                                                style: TextStyles
-                                                                    .textStyleRegular
-                                                                    .apply(
-                                                                        color: AppColors
-                                                                            .colorSkipButton),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
+                                                              getDesc(index: index,value: _signUpController
+                                                                  .symptoms
+                                                                  .value
+                                                                  .items[
+                                                              index]
+                                                                  .rating
+                                                                  .ratingDefault),
                                                               SizedBox(
                                                                   height: ScreenConstant
                                                                       .defaultHeightTwenty),
@@ -588,5 +584,44 @@ class Symptoms extends StatelessWidget {
       ));
     }
     return items;
+  }
+
+  getDesc({int index, num value}) {
+    int optionIndex;
+
+    _signUpController
+        .symptoms
+        .value
+        .items[
+    index]
+        .rating
+        .options.forEach((element) {
+       if(element.value == value.toInt()){
+         optionIndex = _signUpController
+             .symptoms
+             .value
+             .items[
+         index]
+             .rating
+             .options.indexOf(element);
+       }
+    });
+    return Text(
+      "${_signUpController
+          .symptoms
+          .value
+          .items[
+      index]
+          .rating
+          .options[optionIndex].label}",
+      style: TextStyles
+          .textStyleRegular
+          .apply(
+          color: AppColors
+              .colorSkipButton),
+      textAlign:
+      TextAlign
+          .center,
+    );
   }
 }
