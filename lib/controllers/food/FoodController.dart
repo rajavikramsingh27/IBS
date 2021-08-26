@@ -27,7 +27,7 @@ class FoodController extends GetxController {
   RxBool connectionStatus = false.obs;
   RxInt endTimeDifference = 0.obs;
   RxInt startTimeDifference = 0.obs;
-  SignUpController _signUpController = Get.put(SignUpController());
+  SignUpController _signUpController = Get.find();
   RxInt modelMealIndex = 0.obs;
   List<TagsDefault> listTagsDefault = [];
 

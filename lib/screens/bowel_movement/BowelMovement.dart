@@ -77,57 +77,17 @@ class BowelMovement extends StatelessWidget {
                         DateTimeCardWidget(),
                         SizedBox(
                             height: ScreenConstant.defaultHeightForty * 1.25),
-                        Text(
-                          "What does your poop look like?",
-                          style: TextStyles.textStyleIntroDescription
-                              .apply(color: Colors.black, fontSizeDelta: -2),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(
-                            height: ScreenConstant.defaultHeightTwenty * 1.5),
-                        Center(
-                          child: Stack(
-                            children: [
-                              Image.asset(
-                                Assets.hard_lump,
-                                width:
-                                    ScreenConstant.defaultWidthOneHundredSeven,
-                                height: ScreenConstant.defaultHeightOneHundred,
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                left: ScreenConstant.defaultWidthTwenty,
-                                right: ScreenConstant.defaultWidthTwenty,
-                                child: Container(
-                                  height: ScreenConstant.defaultHeightTwenty,
-                                  width: ScreenConstant.sizeXXXL,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: AppColors.colorButton,
-                                  ),
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: ScreenConstant.sizeExtraSmall,
-                                      vertical: 1),
-                                  child: FittedBox(
-                                    fit: BoxFit.contain,
-                                    child: Text("Type 1",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyles
-                                            .textStyleIntroDescription
-                                            .apply(
-                                                color: Colors.white,
-                                                fontSizeDelta: -9)),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: ScreenConstant.sizeMedium),
-                        Text("Separate hard lumps, like nuts ",
-                            textAlign: TextAlign.center,
-                            style: TextStyles.textStyleRegular),
-                        SizedBox(height: ScreenConstant.sizeMedium),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          itemCount: _signUpController.bowelMovements.value.items.length,
+                            itemBuilder: (_, index) {
+                              if (_signUpController.bowelMovements.value.items[index].tid == "bowelMovements-notes") {
+                                return Offstage();
+                              } else {
+                                return Offstage();
+                              }
+                            }),
                         _buildBowelTypeSlider(),
                         SizedBox(height: ScreenConstant.defaultHeightForty),
                         Stack(
@@ -152,7 +112,7 @@ class BowelMovement extends StatelessWidget {
                             ),
                           ],
                         ),
-                        AdditionalNoteWidget(),
+                        AdditionalNoteWidget(textEditingController: _bowelMovementController.noteTextController,),
                         SizedBox(
                             height: ScreenConstant.defaultHeightTwentyFour),
                       ],
@@ -169,65 +129,120 @@ class BowelMovement extends StatelessWidget {
   }
 
   _buildBowelTypeSlider() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
-      child: SfSliderTheme(
-        data: SfSliderThemeData(
-            thumbColor: AppColors.colorArrowButton,
-            thumbStrokeWidth: 5,
-            thumbRadius: 16,
-            thumbStrokeColor: AppColors.colorBackground,
-            activeTrackHeight: 4,
-            overlayRadius: 0,
-            disabledActiveTrackColor: AppColors.colorTrackSlider,
-            disabledInactiveTrackColor: AppColors.colorTrackSlider,
-            activeDividerStrokeWidth: 2,
-            inactiveDividerStrokeWidth: 2,
-            inactiveTrackHeight: 4,
-            activeTrackColor: AppColors.colorTrackSlider,
-            inactiveTrackColor: AppColors.colorTrackSlider,
-            inactiveDividerStrokeColor: AppColors.colorTrackSlider,
-            inactiveDividerRadius: 8,
-            inactiveDividerColor: AppColors.white,
-            activeDividerColor: AppColors.white,
-            activeDividerStrokeColor: AppColors.colorTrackSlider,
-            activeDividerRadius: 8,
-            activeLabelStyle: TextStyles.textStyleRegular,
-            inactiveLabelStyle: TextStyles.textStyleRegular),
-        child: Obx(
-          () => SfSlider(
-            showDividers: true,
-            min: 1.0,
-            max: 7.0,
-            interval: 1,
-            stepSize: 1,
-            showLabels: true,
-
-            labelFormatterCallback:
-                (dynamic actualValue, String formattedText) {
-              return actualValue == 1
-                  ? ' Type 1'
-                  : actualValue == 2
-                      ? "Type 2"
-                      : actualValue == 3
-                          ? "Type 3"
-                          : actualValue == 4
-                              ? "Type4"
-                              : actualValue == 5
-                                  ? "Type 5"
-                                  : actualValue == 6
-                                      ? " Type 6"
-                                      : "Type 7";
-            },
-            value: _bowelMovementController.sliderValue.value,
-            onChanged: (dynamic newValue) {
-              print("cahnged");
-              // _controller.sliderValue.value = newValue;
-            },
-            // labelFormatterCallback: (String,newval){},
+    return Column(
+      children: [
+        Text(
+          "What does your poop look like?",
+          style: TextStyles.textStyleIntroDescription
+              .apply(color: Colors.black, fontSizeDelta: -2),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(
+            height: ScreenConstant.defaultHeightTwenty * 1.5),
+        Center(
+          child: Stack(
+            children: [
+              Image.asset(
+                Assets.hard_lump,
+                width:
+                ScreenConstant.defaultWidthOneHundredSeven,
+                height: ScreenConstant.defaultHeightOneHundred,
+              ),
+              Positioned(
+                bottom: 0,
+                left: ScreenConstant.defaultWidthTwenty,
+                right: ScreenConstant.defaultWidthTwenty,
+                child: Container(
+                  height: ScreenConstant.defaultHeightTwenty,
+                  width: ScreenConstant.sizeXXXL,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: AppColors.colorButton,
+                  ),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ScreenConstant.sizeExtraSmall,
+                      vertical: 1),
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Text("Type 1",
+                        textAlign: TextAlign.center,
+                        style: TextStyles
+                            .textStyleIntroDescription
+                            .apply(
+                            color: Colors.white,
+                            fontSizeDelta: -9)),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-      ),
+        SizedBox(height: ScreenConstant.sizeMedium),
+        Text("Separate hard lumps, like nuts ",
+            textAlign: TextAlign.center,
+            style: TextStyles.textStyleRegular),
+        SizedBox(height: ScreenConstant.sizeMedium),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
+          child: SfSliderTheme(
+            data: SfSliderThemeData(
+                thumbColor: AppColors.colorArrowButton,
+                thumbStrokeWidth: 5,
+                thumbRadius: 16,
+                thumbStrokeColor: AppColors.colorBackground,
+                activeTrackHeight: 4,
+                overlayRadius: 0,
+                disabledActiveTrackColor: AppColors.colorTrackSlider,
+                disabledInactiveTrackColor: AppColors.colorTrackSlider,
+                activeDividerStrokeWidth: 2,
+                inactiveDividerStrokeWidth: 2,
+                inactiveTrackHeight: 4,
+                activeTrackColor: AppColors.colorTrackSlider,
+                inactiveTrackColor: AppColors.colorTrackSlider,
+                inactiveDividerStrokeColor: AppColors.colorTrackSlider,
+                inactiveDividerRadius: 8,
+                inactiveDividerColor: AppColors.white,
+                activeDividerColor: AppColors.white,
+                activeDividerStrokeColor: AppColors.colorTrackSlider,
+                activeDividerRadius: 8,
+                activeLabelStyle: TextStyles.textStyleRegular,
+                inactiveLabelStyle: TextStyles.textStyleRegular),
+            child: Obx(
+                  () => SfSlider(
+                showDividers: true,
+                min: 1.0,
+                max: 7.0,//_signUpController.bowelMovements.value.items.first.rating.range ?? 2,
+                interval: 1,
+                stepSize: 1,
+                showLabels: true,
+
+                labelFormatterCallback:
+                    (dynamic actualValue, String formattedText) {
+                  return actualValue == 1
+                      ? ' Type 1'
+                      : actualValue == 2
+                      ? "Type 2"
+                      : actualValue == 3
+                      ? "Type 3"
+                      : actualValue == 4
+                      ? "Type4"
+                      : actualValue == 5
+                      ? "Type 5"
+                      : actualValue == 6
+                      ? " Type 6"
+                      : "Type 7";
+                },
+                value: _bowelMovementController.sliderValue.value,//_signUpController.bowelMovements.value.items.first.rating.ratingDefault,
+                onChanged: (dynamic newValue) {
+                  print("cahnged");
+                  // _controller.sliderValue.value = newValue;
+                },
+                // labelFormatterCallback: (String,newval){},
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/home/HomeController.dart';
+import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/controllers/symptoms/SymptomsController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
@@ -26,6 +27,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   final _controller = Get.put(HomeController());
+  final SignUpController _signUpController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -207,9 +209,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       //                 ])
       //               ]),
       //         ))),
-      body: Stack(
+      body: Obx(()=>Stack(
         children: [
-          Card(
+          _signUpController.loader.value?Center(child: CircularProgressIndicator()):Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             margin: EdgeInsets.zero,
@@ -233,7 +235,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               bottom: 0, left: 0, right: 0, child: CustomBottomNavigation()),
         ],
       ),
-    );
+    ));
   }
 
   _buildTrackAndLogBar() {
