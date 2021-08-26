@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:flutter_ibs/models/food/FoodSendModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
@@ -14,7 +15,7 @@ class FoodController extends GetxController {
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   RxString mealTypeValue = "".obs;
-  Rx<FoodResponseModel> foodSendModel = FoodResponseModel().obs;
+  Rx<FoodSendModel> foodSendModel = FoodSendModel().obs;
   Rx<FoodSubList> listFoodSub = FoodSubList().obs;
   Rx<FoodList> listFood = FoodList().obs;
 
@@ -29,7 +30,6 @@ class FoodController extends GetxController {
   RxInt startTimeDifference = 0.obs;
   SignUpController _signUpController = Get.find();
   RxInt modelMealIndex = 0.obs;
-  List<TagsDefault> listTagsDefault = [];
 
   onTapped(int index) async {
     currentIndex.value = index;
@@ -65,24 +65,24 @@ class FoodController extends GetxController {
     // listFood.value.children.add(foodTypeModel);
     // listFood.refresh();
     FoodList foodItemModel = FoodList(
-        tid: _signUpController.food.value.items.last.tid,
-        kind: _signUpController.food.value.items.last.kind,
+        tid: "food-notes",
+        kind: "textInput",
         dtype: "str",
-        value: FoodValue(str: mealTypeValue.value));
+        value: FoodValue(str: noteTextController.text));
     print("meal:${mealTypeValue.value}");
     foodSendModel.value.items.add(foodItemModel);
     foodSendModel.refresh();
     print("food_data: ${foodSendModel.toJson()}");
-    // final data =
-    //     await ServiceApi().foodTrackApi(bodyData: foodSendModel.toJson());
+    final data =
+        await ServiceApi().foodTrackApi(bodyData: foodSendModel.toJson());
 
-    // if (data is FoodResponseModel) {
-    //   Get.back();
-    //   CustomSnackBar().successSnackBar(
-    //       title: "Success", message: "Registered Successfully");
-    // } else {
-    //   CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-    // }
+    if (data is FoodResponseModel) {
+      Get.back();
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Foods Added Successfully");
+    } else {
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
   }
 
   getFood() async {
