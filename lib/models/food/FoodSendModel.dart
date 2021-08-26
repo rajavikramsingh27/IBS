@@ -155,15 +155,19 @@ class FoodSubValue {
 class FoodValue {
   FoodValue({
     this.str,
+    this.num,
   });
 
   String str;
+  int num;
 
   factory FoodValue.fromJson(Map<String, dynamic> json) => FoodValue(
         str: json["str"] == null ? null : json["str"],
+        num: json["num"] == null ? null : json["num"],
       );
 
   Map<String, dynamic> toJson() => {
         "str": str == null ? null : str,
+        "num": num == null ? null : num,
       };
 }

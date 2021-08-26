@@ -100,8 +100,12 @@ class ModelImage {
   String active;
 
   factory ModelImage.fromJson(Map<String, dynamic> json) => ModelImage(
-        normal: json["normal"] == null ? "https://myibs.not4prod.com/images/pending.png" : "$BASE_URL/${json["normal"]}",
-        active: json["active"] == null ? "https://myibs.not4prod.com/images/pending.png" : "$BASE_URL/${json["active"]}",
+        normal: json["normal"] == null
+            ? "https://myibs.not4prod.com/images/pending.png"
+            : "$BASE_URL/${json["normal"]}",
+        active: json["active"] == null
+            ? "https://myibs.not4prod.com/images/pending.png"
+            : "$BASE_URL/${json["active"]}",
       );
 
   Map<String, dynamic> toJson() => {
@@ -524,7 +528,7 @@ class Time {
 
   factory Time.fromJson(Map<String, dynamic> json) => Time(
         startTime: json["startTime"],
-        endTime: json["endTime"],
+        endTime: json["endTime"] == "03:59" ? "17:00" : json["endTime"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -678,8 +682,7 @@ class Select {
   factory Select.fromJson(Map<String, dynamic> json) => Select(
         selectDefault: json["default"] == null
             ? SelectOption()
-            : SelectOption(
-                value: json["default"], label: null),
+            : SelectOption(value: json["default"], label: null),
         options: List<SelectOption>.from(
             json["options"].map((x) => SelectOption.fromJson(x))),
         validation: ListValidation.fromJson(json["validation"]),

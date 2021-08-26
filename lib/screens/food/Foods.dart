@@ -170,7 +170,10 @@ class Foods extends StatelessWidget {
       itemCount:
           _signUpController.food.value.items?.first?.list?.options?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
-        Obx(() => _controller.mealIndex(index));
+        Future.delayed(Duration.zero, () {
+          _controller.modelMealIndex.value = index;
+        });
+
         var model =
             _signUpController.food.value.items?.first?.list?.options[index];
 
@@ -390,54 +393,31 @@ class Foods extends StatelessWidget {
   }
 
   _buildListOfFoodsTaken(int index) {
+    // print("index:$index");
     return GridView.builder(
       padding: EdgeInsets.symmetric(
           horizontal: ScreenConstant.sizeLarge,
           vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: _signUpController.food.value.items
-              ?.elementAt(0)
-              ?.children
+      itemCount: _signUpController.food.value.items?.first?.children
               ?.elementAt(index)
               ?.items
-              ?.elementAt(0)
+              ?.first
               ?.tags
               ?.tagsDefault
               ?.length ??
           0,
-      itemBuilder: (BuildContext context, int index) {
-        var model = _signUpController.food.value.items
-            ?.elementAt(0)
-            ?.children
-            ?.elementAt(0)
-            ?.items
-            ?.elementAt(0)
-            ?.tags
-            ?.tagsDefault[index];
+      itemBuilder: (BuildContext context, int ind) {
+        var model = _signUpController.food.value.items?.first?.children?.first
+            ?.items?.first?.tags?.tagsDefault[ind];
 
         return InkWell(
           onTap: () {
-            // if (_controller.foodSendModel.value.items == null) {
-            //   _controller.foodSendModel.value.items = [];
-            // }
-
-            // FoodList foodlist = FoodList(
-            //     children: [],
-            //     value: FoodValue(str: _controller.mealTypeValue.value));
-            // _controller.foodSendModel.value.items.add(foodlist);
-            // FoodSubList child = FoodSubList(
-            //     tid: _signUpController
-            //         .food.value.items.first.children.first.items.first.tid,
-            //     value: FoodSubValue(arr: []));
-
-            // _controller.foodSendModel.value.items[index].children.add(child);
-            // _controller.foodSendModel.refresh();
-            // _signUpController.food.refresh();
-            // _controller.onOptionTapped(
-            //     model: model,
-            //     modelValue: _controller
-            //         .foodSendModel.value.items[index].children.first.value.arr);
+            _controller.onOptionTapped(
+                model: model,
+                modelValue: _controller
+                    .foodSendModel.value.items.first.children.first.value.arr);
           },
           child: Card(
             color: model.required
@@ -469,9 +449,7 @@ class Foods extends StatelessWidget {
           vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: _signUpController.food.value.items
-              ?.elementAt(0)
-              ?.children
+      itemCount: _signUpController.food.value.items?.first?.children
               ?.elementAt(index)
               ?.items
               ?.first
@@ -485,9 +463,7 @@ class Foods extends StatelessWidget {
               ?.length ??
           0,
       itemBuilder: (BuildContext context, int ind) {
-        var model = _signUpController.food.value.items
-            ?.elementAt(0)
-            ?.children
+        var model = _signUpController.food.value.items?.first?.children
             ?.elementAt(index)
             ?.items
             ?.first
@@ -500,26 +476,28 @@ class Foods extends StatelessWidget {
             ?.tagsDefault[ind];
         return InkWell(
           onTap: () {
-            if (_controller.foodSendModel.value.items == null) {
-              _controller.foodSendModel.value.items = [];
-            }
+            // print(
+            //     "null:${_controller.foodSendModel.value.items[index].children?.first?.value?.arr}");
+            // if (_controller.foodSendModel.value.items == null) {
+            //   _controller.foodSendModel.value.items = [];
+            // }
 
-            FoodList foodlist = FoodList(
-                children: [],
-                value: FoodValue(str: _controller.mealTypeValue.value));
-            _controller.foodSendModel.value.items.add(foodlist);
-            FoodSubList child = FoodSubList(
-                tid: _signUpController
-                    .food.value.items.first.children.first.items.first.tid,
-                value: FoodSubValue(arr: []));
+            // FoodList foodlist = FoodList(
+            //     children: [],
+            //     value: FoodValue(str: _controller.mealTypeValue.value));
+            // _controller.foodSendModel.value.items.add(foodlist);
+            // FoodSubList child = FoodSubList(
+            //     tid: _signUpController
+            //         .food.value.items.first.children.first.items.first.tid,
+            //     value: FoodSubValue(arr: []));
 
-            _controller.foodSendModel.value.items[index].children.add(child);
-            _controller.foodSendModel.refresh();
-            _signUpController.food.refresh();
-            _controller.onOptionTapped(
-                model: model,
-                modelValue: _controller
-                    .foodSendModel.value.items[index].children.first.value.arr);
+            // _controller.foodSendModel.value.items[index].children?.add(child);
+            // _controller.foodSendModel.refresh();
+            // _signUpController.food.refresh();
+            // _controller.onOptionTapped(
+            //     model: model,
+            //     modelValue: _controller.foodSendModel.value.items[index]
+            //         .children?.first?.value?.arr);
           },
           child: Card(
             color: model.required

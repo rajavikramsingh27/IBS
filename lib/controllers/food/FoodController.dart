@@ -41,16 +41,25 @@ class FoodController extends GetxController {
     formattedTime = int.parse(
             DateFormat.Hm().format(currentDateTime.value).split(":").first)
         .obs;
+    onTapBlank();
+  }
 
-    // bool isInternet = await ConnectionCheck().();
-    // connectionStatus.value = isInternet;
-    // if (connectionStatus.value) {
-    //   loader.value = true;
+  onTapBlank() {
+    if (foodSendModel.value.items == null) {
+      foodSendModel.value.items = [];
+    }
 
-    // getFood();
+    FoodList foodlist =
+        FoodList(children: [], value: FoodValue(str: mealTypeValue.value));
+    foodSendModel.value.items.add(foodlist);
+    FoodSubList child = FoodSubList(
+        tid: _signUpController
+            .food.value.items.first.children.first.items.first.tid,
+        value: FoodSubValue(arr: []));
 
-    //   loader.value = false;
-    // }
+    foodSendModel.value.items.first.children.add(child);
+    foodSendModel.refresh();
+    _signUpController.food.refresh();
   }
 
   onSave() async {
@@ -70,19 +79,27 @@ class FoodController extends GetxController {
         dtype: "str",
         value: FoodValue(str: noteTextController.text));
     print("meal:${mealTypeValue.value}");
+    FoodList hydrationItemModel = FoodList(
+        tid: "food-hydration",
+        kind: "sum",
+        dtype: "num",
+        value: FoodValue(num: 5, str: ""));
+    print("meal:${mealTypeValue.value}");
+    foodSendModel.value.items.add(hydrationItemModel);
+
     foodSendModel.value.items.add(foodItemModel);
     foodSendModel.refresh();
     print("food_data: ${foodSendModel.toJson()}");
-    final data =
-        await ServiceApi().foodTrackApi(bodyData: foodSendModel.toJson());
+    // final data =
+    //     await ServiceApi().foodTrackApi(bodyData: foodSendModel.toJson());
 
-    if (data is FoodResponseModel) {
-      Get.back();
-      CustomSnackBar().successSnackBar(
-          title: "Success", message: "Foods Added Successfully");
-    } else {
-      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-    }
+    // if (data is FoodResponseModel) {
+    //   Get.back();
+    //   CustomSnackBar().successSnackBar(
+    //       title: "Success", message: "Foods Added Successfully");
+    // } else {
+    //   CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    // }
   }
 
   getFood() async {
@@ -95,6 +112,7 @@ class FoodController extends GetxController {
 
   onOptionTapped({TagsDefault model, List<String> modelValue}) {
     model.required = !model.required;
+
     if (model.required) {
       if (!modelValue.contains(model.value)) {
         modelValue.add(model.value);
@@ -105,10 +123,7 @@ class FoodController extends GetxController {
       }
     }
     _signUpController.food.refresh();
-    return modelValue;
-  }
 
-  mealIndex(int index) {
-    modelMealIndex.value = index;
+    return modelValue;
   }
 }
