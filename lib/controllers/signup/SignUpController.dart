@@ -64,7 +64,7 @@ class SignUpController extends GetxController {
     confirmPasswordController = TextEditingController();
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();
-    getTrackList();
+    //getTrackList();
     connectionStatus.value = isInternet;
   }
 
@@ -256,7 +256,7 @@ class SignUpController extends GetxController {
 
   getBowelMovements() {
     trackList.value.data.forEach((element) {
-      if (element.tid == "bowel_movements") {
+      if (element.tid == "bowelMovements") {
         bowelMovements.value = element;
       }
     });

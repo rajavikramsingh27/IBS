@@ -18,8 +18,8 @@ import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
 
 class Foods extends StatelessWidget {
-  final _controller = Get.put(FoodController());
-  final _signUpController = Get.put(SignUpController());
+  final FoodController _controller = Get.put(FoodController());
+  final SignUpController _signUpController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -187,8 +187,8 @@ class Foods extends StatelessWidget {
             .parseTimeAsDateTime(dateTime: s, returnFormat: "HH:mm");
         // print("uefbjfe:$s");
 
-        var p = u.difference(startTime).inSeconds;
-        print("diff:$p");
+        //var p = u.difference(startTime).inSeconds;
+        //print("diff:$p");
 
         // print("date:$startTime");
         // print("currentdate:$u");
