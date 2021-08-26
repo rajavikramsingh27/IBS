@@ -199,38 +199,48 @@ class Foods extends StatelessWidget {
             u.difference(startTime).inSeconds;
         _controller.startTimeDifference.value =
             (endTime.difference(u).inSeconds);
-        if ((endTime.difference(u).inSeconds) > 0 &&
+        /*if ((endTime.difference(u).inSeconds) > 0 &&
             (u.difference(startTime).inSeconds) > 0) {
           _controller.mealTypeValue.value = model.value;
-        }
+          _signUpController.food.value.items?.first?.list?.options[index].optionDefault = true;
+        }*/
         return Container(
           decoration: BoxDecoration(
-              color: (endTime.difference(u).inSeconds) > 0 &&
-                      (u.difference(startTime).inSeconds) > 0
+              color: _signUpController.food.value.items?.first?.list?.options[index].optionDefault
                   ? AppColors.colorBackground
                   : Colors.white,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: AppColors.colorBorder, width: 1)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                Assets.lunch,
-                width: ScreenConstant.sizeXXXL,
-              ),
-              SizedBox(height: ScreenConstant.sizeDefault),
-              Text(
-                model.value.capitalize ?? "",
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyles.textStyleRegular.apply(
-                    color: (endTime.difference(u).inSeconds) > 0 &&
-                            (u.difference(startTime).inSeconds) > 0
-                        ? Colors.white
-                        : Colors.black,
-                    fontSizeDelta: 2),
-              ),
-            ],
+          child: InkWell(
+            onTap: (){
+              _signUpController.food.value.items.first.list.options.forEach((element) {
+                if(element.optionDefault){
+                  element.optionDefault = false;
+                }
+              });
+              _signUpController.food.value.items?.first?.list?.options[index].optionDefault = !_signUpController.food.value.items?.first?.list?.options[index].optionDefault;
+
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  Assets.lunch,
+                  width: ScreenConstant.sizeXXXL,
+                ),
+                SizedBox(height: ScreenConstant.sizeDefault),
+                Text(
+                  model.value.capitalize ?? "",
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyles.textStyleRegular.apply(
+                      color: _signUpController.food.value.items?.first?.list?.options[index].optionDefault
+                          ? Colors.white
+                          : Colors.black,
+                      fontSizeDelta: 2),
+                ),
+              ],
+            ),
           ),
         );
       },
