@@ -1,5 +1,6 @@
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
+import 'package:flutter_ibs/models/journal/JournalResponseModel.dart';
 import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
@@ -10,9 +11,7 @@ class ServiceApi {
   Future<dynamic> signupApi({Map bodyData}) async {
     var result = await CoreService()
         .apiService(method: METHOD.CREATE, endpoint: SIGNUP, data: bodyData);
-    // if (result.name.toString().toLowerCase() == "Unprocessable".toLowerCase()) {
-    //   return SignupErrorModel.fromJson(result);
-    // } else
+
     return SignupResponseModel.fromJson(result);
   }
 
@@ -35,16 +34,17 @@ class ServiceApi {
   Future<dynamic> getSymptomsApi({Map bodyData}) async {
     var result = await CoreService()
         .apiService(method: METHOD.FIND, endpoint: SYMPTOMS, data: bodyData);
-    if(result == null){
+    if (result == null) {
       return null;
-    }else{
+    } else {
       return SymptomsResponseModel.fromJson(result);
     }
   }
 
   Future<dynamic> getReAuthApi() async {
-    var result = await CoreService()
-        .apiService(method: METHOD.REAUTHENTICATE,);
+    var result = await CoreService().apiService(
+      method: METHOD.REAUTHENTICATE,
+    );
 
     return result;
   }
@@ -61,10 +61,18 @@ class ServiceApi {
         await CoreService().apiService(method: METHOD.FIND, endpoint: FOODS);
     return result;
   }
+
   Future<dynamic> postSymptomsAPI({Map bodyData}) async {
     var result = await CoreService()
         .apiService(method: METHOD.CREATE, endpoint: SYMPTOMS, data: bodyData);
 
     return SymptomsResponseModel.fromJson(result);
+  }
+
+  Future<dynamic> postJournalAPI({Map bodyData}) async {
+    var result = await CoreService()
+        .apiService(method: METHOD.CREATE, endpoint: JOURNAL, data: bodyData);
+
+    return JournalResponseModel.fromJson(result);
   }
 }

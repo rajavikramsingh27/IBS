@@ -65,6 +65,7 @@ class DummyData {
     IBSTypeModel(text: "Medication & Supplements", image: Assets.medication),
     IBSTypeModel(text: "Health & Wellness", image: Assets.health),
     IBSTypeModel(text: "Food & Drink", image: Assets.food),
+    IBSTypeModel(text: "Daily Journal", image: Assets.journal),
   ];
 
   static List<IbsModel> iBsType = [

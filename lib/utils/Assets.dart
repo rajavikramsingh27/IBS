@@ -106,6 +106,7 @@ class Assets {
   static const String night = "$baseImage/home/night.png";
   static const String edit = "$baseImage/home/edit.png";
   static const String calendar = "$baseImage/home/calendar.png";
+  static const String journal = "$baseImage/home/journal.png";
 
   //exercise
   static const String walking = "$baseImage/exercise/walking.png";
