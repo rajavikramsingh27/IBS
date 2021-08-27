@@ -12,7 +12,7 @@ String journalSendModelToJson(JournalSendModel data) =>
 
 class JournalSendModel {
   JournalSendModel({
-    this.category,
+    this.category = "journal",
     this.items,
   });
 
@@ -37,9 +37,9 @@ class JournalSendModel {
 
 class Item {
   Item({
-    this.tid,
-    this.kind,
-    this.dtype,
+    this.tid = "journal-entry",
+    this.kind = "textInput",
+    this.dtype = "str",
     this.value,
   });
 

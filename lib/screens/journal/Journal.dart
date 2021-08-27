@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ibs/controllers/journal/JournalController.dart';
+import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
-import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomArcPainter.dart';
@@ -15,6 +15,8 @@ import 'package:get/get.dart';
 
 class Journal extends StatelessWidget {
   final JournalController _journalController = Get.put(JournalController());
+  final SignUpController _signUpController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +28,15 @@ class Journal extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             SizedBox(height: ScreenConstant.defaultHeightTen),
-            CustomElevatedButton(
-              widthFactor: 0.7,
-              text: "Save",
-              onTap: () {},
-            ),
+            _journalController.loader.value
+                ? Center(child: CircularProgressIndicator())
+                : CustomElevatedButton(
+                    widthFactor: 0.7,
+                    text: "Save",
+                    onTap: () {
+                      _journalController.onSave();
+                    },
+                  ),
             TextButton(
                 onPressed: () {
                   Get.back();
@@ -95,6 +101,15 @@ class Journal extends StatelessWidget {
                               ),
                             ],
                           ),
+                          SizedBox(
+                              height: ScreenConstant.defaultHeightTwentyFour),
+                          Text(
+                            '''Click “Save” to log your journal entry''',
+                            textAlign: TextAlign.center,
+                            style: TextStyles.textStyleRegular,
+                          ),
+                          SizedBox(
+                              height: ScreenConstant.defaultHeightTwentyFour),
                         ],
                       ),
                     ),
@@ -122,12 +137,13 @@ class Journal extends StatelessWidget {
               Column(
                 children: [
                   SizedBox(height: ScreenConstant.defaultHeightForty),
-                  Text("What Did you take?",
+                  Text(
+                      "${_signUpController.journal.value.items.first.name ?? ""}",
                       style: TextStyles.textStyleIntroDescription
                           .apply(color: Colors.white, fontSizeDelta: -3)),
                   SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.6),
                   Text(
-                    "Select from this list of common medications and supplements or add your own",
+                    "${_signUpController.journal.value.items.first.description ?? ""}",
                     textAlign: TextAlign.center,
                     style: TextStyles.textStyleRegular
                         .apply(color: AppColors.colorSkipButton),
