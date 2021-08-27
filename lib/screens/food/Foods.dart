@@ -178,10 +178,10 @@ class Foods extends StatelessWidget {
             _signUpController.food.value.items?.first?.list?.options[index];
 
         var startTime = CustomDateTime().parseTimeAsDateTime(
-            dateTime: model.conditionalDefault.time.startTime,
+            dateTime: model.conditionalDefault.time.first.startTime,
             returnFormat: "HH:mm");
         var endTime = CustomDateTime().parseTimeAsDateTime(
-            dateTime: model.conditionalDefault.time.endTime,
+            dateTime: model.conditionalDefault.time.first.endTime,
             returnFormat: "HH:mm");
 
         var s =
@@ -372,12 +372,7 @@ class Foods extends StatelessWidget {
           EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: _signUpController.food.value.items?.first?.children
-              ?.elementAt(index)
-              ?.items
-              ?.elementAt(1)
-              ?.sum
-              ?.range ??
+      itemCount: _signUpController.food.value.items[index].sum.range ??
           0,
       itemBuilder: (BuildContext context, int ind) {
         return InkWell(
@@ -452,7 +447,7 @@ class Foods extends StatelessWidget {
     );
   }
 
-  _buildListLowFood(int index) {
+  /*_buildListLowFood(int index) {
     return GridView.builder(
       padding: EdgeInsets.symmetric(
           horizontal: ScreenConstant.sizeLarge,
@@ -530,7 +525,7 @@ class Foods extends StatelessWidget {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3, childAspectRatio: 3.5),
     );
-  }
+  }*/
 
   _buildWavePainter() {
     return CustomPaint(
@@ -564,7 +559,7 @@ class Foods extends StatelessWidget {
           style: TextStyles.textStyleRegular
               .apply(color: AppColors.colorSkipButton),
         ),
-        _buildListLowFood(_controller.modelMealIndex.value),
+        //_buildListLowFood(_controller.modelMealIndex.value),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
