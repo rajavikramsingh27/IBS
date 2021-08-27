@@ -71,4 +71,11 @@ class AppColors {
   static const Color barrierColor = const Color(0xFF1A103E);
 
   static const Color colorDotUnselected = const Color(0xFFA29BC2);
+
+  static Color fromHex(String hexString) {
+    final buffer = StringBuffer();
+    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+    buffer.write(hexString.replaceFirst('#', ''));
+    return Color(int.parse(buffer.toString(), radix: 16));
+  }
 }
