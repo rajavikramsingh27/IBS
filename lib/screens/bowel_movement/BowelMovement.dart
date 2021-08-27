@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/bowel_movement/BowelMovementController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -22,6 +23,7 @@ class BowelMovement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: Container(
         color: Colors.white,
         child: Column(
@@ -46,7 +48,7 @@ class BowelMovement extends StatelessWidget {
         ),
       ),
       backgroundColor: AppColors.barrierColor.withOpacity(0.6),
-      body: ListView(
+      body: Obx(()=>ListView(
         physics: ClampingScrollPhysics(),
         children: [
           Padding(
@@ -82,39 +84,50 @@ class BowelMovement extends StatelessWidget {
                           physics: ClampingScrollPhysics(),
                           itemCount: _signUpController.bowelMovements.value.items.length,
                             itemBuilder: (_, index) {
-                              if (_signUpController.bowelMovements.value.items[index].tid == "bowelMovements-notes") {
-                                return Offstage();
-                              } else {
-                                return Offstage();
-                              }
+                                switch(_signUpController.bowelMovements.value.items[index].tid) {
+                                  case "bowelMovements-notes": {
+                                    return AdditionalNoteWidget(textEditingController: _bowelMovementController.noteTextController,);
+                                  }
+                                  break;
+
+                                  case "bowelMovements-consistency": {
+                                    return _buildBowelTypeSlider(data: _signUpController.bowelMovements.value.items[index]);
+                                  }
+                                  break;
+                                  case "bowelMovements-urgency": {
+                                    return Stack(
+                                      children: [
+                                        Positioned.fill(
+                                          top: ScreenConstant.defaultHeightOneHundred,
+                                          bottom: ScreenConstant.defaultHeightOneHundred,
+                                          child: _buildWavePainter(),
+                                        ),
+                                        Container(
+                                          margin: ScreenConstant.spacingAllMedium,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(20)),
+                                          child: _buildUrgency(),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                  break;
+                                  case "bowelMovements-color": {
+                                    return _buildColorPOrtion();
+                                  }
+                                  break;
+                                  case "bowelMovements-relief": {
+                                    return _buildRelief();
+                                  }
+                                  break;
+
+                                  default: {
+                                    return Offstage();
+                                  }
+                                  break;
+                                }
                             }),
-                        _buildBowelTypeSlider(),
-                        SizedBox(height: ScreenConstant.defaultHeightForty),
-                        Stack(
-                          children: [
-                            Positioned.fill(
-                              top: ScreenConstant.defaultHeightOneHundred,
-                              bottom: ScreenConstant.defaultHeightOneHundred,
-                              child: _buildWavePainter(),
-                            ),
-                            Container(
-                              margin: ScreenConstant.spacingAllMedium,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Column(
-                                children: [
-                                  _buildUrgency(),
-                                  _buildColorPOrtion(),
-                                  _buildRelief(),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        AdditionalNoteWidget(textEditingController: _bowelMovementController.noteTextController,),
-                        SizedBox(
-                            height: ScreenConstant.defaultHeightTwentyFour),
                       ],
                     ),
                   ),
@@ -124,15 +137,15 @@ class BowelMovement extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      ),),
     );
   }
 
-  _buildBowelTypeSlider() {
+  _buildBowelTypeSlider({DatumItem data}) {
     return Column(
       children: [
         Text(
-          "What does your poop look like?",
+          data.name,
           style: TextStyles.textStyleIntroDescription
               .apply(color: Colors.black, fontSizeDelta: -2),
           textAlign: TextAlign.center,
@@ -207,41 +220,31 @@ class BowelMovement extends StatelessWidget {
                 activeDividerRadius: 8,
                 activeLabelStyle: TextStyles.textStyleRegular,
                 inactiveLabelStyle: TextStyles.textStyleRegular),
-            child: Obx(
-                  () => SfSlider(
+            child: SfSlider(
                 showDividers: true,
                 min: 1.0,
-                max: 7.0,//_signUpController.bowelMovements.value.items.first.rating.range ?? 2,
+                max: data.rating.range ?? 2,
                 interval: 1,
                 stepSize: 1,
                 showLabels: true,
-
                 labelFormatterCallback:
                     (dynamic actualValue, String formattedText) {
-                  return actualValue == 1
-                      ? ' Type 1'
-                      : actualValue == 2
-                      ? "Type 2"
-                      : actualValue == 3
-                      ? "Type 3"
-                      : actualValue == 4
-                      ? "Type4"
-                      : actualValue == 5
-                      ? "Type 5"
-                      : actualValue == 6
-                      ? " Type 6"
-                      : "Type 7";
+                      if (actualValue == 1.0) {
+                        return "Type 1";
+                      }
+                      if (actualValue == data.rating.range) {
+                        return "Type ${data.rating.range}";
+                      }
+                      return "";
                 },
-                value: _bowelMovementController.sliderValue.value,//_signUpController.bowelMovements.value.items.first.rating.ratingDefault,
+                value: data.rating.ratingDefault,
                 onChanged: (dynamic newValue) {
-                  print("cahnged");
-                  // _controller.sliderValue.value = newValue;
+
                 },
-                // labelFormatterCallback: (String,newval){},
               ),
             ),
           ),
-        ),
+        SizedBox(height: ScreenConstant.defaultHeightForty),
       ],
     );
   }
@@ -323,57 +326,63 @@ class BowelMovement extends StatelessWidget {
   }
 
   _buildRelief() {
-    return AspectRatio(
-      aspectRatio: 1.3,
-      child: Card(
-        margin: EdgeInsets.zero,
-        color: AppColors.colorBackground,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Column(
-          children: [
-            SizedBox(height: ScreenConstant.defaultHeightForty),
-            Text("Relief",
-                style: TextStyles.textStyleIntroDescription
-                    .apply(color: Colors.white, fontSizeDelta: -3)),
-            SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-            Text(
-              "I feel only a little relief after bowel mowement",
-              textAlign: TextAlign.center,
-              style: TextStyles.textStyleRegular
-                  .apply(color: AppColors.colorSkipButton),
-            ),
-            SizedBox(height: ScreenConstant.defaultHeightTwenty),
-            _buildReliefSlider(),
-            SizedBox(height: ScreenConstant.defaultHeightTwenty),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Straining at defecation",
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: TextStyles.textStyleRegular
-                        .apply(color: Colors.black, fontSizeDelta: 2),
+    return Column(
+      children: [
+        AspectRatio(
+          aspectRatio: 1.3,
+          child: Card(
+            margin: EdgeInsets.zero,
+            color: AppColors.colorBackground,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: Column(
+              children: [
+                SizedBox(height: ScreenConstant.defaultHeightForty),
+                Text("Relief",
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.white, fontSizeDelta: -3)),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                Text(
+                  "I feel only a little relief after bowel mowement",
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleRegular
+                      .apply(color: AppColors.colorSkipButton),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                _buildReliefSlider(),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Straining at defecation",
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: TextStyles.textStyleRegular
+                            .apply(color: Colors.black, fontSizeDelta: 2),
+                      ),
+                      Obx(
+                            () => CustomSwitch(
+                          value: _bowelMovementController.switchValue.value,
+                          onChanged: (val) {
+                            _bowelMovementController.switchValue.value = val;
+                          },
+                        ),
+                      )
+                    ],
                   ),
-                  Obx(
-                    () => CustomSwitch(
-                      value: _bowelMovementController.switchValue.value,
-                      onChanged: (val) {
-                        _bowelMovementController.switchValue.value = val;
-                      },
-                    ),
-                  )
-                ],
-              ),
-              margin: ScreenConstant.spacingAllLarge,
-              padding: ScreenConstant.spacingAllLarge,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16), color: Colors.white),
-            )
-          ],
+                  margin: ScreenConstant.spacingAllLarge,
+                  padding: ScreenConstant.spacingAllLarge,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16), color: Colors.white),
+                )
+              ],
+            ),
+          ),
         ),
-      ),
+        SizedBox(
+            height: ScreenConstant.defaultHeightTwentyFour),
+      ],
     );
   }
 
