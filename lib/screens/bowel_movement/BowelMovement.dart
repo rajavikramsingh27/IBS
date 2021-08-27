@@ -100,11 +100,11 @@ class BowelMovement extends StatelessWidget {
                                       children: [
                                         Positioned.fill(
                                           top: ScreenConstant.defaultHeightOneHundred,
-                                          bottom: ScreenConstant.defaultHeightOneHundred,
-                                          child: _buildWavePainter(),
+                                          //bottom: ScreenConstant.defaultHeightOneHundred,
+                                          child: Container(color: AppColors.colorYesButton,),
                                         ),
                                         Container(
-                                          margin: ScreenConstant.spacingAllMedium,
+                                          margin: EdgeInsets.only(left: ScreenConstant.sizeMedium,right: ScreenConstant.sizeMedium),
                                           decoration: BoxDecoration(
                                               color: Colors.white,
                                               borderRadius: BorderRadius.circular(20)),
@@ -115,11 +115,41 @@ class BowelMovement extends StatelessWidget {
                                   }
                                   break;
                                   case "bowelMovements-color": {
-                                    return _buildColorPOrtion();
+                                    return Stack(
+                                      children: [
+                                        Positioned.fill(
+                                          top: 0,
+                                          bottom: 0,
+                                          child: Container(color: AppColors.colorYesButton,),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(left: ScreenConstant.sizeMedium,right: ScreenConstant.sizeMedium),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                          ),
+                                          child: _buildColorPOrtion(),
+                                        ),
+                                      ],
+                                    );
                                   }
                                   break;
                                   case "bowelMovements-relief": {
-                                    return _buildRelief();
+                                    return Stack(
+                                      children: [
+                                        Positioned.fill(
+                                          //top: ScreenConstant.defaultHeightOneHundred,
+                                          bottom: ScreenConstant.defaultHeightOneHundred,
+                                          child: _buildWavePainter(),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(left: ScreenConstant.sizeMedium,right: ScreenConstant.sizeMedium),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(20)),
+                                          child: _buildRelief(),
+                                        ),
+                                      ],
+                                    );
                                   }
                                   break;
 
@@ -248,39 +278,42 @@ class BowelMovement extends StatelessWidget {
   }
 
   _buildUrgency() {
-    return Stack(
-      children: [
-        AspectRatio(
-          aspectRatio: 1.3,
-          child: Card(
-            margin: EdgeInsets.zero,
-            color: AppColors.colorBackground,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            child: Column(
-              children: [
-                SizedBox(height: ScreenConstant.defaultHeightForty),
-                Text("Urgency",
-                    style: TextStyles.textStyleIntroDescription
-                        .apply(color: Colors.white, fontSizeDelta: -3)),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                Text(
-                  "I needed to get to the washroom quite quickly",
-                  textAlign: TextAlign.center,
-                  style: TextStyles.textStyleRegular
-                      .apply(color: AppColors.colorSkipButton),
-                ),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                _buildUrgencySlider(),
-              ],
+    return Container(
+      color: AppColors.white,
+      child: Stack(
+        children: [
+          AspectRatio(
+            aspectRatio: 1.3,
+            child: Card(
+              margin: EdgeInsets.zero,
+              color: AppColors.colorBackground,
+              shape:
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              child: Column(
+                children: [
+                  SizedBox(height: ScreenConstant.defaultHeightForty),
+                  Text("Urgency",
+                      style: TextStyles.textStyleIntroDescription
+                          .apply(color: Colors.white, fontSizeDelta: -3)),
+                  SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                  Text(
+                    "I needed to get to the washroom quite quickly",
+                    textAlign: TextAlign.center,
+                    style: TextStyles.textStyleRegular
+                        .apply(color: AppColors.colorSkipButton),
+                  ),
+                  SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                  _buildUrgencySlider(),
+                ],
+              ),
             ),
           ),
-        ),
-        Container(
-          height: ScreenConstant.defaultHeightOneHundred,
-          child: OvalPainterWidget(),
-        ),
-      ],
+          Container(
+            height: ScreenConstant.defaultHeightOneHundred,
+            child: OvalPainterWidget(),
+          ),
+        ],
+      ),
     );
   }
 
@@ -324,10 +357,8 @@ class BowelMovement extends StatelessWidget {
   }
 
   _buildRelief() {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: ScreenConstant.sizeMedium,
-          vertical: ScreenConstant.defaultHeightTwentyFour),
+    return Container(
+      color: AppColors.white,
       child: Column(
         children: [
           AspectRatio(
