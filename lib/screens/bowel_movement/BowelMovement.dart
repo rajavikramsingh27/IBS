@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/bowel_movement/BowelMovementController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:flutter_ibs/services/url.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -155,12 +156,7 @@ class BowelMovement extends StatelessWidget {
         Center(
           child: Stack(
             children: [
-              Image.asset(
-                Assets.hard_lump,
-                width:
-                ScreenConstant.defaultWidthOneHundredSeven,
-                height: ScreenConstant.defaultHeightOneHundred,
-              ),
+              getImage(item: data.rating.options[data.rating.ratingDefault.toInt()-1]),
               Positioned(
                 bottom: 0,
                 left: ScreenConstant.defaultWidthTwenty,
@@ -177,7 +173,7 @@ class BowelMovement extends StatelessWidget {
                       vertical: 1),
                   child: FittedBox(
                     fit: BoxFit.contain,
-                    child: Text("Type 1",
+                    child: Text("Type ${data.rating.ratingDefault.toInt()}",
                         textAlign: TextAlign.center,
                         style: TextStyles
                             .textStyleIntroDescription
@@ -191,9 +187,7 @@ class BowelMovement extends StatelessWidget {
           ),
         ),
         SizedBox(height: ScreenConstant.sizeMedium),
-        Text("Separate hard lumps, like nuts ",
-            textAlign: TextAlign.center,
-            style: TextStyles.textStyleRegular),
+        getDesc(item: data.rating.options[data.rating.ratingDefault.toInt()-1]),
         SizedBox(height: ScreenConstant.sizeMedium),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
@@ -239,7 +233,8 @@ class BowelMovement extends StatelessWidget {
                 },
                 value: data.rating.ratingDefault,
                 onChanged: (dynamic newValue) {
-
+                  data.rating.ratingDefault = newValue;
+                  _signUpController.bowelMovements.refresh();
                 },
               ),
             ),
@@ -508,5 +503,32 @@ class BowelMovement extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  getImage({FluffyOption item}) {
+    Widget image = FadeInImage(
+      width:
+      ScreenConstant.defaultWidthOneHundredSeven,
+      height: ScreenConstant.defaultHeightOneHundred,
+      image: NetworkImage(item.image.normal),
+      placeholder: NetworkImage(BLANK_PLACEHOLDER),
+      imageErrorBuilder:
+          (context, error, stackTrace) {
+        return Image.network(
+            BLANK_PLACEHOLDER,
+            width:
+            ScreenConstant.defaultWidthOneHundredSeven,
+            height: ScreenConstant.defaultHeightOneHundred,
+            fit: BoxFit.fitWidth);
+      },
+      fit: BoxFit.fitWidth,
+    );
+    return image;
+  }
+
+  getDesc({FluffyOption item}) {
+    return Text(item.description??"",
+        textAlign: TextAlign.center,
+        style: TextStyles.textStyleRegular);
   }
 }

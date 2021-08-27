@@ -6,3 +6,4 @@ const SYMPTOMS = "/user/symptoms";
 const FOODS = "/user/foods";
 
 const BOWELMOVEMENTS = "/user/bowel-movements";
+const BLANK_PLACEHOLDER = "https://myibs.not4prod.com/images/pending.png";
