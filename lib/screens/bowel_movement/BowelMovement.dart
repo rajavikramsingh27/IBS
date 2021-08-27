@@ -143,104 +143,107 @@ class BowelMovement extends StatelessWidget {
   }
 
   _buildBowelTypeSlider({DatumItem data}) {
-    return Column(
-      children: [
-        Text(
-          data.name,
-          style: TextStyles.textStyleIntroDescription
-              .apply(color: Colors.black, fontSizeDelta: -2),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(
-            height: ScreenConstant.defaultHeightTwenty * 1.5),
-        Center(
-          child: Stack(
-            children: [
-              getImage(item: data.rating.options[data.rating.ratingDefault.toInt()-1]),
-              Positioned(
-                bottom: 0,
-                left: ScreenConstant.defaultWidthTwenty,
-                right: ScreenConstant.defaultWidthTwenty,
-                child: Container(
-                  height: ScreenConstant.defaultHeightTwenty,
-                  width: ScreenConstant.sizeXXXL,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: AppColors.colorButton,
-                  ),
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ScreenConstant.sizeExtraSmall,
-                      vertical: 1),
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Text("Type ${data.rating.ratingDefault.toInt()}",
-                        textAlign: TextAlign.center,
-                        style: TextStyles
-                            .textStyleIntroDescription
-                            .apply(
-                            color: Colors.white,
-                            fontSizeDelta: -9)),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
+      child: Column(
+        children: [
+          Text(
+            data.name,
+            style: TextStyles.textStyleIntroDescription
+                .apply(color: Colors.black, fontSizeDelta: -2),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+              height: ScreenConstant.defaultHeightTwenty * 1.5),
+          Center(
+            child: Stack(
+              children: [
+                getImage(item: data.rating.options[data.rating.ratingDefault.toInt()-1]),
+                Positioned(
+                  bottom: 0,
+                  left: ScreenConstant.defaultWidthTwenty,
+                  right: ScreenConstant.defaultWidthTwenty,
+                  child: Container(
+                    height: ScreenConstant.defaultHeightTwenty,
+                    width: ScreenConstant.sizeXXXL,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: AppColors.colorButton,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ScreenConstant.sizeExtraSmall,
+                        vertical: 1),
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text("Type ${data.rating.ratingDefault.toInt()}",
+                          textAlign: TextAlign.center,
+                          style: TextStyles
+                              .textStyleIntroDescription
+                              .apply(
+                              color: Colors.white,
+                              fontSizeDelta: -9)),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: ScreenConstant.sizeMedium),
-        getDesc(item: data.rating.options[data.rating.ratingDefault.toInt()-1]),
-        SizedBox(height: ScreenConstant.sizeMedium),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
-          child: SfSliderTheme(
-            data: SfSliderThemeData(
-                thumbColor: AppColors.colorArrowButton,
-                thumbStrokeWidth: 5,
-                thumbRadius: 16,
-                thumbStrokeColor: AppColors.colorBackground,
-                activeTrackHeight: 4,
-                overlayRadius: 0,
-                disabledActiveTrackColor: AppColors.colorTrackSlider,
-                disabledInactiveTrackColor: AppColors.colorTrackSlider,
-                activeDividerStrokeWidth: 2,
-                inactiveDividerStrokeWidth: 2,
-                inactiveTrackHeight: 4,
-                activeTrackColor: AppColors.colorTrackSlider,
-                inactiveTrackColor: AppColors.colorTrackSlider,
-                inactiveDividerStrokeColor: AppColors.colorTrackSlider,
-                inactiveDividerRadius: 8,
-                inactiveDividerColor: AppColors.white,
-                activeDividerColor: AppColors.white,
-                activeDividerStrokeColor: AppColors.colorTrackSlider,
-                activeDividerRadius: 8,
-                activeLabelStyle: TextStyles.textStyleRegular,
-                inactiveLabelStyle: TextStyles.textStyleRegular),
-            child: SfSlider(
-                showDividers: true,
-                min: 1.0,
-                max: data.rating.range ?? 2,
-                interval: 1,
-                stepSize: 1,
-                showLabels: true,
-                labelFormatterCallback:
-                    (dynamic actualValue, String formattedText) {
-                      if (actualValue == 1.0) {
-                        return "Type 1";
-                      }
-                      if (actualValue == data.rating.range) {
-                        return "Type ${data.rating.range}";
-                      }
-                      return "";
-                },
-                value: data.rating.ratingDefault,
-                onChanged: (dynamic newValue) {
-                  data.rating.ratingDefault = newValue;
-                  _signUpController.bowelMovements.refresh();
-                },
-              ),
+              ],
             ),
           ),
-        SizedBox(height: ScreenConstant.defaultHeightForty),
-      ],
+          SizedBox(height: ScreenConstant.sizeMedium),
+          getDesc(item: data.rating.options[data.rating.ratingDefault.toInt()-1]),
+          SizedBox(height: ScreenConstant.sizeMedium),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
+            child: SfSliderTheme(
+              data: SfSliderThemeData(
+                  thumbColor: AppColors.colorArrowButton,
+                  thumbStrokeWidth: 5,
+                  thumbRadius: 16,
+                  thumbStrokeColor: AppColors.colorBackground,
+                  activeTrackHeight: 4,
+                  overlayRadius: 0,
+                  disabledActiveTrackColor: AppColors.colorTrackSlider,
+                  disabledInactiveTrackColor: AppColors.colorTrackSlider,
+                  activeDividerStrokeWidth: 2,
+                  inactiveDividerStrokeWidth: 2,
+                  inactiveTrackHeight: 4,
+                  activeTrackColor: AppColors.colorTrackSlider,
+                  inactiveTrackColor: AppColors.colorTrackSlider,
+                  inactiveDividerStrokeColor: AppColors.colorTrackSlider,
+                  inactiveDividerRadius: 8,
+                  inactiveDividerColor: AppColors.white,
+                  activeDividerColor: AppColors.white,
+                  activeDividerStrokeColor: AppColors.colorTrackSlider,
+                  activeDividerRadius: 8,
+                  activeLabelStyle: TextStyles.textStyleRegular,
+                  inactiveLabelStyle: TextStyles.textStyleRegular),
+              child: SfSlider(
+                  showDividers: true,
+                  min: 1.0,
+                  max: data.rating.range ?? 2,
+                  interval: 1,
+                  stepSize: 1,
+                  showLabels: true,
+                  labelFormatterCallback:
+                      (dynamic actualValue, String formattedText) {
+                        if (actualValue == 1.0) {
+                          return "Type 1";
+                        }
+                        if (actualValue == data.rating.range) {
+                          return "Type ${data.rating.range}";
+                        }
+                        return "";
+                  },
+                  value: data.rating.ratingDefault,
+                  onChanged: (dynamic newValue) {
+                    data.rating.ratingDefault = newValue;
+                    _signUpController.bowelMovements.refresh();
+                  },
+                ),
+              ),
+            ),
+          SizedBox(height: ScreenConstant.defaultHeightForty),
+        ],
+      ),
     );
   }
 
@@ -284,7 +287,7 @@ class BowelMovement extends StatelessWidget {
   _buildColorPOrtion() {
     return Container(
       padding: EdgeInsets.symmetric(
-          horizontal: ScreenConstant.sizeMedium,
+          horizontal: ScreenConstant.sizeXL,
           vertical: ScreenConstant.defaultHeightTwentyFour),
       child: Column(
         children: [
@@ -321,63 +324,68 @@ class BowelMovement extends StatelessWidget {
   }
 
   _buildRelief() {
-    return Column(
-      children: [
-        AspectRatio(
-          aspectRatio: 1.3,
-          child: Card(
-            margin: EdgeInsets.zero,
-            color: AppColors.colorBackground,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            child: Column(
-              children: [
-                SizedBox(height: ScreenConstant.defaultHeightForty),
-                Text("Relief",
-                    style: TextStyles.textStyleIntroDescription
-                        .apply(color: Colors.white, fontSizeDelta: -3)),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                Text(
-                  "I feel only a little relief after bowel mowement",
-                  textAlign: TextAlign.center,
-                  style: TextStyles.textStyleRegular
-                      .apply(color: AppColors.colorSkipButton),
-                ),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                _buildReliefSlider(),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Straining at defecation",
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        style: TextStyles.textStyleRegular
-                            .apply(color: Colors.black, fontSizeDelta: 2),
-                      ),
-                      Obx(
-                            () => CustomSwitch(
-                          value: _bowelMovementController.switchValue.value,
-                          onChanged: (val) {
-                            _bowelMovementController.switchValue.value = val;
-                          },
-                        ),
-                      )
-                    ],
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: ScreenConstant.sizeMedium,
+          vertical: ScreenConstant.defaultHeightTwentyFour),
+      child: Column(
+        children: [
+          AspectRatio(
+            aspectRatio: 1.3,
+            child: Card(
+              margin: EdgeInsets.zero,
+              color: AppColors.colorBackground,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              child: Column(
+                children: [
+                  SizedBox(height: ScreenConstant.defaultHeightForty),
+                  Text("Relief",
+                      style: TextStyles.textStyleIntroDescription
+                          .apply(color: Colors.white, fontSizeDelta: -3)),
+                  SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                  Text(
+                    "I feel only a little relief after bowel mowement",
+                    textAlign: TextAlign.center,
+                    style: TextStyles.textStyleRegular
+                        .apply(color: AppColors.colorSkipButton),
                   ),
-                  margin: ScreenConstant.spacingAllLarge,
-                  padding: ScreenConstant.spacingAllLarge,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16), color: Colors.white),
-                )
-              ],
+                  SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                  _buildReliefSlider(),
+                  SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Straining at defecation",
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          style: TextStyles.textStyleRegular
+                              .apply(color: Colors.black, fontSizeDelta: 2),
+                        ),
+                        Obx(
+                              () => CustomSwitch(
+                            value: _bowelMovementController.switchValue.value,
+                            onChanged: (val) {
+                              _bowelMovementController.switchValue.value = val;
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                    margin: ScreenConstant.spacingAllLarge,
+                    padding: ScreenConstant.spacingAllLarge,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16), color: Colors.white),
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-        SizedBox(
-            height: ScreenConstant.defaultHeightTwentyFour),
-      ],
+          SizedBox(
+              height: ScreenConstant.defaultHeightTwentyFour),
+        ],
+      ),
     );
   }
 
