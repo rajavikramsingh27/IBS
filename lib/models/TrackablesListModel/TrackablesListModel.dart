@@ -97,10 +97,10 @@ class ModelImage {
 
   factory ModelImage.fromJson(Map<String, dynamic> json) => ModelImage(
     normal: json["normal"] == null
-        ? "https://myibs.not4prod.com/images/pending.png"
+        ? BLANK_PLACEHOLDER
         : "$BASE_URL/${json["normal"]}",
     active: json["active"] == null
-        ? "https://myibs.not4prod.com/images/pending.png"
+        ? BLANK_PLACEHOLDER
         : "$BASE_URL/${json["active"]}",
   );
 
