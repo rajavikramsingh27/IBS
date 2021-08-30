@@ -110,7 +110,7 @@ class FoodController extends GetxController {
     print("Data: $data");
   }
 
-  onOptionTapped({TagsDefault model, List<String> modelValue}) {
+  onOptionTapped({model, List<String> modelValue}) {
     model.required = !model.required;
 
     if (model.required) {
