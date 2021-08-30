@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsModel.dart';
-import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 

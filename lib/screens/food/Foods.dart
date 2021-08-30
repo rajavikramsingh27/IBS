@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/food/FoodController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
-import 'package:flutter_ibs/models/food/FoodSendModel.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DateTime.dart';

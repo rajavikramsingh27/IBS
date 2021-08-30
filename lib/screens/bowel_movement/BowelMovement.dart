@@ -3,7 +3,6 @@ import 'package:flutter_ibs/controllers/bowel_movement/BowelMovementController.d
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/services/url.dart';
-import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
@@ -50,169 +49,171 @@ class BowelMovement extends StatelessWidget {
         ),
       ),
       backgroundColor: AppColors.barrierColor.withOpacity(0.6),
-      body: Obx(() =>
-          ListView(
-            physics: ClampingScrollPhysics(),
-            children: [
-              Padding(
-                padding:
-                EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding:
-                      EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty),
-                      child: Card(
-                        margin: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(24),
-                              topRight: Radius.circular(24),
-                            )),
-                        child: Column(
-                          children: [
-                            SizedBox(height: ScreenConstant.defaultHeightSixty),
-                            Text(
-                              "Track Bowel Movement",
-                              style: TextStyles.textStyleIntroDescription
-                                  .apply(
-                                  color: Colors.black, fontSizeDelta: -2),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: ScreenConstant.defaultHeightForty),
-                            DateTimeCardWidget(),
-                            SizedBox(
-                                height: ScreenConstant.defaultHeightForty *
-                                    1.25),
-                            ListView.builder(
-                                shrinkWrap: true,
-                                physics: ClampingScrollPhysics(),
-                                itemCount: _signUpController.bowelMovements
-                                    .value.items.length,
-                                itemBuilder: (_, index) {
-                                  switch (_signUpController.bowelMovements.value
-                                      .items[index].tid) {
-                                    case "bowelMovements-notes":
-                                      {
-                                        return AdditionalNoteWidget(
-                                          textEditingController: _bowelMovementController
-                                              .noteTextController,);
-                                      }
-                                      break;
+      body: Obx(
+        () => ListView(
+          physics: ClampingScrollPhysics(),
+          children: [
+            Padding(
+              padding:
+                  EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: ScreenConstant.defaultHeightTwenty),
+                    child: Card(
+                      margin: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
+                      )),
+                      child: Column(
+                        children: [
+                          SizedBox(height: ScreenConstant.defaultHeightSixty),
+                          Text(
+                            "Track Bowel Movement",
+                            style: TextStyles.textStyleIntroDescription
+                                .apply(color: Colors.black, fontSizeDelta: -2),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: ScreenConstant.defaultHeightForty),
+                          DateTimeCardWidget(),
+                          SizedBox(
+                              height: ScreenConstant.defaultHeightForty * 1.25),
+                          ListView.builder(
+                              shrinkWrap: true,
+                              physics: ClampingScrollPhysics(),
+                              itemCount: _signUpController
+                                  .bowelMovements.value.items.length,
+                              itemBuilder: (_, index) {
+                                switch (_signUpController
+                                    .bowelMovements.value.items[index].tid) {
+                                  case "bowelMovements-notes":
+                                    {
+                                      return AdditionalNoteWidget(
+                                        textEditingController:
+                                            _bowelMovementController
+                                                .noteTextController,
+                                      );
+                                    }
+                                    break;
 
-                                    case "bowelMovements-consistency":
-                                      {
-                                        return _buildBowelTypeSlider(
-                                            data: _signUpController
-                                                .bowelMovements.value
-                                                .items[index]);
-                                      }
-                                      break;
-                                    case "bowelMovements-urgency":
-                                      {
-                                        return Stack(
-                                          children: [
-                                            Positioned.fill(
-                                              top: ScreenConstant
-                                                  .defaultHeightOneHundred,
-                                              //bottom: ScreenConstant.defaultHeightOneHundred,
-                                              child: Container(color: AppColors
-                                                  .colorYesButton,),
+                                  case "bowelMovements-consistency":
+                                    {
+                                      return _buildBowelTypeSlider(
+                                          data: _signUpController.bowelMovements
+                                              .value.items[index]);
+                                    }
+                                    break;
+                                  case "bowelMovements-urgency":
+                                    {
+                                      return Stack(
+                                        children: [
+                                          Positioned.fill(
+                                            top: ScreenConstant
+                                                .defaultHeightOneHundred,
+                                            //bottom: ScreenConstant.defaultHeightOneHundred,
+                                            child: Container(
+                                              color: AppColors.colorYesButton,
                                             ),
-                                            Container(
-                                              margin: EdgeInsets.only(
-                                                  left: ScreenConstant
-                                                      .sizeMedium,
-                                                  right: ScreenConstant
-                                                      .sizeMedium),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius: BorderRadius
-                                                      .circular(20)),
-                                              child: _buildUrgency(
-                                                  data: _signUpController
-                                                      .bowelMovements.value
-                                                      .items[index]),
-                                            ),
-                                          ],
-                                        );
-                                      }
-                                      break;
-                                    case "bowelMovements-color":
-                                      {
-                                        return Stack(
-                                          children: [
-                                            Positioned.fill(
-                                              top: 0,
-                                              bottom: 0,
-                                              child: Container(color: AppColors
-                                                  .colorYesButton,),
-                                            ),
-                                            Container(
-                                              margin: EdgeInsets.only(
-                                                  left: ScreenConstant
-                                                      .sizeMedium,
-                                                  right: ScreenConstant
-                                                      .sizeMedium),
-                                              decoration: BoxDecoration(
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                left: ScreenConstant.sizeMedium,
+                                                right:
+                                                    ScreenConstant.sizeMedium),
+                                            decoration: BoxDecoration(
                                                 color: Colors.white,
-                                              ),
-                                              child: _buildColorPortion(
-                                                  data: _signUpController
-                                                      .bowelMovements.value
-                                                      .items[index]),
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            child: _buildUrgency(
+                                                data: _signUpController
+                                                    .bowelMovements
+                                                    .value
+                                                    .items[index]),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                    break;
+                                  case "bowelMovements-color":
+                                    {
+                                      return Stack(
+                                        children: [
+                                          Positioned.fill(
+                                            top: 0,
+                                            bottom: 0,
+                                            child: Container(
+                                              color: AppColors.colorYesButton,
                                             ),
-                                          ],
-                                        );
-                                      }
-                                      break;
-                                    case "bowelMovements-relief":
-                                      {
-                                        return Stack(
-                                          children: [
-                                            Positioned.fill(
-                                              //top: ScreenConstant.defaultHeightOneHundred,
-                                              bottom: ScreenConstant
-                                                  .defaultHeightOneHundred,
-                                              child: _buildWavePainter(),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                left: ScreenConstant.sizeMedium,
+                                                right:
+                                                    ScreenConstant.sizeMedium),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
                                             ),
-                                            Container(
-                                              margin: EdgeInsets.only(
-                                                  left: ScreenConstant
-                                                      .sizeMedium,
-                                                  right: ScreenConstant
-                                                      .sizeMedium),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius: BorderRadius
-                                                      .circular(20)),
-                                              child: _buildRelief(
-                                                  data: _signUpController
-                                                      .bowelMovements.value
-                                                      .items[index]),
-                                            ),
-                                          ],
-                                        );
-                                      }
-                                      break;
+                                            child: _buildColorPortion(
+                                                data: _signUpController
+                                                    .bowelMovements
+                                                    .value
+                                                    .items[index]),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                    break;
+                                  case "bowelMovements-relief":
+                                    {
+                                      return Stack(
+                                        children: [
+                                          Positioned.fill(
+                                            //top: ScreenConstant.defaultHeightOneHundred,
+                                            bottom: ScreenConstant
+                                                .defaultHeightOneHundred,
+                                            child: _buildWavePainter(),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                left: ScreenConstant.sizeMedium,
+                                                right:
+                                                    ScreenConstant.sizeMedium),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            child: _buildRelief(
+                                                data: _signUpController
+                                                    .bowelMovements
+                                                    .value
+                                                    .items[index]),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                    break;
 
-                                    default:
-                                      {
-                                        return Offstage();
-                                      }
-                                      break;
-                                  }
-                                }),
-                          ],
-                        ),
+                                  default:
+                                    {
+                                      return Offstage();
+                                    }
+                                    break;
+                                }
+                              }),
+                        ],
                       ),
                     ),
-                    Positioned(right: 0, left: 0, child: CustomArcPainter())
-                  ],
-                ),
+                  ),
+                  Positioned(right: 0, left: 0, child: CustomArcPainter())
+                ],
               ),
-            ],
-          ),),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -227,13 +228,13 @@ class BowelMovement extends StatelessWidget {
                 .apply(color: Colors.black, fontSizeDelta: -2),
             textAlign: TextAlign.center,
           ),
-          SizedBox(
-              height: ScreenConstant.defaultHeightTwenty * 1.5),
+          SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.5),
           Center(
             child: Stack(
               children: [
-                getImage(item: data.rating.options[data.rating.ratingDefault
-                    .toInt() - 1]),
+                getImage(
+                    item: data
+                        .rating.options[data.rating.ratingDefault.toInt() - 1]),
                 Positioned(
                   bottom: 0,
                   left: ScreenConstant.defaultWidthTwenty,
@@ -246,17 +247,13 @@ class BowelMovement extends StatelessWidget {
                       color: AppColors.colorButton,
                     ),
                     padding: EdgeInsets.symmetric(
-                        horizontal: ScreenConstant.sizeExtraSmall,
-                        vertical: 1),
+                        horizontal: ScreenConstant.sizeExtraSmall, vertical: 1),
                     child: FittedBox(
                       fit: BoxFit.contain,
                       child: Text("Type ${data.rating.ratingDefault.toInt()}",
                           textAlign: TextAlign.center,
-                          style: TextStyles
-                              .textStyleIntroDescription
-                              .apply(
-                              color: Colors.white,
-                              fontSizeDelta: -9)),
+                          style: TextStyles.textStyleIntroDescription
+                              .apply(color: Colors.white, fontSizeDelta: -9)),
                     ),
                   ),
                 ),
@@ -334,8 +331,8 @@ class BowelMovement extends StatelessWidget {
             child: Card(
               margin: EdgeInsets.zero,
               color: AppColors.colorBackground,
-              shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
               child: Padding(
                 padding: ScreenConstant.spacingAllMedium,
                 child: Column(
@@ -364,8 +361,8 @@ class BowelMovement extends StatelessWidget {
                           activeTrackHeight: 4,
                           overlayRadius: 0,
                           disabledActiveTrackColor: AppColors.colorTrackSlider,
-                          disabledInactiveTrackColor: AppColors
-                              .colorTrackSlider,
+                          disabledInactiveTrackColor:
+                              AppColors.colorTrackSlider,
                           activeDividerStrokeWidth: 2,
                           inactiveDividerStrokeWidth: 2,
                           inactiveTrackHeight: 4,
@@ -373,10 +370,10 @@ class BowelMovement extends StatelessWidget {
                           inactiveTrackColor: AppColors.colorTrackSlider,
                           inactiveDividerStrokeColor: AppColors.white,
                           inactiveDividerRadius: 8,
-                          inactiveDividerColor: AppColors
-                              .colorInactiveDividerSlider,
-                          activeDividerColor: AppColors
-                              .colorInactiveDividerSlider,
+                          inactiveDividerColor:
+                              AppColors.colorInactiveDividerSlider,
+                          activeDividerColor:
+                              AppColors.colorInactiveDividerSlider,
                           activeDividerStrokeColor: Colors.white,
                           activeDividerRadius: 8,
                           activeLabelStyle: TextStyles.textStyleRegular
@@ -401,10 +398,10 @@ class BowelMovement extends StatelessWidget {
                             return actualValue == 1
                                 ? "Not at All"
                                 : actualValue == 2
-                                ? ""
-                                : actualValue == 3
-                                ? ""
-                                : "Extremely";
+                                    ? ""
+                                    : actualValue == 3
+                                        ? ""
+                                        : "Extremely";
                           },
                         ),
                       ),
@@ -441,8 +438,8 @@ class BowelMovement extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return CircleAvatar(
                 radius: 20,
-                backgroundColor: AppColors.fromHex(
-                    data.color.options[index].hex),
+                backgroundColor:
+                    AppColors.fromHex(data.color.options[index].hex),
               );
             },
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -502,8 +499,8 @@ class BowelMovement extends StatelessWidget {
                           activeTrackHeight: 4,
                           overlayRadius: 0,
                           disabledActiveTrackColor: AppColors.colorTrackSlider,
-                          disabledInactiveTrackColor: AppColors
-                              .colorTrackSlider,
+                          disabledInactiveTrackColor:
+                              AppColors.colorTrackSlider,
                           activeDividerStrokeWidth: 2,
                           inactiveDividerStrokeWidth: 2,
                           inactiveTrackHeight: 4,
@@ -511,10 +508,10 @@ class BowelMovement extends StatelessWidget {
                           inactiveTrackColor: AppColors.colorTrackSlider,
                           inactiveDividerStrokeColor: AppColors.white,
                           inactiveDividerRadius: 8,
-                          inactiveDividerColor: AppColors
-                              .colorInactiveDividerSlider,
-                          activeDividerColor: AppColors
-                              .colorInactiveDividerSlider,
+                          inactiveDividerColor:
+                              AppColors.colorInactiveDividerSlider,
+                          activeDividerColor:
+                              AppColors.colorInactiveDividerSlider,
                           activeDividerStrokeColor: Colors.white,
                           activeDividerRadius: 8,
                           activeLabelStyle: TextStyles.textStyleRegular
@@ -558,19 +555,41 @@ class BowelMovement extends StatelessWidget {
                               {
                                 return Container(
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Straining at defecation",
+                                        data.children.first.items[index].toggle
+                                                .toggleDefault
+                                            ? data
+                                                .children
+                                                .first
+                                                .items[index]
+                                                .toggle
+                                                .options
+                                                .optionsTrue
+                                                .label
+                                            : data
+                                                .children
+                                                .first
+                                                .items[index]
+                                                .toggle
+                                                .options
+                                                .optionsFalse
+                                                .label,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.center,
                                         style: TextStyles.textStyleRegular
-                                            .apply(color: Colors.black, fontSizeDelta: 2),
+                                            .apply(
+                                                color: Colors.black,
+                                                fontSizeDelta: 2),
                                       ),
                                       CustomSwitch(
-                                        value: data.children.first.items[index].toggle.toggleDefault,
+                                        value: data.children.first.items[index]
+                                            .toggle.toggleDefault,
                                         onChanged: (val) {
-                                          data.children.first.items[index].toggle.toggleDefault = val;
+                                          data.children.first.items[index]
+                                              .toggle.toggleDefault = val;
                                           _signUpController.symptoms.refresh();
                                         },
                                       ),
@@ -596,8 +615,7 @@ class BowelMovement extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-              height: ScreenConstant.sizeXL),
+          SizedBox(height: ScreenConstant.sizeXL),
         ],
       ),
     );
@@ -605,26 +623,21 @@ class BowelMovement extends StatelessWidget {
 
   _buildWavePainter() {
     return CustomPaint(
-      size: Size(Get.context.mediaQuerySize.width,
-          Get.context.mediaQuerySize.height),
+      size: Size(
+          Get.context.mediaQuerySize.width, Get.context.mediaQuerySize.height),
       painter: WavePainter(),
     );
   }
 
-
   getImage({FluffyOption item}) {
     Widget image = FadeInImage(
-      width:
-      ScreenConstant.defaultWidthOneHundredSeven,
+      width: ScreenConstant.defaultWidthOneHundredSeven,
       height: ScreenConstant.defaultHeightOneHundred,
       image: NetworkImage(item.image.normal),
       placeholder: NetworkImage(BLANK_PLACEHOLDER),
-      imageErrorBuilder:
-          (context, error, stackTrace) {
-        return Image.network(
-            BLANK_PLACEHOLDER,
-            width:
-            ScreenConstant.defaultWidthOneHundredSeven,
+      imageErrorBuilder: (context, error, stackTrace) {
+        return Image.network(BLANK_PLACEHOLDER,
+            width: ScreenConstant.defaultWidthOneHundredSeven,
             height: ScreenConstant.defaultHeightOneHundred,
             fit: BoxFit.fitWidth);
       },
@@ -635,7 +648,6 @@ class BowelMovement extends StatelessWidget {
 
   getDesc({FluffyOption item}) {
     return Text(item.description ?? "",
-        textAlign: TextAlign.center,
-        style: TextStyles.textStyleRegular);
+        textAlign: TextAlign.center, style: TextStyles.textStyleRegular);
   }
 }
