@@ -561,7 +561,7 @@ class BowelMovement extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Straining at defecation",
+                                        data.children.first.items[index].toggle.toggleDefault?data.children.first.items[index].toggle.options.optionsTrue.label:data.children.first.items[index].toggle.options.optionsFalse.label,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.center,
                                         style: TextStyles.textStyleRegular
