@@ -11,7 +11,7 @@ String foodSendModelToJson(FoodSendModel data) => json.encode(data.toJson());
 
 class FoodSendModel {
   FoodSendModel({
-    this.category = "food",
+    this.category,
     this.items,
   });
 
@@ -73,18 +73,16 @@ class FoodList {
 
 class FoodSubList {
   FoodSubList({
+    this.tid,
     this.kind = "tags",
     this.dtype = "arr",
-    this.tid,
     this.value,
-    this.children,
   });
 
   String tid;
   String kind;
   String dtype;
   FoodSubValue value;
-  List<ChildChild> children;
 
   factory FoodSubList.fromJson(Map<String, dynamic> json) => FoodSubList(
         tid: json["tid"] == null ? null : json["tid"],
@@ -92,44 +90,12 @@ class FoodSubList {
         dtype: json["dtype"] == null ? null : json["dtype"],
         value:
             json["value"] == null ? null : FoodSubValue.fromJson(json["value"]),
-        children: json["children"] == null
-            ? null
-            : List<ChildChild>.from(
-                json["children"].map((x) => ChildChild.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "tid": tid == null ? null : tid,
         "kind": kind == null ? null : kind,
         "dtype": dtype == null ? null : dtype,
-        "value": value == null ? null : value.toJson(),
-        "children": children == null
-            ? null
-            : List<dynamic>.from(children.map((x) => x.toJson())),
-      };
-}
-
-class ChildChild {
-  ChildChild({
-    this.tid,
-    this.kind,
-    this.value,
-  });
-
-  String tid;
-  String kind;
-  FoodSubValue value;
-
-  factory ChildChild.fromJson(Map<String, dynamic> json) => ChildChild(
-        tid: json["tid"] == null ? null : json["tid"],
-        kind: json["kind"] == null ? null : json["kind"],
-        value:
-            json["value"] == null ? null : FoodSubValue.fromJson(json["value"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "tid": tid == null ? null : tid,
-        "kind": kind == null ? null : kind,
         "value": value == null ? null : value.toJson(),
       };
 }

@@ -90,7 +90,7 @@ class BowelMovementController extends GetxController {
     }
   }
 
-  initSubModel({ChildItem data,String dType,bool value,String tid,String kind,mainType}){
+  initSubModel({PurpleItem data,String dType,bool value,String tid,String kind,mainType}){
     Item item;
     bool isPresent = false;
 

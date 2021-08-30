@@ -16,8 +16,11 @@ class FoodController extends GetxController {
   Rx<FoodSendModel> foodSendModel = FoodSendModel().obs;
   Rx<FoodSubList> listFoodSub = FoodSubList().obs;
   Rx<FoodList> listFood = FoodList().obs;
+  RxList<Default> listfoodDefault = <Default>[].obs;
+  RxInt noOfGlasses = 0.obs;
 
   TextEditingController noteTextController = TextEditingController();
+  TextEditingController foodTextController = TextEditingController();
 
   // RxList<FoodList> listFood = [].obs;
 
@@ -108,14 +111,19 @@ class FoodController extends GetxController {
     print("Data: $data");
   }
 
-  onOptionTapped({TagsDefault model, List<String> modelValue}) {
+  onOptionTapped({Default model, List<String> modelValue}) {
     model.required = !model.required;
 
     if (model.required) {
+      listfoodDefault.add(model);
+      print("list:${listfoodDefault.value}");
       if (!modelValue.contains(model.value)) {
         modelValue.add(model.value);
       }
     } else {
+      listfoodDefault.remove(model);
+      print("listrem:${listfoodDefault.value}");
+
       if (modelValue.contains(model.value)) {
         modelValue.remove(model.value);
       }
@@ -124,4 +132,6 @@ class FoodController extends GetxController {
 
     return modelValue;
   }
+
+  listSelectedFood() {}
 }
