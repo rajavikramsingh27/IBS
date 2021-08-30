@@ -387,30 +387,47 @@ class Foods extends StatelessWidget {
       itemBuilder: (BuildContext context, int ind) {
         return InkWell(
           onTap: () {
-            // _controller.noOfGlasses++;
-            // print("glass:${_controller.noOfGlasses}");
+            ind++;
+            _controller.noOfGlasses.value = ind;
+            // for (var i = 0; i < _controller.noOfGlasses.value; i++){
+
+            //   var num=[];
+
+            // }
+            print("glass:${_controller.noOfGlasses}");
           },
           // child: CircleAvatar(
           //   backgroundColor: Colors.white.withOpacity(0.20),
           child: Padding(
               padding: ScreenConstant.spacingAllMedium,
               child: Image.network(
+                // _signUpController.food.value.items
+                //         .elementAt(1)
+                //         .sum
+                //         .image
+                //         .isSelected
+                //     ? _signUpController.food.value.items
+                //         .elementAt(1)
+                //         .sum
+                //         .image
+                //         .active
+                // :
                 _signUpController.food.value.items
                     .elementAt(1)
                     .sum
                     .image
-                    .active,
-                width: ScreenConstant.defaultWidthTwenty,
+                    .normal,
+                width: ScreenConstant.defaultWidthTwenty * 5,
                 height: ScreenConstant.defaultHeightTwenty * 1.5,
               )),
           // ),
         );
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
+          crossAxisSpacing: 0.01,
+          mainAxisSpacing: 0.01,
           crossAxisCount: 5,
-          childAspectRatio: 0.99),
+          childAspectRatio: 1),
     );
   }
 
