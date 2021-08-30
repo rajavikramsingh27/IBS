@@ -10,7 +10,7 @@ String bowelMovementsModelToJson(BowelMovementsModel data) => json.encode(data.t
 
 class BowelMovementsModel {
   BowelMovementsModel({
-    this.category = "bowel_movements",
+    this.category = "bowelMovements",
     this.items,
   });
 
@@ -106,23 +106,23 @@ class ChildValue {
 
 class ItemValue {
   ItemValue({
-    this.num,
-    this.string,
-    this.str,
+    this.itemNum = 0,
+    this.string = "",
+    this.str = "",
   });
 
-  int num;
+  num itemNum;
   String string;
   String str;
 
   factory ItemValue.fromJson(Map<String, dynamic> json) => ItemValue(
-    num: json["num"] == null ? null : json["num"],
+    itemNum: json["num"] == null ? null : json["num"],
     string: json["string"] == null ? null : json["string"],
     str: json["str"] == null ? null : json["str"],
   );
 
   Map<String, dynamic> toJson() => {
-    "num": num == null ? null : num,
+    "num": itemNum == null ? null : itemNum,
     "string": string == null ? null : string,
     "str": str == null ? null : str,
   };

@@ -310,6 +310,7 @@ class BowelMovement extends StatelessWidget {
                 value: data.rating.ratingDefault,
                 onChanged: (dynamic newValue) {
                   data.rating.ratingDefault = newValue;
+                  _bowelMovementController.initModel(data: data,dType: "num",value: data.rating.ratingDefault);
                   _signUpController.bowelMovements.refresh();
                 },
               ),
@@ -391,6 +392,7 @@ class BowelMovement extends StatelessWidget {
                           value: data.rating.ratingDefault,
                           onChanged: (dynamic newValue) {
                             data.rating.ratingDefault = newValue;
+                            _bowelMovementController.initModel(data: data,dType: "num",value: data.rating.ratingDefault);
                             _signUpController.bowelMovements.refresh();
                           },
                           labelFormatterCallback:
@@ -436,10 +438,28 @@ class BowelMovement extends StatelessWidget {
             shrinkWrap: true,
             itemCount: data.color.options.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
-              return CircleAvatar(
-                radius: 20,
-                backgroundColor:
-                    AppColors.fromHex(data.color.options[index].hex),
+              return InkWell(
+                onTap: (){
+                  data.color.colorDefault = data.color.options[index];
+                  _bowelMovementController.initModel(data: data,dType: "str",value: data.color.options[index].value);
+                  _signUpController.bowelMovements.refresh();
+                },
+                child: data.color.colorDefault.value == data.color.options[index].value?CircleAvatar(
+                  radius: 20,
+                  backgroundColor:
+                  AppColors.colordropdownArrow,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.fromHex(data.color.options[index].hex)
+                    ),
+                    width: ScreenConstant.sizeXL,
+                  ),
+                ):CircleAvatar(
+                  radius: 20,
+                  backgroundColor:
+                      AppColors.fromHex(data.color.options[index].hex),
+                ),
               );
             },
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -529,6 +549,7 @@ class BowelMovement extends StatelessWidget {
                           value: data.rating.ratingDefault,
                           onChanged: (dynamic newValue) {
                             data.rating.ratingDefault = newValue;
+                            _bowelMovementController.initModel(data: data,dType: "num",value: data.rating.ratingDefault,);
                             _signUpController.bowelMovements.refresh();
                           },
                           labelFormatterCallback:
@@ -590,6 +611,8 @@ class BowelMovement extends StatelessWidget {
                                         onChanged: (val) {
                                           data.children.first.items[index]
                                               .toggle.toggleDefault = val;
+                                          _bowelMovementController.initSubModel(data: data.children.first.items[index],dType: "bool",value: data.children.first.items[index]
+                                              .toggle.toggleDefault,kind: data.kind,tid: data.tid,mainType: "num");
                                           _signUpController.symptoms.refresh();
                                         },
                                       ),

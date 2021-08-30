@@ -869,11 +869,11 @@ class ModelColor {
     this.options,
   });
 
-  dynamic colorDefault;
+  ColorOption colorDefault;
   List<ColorOption> options;
 
   factory ModelColor.fromJson(Map<String, dynamic> json) => ModelColor(
-    colorDefault: json["default"],
+    colorDefault: json["default"] == null ? ColorOption():json["default"],
     options: json["options"] == null ? null : List<ColorOption>.from(json["options"].map((x) => ColorOption.fromJson(x))),
   );
 

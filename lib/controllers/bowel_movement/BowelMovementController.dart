@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsModel.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -51,5 +52,69 @@ class BowelMovementController extends GetxController {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }*/
   }
+  initModel({DatumItem data,String dType, value,}){
+    bool isPresent = false;
 
-}
+    if (bowelMovementsModel.value.items == null) {
+      bowelMovementsModel.value.items = [];
+    }
+    bowelMovementsModel.value.items.forEach((element) {
+      if(element.tid == data.tid){
+        isPresent = true;
+        if(value is String){
+          element.value = ItemValue(string: value.toString());
+        }else{
+          element.value = ItemValue(itemNum: value,);
+        }
+      }
+    });
+    if(!isPresent){
+      Item item;
+      if(value is String){
+        item = Item(
+          tid: data.tid,
+          kind: data.kind,
+          dtype: dType,
+          value: ItemValue(string: value),
+        );
+      }else{
+        item = Item(
+          tid: data.tid,
+          kind: data.kind,
+          dtype: dType,
+          value: ItemValue(itemNum: value),
+        );
+      }
+
+      bowelMovementsModel.value.items.add(item);
+    }
+  }
+
+  initSubModel({ChildItem data,String dType,bool value,String tid,String kind,mainType}){
+    Item item;
+    bool isPresent = false;
+
+    if (bowelMovementsModel.value.items == null) {
+      bowelMovementsModel.value.items = [];
+    }
+    bowelMovementsModel.value.items.forEach((element) {
+      if(element.tid == "bowelMovements-relief"){
+        isPresent = true;
+        element.value = ItemValue();
+        element.children?.clear();
+        element.children = [(Child(value: ChildValue(valueBool: value),tid: data.tid,dtype: dType,kind: data.kind,))];
+      }
+    });
+    if(!isPresent) {
+      item = Item(
+        tid: tid,
+        kind: kind,
+        dtype: mainType,
+        value: ItemValue(),
+        children: [Child(value: ChildValue(valueBool: value),tid: data.tid,dtype: dType,kind: data.kind,)]
+      );
+    }
+
+      bowelMovementsModel.value.items.add(item);
+    }
+  }
