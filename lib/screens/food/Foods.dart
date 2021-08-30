@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/food/FoodController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/models/food/FoodSendModel.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DateTime.dart';
@@ -228,8 +229,11 @@ class Foods extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  Assets.lunch,
+                Image.network(
+                  _signUpController.food.value.items?.first?.list
+                          ?.options[index].optionDefault
+                      ? model.image.active
+                      : model.image.normal,
                   width: ScreenConstant.sizeXXXL,
                 ),
                 SizedBox(height: ScreenConstant.sizeDefault),
@@ -281,13 +285,15 @@ class Foods extends StatelessWidget {
                     style: TextStyles.textStyleRegular
                         .apply(color: AppColors.colorSkipButton),
                   ),
-                  _buildListOfFoodsTaken(_controller.modelMealIndex.value),
+                  _buildListDefaultFood(),
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
                     margin: ScreenConstant.spacingAllLarge,
                     child: FractionallySizedBox(
                       child: TextFormField(
+                        controller: _controller.foodTextController,
+                        onTap: () {},
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: "Add Food",
@@ -365,7 +371,7 @@ class Foods extends StatelessWidget {
           style: TextStyles.textStyleRegular.apply(color: AppColors.white),
         ),
         SizedBox(height: ScreenConstant.defaultHeightForty),
-        // _buildHydrationList(_controller.modelMealIndex.value),
+        _buildHydrationList(_controller.modelMealIndex.value),
         SizedBox(height: ScreenConstant.defaultHeightSixty),
       ],
     );
@@ -377,20 +383,27 @@ class Foods extends StatelessWidget {
           EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: _signUpController.food.value.items[index].sum.range ?? 0,
+      itemCount: _signUpController.food.value.items.elementAt(1).sum.range ?? 0,
       itemBuilder: (BuildContext context, int ind) {
         return InkWell(
-          onTap: () {},
-          child: CircleAvatar(
-            backgroundColor: Colors.white.withOpacity(0.20),
-            child: Padding(
-                padding: ScreenConstant.spacingAllMedium,
-                child: Image.asset(
-                  Assets.emptyGlass,
-                  width: ScreenConstant.defaultWidthTwenty,
-                  height: ScreenConstant.defaultHeightTwenty * 1.5,
-                )),
-          ),
+          onTap: () {
+            // _controller.noOfGlasses++;
+            // print("glass:${_controller.noOfGlasses}");
+          },
+          // child: CircleAvatar(
+          //   backgroundColor: Colors.white.withOpacity(0.20),
+          child: Padding(
+              padding: ScreenConstant.spacingAllMedium,
+              child: Image.network(
+                _signUpController.food.value.items
+                    .elementAt(1)
+                    .sum
+                    .image
+                    .active,
+                width: ScreenConstant.defaultWidthTwenty,
+                height: ScreenConstant.defaultHeightTwenty * 1.5,
+              )),
+          // ),
         );
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -401,20 +414,17 @@ class Foods extends StatelessWidget {
     );
   }
 
-  _buildListOfFoodsTaken(int index) {
-    print("ind$index");
+  _buildListDefaultFood() {
+    // print("ind$index");
     return GridView.builder(
       padding: EdgeInsets.symmetric(
           horizontal: ScreenConstant.sizeLarge,
           vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: _signUpController.food.value.items.first.children.first.items
-              .first.tags.tags.tagsDefault.length ??
-          0,
+      itemCount: _controller.listfoodDefault.value.length ?? 0,
       itemBuilder: (BuildContext context, int ind) {
-        var model = _signUpController.food.value.items.first.children.first
-            .items.first.tags.tags.tagsDefault[ind];
+        var model = _controller.listfoodDefault.value[ind];
 
         return InkWell(
           onTap: () {
@@ -446,87 +456,89 @@ class Foods extends StatelessWidget {
     );
   }
 
+  _buildListOfFoodsTaken(int index) {
+    // print("ind$index");
+    return GridView.builder(
+      padding: EdgeInsets.symmetric(
+          horizontal: ScreenConstant.sizeLarge,
+          vertical: ScreenConstant.defaultHeightTwentyFour),
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: _signUpController.food.value.items.first.children.first.items
+              .first.tags.tags.tagsDefault.length ??
+          0,
+      itemBuilder: (BuildContext context, int ind) {
+        var model = _signUpController.food.value.items.first.children.first
+            .items.first.tags.tags.tagsDefault[ind];
+
+        return InkWell(
+          onTap: () {
+            _controller.onOptionTapped(
+                model: model,
+                modelValue: _controller
+                    .foodSendModel.value.items.first.children.first.value.arr);
+          },
+          child: Card(
+            color: AppColors.colorSymptomsGridBg,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100)),
+            child: Center(
+              child: Text(
+                model.value ?? "",
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyles.textStyleRegular
+                    .apply(color: Colors.white, fontSizeDelta: -2),
+              ),
+            ),
+          ),
+        );
+      },
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, childAspectRatio: 3.5),
+    );
+  }
+
   _buildListLowFood(int index) {
-    print("index:$index");
-    print(
-        "low:${_signUpController.food.value.items.first.children.first.items.first.children.first.items.first.tags.tagsDefault.length}");
-    return Offstage();
-
-    // GridView.builder(
-    //   padding: EdgeInsets.symmetric(
-    //       horizontal: ScreenConstant.sizeLarge,
-    //       vertical: ScreenConstant.defaultHeightTwentyFour),
-    //   physics: NeverScrollableScrollPhysics(),
-    //   shrinkWrap: true,
-    //   itemCount: _signUpController.food.value.items?.first?.children
-    //           ?.elementAt(index)
-    //           ?.items
-    //           ?.first
-    //           ?.children
-    //           ?.first
-    //           ?.items
-    //           ?.first
-    //           ?.tags
-    //           ?.tagsDefault
-    //           ?.length ??
-    //       0,
-    //   itemBuilder: (BuildContext context, int indx) {
-    //     var model = _signUpController.food.value.items?.first?.children
-    //         ?.elementAt(index)
-    //         ?.items
-    //         ?.first
-    //         ?.children
-    //         ?.first
-    //         ?.items
-    //         ?.first
-    //         ?.tags
-    //         ?.tagsDefault[indx];
-    //     return InkWell(
-    //       onTap: () {
-    //         print(
-    //             "null:${_controller.foodSendModel.value.items[index].children?.first?.value?.arr}");
-    //         if (_controller.foodSendModel.value.items == null) {
-    //           _controller.foodSendModel.value.items = [];
-    //         }
-
-    //         FoodList foodlist = FoodList(
-    //             children: [],
-    //             value: FoodValue(str: _controller.mealTypeValue.value));
-    //         _controller.foodSendModel.value.items.add(foodlist);
-    //         FoodSubList child = FoodSubList(
-    //             tid: _signUpController
-    //                 .food.value.items.first.children.first.items.first.tid,
-    //             value: FoodSubValue(arr: []));
-
-    //         _controller.foodSendModel.value.items[index].children?.add(child);
-    //         _controller.foodSendModel.refresh();
-    //         _signUpController.food.refresh();
-    //         _controller.onOptionTapped(
-    //             model: model,
-    //             modelValue: _controller.foodSendModel.value.items[index]
-    //                 .children?.first?.value?.arr);
-    //       },
-    //       child: Card(
-    //         color: model.required
-    //             ? AppColors.colorArrowButton
-    //             : AppColors.colorSymptomsGridBg,
-    //         shape: RoundedRectangleBorder(
-    //             borderRadius: BorderRadius.circular(100)),
-    //         child: Center(
-    //           child: Text(
-    //             model.value ?? "",
-    //             textAlign: TextAlign.center,
-    //             overflow: TextOverflow.ellipsis,
-    //             style: TextStyles.textStyleRegular
-    //                 .apply(color: Colors.white, fontSizeDelta: -2),
-    //           ),
-    //         ),
-    //       ),
-    //     );
-    //   },
-    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //       crossAxisCount: 3, childAspectRatio: 3.5),
-    // );
+    return GridView.builder(
+      padding: EdgeInsets.symmetric(
+          horizontal: ScreenConstant.sizeLarge,
+          vertical: ScreenConstant.defaultHeightTwentyFour),
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: _signUpController.food.value.items.first.children.first.items
+              .first.children.first.items.first.tags.tagsDefault.length ??
+          0,
+      itemBuilder: (BuildContext context, int indx) {
+        var model = _signUpController.food.value.items.first.children.first
+            .items.first.children.first.items.first.tags.tagsDefault[indx];
+        return InkWell(
+          onTap: () {
+            model.required = !model.required;
+            if (model.required)
+              _controller.listfoodDefault.add(model);
+            else
+              _controller.listfoodDefault.remove(model);
+          },
+          child: Card(
+            color: AppColors.colorSymptomsGridBg,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100)),
+            child: Center(
+              child: Text(
+                model.value ?? "",
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyles.textStyleRegular
+                    .apply(color: Colors.white, fontSizeDelta: -2),
+              ),
+            ),
+          ),
+        );
+      },
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, childAspectRatio: 3.5),
+    );
   }
 
   _buildWavePainter() {
