@@ -437,9 +437,9 @@ class Foods extends StatelessWidget {
           vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: _controller.listfoodDefault.value.length ?? 0,
+      itemCount: _controller.listfoodDefault.length ?? 0,
       itemBuilder: (BuildContext context, int ind) {
-        var model = _controller.listfoodDefault.value[ind];
+        var model = _controller.listfoodDefault[ind];
 
         return InkWell(
           onTap: () {

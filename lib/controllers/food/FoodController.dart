@@ -116,13 +116,11 @@ class FoodController extends GetxController {
 
     if (model.required) {
       listfoodDefault.add(model);
-      print("list:${listfoodDefault.value}");
       if (!modelValue.contains(model.value)) {
         modelValue.add(model.value);
       }
     } else {
       listfoodDefault.remove(model);
-      print("listrem:${listfoodDefault.value}");
 
       if (modelValue.contains(model.value)) {
         modelValue.remove(model.value);

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsModel.dart';
+import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseModel.dart' as BMR;
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:flutter_ibs/services/ServiceApi.dart';
+import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -31,26 +34,29 @@ class BowelMovementController extends GetxController {
       bowelMovementsModel.value.items = [];
     }
     Item item = Item(
-        tid: _signUpController.symptoms.value.items.last.tid,
-        kind: _signUpController.symptoms.value.items.last.kind,
+        tid: _signUpController.bowelMovements.value.items.last.tid,
+        kind: _signUpController.bowelMovements.value.items.last.kind,
         dtype: "str",
         value: ItemValue(str: noteTextController.text));
     bowelMovementsModel.value.items.add(item);
     bowelMovementsModel.refresh();
     print("DATA Model : ${bowelMovementsModel.toJson()}");
-    /*loader.value = true;
+    loader.value = true;
     final data =
-    await ServiceApi().postSymptomsAPI(bodyData: bowelMovementsModel.toJson());
+    await ServiceApi().postBowelMovementAPI(bodyData: bowelMovementsModel.toJson());
     loader.value = false;
-    if (data is SymptomsResponseModel) {
+    if (data is BMR.BowelMovementsResponseModel) {
       noteTextController.clear();
       _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
-          title: "Success", message: "Symptoms Added Successfully");
+          title: "Success", message: "Bowel Movements Added Successfully");
     } else {
+      noteTextController.clear();
+      _signUpController.getTrackList();
+      bowelMovementsModel.value = BowelMovementsModel();
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-    }*/
+    }
   }
   initModel({DatumItem data,String dType, value,}){
     bool isPresent = false;
@@ -113,8 +119,8 @@ class BowelMovementController extends GetxController {
         value: ItemValue(),
         children: [Child(value: ChildValue(valueBool: value),tid: data.tid,dtype: dType,kind: data.kind,)]
       );
+      bowelMovementsModel.value.items.add(item);
     }
 
-      bowelMovementsModel.value.items.add(item);
     }
   }

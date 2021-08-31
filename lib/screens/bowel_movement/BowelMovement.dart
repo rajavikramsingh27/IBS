@@ -32,7 +32,7 @@ class BowelMovement extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             SizedBox(height: ScreenConstant.defaultHeightTen),
-            CustomElevatedButton(
+            _bowelMovementController.loader.value? Offstage():CustomElevatedButton(
               widthFactor: 0.7,
               text: "Save",
               onTap: _bowelMovementController.onSave,
@@ -81,7 +81,12 @@ class BowelMovement extends StatelessWidget {
                           DateTimeCardWidget(),
                           SizedBox(
                               height: ScreenConstant.defaultHeightForty * 1.25),
-                          ListView.builder(
+                          _bowelMovementController.loader.value?Center(
+                              child: Padding(
+                                padding:
+                                ScreenConstant.spacingAllLarge,
+                                child: Container(height: ScreenConstant.screenHeightThird,child: Center(child: CircularProgressIndicator())),
+                              )):ListView.builder(
                               shrinkWrap: true,
                               physics: ClampingScrollPhysics(),
                               itemCount: _signUpController
