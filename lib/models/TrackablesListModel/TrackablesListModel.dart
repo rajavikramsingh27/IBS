@@ -158,7 +158,7 @@ class DatumItem {
   List<PurpleChild> children;
   TextInput textInput;
   ListValidation validation;
-  Color color;
+  ModelColor color;
   FluffyList list;
   Sum sum;
   BoolList tags;
@@ -193,7 +193,7 @@ class DatumItem {
         validation: json["validation"] == null
             ? null
             : ListValidation.fromJson(json["validation"]),
-        color: json["color"] == null ? null : Color.fromJson(json["color"]),
+        color: json["color"] == null ? null : ModelColor.fromJson(json["color"]),
         list: json["list"] == null ? null : FluffyList.fromJson(json["list"]),
         sum: json["sum"] == null ? null : Sum.fromJson(json["sum"]),
         tags: json["tags"] == null ? null : BoolList.fromJson(json["tags"]),
@@ -1255,26 +1255,20 @@ class False {
       };
 }
 
-class Color {
-  Color({
+class ModelColor {
+  ModelColor({
     this.colorDefault,
     this.options,
   });
 
-  dynamic colorDefault;
+  ColorOption colorDefault;
   List<ColorOption> options;
 
-  factory Color.fromRawJson(String str) => Color.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
-
-  factory Color.fromJson(Map<String, dynamic> json) => Color(
-        colorDefault: json["default"],
-        options: json["options"] == null
-            ? null
-            : List<ColorOption>.from(
-                json["options"].map((x) => ColorOption.fromJson(x))),
-      );
+  factory ModelColor.fromJson(Map<String, dynamic> json) => ModelColor(
+    colorDefault: json["default"] == null ? ColorOption():json["default"],
+    options: json["options"] == null ? null : List<ColorOption>.from(json["options"].map((x) => ColorOption.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
         "default": colorDefault,
