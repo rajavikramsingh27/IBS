@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/food/FoodController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DateTime.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -158,6 +159,116 @@ class Foods extends StatelessWidget {
     );
   }
 
+  _buildWavePainter() {
+    return CustomPaint(
+      size: Size(
+          Get.context.mediaQuerySize.width, Get.context.mediaQuerySize.height),
+      painter: WavePainter(),
+    );
+  }
+
+  _buildFoods() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Card(
+          margin: EdgeInsets.zero,
+          color: AppColors.colorBackground,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  SizedBox(height: ScreenConstant.defaultHeightForty),
+                  Text("What Did you Eat?",
+                      style: TextStyles.textStyleIntroDescription
+                          .apply(color: Colors.white, fontSizeDelta: -3)),
+                  SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                  Text(
+                    "Select from this list of common foods or add another",
+                    textAlign: TextAlign.center,
+                    style: TextStyles.textStyleRegular
+                        .apply(color: AppColors.colorSkipButton),
+                  ),
+                  _buildListDefaultFood(),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    margin: ScreenConstant.spacingAllLarge,
+                    child: FractionallySizedBox(
+                      child: TextFormField(
+                        controller: _controller.foodTextController,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Add Food",
+                            hintStyle: TextStyles.textStyleRegular
+                                .apply(color: AppColors.colorTextHint),
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: ScreenConstant.sizeMedium,
+                            )),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      _controller.listfoodDefault.add(
+                          Default(value: _controller.foodTextController.text));
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: ScreenConstant.defaultWidthTen * 1.5,
+                          backgroundColor: AppColors.colorArrowButton,
+                          child: Icon(
+                            Icons.add,
+                            size: FontSize.s11,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(width: ScreenConstant.sizeDefault),
+                        Text(
+                          "Add this food",
+                          style: TextStyles.textStyleRegular
+                              .apply(color: AppColors.white),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                  _buildRegularFoodsTaken(),
+                  _buildLOWFODMAPFoods(),
+                  SizedBox(height: ScreenConstant.defaultHeightForty * 1.4),
+                ],
+              ),
+              Container(
+                height: ScreenConstant.defaultHeightOneHundred,
+                child: OvalPainterWidget(),
+              )
+            ],
+          ),
+        ),
+        Positioned(
+            bottom: -50,
+            child: CustomArcPainter2(
+                height: 100,
+                width: 100,
+                quarterTurns: 0,
+                painter:
+                    MyPainter(AppColors.colorSymptomsGridBg.withOpacity(0.5)))),
+        // Positioned(
+        //     bottom: -100,
+        //     child: CustomArcPainter2(
+        //         height: 200,
+        //         width: 200,
+        //         quarterTurns: 0,
+        //         painter: MyPainter(
+        //             AppColors.colorSymptomsGridBg.withOpacity(0.20)))),
+      ],
+    );
+  }
+
   _buildMealList() {
     return GridView.builder(
       padding: EdgeInsets.symmetric(
@@ -200,51 +311,50 @@ class Foods extends StatelessWidget {
         if ((endTime.difference(u).inSeconds) > 0 &&
             (u.difference(startTime).inSeconds) > 0) {
           _controller.mealTypeValue.value = model.value;
-          _signUpController.food.value.items?.first?.list?.options[index]
-              .optionDefault = true;
         }
         return Container(
           decoration: BoxDecoration(
-              color: _signUpController.food.value.items?.first?.list
-                      ?.options[index].optionDefault
-                  ? AppColors.colorBackground
-                  : Colors.white,
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: NetworkImage(
+                  ((endTime.difference(u).inSeconds) > 0 &&
+                          (u.difference(startTime).inSeconds) > 0)
+                      ? model.image.active
+                      : model.image.normal,
+                ),
+              ),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: AppColors.colorBorder, width: 1)),
           child: InkWell(
             onTap: () {
-              _signUpController.food.value.items.first.list.options
-                  .forEach((element) {
-                if (element.optionDefault) {
-                  element.optionDefault = false;
-                }
-              });
-              _signUpController.food.value.items?.first?.list?.options[index]
-                      .optionDefault =
-                  !_signUpController.food.value.items?.first?.list
-                      ?.options[index].optionDefault;
+              // _signUpController.food.value.items.first.list.options
+              //     .forEach((element) {
+              //   if (element.optionDefault) {
+              //     element.optionDefault = false;
+              //   }
+              // });
+              // _signUpController.food.value.items?.first?.list?.options[index]
+              //         .optionDefault =
+              //     !_signUpController.food.value.items?.first?.list
+              //         ?.options[index].optionDefault;
             },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(
               children: [
-                Image.network(
-                  _signUpController.food.value.items?.first?.list
-                          ?.options[index].optionDefault
-                      ? model.image.active
-                      : model.image.normal,
-                  width: ScreenConstant.sizeXXXL,
-                ),
-                SizedBox(height: ScreenConstant.sizeDefault),
-                Text(
-                  model.value.capitalize ?? "",
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyles.textStyleRegular.apply(
-                      color: _signUpController.food.value.items?.first?.list
-                              ?.options[index].optionDefault
-                          ? Colors.white
-                          : Colors.black,
-                      fontSizeDelta: 2),
+                Positioned(
+                  bottom: ScreenConstant.sizeLarge,
+                  left: 0,
+                  right: 0,
+                  child: Text(
+                    model.value.capitalize ?? "",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyles.textStyleRegular.apply(
+                        color: (endTime.difference(u).inSeconds) > 0 &&
+                                (u.difference(startTime).inSeconds) > 0
+                            ? Colors.white
+                            : Colors.black,
+                        fontSizeDelta: 2),
+                  ),
                 ),
               ],
             ),
@@ -259,176 +369,6 @@ class Foods extends StatelessWidget {
     );
   }
 
-  _buildFoods() {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Card(
-          margin: EdgeInsets.zero,
-          color: AppColors.colorBackground,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  SizedBox(height: ScreenConstant.defaultHeightForty),
-                  Text("What Did you Eat?",
-                      style: TextStyles.textStyleIntroDescription
-                          .apply(color: Colors.white, fontSizeDelta: -3)),
-                  SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                  Text(
-                    "Select from this list of common foods or add another",
-                    textAlign: TextAlign.center,
-                    style: TextStyles.textStyleRegular
-                        .apply(color: AppColors.colorSkipButton),
-                  ),
-                  _buildListDefaultFood(),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                    margin: ScreenConstant.spacingAllLarge,
-                    child: FractionallySizedBox(
-                      child: TextFormField(
-                        controller: _controller.foodTextController,
-                        onTap: () {},
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Add Food",
-                            hintStyle: TextStyles.textStyleRegular
-                                .apply(color: AppColors.colorTextHint),
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: ScreenConstant.sizeMedium,
-                            )),
-                      ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: ScreenConstant.defaultWidthTen * 1.5,
-                        backgroundColor: AppColors.colorArrowButton,
-                        child: Icon(
-                          Icons.add,
-                          size: FontSize.s11,
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(width: ScreenConstant.sizeDefault),
-                      Text(
-                        "Add this food",
-                        style: TextStyles.textStyleRegular
-                            .apply(color: AppColors.white),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                  _buildRegularFoodsTaken(),
-                  _buildLOWFODMAPFoods(),
-                  SizedBox(height: ScreenConstant.defaultHeightForty * 1.4),
-                ],
-              ),
-              Container(
-                height: ScreenConstant.defaultHeightOneHundred,
-                child: OvalPainterWidget(),
-              )
-            ],
-          ),
-        ),
-        Positioned(
-            bottom: -50,
-            child: CustomArcPainter2(
-                height: 100,
-                width: 100,
-                quarterTurns: 0,
-                painter:
-                    MyPainter(AppColors.colorSymptomsGridBg.withOpacity(0.5)))),
-        // Positioned(
-        //     bottom: -100,
-        //     child: CustomArcPainter2(
-        //         height: 200,
-        //         width: 200,
-        //         quarterTurns: 0,
-        //         painter: MyPainter(
-        //             AppColors.colorSymptomsGridBg.withOpacity(0.20)))),
-      ],
-    );
-  }
-
-  _buildHydration() {
-    return Column(
-      children: [
-        Text("Hydration",
-            style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.white, fontSizeDelta: -2)),
-        SizedBox(height: ScreenConstant.sizeDefault),
-        Text(
-          "How many glasses of water have you had today",
-          textAlign: TextAlign.center,
-          style: TextStyles.textStyleRegular.apply(color: AppColors.white),
-        ),
-        SizedBox(height: ScreenConstant.defaultHeightForty),
-        _buildHydrationList(_controller.modelMealIndex.value),
-        SizedBox(height: ScreenConstant.defaultHeightSixty),
-      ],
-    );
-  }
-
-  _buildHydrationList(int index) {
-    return GridView.builder(
-      padding:
-          EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: _signUpController.food.value.items.elementAt(1).sum.range ?? 0,
-      itemBuilder: (BuildContext context, int ind) {
-        return InkWell(
-          onTap: () {
-            ind++;
-            _controller.noOfGlasses.value = ind;
-            // for (var i = 0; i < _controller.noOfGlasses.value; i++){
-
-            //   var num=[];
-
-            // }
-            print("glass:${_controller.noOfGlasses}");
-          },
-          // child: CircleAvatar(
-          //   backgroundColor: Colors.white.withOpacity(0.20),
-          child: Padding(
-              padding: ScreenConstant.spacingAllMedium,
-              child: Image.network(
-                // _signUpController.food.value.items
-                //         .elementAt(1)
-                //         .sum
-                //         .image
-                //         .isSelected
-                //     ? _signUpController.food.value.items
-                //         .elementAt(1)
-                //         .sum
-                //         .image
-                //         .active
-                // :
-                _signUpController.food.value.items
-                    .elementAt(1)
-                    .sum
-                    .image
-                    .normal,
-                width: ScreenConstant.defaultWidthTwenty * 5,
-                height: ScreenConstant.defaultHeightTwenty * 1.5,
-              )),
-          // ),
-        );
-      },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: 0.01,
-          mainAxisSpacing: 0.01,
-          crossAxisCount: 5,
-          childAspectRatio: 1),
-    );
-  }
-
   _buildListDefaultFood() {
     // print("ind$index");
     return GridView.builder(
@@ -437,21 +377,17 @@ class Foods extends StatelessWidget {
           vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: _controller.listfoodDefault.value.length ?? 0,
+      itemCount: _controller.listfoodDefault.length ?? 0,
       itemBuilder: (BuildContext context, int ind) {
-        var model = _controller.listfoodDefault.value[ind];
+        var model = _controller.listfoodDefault[ind];
 
         return InkWell(
           onTap: () {
-            _controller.onOptionTapped(
-                model: model,
-                modelValue: _controller
-                    .foodSendModel.value.items.first.children.first.value.arr);
+            if (_controller.listfoodDefault.contains(model))
+              _controller.listfoodDefault.removeAt(ind);
           },
           child: Card(
-            color: model.required
-                ? AppColors.colorArrowButton
-                : AppColors.colorSymptomsGridBg,
+            color: AppColors.colorArrowButton,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
@@ -468,99 +404,6 @@ class Foods extends StatelessWidget {
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3, childAspectRatio: 3.5),
-    );
-  }
-
-  _buildListOfFoodsTaken(int index) {
-    // print("ind$index");
-    return GridView.builder(
-      padding: EdgeInsets.symmetric(
-          horizontal: ScreenConstant.sizeLarge,
-          vertical: ScreenConstant.defaultHeightTwentyFour),
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: _signUpController.food.value.items.first.children.first.items
-              .first.tags.tags.tagsDefault.length ??
-          0,
-      itemBuilder: (BuildContext context, int ind) {
-        var model = _signUpController.food.value.items.first.children.first
-            .items.first.tags.tags.tagsDefault[ind];
-
-        return InkWell(
-          onTap: () {
-            _controller.onOptionTapped(
-                model: model,
-                modelValue: _controller
-                    .foodSendModel.value.items.first.children.first.value.arr);
-          },
-          child: Card(
-            color: AppColors.colorSymptomsGridBg,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100)),
-            child: Center(
-              child: Text(
-                model.value ?? "",
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyles.textStyleRegular
-                    .apply(color: Colors.white, fontSizeDelta: -2),
-              ),
-            ),
-          ),
-        );
-      },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, childAspectRatio: 3.5),
-    );
-  }
-
-  _buildListLowFood(int index) {
-    return GridView.builder(
-      padding: EdgeInsets.symmetric(
-          horizontal: ScreenConstant.sizeLarge,
-          vertical: ScreenConstant.defaultHeightTwentyFour),
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: _signUpController.food.value.items.first.children.first.items
-              .first.children.first.items.first.tags.tagsDefault.length ??
-          0,
-      itemBuilder: (BuildContext context, int indx) {
-        var model = _signUpController.food.value.items.first.children.first
-            .items.first.children.first.items.first.tags.tagsDefault[indx];
-        return InkWell(
-          onTap: () {
-            model.required = !model.required;
-            if (model.required)
-              _controller.listfoodDefault.add(model);
-            else
-              _controller.listfoodDefault.remove(model);
-          },
-          child: Card(
-            color: AppColors.colorSymptomsGridBg,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100)),
-            child: Center(
-              child: Text(
-                model.value ?? "",
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyles.textStyleRegular
-                    .apply(color: Colors.white, fontSizeDelta: -2),
-              ),
-            ),
-          ),
-        );
-      },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, childAspectRatio: 3.5),
-    );
-  }
-
-  _buildWavePainter() {
-    return CustomPaint(
-      size: Size(
-          Get.context.mediaQuerySize.width, Get.context.mediaQuerySize.height),
-      painter: WavePainter(),
     );
   }
 
@@ -609,6 +452,177 @@ class Foods extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+
+  _buildListOfFoodsTaken(int index) {
+    // print(
+    //     "ind${_signUpController.food.value.items.first.children.elementAt(index).items.first.tags.tagsDefault.length}");
+    return GridView.builder(
+      padding: EdgeInsets.symmetric(
+          horizontal: ScreenConstant.sizeLarge,
+          vertical: ScreenConstant.defaultHeightTwentyFour),
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: _signUpController.food.value.items.first.children
+              ?.elementAt(index)
+              ?.items
+              ?.first
+              ?.tags
+              ?.tagsDefault
+              ?.length ??
+          0,
+      itemBuilder: (BuildContext context, int ind) {
+        var model = _signUpController.food.value.items.first.children
+            ?.elementAt(index)
+            ?.items
+            ?.first
+            ?.tags
+            ?.tagsDefault[ind];
+
+        return InkWell(
+          onTap: () {
+            if (!_controller.listfoodDefault.contains(model))
+              _controller.listfoodDefault.add(model);
+          },
+          child: Card(
+            color: AppColors.colorSymptomsGridBg,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100)),
+            child: Center(
+              child: Text(
+                model.value ?? "",
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyles.textStyleRegular
+                    .apply(color: Colors.white, fontSizeDelta: -2),
+              ),
+            ),
+          ),
+        );
+      },
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, childAspectRatio: 3.5),
+    );
+  }
+
+  _buildListLowFood(int index) {
+    return GridView.builder(
+      padding: EdgeInsets.symmetric(
+          horizontal: ScreenConstant.sizeLarge,
+          vertical: ScreenConstant.defaultHeightTwentyFour),
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: _signUpController.food.value.items.first.children
+              ?.elementAt(index)
+              ?.items
+              ?.first
+              ?.children
+              ?.first
+              ?.items
+              ?.first
+              ?.tags
+              ?.tagsDefault
+              ?.length ??
+          0,
+      itemBuilder: (BuildContext context, int indx) {
+        var model = _signUpController.food.value.items.first.children
+            ?.elementAt(index)
+            ?.items
+            ?.first
+            ?.children
+            ?.first
+            ?.items
+            ?.first
+            ?.tags
+            ?.tagsDefault[indx];
+        return InkWell(
+          onTap: () {
+            if (!_controller.listfoodDefault.contains(model))
+              _controller.listfoodDefault.add(model);
+          },
+          child: Card(
+            color: AppColors.colorSymptomsGridBg,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100)),
+            child: Center(
+              child: Text(
+                model.value ?? "",
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyles.textStyleRegular
+                    .apply(color: Colors.white, fontSizeDelta: -2),
+              ),
+            ),
+          ),
+        );
+      },
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, childAspectRatio: 3.5),
+    );
+  }
+
+  _buildHydration() {
+    return Column(
+      children: [
+        Text("Hydration",
+            style: TextStyles.textStyleIntroDescription
+                .apply(color: Colors.white, fontSizeDelta: -2)),
+        SizedBox(height: ScreenConstant.sizeDefault),
+        Text(
+          "How many glasses of water have you had today",
+          textAlign: TextAlign.center,
+          style: TextStyles.textStyleRegular.apply(color: AppColors.white),
+        ),
+        SizedBox(height: ScreenConstant.defaultHeightForty),
+        _buildHydrationList(_controller.modelMealIndex.value),
+        SizedBox(height: ScreenConstant.defaultHeightSixty),
+      ],
+    );
+  }
+
+  _buildHydrationList(int index) {
+    return GridView.builder(
+      padding:
+          EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: _signUpController.food.value.items.elementAt(1).sum.range ?? 0,
+      itemBuilder: (BuildContext context, int ind) {
+        return InkWell(
+          onTap: () {
+            ind++;
+            _controller.noOfGlasses.value = ind;
+
+            print("glass:${_controller.noOfGlasses}");
+          },
+          // child: CircleAvatar(
+          //   backgroundColor: Colors.white.withOpacity(0.20),
+          child: Padding(
+              padding: ScreenConstant.spacingAllMedium,
+              child: Image.network(
+                _controller.noOfGlasses > ind
+                    ? _signUpController.food.value.items
+                        .elementAt(1)
+                        .sum
+                        .image
+                        .active
+                    : _signUpController.food.value.items
+                        .elementAt(1)
+                        .sum
+                        .image
+                        .normal,
+                width: ScreenConstant.defaultWidthTwenty * 5,
+                height: ScreenConstant.defaultHeightTwenty * 1.5,
+              )),
+          // ),
+        );
+      },
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: 0.01,
+          mainAxisSpacing: 0.01,
+          crossAxisCount: 5,
+          childAspectRatio: 1),
     );
   }
 }
