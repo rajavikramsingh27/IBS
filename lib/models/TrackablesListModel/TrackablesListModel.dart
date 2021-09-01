@@ -193,7 +193,8 @@ class DatumItem {
         validation: json["validation"] == null
             ? null
             : ListValidation.fromJson(json["validation"]),
-        color: json["color"] == null ? null : ModelColor.fromJson(json["color"]),
+        color:
+            json["color"] == null ? null : ModelColor.fromJson(json["color"]),
         list: json["list"] == null ? null : FluffyList.fromJson(json["list"]),
         sum: json["sum"] == null ? null : Sum.fromJson(json["sum"]),
         tags: json["tags"] == null ? null : BoolList.fromJson(json["tags"]),
@@ -1053,85 +1054,6 @@ class SelectOption {
 
 class FluffyTags {
   FluffyTags({
-    this.tid,
-    this.name,
-    this.description,
-    this.category,
-    this.style,
-    this.kind,
-    this.enabledDefault,
-    this.tags,
-    this.userAddable,
-    this.tagsDefault,
-    this.autocompleteId,
-    this.source,
-    this.relation,
-  });
-
-  String tid;
-  String name;
-  String description;
-  String category;
-  TagsStyle style;
-  String kind;
-  bool enabledDefault;
-  TagsTags tags;
-  bool userAddable;
-  List<Default> tagsDefault;
-  String autocompleteId;
-  String source;
-  BoolListRelation relation;
-
-  factory FluffyTags.fromRawJson(String str) =>
-      FluffyTags.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory FluffyTags.fromJson(Map<String, dynamic> json) => FluffyTags(
-        tid: json["tid"] == null ? null : json["tid"],
-        name: json["name"] == null ? null : json["name"],
-        description: json["description"] == null ? null : json["description"],
-        category: json["category"] == null ? null : json["category"],
-        style:
-            json["style"] == null ? null : tagsStyleValues.map[json["style"]],
-        kind: json["kind"] == null ? null : json["kind"],
-        enabledDefault:
-            json["enabledDefault"] == null ? null : json["enabledDefault"],
-        tags: json["tags"] == null ? null : TagsTags.fromJson(json["tags"]),
-        userAddable: json["userAddable"] == null ? null : json["userAddable"],
-        tagsDefault: json["default"] == null
-            ? null
-            : List<Default>.from(
-                json["default"].map((x) => Default.fromJson(x))),
-        autocompleteId:
-            json["autocompleteId"] == null ? null : json["autocompleteId"],
-        source: json["source"] == null ? null : json["source"],
-        relation: json["relation"] == null
-            ? null
-            : BoolListRelation.fromJson(json["relation"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "tid": tid == null ? null : tid,
-        "name": name == null ? null : name,
-        "description": description == null ? null : description,
-        "category": category == null ? null : category,
-        "style": style == null ? null : tagsStyleValues.reverse[style],
-        "kind": kind == null ? null : kind,
-        "enabledDefault": enabledDefault == null ? null : enabledDefault,
-        "tags": tags == null ? null : tags.toJson(),
-        "userAddable": userAddable == null ? null : userAddable,
-        "default": tagsDefault == null
-            ? null
-            : List<dynamic>.from(tagsDefault.map((x) => x.toJson())),
-        "autocompleteId": autocompleteId == null ? null : autocompleteId,
-        "source": source == null ? null : source,
-        "relation": relation == null ? null : relation.toJson(),
-      };
-}
-
-class TagsTags {
-  TagsTags({
     this.userAddable,
     this.tagsDefault,
     this.autocompleteId,
@@ -1147,12 +1069,12 @@ class TagsTags {
   BoolListRelation relation;
   int limit;
 
-  factory TagsTags.fromRawJson(String str) =>
-      TagsTags.fromJson(json.decode(str));
+  factory FluffyTags.fromRawJson(String str) =>
+      FluffyTags.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory TagsTags.fromJson(Map<String, dynamic> json) => TagsTags(
+  factory FluffyTags.fromJson(Map<String, dynamic> json) => FluffyTags(
         userAddable: json["userAddable"] == null ? null : json["userAddable"],
         tagsDefault: json["default"] == null
             ? null
@@ -1264,11 +1186,13 @@ class ModelColor {
   ColorOption colorDefault;
   List<ColorOption> options;
 
-
   factory ModelColor.fromJson(Map<String, dynamic> json) => ModelColor(
-    colorDefault: json["default"] == null ? ColorOption():json["default"],
-    options: json["options"] == null ? null : List<ColorOption>.from(json["options"].map((x) => ColorOption.fromJson(x))),
-  );
+        colorDefault: json["default"] == null ? ColorOption() : json["default"],
+        options: json["options"] == null
+            ? null
+            : List<ColorOption>.from(
+                json["options"].map((x) => ColorOption.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
         "default": colorDefault,

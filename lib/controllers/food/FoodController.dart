@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodSendModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
+import 'package:flutter_ibs/utils/DateTime.dart';
+import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -14,10 +17,11 @@ class FoodController extends GetxController {
   RxInt currentIndex = 0.obs;
   RxString mealTypeValue = "".obs;
   Rx<FoodSendModel> foodSendModel = FoodSendModel().obs;
-  Rx<FoodSubList> listFoodSub = FoodSubList().obs;
-  Rx<FoodList> listFood = FoodList().obs;
+  RxList<FoodSubList> listFoodSub = <FoodSubList>[].obs;
+  RxList<FoodList> listFood = <FoodList>[].obs;
   RxList<Default> listfoodDefault = <Default>[].obs;
   RxInt noOfGlasses = 0.obs;
+  RxString mealtid = "".obs;
 
   TextEditingController noteTextController = TextEditingController();
   TextEditingController foodTextController = TextEditingController();
@@ -32,48 +36,40 @@ class FoodController extends GetxController {
   SignUpController _signUpController = Get.find();
   RxInt modelMealIndex = 0.obs;
 
-  onTapped(int index) async {
-    currentIndex.value = index;
-  }
-
   @override
   void onInit() async {
     super.onInit();
     formattedTime = int.parse(
             DateFormat.Hm().format(currentDateTime.value).split(":").first)
         .obs;
-    onTapBlank();
-  }
-
-  onTapBlank() {
-    if (foodSendModel.value.items == null) {
-      foodSendModel.value.items = [];
-    }
-
-    FoodList foodlist =
-        FoodList(children: [], value: FoodValue(str: mealTypeValue.value));
-    foodSendModel.value.items.add(foodlist);
-    FoodSubList child = FoodSubList(
-        tid: _signUpController
-            .food.value.items.first.children.first.items.first.tid,
-        value: FoodSubValue(arr: []));
-
-    foodSendModel.value.items.first.children.add(child);
-    foodSendModel.refresh();
-    _signUpController.food.refresh();
   }
 
   onSave() async {
     if (foodSendModel.value.items == null) {
       foodSendModel.value.items = [];
     }
-    // FoodSubList foodTypeModel = FoodSubList(
-    //     tid: "food-breakfast_eat",
-    //     kind: "tags",
-    //     dtype: "arr",
-    //     value: FoodSubValue(arr: onOptionTapped()));
-    // listFood.value.children.add(foodTypeModel);
-    // listFood.refresh();
+    List<String> list = [];
+
+    listfoodDefault.forEach((element) {
+      list.add(element.value);
+    });
+    FoodSubList foodTypeModel = FoodSubList(
+        tid: mealtid.value,
+        kind: "tags",
+        dtype: "arr",
+        value: FoodSubValue(arr: list));
+    listFoodSub.add(foodTypeModel);
+    listFoodSub.refresh();
+    FoodList foodModel = FoodList(
+        children: listFoodSub.value,
+        tid: _signUpController.food.value.items.last.tid,
+        kind: _signUpController.food.value.items.last.kind,
+        dtype: "str",
+        value: FoodValue(str: mealTypeValue.value));
+    print("meal:${mealTypeValue.value}");
+    foodSendModel.value.items.add(foodModel);
+    foodSendModel.refresh();
+
     FoodList foodItemModel = FoodList(
         tid: "food-notes",
         kind: "textInput",
@@ -84,23 +80,23 @@ class FoodController extends GetxController {
         tid: "food-hydration",
         kind: "sum",
         dtype: "num",
-        value: FoodValue(num: 5, str: ""));
+        value: FoodValue(num: noOfGlasses.value, str: ""));
     print("meal:${mealTypeValue.value}");
     foodSendModel.value.items.add(hydrationItemModel);
 
     foodSendModel.value.items.add(foodItemModel);
     foodSendModel.refresh();
     print("food_data: ${foodSendModel.toJson()}");
-    // final data =
-    //     await ServiceApi().foodTrackApi(bodyData: foodSendModel.toJson());
+    final data =
+        await ServiceApi().foodTrackApi(bodyData: foodSendModel.toJson());
 
-    // if (data is FoodResponseModel) {
-    //   Get.back();
-    //   CustomSnackBar().successSnackBar(
-    //       title: "Success", message: "Foods Added Successfully");
-    // } else {
-    //   CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-    // }
+    if (data is FoodResponseModel) {
+      Get.back();
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Foods Added Successfully");
+    } else {
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
   }
 
   getFood() async {
@@ -110,26 +106,4 @@ class FoodController extends GetxController {
     }
     print("Data: $data");
   }
-
-  onOptionTapped({Default model, List<String> modelValue}) {
-    model.required = !model.required;
-
-    if (model.required) {
-      listfoodDefault.add(model);
-      if (!modelValue.contains(model.value)) {
-        modelValue.add(model.value);
-      }
-    } else {
-      listfoodDefault.remove(model);
-
-      if (modelValue.contains(model.value)) {
-        modelValue.remove(model.value);
-      }
-    }
-    _signUpController.food.refresh();
-
-    return modelValue;
-  }
-
-  listSelectedFood() {}
 }

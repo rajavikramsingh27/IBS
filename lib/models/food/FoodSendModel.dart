@@ -11,7 +11,7 @@ String foodSendModelToJson(FoodSendModel data) => json.encode(data.toJson());
 
 class FoodSendModel {
   FoodSendModel({
-    this.category,
+    this.category = "food",
     this.items,
   });
 
