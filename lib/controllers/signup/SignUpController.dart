@@ -50,6 +50,8 @@ class SignUpController extends GetxController {
   Rx<Datum> bowelMovements = Datum().obs;
   Rx<Datum> food = Datum().obs;
   Rx<Datum> journal = Datum().obs;
+  Rx<Datum> healthWellness = Datum().obs;
+
 
   RxList<ListOption> listFoodOptions = <ListOption>[].obs;
 
@@ -196,6 +198,7 @@ class SignUpController extends GetxController {
       getBowelMovements();
       getFoods();
       getJournalList();
+      getHealthWellness();
       loader.value = false;
     }
   }
@@ -277,6 +280,13 @@ class SignUpController extends GetxController {
     trackList.value.data.forEach((element) {
       if (element.tid == "journal") {
         journal.value = element;
+      }
+    });
+  }
+  getHealthWellness() {
+    trackList.value.data.forEach((element) {
+      if (element.tid == "healthWellness") {
+        healthWellness.value = element;
       }
     });
   }
