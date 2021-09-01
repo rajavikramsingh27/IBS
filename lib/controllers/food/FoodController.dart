@@ -21,6 +21,7 @@ class FoodController extends GetxController {
   RxList<FoodList> listFood = <FoodList>[].obs;
   RxList<Default> listfoodDefault = <Default>[].obs;
   RxInt noOfGlasses = 0.obs;
+  RxString mealtid = "".obs;
 
   TextEditingController noteTextController = TextEditingController();
   TextEditingController foodTextController = TextEditingController();
@@ -41,27 +42,7 @@ class FoodController extends GetxController {
     formattedTime = int.parse(
             DateFormat.Hm().format(currentDateTime.value).split(":").first)
         .obs;
-    // onTapBlank();
-    mealSelected();
   }
-
-  // onTapBlank() {
-  //   if (foodSendModel.value.items == null) {
-  //     foodSendModel.value.items = [];
-  //   }
-
-  //   FoodList foodlist =
-  //       FoodList(children: [], value: FoodValue(str: mealTypeValue.value));
-  //   foodSendModel.value.items.add(foodlist);
-  //   FoodSubList child = FoodSubList(
-  //       tid: _signUpController
-  //           .food.value.items.first.children.first.items.first.tid,
-  //       value: FoodSubValue(arr: []));
-
-  //   foodSendModel.value.items.first.children.add(child);
-  //   foodSendModel.refresh();
-  //   _signUpController.food.refresh();
-  // }
 
   onSave() async {
     if (foodSendModel.value.items == null) {
@@ -73,7 +54,7 @@ class FoodController extends GetxController {
       list.add(element.value);
     });
     FoodSubList foodTypeModel = FoodSubList(
-        tid: "food-breakfast_eat",
+        tid: mealtid.value,
         kind: "tags",
         dtype: "arr",
         value: FoodSubValue(arr: list));
@@ -124,34 +105,5 @@ class FoodController extends GetxController {
       Get.offAllNamed(signIn);
     }
     print("Data: $data");
-  }
-
-  // onOptionTapped({Default model, List<String> modelValue}) {
-  //   model.required = !model.required;
-
-  //   if (model.required) {
-  //     print("list:${listfoodDefault.value}");
-  //     if (!modelValue.contains(model.value)) {
-  //       modelValue.add(model.value);
-  //       listfoodDefault.add(model);
-  //     }
-  //   } else {
-  //     print("listrem:${listfoodDefault.value}");
-
-  //     if (modelValue.contains(model.value)) {
-  //       modelValue.remove(model.value);
-  //       listfoodDefault.remove(model);
-  //     }
-  //   }
-  //   _signUpController.food.refresh();
-
-  //   return modelValue;
-  // }
-
-  mealSelected() {
-    _signUpController.food.value.items?.first?.list
-            ?.options[modelMealIndex.value].optionDefault =
-        !_signUpController.food.value.items?.first?.list
-            ?.options[modelMealIndex.value].optionDefault;
   }
 }

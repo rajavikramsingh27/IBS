@@ -279,10 +279,6 @@ class Foods extends StatelessWidget {
       itemCount:
           _signUpController.food.value.items?.first?.list?.options?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
-        Future.delayed(Duration.zero, () {
-          _controller.modelMealIndex.value = index;
-        });
-
         var model =
             _signUpController.food.value.items?.first?.list?.options[index];
 
@@ -308,35 +304,34 @@ class Foods extends StatelessWidget {
             u.difference(startTime).inSeconds;
         _controller.startTimeDifference.value =
             (endTime.difference(u).inSeconds);
-        if ((endTime.difference(u).inSeconds) > 0 &&
-            (u.difference(startTime).inSeconds) > 0) {
-          _controller.mealTypeValue.value = model.value;
+        if (model.optionDefault) {
+          if ((endTime.difference(u).inSeconds) > 0 &&
+              (u.difference(startTime).inSeconds) > 0) {
+            model.optionDefault = true;
+          }
         }
+
         return Container(
           decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.fill,
                 image: NetworkImage(
-                  ((endTime.difference(u).inSeconds) > 0 &&
-                          (u.difference(startTime).inSeconds) > 0)
-                      ? model.image.active
-                      : model.image.normal,
+                  model.optionDefault ? model.image.active : model.image.normal,
                 ),
               ),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: AppColors.colorBorder, width: 1)),
           child: InkWell(
             onTap: () {
-              // _signUpController.food.value.items.first.list.options
-              //     .forEach((element) {
-              //   if (element.optionDefault) {
-              //     element.optionDefault = false;
-              //   }
-              // });
-              // _signUpController.food.value.items?.first?.list?.options[index]
-              //         .optionDefault =
-              //     !_signUpController.food.value.items?.first?.list
-              //         ?.options[index].optionDefault;
+              _signUpController.food.value.items.first.list.options
+                  .forEach((element) {
+                if (element.optionDefault) {
+                  element.optionDefault = false;
+                }
+              });
+              model.optionDefault = !model.optionDefault;
+              _controller.modelMealIndex.value = index;
+              _controller.mealTypeValue.value = model.value;
             },
             child: Stack(
               children: [
@@ -349,10 +344,8 @@ class Foods extends StatelessWidget {
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles.textStyleRegular.apply(
-                        color: (endTime.difference(u).inSeconds) > 0 &&
-                                (u.difference(startTime).inSeconds) > 0
-                            ? Colors.white
-                            : Colors.black,
+                        color:
+                            model.optionDefault ? Colors.white : Colors.black,
                         fontSizeDelta: 2),
                   ),
                 ),
@@ -464,7 +457,9 @@ class Foods extends StatelessWidget {
           vertical: ScreenConstant.defaultHeightTwentyFour),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: _signUpController.food.value.items.first.children
+      itemCount: _signUpController.food.value.items
+              .elementAt(0)
+              .children
               ?.elementAt(index)
               ?.items
               ?.first
@@ -473,13 +468,25 @@ class Foods extends StatelessWidget {
               ?.length ??
           0,
       itemBuilder: (BuildContext context, int ind) {
-        var model = _signUpController.food.value.items.first.children
+        print("hbcdhsh:$index");
+        var model = _signUpController.food.value.items
+            .elementAt(0)
+            .children
             ?.elementAt(index)
             ?.items
             ?.first
             ?.tags
             ?.tagsDefault[ind];
-
+        Future.delayed(Duration.zero, () {
+          _controller.mealtid.value = _signUpController.food.value.items
+              ?.elementAt(0)
+              ?.children
+              ?.elementAt(index)
+              ?.items
+              ?.first
+              ?.tid;
+          print("tid:${_controller.mealtid.value}");
+        });
         return InkWell(
           onTap: () {
             if (!_controller.listfoodDefault.contains(model))
