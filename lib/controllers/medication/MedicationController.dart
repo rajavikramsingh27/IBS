@@ -52,15 +52,15 @@ class MedicationController extends GetxController {
     medicationSendModel.value.items.add(noteItemModel);
     medicationSendModel.refresh();
     print("food_data: ${medicationSendModel.toJson()}");
-    // final data =
-    //     await ServiceApi().foodTrackApi(bodyData: medicationSendModel.toJson());
+    final data =
+        await ServiceApi().foodTrackApi(bodyData: medicationSendModel.toJson());
 
-    // if (data is MedicationResponseModel) {
-    //   Get.back();
-    //   CustomSnackBar().successSnackBar(
-    //       title: "Success", message: "Medications Added Successfully");
-    // } else {
-    //   CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-    // }
+    if (data is MedicationResponseModel) {
+      Get.back();
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Medications Added Successfully");
+    } else {
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
   }
 }
