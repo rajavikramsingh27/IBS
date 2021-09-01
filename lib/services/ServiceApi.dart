@@ -4,6 +4,7 @@ import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/journal/JournalResponseModel.dart';
 import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:flutter_ibs/models/medication/MedicationResponseModel.dart';
 import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
 import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/url.dart';
@@ -67,18 +68,19 @@ class ServiceApi {
     var result = await CoreService()
         .apiService(method: METHOD.CREATE, endpoint: SYMPTOMS, data: bodyData);
 
-    if(result == null){
+    if (result == null) {
       return null;
-    }else{
+    } else {
       return SymptomsResponseModel.fromJson(result);
     }
   }
+
   Future<dynamic> postBowelMovementAPI({Map bodyData}) async {
-    var result = await CoreService()
-        .apiService(method: METHOD.CREATE, endpoint: BOWELMOVEMENTS, data: bodyData);
-    if(result == null){
+    var result = await CoreService().apiService(
+        method: METHOD.CREATE, endpoint: BOWELMOVEMENTS, data: bodyData);
+    if (result == null) {
       return null;
-    }else{
+    } else {
       return BowelMovementsResponseModel.fromJson(result);
     }
   }
@@ -88,5 +90,21 @@ class ServiceApi {
         .apiService(method: METHOD.CREATE, endpoint: JOURNAL, data: bodyData);
 
     return JournalResponseModel.fromJson(result);
+  }
+
+  Future<dynamic> getMedicationList() async {
+    var result = await CoreService()
+        .apiService(method: METHOD.FIND, endpoint: MEDICATIONS);
+    return result;
+  }
+
+  Future<dynamic> postMedicationAPI({Map bodyData}) async {
+    var result = await CoreService().apiService(
+        method: METHOD.CREATE, endpoint: MEDICATIONS, data: bodyData);
+    if (result == null) {
+      return null;
+    } else {
+      return MedicationResponseModel.fromJson(result);
+    }
   }
 }
