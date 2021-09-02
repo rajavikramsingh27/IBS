@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -26,4 +27,6 @@ class HealthController extends GetxController {
   void onSave(){
 
   }
+
+  void onOptionTapped({ListOption model}) {}
 }
