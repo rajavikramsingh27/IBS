@@ -135,7 +135,7 @@ class SignIn extends StatelessWidget {
               textColor: AppColors.colorBackground,
               buttonColor: Colors.white,
               onTap: () {
-                _controller.onAutovalidate();
+                _controller.onAutoValidate();
               },
               text: "Login",
             ),

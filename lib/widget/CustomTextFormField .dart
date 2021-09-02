@@ -43,7 +43,7 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
         textAlignVertical: TextAlignVertical.bottom,
-        enableInteractiveSelection: false,
+        enableInteractiveSelection: true,
         cursorColor: Colors.black,
         style: TextStyles.textStyleIntroDescription
             .apply(fontSizeFactor: 0.7, color: Colors.black87),

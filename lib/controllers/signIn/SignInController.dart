@@ -37,7 +37,7 @@ class SignInController extends GetxController {
     }
   }
 
-  onAutovalidate() async {
+  onAutoValidate() async {
     if (formKey.currentState.validate()) {
       print("validate");
       loader.value = true;
@@ -75,8 +75,7 @@ class SignInController extends GetxController {
           title: "Success", message: "SignIn Successfully");
       Get.offAllNamed(home);
     } else {
-      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+      loader.value = false;
     }
-    loader.value = false;
   }
 }
