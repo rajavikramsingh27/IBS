@@ -18,7 +18,7 @@ final FocusNode focusPassWord = FocusNode();
 final FocusNode focusNone = FocusNode();
 
 class SignIn extends StatelessWidget {
-  final _controller = Get.put(SignInController());
+  final SignInController _controller = Get.put(SignInController());
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class SignIn extends StatelessWidget {
         //     },
         //   ),
         // ),
-        body: InkWell(
+        body: Obx(()=>InkWell(
           onTap: () {
             dismissKeyboard(context);
           },
@@ -62,7 +62,7 @@ class SignIn extends StatelessWidget {
               _buildLoginForm(),
             ],
           ),
-        ));
+        )));
   }
 
   _buildLoginForm() {
@@ -130,16 +130,14 @@ class SignIn extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.5),
           Center(
-            child: CustomElevatedButton2(
+            child: _controller.loader.value ? CircularProgressIndicator():CustomElevatedButton2(
               widthFactor: 0.7,
               textColor: AppColors.colorBackground,
               buttonColor: Colors.white,
               onTap: () {
                 _controller.onAutovalidate();
               },
-              text: _controller.loader.value
-                  ? Center(child: CircularProgressIndicator())
-                  : "Login",
+              text: "Login",
             ),
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
