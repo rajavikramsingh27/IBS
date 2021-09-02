@@ -22,6 +22,7 @@ class JournalController extends GetxController {
   void onInit() {
     super.onInit();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+    checkData();
   }
 
   onSave() async {
@@ -44,7 +45,18 @@ class JournalController extends GetxController {
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Journal Added Successfully");
     } else {
+      loader.value = false;
+      noteTextController.clear();
+      _signUpController.getTrackList();
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
+  }
+
+  void checkData() {
+    if (_signUpController.journal.value == null) {
+      loader.value = true;
+    } else {
+      loader.value = false;
     }
   }
 }

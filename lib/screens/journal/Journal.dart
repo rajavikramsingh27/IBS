@@ -29,14 +29,11 @@ class Journal extends StatelessWidget {
           children: [
             SizedBox(height: ScreenConstant.defaultHeightTen),
             _journalController.loader.value
-                ? Center(child: CircularProgressIndicator())
+                ? Offstage()
                 : CustomElevatedButton(
                     widthFactor: 0.7,
                     text: "Save",
-                    onTap: () {
-                      _journalController.onSave();
-                    },
-                  ),
+                    onTap: _journalController.onSave),
             TextButton(
                 onPressed: () {
                   Get.back();

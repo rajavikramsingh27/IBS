@@ -54,14 +54,19 @@ class ServiceApi {
   Future<dynamic> foodTrackApi({Map bodyData}) async {
     var result = await CoreService()
         .apiService(method: METHOD.CREATE, endpoint: FOODS, data: bodyData);
-
-    return FoodResponseModel.fromJson(result);
+    if (result == null) {
+      return null;
+    } else
+      return FoodResponseModel.fromJson(result);
   }
 
   Future<dynamic> getFoodList() async {
     var result =
         await CoreService().apiService(method: METHOD.FIND, endpoint: FOODS);
-    return result;
+    if (result == null) {
+      return null;
+    } else
+      return result;
   }
 
   Future<dynamic> postSymptomsAPI({Map bodyData}) async {
@@ -88,14 +93,19 @@ class ServiceApi {
   Future<dynamic> postJournalAPI({Map bodyData}) async {
     var result = await CoreService()
         .apiService(method: METHOD.CREATE, endpoint: JOURNAL, data: bodyData);
-
-    return JournalResponseModel.fromJson(result);
+    if (result == null) {
+      return null;
+    } else
+      return JournalResponseModel.fromJson(result);
   }
 
   Future<dynamic> getMedicationList() async {
     var result = await CoreService()
         .apiService(method: METHOD.FIND, endpoint: MEDICATIONS);
-    return result;
+    if (result == null) {
+      return null;
+    } else
+      return result;
   }
 
   Future<dynamic> postMedicationAPI({Map bodyData}) async {

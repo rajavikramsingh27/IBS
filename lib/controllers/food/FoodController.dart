@@ -41,6 +41,7 @@ class FoodController extends GetxController {
     formattedTime = int.parse(
             DateFormat.Hm().format(currentDateTime.value).split(":").first)
         .obs;
+    checkData();
   }
 
   onSave() async {
@@ -86,14 +87,22 @@ class FoodController extends GetxController {
     foodSendModel.value.items.add(foodItemModel);
     foodSendModel.refresh();
     print("food_data: ${foodSendModel.toJson()}");
+    loader.value = true;
     final data =
         await ServiceApi().foodTrackApi(bodyData: foodSendModel.toJson());
-
+    loader.value = false;
     if (data is FoodResponseModel) {
+      foodTextController.clear();
+      noteTextController.clear();
+      _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Foods Added Successfully");
     } else {
+      loader.value = false;
+      foodTextController.clear();
+      noteTextController.clear();
+      _signUpController.getTrackList();
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
   }
@@ -104,5 +113,13 @@ class FoodController extends GetxController {
       Get.offAllNamed(signIn);
     }
     print("Data: $data");
+  }
+
+  void checkData() {
+    if (_signUpController.food.value == null) {
+      loader.value = true;
+    } else {
+      loader.value = false;
+    }
   }
 }
