@@ -84,7 +84,7 @@ class Datum {
             : List<DatumItem>.from(
                 json["items"].map((x) => DatumItem.fromJson(x))),
         version: json["version"] == null ? null : json["version"],
-        enabled: json["enabled"] == null ? null : json["enabled"],
+        enabled: json["enabled"] == null ? false : json["enabled"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -179,7 +179,7 @@ class DatumItem {
             json["style"] == null ? null : purpleStyleValues.map[json["style"]],
         kind: json["kind"] == null ? null : json["kind"],
         enabledDefault:
-            json["enabledDefault"] == null ? null : json["enabledDefault"],
+            json["enabledDefault"] == null ? false : json["enabledDefault"],
         rating: json["rating"] == null
             ? null
             : FluffyRating.fromJson(json["rating"]),
