@@ -984,92 +984,53 @@ class Health extends StatelessWidget {
                                                     padding: EdgeInsets.symmetric(
                                                         horizontal: ScreenConstant
                                                             .defaultWidthTen),
-                                                    child: SfSliderTheme(
-                                                      data: SfSliderThemeData(
-                                                        thumbColor: AppColors
-                                                            .colorArrowButton,
-                                                        thumbStrokeWidth: 5,
-                                                        thumbRadius: 16,
-                                                        thumbStrokeColor:
-                                                            Colors.white,
-                                                        activeTrackHeight: 4,
-                                                        overlayRadius: 0,
-                                                        disabledActiveTrackColor:
-                                                            AppColors
-                                                                .colorTrackSlider,
-                                                        disabledInactiveTrackColor:
-                                                            AppColors
-                                                                .colorTrackSlider,
-                                                        activeDividerStrokeWidth:
-                                                            2,
-                                                        inactiveDividerStrokeWidth:
-                                                            2,
-                                                        inactiveTrackHeight: 4,
-                                                        activeTrackColor:
-                                                            AppColors
-                                                                .colorTrackSlider,
-                                                        inactiveTrackColor:
-                                                            AppColors
-                                                                .colorTrackSlider,
-                                                        inactiveDividerStrokeColor:
-                                                            AppColors.white,
-                                                        inactiveDividerRadius:
-                                                            8,
-                                                        inactiveDividerColor:
-                                                            AppColors
-                                                                .colorInactiveDividerSlider,
-                                                        activeDividerColor:
-                                                            AppColors
-                                                                .colorInactiveDividerSlider,
-                                                        activeDividerStrokeColor:
-                                                            Colors.white,
-                                                        activeDividerRadius: 8,
-                                                        activeLabelStyle: TextStyles
-                                                            .textStyleRegular
-                                                            .apply(
-                                                                color: AppColors
-                                                                    .colorTrackSlider),
-                                                        inactiveLabelStyle: TextStyles
-                                                            .textStyleRegular
-                                                            .apply(
-                                                                color: AppColors
-                                                                    .colorTrackSlider),
-                                                      ),
-                                                      child: Obx(
-                                                        () => SfSlider(
-                                                          showDividers: true,
-                                                          min: 1.0,
-                                                          max: 4.0,
-                                                          interval: 1,
-                                                          stepSize: 1,
-                                                          showLabels: true,
-                                                          value: _healthWellnessController
-                                                              .sliderStressValue
-                                                              .value,
-                                                          onChanged: (dynamic
-                                                              newValue) {
-                                                            _healthWellnessController
-                                                                .sliderStressValue
-                                                                .value = newValue;
+                                                    child: GridView
+                                                        .builder(
+                                                      //   padding: EdgeInsets.symmetric(
+                                                      //       horizontal: ScreenConstant.defaultWidthTwenty),
+                                                      shrinkWrap:
+                                                      true,
+                                                      physics:
+                                                      NeverScrollableScrollPhysics(),
+                                                      itemCount:
+                                                      _signUpController
+                                                          .healthWellness
+                                                          .value
+                                                          .items[index].list.options.length,
+                                                      itemBuilder:
+                                                          (BuildContext context, int optIdx) {
+                                                        var model = _signUpController
+                                                            .healthWellness
+                                                            .value
+                                                            .items[index].list.options[optIdx];
+                                                        return InkWell(
+                                                          onTap: () {
+                                                            _healthWellnessController.onOptionTapped(model: model,/* modelValue: _symptomsController.symptomsModel.value.items[index].children.first.value.arr*/);
                                                           },
-                                                          labelFormatterCallback:
-                                                              (dynamic
-                                                                      actualValue,
-                                                                  String
-                                                                      formattedText) {
-                                                            return actualValue ==
-                                                                    1
-                                                                ? "None"
-                                                                : actualValue ==
-                                                                        2
-                                                                    ? ""
-                                                                    : actualValue ==
-                                                                            3
-                                                                        ? ""
-                                                                        : "Extremely";
-                                                          },
-                                                        ),
-                                                      ),
+                                                          child: Card(
+                                                              elevation: 0,
+                                                              color: model.optionDefault ? AppColors.colorCloseLight : AppColors.colorSymptomsGridBg,
+                                                              shape: RoundedRectangleBorder(
+                                                                borderRadius: BorderRadius.circular(16),
+                                                              ),
+                                                              child: Padding(
+                                                                padding: ScreenConstant.spacingAllDefault,
+                                                                child: Column(
+                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                  children: [
+                                                                    Image.network(
+                                                                      model.image.active,
+                                                                      width: ScreenConstant.defaultWidthTwenty * 2.0,
+                                                                    ),
+                                                                    SizedBox(height: ScreenConstant.defaultHeightTen),
+                                                                    Text("${model.label}", textAlign: TextAlign.center,overflow: TextOverflow.ellipsis, style: TextStyles.textStyleRegular.apply(color: AppColors.white, fontSizeDelta: -2)),
+                                                                  ],
+                                                                ),
+                                                              )),
+                                                        );
+                                                      },
+                                                      gridDelegate:
+                                                      SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1),
                                                     ),
                                                   ),
                                                   SizedBox(
@@ -1256,7 +1217,11 @@ class Health extends StatelessWidget {
                                         return Stack(
                                           children: [
                                             Positioned.fill(
-                                              child: _buildWavePainter(),
+                                              top: 0,
+                                              bottom: 0,
+                                              child: Container(
+                                                color: AppColors.colorYesButton,
+                                              ),
                                             ),
                                             Container(
                                               margin: EdgeInsets.only(
@@ -1428,14 +1393,26 @@ class Health extends StatelessWidget {
                                       break;
                                     case "healthWellness-notes":
                                       {
-                                        return Column(
+                                        return Stack(
                                           children: [
+                                            Positioned.fill(
+                                              top: 0,
+                                              bottom: ScreenConstant.screenHeightHalf,
+                                              child: _buildWavePainter(),
+                                            ),
                                             SizedBox(
                                                 height: ScreenConstant.sizeXL),
-                                            AdditionalNoteWidget(
-                                              textEditingController:
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  height: ScreenConstant.screenHeightThird,
+                                                ),
+                                                AdditionalNoteWidget(
+                                                  textEditingController:
                                                   _healthWellnessController
                                                       .noteTextController,
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         );
