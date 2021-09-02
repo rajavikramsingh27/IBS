@@ -246,11 +246,6 @@ class CoreService {
         break;
       case METHOD.AUTHENTICATE:
         {
-          print("pa: ${data["password"]}");
-          print("pa: ${data["strategy"]}");
-          print("pa: ${data["loginId"]}");
-
-          // print("ids: ${data.loginId}");
           try {
             print("Data: $data");
             final response = await flutterFeathersjs.authenticate(

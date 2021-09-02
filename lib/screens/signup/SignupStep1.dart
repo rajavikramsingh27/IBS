@@ -58,9 +58,9 @@ class SignupStep1 extends StatelessWidget {
               ),
             ),
             BottomWidget(onContinueTap: () {
-              _controller.navigateTonextScreen();
+              _controller.navigateToNextScreen();
             }, onCircleTap: () {
-              _controller.navigateTonextScreen();
+              _controller.navigateToNextScreen();
             })
           ],
         ));

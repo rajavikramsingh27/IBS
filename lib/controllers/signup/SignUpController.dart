@@ -231,10 +231,9 @@ class SignUpController extends GetxController {
       return true;
   }
 
-  navigateTonextScreen() {
+  navigateToNextScreen() {
     if (isFormStep1valid()) {
       getTrackList();
-
       Get.toNamed(signup2);
     }
   }
