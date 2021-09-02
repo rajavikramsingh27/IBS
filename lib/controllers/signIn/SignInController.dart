@@ -40,11 +40,14 @@ class SignInController extends GetxController {
   onAutovalidate() async {
     if (formKey.currentState.validate()) {
       print("validate");
+      loader.value = true;
+
       bool check = await ConnectionCheck().initConnectivity();
       if (check) {
         try {
           signInApi();
         } catch (e) {
+          loader.value = false;
           Get.back();
         }
         //Get.toNamed(home);
@@ -52,6 +55,7 @@ class SignInController extends GetxController {
         CustomSnackBar().errorSnackBar(
             title: "No Internet", message: "No internet Connection");
       }
+
     } else {
       print("not validate");
     }
@@ -73,5 +77,6 @@ class SignInController extends GetxController {
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
+    loader.value = false;
   }
 }
