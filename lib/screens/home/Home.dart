@@ -277,6 +277,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           onValueChanged: (dynamic i) {
             setState(() {
               _controller.segmentedControlGroupValue.value = i as int;
+              if (_controller.segmentedControlGroupValue.value == 1) {
+                _controller.getTrackHistoryList();
+              }
             });
           }),
     );
@@ -413,6 +416,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   _buildDailyLogList() {
+    print("length:${_controller.trackHistoryList?.value?.length}");
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -433,9 +438,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: DummyData.trackFlow.length,
+          itemCount: _controller.trackHistoryList?.value?.length ?? 0,
           itemBuilder: (BuildContext context, int index) {
-            var model = DummyData.trackFlow[index];
+            var model = _controller.trackHistoryList?.value[index];
             return InkWell(
               onTap: () {
                 Get.bottomSheet(DailyLog(),
@@ -456,15 +461,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       leading: Container(
                         // padding: ScreenConstant.spacingAll,
                         height: ScreenConstant.defaultHeightSeventy,
-                        child: Image.asset(
-                          model.image,
+                        child: Image.network(
+                          model.image.normal,
                           width: ScreenConstant.defaultWidthTwenty,
                         ),
                       ),
-                      title: Text(model.text,
+                      title: Text(model.category,
                           style: TextStyles.textStyleRegular
                               .apply(fontSizeDelta: 2, color: Colors.black)),
-                      subtitle: Text(model.text,
+                      subtitle: Text(
+                          model.createdAt.toString().split(".").first ?? "",
                           style: TextStyles.textStyleRegular.apply(
                               fontSizeDelta: -2,
                               color: Colors.black.withOpacity(0.54))),
