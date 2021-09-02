@@ -68,7 +68,6 @@ class SignUpController extends GetxController {
     confirmPasswordController = TextEditingController();
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();
-    //getTrackList();
     connectionStatus.value = isInternet;
   }
 
@@ -236,7 +235,7 @@ class SignUpController extends GetxController {
     if (isFormStep1valid()) {
       getTrackList();
       Get.toNamed(signup2);
-    };
+    }
   }
 
   trackingDataSend(String tid) {
