@@ -10,3 +10,5 @@ const BLANK_PLACEHOLDER = "https://myibs.not4prod.com/images/pending.png";
 const JOURNAL = "/user/journals";
 const HEALTH_WELLNESS = "/user/wellness";
 const MEDICATIONS = "/user/medications";
+//history
+const TRACKHISTORY = "/user/history";

@@ -6,6 +6,7 @@ import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/medication/MedicationResponseModel.dart';
 import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
+import 'package:flutter_ibs/models/track_history/TrackHistoryResponseModel.dart';
 import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/url.dart';
 
@@ -20,7 +21,6 @@ class ServiceApi {
   Future<TrackablesListModel> getTrackables() async {
     var result = await CoreService()
         .apiService(method: METHOD.FIND, endpoint: TRACKLIST);
-    print("result: $result");
     return TrackablesListModel.fromJson(result);
   }
 
@@ -115,6 +115,18 @@ class ServiceApi {
       return null;
     } else {
       return MedicationResponseModel.fromJson(result);
+    }
+  }
+
+  Future<dynamic> getUserHistoryList() async {
+    var result = await CoreService()
+        .apiService(method: METHOD.FIND, endpoint: TRACKHISTORY);
+
+    if (result == null) {
+      return null;
+    } else {
+      var res = TrackHistoryResponseModelList.fromJson(result);
+      return res.trackHistoryList;
     }
   }
 }

@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/models/track_history/TrackHistoryResponseModel.dart';
+import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
+import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -15,23 +18,26 @@ class HomeController extends GetxController {
   DateTime selectedDate;
   TextEditingController dateController = TextEditingController();
   final SignUpController _signUpController = Get.put(SignUpController());
-
+  RxBool loader = false.obs;
+  RxBool connectionStatus = false.obs;
   RxInt selectedIndex = 0.obs;
+  RxList<TrackHistoryResponseModel> trackHistoryList =
+      <TrackHistoryResponseModel>[].obs;
 
   onTapped(int index) async {
     currentIndex.value = index;
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     //for login id
-    print ("loginId:${
-       HiveStore().get(Keys.LOGINID)
-
-    }");
+    print("loginId:${HiveStore().get(Keys.LOGINID)}");
     _signUpController.getTrackList();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+    connectionStatus.value = true;
+    bool isInternet = await ConnectionCheck().initConnectivity();
+    connectionStatus.value = isInternet;
   }
 
   getAndroidDatePicker() {
@@ -92,5 +98,15 @@ class HomeController extends GetxController {
       barrierColor: Colors.black26,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     );
+  }
+
+  getTrackHistoryList() async {
+    if (connectionStatus.value) {
+      loader.value = true;
+      await ServiceApi().getUserHistoryList().then((value) {
+        trackHistoryList.value = value;
+      });
+      loader.value = false;
+    }
   }
 }

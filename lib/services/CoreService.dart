@@ -191,6 +191,7 @@ class CoreService {
           try {
             final response = await flutterFeathersjs.find(
                 serviceName: endpoint, query: data);
+            print("history$response");
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
@@ -279,26 +280,26 @@ class CoreService {
         break;
       case METHOD.REAUTHENTICATE:
         {
-        try {
-          bool isReAuthenticated = await flutterFeathersjs.reAuthenticate();
+          try {
+            bool isReAuthenticated = await flutterFeathersjs.reAuthenticate();
 
-          //print(isReAuthenticated); => true
+            //print(isReAuthenticated); => true
 
-          return isReAuthenticated;
-        } on FeatherJsError catch (e) {
-          if (e.type == FeatherJsErrorType.IS_AUTH_FAILED_ERROR) {
-            //TODO: ReAutentication failed
-            // Redirect user to login page
-          }else{
-            //TODO: Check for other FeatherJsErrorType
+            return isReAuthenticated;
+          } on FeatherJsError catch (e) {
+            if (e.type == FeatherJsErrorType.IS_AUTH_FAILED_ERROR) {
+              //TODO: ReAutentication failed
+              // Redirect user to login page
+            } else {
+              //TODO: Check for other FeatherJsErrorType
+              // why => print(e.type);
+              // why => print(e.message);
+            }
+          } catch (e) {
+            //TODO: Authentication failed for unkknown reason.
             // why => print(e.type);
             // why => print(e.message);
           }
-        } catch (e) {
-          //TODO: Authentication failed for unkknown reason.
-          // why => print(e.type);
-          // why => print(e.message);
-        }
         }
         break;
       default:
