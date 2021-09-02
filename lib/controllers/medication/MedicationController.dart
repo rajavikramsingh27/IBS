@@ -12,6 +12,7 @@ class MedicationController extends GetxController {
   Rx<DateTime> now = DateTime.now().obs;
 
   RxInt formattedTime = 0.obs;
+  RxBool loader = false.obs;
 
   Rx<MedicationSendModel> medicationSendModel = MedicationSendModel().obs;
   RxList<Default> listfoodDefault = <Default>[].obs;
@@ -23,6 +24,7 @@ class MedicationController extends GetxController {
   void onInit() {
     super.onInit();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+    checkData();
   }
 
   onSave() async {
@@ -52,15 +54,32 @@ class MedicationController extends GetxController {
     medicationSendModel.value.items.add(noteItemModel);
     medicationSendModel.refresh();
     print("food_data: ${medicationSendModel.toJson()}");
+    loader.value = true;
     final data =
-        await ServiceApi().foodTrackApi(bodyData: medicationSendModel.toJson());
+        await ServiceApi().postMedicationAPI(bodyData: medicationSendModel.toJson());
+    loader.value = false;
 
     if (data is MedicationResponseModel) {
+      medicationTextController.clear();
+      noteTextController.clear();
+      _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Medications Added Successfully");
     } else {
+      loader.value = false;
+      medicationTextController.clear();
+      noteTextController.clear();
+      _signUpController.getTrackList();
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
+  }
+
+  void checkData() {
+    if (_signUpController.medications.value == null) {
+      loader.value = true;
+    } else {
+      loader.value = false;
     }
   }
 }

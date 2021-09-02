@@ -11,6 +11,7 @@ import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
+import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
 
 class Medication extends StatelessWidget {
@@ -28,12 +29,7 @@ class Medication extends StatelessWidget {
           children: [
             SizedBox(height: ScreenConstant.defaultHeightTen),
             CustomElevatedButton(
-              widthFactor: 0.7,
-              text: "Save",
-              onTap: () {
-                _controller.onSave();
-              },
-            ),
+                widthFactor: 0.7, text: "Save", onTap: _controller.onSave),
             TextButton(
                 onPressed: () {
                   Get.back();
@@ -47,101 +43,132 @@ class Medication extends StatelessWidget {
       ),
       backgroundColor: Color(0xff1A103E).withOpacity(0.6),
       body: Obx(
-        () => ListView(
-          physics: ClampingScrollPhysics(),
-          children: [
-            Padding(
-              padding:
-                  EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: ScreenConstant.defaultHeightTwenty),
-                    child: Card(
-                      margin: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24),
-                        topRight: Radius.circular(24),
-                      )),
-                      child: Column(
+        () => InkWell(
+          onTap: () => dismissKeyboard(context),
+          child: _controller.loader.value
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView(
+                  physics: ClampingScrollPhysics(),
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: ScreenConstant.defaultHeightOneThirty),
+                      child: Stack(
                         children: [
-                          SizedBox(height: ScreenConstant.defaultHeightSixty),
-                          Text(
-                            "Track Medication",
-                            style: TextStyles.textStyleIntroDescription
-                                .apply(color: Colors.black, fontSizeDelta: -2),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(height: ScreenConstant.defaultHeightForty),
-                          DateTimeCardWidget(),
-                          SizedBox(height: ScreenConstant.defaultHeightForty),
-                          Stack(
-                            children: [
-                              Positioned.fill(
-                                top: ScreenConstant.defaultHeightOneHundred *
-                                    1.1,
-                                child: _buildWavePainter(),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                  left: ScreenConstant.defaultWidthTwenty,
-                                  right: ScreenConstant.defaultWidthTwenty,
-                                  bottom: ScreenConstant.defaultHeightForty,
-                                ),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: _buildMedication(),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                          Text("Additional Notes",
-                              textAlign: TextAlign.center,
-                              style: TextStyles.textStyleIntroDescription.apply(
-                                  color: Colors.black, fontSizeDelta: -3)),
                           Padding(
-                            padding: ScreenConstant.spacingAllMedium,
+                            padding: EdgeInsets.only(
+                                top: ScreenConstant.defaultHeightTwenty),
                             child: Card(
-                              shadowColor: Colors.grey,
+                              margin: EdgeInsets.zero,
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16)),
-                              child: TextFormField(
-                                controller: _controller.noteTextController,
-                                inputFormatters: <TextInputFormatter>[
-                                  LengthLimitingTextInputFormatter(500)
-                                ],
+                                  borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(24),
+                                topRight: Radius.circular(24),
+                              )),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                      height:
+                                          ScreenConstant.defaultHeightSixty),
+                                  Text(
+                                    "Track Medication",
+                                    style: TextStyles.textStyleIntroDescription
+                                        .apply(
+                                            color: Colors.black,
+                                            fontSizeDelta: -2),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          ScreenConstant.defaultHeightForty),
+                                  DateTimeCardWidget(),
+                                  SizedBox(
+                                      height:
+                                          ScreenConstant.defaultHeightForty),
+                                  Stack(
+                                    children: [
+                                      Positioned.fill(
+                                        top: ScreenConstant
+                                                .defaultHeightOneHundred *
+                                            1.1,
+                                        child: _buildWavePainter(),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                          left:
+                                              ScreenConstant.defaultWidthTwenty,
+                                          right:
+                                              ScreenConstant.defaultWidthTwenty,
+                                          bottom:
+                                              ScreenConstant.defaultHeightForty,
+                                        ),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        child: _buildMedication(),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          ScreenConstant.defaultHeightTwenty),
+                                  Text("Additional Notes",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyles
+                                          .textStyleIntroDescription
+                                          .apply(
+                                              color: Colors.black,
+                                              fontSizeDelta: -3)),
+                                  Padding(
+                                    padding: ScreenConstant.spacingAllMedium,
+                                    child: Card(
+                                      shadowColor: Colors.grey,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
+                                      child: TextFormField(
+                                        controller:
+                                            _controller.noteTextController,
+                                        inputFormatters: <TextInputFormatter>[
+                                          LengthLimitingTextInputFormatter(500)
+                                        ],
 
-                                decoration:
-                                    InputDecoration(border: InputBorder.none),
-                                textInputAction: TextInputAction.newline,
-                                maxLines: 4,
-                                minLines: 4,
-                                // maxLength: 100,
-                                // decoration: hintedInputDecoration(""),
+                                        decoration: InputDecoration(
+                                            border: InputBorder.none),
+                                        textInputAction:
+                                            TextInputAction.newline,
+                                        maxLines: 4,
+                                        minLines: 4,
+                                        // maxLength: 100,
+                                        // decoration: hintedInputDecoration(""),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      height: ScreenConstant
+                                          .defaultHeightTwentyFour),
+                                  Text(
+                                    '''For best results track your medications\n every day.\n\nClick “Save” to log your results.''',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyles.textStyleRegular,
+                                  ),
+                                  SizedBox(
+                                      height: ScreenConstant
+                                          .defaultHeightTwentyFour),
+                                ],
                               ),
                             ),
                           ),
-                          SizedBox(
-                              height: ScreenConstant.defaultHeightTwentyFour),
-                          Text(
-                            '''For best results track your medications\n every day.\n\nClick “Save” to log your results.''',
-                            textAlign: TextAlign.center,
-                            style: TextStyles.textStyleRegular,
-                          ),
-                          SizedBox(
-                              height: ScreenConstant.defaultHeightTwentyFour),
+                          Positioned(
+                              right: 0, left: 0, child: CustomArcPainter())
                         ],
                       ),
                     ),
-                  ),
-                  Positioned(right: 0, left: 0, child: CustomArcPainter())
-                ],
-              ),
-            ),
-          ],
+                  ],
+                ),
         ),
       ),
     );

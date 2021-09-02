@@ -35,13 +35,13 @@ class Foods extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   SizedBox(height: ScreenConstant.defaultHeightTen),
-                  CustomElevatedButton(
-                    widthFactor: 0.7,
-                    text: "Save",
-                    onTap: () {
-                      _controller.onSave();
-                    },
-                  ),
+                  _controller.loader.value
+                      ? Offstage()
+                      : CustomElevatedButton(
+                          widthFactor: 0.7,
+                          text: "Save",
+                          onTap: _controller.onSave,
+                        ),
                   TextButton(
                       onPressed: () {
                         Get.back();
@@ -55,106 +55,86 @@ class Foods extends StatelessWidget {
             ),
       backgroundColor: Color(0xff1A103E).withOpacity(0.6),
       body: Obx(
-        () => _signUpController.loader.value
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : InkWell(
-                onTap: () => dismissKeyboard(context),
-                child: ListView(
-                  physics: ClampingScrollPhysics(),
+        () => InkWell(
+          onTap: () => dismissKeyboard(context),
+          child: ListView(
+            physics: ClampingScrollPhysics(),
+            children: [
+              Padding(
+                padding:
+                    EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
+                child: Stack(
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          top: ScreenConstant.defaultHeightOneThirty),
-                      child: Stack(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: ScreenConstant.defaultHeightTwenty),
-                            child: Card(
-                              margin: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(24),
-                                topRight: Radius.circular(24),
-                              )),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                      height:
-                                          ScreenConstant.defaultHeightSixty),
-                                  Text(
-                                    "Track Food",
-                                    style: TextStyles.textStyleIntroDescription
-                                        .apply(
-                                            color: Colors.black,
-                                            fontSizeDelta: -2),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          ScreenConstant.defaultHeightForty),
-                                  DateTimeCardWidget(),
-                                  SizedBox(
-                                      height:
-                                          ScreenConstant.defaultHeightForty),
-                                  Text(
-                                    "What meal is this?",
-                                    style: TextStyles.textStyleIntroDescription
-                                        .apply(
-                                            color: Colors.black,
-                                            fontSizeDelta: -2),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  _buildMealList(),
-                                  Stack(
-                                    children: [
-                                      Positioned.fill(
-                                        top:
-                                            ScreenConstant.defaultHeightSeventy,
-                                        child: _buildWavePainter(),
-                                      ),
-                                      Container(
-                                          margin: EdgeInsets.only(
-                                            left: ScreenConstant
-                                                .defaultWidthTwenty,
-                                            right: ScreenConstant
-                                                .defaultWidthTwenty,
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              _buildFoods(),
-                                              SizedBox(
-                                                  height: ScreenConstant
-                                                      .defaultHeightSixty),
-                                              _buildHydration(),
-                                            ],
-                                          )),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          ScreenConstant.defaultHeightTwenty),
-                                  AdditionalNoteWidget(
-                                    textEditingController:
-                                        _controller.noteTextController,
-                                  ),
-                                  SizedBox(
-                                      height: ScreenConstant
-                                          .defaultHeightTwentyFour),
-                                ],
-                              ),
+                          top: ScreenConstant.defaultHeightTwenty),
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
+                        )),
+                        child: Column(
+                          children: [
+                            SizedBox(height: ScreenConstant.defaultHeightSixty),
+                            Text(
+                              "Track Food",
+                              style: TextStyles.textStyleIntroDescription.apply(
+                                  color: Colors.black, fontSizeDelta: -2),
+                              textAlign: TextAlign.center,
                             ),
-                          ),
-                          Positioned(
-                              right: 0, left: 0, child: CustomArcPainter())
-                        ],
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            DateTimeCardWidget(),
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            Text(
+                              "What meal is this?",
+                              style: TextStyles.textStyleIntroDescription.apply(
+                                  color: Colors.black, fontSizeDelta: -2),
+                              textAlign: TextAlign.center,
+                            ),
+                            _buildMealList(),
+                            Stack(
+                              children: [
+                                Positioned.fill(
+                                  top: ScreenConstant.defaultHeightSeventy,
+                                  child: _buildWavePainter(),
+                                ),
+                                Container(
+                                    margin: EdgeInsets.only(
+                                      left: ScreenConstant.defaultWidthTwenty,
+                                      right: ScreenConstant.defaultWidthTwenty,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        _buildFoods(),
+                                        SizedBox(
+                                            height: ScreenConstant
+                                                .defaultHeightSixty),
+                                        _buildHydration(),
+                                      ],
+                                    )),
+                              ],
+                            ),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightTwenty),
+                            AdditionalNoteWidget(
+                              textEditingController:
+                                  _controller.noteTextController,
+                            ),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightTwentyFour),
+                          ],
+                        ),
                       ),
                     ),
+                    Positioned(right: 0, left: 0, child: CustomArcPainter())
                   ],
                 ),
               ),
+            ],
+          ),
+        ),
       ),
     );
   }
