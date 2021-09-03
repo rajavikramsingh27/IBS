@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
@@ -10,8 +11,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class FoodController extends GetxController {
+  Rx<FoodResponseModel> foodModel;
   Rx<DateTime> currentDateTime = DateTime.now().obs;
-  RxDouble sliderValue = 1.0.obs;
+  HomeController homeController = Get.find();
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   RxString mealTypeValue = "".obs;
@@ -42,6 +44,9 @@ class FoodController extends GetxController {
             DateFormat.Hm().format(currentDateTime.value).split(":").first)
         .obs;
     checkData();
+
+    var v = homeController.trackFoodList.value;
+    print("vdsdfat-- $v");
   }
 
   onSave() async {

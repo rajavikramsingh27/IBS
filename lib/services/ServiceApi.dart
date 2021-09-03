@@ -30,12 +30,11 @@ class ServiceApi {
     // if (result.name.toString().toLowerCase() == "Unprocessable".toLowerCase()) {
     //   return SignupErrorModel.fromJson(result);
     // } else
-    if(result == null){
+    if (result == null) {
       return null;
-    }else{
+    } else {
       return LoginResponseModel.fromJson(result);
     }
-
   }
 
   Future<dynamic> getSymptomsApi({Map bodyData}) async {
@@ -133,5 +132,14 @@ class ServiceApi {
       var res = TrackHistoryResponseModelList.fromJson(result);
       return res.trackHistoryList;
     }
+  }
+
+  Future<dynamic> getFoodHistoryList({String id}) async {
+    var result = await CoreService()
+        .apiService(method: METHOD.FIND, endpoint: "$FOODS/$id");
+    if (result == null) {
+      return null;
+    } else
+      return TrackablesListModel.fromJson(result);
   }
 }

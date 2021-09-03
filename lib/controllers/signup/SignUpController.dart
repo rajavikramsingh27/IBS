@@ -12,6 +12,8 @@ import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
   Rx<TrackablesListModel> trackList = TrackablesListModel().obs;
+  Rx<TrackablesListModel> trackFoodList = TrackablesListModel().obs;
+
   RxString selectedGender = "".obs;
   RxBool selectedMale = false.obs;
   RxBool selectedFeMale = false.obs;

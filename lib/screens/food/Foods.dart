@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/food/FoodController.dart';
+import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
@@ -17,11 +18,16 @@ import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
 
 class Foods extends StatelessWidget {
+  final TrackablesListModel trackFoodList;
+
+  Foods({Key key, this.trackFoodList}) : super(key: key);
+
   final FoodController _controller = Get.put(FoodController());
   final SignUpController _signUpController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    print("model:${trackFoodList}");
     return Scaffold(
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: _signUpController.loader.value
