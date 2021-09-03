@@ -30,7 +30,12 @@ class ServiceApi {
     // if (result.name.toString().toLowerCase() == "Unprocessable".toLowerCase()) {
     //   return SignupErrorModel.fromJson(result);
     // } else
-    return LoginResponseModel.fromJson(result);
+    if(result == null){
+      return null;
+    }else{
+      return LoginResponseModel.fromJson(result);
+    }
+
   }
 
   Future<dynamic> getSymptomsApi({Map bodyData}) async {

@@ -1528,7 +1528,6 @@ class Health extends StatelessWidget {
             showLabels: true,
             value: _healthWellnessController.sliderStressValue.value,
             onChanged: (dynamic newValue) {
-              print("cahnged");
               _healthWellnessController.sliderStressValue.value = newValue;
             },
             labelFormatterCallback:
@@ -1586,7 +1585,6 @@ class Health extends StatelessWidget {
             showLabels: true,
             value: _healthWellnessController.sliderFatigueValue.value,
             onChanged: (dynamic newValue) {
-              print("cahnged");
               _healthWellnessController.sliderFatigueValue.value = newValue;
             },
             labelFormatterCallback:
@@ -1644,7 +1642,6 @@ class Health extends StatelessWidget {
             showLabels: true,
             value: _healthWellnessController.sliderActivityValue.value,
             onChanged: (dynamic newValue) {
-              print("cahnged");
               _healthWellnessController.sliderActivityValue.value = newValue;
             },
             labelFormatterCallback:

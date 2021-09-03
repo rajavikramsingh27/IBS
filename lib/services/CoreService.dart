@@ -271,7 +271,11 @@ class CoreService {
               Get.offAllNamed(signIn);
               CustomSnackBar()
                   .errorSnackBar(title: "Error", message: e.message);
+            }else{
+              CustomSnackBar()
+                  .errorSnackBar(title: "Error", message: e.message);
             }
+
           } catch (er) {
             // Catch  unknown error
 
