@@ -443,9 +443,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             var model = _controller.trackHistoryList?.value[index];
             return InkWell(
               onTap: () {
-                Get.bottomSheet(DailyLog(),
-                    isScrollControlled: true,
-                    barrierColor: AppColors.barrierColor.withOpacity(0.60));
+                // _controller.selcetedDailyLogindividualId.value = model.id;
+                // _controller.selcetedDailyLogIndex.value = index;
+
+                // _controller.selcetedDailyLogIndex.value = index;
+                // _controller.selcetedDailyLogCategory.value = model.category;
+                _controller.navigateToTrackHistory(model);
+                // Get.bottomSheet(DailyLog(),
+                //     isScrollControlled: true,
+                //     barrierColor: AppColors.barrierColor.withOpacity(0.60));
               },
               child: Container(
                   height: ScreenConstant.defaultHeightSeventy,

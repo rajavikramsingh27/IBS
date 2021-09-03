@@ -28,12 +28,14 @@ class TrackHistoryResponseModel {
     this.id,
     this.createdAt,
     this.category,
+    this.title,
     this.image,
   });
 
   String id;
   DateTime createdAt;
   String category;
+  String title;
   Image image;
 
   factory TrackHistoryResponseModel.fromRawJson(String str) =>
@@ -48,6 +50,7 @@ class TrackHistoryResponseModel {
             ? null
             : DateTime.parse(json["createdAt"]),
         category: json["category"] == null ? null : json["category"],
+        title: json["title"] == null ? null : json["title"],
         image: json["image"] == null ? null : Image.fromJson(json["image"]),
       );
 
@@ -55,6 +58,7 @@ class TrackHistoryResponseModel {
         "_id": id == null ? null : id,
         "createdAt": createdAt == null ? null : createdAt.toIso8601String(),
         "category": category == null ? null : category,
+        "title": title == null ? null : title,
         "image": image == null ? null : image.toJson(),
       };
 }
