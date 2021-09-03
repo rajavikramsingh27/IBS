@@ -296,7 +296,7 @@ class Default {
             ? null
             : categoryValues.map[json["category"]],
         key: json["key"] == null ? null : json["key"],
-        value: json["value"] == null ? null : json["value"],
+        value: json["value"] == null ? "" : json["value"],
         required: json["required"] == null ? null : json["required"],
       );
 
