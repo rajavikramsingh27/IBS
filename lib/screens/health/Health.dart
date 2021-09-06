@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/health/HealthController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -45,7 +46,8 @@ class Health extends StatelessWidget {
             ],
           ),
         ),
-        backgroundColor: Color(0xff1A103E).withOpacity(0.6),
+        resizeToAvoidBottomInset: false,
+        backgroundColor: AppColors.barrierColor.withOpacity(0.6),
         body: Obx(
           () => ListView(
             physics: ClampingScrollPhysics(),
@@ -252,7 +254,53 @@ class Health extends StatelessWidget {
                                                                   .rating
                                                                   .ratingDefault,
                                                               onChanged: (dynamic
-                                                                  newValue) {},
+                                                                  newValue) {
+                                                                _signUpController
+                                                                    .healthWellness
+                                                                    .value
+                                                                    .items[
+                                                                        mainIndex]
+                                                                    .rating
+                                                                    .ratingDefault = newValue;
+                                                                if (_healthWellnessController
+                                                                        .healthWellnessModel
+                                                                        .value
+                                                                        .items ==
+                                                                    null) {
+                                                                  _healthWellnessController
+                                                                      .healthWellnessModel
+                                                                      .value
+                                                                      .items = [];
+                                                                }
+                                                                Item item = Item(
+                                                                    tid: _signUpController
+                                                                        .healthWellness
+                                                                        .value
+                                                                        .items[
+                                                                            mainIndex]
+                                                                        .tid,
+                                                                    kind: _signUpController
+                                                                        .healthWellness
+                                                                        .value
+                                                                        .items[
+                                                                            mainIndex]
+                                                                        .kind,
+                                                                    dtype:
+                                                                        "num",
+                                                                    value: ItemValue(
+                                                                        numValue: newValue));
+                                                                _healthWellnessController
+                                                                    .healthWellnessModel
+                                                                    .value
+                                                                    .items
+                                                                    .add(item);
+                                                                _healthWellnessController
+                                                                    .healthWellnessModel
+                                                                    .refresh();
+                                                                _signUpController
+                                                                    .healthWellness
+                                                                    .refresh();
+                                                              },
                                                               labelFormatterCallback:
                                                                   (dynamic
                                                                           actualValue,
@@ -430,7 +478,53 @@ class Health extends StatelessWidget {
                                                                 .rating
                                                                 .ratingDefault,
                                                             onChanged: (dynamic
-                                                                newValue) {},
+                                                                newValue) {
+                                                              _signUpController
+                                                                  .healthWellness
+                                                                  .value
+                                                                  .items[
+                                                              mainIndex]
+                                                                  .rating
+                                                                  .ratingDefault = newValue;
+                                                              if (_healthWellnessController
+                                                                  .healthWellnessModel
+                                                                  .value
+                                                                  .items ==
+                                                                  null) {
+                                                                _healthWellnessController
+                                                                    .healthWellnessModel
+                                                                    .value
+                                                                    .items = [];
+                                                              }
+                                                              Item item = Item(
+                                                                  tid: _signUpController
+                                                                      .healthWellness
+                                                                      .value
+                                                                      .items[
+                                                                  mainIndex]
+                                                                      .tid,
+                                                                  kind: _signUpController
+                                                                      .healthWellness
+                                                                      .value
+                                                                      .items[
+                                                                  mainIndex]
+                                                                      .kind,
+                                                                  dtype:
+                                                                  "num",
+                                                                  value: ItemValue(
+                                                                      numValue: newValue));
+                                                              _healthWellnessController
+                                                                  .healthWellnessModel
+                                                                  .value
+                                                                  .items
+                                                                  .add(item);
+                                                              _healthWellnessController
+                                                                  .healthWellnessModel
+                                                                  .refresh();
+                                                              _signUpController
+                                                                  .healthWellness
+                                                                  .refresh();
+                                                            },
                                                             labelFormatterCallback:
                                                                 (dynamic
                                                                         actualValue,
@@ -606,7 +700,53 @@ class Health extends StatelessWidget {
                                                                 .rating
                                                                 .ratingDefault,
                                                             onChanged: (dynamic
-                                                                newValue) {},
+                                                                newValue) {
+                                                              _signUpController
+                                                                  .healthWellness
+                                                                  .value
+                                                                  .items[
+                                                              mainIndex]
+                                                                  .rating
+                                                                  .ratingDefault = newValue;
+                                                              if (_healthWellnessController
+                                                                  .healthWellnessModel
+                                                                  .value
+                                                                  .items ==
+                                                                  null) {
+                                                                _healthWellnessController
+                                                                    .healthWellnessModel
+                                                                    .value
+                                                                    .items = [];
+                                                              }
+                                                              Item item = Item(
+                                                                  tid: _signUpController
+                                                                      .healthWellness
+                                                                      .value
+                                                                      .items[
+                                                                  mainIndex]
+                                                                      .tid,
+                                                                  kind: _signUpController
+                                                                      .healthWellness
+                                                                      .value
+                                                                      .items[
+                                                                  mainIndex]
+                                                                      .kind,
+                                                                  dtype:
+                                                                  "num",
+                                                                  value: ItemValue(
+                                                                      numValue: newValue));
+                                                              _healthWellnessController
+                                                                  .healthWellnessModel
+                                                                  .value
+                                                                  .items
+                                                                  .add(item);
+                                                              _healthWellnessController
+                                                                  .healthWellnessModel
+                                                                  .refresh();
+                                                              _signUpController
+                                                                  .healthWellness
+                                                                  .refresh();
+                                                            },
                                                             labelFormatterCallback:
                                                                 (dynamic
                                                                         actualValue,
@@ -782,7 +922,53 @@ class Health extends StatelessWidget {
                                                                 .rating
                                                                 .ratingDefault,
                                                             onChanged: (dynamic
-                                                                newValue) {},
+                                                                newValue) {
+                                                              _signUpController
+                                                                  .healthWellness
+                                                                  .value
+                                                                  .items[
+                                                              mainIndex]
+                                                                  .rating
+                                                                  .ratingDefault = newValue;
+                                                              if (_healthWellnessController
+                                                                  .healthWellnessModel
+                                                                  .value
+                                                                  .items ==
+                                                                  null) {
+                                                                _healthWellnessController
+                                                                    .healthWellnessModel
+                                                                    .value
+                                                                    .items = [];
+                                                              }
+                                                              Item item = Item(
+                                                                  tid: _signUpController
+                                                                      .healthWellness
+                                                                      .value
+                                                                      .items[
+                                                                  mainIndex]
+                                                                      .tid,
+                                                                  kind: _signUpController
+                                                                      .healthWellness
+                                                                      .value
+                                                                      .items[
+                                                                  mainIndex]
+                                                                      .kind,
+                                                                  dtype:
+                                                                  "num",
+                                                                  value: ItemValue(
+                                                                      numValue: newValue));
+                                                              _healthWellnessController
+                                                                  .healthWellnessModel
+                                                                  .value
+                                                                  .items
+                                                                  .add(item);
+                                                              _healthWellnessController
+                                                                  .healthWellnessModel
+                                                                  .refresh();
+                                                              _signUpController
+                                                                  .healthWellness
+                                                                  .refresh();
+                                                            },
                                                             labelFormatterCallback:
                                                                 (dynamic
                                                                         actualValue,
@@ -958,7 +1144,53 @@ class Health extends StatelessWidget {
                                                                 .rating
                                                                 .ratingDefault,
                                                             onChanged: (dynamic
-                                                                newValue) {},
+                                                                newValue) {
+                                                              _signUpController
+                                                                  .healthWellness
+                                                                  .value
+                                                                  .items[
+                                                              mainIndex]
+                                                                  .rating
+                                                                  .ratingDefault = newValue;
+                                                              if (_healthWellnessController
+                                                                  .healthWellnessModel
+                                                                  .value
+                                                                  .items ==
+                                                                  null) {
+                                                                _healthWellnessController
+                                                                    .healthWellnessModel
+                                                                    .value
+                                                                    .items = [];
+                                                              }
+                                                              Item item = Item(
+                                                                  tid: _signUpController
+                                                                      .healthWellness
+                                                                      .value
+                                                                      .items[
+                                                                  mainIndex]
+                                                                      .tid,
+                                                                  kind: _signUpController
+                                                                      .healthWellness
+                                                                      .value
+                                                                      .items[
+                                                                  mainIndex]
+                                                                      .kind,
+                                                                  dtype:
+                                                                  "num",
+                                                                  value: ItemValue(
+                                                                      numValue: newValue));
+                                                              _healthWellnessController
+                                                                  .healthWellnessModel
+                                                                  .value
+                                                                  .items
+                                                                  .add(item);
+                                                              _healthWellnessController
+                                                                  .healthWellnessModel
+                                                                  .refresh();
+                                                              _signUpController
+                                                                  .healthWellness
+                                                                  .refresh();
+                                                            },
                                                             labelFormatterCallback:
                                                                 (dynamic
                                                                         actualValue,
@@ -1435,157 +1667,126 @@ class Health extends StatelessWidget {
                                                                     return Column(
                                                                       children: [
                                                                         SizedBox(
-                                                                            height: ScreenConstant
-                                                                                .defaultHeightForty),
+                                                                            height:
+                                                                                ScreenConstant.defaultHeightForty),
                                                                         Text(
-                                                                            _signUpController
-                                                                                .healthWellness
-                                                                                .value
-                                                                                .items[
-                                                                            mainIndex]
-                                                                                .children
-                                                                                .first
-                                                                                .items[count].name,
-                                                                            style: TextStyles
-                                                                                .textStyleIntroDescription
-                                                                                .apply(
-                                                                                color: Colors
-                                                                                    .white,
-                                                                                fontSizeDelta:
-                                                                                -3)),
+                                                                            _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name,
+                                                                            style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -3)),
                                                                         SizedBox(
-                                                                            height: ScreenConstant
-                                                                                .defaultHeightTwentyFour),
+                                                                            height:
+                                                                                ScreenConstant.defaultHeightTwentyFour),
                                                                         Text(
                                                                           _signUpController
                                                                               .healthWellness
                                                                               .value
-                                                                              .items[
-                                                                          mainIndex]
+                                                                              .items[mainIndex]
                                                                               .children
                                                                               .first
                                                                               .items[count]
                                                                               .description,
                                                                           textAlign:
-                                                                          TextAlign.center,
+                                                                              TextAlign.center,
                                                                           style: TextStyles
                                                                               .textStyleRegular
-                                                                              .apply(
-                                                                              color: AppColors
-                                                                                  .colorSkipButton),
+                                                                              .apply(color: AppColors.colorSkipButton),
                                                                         ),
                                                                         SizedBox(
-                                                                            height: ScreenConstant
-                                                                                .defaultHeightTwenty),
+                                                                            height:
+                                                                                ScreenConstant.defaultHeightTwenty),
                                                                         Padding(
-                                                                          padding: EdgeInsets.symmetric(
-                                                                              horizontal:
-                                                                              ScreenConstant
-                                                                                  .defaultWidthTen),
-                                                                          child: SfSliderTheme(
+                                                                          padding:
+                                                                              EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
+                                                                          child:
+                                                                              SfSliderTheme(
                                                                             data:
-                                                                            SfSliderThemeData(
-                                                                              thumbColor: AppColors
-                                                                                  .colorArrowButton,
+                                                                                SfSliderThemeData(
+                                                                              thumbColor: AppColors.colorArrowButton,
                                                                               thumbStrokeWidth: 5,
                                                                               thumbRadius: 16,
-                                                                              thumbStrokeColor:
-                                                                              Colors.white,
-                                                                              activeTrackHeight:
-                                                                              4,
+                                                                              thumbStrokeColor: Colors.white,
+                                                                              activeTrackHeight: 4,
                                                                               overlayRadius: 0,
-                                                                              disabledActiveTrackColor:
-                                                                              AppColors
-                                                                                  .colorTrackSlider,
-                                                                              disabledInactiveTrackColor:
-                                                                              AppColors
-                                                                                  .colorTrackSlider,
-                                                                              activeDividerStrokeWidth:
-                                                                              2,
-                                                                              inactiveDividerStrokeWidth:
-                                                                              2,
-                                                                              inactiveTrackHeight:
-                                                                              4,
-                                                                              activeTrackColor:
-                                                                              AppColors
-                                                                                  .colorTrackSlider,
-                                                                              inactiveTrackColor:
-                                                                              AppColors
-                                                                                  .colorTrackSlider,
-                                                                              inactiveDividerStrokeColor:
-                                                                              AppColors.white,
-                                                                              inactiveDividerRadius:
-                                                                              8,
-                                                                              inactiveDividerColor:
-                                                                              AppColors
-                                                                                  .colorInactiveDividerSlider,
-                                                                              activeDividerColor:
-                                                                              AppColors
-                                                                                  .colorInactiveDividerSlider,
-                                                                              activeDividerStrokeColor:
-                                                                              Colors.white,
-                                                                              activeDividerRadius:
-                                                                              8,
-                                                                              activeLabelStyle: TextStyles
-                                                                                  .textStyleRegular
-                                                                                  .apply(
-                                                                                  color: AppColors
-                                                                                      .colorTrackSlider),
-                                                                              inactiveLabelStyle: TextStyles
-                                                                                  .textStyleRegular
-                                                                                  .apply(
-                                                                                  color: AppColors
-                                                                                      .colorTrackSlider),
+                                                                              disabledActiveTrackColor: AppColors.colorTrackSlider,
+                                                                              disabledInactiveTrackColor: AppColors.colorTrackSlider,
+                                                                              activeDividerStrokeWidth: 2,
+                                                                              inactiveDividerStrokeWidth: 2,
+                                                                              inactiveTrackHeight: 4,
+                                                                              activeTrackColor: AppColors.colorTrackSlider,
+                                                                              inactiveTrackColor: AppColors.colorTrackSlider,
+                                                                              inactiveDividerStrokeColor: AppColors.white,
+                                                                              inactiveDividerRadius: 8,
+                                                                              inactiveDividerColor: AppColors.colorInactiveDividerSlider,
+                                                                              activeDividerColor: AppColors.colorInactiveDividerSlider,
+                                                                              activeDividerStrokeColor: Colors.white,
+                                                                              activeDividerRadius: 8,
+                                                                              activeLabelStyle: TextStyles.textStyleRegular.apply(color: AppColors.colorTrackSlider),
+                                                                              inactiveLabelStyle: TextStyles.textStyleRegular.apply(color: AppColors.colorTrackSlider),
                                                                             ),
-                                                                            child: SfSlider(
+                                                                            child:
+                                                                                SfSlider(
                                                                               showDividers: true,
                                                                               min: 1.0,
-                                                                              max: _signUpController
-                                                                                  .healthWellness
-                                                                                  .value
-                                                                                  .items[
-                                                                              mainIndex]
-                                                                                  .children
-                                                                                  .first
-                                                                                  .items[count]
-                                                                                  .rating.range,
+                                                                              max: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].rating.range,
                                                                               interval: 1,
                                                                               stepSize: 1,
                                                                               showLabels: true,
-                                                                              value: _signUpController
-                                                                                  .healthWellness
-                                                                                  .value
-                                                                                  .items[
-                                                                              mainIndex]
-                                                                                  .children
-                                                                                  .first
-                                                                                  .items[count]
-                                                                                  .rating
-                                                                                  .ratingDefault,
-                                                                              onChanged: (dynamic
-                                                                              newValue) {},
-                                                                              labelFormatterCallback:
-                                                                                  (dynamic
-                                                                              actualValue,
-                                                                                  String
-                                                                                  formattedText) {
-                                                                                return actualValue ==
-                                                                                    1
+                                                                              value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].rating.ratingDefault,
+                                                                              onChanged: (dynamic newValue) {
+                                                                                _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].rating.ratingDefault = newValue;
+                                                                                if (_healthWellnessController
+                                                                                    .healthWellnessModel
+                                                                                    .value
+                                                                                    .items ==
+                                                                                    null) {
+                                                                                  _healthWellnessController
+                                                                                      .healthWellnessModel
+                                                                                      .value
+                                                                                      .items = [];
+                                                                                }
+                                                                                Item item = Item(
+                                                                                    tid: _signUpController
+                                                                                        .healthWellness
+                                                                                        .value
+                                                                                        .items[
+                                                                                    mainIndex]
+                                                                                        .tid,
+                                                                                    kind: _signUpController
+                                                                                        .healthWellness
+                                                                                        .value
+                                                                                        .items[
+                                                                                    mainIndex]
+                                                                                        .kind,
+                                                                                    dtype:
+                                                                                    "num",
+                                                                                    value: ItemValue(
+                                                                                        numValue: newValue));
+                                                                                _healthWellnessController
+                                                                                    .healthWellnessModel
+                                                                                    .value
+                                                                                    .items
+                                                                                    .add(item);
+                                                                                _healthWellnessController
+                                                                                    .healthWellnessModel
+                                                                                    .refresh();
+                                                                                _signUpController
+                                                                                    .healthWellness
+                                                                                    .refresh();
+                                                                              },
+                                                                              labelFormatterCallback: (dynamic actualValue, String formattedText) {
+                                                                                return actualValue == 1
                                                                                     ? "None"
-                                                                                    : actualValue ==
-                                                                                    2
-                                                                                    ? ""
-                                                                                    : actualValue ==
-                                                                                    3
-                                                                                    ? ""
-                                                                                    : "Extremely";
+                                                                                    : actualValue == 2
+                                                                                        ? ""
+                                                                                        : actualValue == 3
+                                                                                            ? ""
+                                                                                            : "Extremely";
                                                                               },
                                                                             ),
                                                                           ),
                                                                         ),
                                                                         SizedBox(
-                                                                            height: ScreenConstant
-                                                                                .defaultHeightTwenty),
+                                                                            height:
+                                                                                ScreenConstant.defaultHeightTwenty),
                                                                       ],
                                                                     );
                                                                   }
@@ -1597,27 +1798,18 @@ class Health extends StatelessWidget {
                                                                       children: [
                                                                         Row(
                                                                           mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
+                                                                              MainAxisAlignment.spaceBetween,
                                                                           children: [
                                                                             Expanded(
-                                                                              flex:
-                                                                              2,
-                                                                              child: Text(
-                                                                                  _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name,
-                                                                                  style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
+                                                                              flex: 2,
+                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
                                                                             ),
                                                                             Expanded(
-                                                                              flex:
-                                                                              1,
-                                                                              child:
-                                                                              Container(
-                                                                                padding:
-                                                                                EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                                                                                decoration:
-                                                                                BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
-                                                                                child:
-                                                                                CustomDropdown(
+                                                                              flex: 1,
+                                                                              child: Container(
+                                                                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                                                                                decoration: BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
+                                                                                child: CustomDropdown(
                                                                                   value: _healthWellnessController.selectedTime.value,
                                                                                   dropdownMenuItemList: buildTimeDropList(_healthWellnessController.timeList),
                                                                                   onChanged: (optionItem) {
@@ -1630,7 +1822,8 @@ class Health extends StatelessWidget {
                                                                           ],
                                                                         ),
                                                                         Container(
-                                                                          height: ScreenConstant.sizeMedium,
+                                                                          height:
+                                                                              ScreenConstant.sizeMedium,
                                                                         ),
                                                                       ],
                                                                     );
