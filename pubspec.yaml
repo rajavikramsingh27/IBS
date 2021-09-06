@@ -32,7 +32,8 @@ dependencies:
   intl: 
   path_provider:
   pin_code_fields: 
-  syncfusion_flutter_sliders: 
+  syncfusion_flutter_sliders:
+  page_view_indicators:
 
 dev_dependencies:
   flutter_test:

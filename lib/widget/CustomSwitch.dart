@@ -1,6 +1,10 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
+import 'package:flutter_ibs/utils/HexColor.dart';
+
 
 class CustomSwitch extends StatefulWidget {
   final bool value;
@@ -57,8 +61,8 @@ class _CustomSwitchState extends State<CustomSwitch>
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
               color: _circleAnimation.value == Alignment.centerLeft
-                  ? Colors.grey
-                  : widget.color,
+                  ? widget.color
+                  : HexColor('D2C5FC'),
             ),
             child: Padding(
               padding: const EdgeInsets.only(

@@ -1,11 +1,17 @@
+
+
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
+import 'package:flutter_ibs/utils/HexColor.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/Indicator.dart';
 import 'package:get/get.dart';
+import 'package:page_view_indicators/circle_page_indicator.dart';
+
 
 class Intro extends StatefulWidget {
   @override
@@ -13,25 +19,35 @@ class Intro extends StatefulWidget {
 }
 
 class _IntroState extends State<Intro> {
-  PageController _pageController = PageController(initialPage: 0);
-  double currentPage = 0;
-  int selectedindex = 0;
+  final arrIntroText = [
+    'This Irritable Bowel Syndrome app is brought to you by the',
+    'Easily track your IBS symptoms',
+    'Learn what triggers your IBS',
+    'Access the latest IBS research',
+    'Share your findings with health care providers ',
+  ];
+
+
+  final _pageController = PageController();
+  final _currentPageNotifier = ValueNotifier<int>(0);
 
   @override
   void initState() {
     super.initState();
-
-    _pageController.addListener(() {
-      setState(() {
-        currentPage = _pageController.page;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.colorBackground,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(0),
+        child: AppBar(
+          brightness: Brightness.light,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+        ),
+      ),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -58,177 +74,161 @@ class _IntroState extends State<Intro> {
             padding: EdgeInsets.only(
                 top: context.mediaQuerySize.width > 400
                     ? ScreenConstant.defaultHeightOneHundred * 1.2
-                    : ScreenConstant.defaultHeightSeventy),
-            child: PageView.builder(
-              controller: _pageController,
-              onPageChanged: (int page) {
-                setState(() {
-                  selectedindex = page;
-                });
-              },
-              itemCount: 5,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Stack(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: ScreenConstant.defaultWidthTwenty),
-                          child: Center(
-                            child: AspectRatio(
-                              aspectRatio: 01,
-                              child: Align(
-                                alignment: Alignment(0, -1.5),
-                                child: AspectRatio(
-                                  aspectRatio: index == 0 ? 1.35 : 0.8,
-                                  child: Image.asset(
-                                    "assets/images/intro/intro$index.png",
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        _getPageByIndex(index)
-                      ],
-                    ),
-                    SizedBox(
-                        height: context.mediaQuerySize.width >= 400
-                            ? ScreenConstant.defaultHeightTwentyFour
-                            : ScreenConstant.defaultHeightSixteen),
-                    Indicator(
-                      controller: _pageController,
-                      itemCount: 5,
-                    ),
-                    SizedBox(
-                        height: context.mediaQuerySize.width >= 400
-                            ? ScreenConstant.defaultHeightOneHundred
-                            : ScreenConstant.defaultHeightSeventy),
-                    _getStartedButton(),
-                    SizedBox(height: ScreenConstant.defaultHeightTen),
-                    RichText(
-                      text: TextSpan(
-                        text: 'Have an Account? ',
-                        style: TextStyles.textStyleIntroDescription.apply(
-                            fontSizeDelta: -3,
-                            color: Colors.white.withOpacity(0.36)),
-                        children: <TextSpan>[
-                          TextSpan(
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => Get.toNamed(signIn),
-                            text: 'Log in',
-                            style: TextStyles.textStyleIntroDescription
-                                .apply(fontSizeDelta: -3, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                );
-              },
+                    : ScreenConstant.defaultHeightSeventy
             ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    _buildPageView(),
+                    SizedBox(height: 50),
+                    _buildCircleIndicator(),
+                  ],
+                ),
+                SafeArea(
+                  child: Column(
+                    children: [
+                      _getStartedButton(),
+                      SizedBox(height: ScreenConstant.defaultHeightTen),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Have an Account? ',
+                          style: TextStyles.textStyleIntroDescription.apply(
+                              fontSizeDelta: -3,
+                              color: Colors.white.withOpacity(0.36)),
+                          children: <TextSpan>[
+                            TextSpan(
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => Get.toNamed(signIn),
+                              text: 'Log in',
+                              style: TextStyles.textStyleIntroDescription
+                                  .apply(fontSizeDelta: -3, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 40),
+                    ],
+                  ),
+                )
+              ],
+            )
           )
         ],
       ),
     );
   }
 
-  _getPageByIndex(int index) {
-    switch (index) {
-      case 0:
-        return Positioned(
-          bottom: 10,
-          left: ScreenConstant.screenWidthThirteen,
-          right: ScreenConstant.screenWidthThirteen,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                "This Irritable Bowel Syndrome app is brought to you by",
-                textAlign: TextAlign.center,
-                style: TextStyles.textStyleIntroDescription.apply(
-                    fontSizeDelta: -4, color: Colors.white.withOpacity(0.9)),
-              ),
-              SizedBox(height: ScreenConstant.defaultHeightTwenty),
-              SizedBox(
-                height: ScreenConstant.defaultHeightSixteen * 3,
-                child: Card(
-                  color: AppColors.colorDot,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image.asset("assets/images/intro/candian_symbol.png",
-                          width: 12, height: 12),
-                      SizedBox(width: ScreenConstant.defaultWidthTen),
-                      Text(
-                        "Canadian Digestive Health Information",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
+
+  _buildPageView() {
+    return Container(
+      height: 370,
+      child: PageView.builder(
+          itemCount: arrIntroText.length,
+          controller: _pageController,
+          itemBuilder: (BuildContext context, int index) {
+            if (index == 0) {
+              return Container(
+                padding: EdgeInsets.only(
+                    left: 30, right: 30
                 ),
-              ),
-            ],
-          ),
-        );
-        break;
-      case 1:
-        return Positioned(
-          bottom: ScreenConstant.defaultHeightSixteen * 3,
-          left: ScreenConstant.screenWidthFifth,
-          right: ScreenConstant.screenWidthFifth,
-          child: Text(
-            "Easily Track your IBS Symptoms",
-            maxLines: 3,
-            textAlign: TextAlign.center,
-            style: TextStyles.textStyleIntroDescription,
-          ),
-        );
-        break;
-      case 2:
-        return Positioned(
-          bottom: ScreenConstant.defaultHeightSixteen * 3,
-          left: ScreenConstant.screenWidthFifth,
-          right: ScreenConstant.screenWidthFifth,
-          child: Text(
-            "Learn what triggers your IBS",
-            maxLines: 3,
-            textAlign: TextAlign.center,
-            style: TextStyles.textStyleIntroDescription,
-          ),
-        );
-        break;
-      case 3:
-        return Positioned(
-          bottom: ScreenConstant.defaultHeightSixteen * 3,
-          left: ScreenConstant.screenWidthFifth,
-          right: ScreenConstant.screenWidthFifth,
-          child: Text(
-            "Access the latest IBS Research",
-            maxLines: 3,
-            textAlign: TextAlign.center,
-            style: TextStyles.textStyleIntroDescription,
-          ),
-        );
-        break;
-      case 4:
-        return Positioned(
-          bottom: ScreenConstant.defaultHeightSixteen * 3,
-          left: ScreenConstant.screenWidthFifth,
-          right: ScreenConstant.screenWidthFifth,
-          child: Text(
-            "Share your findings with health care providers",
-            maxLines: 3,
-            textAlign: TextAlign.center,
-            style: TextStyles.textStyleIntroDescription,
-          ),
-        );
-        break;
-      default:
-        return Container();
-    }
+                child: Center(
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          "assets/images/intro/intro$index.png",
+                          fit: BoxFit.cover,
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          arrIntroText[index],
+                          textAlign: TextAlign.center,
+                          style: TextStyles.textStyleIntroDescription.apply(
+                              fontSizeDelta: -4, color: Colors.white.withOpacity(0.9)),
+                        ),
+                        SizedBox(height: 30),
+                        SizedBox(
+                          height: ScreenConstant.defaultHeightSixteen * 3,
+                          child: Card(
+                            color: AppColors.colorDot,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Image.asset(
+                                    "assets/images/intro/candian_symbol.png",
+                                    width: 12, height: 12
+                                ),
+                                SizedBox(width: ScreenConstant.defaultWidthTen),
+                                Text(
+                                  "Canadian Digestive Health Information",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                ),
+              );
+            } else {
+              return Container(
+                child: Center(
+                    child: Stack(
+                      children: [
+                        Image.asset(
+                          "assets/images/intro/intro$index.png",
+                          fit: BoxFit.cover,
+                        ),
+                        Positioned(
+                          bottom: ScreenConstant.defaultHeightSixteen * 3,
+                          // left: ScreenConstant.screenWidthFifth,
+                          // right: ScreenConstant.screenWidthFifth,
+
+                          left: 70,
+                          right: 70,
+
+                          child: Text(
+                            arrIntroText[index],
+                            maxLines: 3,
+                            textAlign: TextAlign.center,
+                            style: TextStyles.textStyleIntroDescription,
+                          ),
+                        )
+                      ],
+                    )
+                ),
+              );
+            }
+          },
+          onPageChanged: (int index) {
+            _currentPageNotifier.value = index;
+          }),
+    );
+  }
+
+  _buildCircleIndicator() {
+    return Positioned(
+      left: 0.0,
+      right: 0.0,
+      bottom: 0.0,
+      child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: CirclePageIndicator(
+          dotSpacing: 14,
+          size: 8,
+          selectedSize: 16,
+          borderWidth: 7,
+          // borderColor: Colors.red,
+          dotColor: AppColors.colorDotNotFocused,
+          selectedDotColor: AppColors.white,
+          selectedBorderColor: AppColors.colorDot,
+          itemCount: arrIntroText.length,
+          currentPageNotifier: _currentPageNotifier,
+        ),
+      ),
+    );
   }
 
   _getStartedButton() {
@@ -252,3 +252,4 @@ class _IntroState extends State<Intro> {
     );
   }
 }
+

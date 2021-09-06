@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +16,7 @@ import 'package:flutter_ibs/widget/CustomTextFormField%20.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
+
 
 final FocusNode focusEmail = FocusNode();
 final FocusNode focusPassWord = FocusNode();
@@ -52,7 +55,7 @@ class SignupStep3 extends StatelessWidget {
                   widthFactor: 0.8,
                   text: "I am done!",
                   onTap: () {
-                    if (_controller.isFormValid() || !_controller.loader.value)
+                    // if (_controller.isFormValid() || !_controller.loader.value)
                       _controller.onAutovalidate();
                   },
                 ),
@@ -101,10 +104,12 @@ class SignupStep3 extends StatelessWidget {
                       Obx(
                         () => CustomCheckBox(
                           value: _controller.agreeToTerms.value,
+
                           onChanged: (val) {
                             _controller.agreeToTerms.value =
                                 !_controller.agreeToTerms.value;
                           },
+
                         ),
                       ),
                       RichText(

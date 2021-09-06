@@ -9,6 +9,8 @@ import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
+import 'package:flutter_ibs/utils/Validator.dart';
+
 
 class SignUpController extends GetxController {
   Rx<TrackablesListModel> trackList = TrackablesListModel().obs;
@@ -74,9 +76,22 @@ class SignUpController extends GetxController {
   }
 
   onAutovalidate() async {
-    if (formKey.currentState.validate()) {
-      print("validate");
+    if (emailController.text.isEmpty) {
+      'Enter Email'.showError();
+    } else if (!emailController.text.isValidEmail()) {
+      'Enter Valid Email'.showError();
+    } else if (passwordController.text.isEmpty) {
+      'Enter Password'.showError();
+    } else if (passwordController.text.length < 6) {
+      'Password should be 6 character'.showError();
+    } else if (confirmPasswordController.text.isEmpty) {
+      'Enter Confirm Password'.showError();
+    }  else if (isFormValid()) {
+
+    } else {
+
       bool check = await ConnectionCheck().initConnectivity();
+
       if (check) {
         try {
           registrationApi();
@@ -88,9 +103,28 @@ class SignUpController extends GetxController {
         CustomSnackBar().errorSnackBar(
             title: "No Internet", message: "No internet Connection");
       }
-    } else {
-      print("not validate");
+
     }
+
+
+
+    // if (formKey.currentState.validate()) {
+    //   print("validate");
+    //   bool check = await ConnectionCheck().initConnectivity();
+    //   if (check) {
+    //     try {
+    //       registrationApi();
+    //     } catch (e) {
+    //       Get.back();
+    //     }
+    //     //Get.toNamed(home);
+    //   } else {
+    //     CustomSnackBar().errorSnackBar(
+    //         title: "No Internet", message: "No internet Connection");
+    //   }
+    // } else {
+    //   print("not validate");
+    // }
   }
 
   registrationApi() async {
@@ -206,15 +240,15 @@ class SignUpController extends GetxController {
   }
 
   bool isFormValid() {
-    if (agreeToTerms.value == false) {
+    if (passwordController.text != confirmPasswordController.text) {
+      CustomSnackBar()
+          .errorSnackBar(title: "Password", message: "Password do not match");
+    } else  if (agreeToTerms.value == false) {
       CustomSnackBar().errorSnackBar(
           title: "Terms and Condition",
           message: "Agree to Terms and Condition");
 
       return false;
-    } else if (passwordController.text != confirmPasswordController.text) {
-      CustomSnackBar()
-          .errorSnackBar(title: "Password", message: "Password do not match");
     }
     return false;
   }
