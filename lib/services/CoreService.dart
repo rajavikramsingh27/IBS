@@ -31,11 +31,11 @@ class CoreService {
       password,
       username}) async {
     switch (method) {
-      case METHOD.GET:
-        {
+      case METHOD.GET: {
           try {
             final response = await flutterFeathersjs.get(
-                serviceName: endpoint, objectId: objectId);
+                serviceName: endpoint, objectId: objectId
+            );
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
@@ -50,7 +50,9 @@ class CoreService {
             if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
               Get.offAllNamed(signIn);
               CustomSnackBar()
-                  .errorSnackBar(title: "Error", message: e.message);
+                  .errorSnackBar(title: "Error",
+                  message: e.message
+              );
             }
           } catch (er) {
             // Catch  unknown error

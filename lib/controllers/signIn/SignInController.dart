@@ -6,7 +6,10 @@ import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
+import 'package:flutter_ibs/utils/Validator.dart';
 import 'package:get/get.dart';
+
+
 
 class SignInController extends GetxController {
   var formKey = GlobalKey<FormState>();
@@ -30,6 +33,7 @@ class SignInController extends GetxController {
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();
     connectionStatus.value = isInternet;
+
     if (connectionStatus.value) {
       loader.value = true;
 
@@ -38,10 +42,15 @@ class SignInController extends GetxController {
   }
 
   onAutoValidate() async {
-    if (formKey.currentState.validate()) {
-      print("validate");
-      loader.value = true;
-
+    if (emailController.text.isEmpty) {
+      'Enter Email'.showError();
+    } else if (!emailController.text.isValidEmail()) {
+      'Enter Valid Email'.showError();
+    } else if (passwordController.text.isEmpty) {
+      'Enter Password'.showError();
+    } else if (passwordController.text.length < 6) {
+      'Password should be 6 character'.showError();
+    } else {
       bool check = await ConnectionCheck().initConnectivity();
       if (check) {
         try {
@@ -55,10 +64,29 @@ class SignInController extends GetxController {
         CustomSnackBar().errorSnackBar(
             title: "No Internet", message: "No internet Connection");
       }
-
-    } else {
-      print("not validate");
     }
+
+    // if (formKey.currentState.validate()) {
+    //   print("validate");
+    //   loader.value = true;
+
+      // bool check = await ConnectionCheck().initConnectivity();
+      // if (check) {
+      //   try {
+      //     signInApi();
+      //   } catch (e) {
+      //     loader.value = false;
+      //     Get.back();
+      //   }
+      //   //Get.toNamed(home);
+      // } else {
+      //   CustomSnackBar().errorSnackBar(
+      //       title: "No Internet", message: "No internet Connection");
+      // }
+
+    // } else {
+    //   print("not validate");
+    // }
   }
 
   signInApi() async {
@@ -67,15 +95,24 @@ class SignInController extends GetxController {
       loginId: HiveStore().get(Keys.LOGINID),
       password: passwordController?.text,
     );
-    final data = await ServiceApi().signInApi(bodyData: model.toJson());
-    if (data is LoginResponseModel) {
-      HiveStore().put(Keys.USERID, data.id);
 
-      CustomSnackBar().successSnackBar(
-          title: "Success", message: "SignIn Successfully");
-      Get.offAllNamed(home);
-    } else {
-      loader.value = false;
+    try {
+      final data = await ServiceApi().signInApi(bodyData: model.toJson());
+
+      print('model.toJson()model.toJson()model.toJson()model.toJson()model.toJson()');
+      print(model.toJson());
+
+      if (data is LoginResponseModel) {
+        HiveStore().put(Keys.USERID, data.id);
+
+        CustomSnackBar().successSnackBar(
+            title: "Success", message: "SignIn Successfully");
+        Get.offAllNamed(home);
+      } else {
+        loader.value = false;
+      }
+    } catch (error) {
+      error.message.toString().showError();
     }
   }
 }
