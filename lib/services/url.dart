@@ -12,3 +12,4 @@ const HEALTH_WELLNESS = "/user/wellness";
 const MEDICATIONS = "/user/medications";
 //history
 const TRACKHISTORY = "/user/history";
+const LANG = "/lang";

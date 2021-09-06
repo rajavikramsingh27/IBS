@@ -2,6 +2,7 @@ import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseMod
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/journal/JournalResponseModel.dart';
+import 'package:flutter_ibs/models/language/LanguageResponseModel.dart';
 import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/medication/MedicationResponseModel.dart';
@@ -141,5 +142,14 @@ class ServiceApi {
       return null;
     } else
       return TrackablesListModel.fromJson(result);
+  }
+
+  Future<LanguageResponseModel> getLanguage() async {
+    var result =
+        await CoreService().apiService(method: METHOD.FIND, endpoint: LANG);
+    if (result == null) {
+      return null;
+    } else
+      return LanguageResponseModel.fromJson(result);
   }
 }
