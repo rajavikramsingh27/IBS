@@ -1321,7 +1321,15 @@ class Health extends StatelessWidget {
                                                                 _healthWellnessController
                                                                     .onOptionTapped(
                                                                   model:
-                                                                      model, /* modelValue: _symptomsController.symptomsModel.value.items[index].children.first.value.arr*/
+                                                                      model,tid: _signUpController
+                                                                    .healthWellness
+                                                                    .value
+                                                                    .items[
+                                                                mainIndex].tid, kind: _signUpController
+                                                                    .healthWellness
+                                                                    .value
+                                                                    .items[
+                                                                mainIndex].kind,
                                                                 );
                                                               },
                                                               child: Card(
@@ -1473,11 +1481,20 @@ class Health extends StatelessWidget {
                                                                   .map((item) =>
                                                                       InkWell(
                                                                         onTap:
-                                                                            () {},
+                                                                            () {
+                                                                          _healthWellnessController.onRelaxTapped(tid: _signUpController
+                                                                              .healthWellness
+                                                                              .value
+                                                                              .items[
+                                                                          mainIndex].tid,kind: _signUpController
+                                                                              .healthWellness
+                                                                              .value
+                                                                              .items[
+                                                                          mainIndex].kind,model: item);
+                                                                            },
                                                                         child:
                                                                             Card(
-                                                                          color:
-                                                                              AppColors.colorSymptomsGridBg,
+                                                                          color: item.required?AppColors.colorCloseLight:AppColors.colorSymptomsGridBg,
                                                                           shape:
                                                                               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                                                           child:
@@ -1638,6 +1655,7 @@ class Health extends StatelessWidget {
                                                                                   dropdownMenuItemList: buildDropList(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].select.options),
                                                                                   onChanged: (SelectOption optionItem) {
                                                                                     _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].select.selectDefault = optionItem;
+                                                                                    _healthWellnessController.onSleepQualityTapped(tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid,kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind,quality: optionItem.value);
                                                                                     _signUpController.healthWellness.refresh();
                                                                                   },
                                                                                   isEnabled: true,
@@ -1733,44 +1751,7 @@ class Health extends StatelessWidget {
                                                                               value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].rating.ratingDefault,
                                                                               onChanged: (dynamic newValue) {
                                                                                 _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].rating.ratingDefault = newValue;
-                                                                                if (_healthWellnessController
-                                                                                    .healthWellnessModel
-                                                                                    .value
-                                                                                    .items ==
-                                                                                    null) {
-                                                                                  _healthWellnessController
-                                                                                      .healthWellnessModel
-                                                                                      .value
-                                                                                      .items = [];
-                                                                                }
-                                                                                Item item = Item(
-                                                                                    tid: _signUpController
-                                                                                        .healthWellness
-                                                                                        .value
-                                                                                        .items[
-                                                                                    mainIndex]
-                                                                                        .tid,
-                                                                                    kind: _signUpController
-                                                                                        .healthWellness
-                                                                                        .value
-                                                                                        .items[
-                                                                                    mainIndex]
-                                                                                        .kind,
-                                                                                    dtype:
-                                                                                    "num",
-                                                                                    value: ItemValue(
-                                                                                        numValue: newValue));
-                                                                                _healthWellnessController
-                                                                                    .healthWellnessModel
-                                                                                    .value
-                                                                                    .items
-                                                                                    .add(item);
-                                                                                _healthWellnessController
-                                                                                    .healthWellnessModel
-                                                                                    .refresh();
-                                                                                _signUpController
-                                                                                    .healthWellness
-                                                                                    .refresh();
+                                                                                _healthWellnessController.onTirednessTapped(tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid,kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind,numValue: newValue);
                                                                               },
                                                                               labelFormatterCallback: (dynamic actualValue, String formattedText) {
                                                                                 return actualValue == 1
@@ -1787,6 +1768,84 @@ class Health extends StatelessWidget {
                                                                         SizedBox(
                                                                             height:
                                                                                 ScreenConstant.defaultHeightTwenty),
+                                                                      ],
+                                                                    );
+                                                                  }
+                                                                  break;
+                                                                case "healthWellness-sleepImprovement-bed_time":
+                                                                  {
+                                                                    return Column(
+                                                                      children: [
+                                                                        Row(
+                                                                          mainAxisAlignment:
+                                                                          MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Expanded(
+                                                                              flex: 2,
+                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
+                                                                            ),
+                                                                            Expanded(
+                                                                              flex: 1,
+                                                                              child: Container(
+                                                                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                                                                                decoration: BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
+                                                                                child: CustomDropdown(
+                                                                                  value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue == null ? _healthWellnessController.selectedTime.value:_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue,
+                                                                                  dropdownMenuItemList: buildTimeDropList(_healthWellnessController.timeList),
+                                                                                  onChanged: (optionItem) {
+                                                                                    _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue = optionItem;
+                                                                                    _healthWellnessController.onBedTimeTapped(kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind,tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid,selectedTime: optionItem);
+                                                                                    _signUpController.healthWellness.refresh();
+                                                                                  },
+                                                                                  isEnabled: true,
+                                                                                ),
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                        Container(
+                                                                          height:
+                                                                          ScreenConstant.sizeMedium,
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  }
+                                                                  break;
+                                                                case "healthWellness-sleepImprovement-wake_time":
+                                                                  {
+                                                                    return Column(
+                                                                      children: [
+                                                                        Row(
+                                                                          mainAxisAlignment:
+                                                                          MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Expanded(
+                                                                              flex: 2,
+                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
+                                                                            ),
+                                                                            Expanded(
+                                                                              flex: 1,
+                                                                              child: Container(
+                                                                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                                                                                decoration: BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
+                                                                                child: CustomDropdown(
+                                                                                  value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue == null ? _healthWellnessController.selectedTime.value:_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue,
+                                                                                  dropdownMenuItemList: buildTimeDropList(_healthWellnessController.timeList),
+                                                                                  onChanged: (optionItem) {
+                                                                                    _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue = optionItem;
+                                                                                    _healthWellnessController.onWakeTimeTapped(kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind,tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid,selectedTime: optionItem);
+                                                                                    _signUpController.healthWellness.refresh();
+                                                                                  },
+                                                                                  isEnabled: true,
+                                                                                ),
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                        Container(
+                                                                          height:
+                                                                          ScreenConstant.sizeMedium,
+                                                                        ),
                                                                       ],
                                                                     );
                                                                   }
@@ -1810,10 +1869,12 @@ class Health extends StatelessWidget {
                                                                                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                                                                                 decoration: BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
                                                                                 child: CustomDropdown(
-                                                                                  value: _healthWellnessController.selectedTime.value,
+                                                                                  value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue == null ? _healthWellnessController.selectedTime.value:_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue,
                                                                                   dropdownMenuItemList: buildTimeDropList(_healthWellnessController.timeList),
                                                                                   onChanged: (optionItem) {
-                                                                                    _healthWellnessController.selectedTime.value = optionItem;
+                                                                                    _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue = optionItem;
+                                                                                    _healthWellnessController.onBedTimeTapped(kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind,tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid,selectedTime: optionItem);
+                                                                                    _signUpController.healthWellness.refresh();
                                                                                   },
                                                                                   isEnabled: true,
                                                                                 ),

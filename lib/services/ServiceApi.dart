@@ -1,4 +1,5 @@
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseModel.dart';
+import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/journal/JournalResponseModel.dart';
@@ -20,7 +21,7 @@ class ServiceApi {
 
   Future<TrackablesListModel> getTrackables() async {
     var result = await CoreService()
-        .apiService(method: METHOD.FIND, endpoint: TRACKLIST);
+        .apiService(method: METHOD.FIND, endpoint: TRACK_LIST);
     return TrackablesListModel.fromJson(result);
   }
 
@@ -86,7 +87,7 @@ class ServiceApi {
 
   Future<dynamic> postBowelMovementAPI({Map bodyData}) async {
     var result = await CoreService().apiService(
-        method: METHOD.CREATE, endpoint: BOWELMOVEMENTS, data: bodyData);
+        method: METHOD.CREATE, endpoint: BOWEL_MOVEMENTS, data: bodyData);
     if (result == null) {
       return null;
     } else {
@@ -124,7 +125,7 @@ class ServiceApi {
 
   Future<dynamic> getUserHistoryList() async {
     var result = await CoreService()
-        .apiService(method: METHOD.FIND, endpoint: TRACKHISTORY);
+        .apiService(method: METHOD.FIND, endpoint: TRACK_HISTORY);
 
     if (result == null) {
       return null;
@@ -141,5 +142,15 @@ class ServiceApi {
       return null;
     } else
       return TrackablesListModel.fromJson(result);
+  }
+  Future<dynamic> postHealthWellnessAPI({Map bodyData}) async {
+    var result = await CoreService()
+        .apiService(method: METHOD.CREATE, endpoint: HEALTH_WELLNESS, data: bodyData);
+
+    if (result == null) {
+      return null;
+    } else {
+      return HealthWellnessResponseModel.fromJson(result);
+    }
   }
 }

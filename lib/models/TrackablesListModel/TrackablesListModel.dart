@@ -437,6 +437,7 @@ class PurpleItem {
 
   String tid;
   String name;
+  String selectedValue;
   String description;
   String category;
   TagsStyle style;
@@ -907,7 +908,7 @@ class PurpleRating {
   });
 
   int range;
-  int ratingDefault;
+  num ratingDefault;
   List<PurpleOption> options;
   PurpleValidation validation;
 
