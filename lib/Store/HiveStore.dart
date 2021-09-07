@@ -13,6 +13,8 @@ class Keys {
   static const String EMAIL = "EMAIL";
   static const String ISLOGIN = "ISLOGIN";
   static const String ISSOCIALLOGIN = "ISSOCIALLOGIN";
+  static const String LANGUAGE = "LANGUAGE";
+
 }
 
 class HiveStore {
@@ -42,7 +44,7 @@ class HiveStore {
 
   get(String key) {
     print("Box is Open? ${defBox.isOpen}");
-    print("HiveRetrive : Key:$key, Value:${defBox.get(key)}");
+    print("Hive Retrieve : Key:$key, Value:${defBox.get(key)}");
     return defBox.get(key);
   }
 

@@ -41,7 +41,7 @@ class Settings extends StatelessWidget {
     myIBSDiagnosis() {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => MyIBS_Diagnosis()),
+        MaterialPageRoute(builder: (context) => MyIBSDiagnosis()),
       );
     }
 

@@ -5,10 +5,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
-import 'package:flutter_ibs/utils/HexColor.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/Indicator.dart';
 import 'package:get/get.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 

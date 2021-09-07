@@ -959,7 +959,7 @@ class LanguageDataModel {
         version: json["version"] == null ? null : json["version"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, String> toJson() => {
         "_id": id == null ? null : id,
         "lang": lang == null ? null : lang,
         "symptoms-abdominal_pain_name": symptomsAbdominalPainName == null
@@ -1411,6 +1411,6 @@ class LanguageDataModel {
                 : healthWellnessNotesDescription,
         "err_character_limit":
             errCharacterLimit == null ? null : errCharacterLimit,
-        "version": version == null ? null : version,
+        "version": version == null ? null : version.toString(),
       };
 }

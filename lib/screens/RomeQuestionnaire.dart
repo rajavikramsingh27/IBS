@@ -4,7 +4,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
-import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -320,7 +319,7 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
     );
   }
 
-  _buildRomeIVCriteria() {
+  /*_buildRomeIVCriteria() {
     return ListView(physics: ClampingScrollPhysics(), children: [
       SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
       Center(
@@ -369,9 +368,9 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
       SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
       SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
     ]);
-  }
+  }*/
 
-  _buildRomeIVCriteriaDialog() {
+  /*_buildRomeIVCriteriaDialog() {
     Get.dialog(
       CustomDialog(
         title: "Rome IV Criteria",
@@ -379,7 +378,7 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
         '''Symptom-based criteria of IBS were first developed in 1989 by an international working group based in Rome (the Rome criteria). These criteria have been updated in the Rome Il, III, and most recently, in 2016, the Rome IV criteria for IBS.  According to the Rome IV diagnostic criteria, IBS is characterised by recurrent abdominal pain for, on average, at least one day per week in the past three months, associated with two or more of the following: * Symptoms related to defecation. * Symptoms associated with a  change in stool frequency. * Symptoms associated with a  change in stool form or appearance, based on the Bristol Stool Form Scale (BSFS).''',
       ),
     );
-  }
+  }*/
 
   _buildAbdominalPain() {
     return Padding(

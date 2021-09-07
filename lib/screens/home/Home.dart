@@ -8,7 +8,6 @@ import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/controllers/symptoms/SymptomsController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
-import 'package:flutter_ibs/screens/daily_log/DailyLog.dart';
 import 'package:flutter_ibs/screens/food/Foods.dart';
 import 'package:flutter_ibs/screens/health/Health.dart';
 import 'package:flutter_ibs/screens/medication/Medication.dart';
@@ -418,7 +417,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   _buildDailyLogList() {
-    print("length:${_controller.trackHistoryList?.value?.length}");
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -440,9 +438,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: _controller.trackHistoryList?.value?.length ?? 0,
+          itemCount: _controller.trackHistoryList?.length ?? 0,
           itemBuilder: (BuildContext context, int index) {
-            var model = _controller.trackHistoryList?.value[index];
+            var model = _controller.trackHistoryList[index];
             return InkWell(
               onTap: () {
                 // _controller.selcetedDailyLogindividualId.value = model.id;

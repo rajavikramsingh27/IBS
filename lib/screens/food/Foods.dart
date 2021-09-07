@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/food/FoodController.dart';
-import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
@@ -27,7 +26,7 @@ class Foods extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("model:${trackFoodList}");
+    print("model:$trackFoodList");
     return Scaffold(
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: _signUpController.loader.value

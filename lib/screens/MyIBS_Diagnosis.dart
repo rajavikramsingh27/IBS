@@ -12,7 +12,7 @@ import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 import 'package:flutter_ibs/utils/HexColor.dart';
 
-class MyIBS_Diagnosis extends StatelessWidget {
+class MyIBSDiagnosis extends StatelessWidget {
   final MyProfileController _controller = Get.put(MyProfileController());
 
   @override

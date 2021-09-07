@@ -1642,8 +1642,11 @@ class Health extends StatelessWidget {
                                                                               MainAxisAlignment.spaceBetween,
                                                                           children: [
                                                                             Expanded(
-                                                                              flex: 2,
-                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
+                                                                              flex: 1,
+                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name.tr, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
+                                                                            ),
+                                                                            Container(
+                                                                              width: ScreenConstant.sizeSmall,
                                                                             ),
                                                                             Expanded(
                                                                               flex: 1,
@@ -1781,8 +1784,11 @@ class Health extends StatelessWidget {
                                                                           MainAxisAlignment.spaceBetween,
                                                                           children: [
                                                                             Expanded(
-                                                                              flex: 2,
-                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
+                                                                              flex: 1,
+                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name.tr, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
+                                                                            ),
+                                                                            Container(
+                                                                              width: ScreenConstant.sizeSmall,
                                                                             ),
                                                                             Expanded(
                                                                               flex: 1,
@@ -1820,8 +1826,11 @@ class Health extends StatelessWidget {
                                                                           MainAxisAlignment.spaceBetween,
                                                                           children: [
                                                                             Expanded(
-                                                                              flex: 2,
-                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
+                                                                              flex: 1,
+                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name.tr, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
+                                                                            ),
+                                                                            Container(
+                                                                              width: ScreenConstant.sizeSmall,
                                                                             ),
                                                                             Expanded(
                                                                               flex: 1,
@@ -1860,8 +1869,11 @@ class Health extends StatelessWidget {
                                                                               MainAxisAlignment.spaceBetween,
                                                                           children: [
                                                                             Expanded(
-                                                                              flex: 2,
-                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
+                                                                              flex: 1,
+                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name.tr, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
+                                                                            ),
+                                                                            Container(
+                                                                              width: ScreenConstant.sizeSmall,
                                                                             ),
                                                                             Expanded(
                                                                               flex: 1,
@@ -1982,7 +1994,7 @@ class Health extends StatelessWidget {
     for (SelectOption favouriteFoodModel in favouriteFoodModelList) {
       items.add(DropdownMenuItem(
         value: favouriteFoodModel,
-        child: Text(favouriteFoodModel.label),
+        child: Text(favouriteFoodModel.label.tr,overflow: TextOverflow.ellipsis,),
       ));
     }
     return items;
@@ -1994,7 +2006,7 @@ class Health extends StatelessWidget {
     for (String favouriteFoodModel in favouriteFoodModelList) {
       items.add(DropdownMenuItem(
         value: favouriteFoodModel,
-        child: Text(favouriteFoodModel),
+        child: Text(favouriteFoodModel.tr),
       ));
     }
     return items;
