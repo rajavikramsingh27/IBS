@@ -1,28 +1,36 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+class LocalizationService extends Translations {
+  // Default locale
+  static final locale = Locale('en');
 
-import 'en_us.dart';
+  // fallbackLocale saves the day when the locale gets in trouble
+  static final fallbackLocale = Locale('tr', 'TR');
 
-class LocalTranslations extends Translations {
-  static final locale = Locale("en");
+  // Supported languages
+  // Needs to be same order with locales
+  static final languages = [];
 
-  static final fallBackLocale = Locale("tr", "TR");
+  // Supported locales
+  static final locales = <Locale>[];
 
-  static final langs = ['English'];
+  static final Map<String, Map<String, String>> keyList = <String, Map<String, String>>{};
 
-  static final locales = [Locale("en", "US")];
-
+  // Keys and their translations
+  // Translations are separated maps in `lang` file
   @override
-  Map<String, Map<String, String>> get keys => {"en_Us": enUS};
+  Map<String, Map<String, String>> get keys => keyList;
 
+  // Gets locale from language, and updates the locale
   void changeLocale(String lang) {
-    final locale = _getLocaleLang(lang);
+    final locale = _getLocaleFromLanguage(lang);
     Get.updateLocale(locale);
   }
 
-  Locale _getLocaleLang(String lang) {
-    for (int i = 0; i < langs.length; i++) {
-      if (lang == langs[i]) return locales[i];
+  Locale _getLocaleFromLanguage(String lang) {
+    for (int i = 0; i < languages.length; i++) {
+      if (lang == languages[i]) return locales[i];
     }
     return Get.locale;
   }

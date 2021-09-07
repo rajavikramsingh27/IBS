@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ibs/controllers/exercise/ExerciseController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
@@ -21,7 +20,6 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
-  final _controller = Get.put(ExerciseController());
 
   @override
   Widget build(BuildContext context) {

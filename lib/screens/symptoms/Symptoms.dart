@@ -158,7 +158,7 @@ class Symptoms extends StatelessWidget {
                                                                     .value
                                                                     .items[
                                                                         index]
-                                                                    .tid,
+                                                                    .name.tr,
                                                                 style: TextStyles
                                                                     .textStyleIntroDescription
                                                                     .apply(
@@ -613,7 +613,7 @@ class Symptoms extends StatelessWidget {
           .items[
       index]
           .rating
-          .options[optionIndex].label}",
+          .options[optionIndex].label.tr}",
       style: TextStyles
           .textStyleRegular
           .apply(
