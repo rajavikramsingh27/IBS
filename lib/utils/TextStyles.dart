@@ -41,4 +41,52 @@ class TextStyles {
         fontSize: FontSize.s22,
         // fontWeight: FontWeight.w800,
       );
+
+  static TextStyle get textStyleSettingTitle => TextStyle(
+      color: AppColors.colorBlue2,
+      fontSize: FontSize.s17,
+      fontFamily: "Roboto",
+      fontWeight: FontWeight.w500);
+
+  static TextStyle get textStyleSettingDescription => TextStyle(
+      color: AppColors.colorBlue2,
+      fontSize: FontSize.s13,
+      fontFamily: "Roboto",
+      fontWeight: FontWeight.normal);
+
+  static TextStyle get textStyleSettingQuestionaireBlack => TextStyle(
+    color: Colors.black,
+    fontSize: FontSize.s16,
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.normal,
+  );
+
+  static TextStyle get textStyleSettingQuestionaireBlue => TextStyle(
+    color: AppColors.colorBackground,
+    fontSize: FontSize.s16,
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.normal,
+  );
+
+  static TextStyle get textStyleSettingQuestionaireButton => TextStyle(
+    color: AppColors.colorBackground,
+    fontSize: FontSize.s15,
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle get textStyleSettingNotificationsTitle => TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'Roboto-Regular',
+    color: Colors.white,
+  );
+
+  static TextStyle get textStyleSettingNotificationsSubTitle => TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Roboto-Regular',
+    color: Colors.white,
+  );
+
 }

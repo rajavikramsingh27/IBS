@@ -120,10 +120,9 @@ class _IntroState extends State<Intro> {
     );
   }
 
-
   _buildPageView() {
     return Container(
-      height: 370,
+      height: 380,
       child: PageView.builder(
           itemCount: arrIntroText.length,
           controller: _pageController,
@@ -212,7 +211,7 @@ class _IntroState extends State<Intro> {
     return Positioned(
       left: 0.0,
       right: 0.0,
-      bottom: 0.0,
+      // bottom: 0.0,
       child: Padding(
         padding: EdgeInsets.all(8.0),
         child: CirclePageIndicator(
