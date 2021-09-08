@@ -41,7 +41,7 @@ class Medication extends StatelessWidget {
           ],
         ),
       ),
-      backgroundColor: Color(0xff1A103E).withOpacity(0.6),
+      backgroundColor: AppColors.barrierColor.withOpacity(0.6),
       body: Obx(
         () => InkWell(
           onTap: () => dismissKeyboard(context),

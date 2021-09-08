@@ -700,7 +700,7 @@ class BowelMovement extends StatelessWidget {
     );
   }
 
-  getImage({FluffyOption item}) {
+  getImage({RatingOption item}) {
     Widget image = FadeInImage(
       width: ScreenConstant.defaultWidthOneHundredSeven,
       height: ScreenConstant.defaultHeightOneHundred,
@@ -717,7 +717,7 @@ class BowelMovement extends StatelessWidget {
     return image;
   }
 
-  getDesc({FluffyOption item}) {
+  getDesc({RatingOption item}) {
     return Text(item.description.tr ?? "",
         textAlign: TextAlign.center, style: TextStyles.textStyleRegular);
   }
