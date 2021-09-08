@@ -114,7 +114,7 @@ class _IntroState extends State<Intro> {
 
   _buildPageView() {
     return Container(
-      height: 370,
+      height: 380,
       child: PageView.builder(
           itemCount: arrIntroText.length,
           controller: _pageController,
@@ -197,19 +197,24 @@ class _IntroState extends State<Intro> {
   }
 
   _buildCircleIndicator() {
-    return Padding(
-      padding: EdgeInsets.all(8.0),
-      child: CirclePageIndicator(
-        dotSpacing: 14,
-        size: 8,
-        selectedSize: 16,
-        borderWidth: 7,
-        // borderColor: Colors.red,
-        dotColor: AppColors.colorDotNotFocused,
-        selectedDotColor: AppColors.white,
-        selectedBorderColor: AppColors.colorDot,
-        itemCount: arrIntroText.length,
-        currentPageNotifier: _currentPageNotifier,
+    return Positioned(
+      left: 0.0,
+      right: 0.0,
+      // bottom: 0.0,
+      child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: CirclePageIndicator(
+          dotSpacing: 14,
+          size: 8,
+          selectedSize: 16,
+          borderWidth: 7,
+          // borderColor: Colors.red,
+          dotColor: AppColors.colorDotNotFocused,
+          selectedDotColor: AppColors.white,
+          selectedBorderColor: AppColors.colorDot,
+          itemCount: arrIntroText.length,
+          currentPageNotifier: _currentPageNotifier,
+        ),
       ),
     );
   }

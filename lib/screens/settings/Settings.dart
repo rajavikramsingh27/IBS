@@ -4,11 +4,12 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomBottomNavigation.dart';
-import 'package:flutter_ibs/screens/MyAccount.dart';
-import 'package:flutter_ibs/screens/TrackingOptions.dart';
-import 'package:flutter_ibs/screens/MyIBS_Diagnosis.dart';
-import 'package:flutter_ibs/screens/RomeQuestionnaire.dart';
-import 'package:flutter_ibs/screens/Notifications.dart';
+
+import 'package:flutter_ibs/screens/MyAccount/MyAccount.dart';
+import 'package:flutter_ibs/screens/TrackingOptions/TrackingOptions.dart';
+import 'package:flutter_ibs/screens/MyIBS_Diagnosis/MyIBS_Diagnosis.dart';
+import 'package:flutter_ibs/screens/RomeQuestionnaire/RomeQuestionnaire.dart';
+import 'package:flutter_ibs/screens/Notifications/Notifications.dart';
 
 
 

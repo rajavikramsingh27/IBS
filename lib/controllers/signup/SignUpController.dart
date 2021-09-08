@@ -14,7 +14,6 @@ import 'package:flutter_ibs/utils/Validator.dart';
 
 class SignUpController extends GetxController {
   Rx<TrackablesListModel> trackList = TrackablesListModel().obs;
-  Rx<TrackablesListModel> trackFoodList = TrackablesListModel().obs;
 
   RxString selectedGender = "".obs;
   RxBool selectedMale = false.obs;
@@ -89,7 +88,6 @@ class SignUpController extends GetxController {
     }  else if (isFormValid()) {
 
     } else {
-
       bool check = await ConnectionCheck().initConnectivity();
 
       if (check) {
@@ -134,6 +132,7 @@ class SignUpController extends GetxController {
       ibsType: _myProFileController
           .selectIbsType(_myProFileController.selctedIbsType.value),
     );
+
     RomeivSendModel romeivSendModel = RomeivSendModel(
       abdominalPain:
           _myProFileController.isDiagnoisedAbdominalPain.value ?? false,
@@ -147,6 +146,7 @@ class SignUpController extends GetxController {
       stool: _myProFileController.selectStoolType(
           _myProFileController.selectedStoolType.value ?? null),
     );
+
     trackList.value.data.forEach((element) {
       if (element.tid == "symptoms") {
         element.items.forEach((el) {
@@ -154,6 +154,7 @@ class SignUpController extends GetxController {
             symptomsList.add(el);
           }
         });
+
       } else if (element.tid == "bowel_movements") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
@@ -161,6 +162,7 @@ class SignUpController extends GetxController {
           }
         });
       }
+
       if (element.tid == "food") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
@@ -168,6 +170,7 @@ class SignUpController extends GetxController {
           }
         });
       }
+
       if (element.tid == "wellness") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
@@ -175,6 +178,7 @@ class SignUpController extends GetxController {
           }
         });
       }
+
       if (element.tid == "medications") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
@@ -182,6 +186,7 @@ class SignUpController extends GetxController {
           }
         });
       }
+
       if (element.tid == "journal") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
@@ -189,17 +194,22 @@ class SignUpController extends GetxController {
           }
         });
       }
+
     });
 
     TrackingSendModel trackModel = TrackingSendModel(
         symptoms: symptomsList, bowelMovements: bowelMoveList);
+
     // print("track: ${trackModel.toJson()}");
+
     ProfileSendModel profileModel = ProfileSendModel(
         sex: selectedGender.value,
         age: selectedAge.value,
         familyHistory: selectedIbsHistory.value,
         diagnosedIbs: diagnoisedModel,
-        romeiv: romeivSendModel);
+        romeiv: romeivSendModel
+    );
+
     SignupSendModel model = SignupSendModel(
       label: emailController?.text,
       email: emailController?.text,
@@ -208,7 +218,9 @@ class SignUpController extends GetxController {
       profile: profileModel,
       tracking: trackModel,
     );
+
     print("data: ${model.toJson()}");
+
     final data = await ServiceApi().signupApi(bodyData: model.toJson());
 
     if (data is SignupResponseModel) {
@@ -221,6 +233,7 @@ class SignUpController extends GetxController {
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
+
   }
 
   getTrackList() async {

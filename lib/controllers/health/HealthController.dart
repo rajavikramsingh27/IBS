@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -11,12 +13,39 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class HealthController extends GetxController {
-  Rx<DateTime> now = DateTime.now().obs;
+  Rx<DateTime> now = DateTime
+      .now()
+      .obs;
   TextEditingController noteTextController = TextEditingController();
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   RxBool loader = false.obs;
-  List<String> timeList = ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00",];
+  List<String> timeList = [
+    "01:00",
+    "02:00",
+    "03:00",
+    "04:00",
+    "05:00",
+    "06:00",
+    "07:00",
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00",
+    "17:00",
+    "18:00",
+    "19:00",
+    "20:00",
+    "21:00",
+    "22:00",
+    "23:00",
+    "24:00",
+  ];
   RxString selectedTime = "01:00".obs;
   RxBool switchValue = false.obs;
   RxBool tappedRelax = false.obs;
@@ -36,9 +65,12 @@ class HealthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+    formattedTime = int
+        .parse(DateFormat('kk').format(now.value))
+        .obs;
   }
-  void onSave()async{
+
+  void onSave() async {
     if (healthWellnessModel.value.items == null) {
       healthWellnessModel.value.items = [];
     }
@@ -52,7 +84,8 @@ class HealthController extends GetxController {
     print("DATA Model : ${json.encode(healthWellnessModel.toJson())}");
     loader.value = true;
     final data =
-        await ServiceApi().postHealthWellnessAPI(bodyData: healthWellnessModel.toJson());
+    await ServiceApi().postHealthWellnessAPI(
+        bodyData: healthWellnessModel.toJson());
     loader.value = false;
     if (data is HealthRsp.HealthWellnessResponseModel) {
       noteTextController.clear();
@@ -67,36 +100,25 @@ class HealthController extends GetxController {
 
   void onOptionTapped({ListOption model, String tid, String kind}) {
     model.optionDefault = !model.optionDefault;
+  }
 
-    if (healthWellnessModel.value.items == null) {
-      healthWellnessModel.value.items = [];
-    }
-    if(!switchValue.value){
-      switchValue.value = true;
-      Item item = Item(
-          tid: tid,
-          kind: kind,
-          dtype: "arr",
-          value: ItemValue(arr: []));
-      healthWellnessModel.value.items.add(item);
-      healthWellnessModel.value.items.forEach((Item element) {
-        if(element.tid == tid){
-          if (model.optionDefault) {
-            if (!element.value.arr.contains(model.value)) {
-              element.value.arr.add(model.value);
-            }
-          } else {
-            if (element.value.arr.contains(model.value)) {
-              element.value.arr.remove(model.value);
-            }
-          }
-        }
-      });
+    void onRelaxTapped({Default model, String tid, String kind}) {
+      model.required = !model.required;
 
-    }else{
+      if (healthWellnessModel.value.items == null) {
+        healthWellnessModel.value.items = [];
+      }
+      if (!tappedRelax.value) {
+        switchValue.value = true;
+        Item item = Item(
+            tid: tid,
+            kind: kind,
+            dtype: "arr",
+            value: ItemValue(arr: []));
+        healthWellnessModel.value.items.add(item);
         healthWellnessModel.value.items.forEach((Item element) {
-          if(element.tid == tid){
-            if (model.optionDefault) {
+          if (element.tid == tid) {
+            if (model.required) {
               if (!element.value.arr.contains(model.value)) {
                 element.value.arr.add(model.value);
               }
@@ -107,146 +129,114 @@ class HealthController extends GetxController {
             }
           }
         });
-    }
-    _signUpController.healthWellness.refresh();
-    healthWellnessModel.refresh();
-  }
-
-  void onRelaxTapped({Default model, String tid, String kind}) {
-    model.required = !model.required;
-
-    if (healthWellnessModel.value.items == null) {
-      healthWellnessModel.value.items = [];
-    }
-    if(!tappedRelax.value){
-      switchValue .value = true;
-      Item item = Item(
-          tid: tid,
-          kind: kind,
-          dtype: "arr",
-          value: ItemValue(arr: []));
-      healthWellnessModel.value.items.add(item);
-      healthWellnessModel.value.items.forEach((Item element) {
-        if(element.tid == tid){
-          if (model.required) {
-            if (!element.value.arr.contains(model.value)) {
-              element.value.arr.add(model.value);
-            }
-          } else {
-            if (element.value.arr.contains(model.value)) {
-              element.value.arr.remove(model.value);
+      } else {
+        healthWellnessModel.value.items.forEach((Item element) {
+          if (element.tid == tid) {
+            if (model.required) {
+              if (!element.value.arr.contains(model.value)) {
+                element.value.arr.add(model.value);
+              }
+            } else {
+              if (element.value.arr.contains(model.value)) {
+                element.value.arr.remove(model.value);
+              }
             }
           }
-        }
-      });
+        });
+      }
+      _signUpController.healthWellness.refresh();
+      healthWellnessModel.refresh();
+    }
 
-    }else{
-      healthWellnessModel.value.items.forEach((Item element) {
-        if(element.tid == tid){
-          if (model.required) {
-            if (!element.value.arr.contains(model.value)) {
-              element.value.arr.add(model.value);
-            }
-          } else {
-            if (element.value.arr.contains(model.value)) {
-              element.value.arr.remove(model.value);
-            }
+    void onBedTimeTapped({String selectedTime, String tid, String kind}) {
+      if (healthWellnessModel.value.items == null) {
+        healthWellnessModel.value.items = [];
+      }
+      if (!bedTimeChanged.value) {
+        bedTimeChanged.value = true;
+        Item item = Item(
+            tid: tid,
+            kind: kind,
+            dtype: "str",
+            value: ItemValue(str: selectedTime));
+        healthWellnessModel.value.items.add(item);
+      } else {
+        healthWellnessModel.value.items.forEach((Item element) {
+          if (element.tid == tid) {
+            element.value.str = selectedTime;
           }
-        }
-      });
+        });
+      }
+      _signUpController.healthWellness.refresh();
+      healthWellnessModel.refresh();
     }
-    _signUpController.healthWellness.refresh();
-    healthWellnessModel.refresh();
-  }
+    void onWakeTimeTapped({String selectedTime, String tid, String kind}) {
+      if (healthWellnessModel.value.items == null) {
+        healthWellnessModel.value.items = [];
+      }
+      if (!wakeTimeChanged.value) {
+        wakeTimeChanged.value = true;
+        Item item = Item(
+            tid: tid,
+            kind: kind,
+            dtype: "str",
+            value: ItemValue(str: selectedTime));
+        healthWellnessModel.value.items.add(item);
+      } else {
+        healthWellnessModel.value.items.forEach((Item element) {
+          if (element.tid == tid) {
+            element.value.str = selectedTime;
+          }
+        });
+      }
+      _signUpController.healthWellness.refresh();
+      healthWellnessModel.refresh();
+    }
 
-  void onBedTimeTapped({String selectedTime, String tid, String kind}) {
-    if (healthWellnessModel.value.items == null) {
-      healthWellnessModel.value.items = [];
+    void onSleepQualityTapped({String quality, String tid, String kind}) {
+      if (healthWellnessModel.value.items == null) {
+        healthWellnessModel.value.items = [];
+      }
+      if (!sleepQualityChanged.value) {
+        sleepQualityChanged.value = true;
+        Item item = Item(
+            tid: tid,
+            kind: kind,
+            dtype: "str",
+            value: ItemValue(str: quality));
+        healthWellnessModel.value.items.add(item);
+      } else {
+        healthWellnessModel.value.items.forEach((Item element) {
+          if (element.tid == tid) {
+            element.value.str = quality;
+          }
+        });
+      }
+      _signUpController.healthWellness.refresh();
+      healthWellnessModel.refresh();
     }
-    if(!bedTimeChanged.value){
-      bedTimeChanged.value = true;
-      Item item = Item(
-          tid: tid,
-          kind: kind,
-          dtype: "str",
-          value: ItemValue(str: selectedTime));
-      healthWellnessModel.value.items.add(item);
-    }else{
-      healthWellnessModel.value.items.forEach((Item element) {
-        if(element.tid == tid){
-          element.value.str = selectedTime;
-        }
-      });
-    }
-    _signUpController.healthWellness.refresh();
-    healthWellnessModel.refresh();
-  }
-  void onWakeTimeTapped({String selectedTime, String tid, String kind}) {
-    if (healthWellnessModel.value.items == null) {
-      healthWellnessModel.value.items = [];
-    }
-    if(!wakeTimeChanged.value){
-      wakeTimeChanged.value = true;
-      Item item = Item(
-          tid: tid,
-          kind: kind,
-          dtype: "str",
-          value: ItemValue(str: selectedTime));
-      healthWellnessModel.value.items.add(item);
-    }else{
-      healthWellnessModel.value.items.forEach((Item element) {
-        if(element.tid == tid){
-          element.value.str = selectedTime;
-        }
-      });
-    }
-    _signUpController.healthWellness.refresh();
-    healthWellnessModel.refresh();
-  }
 
-  void onSleepQualityTapped({String quality, String tid, String kind}) {
-    if (healthWellnessModel.value.items == null) {
-      healthWellnessModel.value.items = [];
+    void onTirednessTapped({num numValue, String tid, String kind}) {
+      if (healthWellnessModel.value.items == null) {
+        healthWellnessModel.value.items = [];
+      }
+      if (!tirednessChanged.value) {
+        tirednessChanged.value = true;
+        Item item = Item(
+            tid: tid,
+            kind: kind,
+            dtype: "num",
+            value: ItemValue(numValue: numValue,));
+        healthWellnessModel.value.items.add(item);
+      } else {
+        healthWellnessModel.value.items.forEach((Item element) {
+          if (element.tid == tid) {
+            element.value.numValue = numValue;
+          }
+        });
+      }
+      _signUpController.healthWellness.refresh();
+      healthWellnessModel.refresh();
     }
-    if(!sleepQualityChanged.value){
-      sleepQualityChanged.value = true;
-      Item item = Item(
-          tid: tid,
-          kind: kind,
-          dtype: "str",
-          value: ItemValue(str: quality));
-      healthWellnessModel.value.items.add(item);
-    }else{
-      healthWellnessModel.value.items.forEach((Item element) {
-        if(element.tid == tid){
-          element.value.str = quality;
-        }
-      });
-    }
-    _signUpController.healthWellness.refresh();
-    healthWellnessModel.refresh();
-  }
 
-  void onTirednessTapped({num numValue, String tid, String kind}) {
-    if (healthWellnessModel.value.items == null) {
-      healthWellnessModel.value.items = [];
-    }
-    if(!tirednessChanged.value){
-      tirednessChanged.value = true;
-      Item item = Item(
-          tid: tid,
-          kind: kind,
-          dtype: "num",
-          value: ItemValue(numValue: numValue,));
-      healthWellnessModel.value.items.add(item);
-    }else{
-      healthWellnessModel.value.items.forEach((Item element) {
-        if(element.tid == tid){
-          element.value.numValue = numValue;
-        }
-      });
-    }
-    _signUpController.healthWellness.refresh();
-    healthWellnessModel.refresh();
-  }
 }
