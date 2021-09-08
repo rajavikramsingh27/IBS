@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/controllers/symptoms/SymptomsController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart';
@@ -74,7 +75,7 @@ class Symptoms extends StatelessWidget {
                         children: [
                           SizedBox(height: ScreenConstant.defaultHeightSixty),
                           Text(
-                            "Track Symptoms",
+                            _signUpController.symptoms.value.header.tr,
                             style: TextStyles.textStyleIntroDescription
                                 .apply(color: Colors.black),
                             textAlign: TextAlign.center,
@@ -367,12 +368,12 @@ class Symptoms extends StatelessWidget {
                                                                             formattedText) {
                                                                       if (actualValue ==
                                                                           1.0) {
-                                                                        return "None";
+                                                                        return _signUpController.symptoms.value.items[index].rating.labels.min.tr;
                                                                       }
                                                                       if (actualValue ==
                                                                           _signUpController.symptoms.value.items.length +
                                                                               1) {
-                                                                        return "Severe";
+                                                                        return _signUpController.symptoms.value.items[index].rating.labels.max.tr;
                                                                       }
                                                                       return "";
                                                                     },
@@ -477,13 +478,13 @@ class Symptoms extends StatelessWidget {
                                                                           Column(
                                                                         children: [
                                                                           Text(
-                                                                              "Duration",
+                                                                              _signUpController.symptoms.value.items[index].children.first.items.last.name.tr,
                                                                               textAlign: TextAlign.center,
                                                                               style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -3)),
                                                                           SizedBox(
                                                                               height: ScreenConstant.defaultHeightTen),
                                                                           Text(
-                                                                            "How long have you been experiencing abdominal pain ?",
+                                                                            _signUpController.symptoms.value.items[index].children.first.items.last.description.tr,
                                                                             textAlign:
                                                                                 TextAlign.center,
                                                                             style:
