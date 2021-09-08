@@ -142,7 +142,8 @@ class Health extends StatelessWidget {
                                                                 .value
                                                                 .items[
                                                                     mainIndex]
-                                                                .name,
+                                                                .name
+                                                                .tr,
                                                             style: TextStyles
                                                                 .textStyleIntroDescription
                                                                 .apply(
@@ -158,7 +159,8 @@ class Health extends StatelessWidget {
                                                               .healthWellness
                                                               .value
                                                               .items[mainIndex]
-                                                              .description,
+                                                              .description
+                                                              .tr,
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: TextStyles
@@ -288,7 +290,8 @@ class Health extends StatelessWidget {
                                                                     dtype:
                                                                         "num",
                                                                     value: ItemValue(
-                                                                        numValue: newValue));
+                                                                        numValue:
+                                                                            newValue));
                                                                 _healthWellnessController
                                                                     .healthWellnessModel
                                                                     .value
@@ -369,7 +372,8 @@ class Health extends StatelessWidget {
                                                               .healthWellness
                                                               .value
                                                               .items[mainIndex]
-                                                              .name,
+                                                              .name
+                                                              .tr,
                                                           style: TextStyles
                                                               .textStyleIntroDescription
                                                               .apply(
@@ -385,7 +389,8 @@ class Health extends StatelessWidget {
                                                             .healthWellness
                                                             .value
                                                             .items[mainIndex]
-                                                            .description,
+                                                            .description
+                                                            .tr,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyles
@@ -483,13 +488,13 @@ class Health extends StatelessWidget {
                                                                   .healthWellness
                                                                   .value
                                                                   .items[
-                                                              mainIndex]
+                                                                      mainIndex]
                                                                   .rating
                                                                   .ratingDefault = newValue;
                                                               if (_healthWellnessController
-                                                                  .healthWellnessModel
-                                                                  .value
-                                                                  .items ==
+                                                                      .healthWellnessModel
+                                                                      .value
+                                                                      .items ==
                                                                   null) {
                                                                 _healthWellnessController
                                                                     .healthWellnessModel
@@ -501,18 +506,18 @@ class Health extends StatelessWidget {
                                                                       .healthWellness
                                                                       .value
                                                                       .items[
-                                                                  mainIndex]
+                                                                          mainIndex]
                                                                       .tid,
                                                                   kind: _signUpController
                                                                       .healthWellness
                                                                       .value
                                                                       .items[
-                                                                  mainIndex]
+                                                                          mainIndex]
                                                                       .kind,
-                                                                  dtype:
-                                                                  "num",
+                                                                  dtype: "num",
                                                                   value: ItemValue(
-                                                                      numValue: newValue));
+                                                                      numValue:
+                                                                          newValue));
                                                               _healthWellnessController
                                                                   .healthWellnessModel
                                                                   .value
@@ -591,7 +596,8 @@ class Health extends StatelessWidget {
                                                               .healthWellness
                                                               .value
                                                               .items[mainIndex]
-                                                              .name,
+                                                              .name
+                                                              .tr,
                                                           style: TextStyles
                                                               .textStyleIntroDescription
                                                               .apply(
@@ -607,7 +613,8 @@ class Health extends StatelessWidget {
                                                             .healthWellness
                                                             .value
                                                             .items[mainIndex]
-                                                            .description,
+                                                            .description
+                                                            .tr,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyles
@@ -705,13 +712,13 @@ class Health extends StatelessWidget {
                                                                   .healthWellness
                                                                   .value
                                                                   .items[
-                                                              mainIndex]
+                                                                      mainIndex]
                                                                   .rating
                                                                   .ratingDefault = newValue;
                                                               if (_healthWellnessController
-                                                                  .healthWellnessModel
-                                                                  .value
-                                                                  .items ==
+                                                                      .healthWellnessModel
+                                                                      .value
+                                                                      .items ==
                                                                   null) {
                                                                 _healthWellnessController
                                                                     .healthWellnessModel
@@ -723,18 +730,18 @@ class Health extends StatelessWidget {
                                                                       .healthWellness
                                                                       .value
                                                                       .items[
-                                                                  mainIndex]
+                                                                          mainIndex]
                                                                       .tid,
                                                                   kind: _signUpController
                                                                       .healthWellness
                                                                       .value
                                                                       .items[
-                                                                  mainIndex]
+                                                                          mainIndex]
                                                                       .kind,
-                                                                  dtype:
-                                                                  "num",
+                                                                  dtype: "num",
                                                                   value: ItemValue(
-                                                                      numValue: newValue));
+                                                                      numValue:
+                                                                          newValue));
                                                               _healthWellnessController
                                                                   .healthWellnessModel
                                                                   .value
@@ -813,7 +820,8 @@ class Health extends StatelessWidget {
                                                               .healthWellness
                                                               .value
                                                               .items[mainIndex]
-                                                              .name,
+                                                              .name
+                                                              .tr,
                                                           style: TextStyles
                                                               .textStyleIntroDescription
                                                               .apply(
@@ -829,7 +837,8 @@ class Health extends StatelessWidget {
                                                             .healthWellness
                                                             .value
                                                             .items[mainIndex]
-                                                            .description,
+                                                            .description
+                                                            .tr,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyles
@@ -927,13 +936,13 @@ class Health extends StatelessWidget {
                                                                   .healthWellness
                                                                   .value
                                                                   .items[
-                                                              mainIndex]
+                                                                      mainIndex]
                                                                   .rating
                                                                   .ratingDefault = newValue;
                                                               if (_healthWellnessController
-                                                                  .healthWellnessModel
-                                                                  .value
-                                                                  .items ==
+                                                                      .healthWellnessModel
+                                                                      .value
+                                                                      .items ==
                                                                   null) {
                                                                 _healthWellnessController
                                                                     .healthWellnessModel
@@ -945,18 +954,18 @@ class Health extends StatelessWidget {
                                                                       .healthWellness
                                                                       .value
                                                                       .items[
-                                                                  mainIndex]
+                                                                          mainIndex]
                                                                       .tid,
                                                                   kind: _signUpController
                                                                       .healthWellness
                                                                       .value
                                                                       .items[
-                                                                  mainIndex]
+                                                                          mainIndex]
                                                                       .kind,
-                                                                  dtype:
-                                                                  "num",
+                                                                  dtype: "num",
                                                                   value: ItemValue(
-                                                                      numValue: newValue));
+                                                                      numValue:
+                                                                          newValue));
                                                               _healthWellnessController
                                                                   .healthWellnessModel
                                                                   .value
@@ -1035,7 +1044,8 @@ class Health extends StatelessWidget {
                                                               .healthWellness
                                                               .value
                                                               .items[mainIndex]
-                                                              .name,
+                                                              .name
+                                                              .tr,
                                                           style: TextStyles
                                                               .textStyleIntroDescription
                                                               .apply(
@@ -1051,7 +1061,8 @@ class Health extends StatelessWidget {
                                                             .healthWellness
                                                             .value
                                                             .items[mainIndex]
-                                                            .description,
+                                                            .description
+                                                            .tr,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyles
@@ -1149,13 +1160,13 @@ class Health extends StatelessWidget {
                                                                   .healthWellness
                                                                   .value
                                                                   .items[
-                                                              mainIndex]
+                                                                      mainIndex]
                                                                   .rating
                                                                   .ratingDefault = newValue;
                                                               if (_healthWellnessController
-                                                                  .healthWellnessModel
-                                                                  .value
-                                                                  .items ==
+                                                                      .healthWellnessModel
+                                                                      .value
+                                                                      .items ==
                                                                   null) {
                                                                 _healthWellnessController
                                                                     .healthWellnessModel
@@ -1167,18 +1178,18 @@ class Health extends StatelessWidget {
                                                                       .healthWellness
                                                                       .value
                                                                       .items[
-                                                                  mainIndex]
+                                                                          mainIndex]
                                                                       .tid,
                                                                   kind: _signUpController
                                                                       .healthWellness
                                                                       .value
                                                                       .items[
-                                                                  mainIndex]
+                                                                          mainIndex]
                                                                       .kind,
-                                                                  dtype:
-                                                                  "num",
+                                                                  dtype: "num",
                                                                   value: ItemValue(
-                                                                      numValue: newValue));
+                                                                      numValue:
+                                                                          newValue));
                                                               _healthWellnessController
                                                                   .healthWellnessModel
                                                                   .value
@@ -1257,7 +1268,8 @@ class Health extends StatelessWidget {
                                                               .healthWellness
                                                               .value
                                                               .items[mainIndex]
-                                                              .name,
+                                                              .name
+                                                              .tr,
                                                           style: TextStyles
                                                               .textStyleIntroDescription
                                                               .apply(
@@ -1273,7 +1285,8 @@ class Health extends StatelessWidget {
                                                             .healthWellness
                                                             .value
                                                             .items[mainIndex]
-                                                            .description,
+                                                            .description
+                                                            .tr,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyles
@@ -1320,16 +1333,19 @@ class Health extends StatelessWidget {
                                                               onTap: () {
                                                                 _healthWellnessController
                                                                     .onOptionTapped(
-                                                                  model:
-                                                                      model,tid: _signUpController
-                                                                    .healthWellness
-                                                                    .value
-                                                                    .items[
-                                                                mainIndex].tid, kind: _signUpController
-                                                                    .healthWellness
-                                                                    .value
-                                                                    .items[
-                                                                mainIndex].kind,
+                                                                  model: model,
+                                                                  tid: _signUpController
+                                                                      .healthWellness
+                                                                      .value
+                                                                      .items[
+                                                                          mainIndex]
+                                                                      .tid,
+                                                                  kind: _signUpController
+                                                                      .healthWellness
+                                                                      .value
+                                                                      .items[
+                                                                          mainIndex]
+                                                                      .kind,
                                                                 );
                                                               },
                                                               child: Card(
@@ -1369,7 +1385,7 @@ class Health extends StatelessWidget {
                                                                             height:
                                                                                 ScreenConstant.defaultHeightTen),
                                                                         Text(
-                                                                            "${model.label}",
+                                                                            "${model.label.tr}",
                                                                             textAlign:
                                                                                 TextAlign.center,
                                                                             overflow: TextOverflow.ellipsis,
@@ -1436,7 +1452,8 @@ class Health extends StatelessWidget {
                                                               .healthWellness
                                                               .value
                                                               .items[mainIndex]
-                                                              .name,
+                                                              .name
+                                                              .tr,
                                                           style: TextStyles
                                                               .textStyleIntroDescription
                                                               .apply(
@@ -1452,7 +1469,8 @@ class Health extends StatelessWidget {
                                                             .healthWellness
                                                             .value
                                                             .items[mainIndex]
-                                                            .description,
+                                                            .description
+                                                            .tr,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyles
@@ -1482,19 +1500,16 @@ class Health extends StatelessWidget {
                                                                       InkWell(
                                                                         onTap:
                                                                             () {
-                                                                          _healthWellnessController.onRelaxTapped(tid: _signUpController
-                                                                              .healthWellness
-                                                                              .value
-                                                                              .items[
-                                                                          mainIndex].tid,kind: _signUpController
-                                                                              .healthWellness
-                                                                              .value
-                                                                              .items[
-                                                                          mainIndex].kind,model: item);
-                                                                            },
+                                                                          _healthWellnessController.onRelaxTapped(
+                                                                              tid: _signUpController.healthWellness.value.items[mainIndex].tid,
+                                                                              kind: _signUpController.healthWellness.value.items[mainIndex].kind,
+                                                                              model: item);
+                                                                        },
                                                                         child:
                                                                             Card(
-                                                                          color: item.required?AppColors.colorCloseLight:AppColors.colorSymptomsGridBg,
+                                                                          color: item.required
+                                                                              ? AppColors.colorCloseLight
+                                                                              : AppColors.colorSymptomsGridBg,
                                                                           shape:
                                                                               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                                                           child:
@@ -1503,7 +1518,7 @@ class Health extends StatelessWidget {
                                                                                 ScreenConstant.spacingAllExtraSmall,
                                                                             child:
                                                                                 Text(
-                                                                              item.value,
+                                                                              item.value.tr,
                                                                               textAlign: TextAlign.center,
                                                                               //overflow: TextOverflow.ellipsis,
                                                                               style: TextStyles.textStyleRegular.apply(color: Colors.white, fontSizeDelta: -2),
@@ -1544,6 +1559,8 @@ class Health extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Container(
+                                                  color:
+                                                      AppColors.colorBackground,
                                                   margin: EdgeInsets.only(
                                                     left: ScreenConstant
                                                         .defaultWidthTwenty,
@@ -1553,18 +1570,6 @@ class Health extends StatelessWidget {
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: ScreenConstant
                                                           .defaultWidthTwenty),
-                                                  decoration: BoxDecoration(
-                                                      color: AppColors
-                                                          .colorBackground,
-                                                      shape: BoxShape.rectangle,
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              bottomLeft: Radius
-                                                                  .circular(20),
-                                                              bottomRight:
-                                                                  Radius
-                                                                      .circular(
-                                                                          20))),
                                                   child: Column(
                                                     children: [
                                                       SizedBox(
@@ -1575,7 +1580,8 @@ class Health extends StatelessWidget {
                                                               .healthWellness
                                                               .value
                                                               .items[mainIndex]
-                                                              .name,
+                                                              .name
+                                                              .tr,
                                                           style: TextStyles
                                                               .textStyleIntroDescription
                                                               .apply(
@@ -1591,7 +1597,8 @@ class Health extends StatelessWidget {
                                                             .healthWellness
                                                             .value
                                                             .items[mainIndex]
-                                                            .description,
+                                                            .description
+                                                            .tr,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyles
@@ -1658,7 +1665,7 @@ class Health extends StatelessWidget {
                                                                                   dropdownMenuItemList: buildDropList(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].select.options),
                                                                                   onChanged: (SelectOption optionItem) {
                                                                                     _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].select.selectDefault = optionItem;
-                                                                                    _healthWellnessController.onSleepQualityTapped(tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid,kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind,quality: optionItem.value);
+                                                                                    _healthWellnessController.onSleepQualityTapped(tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid, kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind, quality: optionItem.value);
                                                                                     _signUpController.healthWellness.refresh();
                                                                                   },
                                                                                   isEnabled: true,
@@ -1683,105 +1690,14 @@ class Health extends StatelessWidget {
                                                                     );
                                                                   }
                                                                   break;
-                                                                case "healthWellness-sleepImprovement-tiredness_waking":
-                                                                  {
-                                                                    return Column(
-                                                                      children: [
-                                                                        SizedBox(
-                                                                            height:
-                                                                                ScreenConstant.defaultHeightForty),
-                                                                        Text(
-                                                                            _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name,
-                                                                            style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -3)),
-                                                                        SizedBox(
-                                                                            height:
-                                                                                ScreenConstant.defaultHeightTwentyFour),
-                                                                        Text(
-                                                                          _signUpController
-                                                                              .healthWellness
-                                                                              .value
-                                                                              .items[mainIndex]
-                                                                              .children
-                                                                              .first
-                                                                              .items[count]
-                                                                              .description,
-                                                                          textAlign:
-                                                                              TextAlign.center,
-                                                                          style: TextStyles
-                                                                              .textStyleRegular
-                                                                              .apply(color: AppColors.colorSkipButton),
-                                                                        ),
-                                                                        SizedBox(
-                                                                            height:
-                                                                                ScreenConstant.defaultHeightTwenty),
-                                                                        Padding(
-                                                                          padding:
-                                                                              EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
-                                                                          child:
-                                                                              SfSliderTheme(
-                                                                            data:
-                                                                                SfSliderThemeData(
-                                                                              thumbColor: AppColors.colorArrowButton,
-                                                                              thumbStrokeWidth: 5,
-                                                                              thumbRadius: 16,
-                                                                              thumbStrokeColor: Colors.white,
-                                                                              activeTrackHeight: 4,
-                                                                              overlayRadius: 0,
-                                                                              disabledActiveTrackColor: AppColors.colorTrackSlider,
-                                                                              disabledInactiveTrackColor: AppColors.colorTrackSlider,
-                                                                              activeDividerStrokeWidth: 2,
-                                                                              inactiveDividerStrokeWidth: 2,
-                                                                              inactiveTrackHeight: 4,
-                                                                              activeTrackColor: AppColors.colorTrackSlider,
-                                                                              inactiveTrackColor: AppColors.colorTrackSlider,
-                                                                              inactiveDividerStrokeColor: AppColors.white,
-                                                                              inactiveDividerRadius: 8,
-                                                                              inactiveDividerColor: AppColors.colorInactiveDividerSlider,
-                                                                              activeDividerColor: AppColors.colorInactiveDividerSlider,
-                                                                              activeDividerStrokeColor: Colors.white,
-                                                                              activeDividerRadius: 8,
-                                                                              activeLabelStyle: TextStyles.textStyleRegular.apply(color: AppColors.colorTrackSlider),
-                                                                              inactiveLabelStyle: TextStyles.textStyleRegular.apply(color: AppColors.colorTrackSlider),
-                                                                            ),
-                                                                            child:
-                                                                                SfSlider(
-                                                                              showDividers: true,
-                                                                              min: 1.0,
-                                                                              max: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].rating.range,
-                                                                              interval: 1,
-                                                                              stepSize: 1,
-                                                                              showLabels: true,
-                                                                              value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].rating.ratingDefault,
-                                                                              onChanged: (dynamic newValue) {
-                                                                                _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].rating.ratingDefault = newValue;
-                                                                                _healthWellnessController.onTirednessTapped(tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid,kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind,numValue: newValue);
-                                                                              },
-                                                                              labelFormatterCallback: (dynamic actualValue, String formattedText) {
-                                                                                return actualValue == 1
-                                                                                    ? "None"
-                                                                                    : actualValue == 2
-                                                                                        ? ""
-                                                                                        : actualValue == 3
-                                                                                            ? ""
-                                                                                            : "Extremely";
-                                                                              },
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        SizedBox(
-                                                                            height:
-                                                                                ScreenConstant.defaultHeightTwenty),
-                                                                      ],
-                                                                    );
-                                                                  }
-                                                                  break;
+
                                                                 case "healthWellness-sleepImprovement-bed_time":
                                                                   {
                                                                     return Column(
                                                                       children: [
                                                                         Row(
                                                                           mainAxisAlignment:
-                                                                          MainAxisAlignment.spaceBetween,
+                                                                              MainAxisAlignment.spaceBetween,
                                                                           children: [
                                                                             Expanded(
                                                                               flex: 1,
@@ -1796,11 +1712,11 @@ class Health extends StatelessWidget {
                                                                                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                                                                                 decoration: BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
                                                                                 child: CustomDropdown(
-                                                                                  value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue == null ? _healthWellnessController.selectedTime.value:_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue,
+                                                                                  value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue == null ? _healthWellnessController.selectedTime.value : _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue,
                                                                                   dropdownMenuItemList: buildTimeDropList(_healthWellnessController.timeList),
                                                                                   onChanged: (optionItem) {
                                                                                     _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue = optionItem;
-                                                                                    _healthWellnessController.onBedTimeTapped(kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind,tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid,selectedTime: optionItem);
+                                                                                    _healthWellnessController.onBedTimeTapped(kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind, tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid, selectedTime: optionItem);
                                                                                     _signUpController.healthWellness.refresh();
                                                                                   },
                                                                                   isEnabled: true,
@@ -1811,7 +1727,7 @@ class Health extends StatelessWidget {
                                                                         ),
                                                                         Container(
                                                                           height:
-                                                                          ScreenConstant.sizeMedium,
+                                                                              ScreenConstant.sizeMedium,
                                                                         ),
                                                                       ],
                                                                     );
@@ -1823,7 +1739,7 @@ class Health extends StatelessWidget {
                                                                       children: [
                                                                         Row(
                                                                           mainAxisAlignment:
-                                                                          MainAxisAlignment.spaceBetween,
+                                                                              MainAxisAlignment.spaceBetween,
                                                                           children: [
                                                                             Expanded(
                                                                               flex: 1,
@@ -1838,11 +1754,11 @@ class Health extends StatelessWidget {
                                                                                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                                                                                 decoration: BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
                                                                                 child: CustomDropdown(
-                                                                                  value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue == null ? _healthWellnessController.selectedTime.value:_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue,
+                                                                                  value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue == null ? _healthWellnessController.selectedTime.value : _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue,
                                                                                   dropdownMenuItemList: buildTimeDropList(_healthWellnessController.timeList),
                                                                                   onChanged: (optionItem) {
                                                                                     _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue = optionItem;
-                                                                                    _healthWellnessController.onWakeTimeTapped(kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind,tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid,selectedTime: optionItem);
+                                                                                    _healthWellnessController.onWakeTimeTapped(kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind, tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid, selectedTime: optionItem);
                                                                                     _signUpController.healthWellness.refresh();
                                                                                   },
                                                                                   isEnabled: true,
@@ -1853,7 +1769,7 @@ class Health extends StatelessWidget {
                                                                         ),
                                                                         Container(
                                                                           height:
-                                                                          ScreenConstant.sizeMedium,
+                                                                              ScreenConstant.sizeMedium,
                                                                         ),
                                                                       ],
                                                                     );
@@ -1881,11 +1797,11 @@ class Health extends StatelessWidget {
                                                                                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                                                                                 decoration: BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
                                                                                 child: CustomDropdown(
-                                                                                  value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue == null ? _healthWellnessController.selectedTime.value:_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue,
+                                                                                  value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue == null ? _healthWellnessController.selectedTime.value : _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue,
                                                                                   dropdownMenuItemList: buildTimeDropList(_healthWellnessController.timeList),
                                                                                   onChanged: (optionItem) {
                                                                                     _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue = optionItem;
-                                                                                    _healthWellnessController.onBedTimeTapped(kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind,tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid,selectedTime: optionItem);
+                                                                                    _healthWellnessController.onBedTimeTapped(kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind, tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid, selectedTime: optionItem);
                                                                                     _signUpController.healthWellness.refresh();
                                                                                   },
                                                                                   isEnabled: true,
@@ -1905,17 +1821,214 @@ class Health extends StatelessWidget {
                                                               }
                                                             }),
                                                       ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          }
+                                          break;
+                                        case "healthWellness-tiredness_waking":
+                                          {
+                                            return Stack(
+                                              children: [
+                                                Positioned.fill(
+                                                  top: 0,
+                                                  bottom: 0,
+                                                  child: Container(
+                                                    color: AppColors
+                                                        .colorYesButton,
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: EdgeInsets.only(
+                                                    left: ScreenConstant
+                                                        .defaultWidthTwenty,
+                                                    right: ScreenConstant
+                                                        .defaultWidthTwenty,
+                                                  ),
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: ScreenConstant
+                                                          .defaultWidthTwenty),
+                                                  decoration: BoxDecoration(
+                                                      color: AppColors
+                                                          .colorBackground,
+                                                      shape: BoxShape.rectangle,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              bottomLeft: Radius
+                                                                  .circular(20),
+                                                              bottomRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                          20))),
+                                                  child: Column(
+                                                    children: [
+                                                      SizedBox(
+                                                          height: ScreenConstant
+                                                              .defaultHeightForty),
+                                                      Text(
+                                                          _signUpController
+                                                              .healthWellness
+                                                              .value
+                                                              .items[mainIndex]
+                                                              .name
+                                                              .tr,
+                                                          style: TextStyles
+                                                              .textStyleIntroDescription
+                                                              .apply(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSizeDelta:
+                                                                      -3)),
+                                                      SizedBox(
+                                                          height: ScreenConstant
+                                                              .defaultHeightTwentyFour),
+                                                      Text(
+                                                        _signUpController
+                                                            .healthWellness
+                                                            .value
+                                                            .items[mainIndex]
+                                                            .description
+                                                            .tr,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyles
+                                                            .textStyleRegular
+                                                            .apply(
+                                                                color: AppColors
+                                                                    .colorSkipButton),
+                                                      ),
                                                       SizedBox(
                                                           height: ScreenConstant
                                                               .defaultHeightTwenty),
-                                                      Divider(
-                                                          thickness: 1,
-                                                          color: AppColors.white
-                                                              .withOpacity(
-                                                                  0.12)),
+                                                      Padding(
+                                                        padding: EdgeInsets.symmetric(
+                                                            horizontal:
+                                                                ScreenConstant
+                                                                    .defaultWidthTen),
+                                                        child: SfSliderTheme(
+                                                          data:
+                                                              SfSliderThemeData(
+                                                            thumbColor: AppColors
+                                                                .colorArrowButton,
+                                                            thumbStrokeWidth: 5,
+                                                            thumbRadius: 16,
+                                                            thumbStrokeColor:
+                                                                Colors.white,
+                                                            activeTrackHeight:
+                                                                4,
+                                                            overlayRadius: 0,
+                                                            disabledActiveTrackColor:
+                                                                AppColors
+                                                                    .colorTrackSlider,
+                                                            disabledInactiveTrackColor:
+                                                                AppColors
+                                                                    .colorTrackSlider,
+                                                            activeDividerStrokeWidth:
+                                                                2,
+                                                            inactiveDividerStrokeWidth:
+                                                                2,
+                                                            inactiveTrackHeight:
+                                                                4,
+                                                            activeTrackColor:
+                                                                AppColors
+                                                                    .colorTrackSlider,
+                                                            inactiveTrackColor:
+                                                                AppColors
+                                                                    .colorTrackSlider,
+                                                            inactiveDividerStrokeColor:
+                                                                AppColors.white,
+                                                            inactiveDividerRadius:
+                                                                8,
+                                                            inactiveDividerColor:
+                                                                AppColors
+                                                                    .colorInactiveDividerSlider,
+                                                            activeDividerColor:
+                                                                AppColors
+                                                                    .colorInactiveDividerSlider,
+                                                            activeDividerStrokeColor:
+                                                                Colors.white,
+                                                            activeDividerRadius:
+                                                                8,
+                                                            activeLabelStyle: TextStyles
+                                                                .textStyleRegular
+                                                                .apply(
+                                                                    color: AppColors
+                                                                        .colorTrackSlider),
+                                                            inactiveLabelStyle: TextStyles
+                                                                .textStyleRegular
+                                                                .apply(
+                                                                    color: AppColors
+                                                                        .colorTrackSlider),
+                                                          ),
+                                                          child: SfSlider(
+                                                            showDividers: true,
+                                                            min: 1.0,
+                                                            max: _signUpController
+                                                                .healthWellness
+                                                                .value
+                                                                .items[
+                                                                    mainIndex]
+                                                                .rating
+                                                                .range,
+                                                            interval: 1,
+                                                            stepSize: 1,
+                                                            showLabels: true,
+                                                            value: _signUpController
+                                                                .healthWellness
+                                                                .value
+                                                                .items[
+                                                                    mainIndex]
+                                                                .rating
+                                                                .ratingDefault,
+                                                            onChanged: (dynamic
+                                                                newValue) {
+                                                              _signUpController
+                                                                  .healthWellness
+                                                                  .value
+                                                                  .items[
+                                                                      mainIndex]
+                                                                  .rating
+                                                                  .ratingDefault = newValue;
+                                                              _healthWellnessController.onTirednessTapped(
+                                                                  tid: _signUpController
+                                                                      .healthWellness
+                                                                      .value
+                                                                      .items[
+                                                                          mainIndex]
+                                                                      .tid,
+                                                                  kind: _signUpController
+                                                                      .healthWellness
+                                                                      .value
+                                                                      .items[
+                                                                          mainIndex]
+                                                                      .kind,
+                                                                  numValue:
+                                                                      newValue);
+                                                            },
+                                                            labelFormatterCallback:
+                                                                (dynamic
+                                                                        actualValue,
+                                                                    String
+                                                                        formattedText) {
+                                                              return actualValue ==
+                                                                      1
+                                                                  ? "None"
+                                                                  : actualValue ==
+                                                                          2
+                                                                      ? ""
+                                                                      : actualValue ==
+                                                                              3
+                                                                          ? ""
+                                                                          : "Extremely";
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
                                                       SizedBox(
                                                           height: ScreenConstant
-                                                              .defaultHeightTwenty),
+                                                              .defaultHeightForty),
                                                     ],
                                                   ),
                                                 ),
@@ -1994,7 +2107,10 @@ class Health extends StatelessWidget {
     for (SelectOption favouriteFoodModel in favouriteFoodModelList) {
       items.add(DropdownMenuItem(
         value: favouriteFoodModel,
-        child: Text(favouriteFoodModel.label.tr,overflow: TextOverflow.ellipsis,),
+        child: Text(
+          favouriteFoodModel.label.tr,
+          overflow: TextOverflow.ellipsis,
+        ),
       ));
     }
     return items;

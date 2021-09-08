@@ -158,7 +158,8 @@ class Symptoms extends StatelessWidget {
                                                                     .value
                                                                     .items[
                                                                         index]
-                                                                    .name.tr,
+                                                                    .name
+                                                                    .tr,
                                                                 style: TextStyles
                                                                     .textStyleIntroDescription
                                                                     .apply(
@@ -173,13 +174,15 @@ class Symptoms extends StatelessWidget {
                                                               SizedBox(
                                                                   height: ScreenConstant
                                                                       .defaultHeightTen),
-                                                              getDesc(index: index,value: _signUpController
-                                                                  .symptoms
-                                                                  .value
-                                                                  .items[
-                                                              index]
-                                                                  .rating
-                                                                  .ratingDefault),
+                                                              getDesc(
+                                                                  index: index,
+                                                                  value: _signUpController
+                                                                      .symptoms
+                                                                      .value
+                                                                      .items[
+                                                                          index]
+                                                                      .rating
+                                                                      .ratingDefault),
                                                               SizedBox(
                                                                   height: ScreenConstant
                                                                       .defaultHeightTwenty),
@@ -394,13 +397,13 @@ class Symptoms extends StatelessWidget {
                                                                           SizedBox(
                                                                               height: ScreenConstant.defaultHeightTwenty),
                                                                           Text(
-                                                                              _signUpController.symptoms.value.items[index].children.first.items.first.tid,
+                                                                              _signUpController.symptoms.value.items[index].children.first.items.first.name.tr,
                                                                               textAlign: TextAlign.center,
                                                                               style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -3)),
                                                                           SizedBox(
                                                                               height: ScreenConstant.defaultHeightTen),
                                                                           Text(
-                                                                            _signUpController.symptoms.value.items[index].children.first.items.first.description,
+                                                                            _signUpController.symptoms.value.items[index].children.first.items.first.description.tr,
                                                                             textAlign:
                                                                                 TextAlign.center,
                                                                             style:
@@ -441,7 +444,7 @@ class Symptoms extends StatelessWidget {
                                                                                             width: ScreenConstant.defaultWidthTwenty * 2.0,
                                                                                           ),
                                                                                           SizedBox(height: ScreenConstant.defaultHeightTen),
-                                                                                          Text("${model.label}", textAlign: TextAlign.center, style: TextStyles.textStyleRegular.apply(color: AppColors.white, fontSizeDelta: -2)),
+                                                                                          Text("${model.label.tr}", textAlign: TextAlign.center, style: TextStyles.textStyleRegular.apply(color: AppColors.white, fontSizeDelta: -2)),
                                                                                         ],
                                                                                       ),
                                                                                     )),
@@ -580,7 +583,7 @@ class Symptoms extends StatelessWidget {
     for (SelectOption favouriteFoodModel in favouriteFoodModelList) {
       items.add(DropdownMenuItem(
         value: favouriteFoodModel,
-        child: Text(favouriteFoodModel.label),
+        child: Text(favouriteFoodModel.label.tr),
       ));
     }
     return items;
@@ -589,39 +592,19 @@ class Symptoms extends StatelessWidget {
   getDesc({int index, num value}) {
     int optionIndex;
 
-    _signUpController
-        .symptoms
-        .value
-        .items[
-    index]
-        .rating
-        .options.forEach((element) {
-       if(element.value == value.toInt()){
-         optionIndex = _signUpController
-             .symptoms
-             .value
-             .items[
-         index]
-             .rating
-             .options.indexOf(element);
-       }
+    _signUpController.symptoms.value.items[index].rating.options
+        .forEach((element) {
+      if (element.value == value.toInt()) {
+        optionIndex = _signUpController
+            .symptoms.value.items[index].rating.options
+            .indexOf(element);
+      }
     });
     return Text(
-      "${_signUpController
-          .symptoms
-          .value
-          .items[
-      index]
-          .rating
-          .options[optionIndex].label.tr}",
-      style: TextStyles
-          .textStyleRegular
-          .apply(
-          color: AppColors
-              .colorSkipButton),
-      textAlign:
-      TextAlign
-          .center,
+      "${_signUpController.symptoms.value.items[index].rating.options[optionIndex].label.tr}",
+      style:
+          TextStyles.textStyleRegular.apply(color: AppColors.colorSkipButton),
+      textAlign: TextAlign.center,
     );
   }
 }

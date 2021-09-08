@@ -7,7 +7,6 @@ import 'package:flutter_ibs/screens/signIn/Login.dart';
 import 'package:flutter_ibs/screens/signIn/Otp.dart';
 import 'package:flutter_ibs/screens/signIn/ResetPassword.dart';
 import 'package:flutter_ibs/screens/low_diet/LowDiet.dart';
-import 'package:flutter_ibs/screens/medication_supplements/MedicationSuplements.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep1.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep2.dart';
 import 'package:flutter_ibs/screens/my_profile/MyProfileStep3.dart';
@@ -86,10 +85,6 @@ class NavRouter {
     GetPage(
       name: sleep,
       page: () => Sleep(),
-    ),
-    GetPage(
-      name: medication_supplements,
-      page: () => MedicationSuplements(),
     ),
     GetPage(
       name: settings,
