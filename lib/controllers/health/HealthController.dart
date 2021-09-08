@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
@@ -21,6 +23,7 @@ class HealthController extends GetxController {
     super.onInit();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
+
   void onSave(){
 
   }

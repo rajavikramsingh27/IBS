@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ibs/controllers/medication/MedicationController.dart';
@@ -13,6 +15,8 @@ import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
+
+
 
 class Medication extends StatelessWidget {
   final MedicationController _controller = Get.put(MedicationController());
@@ -106,8 +110,7 @@ class Medication extends StatelessWidget {
                                         ),
                                         decoration: BoxDecoration(
                                             color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
+                                            borderRadius: BorderRadius.circular(20)),
                                         child: _buildMedication(),
                                       ),
                                     ],

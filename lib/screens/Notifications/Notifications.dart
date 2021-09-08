@@ -21,7 +21,6 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
-  final _controller = Get.put(ExerciseController());
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +44,12 @@ class _NotificationsState extends State<Notifications> {
         },
         child: ListView(
           children: [
-            SizedBox(height: 30),
+            SizedBox(height: ScreenConstant.defaultHeightThirty),
             Text("App Notifications",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                  // fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto-Regular',
-                  color: HexColor('4A358B'),
-                )
+                style: TextStyles.textStyleSettingQuestionaireBlue
             ),
-            SizedBox(height: 30),
+            SizedBox(height: ScreenConstant.defaultHeightThirty),
             _buildNotification(),
             _buildMyNotifications()
           ],
@@ -68,7 +62,7 @@ class _NotificationsState extends State<Notifications> {
   _buildNotification() {
     return Card(
       margin: EdgeInsets.only(
-        left: 16, right: 16
+        left: ScreenConstant.defaultHeightSixteen, right: ScreenConstant.defaultHeightSixteen
       ),
       color: AppColors.colorBackground,
       shape:
@@ -81,10 +75,7 @@ class _NotificationsState extends State<Notifications> {
             children: [
               SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
               Text("Add Notifications",
-                  style: TextStyle(
-                    fontSize: 18,
-                    // fontWeight: FontWeight.w500,
-                    fontFamily: 'Roboto-Regular',
+                  style: TextStyles.textStyleSettingQuestionaireBlack.apply(
                     color: Colors.white
                   )
               ),
@@ -92,10 +83,7 @@ class _NotificationsState extends State<Notifications> {
               Text(
                 "Would you like to set up a reminder?",
                 textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 14,
-                      // fontWeight: FontWeight.w500,
-                      fontFamily: 'Roboto-Regular',
+                  style: TextStyles.textStyleSettingDescription.apply(
                       color: Colors.white.withOpacity(0.4)
                   )
                 ),
@@ -148,7 +136,6 @@ class _NotificationsState extends State<Notifications> {
                   textInputAction: TextInputAction.newline,
                   maxLines: 4,
                   minLines: 4,
-
                   // maxLength: 100,
                   // decoration: hintedInputDecoration(""),
                 ),
@@ -162,7 +149,7 @@ class _NotificationsState extends State<Notifications> {
                     backgroundColor: AppColors.colorArrowButton,
                     child: Icon(
                       Icons.add,
-                      size: FontSize.s11,
+                      size: FontSize.s20,
                       color: Colors.white,
                     ),
                   ),
@@ -184,45 +171,35 @@ class _NotificationsState extends State<Notifications> {
     return Column(
       children: [
         SizedBox(
-          height: 40,
+          height: ScreenConstant.defaultHeightForty,
         ),
         Center(
           child: Text(
               "My Notifications",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'Roboto-Regular',
-                color: HexColor('4A358B'),
-              )
+              style: TextStyles.textStyleSettingTitle
           ),
         ),
         SizedBox(
-          height: 10,
+          height: ScreenConstant.defaultHeightTen,
         ),
         Padding(
           padding: EdgeInsets.only(
-              left: 40, right: 40
+              left: ScreenConstant.defaultHeightForty, right: ScreenConstant.defaultHeightForty
           ),
           child: Text(
               "The following notifications have been set in this app. "
                   "Some of the notifications may be in relation to your treatment plan. "
                   "Changing your notifications here will change any notifications set for your treatment plan.",
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                fontFamily: 'Roboto-Regular',
-                color: HexColor('4A358B'),
-              )
+              style: TextStyles.textStyleSettingDescription
           ),
         ),
         SizedBox(
-          height: 36,
+          height: ScreenConstant.sizeExtraLarge,
         ),
         Card(
           margin: EdgeInsets.only(
-              left: 16, right: 16
+              left: ScreenConstant.defaultHeightSixteen, right: ScreenConstant.defaultHeightSixteen
           ),
           color: AppColors.colorBackground,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -233,7 +210,7 @@ class _NotificationsState extends State<Notifications> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 35,
+                    height: ScreenConstant.defaultHeightThirty,
                   ),
                   Column(
                     children: [
@@ -242,11 +219,8 @@ class _NotificationsState extends State<Notifications> {
                         children: [
                           Text(
                             "All Reminders",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Roboto-Regular',
-                                color: Colors.white,
+                              style: TextStyles.textStyleSettingQuestionaireBlack.apply(
+                                color: AppColors.white
                               )
                           ),
                           CustomSwitch(
@@ -256,7 +230,7 @@ class _NotificationsState extends State<Notifications> {
                         ],
                       ),
                       SizedBox(
-                        height: 20,
+                        height: ScreenConstant.defaultHeightTwenty,
                       ),
                       Container(
                         height: 1,
@@ -265,7 +239,7 @@ class _NotificationsState extends State<Notifications> {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: ScreenConstant.sizeExtraLarge,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -273,15 +247,10 @@ class _NotificationsState extends State<Notifications> {
                     children: [
                       Text(
                         "General ",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Roboto-Regular',
-                            color: Colors.white,
-                          )
+                          style: TextStyles.textStyleSettingNotificationsTitle
                       ),
                       SizedBox(
-                        height: 30,
+                        height: ScreenConstant.sizeExtraLarge,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -290,31 +259,23 @@ class _NotificationsState extends State<Notifications> {
                             children: [
                               Icon(
                                 Icons.access_time_sharp,
-                                size: 24,
+                                size: ScreenConstant.defaultHeightTwentyFour,
                                 color: HexColor('D2C5FC'),
                               ),
                               SizedBox(
-                                width: 10,
+                                width: ScreenConstant.defaultHeightTen,
                               ),
                               Text(
                                   "Daily at 4:00 PM",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto-Regular',
-                                    color: Colors.white,
-                                  )
+                                  style: TextStyles.textStyleSettingNotificationsSubTitle
                               ),
                               SizedBox(
-                                width: 10,
+                                width: ScreenConstant.defaultHeightTen,
                               ),
                               Text(
                                   "Edit",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto-Regular',
-                                    color: HexColor('D5C9E1'),
+                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+                                    color: HexColor('#D5C9E1')
                                   )
                               ),
                             ],
@@ -326,7 +287,7 @@ class _NotificationsState extends State<Notifications> {
                         ],
                       ),
                       SizedBox(
-                        height: 30,
+                        height: ScreenConstant.sizeExtraLarge,
                       ),
                       Container(
                         height: 1,
@@ -335,7 +296,7 @@ class _NotificationsState extends State<Notifications> {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: ScreenConstant.sizeExtraLarge,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -343,15 +304,10 @@ class _NotificationsState extends State<Notifications> {
                     children: [
                       Text(
                           "Treatment Plan: Improve Sleep ",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Roboto-Regular',
-                            color: Colors.white,
-                          )
+                          style: TextStyles.textStyleSettingNotificationsTitle
                       ),
                       SizedBox(
-                        height: 30,
+                        height: ScreenConstant.sizeExtraLarge,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -360,31 +316,25 @@ class _NotificationsState extends State<Notifications> {
                             children: [
                               Icon(
                                 Icons.access_time_sharp,
-                                size: 24,
+                                size: ScreenConstant.defaultHeightTwentyFour,
                                 color: HexColor('D2C5FC'),
                               ),
                               SizedBox(
-                                width: 10,
+                                width: ScreenConstant.defaultHeightTen,
                               ),
                               Text(
                                   "Daily at 4:00 PM",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto-Regular',
-                                    color: Colors.white,
+                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+
                                   )
                               ),
                               SizedBox(
-                                width: 10,
+                                width: ScreenConstant.defaultHeightTen,
                               ),
                               Text(
                                   "Edit",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto-Regular',
-                                    color: HexColor('D5C9E1'),
+                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+                                      color: HexColor('#D5C9E1')
                                   )
                               ),
                             ],
@@ -396,14 +346,14 @@ class _NotificationsState extends State<Notifications> {
                         ],
                       ),
                       SizedBox(
-                        height: 30,
+                        height: ScreenConstant.sizeExtraLarge,
                       ),
                       Container(
                         height: 1,
                         color: Colors.white.withOpacity(0.1),
                       ),
                       SizedBox(
-                        height: 30,
+                        height: ScreenConstant.sizeExtraLarge,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -412,31 +362,25 @@ class _NotificationsState extends State<Notifications> {
                             children: [
                               Icon(
                                 Icons.access_time_sharp,
-                                size: 24,
+                                size: ScreenConstant.defaultHeightTwentyFour,
                                 color: HexColor('D2C5FC'),
                               ),
                               SizedBox(
-                                width: 10,
+                                width: ScreenConstant.defaultHeightTen,
                               ),
                               Text(
                                   "Daily at 4:00 PM",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto-Regular',
-                                    color: Colors.white,
+                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+
                                   )
                               ),
                               SizedBox(
-                                width: 10,
+                                width: ScreenConstant.defaultHeightTen,
                               ),
                               Text(
                                   "Edit",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto-Regular',
-                                    color: HexColor('D5C9E1'),
+                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+                                      color: HexColor('#D5C9E1')
                                   )
                               ),
                             ],
@@ -448,7 +392,7 @@ class _NotificationsState extends State<Notifications> {
                         ],
                       ),
                       SizedBox(
-                        height: 30,
+                        height: ScreenConstant.sizeExtraLarge,
                       ),
                       Container(
                         height: 1,
@@ -457,7 +401,7 @@ class _NotificationsState extends State<Notifications> {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: ScreenConstant.sizeExtraLarge,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -465,15 +409,10 @@ class _NotificationsState extends State<Notifications> {
                     children: [
                       Text(
                           "Treatment Plan: Prescription Medication",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Roboto-Regular',
-                            color: Colors.white,
-                          )
+                          style: TextStyles.textStyleSettingNotificationsTitle
                       ),
                       SizedBox(
-                        height: 30,
+                        height: ScreenConstant.sizeExtraLarge,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -482,31 +421,25 @@ class _NotificationsState extends State<Notifications> {
                             children: [
                               Icon(
                                 Icons.access_time_sharp,
-                                size: 24,
+                                size: ScreenConstant.defaultHeightTwentyFour,
                                 color: HexColor('D2C5FC'),
                               ),
                               SizedBox(
-                                width: 10,
+                                width: ScreenConstant.defaultHeightTen,
                               ),
                               Text(
                                   "Daily at 4:00 PM",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto-Regular',
-                                    color: Colors.white,
+                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+
                                   )
                               ),
                               SizedBox(
-                                width: 10,
+                                width: ScreenConstant.defaultHeightTen,
                               ),
                               Text(
                                   "Edit",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto-Regular',
-                                    color: HexColor('D5C9E1'),
+                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+                                      color: HexColor('#D5C9E1')
                                   )
                               ),
                             ],
@@ -518,14 +451,14 @@ class _NotificationsState extends State<Notifications> {
                         ],
                       ),
                       SizedBox(
-                        height: 30,
+                        height: ScreenConstant.sizeExtraLarge,
                       ),
                       Container(
                         height: 1,
                         color: Colors.white.withOpacity(0.1),
                       ),
                       SizedBox(
-                        height: 30,
+                        height: ScreenConstant.sizeExtraLarge,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -534,31 +467,25 @@ class _NotificationsState extends State<Notifications> {
                             children: [
                               Icon(
                                 Icons.access_time_sharp,
-                                size: 24,
+                                size: ScreenConstant.defaultHeightTwentyFour,
                                 color: HexColor('D2C5FC'),
                               ),
                               SizedBox(
-                                width: 10,
+                                width: ScreenConstant.defaultHeightTen,
                               ),
                               Text(
                                   "Daily at 4:00 PM",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto-Regular',
-                                    color: Colors.white,
+                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+
                                   )
                               ),
                               SizedBox(
-                                width: 10,
+                                width: ScreenConstant.defaultHeightTen,
                               ),
                               Text(
                                   "Edit",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto-Regular',
-                                    color: HexColor('D5C9E1'),
+                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+                                      color: HexColor('#D5C9E1')
                                   )
                               ),
                             ],
@@ -570,14 +497,14 @@ class _NotificationsState extends State<Notifications> {
                         ],
                       ),
                       SizedBox(
-                        height: 30,
+                        height: ScreenConstant.sizeExtraLarge,
                       ),
                       Container(
                         height: 1,
                         color: Colors.white.withOpacity(0.1),
                       ),
                       SizedBox(
-                        height: 30,
+                        height: ScreenConstant.sizeExtraLarge,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -586,31 +513,25 @@ class _NotificationsState extends State<Notifications> {
                             children: [
                               Icon(
                                 Icons.access_time_sharp,
-                                size: 24,
+                                size: ScreenConstant.defaultHeightTwentyFour,
                                 color: HexColor('D2C5FC'),
                               ),
                               SizedBox(
-                                width: 10,
+                                width: ScreenConstant.defaultHeightTen,
                               ),
                               Text(
                                   "Daily at 4:00 PM",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto-Regular',
-                                    color: Colors.white,
+                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+
                                   )
                               ),
                               SizedBox(
-                                width: 10,
+                                width: ScreenConstant.defaultHeightTen,
                               ),
                               Text(
                                   "Edit",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto-Regular',
-                                    color: HexColor('D5C9E1'),
+                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+                                      color: HexColor('#D5C9E1')
                                   )
                               ),
                             ],
@@ -622,7 +543,7 @@ class _NotificationsState extends State<Notifications> {
                         ],
                       ),
                       SizedBox(
-                        height: 30,
+                        height: ScreenConstant.sizeExtraLarge,
                       ),
                       Container(
                         height: 1,
@@ -631,7 +552,7 @@ class _NotificationsState extends State<Notifications> {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: ScreenConstant.sizeExtraLarge,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -639,15 +560,10 @@ class _NotificationsState extends State<Notifications> {
                     children: [
                       Text(
                           "Treatment Plan: Exercise",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Roboto-Regular',
-                            color: Colors.white,
-                          )
+                          style: TextStyles.textStyleSettingNotificationsTitle
                       ),
                       SizedBox(
-                        height: 30,
+                        height: ScreenConstant.sizeExtraLarge,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -656,31 +572,25 @@ class _NotificationsState extends State<Notifications> {
                             children: [
                               Icon(
                                 Icons.access_time_sharp,
-                                size: 24,
+                                size: ScreenConstant.defaultHeightTwentyFour,
                                 color: HexColor('D2C5FC'),
                               ),
                               SizedBox(
-                                width: 10,
+                                width: ScreenConstant.defaultHeightTen,
                               ),
                               Text(
                                   "Daily at 4:00 PM",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto-Regular',
-                                    color: Colors.white,
+                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+
                                   )
                               ),
                               SizedBox(
-                                width: 10,
+                                width: ScreenConstant.defaultHeightTen,
                               ),
                               Text(
                                   "Edit",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto-Regular',
-                                    color: HexColor('D5C9E1'),
+                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+                                      color: HexColor('#D5C9E1')
                                   )
                               ),
                             ],
@@ -694,14 +604,14 @@ class _NotificationsState extends State<Notifications> {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: ScreenConstant.sizeExtraLarge,
                   ),
                 ],
               )
           ),
         ),
         SizedBox(
-          height: 30,
+          height: ScreenConstant.sizeExtraLarge,
         ),
       ],
     );
@@ -729,7 +639,7 @@ class _NotificationsState extends State<Notifications> {
             Icons.keyboard_arrow_down_outlined,
             color: AppColors.colordropdownArrow,
           ),
-          iconSize: 20,
+          iconSize: ScreenConstant.defaultHeightTwenty,
           underline: SizedBox(),
           onChanged: (String newValue) {
             // setState(() {T
