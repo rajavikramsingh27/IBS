@@ -1495,7 +1495,7 @@ class Health extends StatelessWidget {
                                                                   .items[
                                                                       mainIndex]
                                                                   .tags
-                                                                  .boolListDefault
+                                                                  .tagsDefault
                                                                   .map((item) =>
                                                                       InkWell(
                                                                         onTap:
