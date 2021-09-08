@@ -66,12 +66,14 @@ class FoodController extends GetxController {
     listFoodSub.add(foodTypeModel);
     listFoodSub.refresh();
     FoodList foodModel = FoodList(
-        children: listFoodSub,
+        children: listFoodSub.value,
         tid: _signUpController.food.value.items.last.tid,
         kind: _signUpController.food.value.items.last.kind,
         dtype: "str",
         value: FoodValue(str: mealTypeValue.value));
     print("meal:${mealTypeValue.value}");
+    print("foodListTid:${mealtid.value}");
+
     foodSendModel.value.items.add(foodModel);
     foodSendModel.refresh();
 
