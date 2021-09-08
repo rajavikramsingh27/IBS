@@ -325,7 +325,7 @@ class Foods extends StatelessWidget {
                   left: 0,
                   right: 0,
                   child: Text(
-                    model.value.capitalize ?? "",
+                    model.value.tr ?? "",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles.textStyleRegular.apply(
@@ -370,7 +370,7 @@ class Foods extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
               child: Text(
-                model.value ?? "",
+                model.value.tr ?? "",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular
@@ -483,7 +483,7 @@ class Foods extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
               child: Text(
-                model.value ?? "",
+                model.value.tr ?? "",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular
@@ -539,7 +539,7 @@ class Foods extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
               child: Text(
-                model.value ?? "",
+                model.value.tr ?? "",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular

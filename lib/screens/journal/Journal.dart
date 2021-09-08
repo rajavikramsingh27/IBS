@@ -134,13 +134,12 @@ class Journal extends StatelessWidget {
               Column(
                 children: [
                   SizedBox(height: ScreenConstant.defaultHeightForty),
-                  Text(
-                      "${_signUpController.journal.value.items.first.name ?? ""}",
+                  Text(_signUpController.journal.value.items.first.name.tr,
                       style: TextStyles.textStyleIntroDescription
                           .apply(color: Colors.white, fontSizeDelta: -3)),
                   SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.6),
                   Text(
-                    "${_signUpController.journal.value.items.first.description ?? ""}",
+                    "${_signUpController.journal.value.items.first.description.tr ?? ""}",
                     textAlign: TextAlign.center,
                     style: TextStyles.textStyleRegular
                         .apply(color: AppColors.colorSkipButton),
