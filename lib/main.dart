@@ -25,7 +25,7 @@ getLanguage() async {
     LocalizationService.locales.add(Locale(element.lang));
     LanguageDataModel lg = element;
     HiveStore().put(element.lang, lg.toJson());
-    LocalizationService.keyList.putIfAbsent(element.lang, () => HiveStore().get(element.lang));
+    LocalizationService.keyList[element.lang] = HiveStore().get(element.lang);
   });
 }
 class IBS extends StatelessWidget {
