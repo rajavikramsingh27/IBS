@@ -115,7 +115,11 @@ class Medication extends StatelessWidget {
                                   SizedBox(
                                       height:
                                           ScreenConstant.defaultHeightTwenty),
-                                  Text("Additional Notes",
+                                  Text(
+                                      _signUpController.medications.value.items
+                                          .elementAt(2)
+                                          .name
+                                          .tr,
                                       textAlign: TextAlign.center,
                                       style: TextStyles
                                           .textStyleIntroDescription
@@ -187,12 +191,19 @@ class Medication extends StatelessWidget {
               Column(
                 children: [
                   SizedBox(height: ScreenConstant.defaultHeightForty),
-                  Text("What Did you take?",
+                  Text(
+                      _signUpController.medications.value.items
+                          .elementAt(1)
+                          .name
+                          .tr,
                       style: TextStyles.textStyleIntroDescription
                           .apply(color: Colors.white, fontSizeDelta: -3)),
                   SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.6),
                   Text(
-                    "Select from this list of common medications and supplements or add your own",
+                    _signUpController.medications.value.items
+                        .elementAt(1)
+                        .description
+                        .tr,
                     textAlign: TextAlign.center,
                     style: TextStyles.textStyleRegular
                         .apply(color: AppColors.colorSkipButton),
@@ -299,7 +310,7 @@ class Medication extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
               child: Text(
-                model.value,
+                model.value.tr,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular
@@ -352,7 +363,7 @@ class Medication extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
               child: Text(
-                model.value ?? "",
+                model.value.tr ?? "",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular
