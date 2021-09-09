@@ -74,7 +74,7 @@ class _IntroState extends State<Intro> {
                   Column(
                     children: [
                       _buildPageView(),
-                      SizedBox(height: 50),
+                      SizedBox(height: ScreenConstant.sizeExtraLarge),
                       _buildCircleIndicator(),
                     ],
                   ),

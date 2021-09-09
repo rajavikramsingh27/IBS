@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'Store/HiveStore.dart';
 import 'language/LocalTranslations.dart';
 import 'models/language/LanguageResponseModel.dart';
-List<LanguageDataModel> data = <LanguageDataModel>[];
+List<Datum> data = <Datum>[];
 List<String> languages = <String>[];
 main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,10 +23,15 @@ getLanguage() async {
     print("lang:${element.lang}");
     LocalizationService.languages.add(element.lang);
     LocalizationService.locales.add(Locale(element.lang));
-    LanguageDataModel lg = element;
+    Datum lg = element;
     HiveStore().put(element.lang, lg.toJson());
     LocalizationService.keyList[element.lang] = HiveStore().get(element.lang);
+    printWrapped("KeyList: ${LocalizationService.keyList}",);
   });
+}
+void printWrapped(String text) {
+  final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
+  pattern.allMatches(text).forEach((match) => print(match.group(0)));
 }
 class IBS extends StatelessWidget {
 

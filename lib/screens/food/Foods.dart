@@ -93,7 +93,7 @@ class Foods extends StatelessWidget {
                             DateTimeCardWidget(),
                             SizedBox(height: ScreenConstant.defaultHeightForty),
                             Text(
-                              _signUpController.food.value.items.first.name,
+                              _signUpController.food.value.items.first.name.tr,
                               style: TextStyles.textStyleIntroDescription.apply(
                                   color: Colors.black, fontSizeDelta: -2),
                               textAlign: TextAlign.center,

@@ -11,7 +11,7 @@ class AdditionalNoteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(text,
+        Text(text??"",
             textAlign: TextAlign.center,
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.black, fontSizeDelta: -3)),
