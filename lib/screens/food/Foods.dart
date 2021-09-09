@@ -276,57 +276,37 @@ class Foods extends StatelessWidget {
         var model =
             _signUpController.food.value.items?.first?.list?.options[index];
 
-        var startTime = CustomDateTime().parseTimeAsDateTime(
-            dateTime: model.conditionalDefault.time.first.startTime,
-            returnFormat: "HH:mm");
-        var endTime = CustomDateTime().parseTimeAsDateTime(
-            dateTime: model.conditionalDefault.time.first.endTime,
-            returnFormat: "HH:mm");
+        return InkWell(
+          onTap: () {
+            _signUpController.food.value.items.first.list.options
+                .forEach((element) {
+              if (element.optionDefault) {
+                element.optionDefault = false;
+                _signUpController.food.refresh();
+              }
+            });
 
-        var s =
-            "${_controller.currentDateTime.value.hour}:${_controller.currentDateTime.value.minute}";
-        var u = CustomDateTime()
-            .parseTimeAsDateTime(dateTime: s, returnFormat: "HH:mm");
-        // print("uefbjfe:$s");
-
-        // var p = u.difference(startTime).inSeconds;
-        // print("diff:$p");
-
-        // print("date:$startTime");
-        // print("currentdate:$u");
-        _controller.startTimeDifference.value =
-            u.difference(startTime).inSeconds;
-        _controller.startTimeDifference.value =
-            (endTime.difference(u).inSeconds);
-        if (model.optionDefault) {
-          if ((endTime.difference(u).inSeconds) > 0 &&
-              (u.difference(startTime).inSeconds) > 0) {
-            model.optionDefault = true;
-          }
-        }
-
-        return Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage(
-                  model.optionDefault ? model.image.active : model.image.normal,
+            model.optionDefault = !model.optionDefault;
+            _controller.modelMealIndex.value = index;
+            _controller.mealTypeValue.value = model.value;
+            _controller.modelMealIndex.refresh();
+            _signUpController.food.refresh();
+          },
+          child: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                    // ((endTime.difference(u).inSeconds) > 0 &&
+                    //         (u.difference(startTime).inSeconds) > 0)
+                    //     ? model.image.active
+                    model.optionDefault
+                        ? model.image.active
+                        : model.image.normal,
+                  ),
                 ),
-              ),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppColors.colorBorder, width: 1)),
-          child: InkWell(
-            onTap: () {
-              _signUpController.food.value.items.first.list.options
-                  .forEach((element) {
-                if (element.optionDefault) {
-                  element.optionDefault = false;
-                }
-              });
-              model.optionDefault = !model.optionDefault;
-              _controller.modelMealIndex.value = index;
-              _controller.mealTypeValue.value = model.value;
-            },
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: AppColors.colorBorder, width: 1)),
             child: Stack(
               children: [
                 Positioned(
@@ -608,28 +588,31 @@ class Foods extends StatelessWidget {
           onTap: () {
             ind++;
             _controller.noOfGlasses.value = ind;
-
+            _controller.noOfGlasses.refresh();
+            _signUpController.food.refresh();
             print("glass:${_controller.noOfGlasses}");
           },
           // child: CircleAvatar(
           //   backgroundColor: Colors.white.withOpacity(0.20),
           child: Padding(
               padding: ScreenConstant.spacingAllMedium,
-              child: Image.network(
-                _controller.noOfGlasses > ind
-                    ? _signUpController.food.value.items
-                        .elementAt(1)
-                        .sum
-                        .image
-                        .active
-                    : _signUpController.food.value.items
-                        .elementAt(1)
-                        .sum
-                        .image
-                        .normal,
-                width: ScreenConstant.defaultWidthTwenty * 5,
-                height: ScreenConstant.defaultHeightTwenty * 1.5,
-              )),
+              child: _controller.loader.value
+                  ? CircularProgressIndicator()
+                  : Image.network(
+                      _controller.noOfGlasses.value > ind
+                          ? _signUpController.food.value.items
+                              .elementAt(1)
+                              .sum
+                              .image
+                              .active
+                          : _signUpController.food.value.items
+                              .elementAt(1)
+                              .sum
+                              .image
+                              .normal,
+                      width: ScreenConstant.defaultWidthTwenty * 5,
+                      height: ScreenConstant.defaultHeightTwenty * 1.5,
+                    )),
           // ),
         );
       },

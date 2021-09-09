@@ -6,6 +6,7 @@ import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodSendModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
+import 'package:flutter_ibs/utils/DateTime.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -43,6 +44,7 @@ class FoodController extends GetxController {
     formattedTime = int.parse(
             DateFormat.Hm().format(currentDateTime.value).split(":").first)
         .obs;
+    mealOptionDefault();
     checkData();
 
     var v = homeController.trackFoodList.value;
@@ -128,5 +130,40 @@ class FoodController extends GetxController {
     } else {
       loader.value = false;
     }
+  }
+
+  mealOptionDefault() {
+    var model = _signUpController
+        .food.value.items?.first?.list?.options[modelMealIndex.value];
+    var startTime = CustomDateTime().parseTimeAsDateTime(
+        dateTime: model.conditionalDefault.time.first.startTime,
+        returnFormat: "HH:mm");
+    var endTime = CustomDateTime().parseTimeAsDateTime(
+        dateTime: model.conditionalDefault.time.first.endTime,
+        returnFormat: "HH:mm");
+
+    var s = "${currentDateTime.value.hour}:${currentDateTime.value.minute}";
+    var u = CustomDateTime()
+        .parseTimeAsDateTime(dateTime: s, returnFormat: "HH:mm");
+
+    startTimeDifference.value = u.difference(startTime).inSeconds;
+    startTimeDifference.value = (endTime.difference(u).inSeconds);
+    if (model.optionDefault) {
+      if ((endTime.difference(u).inSeconds) > 0 &&
+          (u.difference(startTime).inSeconds) > 0) {
+        model.optionDefault = true;
+        Future.delayed(Duration(seconds: 5), () {
+          _signUpController.food.refresh();
+        });
+      }
+    }
+    //   if (model.optionDefault == false &&
+    //       ((endTime.difference(u).inSeconds) > 0 &&
+    //           (u.difference(startTime).inSeconds) > 0)) {
+    //     model.optionDefault = true;
+    //     Future.delayed(Duration(seconds: 0), () {
+    //       _signUpController.food.refresh();
+    //     });
+    //   }
   }
 }
