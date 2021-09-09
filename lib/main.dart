@@ -24,7 +24,6 @@ getLanguage() async {
     LocalizationService.languages.add(element.lang);
     LocalizationService.locales.add(Locale(element.lang));
     LanguageDataModel lg = element;
-    HiveStore().clear();
     HiveStore().put(element.lang, lg.toJson());
     LocalizationService.keyList[element.lang] = HiveStore().get(element.lang);
     printWrapped("KeyList: ${LocalizationService.keyList}",);
