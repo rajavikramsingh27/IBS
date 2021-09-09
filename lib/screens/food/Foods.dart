@@ -273,6 +273,7 @@ class Foods extends StatelessWidget {
       itemCount:
           _signUpController.food.value.items?.first?.list?.options?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
+        _controller.mealOptionDefault(mealIndex: index);
         var model =
             _signUpController.food.value.items?.first?.list?.options[index];
 
