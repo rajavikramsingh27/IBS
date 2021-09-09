@@ -5,12 +5,13 @@ import 'package:flutter_ibs/utils/TextStyles.dart';
 
 class AdditionalNoteWidget extends StatelessWidget {
   final TextEditingController textEditingController;
-  AdditionalNoteWidget({this.textEditingController});
+  AdditionalNoteWidget({this.textEditingController, this.text});
+  final String text;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text("Additional Notes",
+        Text(text,
             textAlign: TextAlign.center,
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.black, fontSizeDelta: -3)),
