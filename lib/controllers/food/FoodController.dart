@@ -24,6 +24,7 @@ class FoodController extends GetxController {
   RxList<Default> listfoodDefault = <Default>[].obs;
   RxInt noOfGlasses = 0.obs;
   RxString mealtid = "".obs;
+  RxBool selected = false.obs;
 
   TextEditingController noteTextController = TextEditingController();
   TextEditingController foodTextController = TextEditingController();
@@ -44,7 +45,6 @@ class FoodController extends GetxController {
     formattedTime = int.parse(
             DateFormat.Hm().format(currentDateTime.value).split(":").first)
         .obs;
-    mealOptionDefault();
     checkData();
 
     var v = homeController.trackFoodList.value;
@@ -132,9 +132,11 @@ class FoodController extends GetxController {
     }
   }
 
-  mealOptionDefault() {
+  mealOptionDefault({mealIndex}) {
+
+
     var model = _signUpController
-        .food.value.items?.first?.list?.options[modelMealIndex.value];
+        .food.value.items?.first?.list?.options[mealIndex];
     var startTime = CustomDateTime().parseTimeAsDateTime(
         dateTime: model.conditionalDefault.time.first.startTime,
         returnFormat: "HH:mm");
@@ -147,16 +149,18 @@ class FoodController extends GetxController {
         .parseTimeAsDateTime(dateTime: s, returnFormat: "HH:mm");
 
     startTimeDifference.value = u.difference(startTime).inSeconds;
-    startTimeDifference.value = (endTime.difference(u).inSeconds);
-    if (model.optionDefault) {
+    endTimeDifference.value = (endTime.difference(u).inSeconds);
+    print("HI ${startTimeDifference.value} + ${modelMealIndex.value}");
       if ((endTime.difference(u).inSeconds) > 0 &&
           (u.difference(startTime).inSeconds) > 0) {
-        model.optionDefault = true;
-        Future.delayed(Duration(seconds: 5), () {
+        if(!selected.value){
+          selected.value = true;
+        model.optionDefault = !model.optionDefault;
+        Future.delayed(Duration(seconds: 1), () {
           _signUpController.food.refresh();
         });
+        }
       }
-    }
     //   if (model.optionDefault == false &&
     //       ((endTime.difference(u).inSeconds) > 0 &&
     //           (u.difference(startTime).inSeconds) > 0)) {
