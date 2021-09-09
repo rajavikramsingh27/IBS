@@ -8,6 +8,7 @@ import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/medication/MedicationResponseModel.dart';
 import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
+import 'package:flutter_ibs/models/tags/TagsResponseModel.dart';
 import 'package:flutter_ibs/models/track_history/TrackHistoryResponseModel.dart';
 import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/url.dart';
@@ -144,9 +145,9 @@ class ServiceApi {
     } else
       return TrackablesListModel.fromJson(result);
   }
+
   Future<dynamic> postHealthWellnessAPI({Map bodyData}) async {
-    var result = await CoreService()
-        .apiService(
+    var result = await CoreService().apiService(
         method: METHOD.CREATE, endpoint: HEALTH_WELLNESS, data: bodyData);
 
     if (result == null) {
@@ -163,5 +164,14 @@ class ServiceApi {
       return null;
     } else
       return LanguageResponseModel.fromJson(result);
+  }
+
+  Future<TagsResponseModel> postTags() async {
+    var result =
+        await CoreService().apiService(method: METHOD.CREATE, endpoint: TAGS);
+    if (result == null) {
+      return null;
+    } else
+      return TagsResponseModel.fromJson(result);
   }
 }
