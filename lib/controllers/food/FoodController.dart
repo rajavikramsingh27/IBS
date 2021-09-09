@@ -150,7 +150,6 @@ class FoodController extends GetxController {
 
     startTimeDifference.value = u.difference(startTime).inSeconds;
     endTimeDifference.value = (endTime.difference(u).inSeconds);
-    print("HI ${startTimeDifference.value} + ${modelMealIndex.value}");
       if ((endTime.difference(u).inSeconds) > 0 &&
           (u.difference(startTime).inSeconds) > 0) {
         if(!selected.value){
