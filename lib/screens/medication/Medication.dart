@@ -73,7 +73,8 @@ class Medication extends StatelessWidget {
                                       height:
                                           ScreenConstant.defaultHeightSixty),
                                   Text(
-                                    "Track Medication",
+                                    _signUpController
+                                        .medications.value.header.tr,
                                     style: TextStyles.textStyleIntroDescription
                                         .apply(
                                             color: Colors.black,
@@ -229,9 +230,12 @@ class Medication extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      _controller.listfoodDefault.add(Default(
-                          value: _controller.medicationTextController.text));
-                      _controller.listfoodDefault.refresh();
+                      if (_controller
+                          .medicationTextController.text.isNotEmpty) {
+                        _controller.listfoodDefault.add(Default(
+                            value: _controller.medicationTextController.text));
+                        _controller.listfoodDefault.refresh();
+                      }
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -247,7 +251,11 @@ class Medication extends StatelessWidget {
                         ),
                         SizedBox(width: ScreenConstant.sizeDefault),
                         Text(
-                          "Add this medication",
+                          _signUpController.medications.value.items
+                              .elementAt(1)
+                              .tags
+                              .addableLabel
+                              .tr,
                           style: TextStyles.textStyleRegular
                               .apply(color: AppColors.white),
                         )

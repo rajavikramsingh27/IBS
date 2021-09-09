@@ -74,7 +74,10 @@ class BowelMovement extends StatelessWidget {
                         children: [
                           SizedBox(height: ScreenConstant.defaultHeightSixty),
                           Text(
-                            "Track Bowel Movement",
+                            _signUpController.bowelMovements.value.items
+                                .elementAt(2)
+                                .name
+                                .tr,
                             style: TextStyles.textStyleIntroDescription
                                 .apply(color: Colors.black, fontSizeDelta: -2),
                             textAlign: TextAlign.center,
@@ -106,6 +109,11 @@ class BowelMovement extends StatelessWidget {
                                             textEditingController:
                                                 _bowelMovementController
                                                     .noteTextController,
+                                            text: _signUpController
+                                                .bowelMovements.value.items
+                                                .elementAt(4)
+                                                .name
+                                                .tr,
                                           );
                                         }
                                         break;

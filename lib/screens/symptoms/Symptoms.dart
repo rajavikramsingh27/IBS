@@ -368,12 +368,26 @@ class Symptoms extends StatelessWidget {
                                                                             formattedText) {
                                                                       if (actualValue ==
                                                                           1.0) {
-                                                                        return _signUpController.symptoms.value.items[index].rating.labels.min.tr;
+                                                                        return _signUpController
+                                                                            .symptoms
+                                                                            .value
+                                                                            .items[index]
+                                                                            .rating
+                                                                            .labels
+                                                                            .min
+                                                                            .tr;
                                                                       }
                                                                       if (actualValue ==
                                                                           _signUpController.symptoms.value.items.length +
                                                                               1) {
-                                                                        return _signUpController.symptoms.value.items[index].rating.labels.max.tr;
+                                                                        return _signUpController
+                                                                            .symptoms
+                                                                            .value
+                                                                            .items[index]
+                                                                            .rating
+                                                                            .labels
+                                                                            .max
+                                                                            .tr;
                                                                       }
                                                                       return "";
                                                                     },
@@ -561,6 +575,10 @@ class Symptoms extends StatelessWidget {
                           AdditionalNoteWidget(
                             textEditingController:
                                 _symptomsController.noteTextController,
+                            text: _signUpController.symptoms.value.items
+                                .elementAt(2)
+                                .name
+                                .tr,
                           ),
                           SizedBox(
                               height: ScreenConstant.defaultHeightTwentyFour),

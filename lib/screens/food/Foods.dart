@@ -206,8 +206,9 @@ class Foods extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      _controller.listfoodDefault.add(
-                          Default(value: _controller.foodTextController.text));
+                      if (_controller.foodTextController.text.isNotEmpty)
+                        _controller.listfoodDefault.add(Default(
+                            value: _controller.foodTextController.text));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -223,7 +224,17 @@ class Foods extends StatelessWidget {
                         ),
                         SizedBox(width: ScreenConstant.sizeDefault),
                         Text(
-                          "Add this food",
+                          _signUpController
+                              .food
+                              .value
+                              .items
+                              .first
+                              .children[_controller.modelMealIndex.value]
+                              .items
+                              .first
+                              .tags
+                              .addableLabel
+                              .tr,
                           style: TextStyles.textStyleRegular
                               .apply(color: AppColors.white),
                         )

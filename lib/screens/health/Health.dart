@@ -2059,6 +2059,13 @@ class Health extends StatelessWidget {
                                                       textEditingController:
                                                           _healthWellnessController
                                                               .noteTextController,
+                                                      text: _signUpController
+                                                          .healthWellness
+                                                          .value
+                                                          .items
+                                                          .elementAt(9)
+                                                          .name
+                                                          .tr,
                                                     ),
                                                   ],
                                                 ),
