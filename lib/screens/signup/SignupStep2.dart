@@ -115,6 +115,7 @@ class SignupStep2 extends StatelessWidget {
       itemCount: _controller.trackList.value.data?.length ?? 0,
       itemBuilder: (_, index) {
         var model = _controller.trackList.value.data[index];
+
         return Theme(
           data: Get.theme.copyWith(dividerColor: Colors.transparent),
           child: CustomExpansionTile(
@@ -136,7 +137,7 @@ class SignupStep2 extends StatelessWidget {
                         _controller.trackList.refresh();
                       },
                     ),
-                    Text("${_controller.trackList.value.data[index].tid}",
+                    Text("${_controller.trackList.value.data[index].name}".tr,
                         style: TextStyles.textStyleIntroDescription
                             .apply(color: Colors.white, fontSizeDelta: -3)),
                     Spacer(),
@@ -187,7 +188,7 @@ class SignupStep2 extends StatelessWidget {
                               child: InkWell(
                                   onTap: () {},
                                   child: Text(
-                                    "${subModel.tid}",
+                                    "${subModel.name}".tr,
                                     style: TextStyles.textStyleRegular
                                         .apply(color: Colors.black),
                                     maxLines: 1,
@@ -232,7 +233,7 @@ class SignupStep2 extends StatelessWidget {
                                           child: InkWell(
                                               onTap: () {},
                                               child: Text(
-                                                "${subModelChild.tid}",
+                                                "${subModelChild.name}".tr,
                                                 maxLines: 1,
                                                 textAlign: TextAlign.left,
                                                 overflow: TextOverflow.ellipsis,
