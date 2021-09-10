@@ -154,7 +154,7 @@ class SignUpController extends GetxController {
             symptomsList.add(el);
           }
         });
-      } else if (element.tid == "bowel_movements") {
+      } else if (element.tid == "bowelMovements") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             bowelMoveList.add(el);
@@ -168,7 +168,7 @@ class SignUpController extends GetxController {
           }
         });
       }
-      if (element.tid == "wellness") {
+      if (element.tid == "healthWellness") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             wellnessList.add(el);
@@ -192,7 +192,12 @@ class SignUpController extends GetxController {
     });
 
     TrackingSendModel trackModel = TrackingSendModel(
-        symptoms: symptomsList, bowelMovements: bowelMoveList);
+        symptoms: symptomsList,
+        bowelMovements: bowelMoveList,
+        food: foodList,
+        healthWellness: wellnessList,
+        medications: medicationList,
+    );
     // print("track: ${trackModel.toJson()}");
     ProfileSendModel profileModel = ProfileSendModel(
         sex: selectedGender.value,
