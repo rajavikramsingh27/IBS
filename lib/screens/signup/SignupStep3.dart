@@ -26,8 +26,6 @@ final FocusNode focusNone = FocusNode();
 class SignupStep3 extends StatelessWidget {
   final _controller = Get.put(SignUpController());
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

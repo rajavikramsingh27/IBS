@@ -1,3 +1,5 @@
+
+
 import 'package:flutter_ibs/screens/Intro.dart';
 import 'package:flutter_ibs/screens/about_ibs/MyIbs.dart';
 import 'package:flutter_ibs/screens/exercise/Exercise.dart';
@@ -22,8 +24,9 @@ import 'package:flutter_ibs/screens/stress_management/StressManagementDetails.da
 import 'package:flutter_ibs/screens/treatment_plans/TreatmentPlans.dart';
 import 'package:flutter_ibs/splash.dart';
 import 'package:get/get.dart';
-
 import 'RouteConstants.dart';
+
+
 
 class NavRouter {
   static final generateRoute = [

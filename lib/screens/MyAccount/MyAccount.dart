@@ -122,6 +122,7 @@ class MyAccount extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
             Text("What is your sex :",
                 style: TextStyles.textStyleIntroDescription
@@ -202,6 +203,7 @@ class MyAccount extends StatelessWidget {
               ],
             ),
           ],
+
         )
     );
   }
