@@ -115,6 +115,7 @@ class SignupStep2 extends StatelessWidget {
       itemCount: _controller.trackList.value.data?.length ?? 0,
       itemBuilder: (_, index) {
         var model = _controller.trackList.value.data[index];
+
         return Theme(
           data: Get.theme.copyWith(dividerColor: Colors.transparent),
           child: CustomExpansionTile(
@@ -136,7 +137,7 @@ class SignupStep2 extends StatelessWidget {
                         _controller.trackList.refresh();
                       },
                     ),
-                    Text("${_controller.trackList.value.data[index].tid}",
+                    Text("${_controller.trackList.value.data[index].name}".tr,
                         style: TextStyles.textStyleIntroDescription
                             .apply(color: Colors.white, fontSizeDelta: -3)),
                     Spacer(),
@@ -163,85 +164,92 @@ class SignupStep2 extends StatelessWidget {
                     itemBuilder: (BuildContext context, int idx) {
                       var subModel =
                           _controller.trackList.value.data[index].items[idx];
-                      return CustomExpansionTile(
-                        tilePadding: EdgeInsets.zero,
-                        onExpansionChanged: (isExpanding) {},
-                        initiallyExpanded: true,
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                      return Visibility(
+                        visible: _controller.trackList.value.data[index].items[idx].isVisible,
+                        child: CustomExpansionTile(
+                          tilePadding: EdgeInsets.zero,
+                          onExpansionChanged: (isExpanding) {},
+                          initiallyExpanded: true,
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              CustomCheckBox(
+                                /*value: model.enabled == false
+                                    ? false
+                                    : _controller.trackList.value.data[index]
+                                        .items[idx].enabledDefault,*/
+                                value: _controller.trackList.value.data[index].items[idx].enabledDefault,
+                          onChanged: (val) {
+                                  _controller.trackList.value.data[index]
+                                          .items[idx].enabledDefault =
+                                      !_controller.trackList.value.data[index]
+                                          .items[idx].enabledDefault;
+                                  _controller.trackList.refresh();
+                                },
+                              ),
+                              Expanded(
+                                child: InkWell(
+                                    onTap: () {},
+                                    child: Text(
+                                      "${subModel.name}".tr,
+                                      style: TextStyles.textStyleRegular
+                                          .apply(color: Colors.black),
+                                      maxLines: 1,
+                                      textAlign: TextAlign.left,
+                                      overflow: TextOverflow.ellipsis,
+                                    )),
+                              )
+                            ],
+                          ),
                           children: [
-                            CustomCheckBox(
-                              value: model.enabled == false
-                                  ? false
-                                  : _controller.trackList.value.data[index]
-                                      .items[idx].enabledDefault,
-                              onChanged: (val) {
-                                _controller.trackList.value.data[index]
-                                        .items[idx].enabledDefault =
-                                    !_controller.trackList.value.data[index]
-                                        .items[idx].enabledDefault;
-                                _controller.trackList.refresh();
-                              },
-                            ),
-                            Expanded(
-                              child: InkWell(
-                                  onTap: () {},
-                                  child: Text(
-                                    "${subModel.tid}",
-                                    style: TextStyles.textStyleRegular
-                                        .apply(color: Colors.black),
-                                    maxLines: 1,
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow.ellipsis,
-                                  )),
-                            )
+                            subModel?.children?.isEmpty ?? true
+                                ? Offstage()
+                                : ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    padding: EdgeInsets.only(
+                                        left: ScreenConstant.sizeExtraLarge),
+                                    shrinkWrap: true,
+                                    itemCount:
+                                        subModel.children.last.items.length,
+                                    itemBuilder: (BuildContext context, int idx) {
+                                      var subModelChild =
+                                          subModel.children.last.items[idx];
+
+                                      return Visibility(
+                                        visible: subModel.isVisible ,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            CustomCheckBox(
+                                              value: subModel.enabledDefault,/* ==
+                                                          false ||
+                                                      model.enabled == false
+                                                  ? false
+                                                  : subModelChild.enabledDefault ??
+                                                      true,*/
+                                              onChanged: (val) {
+                                                subModelChild.enabledDefault =
+                                                    !subModelChild.enabledDefault;
+                                                _controller.trackList.refresh();
+                                              },
+                                            ),
+                                            Expanded(
+                                              child: InkWell(
+                                                  onTap: () {},
+                                                  child: Text(
+                                                    "${subModelChild.name}".tr,
+                                                    maxLines: 1,
+                                                    textAlign: TextAlign.left,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  )),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    })
                           ],
                         ),
-                        children: [
-                          subModel?.children?.isEmpty ?? true
-                              ? Offstage()
-                              : ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  padding: EdgeInsets.only(
-                                      left: ScreenConstant.sizeExtraLarge),
-                                  shrinkWrap: true,
-                                  itemCount:
-                                      subModel.children.last.items.length,
-                                  itemBuilder: (BuildContext context, int idx) {
-                                    var subModelChild =
-                                        subModel.children.last.items[idx];
-
-                                    return Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        CustomCheckBox(
-                                          value: subModel.enabledDefault ==
-                                                      false ||
-                                                  model.enabled == false
-                                              ? false
-                                              : subModelChild.enabledDefault ??
-                                                  true,
-                                          onChanged: (val) {
-                                            subModelChild.enabledDefault =
-                                                !subModelChild.enabledDefault;
-                                            _controller.trackList.refresh();
-                                          },
-                                        ),
-                                        Expanded(
-                                          child: InkWell(
-                                              onTap: () {},
-                                              child: Text(
-                                                "${subModelChild.tid}",
-                                                maxLines: 1,
-                                                textAlign: TextAlign.left,
-                                                overflow: TextOverflow.ellipsis,
-                                              )),
-                                        )
-                                      ],
-                                    );
-                                  })
-                        ],
                       );
                     },
                   ),

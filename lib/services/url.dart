@@ -13,3 +13,4 @@ const MEDICATIONS = "/user/medications";
 const TRACK_HISTORY = "/user/history";
 const LANG = "/lang";
 const TAGS = "/user/tags";
+const TREATMENT_PLAN = "/treatment-plans";

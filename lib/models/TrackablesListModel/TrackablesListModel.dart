@@ -134,6 +134,7 @@ class DatumItem {
     this.style,
     this.kind,
     this.enabledDefault,
+    this.isVisible,
     this.rating,
     this.children,
     this.textInput,
@@ -153,6 +154,7 @@ class DatumItem {
   PurpleStyle style;
   String kind;
   bool enabledDefault;
+  bool isVisible;
   FluffyRating rating;
   List<PurpleChild> children;
   TextInput textInput;
@@ -174,6 +176,8 @@ class DatumItem {
         kind: json["kind"] == null ? null : json["kind"],
         enabledDefault:
             json["enabledDefault"] == null ? false : json["enabledDefault"],
+        isVisible:
+          json["isVisible"] == null ? true : json["isVisible"],
         rating: json["rating"] == null
             ? null
             : FluffyRating.fromJson(json["rating"]),
@@ -349,6 +353,7 @@ class PurpleItem {
     this.style,
     this.kind,
     this.enabledDefault,
+    this.isVisible,
     this.list,
     this.select,
     this.toggle,
@@ -366,6 +371,7 @@ class PurpleItem {
   TagsStyle style;
   String kind;
   bool enabledDefault;
+  bool isVisible;
   PurpleList list;
   Select select;
   Toggle toggle;
@@ -384,6 +390,8 @@ class PurpleItem {
         kind: json["kind"] == null ? null : json["kind"],
         enabledDefault:
             json["enabledDefault"] == null ? null : json["enabledDefault"],
+        isVisible:
+            json["isVisible"] == null ? null : json["isVisible"],
         list: json["list"] == null ? null : PurpleList.fromJson(json["list"]),
         select: json["select"] == null ? null : Select.fromJson(json["select"]),
         toggle: json["toggle"] == null ? null : Toggle.fromJson(json["toggle"]),
@@ -408,6 +416,7 @@ class PurpleItem {
         "style": style == null ? null : purpleStyleValues.reverse[style],
         "kind": kind == null ? null : kind,
         "enabledDefault": enabledDefault == null ? null : enabledDefault,
+        "isVisible": isVisible == null ? null : isVisible,
         "list": list == null ? null : list.toJson(),
         "select": select == null ? null : select.toJson(),
         "toggle": toggle == null ? null : toggle.toJson(),
@@ -508,6 +517,7 @@ class FluffyItem {
     this.style,
     this.kind,
     this.enabledDefault,
+    this.isVisible,
     this.tags,
   });
 
@@ -518,6 +528,7 @@ class FluffyItem {
   TagsStyle style;
   String kind;
   bool enabledDefault;
+  bool isVisible;
   PurpleTags tags;
 
   factory FluffyItem.fromJson(Map<String, dynamic> json) => FluffyItem(
@@ -530,6 +541,8 @@ class FluffyItem {
         kind: json["kind"] == null ? null : json["kind"],
         enabledDefault:
             json["enabledDefault"] == null ? null : json["enabledDefault"],
+        isVisible:
+            json["isVisible"] == null ? null : json["isVisible"],
         tags: json["tags"] == null ? null : PurpleTags.fromJson(json["tags"]),
       );
 
