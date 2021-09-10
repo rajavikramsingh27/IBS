@@ -16,8 +16,8 @@ import 'package:flutter_ibs/screens/signup/SignupStep1.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep2.dart';
 import 'package:flutter_ibs/screens/signup/SignupStep3.dart';
 import 'package:flutter_ibs/screens/sleep/Sleep.dart';
-import 'package:flutter_ibs/screens/stress_management/StressManagement.dart';
-import 'package:flutter_ibs/screens/stress_management/StressManagementDetails.dart';
+import 'package:flutter_ibs/screens/treatment_plans/TreatmentPlanListWidget.dart';
+import 'package:flutter_ibs/screens/treatment_plans/TreatmentPlanListWidgetDetails.dart';
 import 'package:flutter_ibs/screens/treatment_plans/TreatmentPlans.dart';
 import 'package:flutter_ibs/splash.dart';
 import 'package:get/get.dart';
@@ -68,11 +68,11 @@ class NavRouter {
     ),
     GetPage(
       name: stressManagement,
-      page: () => StressManagement(),
+      page: () => TreatmentPlanListWidget(),
     ),
     GetPage(
       name: stressManagementDetails,
-      page: () => StressManagementDetails(),
+      page: () => TreatmentPlanListWidgetDetails(),
     ),
     GetPage(
       name: lowDiet,

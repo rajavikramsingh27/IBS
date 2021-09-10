@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
+import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/screens/stress_management/StressTreatmentPlan.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
@@ -8,9 +10,15 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
+import 'package:flutter_ibs/widget/TreatmentPlanListItem.dart';
 import 'package:get/get.dart';
 
-class StressManagement extends StatelessWidget {
+import 'TreatmentPlanListWidgetDetails.dart';
+
+class TreatmentPlanListWidget extends StatelessWidget {
+  final TreatmentPlanController _treatmentPlanController = Get.find();
+  final TreatmentPlanItemData data;
+  TreatmentPlanListWidget({this.data});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +31,7 @@ class StressManagement extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          "STRESS MANAGEMENT",
+          data.categoryName.tr,
           style: TextStyles.appBarTitle,
         ),
         actions: [
@@ -49,13 +57,13 @@ class StressManagement extends StatelessWidget {
             padding: EdgeInsets.symmetric(
                 horizontal: ScreenConstant.defaultWidthTwenty * 2),
             child: Text(
-              "Managing stress can be an effective wayto help lessen your IBS symptoms.",
+              data.categoryDescription.tr,
               textAlign: TextAlign.center,
               style: TextStyles.textStyleRegular.apply(color: Colors.black),
             ),
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
-          _buildStrssManage("Stress management plan details", () {}),
+          TreatmentPlanListItem(data.planDescription.tr, () {}),
           SizedBox(height: ScreenConstant.defaultHeightSixteen),
           CustomElevatedButton(
             text: "Start Plan",
@@ -74,59 +82,22 @@ class StressManagement extends StatelessWidget {
             textAlign: TextAlign.start,
           ),
           SizedBox(height: ScreenConstant.defaultHeightTen),
-          _buildListAdditionalResources(),
+          ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: data.additionalResources.length,
+            itemBuilder: (BuildContext context, int index) {
+              var model = data.additionalResources[index];
+              return TreatmentPlanListItem(model.name.tr, () {
+                Get.to(TreatmentPlanListWidgetDetails(details: model.details,title: data.categoryName.tr,));
+              });
+            },
+            separatorBuilder: (BuildContext context, int index) => SizedBox(
+              height: ScreenConstant.sizeDefault,
+            ),
+          ),
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         ],
-      ),
-    );
-  }
-
-  Widget _buildStrssManage(String title, Function onPressed) {
-    return Container(
-      padding: ScreenConstant.spacingAllSmall,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.colorBorder, width: 1)),
-      child: ListTile(
-        dense: true,
-        contentPadding: EdgeInsets.zero,
-        title: Padding(
-          padding: EdgeInsets.only(left: ScreenConstant.sizeXXL),
-          child: Text(
-            title,
-            style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.black, fontSizeDelta: -6),
-          ),
-        ),
-        trailing: Container(
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.colorArrowButton, width: 1)),
-          child: IconButton(
-            visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-            icon: Icon(Icons.arrow_forward_ios_outlined,
-                color: AppColors.colorArrowButton, size: FontSize.s14),
-            onPressed: onPressed,
-          ),
-        ),
-      ),
-    );
-  }
-
-  _buildListAdditionalResources() {
-    return ListView.separated(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: DummyData.stressadditionalResourcesList.length,
-      itemBuilder: (BuildContext context, int index) {
-        var model = DummyData.stressadditionalResourcesList[index];
-        return _buildStrssManage(model.title, () {
-          Get.toNamed(stressManagementDetails);
-        });
-      },
-      separatorBuilder: (BuildContext context, int index) => SizedBox(
-        height: ScreenConstant.sizeDefault,
       ),
     );
   }
