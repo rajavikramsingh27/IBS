@@ -153,7 +153,9 @@ class SignUpController extends GetxController {
       _recursivelyParseChildren(element.items);
     });
 
-    /*
+    /* IAN: Deprecated. This was only walking the top level list.
+      Data needed to include child[x].items
+
     trackList.value.data.forEach((element) {
       if (element.category == "symptoms") {
         element.items.forEach((el) {
@@ -362,9 +364,6 @@ class SignUpController extends GetxController {
 
 
   /// Walk the Trackables tree adding active elements.
-  /// Note: prefer not to to use dyanmic, but since
-  /// parent is DatumItem and child is PurpleItem
-  /// doing this to remain compatible.
   _recursivelyParseChildren(List<TrackableItem> items){
     items.forEach((element) {
       if (element.enabledDefault){

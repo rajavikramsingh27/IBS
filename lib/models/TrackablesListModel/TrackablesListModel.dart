@@ -35,7 +35,7 @@ class TrackablesListModel {
         "skip": skip == null ? null : skip,
         "data": data == null
             ? null
-            : List<dynamic>.from(data.map((x) => x.toJson())),
+            : List<TrackableItem>.from(data.map((x) => x.toJson())),
       };
 }
 
@@ -43,6 +43,7 @@ class TrackablesListModel {
 class TrackableItem {
   TrackableItem({
     this.tid,
+    this.header,
     this.name,
     this.description,
     this.category,
@@ -56,14 +57,19 @@ class TrackableItem {
     this.validation,
     this.color,
     this.list,
+    this.select,
+    this.selectedValue,
     this.sum,
     this.tags,
     this.boolList,
     this.condition,
     this.items,
+    this.toggle,
+    this.enabled,
   });
 
   String tid;
+  String header;
   String name;
   String description;
   String category;
@@ -78,28 +84,37 @@ class TrackableItem {
   ListValidation validation;
   ModelColor color;
   FluffyList list;
+  Select select;
+  String selectedValue;
   Sum sum;
   FluffyTags tags;
   BoolList boolList;
   ItemCondition condition;
+  Toggle toggle;
+  bool enabled;
 
   factory TrackableItem.fromJson(Map<String, dynamic> json) => TrackableItem(
     tid: json["tid"] == null ? null : json["tid"],
+    header: json["header"] == null ? null : json["header"],
     name: json["name"] == null ? null : json["name"],
     description: json["description"] == null ? null : json["description"],
     category: json["category"] == null ? null : json["category"],
+    items: json["items"] == null
+        ? []
+        : List<TrackableItem>.from(
+        json["items"].map((x) => TrackableItem.fromJson(x))),
     style:
-    json["style"] == null ? null : trackableStyleValues.map[json["style"]],
+      json["style"] == null ? null : trackableStyleValues.map[json["style"]],
     kind: json["kind"] == null ? null : json["kind"],
     enabledDefault:
-    json["enabledDefault"] == null ? false : json["enabledDefault"],
+      json["enabledDefault"] == null ? false : json["enabledDefault"],
     isVisible:
-    json["isVisible"] == null ? true : json["isVisible"],
+      json["isVisible"] == null ? true : json["isVisible"],
     rating: json["rating"] == null
         ? null
         : FluffyRating.fromJson(json["rating"]),
     children: json["children"] == null
-        ? null
+        ? []
         : List<TrackableChild>.from(
         json["children"].map((x) => TrackableChild.fromJson(x))),
     textInput: json["textInput"] == null
@@ -111,6 +126,7 @@ class TrackableItem {
     color:
     json["color"] == null ? null : ModelColor.fromJson(json["color"]),
     list: json["list"] == null ? null : FluffyList.fromJson(json["list"]),
+    select: json["select"] == null ? null : Select.fromJson(json["select"]),
     sum: json["sum"] == null ? null : Sum.fromJson(json["sum"]),
     tags: json["tags"] == null ? null : FluffyTags.fromJson(json["tags"]),
     boolList: json["boolList"] == null
@@ -119,6 +135,8 @@ class TrackableItem {
     condition: json["condition"] == null
         ? null
         : ItemCondition.fromJson(json["condition"]),
+    toggle: json["toggle"] == null ? null : Toggle.fromJson(json["toggle"]),
+    enabled: json["enabled"] == null ? false : json["enabled"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -131,8 +149,8 @@ class TrackableItem {
     "enabledDefault": enabledDefault == null ? null : enabledDefault,
     "rating": rating == null ? null : rating.toJson(),
     "children": children == null
-        ? null
-        : List<TrackableItem>.from(children.map((x) => x.toJson())),
+        ? []
+        : List<dynamic>.from(children.map((x) => x.toJson())),
     "textInput": textInput == null ? null : textInput.toJson(),
     "validation": validation == null ? null : validation.toJson(),
     "color": color == null ? null : color.toJson(),
@@ -141,6 +159,8 @@ class TrackableItem {
     "tags": tags == null ? null : tags.toJson(),
     "boolList": boolList == null ? null : boolList.toJson(),
     "condition": condition == null ? null : condition.toJson(),
+    "toggle": toggle == null ? null : toggle.toJson(),
+    "enabled": enabled == null ? null : enabled,
   };
 }
 
@@ -160,7 +180,7 @@ class TrackableChild {
         ? null
         : PurpleCondition.fromJson(json["condition"]),
     items: json["items"] == null
-        ? null
+        ? []
         : List<TrackableItem>.from(
         json["items"].map((x) => TrackableItem.fromJson(x))),
     validation: json["validation"] == null
@@ -171,7 +191,7 @@ class TrackableChild {
   Map<String, dynamic> toJson() => {
     "condition": condition == null ? null : condition.toJson(),
     "items": items == null
-        ? null
+        ? []
         : List<dynamic>.from(items.map((x) => x.toJson())),
     "validation": validation == null ? null : validation.toJson(),
   };
@@ -179,6 +199,8 @@ class TrackableChild {
 
 
 
+/* IAN: Deprecated, I made the top-level Datum and DatumItems use the same
+class, TrackableItem.
 
 class Datum {
   Datum({
@@ -241,6 +263,7 @@ class Datum {
         "enabled": enabled == null ? null : enabled,
       };
 }
+*/
 
 class ModelImage {
   ModelImage({
@@ -266,6 +289,7 @@ class ModelImage {
       };
 }
 
+/*
 class DatumItem {
   DatumItem({
     this.tid,
@@ -367,7 +391,7 @@ class DatumItem {
         "condition": condition == null ? null : condition.toJson(),
       };
 }
-
+*/
 class BoolList {
   BoolList({
     this.name,
@@ -431,6 +455,8 @@ class BoolListRelation {
       };
 }
 
+/* IAN: Deprecated. TrackabelChild is basically PurpleChild.
+
 class PurpleChild {
   PurpleChild({
     this.condition,
@@ -463,7 +489,7 @@ class PurpleChild {
         "validation": validation == null ? null : validation.toJson(),
       };
 }
-
+*/
 class PurpleCondition {
   PurpleCondition({
     this.conditionOperator,
@@ -485,6 +511,7 @@ class PurpleCondition {
       };
 }
 
+/* IAN: TrackableItem is basically PurpleItem.
 class PurpleItem {
   PurpleItem({
     this.tid,
@@ -569,6 +596,7 @@ class PurpleItem {
         "timePicker": timePicker == null ? null : timePicker.toJson(),
       };
 }
+*/
 
 class FluffyChild {
   FluffyChild({

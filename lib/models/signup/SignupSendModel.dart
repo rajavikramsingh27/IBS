@@ -221,7 +221,7 @@ class TrackingSendModel {
 
   Map<String, dynamic> toJson() => {
         "symptoms": symptoms == null
-            ? null
+            ? []
             : List<dynamic>.from(symptoms.map((x) => x.toJson())),
         "bowelMovements": bowelMovements == null
             ? null

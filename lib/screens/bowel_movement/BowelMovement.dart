@@ -245,7 +245,7 @@ class BowelMovement extends StatelessWidget {
     );
   }
 
-  _buildBowelTypeSlider({DatumItem data}) {
+  _buildBowelTypeSlider({TrackableItem data}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
       child: Column(
@@ -353,7 +353,7 @@ class BowelMovement extends StatelessWidget {
     );
   }
 
-  _buildUrgency({DatumItem data}) {
+  _buildUrgency({TrackableItem data}) {
     return Container(
       color: AppColors.white,
       child: Stack(
@@ -456,7 +456,7 @@ class BowelMovement extends StatelessWidget {
     );
   }
 
-  _buildColorPortion({DatumItem data}) {
+  _buildColorPortion({TrackableItem data}) {
     return Container(
       padding: EdgeInsets.symmetric(
           horizontal: ScreenConstant.sizeXL,
@@ -518,7 +518,7 @@ class BowelMovement extends StatelessWidget {
     );
   }
 
-  _buildRelief({DatumItem data}) {
+  _buildRelief({TrackableItem data}) {
     return Container(
       color: AppColors.white,
       child: Column(
