@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/AddorShowMoreWidget.dart';
+import 'package:flutter_ibs/widget/ShowMoreWidget.dart';
 
 class ReminderWidget extends StatelessWidget {
   final String title;
@@ -106,7 +106,7 @@ class ReminderWidget extends StatelessWidget {
           ),
         ),
         SizedBox(height: ScreenConstant.defaultHeightTen),
-        AddorShowMoreWidget()
+        ShowMoreWidget()
       ],
     );
   }

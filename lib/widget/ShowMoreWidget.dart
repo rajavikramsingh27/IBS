@@ -3,11 +3,11 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 
-class AddorShowMoreWidget extends StatelessWidget {
+class ShowMoreWidget extends StatelessWidget {
   final String text;
   final Function() onTap;
 
-  const AddorShowMoreWidget({Key key, this.text, this.onTap}) : super(key: key);
+  const ShowMoreWidget({Key key, this.text, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
