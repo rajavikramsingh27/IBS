@@ -10,11 +10,10 @@ import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:flutter_ibs/utils/Validator.dart';
-
+import 'dart:developer' as developer;
 
 class SignUpController extends GetxController {
   Rx<TrackablesListModel> trackList = TrackablesListModel().obs;
-  Rx<TrackablesListModel> trackFoodList = TrackablesListModel().obs;
 
   RxString selectedGender = "".obs;
   RxBool selectedMale = false.obs;
@@ -89,7 +88,6 @@ class SignUpController extends GetxController {
     }  else if (isFormValid()) {
 
     } else {
-
       bool check = await ConnectionCheck().initConnectivity();
 
       if (check) {
@@ -134,77 +132,95 @@ class SignUpController extends GetxController {
       ibsType: _myProFileController
           .selectIbsType(_myProFileController.selctedIbsType.value),
     );
+
     RomeivSendModel romeivSendModel = RomeivSendModel(
       abdominalPain:
-          _myProFileController.isDiagnoisedAbdominalPain.value ?? false,
+      _myProFileController.isDiagnoisedAbdominalPain.value ?? false,
       abdominalPainBowelAppearDifferent:
-          _myProFileController.isabdominalPainBowelAppearDifferent.value ??
-              false,
+      _myProFileController.isabdominalPainBowelAppearDifferent.value ??
+          false,
       abdominalPainBowelMoreLess:
-          _myProFileController.isabdominalPainBowelMoreLess.value ?? false,
+      _myProFileController.isabdominalPainBowelMoreLess.value ?? false,
       abdominalPainTimeBowel:
-          _myProFileController.isabdominalPainTimeBowel.value ?? false,
+      _myProFileController.isabdominalPainTimeBowel.value ?? false,
       stool: _myProFileController.selectStoolType(
           _myProFileController.selectedStoolType.value ?? null),
     );
+
+    // Recursively loop through category descendants to compile
+    // a flat list of all enabled values:
     trackList.value.data.forEach((element) {
-      if (element.tid == "symptoms") {
+      _recursivelyParseChildren(element.items);
+    });
+
+    /*
+    trackList.value.data.forEach((element) {
+      if (element.category == "symptoms") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             symptomsList.add(el);
           }
         });
-      } else if (element.tid == "bowelMovements") {
+      } else if (element.category == "bowelMovements") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             bowelMoveList.add(el);
           }
         });
       }
-      if (element.tid == "food") {
+
+      if (element.category == "food") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             foodList.add(el);
           }
         });
       }
-      if (element.tid == "healthWellness") {
+      if (element.category == "healthWellness") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             wellnessList.add(el);
           }
         });
       }
-      if (element.tid == "medications") {
+
+      if (element.category == "medications") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             medicationList.add(el);
           }
         });
       }
-      if (element.tid == "journal") {
+
+      if (element.category == "journal") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             journalList.add(el);
           }
         });
       }
+
     });
+    */
+
 
     TrackingSendModel trackModel = TrackingSendModel(
-        symptoms: symptomsList,
-        bowelMovements: bowelMoveList,
-        food: foodList,
-        healthWellness: wellnessList,
-        medications: medicationList,
+      symptoms: symptomsList,
+      bowelMovements: bowelMoveList,
+      food: foodList,
+      healthWellness: wellnessList,
+      medications: medicationList,
     );
     // print("track: ${trackModel.toJson()}");
+
     ProfileSendModel profileModel = ProfileSendModel(
         sex: selectedGender.value,
         age: selectedAge.value,
         familyHistory: selectedIbsHistory.value,
         diagnosedIbs: diagnoisedModel,
-        romeiv: romeivSendModel);
+        romeiv: romeivSendModel
+    );
+
     SignupSendModel model = SignupSendModel(
       label: emailController?.text,
       email: emailController?.text,
@@ -213,7 +229,9 @@ class SignUpController extends GetxController {
       profile: profileModel,
       tracking: trackModel,
     );
+
     print("data: ${model.toJson()}");
+
     final data = await ServiceApi().signupApi(bodyData: model.toJson());
 
     if (data is SignupResponseModel) {
@@ -226,7 +244,10 @@ class SignUpController extends GetxController {
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
+
   }
+
+
 
   getTrackList() async {
     if (connectionStatus.value) {
@@ -337,5 +358,51 @@ class SignUpController extends GetxController {
         healthWellness.value = element;
       }
     });
+  }
+
+  _parseItems(List<DatumItem> list){
+    list.forEach((element) {
+       if(element.enabledDefault){
+         _addItemToTrackingList(element);
+         element.children.forEach( (child ){
+           _parseChildItem(child.items);
+         });
+       }
+    });
+    /*if (element.category == "symptoms") {
+      element.items.forEach((el) {
+        if (el.enabledDefault ?? false) {
+          symptomsList.add(el);
+        }
+      });
+     */
+  }
+
+  _parseChildItem(List<PurpleItem> items){
+
+  }
+
+  _addItemToTrackingList(DatumItem item){
+
+    switch(item.category){
+      case "symptoms":
+        symptomsList.add(item);
+        break;
+      case "bowelMovements":
+        bowelMoveList.add(item);
+        break;
+      case "food":
+        foodList.add(item);
+        break;
+      case "healthWellness":
+        wellnessList.add(item);
+        break;
+      case "medications":
+        medicationList.add(item);
+        break;
+      case "journal":
+        journalList.add(item);
+        break;
+    }
   }
 }
