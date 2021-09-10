@@ -19,12 +19,12 @@ class SignUpController extends GetxController {
   RxBool selectedMale = false.obs;
   RxBool selectedFeMale = false.obs;
   RxBool selectedOtherGender = false.obs;
-  List<DatumItem> symptomsList = [];
-  List<DatumItem> bowelMoveList = [];
-  List<DatumItem> foodList = [];
-  List<DatumItem> wellnessList = [];
-  List<DatumItem> medicationList = [];
-  List<DatumItem> journalList = [];
+  List<TrackableItem> symptomsList = [];
+  List<TrackableItem> bowelMoveList = [];
+  List<TrackableItem> foodList = [];
+  List<TrackableItem> wellnessList = [];
+  List<TrackableItem> medicationList = [];
+  List<TrackableItem> journalList = [];
 
   RxString selectedAge = "<20".obs;
   List<String> ageList = [
@@ -49,12 +49,12 @@ class SignUpController extends GetxController {
   TextEditingController confirmPasswordController;
   RxBool isPasswordVisible = true.obs;
   RxBool agreeToTerms = false.obs;
-  Rx<Datum> symptoms = Datum().obs;
-  Rx<Datum> bowelMovements = Datum().obs;
-  Rx<Datum> food = Datum().obs;
-  Rx<Datum> journal = Datum().obs;
-  Rx<Datum> medications = Datum().obs;
-  Rx<Datum> healthWellness = Datum().obs;
+  Rx<TrackableItem> symptoms = TrackableItem().obs;
+  Rx<TrackableItem> bowelMovements = TrackableItem().obs;
+  Rx<TrackableItem> food = TrackableItem().obs;
+  Rx<TrackableItem> journal = TrackableItem().obs;
+  Rx<TrackableItem> medications = TrackableItem().obs;
+  Rx<TrackableItem> healthWellness = TrackableItem().obs;
 
   RxList<ListOption> listFoodOptions = <ListOption>[].obs;
 
@@ -302,7 +302,7 @@ class SignUpController extends GetxController {
 
   trackingDataSend(String tid) {
     trackList.value.data.forEach((element) {
-      if (element.tid == tid) {
+      if (element.category == tid) {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             symptomsList.add(el);
@@ -314,7 +314,7 @@ class SignUpController extends GetxController {
 
   getSymptoms() {
     trackList.value.data.forEach((element) {
-      if (element.tid == "symptoms") {
+      if (element.category == "symptoms") {
         symptoms.value = element;
       }
     });
@@ -322,7 +322,7 @@ class SignUpController extends GetxController {
 
   getBowelMovements() {
     trackList.value.data.forEach((element) {
-      if (element.tid == "bowelMovements") {
+      if (element.category == "bowelMovements") {
         bowelMovements.value = element;
       }
     });
@@ -330,7 +330,7 @@ class SignUpController extends GetxController {
 
   getFoods() {
     trackList.value.data.forEach((element) {
-      if (element.tid == "food") {
+      if (element.category == "food") {
         food.value = element;
       }
     });
@@ -338,7 +338,7 @@ class SignUpController extends GetxController {
 
   getJournalList() {
     trackList.value.data.forEach((element) {
-      if (element.tid == "journal") {
+      if (element.category == "journal") {
         journal.value = element;
       }
     });
@@ -346,7 +346,7 @@ class SignUpController extends GetxController {
 
   getMedicationList() {
     trackList.value.data.forEach((element) {
-      if (element.tid == "medications") {
+      if (element.category == "medications") {
         medications.value = element;
       }
     });
@@ -354,35 +354,29 @@ class SignUpController extends GetxController {
 
   getHealthWellness() {
     trackList.value.data.forEach((element) {
-      if (element.tid == "healthWellness") {
+      if (element.category == "healthWellness") {
         healthWellness.value = element;
       }
     });
   }
 
-  _parseItems(List<DatumItem> list){
-    list.forEach((element) {
-       if(element.enabledDefault){
-         _addItemToTrackingList(element);
-         element.children.forEach( (child ){
-           _parseChildItem(child.items);
-         });
-       }
+
+  /// Walk the Trackables tree adding active elements.
+  /// Note: prefer not to to use dyanmic, but since
+  /// parent is DatumItem and child is PurpleItem
+  /// doing this to remain compatible.
+  _recursivelyParseChildren(List<TrackableItem> items){
+    items.forEach((element) {
+      if (element.enabledDefault){
+        _addItemToTrackingList(element);
+        element.children.forEach( (child) {
+          return _recursivelyParseChildren(child.items);
+        });
+      }
     });
-    /*if (element.category == "symptoms") {
-      element.items.forEach((el) {
-        if (el.enabledDefault ?? false) {
-          symptomsList.add(el);
-        }
-      });
-     */
   }
 
-  _parseChildItem(List<PurpleItem> items){
-
-  }
-
-  _addItemToTrackingList(DatumItem item){
+  _addItemToTrackingList(dynamic item){
 
     switch(item.category){
       case "symptoms":

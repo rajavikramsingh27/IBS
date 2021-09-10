@@ -17,7 +17,7 @@ class TrackablesListModel {
   int total;
   int limit;
   int skip;
-  List<Datum> data;
+  List<TrackableItem> data;
 
   factory TrackablesListModel.fromJson(Map<String, dynamic> json) =>
       TrackablesListModel(
@@ -26,7 +26,7 @@ class TrackablesListModel {
         skip: json["skip"] == null ? null : json["skip"],
         data: json["data"] == null
             ? null
-            : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+            : List<TrackableItem>.from(json["data"].map((x) => TrackableItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,6 +38,147 @@ class TrackablesListModel {
             : List<dynamic>.from(data.map((x) => x.toJson())),
       };
 }
+
+
+class TrackableItem {
+  TrackableItem({
+    this.tid,
+    this.name,
+    this.description,
+    this.category,
+    this.style,
+    this.kind,
+    this.enabledDefault,
+    this.isVisible,
+    this.rating,
+    this.children,
+    this.textInput,
+    this.validation,
+    this.color,
+    this.list,
+    this.sum,
+    this.tags,
+    this.boolList,
+    this.condition,
+    this.items,
+  });
+
+  String tid;
+  String name;
+  String description;
+  String category;
+  TrackableStyle style;
+  String kind;
+  bool enabledDefault;
+  bool isVisible;
+  FluffyRating rating;
+  List<TrackableChild> children;
+  List<TrackableItem> items;
+  TextInput textInput;
+  ListValidation validation;
+  ModelColor color;
+  FluffyList list;
+  Sum sum;
+  FluffyTags tags;
+  BoolList boolList;
+  ItemCondition condition;
+
+  factory TrackableItem.fromJson(Map<String, dynamic> json) => TrackableItem(
+    tid: json["tid"] == null ? null : json["tid"],
+    name: json["name"] == null ? null : json["name"],
+    description: json["description"] == null ? null : json["description"],
+    category: json["category"] == null ? null : json["category"],
+    style:
+    json["style"] == null ? null : trackableStyleValues.map[json["style"]],
+    kind: json["kind"] == null ? null : json["kind"],
+    enabledDefault:
+    json["enabledDefault"] == null ? false : json["enabledDefault"],
+    isVisible:
+    json["isVisible"] == null ? true : json["isVisible"],
+    rating: json["rating"] == null
+        ? null
+        : FluffyRating.fromJson(json["rating"]),
+    children: json["children"] == null
+        ? null
+        : List<TrackableChild>.from(
+        json["children"].map((x) => TrackableChild.fromJson(x))),
+    textInput: json["textInput"] == null
+        ? null
+        : TextInput.fromJson(json["textInput"]),
+    validation: json["validation"] == null
+        ? null
+        : ListValidation.fromJson(json["validation"]),
+    color:
+    json["color"] == null ? null : ModelColor.fromJson(json["color"]),
+    list: json["list"] == null ? null : FluffyList.fromJson(json["list"]),
+    sum: json["sum"] == null ? null : Sum.fromJson(json["sum"]),
+    tags: json["tags"] == null ? null : FluffyTags.fromJson(json["tags"]),
+    boolList: json["boolList"] == null
+        ? null
+        : BoolList.fromJson(json["boolList"]),
+    condition: json["condition"] == null
+        ? null
+        : ItemCondition.fromJson(json["condition"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "tid": tid == null ? null : tid,
+    "name": name == null ? null : name,
+    "description": description == null ? null : description,
+    "category": category == null ? null : category,
+    "style": style == null ? null : fluffyStyleValues.reverse[style],
+    "kind": kind == null ? null : kind,
+    "enabledDefault": enabledDefault == null ? null : enabledDefault,
+    "rating": rating == null ? null : rating.toJson(),
+    "children": children == null
+        ? null
+        : List<TrackableItem>.from(children.map((x) => x.toJson())),
+    "textInput": textInput == null ? null : textInput.toJson(),
+    "validation": validation == null ? null : validation.toJson(),
+    "color": color == null ? null : color.toJson(),
+    "list": list == null ? null : list.toJson(),
+    "sum": sum == null ? null : sum.toJson(),
+    "tags": tags == null ? null : tags.toJson(),
+    "boolList": boolList == null ? null : boolList.toJson(),
+    "condition": condition == null ? null : condition.toJson(),
+  };
+}
+
+class TrackableChild {
+  TrackableChild({
+    this.condition,
+    this.items,
+    this.validation,
+  });
+
+  PurpleCondition condition;
+  List<TrackableItem> items;
+  ListValidation validation;
+
+  factory TrackableChild.fromJson(Map<String, dynamic> json) => TrackableChild(
+    condition: json["condition"] == null
+        ? null
+        : PurpleCondition.fromJson(json["condition"]),
+    items: json["items"] == null
+        ? null
+        : List<TrackableItem>.from(
+        json["items"].map((x) => TrackableItem.fromJson(x))),
+    validation: json["validation"] == null
+        ? null
+        : ListValidation.fromJson(json["validation"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "condition": condition == null ? null : condition.toJson(),
+    "items": items == null
+        ? null
+        : List<dynamic>.from(items.map((x) => x.toJson())),
+    "validation": validation == null ? null : validation.toJson(),
+  };
+}
+
+
+
 
 class Datum {
   Datum({
@@ -1216,6 +1357,13 @@ class RatingValidation {
         "requiredCopy": requiredCopy == null ? null : requiredCopy,
       };
 }
+
+enum TrackableStyle { PURPLE_BLUE, WHITE_WHITE, BLUE_BLUE }
+final trackableStyleValues = EnumValues({
+  "BLUE_BLUE": TrackableStyle.BLUE_BLUE,
+  "PURPLE_BLUE": TrackableStyle.PURPLE_BLUE,
+  "WHITE_WHITE": TrackableStyle.WHITE_WHITE
+});
 
 enum PurpleStyle { PURPLE_BLUE, WHITE_WHITE, BLUE_BLUE }
 

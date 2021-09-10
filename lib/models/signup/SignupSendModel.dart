@@ -183,12 +183,12 @@ class TrackingSendModel {
     this.journal,
   });
 
-  List<DatumItem> symptoms;
-  List<DatumItem> bowelMovements;
-  List<DatumItem> food;
-  List<DatumItem> healthWellness;
-  List<DatumItem> medications;
-  List<DatumItem> journal;
+  List<TrackableItem> symptoms;
+  List<TrackableItem> bowelMovements;
+  List<TrackableItem> food;
+  List<TrackableItem> healthWellness;
+  List<TrackableItem> medications;
+  List<TrackableItem> journal;
 
   factory TrackingSendModel.fromRawJson(String str) =>
       TrackingSendModel.fromJson(json.decode(str));
@@ -199,24 +199,24 @@ class TrackingSendModel {
       TrackingSendModel(
         symptoms: json["symptoms"] == null
             ? null
-            : List<DatumItem>.from(
-                json["symptoms"].map((x) => DatumItem.fromJson(x))),
+            : List<TrackableItem>.from(
+                json["symptoms"].map((x) => TrackableItem.fromJson(x))),
         bowelMovements: json["bowelMovements"] == null
             ? null
-            : List<dynamic>.from(json["bowelMovements"].map((x) => x)),
+            : List<TrackableItem>.from(json["bowelMovements"].map((x) => x)),
         food: json["food"] == null
             ? null
-            : List<dynamic>.from(json["food"].map((x) => x)),
+            : List<TrackableItem>.from(json["food"].map((x) => x)),
         healthWellness: json["healthWellness"] == null
             ? null
-            : List<DatumItem>.from(
-                json["healthWellness"].map((x) => DatumItem.fromJson(x))),
+            : List<TrackableItem>.from(
+                json["healthWellness"].map((x) => TrackableItem.fromJson(x))),
         medications: json["medications"] == null
             ? null
-            : List<dynamic>.from(json["medications"].map((x) => x)),
+            : List<TrackableItem>.from(json["medications"].map((x) => x)),
         journal: json["journal"] == null
             ? null
-            : List<dynamic>.from(json["journal"].map((x) => x)),
+            : List<TrackableItem>.from(json["journal"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
