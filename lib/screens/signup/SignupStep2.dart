@@ -140,6 +140,7 @@ class SignupStep2 extends StatelessWidget {
                         value: model.enabled,
                         onChanged: (val) {
                           model.enabled = !model.enabled;
+                          _setEnabledStateOfChildrenForTrackable(model);
                           _controller.trackList.refresh();
                         },
                       ),
@@ -192,6 +193,7 @@ class SignupStep2 extends StatelessWidget {
                   value: item.enabled,
                   onChanged: (val) {
                     item.enabled = !item.enabled;
+                    _setEnabledStateOfChildrenForTrackable(item);
                     _controller.trackList.refresh();
                   },
                 ),
@@ -209,7 +211,7 @@ class SignupStep2 extends StatelessWidget {
                 )
               ],
             ),
-            children: _renderChildren(item.children)
+            children: _renderChildren(item.children, item)
         )
     );
   }
@@ -218,23 +220,47 @@ class SignupStep2 extends StatelessWidget {
   /// passing the child.items back to _renderSubItem
   /// (which may in tern call _renderChildren on those
   /// items to walk down the tree)
-  _renderChildren(List<TrackableChild> children) {
+  _renderChildren(List<TrackableChild> children, TrackableItem parent) {
     List<Widget> widgets = [];
     children.forEach( (child) {
-      var listView = (ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          padding: EdgeInsets.only(
-              left: ScreenConstant.sizeExtraLarge),
-          itemCount:
-          child.items.length,
-          itemBuilder: (BuildContext context, int idx) {
-           // print ("Rendering child item: " + child.items[idx].tid + ", " + child.items[idx].isVisible.toString());
-            return _renderSubItem(child.items[idx]);
-          }
-      ));
+      var listView = (
+          IgnorePointer(
+            ignoring: !parent.enabled,
+            child: ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              padding: EdgeInsets.only(
+                  left: ScreenConstant.sizeExtraLarge),
+              itemCount:
+              child.items.length,
+              itemBuilder: (BuildContext context, int idx) {
+               // print ("Rendering child item: " + child.items[idx].tid + ", " + child.items[idx].isVisible.toString());
+                return _renderSubItem(child.items[idx]);
+              }
+            )
+          )
+      );
       widgets.add(listView);
     });
     return widgets;
   }
+
+
+
+  _setEnabledStateOfChildrenForTrackable(TrackableItem item){
+    // Set children:
+    // Top level have item.items, which was bad data modelling, we can work around:
+    item.items.forEach((nestedItem) {
+      nestedItem.enabled = item.enabled;
+      return _setEnabledStateOfChildrenForTrackable(nestedItem);
+    });
+
+    item.children.forEach((child) {
+      child.items.forEach((childItem) {
+        childItem.enabled = item.enabled;
+        _setEnabledStateOfChildrenForTrackable(childItem);
+      });
+    });
+  }
+
 }
