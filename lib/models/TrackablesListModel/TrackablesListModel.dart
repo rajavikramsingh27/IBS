@@ -1,3 +1,12 @@
+/*
+  IAN Notes:
+  Datum was acting as the parent trackable, PurpleItem as a child.
+  To simplify I combined these into TrackableItem - parent and child
+  are the same.
+  TrackableItem could be further specified into types with inheritance,
+  but this was a smaller change to your logic.
+ */
+
 // To parse this JSON data, do
 //
 //     final trackablesListModel = trackablesListModelFromJson(jsonString);
@@ -66,6 +75,7 @@ class TrackableItem {
     this.items,
     this.toggle,
     this.enabled,
+    this.weight,
   });
 
   String tid;
@@ -92,6 +102,7 @@ class TrackableItem {
   ItemCondition condition;
   Toggle toggle;
   bool enabled;
+  int weight;
 
   factory TrackableItem.fromJson(Map<String, dynamic> json) => TrackableItem(
     tid: json["tid"] == null ? null : json["tid"],
@@ -137,6 +148,7 @@ class TrackableItem {
         : ItemCondition.fromJson(json["condition"]),
     toggle: json["toggle"] == null ? null : Toggle.fromJson(json["toggle"]),
     enabled: json["enabled"] == null ? json["enabledDefault"] : json["enabled"],
+    weight: json["weight"] == null ? 0 : json["weight"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -1526,5 +1538,6 @@ class EnumValues<T> {
       reverseMap = map.map((k, v) => new MapEntry(v, k));
     }
     return reverseMap;
-  }
+
+ }
 }

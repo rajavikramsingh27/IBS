@@ -189,9 +189,9 @@ class SignupStep2 extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CustomCheckBox(
-                  value: item.enabledDefault,
+                  value: item.enabled,
                   onChanged: (val) {
-                    item.enabledDefault = !item.enabledDefault;
+                    item.enabled = !item.enabled;
                     _controller.trackList.refresh();
                   },
                 ),

@@ -1,3 +1,10 @@
+/*
+  IAN Notes:
+    Originally this was only walking the top-level trackables, it did not
+    send the nested trackables to the server.
+    Updated to recursively walk down the item.child.items[x] path to assemble
+    all values.
+ */
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
@@ -154,7 +161,7 @@ class SignUpController extends GetxController {
     });
 
     /* IAN: Deprecated. This was only walking the top level list.
-      Data needed to include child[x].items
+      Data needed to include items[x].child[y].items
 
     trackList.value.data.forEach((element) {
       if (element.category == "symptoms") {
@@ -257,6 +264,11 @@ class SignUpController extends GetxController {
     if (connectionStatus.value) {
       loader.value = true;
       await ServiceApi().getTrackables().then((value) {
+        // Sort the list bw "weight" property ascending:
+        value.data.sort((a, b) {
+          return a.weight.compareTo(b.weight);
+        });
+
         trackList.value = value;
       });
       getSymptoms();
