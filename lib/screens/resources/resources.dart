@@ -3,6 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_ibs/screens/resources/ResourcesContents.dart';
+import 'package:flutter_ibs/screens/resourcesArticleView/resourcesArticleView.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/HexColor.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -11,32 +13,17 @@ import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 import 'package:flutter_ibs/widget/CustomBottomNavigation.dart';
 
-
 import 'package:flutter/services.dart';
 import 'package:flutter_ibs/controllers/signIn/SignInController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
-import 'package:flutter_ibs/utils/Colors.dart';
-import 'package:flutter_ibs/utils/ScreenConstants.dart';
-import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/utils/Validator.dart';
-import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomTextFormField%20.dart';
-import 'package:flutter_ibs/widget/utils.dart';
-import 'package:get/get.dart';
-
+import 'package:flutter_ibs/screens/ResourcesAdditionalRelated/ResourcesAdditionalRelated.dart';
 
 
 class Resources extends StatelessWidget {
   final SignInController _controller = Get.put(SignInController());
-
-  final arrResources = [
-    'Think you may have IBS?',
-    'What is IBS?',
-    'Signs and Symptoms of IBS',
-    'IBS Frequently Asked Questions',
-    'Links to Additional IBS Related Content'
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -44,15 +31,28 @@ class Resources extends StatelessWidget {
       backgroundColor: AppColors.colorHomeBg,
       appBar: AppBar(
         elevation: 0,
-        leading: LeadingBackButton(
-          onPressed: () => Get.back(),
-        ),
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
           "RESOURCES",
           style: TextStyles.appBarTitle,
         ),
+        leading: LeadingBackButton(
+          onPressed: () => Get.back(),
+        ),
+        actions: [
+          InkWell(
+            onTap: () => Get.toNamed(settings),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: ScreenConstant.defaultWidthTwenty),
+              child: Image.asset(
+                Assets.settings,
+                width: ScreenConstant.defaultWidthTwenty,
+              ),
+            ),
+          )
+        ],
       ),
       body: Stack(
         children: [
@@ -116,8 +116,8 @@ class Resources extends StatelessWidget {
 
   Widget buildResourcesList() {
     return ListView.separated(
-        itemCount: arrResources.length,
         shrinkWrap: true,
+        itemCount: ResourcesContents().arrResources.length,
         physics: NeverScrollableScrollPhysics(),
         separatorBuilder: (context, index) {
           return Container(
@@ -144,7 +144,7 @@ class Resources extends StatelessWidget {
             title: Padding(
               padding: EdgeInsets.only(left: ScreenConstant.sizeXXL),
               child: Text(
-                arrResources[index],
+                ResourcesContents().arrResources[index],
                 style: TextStyles.textStyleSettingQuestionaireBlack,
               ),
             ),
@@ -156,8 +156,30 @@ class Resources extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          Get.toNamed(resourcesArticleView);
+
+          if (index == ResourcesContents().arrResources.length-1) {
+            // Get.toNamed(resources);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>
+                  ResourcesAdditionalRelated()),
+            );
+          } else {
+            final arrResourcesArticleView = [
+              ResourcesContents().arrResourcesImages[index],
+              ResourcesContents().arrResources[index],
+              ResourcesContents().arrResourcesDescription[index],
+            ];
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>
+                  ResourcesArticleView(
+                      arrResourcesArticleView: arrResourcesArticleView)),
+            );
+          }
         },
+
       );
     });
   }
