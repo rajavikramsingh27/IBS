@@ -45,7 +45,7 @@ class Medication extends StatelessWidget {
           ],
         ),
       ),
-      backgroundColor: Color(0xff1A103E).withOpacity(0.6),
+      backgroundColor: AppColors.barrierColor.withOpacity(0.6),
       body: Obx(
         () => InkWell(
           onTap: () => dismissKeyboard(context),
@@ -77,7 +77,8 @@ class Medication extends StatelessWidget {
                                       height:
                                           ScreenConstant.defaultHeightSixty),
                                   Text(
-                                    "Track Medication",
+                                    _signUpController
+                                        .medications.value.header.tr,
                                     style: TextStyles.textStyleIntroDescription
                                         .apply(
                                             color: Colors.black,
@@ -118,7 +119,11 @@ class Medication extends StatelessWidget {
                                   SizedBox(
                                       height:
                                           ScreenConstant.defaultHeightTwenty),
-                                  Text("Additional Notes",
+                                  Text(
+                                      _signUpController.medications.value.items
+                                          .elementAt(2)
+                                          .name
+                                          .tr,
                                       textAlign: TextAlign.center,
                                       style: TextStyles
                                           .textStyleIntroDescription
@@ -190,12 +195,19 @@ class Medication extends StatelessWidget {
               Column(
                 children: [
                   SizedBox(height: ScreenConstant.defaultHeightForty),
-                  Text("What Did you take?",
+                  Text(
+                      _signUpController.medications.value.items
+                          .elementAt(1)
+                          .name
+                          .tr,
                       style: TextStyles.textStyleIntroDescription
                           .apply(color: Colors.white, fontSizeDelta: -3)),
                   SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.6),
                   Text(
-                    "Select from this list of common medications and supplements or add your own",
+                    _signUpController.medications.value.items
+                        .elementAt(1)
+                        .description
+                        .tr,
                     textAlign: TextAlign.center,
                     style: TextStyles.textStyleRegular
                         .apply(color: AppColors.colorSkipButton),
@@ -221,9 +233,12 @@ class Medication extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      _controller.listfoodDefault.add(Default(
-                          value: _controller.medicationTextController.text));
-                      _controller.listfoodDefault.refresh();
+                      if (_controller
+                          .medicationTextController.text.isNotEmpty) {
+                        _controller.listfoodDefault.add(Default(
+                            value: _controller.medicationTextController.text));
+                        _controller.listfoodDefault.refresh();
+                      }
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -239,7 +254,11 @@ class Medication extends StatelessWidget {
                         ),
                         SizedBox(width: ScreenConstant.sizeDefault),
                         Text(
-                          "Add this medication",
+                          _signUpController.medications.value.items
+                              .elementAt(1)
+                              .tags
+                              .addableLabel
+                              .tr,
                           style: TextStyles.textStyleRegular
                               .apply(color: AppColors.white),
                         )
@@ -281,13 +300,13 @@ class Medication extends StatelessWidget {
       itemCount: _signUpController.medications.value.items
           .elementAt(1)
           .tags
-          .boolListDefault
+          .tagsDefault
           .length,
       itemBuilder: (BuildContext context, int index) {
         var model = _signUpController.medications.value.items
             .elementAt(1)
             .tags
-            .boolListDefault[index];
+            .tagsDefault[index];
         return InkWell(
           onTap: () {
             if (!_controller.listfoodDefault.contains(model)) {
@@ -302,7 +321,7 @@ class Medication extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
               child: Text(
-                model.value,
+                model.value.tr,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular
@@ -355,7 +374,7 @@ class Medication extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
               child: Text(
-                model.value ?? "",
+                model.value.tr ?? "",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular

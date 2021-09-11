@@ -196,7 +196,6 @@ class CoreService {
           try {
             final response = await flutterFeathersjs.find(
                 serviceName: endpoint, query: data);
-            print("history$response");
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {

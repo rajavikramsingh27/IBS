@@ -2,7 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/track_history/TrackHistoryResponseModel.dart';
+import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
+import 'package:flutter_ibs/screens/food/Foods.dart';
+import 'package:flutter_ibs/screens/health/Health.dart';
+import 'package:flutter_ibs/screens/journal/Journal.dart';
+import 'package:flutter_ibs/screens/medication/Medication.dart';
+import 'package:flutter_ibs/screens/symptoms/Symptoms.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
@@ -10,6 +17,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class HomeController extends GetxController {
+  Rx<TrackablesListModel> trackFoodList = TrackablesListModel().obs;
+
   Rx<DateTime> now = DateTime.now().obs;
   RxBool selectedDailyLogin = false.obs;
   RxInt formattedTime = 0.obs;
@@ -23,7 +32,12 @@ class HomeController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxList<TrackHistoryResponseModel> trackHistoryList =
       <TrackHistoryResponseModel>[].obs;
+  RxInt selcetedDailyLogIndex = 0.obs;
+  RxString selcetedDailyLogindividualId = "".obs;
 
+  RxString selcetedDailyLogCategory = "".obs;
+
+  var foodValue;
   onTapped(int index) async {
     currentIndex.value = index;
   }
@@ -107,6 +121,64 @@ class HomeController extends GetxController {
         trackHistoryList.value = value;
       });
       loader.value = false;
+    }
+  }
+
+  navigateToTrackHistory(TrackHistoryResponseModel model) {
+    switch (model.category) {
+      case "symptoms":
+        {
+          return Get.bottomSheet(Symptoms(),
+              barrierColor: AppColors.barrierColor.withOpacity(0.60),
+              isScrollControlled: true);
+        }
+        break;
+      case "bowelMovements":
+        {
+          return Get.bottomSheet(BowelMovement(),
+              barrierColor: AppColors.barrierColor.withOpacity(0.60),
+              isScrollControlled: true);
+        }
+        break;
+      case "medications":
+        return Get.bottomSheet(Medication(),
+            barrierColor: AppColors.barrierColor.withOpacity(0.60),
+            isScrollControlled: true);
+
+        break;
+      case "healthWellness":
+        return Get.bottomSheet(Health(),
+            barrierColor: AppColors.barrierColor.withOpacity(0.60),
+            isScrollControlled: true);
+
+        break;
+      case "food":
+        {
+          if (connectionStatus.value) {
+            loader.value = true;
+
+            ServiceApi().getFoodHistoryList(id: model.id).then((value) {
+              trackFoodList.value = value;
+            });
+            loader.value = false;
+          }
+
+          return Get.bottomSheet(Foods(),
+              settings: RouteSettings(arguments: {trackFoodList.value}),
+              barrierColor: AppColors.barrierColor.withOpacity(0.60),
+              isScrollControlled: true);
+          // .then((value) => print("modal:$value"));
+        }
+
+        break;
+      case "journal":
+        return Get.bottomSheet(Journal(),
+            barrierColor: AppColors.barrierColor.withOpacity(0.60),
+            isScrollControlled: true);
+
+        break;
+      default:
+        return;
     }
   }
 }

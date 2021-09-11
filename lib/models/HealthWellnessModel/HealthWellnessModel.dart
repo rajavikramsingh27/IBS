@@ -10,7 +10,7 @@ String healthWellnessModelToJson(HealthWellnessModel data) => json.encode(data.t
 
 class HealthWellnessModel {
   HealthWellnessModel({
-    this.category,
+    this.category = "healthWellness",
     this.items,
   });
 
@@ -106,20 +106,23 @@ class ChildValue {
 
 class ItemValue {
   ItemValue({
-    this.num,
+    this.numValue,
     this.arr,
+    this.str,
   });
 
-  int num;
+  num numValue;
+  String str;
   List<String> arr;
 
   factory ItemValue.fromJson(Map<String, dynamic> json) => ItemValue(
-    num: json["num"] == null ? null : json["num"],
+    numValue: json["num"] == null ? null : json["num"],
     arr: json["arr"] == null ? null : List<String>.from(json["arr"].map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
-    "num": num == null ? null : num,
+    "num": numValue == null ? null : numValue,
+    "str": str == null ? null : str,
     "arr": arr == null ? null : List<dynamic>.from(arr.map((x) => x)),
   };
 }

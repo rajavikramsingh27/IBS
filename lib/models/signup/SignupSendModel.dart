@@ -178,7 +178,7 @@ class TrackingSendModel {
     this.symptoms,
     this.bowelMovements,
     this.food,
-    this.wellness,
+    this.healthWellness,
     this.medications,
     this.journal,
   });
@@ -186,7 +186,7 @@ class TrackingSendModel {
   List<DatumItem> symptoms;
   List<DatumItem> bowelMovements;
   List<DatumItem> food;
-  List<DatumItem> wellness;
+  List<DatumItem> healthWellness;
   List<DatumItem> medications;
   List<DatumItem> journal;
 
@@ -207,14 +207,14 @@ class TrackingSendModel {
         food: json["food"] == null
             ? null
             : List<dynamic>.from(json["food"].map((x) => x)),
-        wellness: json["symptoms"] == null
+        healthWellness: json["healthWellness"] == null
             ? null
             : List<DatumItem>.from(
-                json["wellness"].map((x) => DatumItem.fromJson(x))),
-        medications: json["bowelMovements"] == null
+                json["healthWellness"].map((x) => DatumItem.fromJson(x))),
+        medications: json["medications"] == null
             ? null
             : List<dynamic>.from(json["medications"].map((x) => x)),
-        journal: json["food"] == null
+        journal: json["journal"] == null
             ? null
             : List<dynamic>.from(json["journal"].map((x) => x)),
       );
@@ -226,12 +226,12 @@ class TrackingSendModel {
         "bowelMovements": bowelMovements == null
             ? null
             : List<dynamic>.from(bowelMovements.map((x) => x.toJson())),
-        "food": food == null
+        "foods": food == null
             ? null
             : List<dynamic>.from(food.map((x) => x.toJson())),
-        "wellness": wellness == null
+        "healthWellness": healthWellness == null
             ? null
-            : List<dynamic>.from(wellness.map((x) => x.toJson())),
+            : List<dynamic>.from(healthWellness.map((x) => x.toJson())),
         "medications": medications == null
             ? null
             : List<dynamic>.from(medications.map((x) => x.toJson())),

@@ -168,7 +168,7 @@ class ItemValue {
   });
 
   List<dynamic> arr;
-  double numValue;
+  num numValue;
   String str;
 
   factory ItemValue.fromJson(Map<String, dynamic> json) => ItemValue(

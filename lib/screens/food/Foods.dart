@@ -17,11 +17,16 @@ import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
 
 class Foods extends StatelessWidget {
+  final TrackablesListModel trackFoodList;
+
+  Foods({Key key, this.trackFoodList}) : super(key: key);
+
   final FoodController _controller = Get.put(FoodController());
   final SignUpController _signUpController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    print("model:$trackFoodList");
     return Scaffold(
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: _signUpController.loader.value
@@ -79,7 +84,7 @@ class Foods extends StatelessWidget {
                           children: [
                             SizedBox(height: ScreenConstant.defaultHeightSixty),
                             Text(
-                              "Track Food",
+                              _signUpController.food.value.header.tr,
                               style: TextStyles.textStyleIntroDescription.apply(
                                   color: Colors.black, fontSizeDelta: -2),
                               textAlign: TextAlign.center,
@@ -88,7 +93,7 @@ class Foods extends StatelessWidget {
                             DateTimeCardWidget(),
                             SizedBox(height: ScreenConstant.defaultHeightForty),
                             Text(
-                              "What meal is this?",
+                              _signUpController.food.value.items.first.name.tr,
                               style: TextStyles.textStyleIntroDescription.apply(
                                   color: Colors.black, fontSizeDelta: -2),
                               textAlign: TextAlign.center,
@@ -107,11 +112,13 @@ class Foods extends StatelessWidget {
                                     ),
                                     child: Column(
                                       children: [
-                                        _buildFoods(),
+                                        _buildFoods(
+                                            _controller.modelMealIndex.value),
                                         SizedBox(
                                             height: ScreenConstant
                                                 .defaultHeightSixty),
-                                        _buildHydration(),
+                                        _buildHydration(
+                                            _controller.modelMealIndex.value),
                                       ],
                                     )),
                               ],
@@ -121,6 +128,10 @@ class Foods extends StatelessWidget {
                             AdditionalNoteWidget(
                               textEditingController:
                                   _controller.noteTextController,
+                              text: _signUpController.food.value.items
+                                  .elementAt(2)
+                                  .name
+                                  .tr,
                             ),
                             SizedBox(
                                 height: ScreenConstant.defaultHeightTwentyFour),
@@ -147,7 +158,7 @@ class Foods extends StatelessWidget {
     );
   }
 
-  _buildFoods() {
+  _buildFoods(int index) {
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -161,17 +172,20 @@ class Foods extends StatelessWidget {
               Column(
                 children: [
                   SizedBox(height: ScreenConstant.defaultHeightForty),
-                  Text("What Did you Eat?",
+                  Text(
+                      _signUpController.food.value.items.first.children[index]
+                          .items.first.name.tr,
                       style: TextStyles.textStyleIntroDescription
-                          .apply(color: Colors.white, fontSizeDelta: -3)),
+                          .apply(color: Colors.white, fontSizeDelta: -2)),
                   SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                   Text(
-                    "Select from this list of common foods or add another",
+                    _signUpController.food.value.items.first.children[index]
+                        .items.first.description.tr,
                     textAlign: TextAlign.center,
-                    style: TextStyles.textStyleRegular
-                        .apply(color: AppColors.colorSkipButton),
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.white, fontSizeDelta: -2),
                   ),
-                  _buildListDefaultFood(),
+                  _buildListDefaultFood(_controller.modelMealIndex.value),
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
@@ -192,8 +206,9 @@ class Foods extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      _controller.listfoodDefault.add(
-                          Default(value: _controller.foodTextController.text));
+                      if (_controller.foodTextController.text.isNotEmpty)
+                        _controller.listfoodDefault.add(Default(
+                            value: _controller.foodTextController.text));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -209,7 +224,17 @@ class Foods extends StatelessWidget {
                         ),
                         SizedBox(width: ScreenConstant.sizeDefault),
                         Text(
-                          "Add this food",
+                          _signUpController
+                              .food
+                              .value
+                              .items
+                              .first
+                              .children[_controller.modelMealIndex.value]
+                              .items
+                              .first
+                              .tags
+                              .addableLabel
+                              .tr,
                           style: TextStyles.textStyleRegular
                               .apply(color: AppColors.white),
                         )
@@ -217,8 +242,8 @@ class Foods extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                  _buildRegularFoodsTaken(),
-                  _buildLOWFODMAPFoods(),
+                  _buildRegularFoodsTaken(_controller.modelMealIndex.value),
+                  _buildLOWFODMAPFoods(_controller.modelMealIndex.value),
                   SizedBox(height: ScreenConstant.defaultHeightForty * 1.4),
                 ],
               ),
@@ -259,60 +284,41 @@ class Foods extends StatelessWidget {
       itemCount:
           _signUpController.food.value.items?.first?.list?.options?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
+        _controller.mealOptionDefault(mealIndex: index);
         var model =
             _signUpController.food.value.items?.first?.list?.options[index];
 
-        var startTime = CustomDateTime().parseTimeAsDateTime(
-            dateTime: model.conditionalDefault.time.first.startTime,
-            returnFormat: "HH:mm");
-        var endTime = CustomDateTime().parseTimeAsDateTime(
-            dateTime: model.conditionalDefault.time.first.endTime,
-            returnFormat: "HH:mm");
+        return InkWell(
+          onTap: () {
+            _signUpController.food.value.items.first.list.options
+                .forEach((element) {
+              if (element.optionDefault) {
+                element.optionDefault = false;
+                _signUpController.food.refresh();
+              }
+            });
 
-        var s =
-            "${_controller.currentDateTime.value.hour}:${_controller.currentDateTime.value.minute}";
-        var u = CustomDateTime()
-            .parseTimeAsDateTime(dateTime: s, returnFormat: "HH:mm");
-        // print("uefbjfe:$s");
-
-        // var p = u.difference(startTime).inSeconds;
-        // print("diff:$p");
-
-        // print("date:$startTime");
-        // print("currentdate:$u");
-        _controller.startTimeDifference.value =
-            u.difference(startTime).inSeconds;
-        _controller.startTimeDifference.value =
-            (endTime.difference(u).inSeconds);
-        if (model.optionDefault) {
-          if ((endTime.difference(u).inSeconds) > 0 &&
-              (u.difference(startTime).inSeconds) > 0) {
-            model.optionDefault = true;
-          }
-        }
-
-        return Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage(
-                  model.optionDefault ? model.image.active : model.image.normal,
+            model.optionDefault = !model.optionDefault;
+            _controller.modelMealIndex.value = index;
+            _controller.mealTypeValue.value = model.value;
+            _controller.modelMealIndex.refresh();
+            _signUpController.food.refresh();
+          },
+          child: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                    // ((endTime.difference(u).inSeconds) > 0 &&
+                    //         (u.difference(startTime).inSeconds) > 0)
+                    //     ? model.image.active
+                    model.optionDefault
+                        ? model.image.active
+                        : model.image.normal,
+                  ),
                 ),
-              ),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppColors.colorBorder, width: 1)),
-          child: InkWell(
-            onTap: () {
-              _signUpController.food.value.items.first.list.options
-                  .forEach((element) {
-                if (element.optionDefault) {
-                  element.optionDefault = false;
-                }
-              });
-              model.optionDefault = !model.optionDefault;
-              _controller.modelMealIndex.value = index;
-              _controller.mealTypeValue.value = model.value;
-            },
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: AppColors.colorBorder, width: 1)),
             child: Stack(
               children: [
                 Positioned(
@@ -320,7 +326,7 @@ class Foods extends StatelessWidget {
                   left: 0,
                   right: 0,
                   child: Text(
-                    model.value.capitalize ?? "",
+                    model.label.tr ?? "",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles.textStyleRegular.apply(
@@ -342,48 +348,63 @@ class Foods extends StatelessWidget {
     );
   }
 
-  _buildListDefaultFood() {
+  _buildListDefaultFood(int index) {
     // print("ind$index");
-    return GridView.builder(
-      padding: EdgeInsets.symmetric(
-          horizontal: ScreenConstant.sizeLarge,
-          vertical: ScreenConstant.defaultHeightTwentyFour),
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: _controller.listfoodDefault.length ?? 0,
-      itemBuilder: (BuildContext context, int ind) {
-        var model = _controller.listfoodDefault[ind];
+    return _controller.listfoodDefault.isNotEmpty
+        ? GridView.builder(
+            padding: EdgeInsets.symmetric(
+                horizontal: ScreenConstant.sizeLarge,
+                vertical: ScreenConstant.defaultHeightTwentyFour),
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: _controller.listfoodDefault.length ?? 0,
+            itemBuilder: (BuildContext context, int ind) {
+              var model = _controller.listfoodDefault[ind];
 
-        return InkWell(
-          onTap: () {
-            if (_controller.listfoodDefault.contains(model))
-              _controller.listfoodDefault.removeAt(ind);
-          },
-          child: Card(
-            color: AppColors.colorArrowButton,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100)),
-            child: Center(
-              child: Text(
-                model.value ?? "",
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyles.textStyleRegular
-                    .apply(color: Colors.white, fontSizeDelta: -2),
-              ),
+              return InkWell(
+                onTap: () {
+                  if (_controller.listfoodDefault.contains(model))
+                    _controller.listfoodDefault.removeAt(ind);
+                },
+                child: Card(
+                  color: AppColors.colorArrowButton,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100)),
+                  child: Center(
+                    child: Text(
+                      model.value.tr ?? "",
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyles.textStyleRegular
+                          .apply(color: Colors.white, fontSizeDelta: -2),
+                    ),
+                  ),
+                ),
+              );
+            },
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3, childAspectRatio: 3.5),
+          )
+        : Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: ScreenConstant.sizeLarge,
+                vertical: ScreenConstant.defaultHeightTwentyFour),
+            child: Text(
+              _signUpController.food.value.items.first.children[index].items
+                  .first.tags.placeholder.tr,
+              textAlign: TextAlign.center,
+              style: TextStyles.textStyleRegular
+                  .apply(color: AppColors.colorSkipButton),
             ),
-          ),
-        );
-      },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, childAspectRatio: 3.5),
-    );
+          );
   }
 
-  _buildRegularFoodsTaken() {
+  _buildRegularFoodsTaken(int index) {
     return Column(
       children: [
-        Text("My Regular Breakfast Foods",
+        Text(
+            _signUpController.food.value.items.first.children[index].items.first
+                .tags.name.tr,
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.white, fontSizeDelta: -2)),
         _buildListOfFoodsTaken(_controller.modelMealIndex.value),
@@ -391,15 +412,18 @@ class Foods extends StatelessWidget {
     );
   }
 
-  _buildLOWFODMAPFoods() {
+  _buildLOWFODMAPFoods(int index) {
     return Column(
       children: [
-        Text("Low FODMAP Favourites",
+        Text(
+            _signUpController.food.value.items.first.children[index].items.first
+                .children.first.items.first.tags.name.tr,
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.white, fontSizeDelta: -2)),
         SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text(
-          "Add some popular low FODMAP foods to your favourites in your food tracking journal.",
+          _signUpController.food.value.items.first.children[index].items.first
+              .children.first.items.first.tags.description.tr,
           textAlign: TextAlign.center,
           style: TextStyles.textStyleRegular
               .apply(color: AppColors.colorSkipButton),
@@ -457,16 +481,7 @@ class Foods extends StatelessWidget {
             ?.first
             ?.tags
             ?.tagsDefault[ind];
-        Future.delayed(Duration.zero, () {
-          _controller.mealtid.value = _signUpController.food.value.items
-              ?.elementAt(0)
-              ?.children
-              ?.elementAt(index)
-              ?.items
-              ?.first
-              ?.tid;
-          print("tid:${_controller.mealtid.value}");
-        });
+
         return InkWell(
           onTap: () {
             if (!_controller.listfoodDefault.contains(model))
@@ -478,7 +493,7 @@ class Foods extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
               child: Text(
-                model.value ?? "",
+                model.value.tr ?? "",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular
@@ -523,6 +538,11 @@ class Foods extends StatelessWidget {
             ?.first
             ?.tags
             ?.tagsDefault[indx];
+        Future.delayed(Duration.zero, () {
+          _controller.mealtid.value = _signUpController
+              .food.value.items.first.children[index].items.first.tid;
+          print("tid:${_controller.mealtid.value}");
+        });
         return InkWell(
           onTap: () {
             if (!_controller.listfoodDefault.contains(model))
@@ -534,7 +554,7 @@ class Foods extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
               child: Text(
-                model.value ?? "",
+                model.value.tr ?? "",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.textStyleRegular
@@ -549,15 +569,15 @@ class Foods extends StatelessWidget {
     );
   }
 
-  _buildHydration() {
+  _buildHydration(int index) {
     return Column(
       children: [
-        Text("Hydration",
+        Text(_signUpController.food.value.items.elementAt(1).name.tr,
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.white, fontSizeDelta: -2)),
         SizedBox(height: ScreenConstant.sizeDefault),
         Text(
-          "How many glasses of water have you had today",
+          _signUpController.food.value.items.elementAt(1).description.tr,
           textAlign: TextAlign.center,
           style: TextStyles.textStyleRegular.apply(color: AppColors.white),
         ),
@@ -580,28 +600,31 @@ class Foods extends StatelessWidget {
           onTap: () {
             ind++;
             _controller.noOfGlasses.value = ind;
-
+            _controller.noOfGlasses.refresh();
+            _signUpController.food.refresh();
             print("glass:${_controller.noOfGlasses}");
           },
           // child: CircleAvatar(
           //   backgroundColor: Colors.white.withOpacity(0.20),
           child: Padding(
               padding: ScreenConstant.spacingAllMedium,
-              child: Image.network(
-                _controller.noOfGlasses > ind
-                    ? _signUpController.food.value.items
-                        .elementAt(1)
-                        .sum
-                        .image
-                        .active
-                    : _signUpController.food.value.items
-                        .elementAt(1)
-                        .sum
-                        .image
-                        .normal,
-                width: ScreenConstant.defaultWidthTwenty * 5,
-                height: ScreenConstant.defaultHeightTwenty * 1.5,
-              )),
+              child: _controller.loader.value
+                  ? CircularProgressIndicator()
+                  : Image.network(
+                      _controller.noOfGlasses.value > ind
+                          ? _signUpController.food.value.items
+                              .elementAt(1)
+                              .sum
+                              .image
+                              .active
+                          : _signUpController.food.value.items
+                              .elementAt(1)
+                              .sum
+                              .image
+                              .normal,
+                      width: ScreenConstant.defaultWidthTwenty * 5,
+                      height: ScreenConstant.defaultHeightTwenty * 1.5,
+                    )),
           // ),
         );
       },

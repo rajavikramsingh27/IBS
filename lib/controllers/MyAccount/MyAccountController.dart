@@ -1,12 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_ibs/Store/HiveStore.dart';
-import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
-import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
-import 'package:flutter_ibs/models/signup/SignupSendModel.dart';
-import 'package:flutter_ibs/routes/RouteConstants.dart';
+
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
@@ -61,7 +56,7 @@ class MyAccountController extends GetxController {
         // final data = await ServiceApi().signInApi(bodyData: model.toJson());
         final data = await ServiceApi().getUserList();
         loader.value = false;
-
+        print(data);
       } catch (error) {
         error.message.toString().showError();
         loader.value = false;

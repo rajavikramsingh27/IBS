@@ -145,6 +145,7 @@ class SignIn extends StatelessWidget {
             child: TextButton(
               onPressed: () {
                 Navigator.pop(Get.context);
+                //Get.toNamed(intro);
               },
               child: Text("Return to Home Screen",
                   style: TextStyles.textStyleRegular.apply(

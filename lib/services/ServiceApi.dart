@@ -1,13 +1,17 @@
 
 
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseModel.dart';
+import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
+import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/journal/JournalResponseModel.dart';
+import 'package:flutter_ibs/models/language/LanguageResponseModel.dart';
 import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/medication/MedicationResponseModel.dart';
 import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
+import 'package:flutter_ibs/models/tags/TagsResponseModel.dart';
 import 'package:flutter_ibs/models/track_history/TrackHistoryResponseModel.dart';
 import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/url.dart';
@@ -22,7 +26,7 @@ class ServiceApi {
 
   Future<TrackablesListModel> getTrackables() async {
     var result = await CoreService()
-        .apiService(method: METHOD.FIND, endpoint: TRACKLIST);
+        .apiService(method: METHOD.FIND, endpoint: TRACK_LIST);
     return TrackablesListModel.fromJson(result);
   }
 
@@ -32,12 +36,11 @@ class ServiceApi {
     // if (result.name.toString().toLowerCase() == "Unprocessable".toLowerCase()) {
     //   return SignupErrorModel.fromJson(result);
     // } else
-    if(result == null){
+    if (result == null) {
       return null;
-    }else{
+    } else {
       return LoginResponseModel.fromJson(result);
     }
-
   }
 
   Future<dynamic> getSymptomsApi({Map bodyData}) async {
@@ -89,7 +92,7 @@ class ServiceApi {
 
   Future<dynamic> postBowelMovementAPI({Map bodyData}) async {
     var result = await CoreService().apiService(
-        method: METHOD.CREATE, endpoint: BOWELMOVEMENTS, data: bodyData);
+        method: METHOD.CREATE, endpoint: BOWEL_MOVEMENTS, data: bodyData);
     if (result == null) {
       return null;
     } else {
@@ -127,7 +130,7 @@ class ServiceApi {
 
   Future<dynamic> getUserHistoryList() async {
     var result = await CoreService()
-        .apiService(method: METHOD.FIND, endpoint: TRACKHISTORY);
+        .apiService(method: METHOD.FIND, endpoint: TRACK_HISTORY);
 
     if (result == null) {
       return null;
@@ -138,7 +141,8 @@ class ServiceApi {
   }
 
   Future<dynamic> getUserList() async {
-    final result = await CoreService().apiService(method: METHOD.FIND, endpoint: USERS);
+    final result = await CoreService().apiService(
+        method: METHOD.FIND, endpoint: USERS);
 
     print('resultresultresultresultresultresult');
     print(result);
@@ -146,9 +150,50 @@ class ServiceApi {
     if (result == null) {
       return null;
     } else {
-      // var res = TrackHistoryResponseModelList.fromJson(result);
-      // return res.trackHistoryList;
+
     }
+  }
+
+  Future<dynamic> getFoodHistoryList({String id}) async {
+    var result = await CoreService()
+        .apiService(method: METHOD.FIND, endpoint: "$FOODS/$id");
+    if (result == null) {
+      return null;
+    } else
+      return TrackablesListModel.fromJson(result);
+  }
+
+  Future<dynamic> postHealthWellnessAPI({Map bodyData}) async {
+    var result = await CoreService().apiService(method: METHOD.CREATE, endpoint: HEALTH_WELLNESS, data: bodyData);
+
+    return HealthWellnessResponseModel.fromJson(result);
+    }
+
+  Future<LanguageResponseModel> getLanguage() async {
+    var result =
+        await CoreService().apiService(method: METHOD.FIND, endpoint: LANG);
+    if (result == null) {
+      return null;
+    } else
+      return LanguageResponseModel.fromJson(result);
+  }
+
+  Future<TagsResponseModel> postTags() async {
+    var result =
+        await CoreService().apiService(method: METHOD.CREATE, endpoint: TAGS);
+    if (result == null) {
+      return null;
+    } else
+      return TagsResponseModel.fromJson(result);
+  }
+
+  Future<TreatmentPlanResponseModel> getTreatmentPlan() async {
+    var result = await CoreService()
+        .apiService(method: METHOD.FIND, endpoint: TREATMENT_PLAN);
+    if (result == null) {
+      return null;
+    } else
+      return TreatmentPlanResponseModel.fromJson(result);
   }
 
 }

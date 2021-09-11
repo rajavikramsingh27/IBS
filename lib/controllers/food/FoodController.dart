@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodSendModel.dart';
+import 'package:flutter_ibs/models/tags/TagsSendModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
+import 'package:flutter_ibs/utils/DateTime.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class FoodController extends GetxController {
+  Rx<FoodResponseModel> foodModel;
   Rx<DateTime> currentDateTime = DateTime.now().obs;
-  RxDouble sliderValue = 1.0.obs;
+  HomeController homeController = Get.find();
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   RxString mealTypeValue = "".obs;
@@ -21,6 +25,7 @@ class FoodController extends GetxController {
   RxList<Default> listfoodDefault = <Default>[].obs;
   RxInt noOfGlasses = 0.obs;
   RxString mealtid = "".obs;
+  RxBool selected = false.obs;
 
   TextEditingController noteTextController = TextEditingController();
   TextEditingController foodTextController = TextEditingController();
@@ -42,7 +47,18 @@ class FoodController extends GetxController {
             DateFormat.Hm().format(currentDateTime.value).split(":").first)
         .obs;
     checkData();
+
+    var v = homeController.trackFoodList.value;
+    print("vdsdfat-- $v");
   }
+
+  // onFoodTagSave() {
+  //   TagsSendModel foodTags = TagsSendModel(
+  //     category: _signUpController.food.value.category,
+  //     key: ,
+  //     value: ,
+  //   );
+  // }
 
   onSave() async {
     if (foodSendModel.value.items == null) {
@@ -67,6 +83,8 @@ class FoodController extends GetxController {
         dtype: "str",
         value: FoodValue(str: mealTypeValue.value));
     print("meal:${mealTypeValue.value}");
+    print("foodListTid:${mealtid.value}");
+
     foodSendModel.value.items.add(foodModel);
     foodSendModel.refresh();
 
@@ -121,5 +139,41 @@ class FoodController extends GetxController {
     } else {
       loader.value = false;
     }
+  }
+
+  mealOptionDefault({mealIndex}) {
+    var model =
+        _signUpController.food.value.items?.first?.list?.options[mealIndex];
+    var startTime = CustomDateTime().parseTimeAsDateTime(
+        dateTime: model.conditionalDefault.time.first.startTime,
+        returnFormat: "HH:mm");
+    var endTime = CustomDateTime().parseTimeAsDateTime(
+        dateTime: model.conditionalDefault.time.first.endTime,
+        returnFormat: "HH:mm");
+
+    var s = "${currentDateTime.value.hour}:${currentDateTime.value.minute}";
+    var u = CustomDateTime()
+        .parseTimeAsDateTime(dateTime: s, returnFormat: "HH:mm");
+
+    startTimeDifference.value = u.difference(startTime).inSeconds;
+    endTimeDifference.value = (endTime.difference(u).inSeconds);
+    if ((endTime.difference(u).inSeconds) > 0 &&
+        (u.difference(startTime).inSeconds) > 0) {
+      if (!selected.value) {
+        selected.value = true;
+        model.optionDefault = !model.optionDefault;
+        Future.delayed(Duration(seconds: 1), () {
+          _signUpController.food.refresh();
+        });
+      }
+    }
+    //   if (model.optionDefault == false &&
+    //       ((endTime.difference(u).inSeconds) > 0 &&
+    //           (u.difference(startTime).inSeconds) > 0)) {
+    //     model.optionDefault = true;
+    //     Future.delayed(Duration(seconds: 0), () {
+    //       _signUpController.food.refresh();
+    //     });
+    //   }
   }
 }

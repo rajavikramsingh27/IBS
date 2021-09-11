@@ -70,7 +70,7 @@ class Journal extends StatelessWidget {
                         children: [
                           SizedBox(height: ScreenConstant.defaultHeightSixty),
                           Text(
-                            "Daily Journal",
+                            _signUpController.journal.value.header.tr,
                             style: TextStyles.textStyleIntroDescription
                                 .apply(color: Colors.black, fontSizeDelta: -2),
                             textAlign: TextAlign.center,
@@ -134,16 +134,25 @@ class Journal extends StatelessWidget {
               Column(
                 children: [
                   SizedBox(height: ScreenConstant.defaultHeightForty),
-                  Text(
-                      "${_signUpController.journal.value.items.first.name ?? ""}",
-                      style: TextStyles.textStyleIntroDescription
-                          .apply(color: Colors.white, fontSizeDelta: -3)),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ScreenConstant.sizeExtraLarge),
+                    child: Text(
+                        _signUpController.journal.value.items.first.name.tr,
+                        textAlign: TextAlign.center,
+                        style: TextStyles.textStyleIntroDescription
+                            .apply(color: Colors.white, fontSizeDelta: -3)),
+                  ),
                   SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.6),
-                  Text(
-                    "${_signUpController.journal.value.items.first.description ?? ""}",
-                    textAlign: TextAlign.center,
-                    style: TextStyles.textStyleRegular
-                        .apply(color: AppColors.colorSkipButton),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ScreenConstant.sizeExtraLarge),
+                    child: Text(
+                      "${_signUpController.journal.value.items.first.description.tr ?? ""}",
+                      textAlign: TextAlign.center,
+                      style: TextStyles.textStyleRegular
+                          .apply(color: AppColors.colorSkipButton),
+                    ),
                   ),
                   Padding(
                     padding: ScreenConstant.spacingAllMedium,
@@ -170,6 +179,7 @@ class Journal extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(height: ScreenConstant.defaultHeightForty),
                 ],
               ),
               Container(

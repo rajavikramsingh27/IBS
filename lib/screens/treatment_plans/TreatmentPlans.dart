@@ -7,10 +7,11 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/Indicator.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
+import 'package:flutter_ibs/widget/TreatmentPlanListItem.dart';
 import 'package:get/get.dart';
 
 class TreatmentPlans extends StatelessWidget {
-  final _controller = Get.put(TreatmentPlanController());
+  final TreatmentPlanController _treatmentPlanController = Get.put(TreatmentPlanController());
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class TreatmentPlans extends StatelessWidget {
           )
         ],
       ),
-      body: ListView(
+      body: Obx(()=>_treatmentPlanController.loader.value?Center(child: CircularProgressIndicator()):ListView(
         padding: ScreenConstant.spacingAllMedium,
         physics: ClampingScrollPhysics(),
         children: [
@@ -57,7 +58,7 @@ class TreatmentPlans extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Indicator(
-            controller: _controller.pageController,
+            controller: _treatmentPlanController.pageController,
             itemCount: 4,
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
@@ -68,21 +69,14 @@ class TreatmentPlans extends StatelessWidget {
             textAlign: TextAlign.start,
           ),
           SizedBox(height: ScreenConstant.defaultHeightTen),
-          _buildTreatmentPlans("Stress management ", () {
-            Get.toNamed(stressManagement);
-          }),
+          TreatmentPlanListItem("Stress management ",
+                  (){_treatmentPlanController.toTreatmentPlanListWidget(data: _treatmentPlanController.treatmentPlanItemData.first);}),
           SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("Low FODMAP diet", () {
-            Get.toNamed(lowDiet);
-          }),
+          TreatmentPlanListItem("Low FODMAP diet",(){_treatmentPlanController.toTreatmentPlanListWidget();}),
           SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("Increase exercise", () {
-            Get.toNamed(exercise);
-          }),
+          TreatmentPlanListItem("Increase exercise",(){_treatmentPlanController.toTreatmentPlanListWidget();}),
           SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("Improve sleep", () {
-            Get.toNamed(sleep);
-          }),
+          TreatmentPlanListItem("Improve sleep",(){_treatmentPlanController.toTreatmentPlanListWidget();}),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
           Text(
             "Physician Prescribed Changes",
@@ -91,50 +85,12 @@ class TreatmentPlans extends StatelessWidget {
             textAlign: TextAlign.start,
           ),
           SizedBox(height: ScreenConstant.defaultHeightTen),
-          _buildTreatmentPlans("Medication and supplements", () {
-            Get.toNamed(medication_supplements);
-          }),
+          TreatmentPlanListItem("Medication and supplements", (){_treatmentPlanController.toTreatmentPlanListWidget();}),
           SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("Cognitive Behavioural Therapy", () {}),
+          TreatmentPlanListItem("Cognitive Behavioural Therapy",(){_treatmentPlanController.toTreatmentPlanListWidget();}),
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         ],
-      ),
-    );
-  }
-
-  Widget _buildTreatmentPlans(String title, Function onPressed) {
-    return Container(
-      padding: ScreenConstant.spacingAllSmall,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.colorBorder, width: 1)),
-      child: ListTile(
-        dense: true,
-        contentPadding: EdgeInsets.zero,
-        title: Padding(
-          padding: EdgeInsets.only(left: ScreenConstant.sizeXXL),
-          child: Text(
-            title,
-            style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.black, fontSizeDelta: -6),
-          ),
-        ),
-        trailing: Container(
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.colorArrowButton, width: 1)),
-          child: IconButton(
-            visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-            icon: Icon(
-              Icons.arrow_forward_ios_outlined,
-              color: AppColors.colorArrowButton,
-              size: FontSize.s14,
-            ),
-            onPressed: onPressed,
-          ),
-        ),
-      ),
+      )),
     );
   }
 }
