@@ -121,7 +121,7 @@ class SignupStep2 extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       itemCount: _controller.trackList.value.data?.length ?? 0,
       itemBuilder: (_, index) {
-        var model = _controller.trackList.value.data[index];
+        var topLevelItem = _controller.trackList.value.data[index];
 
         return Theme(
             data: Get.theme.copyWith(dividerColor: Colors.transparent),
@@ -137,10 +137,10 @@ class SignupStep2 extends StatelessWidget {
                     children: [
                       CustomCheckBox(
                         checkedFillColor: AppColors.colorYesButton,
-                        value: model.enabled,
+                        value: topLevelItem.enabled,
                         onChanged: (val) {
-                          model.enabled = !model.enabled;
-                          _setEnabledStateOfChildrenForTrackable(model);
+                          topLevelItem.enabled = !topLevelItem.enabled;
+                          _setEnabledStateOfChildrenForTrackable(topLevelItem, topLevelItem);
                           _controller.trackList.refresh();
                         },
                       ),
@@ -169,7 +169,7 @@ class SignupStep2 extends StatelessWidget {
                           itemCount: _controller
                               .trackList.value.data[index].items.length,
                           itemBuilder: (BuildContext context, int idx) {
-                            return _renderSubItem(model.items[idx]);
+                            return _renderSubItem(topLevelItem.items[idx], topLevelItem);
                           })),
                 ]));
       },
@@ -179,7 +179,7 @@ class SignupStep2 extends StatelessWidget {
   /// Renders a specific TrackableItem
   /// This items children will be passed to
   /// _renderChildren for rendering.
-  _renderSubItem(TrackableItem item) {
+  _renderSubItem(TrackableItem item, TrackableItem topLevelItem) {
     return Visibility(
         visible: item.isVisible,
         child: CustomExpansionTile(
@@ -193,7 +193,7 @@ class SignupStep2 extends StatelessWidget {
                   value: item.enabled,
                   onChanged: (val) {
                     item.enabled = !item.enabled;
-                    _setEnabledStateOfChildrenForTrackable(item);
+                    _setEnabledStateOfChildrenForTrackable(item, topLevelItem);
                     _controller.trackList.refresh();
                   },
                 ),
@@ -211,7 +211,7 @@ class SignupStep2 extends StatelessWidget {
                 )
               ],
             ),
-            children: _renderChildren(item.children, item)
+            children: _renderChildren(item.children, item, topLevelItem)
         )
     );
   }
@@ -220,7 +220,7 @@ class SignupStep2 extends StatelessWidget {
   /// passing the child.items back to _renderSubItem
   /// (which may in tern call _renderChildren on those
   /// items to walk down the tree)
-  _renderChildren(List<TrackableChild> children, TrackableItem parent) {
+  _renderChildren(List<TrackableChild> children, TrackableItem parent, TrackableItem topLevelItem) {
     List<Widget> widgets = [];
     children.forEach( (child) {
       var listView = (
@@ -235,7 +235,7 @@ class SignupStep2 extends StatelessWidget {
               child.items.length,
               itemBuilder: (BuildContext context, int idx) {
                // print ("Rendering child item: " + child.items[idx].tid + ", " + child.items[idx].isVisible.toString());
-                return _renderSubItem(child.items[idx]);
+                return _renderSubItem(child.items[idx], topLevelItem);
               }
             )
           )
@@ -247,20 +247,25 @@ class SignupStep2 extends StatelessWidget {
 
 
 
-  _setEnabledStateOfChildrenForTrackable(TrackableItem item){
+  _setEnabledStateOfChildrenForTrackable(TrackableItem item, TrackableItem topLevelItem){
     // Set children:
     // Top level have item.items, which was bad data modelling, we can work around:
     item.items.forEach((nestedItem) {
       nestedItem.enabled = item.enabled;
-      return _setEnabledStateOfChildrenForTrackable(nestedItem);
+      return _setEnabledStateOfChildrenForTrackable(nestedItem, topLevelItem);
     });
 
     item.children.forEach((child) {
       child.items.forEach((childItem) {
         childItem.enabled = item.enabled;
-        _setEnabledStateOfChildrenForTrackable(childItem);
+        return _setEnabledStateOfChildrenForTrackable(childItem, topLevelItem);
       });
     });
+
+    // A child of a top level should always turn on the top level
+    if (item.enabled){
+      topLevelItem.enabled = true;
+    }
   }
 
 }
