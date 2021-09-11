@@ -10,14 +10,13 @@ import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
-import 'package:flutter_ibs/utils/HexColor.dart';
+
 
 class MyIBSDiagnosis extends StatelessWidget {
   final MyProfileController _controller = Get.put(MyProfileController());
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         backgroundColor: AppColors.colorProfileBg,
         appBar: AppBar(
@@ -46,10 +45,10 @@ class MyIBSDiagnosis extends StatelessWidget {
         SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Container(
             padding: EdgeInsets.only(
-              bottom: 20,
-              top: 20,
-              left: 40,
-              right: 40,
+              bottom: ScreenConstant.defaultHeightTwenty,
+              top: ScreenConstant.defaultHeightTwenty,
+              left: ScreenConstant.defaultHeightForty,
+              right: ScreenConstant.defaultHeightForty,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,12 +56,7 @@ class MyIBSDiagnosis extends StatelessWidget {
               children: [
                 Text(
                   "Your IBS Diagnosis",
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Roboto-Regular',
-                    color: HexColor('4A358B'),
-                  ),
+                  style: TextStyles.textStyleSettingTitle,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: ScreenConstant.sizeDefault),
@@ -70,12 +64,7 @@ class MyIBSDiagnosis extends StatelessWidget {
                   "You may change your IBS Diagnosis at any time. "
                       "Note that you may only have one diagnosis at any given time. "
                       "All data previously collected will remain unchanged.",
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontFamily: 'Roboto-Regular',
-                    // fontWeight: FontWeight.w400,
-                    color: HexColor('4A358B'),
-                  ),
+                  style: TextStyles.textStyleSettingDescription,
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -116,7 +105,7 @@ class MyIBSDiagnosis extends StatelessWidget {
         SizedBox(height: ScreenConstant.defaultHeightTen),
         _buildListIbsType(),
         SizedBox(
-          height: 100,
+          height: ScreenConstant.defaultHeightOneHundred,
         )
       ],
     );

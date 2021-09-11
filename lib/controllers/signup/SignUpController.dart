@@ -85,8 +85,8 @@ class SignUpController extends GetxController {
       'Password should be 6 character'.showError();
     } else if (confirmPasswordController.text.isEmpty) {
       'Enter Confirm Password'.showError();
-    }  else if (isFormValid()) {
-
+    }  else if (!isFormValid()) {
+      debugPrint('password or terms and conditions are not selected');
     } else {
       bool check = await ConnectionCheck().initConnectivity();
 
@@ -239,7 +239,9 @@ class SignUpController extends GetxController {
     if (data is SignupResponseModel) {
       HiveStore().put(Keys.LOGINID, data.loginId);
       HiveStore().put(Keys.EMAIL, data.email);
-      Get.offAllNamed(signIn, arguments: [data.loginId, data.email]);
+      // Get.offAllNamed(signIn, arguments: [data.loginId, data.email]);
+      Get.offAllNamed(intro, arguments: [data.loginId, data.email]);
+      Get.toNamed(signIn);
 
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Registered Successfully");
@@ -271,6 +273,7 @@ class SignUpController extends GetxController {
     if (passwordController.text != confirmPasswordController.text) {
       CustomSnackBar()
           .errorSnackBar(title: "Password", message: "Password do not match");
+      return false;
     } else  if (agreeToTerms.value == false) {
       CustomSnackBar().errorSnackBar(
           title: "Terms and Condition",
@@ -278,7 +281,8 @@ class SignUpController extends GetxController {
 
       return false;
     }
-    return false;
+
+    return true;
   }
 
   bool isFormStep1valid() {

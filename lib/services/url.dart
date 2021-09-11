@@ -10,6 +10,10 @@ const JOURNAL = "/user/journals";
 const HEALTH_WELLNESS = "/user/wellness";
 const MEDICATIONS = "/user/medications";
 //history
+const TRACKHISTORY = "/user/history";
+
+//  Settings
+const USERS = '/users';
 const TRACK_HISTORY = "/user/history";
 const LANG = "/lang";
 const TAGS = "/user/tags";

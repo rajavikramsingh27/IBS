@@ -114,7 +114,7 @@ class _IntroState extends State<Intro> {
 
   _buildPageView() {
     return Container(
-      height: 370,
+      height: 380,
       child: PageView.builder(
           itemCount: arrIntroText.length,
           controller: _pageController,

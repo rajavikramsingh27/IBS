@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/health/HealthController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
@@ -15,6 +17,8 @@ import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
+
+
 
 class Health extends StatelessWidget {
   final _healthWellnessController = Get.put(HealthController());

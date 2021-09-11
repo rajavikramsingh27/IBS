@@ -1,3 +1,5 @@
+
+
 import 'package:flutter_ibs/screens/Intro.dart';
 import 'package:flutter_ibs/screens/about_ibs/MyIbs.dart';
 import 'package:flutter_ibs/screens/exercise/Exercise.dart';
@@ -21,8 +23,11 @@ import 'package:flutter_ibs/screens/treatment_plans/TreatmentPlanListWidgetDetai
 import 'package:flutter_ibs/screens/treatment_plans/TreatmentPlans.dart';
 import 'package:flutter_ibs/splash.dart';
 import 'package:get/get.dart';
-
 import 'RouteConstants.dart';
+import 'package:flutter_ibs/screens/resources/resources.dart';
+import 'package:flutter_ibs/screens/resourcesArticleView/resourcesArticleView.dart';
+
+
 
 class NavRouter {
   static final generateRoute = [
@@ -113,6 +118,14 @@ class NavRouter {
     GetPage(
       name: resetPass,
       page: () => ResetPassword(),
+    ),
+    GetPage(
+      name: resources,
+      page: () => Resources(),
+    ),
+    GetPage(
+      name: resourcesArticleView,
+      page: () => ResourcesArticleView(),
     ),
   ];
 }
