@@ -137,4 +137,6 @@ class Assets {
   static const String logout = "assets/images/logout.png";
 
   static const String noInternet = "assets/images/nointernet.gif";
+
+  static const String resources_1 = "$baseImage/resources/resources.png";
 }

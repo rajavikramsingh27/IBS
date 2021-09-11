@@ -14,7 +14,6 @@ import 'package:flutter_ibs/utils/Validator.dart';
 
 class SignUpController extends GetxController {
   Rx<TrackablesListModel> trackList = TrackablesListModel().obs;
-  Rx<TrackablesListModel> trackFoodList = TrackablesListModel().obs;
 
   RxString selectedGender = "".obs;
   RxBool selectedMale = false.obs;
@@ -86,10 +85,9 @@ class SignUpController extends GetxController {
       'Password should be 6 character'.showError();
     } else if (confirmPasswordController.text.isEmpty) {
       'Enter Confirm Password'.showError();
-    }  else if (isFormValid()) {
-
+    }  else if (!isFormValid()) {
+      debugPrint('password or terms and conditions are not selected');
     } else {
-
       bool check = await ConnectionCheck().initConnectivity();
 
       if (check) {
@@ -134,6 +132,7 @@ class SignUpController extends GetxController {
       ibsType: _myProFileController
           .selectIbsType(_myProFileController.selctedIbsType.value),
     );
+
     RomeivSendModel romeivSendModel = RomeivSendModel(
       abdominalPain:
           _myProFileController.isDiagnoisedAbdominalPain.value ?? false,
@@ -147,6 +146,7 @@ class SignUpController extends GetxController {
       stool: _myProFileController.selectStoolType(
           _myProFileController.selectedStoolType.value ?? null),
     );
+
     trackList.value.data.forEach((element) {
       if (element.tid == "symptoms") {
         element.items.forEach((el) {
@@ -154,6 +154,7 @@ class SignUpController extends GetxController {
             symptomsList.add(el);
           }
         });
+
       } else if (element.tid == "bowelMovements") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
@@ -161,6 +162,7 @@ class SignUpController extends GetxController {
           }
         });
       }
+
       if (element.tid == "food") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
@@ -168,6 +170,7 @@ class SignUpController extends GetxController {
           }
         });
       }
+
       if (element.tid == "healthWellness") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
@@ -175,6 +178,7 @@ class SignUpController extends GetxController {
           }
         });
       }
+
       if (element.tid == "medications") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
@@ -182,6 +186,7 @@ class SignUpController extends GetxController {
           }
         });
       }
+
       if (element.tid == "journal") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
@@ -189,22 +194,25 @@ class SignUpController extends GetxController {
           }
         });
       }
+
     });
 
     TrackingSendModel trackModel = TrackingSendModel(
-        symptoms: symptomsList,
-        bowelMovements: bowelMoveList,
-        food: foodList,
-        healthWellness: wellnessList,
-        medications: medicationList,
+      symptoms: symptomsList,
+      bowelMovements: bowelMoveList,
+      food: foodList,
+      healthWellness: wellnessList,
+      medications: medicationList,
     );
-    // print("track: ${trackModel.toJson()}");
+
     ProfileSendModel profileModel = ProfileSendModel(
         sex: selectedGender.value,
         age: selectedAge.value,
         familyHistory: selectedIbsHistory.value,
         diagnosedIbs: diagnoisedModel,
-        romeiv: romeivSendModel);
+        romeiv: romeivSendModel
+    );
+
     SignupSendModel model = SignupSendModel(
       label: emailController?.text,
       email: emailController?.text,
@@ -213,19 +221,24 @@ class SignUpController extends GetxController {
       profile: profileModel,
       tracking: trackModel,
     );
+
     print("data: ${model.toJson()}");
+
     final data = await ServiceApi().signupApi(bodyData: model.toJson());
 
     if (data is SignupResponseModel) {
       HiveStore().put(Keys.LOGINID, data.loginId);
       HiveStore().put(Keys.EMAIL, data.email);
-      Get.offAllNamed(signIn, arguments: [data.loginId, data.email]);
+      // Get.offAllNamed(signIn, arguments: [data.loginId, data.email]);
+      Get.offAllNamed(intro, arguments: [data.loginId, data.email]);
+      Get.toNamed(signIn);
 
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Registered Successfully");
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
+
   }
 
   getTrackList() async {
@@ -248,6 +261,7 @@ class SignUpController extends GetxController {
     if (passwordController.text != confirmPasswordController.text) {
       CustomSnackBar()
           .errorSnackBar(title: "Password", message: "Password do not match");
+      return false;
     } else  if (agreeToTerms.value == false) {
       CustomSnackBar().errorSnackBar(
           title: "Terms and Condition",
@@ -255,7 +269,8 @@ class SignUpController extends GetxController {
 
       return false;
     }
-    return false;
+
+    return true;
   }
 
   bool isFormStep1valid() {

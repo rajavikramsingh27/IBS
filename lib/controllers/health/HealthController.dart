@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -38,6 +39,7 @@ class HealthController extends GetxController {
     super.onInit();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
+
   void onSave()async{
     if (healthWellnessModel.value.items == null) {
       healthWellnessModel.value.items = [];
@@ -51,8 +53,8 @@ class HealthController extends GetxController {
     healthWellnessModel.refresh();
     print("DATA Model : ${json.encode(healthWellnessModel.toJson())}");
     loader.value = true;
-    final data =
-        await ServiceApi().postHealthWellnessAPI(bodyData: healthWellnessModel.toJson());
+    
+    final data = await ServiceApi().postHealthWellnessAPI(bodyData: healthWellnessModel.toJson());
     loader.value = false;
     if (data is HealthRsp.HealthWellnessResponseModel) {
       noteTextController.clear();
