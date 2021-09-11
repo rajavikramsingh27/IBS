@@ -165,7 +165,7 @@ class SignupStep2 extends StatelessWidget {
                       var subModel =
                           _controller.trackList.value.data[index].items[idx];
                       return Visibility(
-                        visible: _controller.trackList.value.data[index].items[idx].isVisible,
+                        visible: subModel.isVisible,
                         child: CustomExpansionTile(
                           tilePadding: EdgeInsets.zero,
                           onExpansionChanged: (isExpanding) {},
@@ -178,7 +178,7 @@ class SignupStep2 extends StatelessWidget {
                                     ? false
                                     : _controller.trackList.value.data[index]
                                         .items[idx].enabledDefault,*/
-                                value: _controller.trackList.value.data[index].items[idx].enabledDefault,
+                                value: subModel.enabledDefault,
                           onChanged: (val) {
                                   _controller.trackList.value.data[index]
                                           .items[idx].enabledDefault =
@@ -216,13 +216,13 @@ class SignupStep2 extends StatelessWidget {
                                           subModel.children.last.items[idx];
 
                                       return Visibility(
-                                        visible: subModel.isVisible ,
+                                        visible: subModelChild.isVisible ,
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
                                             CustomCheckBox(
-                                              value: subModel.enabledDefault,/* ==
+                                              value: subModelChild.enabledDefault,/* ==
                                                           false ||
                                                       model.enabled == false
                                                   ? false

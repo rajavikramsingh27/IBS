@@ -136,7 +136,7 @@ class TrackableItem {
         ? null
         : ItemCondition.fromJson(json["condition"]),
     toggle: json["toggle"] == null ? null : Toggle.fromJson(json["toggle"]),
-    enabled: json["enabled"] == null ? false : json["enabled"],
+    enabled: json["enabled"] == null ? json["enabledDefault"] : json["enabled"],
   );
 
   Map<String, dynamic> toJson() => {
