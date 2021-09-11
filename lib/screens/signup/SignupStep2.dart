@@ -128,7 +128,7 @@ class SignupStep2 extends StatelessWidget {
             child: CustomExpansionTile(
                 tilePadding: EdgeInsets.zero,
                 onExpansionChanged: (isExpanding) {},
-                initiallyExpanded: true,
+                initiallyExpanded: topLevelItem.enabledDefault,
                 title: Container(
                   decoration: BoxDecoration(
                       color: AppColors.colorBackground,
