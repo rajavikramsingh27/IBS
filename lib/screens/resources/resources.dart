@@ -21,9 +21,9 @@ import 'package:flutter_ibs/utils/Validator.dart';
 import 'package:flutter_ibs/widget/CustomTextFormField%20.dart';
 import 'package:flutter_ibs/screens/ResourcesAdditionalRelated/ResourcesAdditionalRelated.dart';
 
-
 class Resources extends StatelessWidget {
   final SignInController _controller = Get.put(SignInController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +158,6 @@ class Resources extends StatelessWidget {
         onPressed: () {
 
           if (index == ResourcesContents().arrResources.length-1) {
-            // Get.toNamed(resources);
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) =>

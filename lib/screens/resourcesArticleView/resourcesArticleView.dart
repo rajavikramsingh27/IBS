@@ -14,7 +14,7 @@ import 'package:flutter_ibs/utils/Assets.dart';
 
 class ResourcesArticleView extends StatelessWidget {
 
-  final List<String> arrResourcesArticleView;
+  final List<dynamic> arrResourcesArticleView;
 
   ResourcesArticleView({Key key,  this.arrResourcesArticleView}) : super(key: key);
 
@@ -77,12 +77,7 @@ class ResourcesArticleView extends StatelessWidget {
             SizedBox(height: ScreenConstant.defaultHeightTwenty,),
             Container(
               width: double.infinity,
-              child: Text(
-                this.arrResourcesArticleView[2],
-                style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-                    color: Colors.black
-                ),
-              ),
+              child: this.arrResourcesArticleView[2]
             ),
           ],
         ),

@@ -64,12 +64,14 @@ class ResourcesAdditionalRelated extends StatelessWidget {
                 Assets.resources_2,
               ),
             ),
-            SizedBox(height: ScreenConstant.defaultHeightTwenty+10,),
+            SizedBox(height: ScreenConstant.defaultHeightForty),
             Container(
               width: double.infinity,
               child: Text(
                 'Links to Additional IBS Related Content:',
-                style: TextStyles.textStyleSettingNotificationsResourceTitle,
+                style: TextStyles.textStyleSettingTitle.apply(
+                    color: Colors.black
+                ),
               ),
             ),
             SizedBox(height: ScreenConstant.defaultHeightTwenty,),
@@ -89,44 +91,64 @@ class ResourcesAdditionalRelated extends StatelessWidget {
           if (index == 4) {
             return Container(
               padding: EdgeInsets.only(
-                top: 10, bottom: 10
+                top: ScreenConstant.defaultHeightForty, bottom: ScreenConstant.defaultHeightTwenty
               ),
               width: double.infinity,
               child: Text(
-                'Links to Additional IBS Related Content:',
-                style: TextStyles.textStyleSettingNotificationsResourceTitle,
+                'Reference',
+                style: TextStyles.textStyleSettingNotificationsResourceTitle.apply(
+                    color: Colors.black
+                ),
               ),
             );
           } else {
             return Container(
-              height: 2,
+              height: ScreenConstant.defaultHeightTwenty,
             );
           }
         }, itemBuilder: (context, index) {
-      return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            primary: Colors.transparent,
-            padding: EdgeInsets.all(0),
-            elevation: 0
-        ),
-        child: ListTile(
-          dense: true,
-          contentPadding: EdgeInsets.all(0),
-          title: Padding(
-            padding: EdgeInsets.all(6),
-            child: Text(git
-              ResourcesContents().arrResourcesAdditionalRelated[index],
-              style: TextStyles.textStyleSettingNotificationsResourceSubTitle,
-            ),
-          ),
-        ),
-        onPressed: () async {
+      return InkWell(
+        onTap: () async {
           final _url = ResourcesContents().arrResourcesAdditionalRelatedLinks[index];
           await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
         },
-
+        child: Text(
+          ResourcesContents().arrResourcesAdditionalRelated[index],
+          style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+              color: Colors.blue
+          ),
+        ),
       );
+
+
+      //   ElevatedButton(
+      //   style: ElevatedButton.styleFrom(
+      //     fixedSize: Size(0, 0),
+      //       primary: Colors.transparent,
+      //       padding: EdgeInsets.all(0),
+      //       elevation: 0,
+      //   ),
+      //   child: ListTile(
+      //     dense: true,
+      //     contentPadding: EdgeInsets.all(0),
+      //     title: Padding(
+      //       padding: EdgeInsets.all(0),
+      //       child: Text(
+      //         ResourcesContents().arrResourcesAdditionalRelated[index],
+      //         style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+      //             color: Colors.blue
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+      //   onPressed: () async {
+      //     final _url = ResourcesContents().arrResourcesAdditionalRelatedLinks[index];
+      //     await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
+      //   },
+      //
+      // );
     });
   }
 
 }
+
