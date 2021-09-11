@@ -25,6 +25,8 @@ import 'package:flutter_ibs/screens/treatment_plans/TreatmentPlans.dart';
 import 'package:flutter_ibs/splash.dart';
 import 'package:get/get.dart';
 import 'RouteConstants.dart';
+import 'package:flutter_ibs/screens/resources/resources.dart';
+import 'package:flutter_ibs/screens/resourcesArticleView/resourcesArticleView.dart';
 
 
 
@@ -121,6 +123,14 @@ class NavRouter {
     GetPage(
       name: resetPass,
       page: () => ResetPassword(),
+    ),
+    GetPage(
+      name: resources,
+      page: () => Resources(),
+    ),
+    GetPage(
+      name: resourcesArticleView,
+      page: () => ResourcesArticleView(),
     ),
   ];
 }

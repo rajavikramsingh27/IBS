@@ -36,6 +36,10 @@ class CoreService {
             final response = await flutterFeathersjs.get(
                 serviceName: endpoint, objectId: objectId
             );
+
+            print('responseresponseresponseresponseresponseresponseresponse');
+            print(response);
+
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
@@ -56,7 +60,6 @@ class CoreService {
             }
           } catch (er) {
             // Catch  unknown error
-
           }
         }
         break;
@@ -68,7 +71,6 @@ class CoreService {
                 serviceName: endpoint, data: data);
 
             return response;
-
             // responseJson = _returnResponse(response);
           } on SocketException {
             print("Socket");
@@ -79,13 +81,14 @@ class CoreService {
           } on FeatherJsError catch (e) {
             print("$e");
             if (e.type == FeatherJsErrorType.IS_SERVER_ERROR) {
-              CustomSnackBar()
-                  .errorSnackBar(title: "Error", message: e.message);
+              CustomSnackBar().errorSnackBar(title: "Error", message: e.message);
             }
+
             if (e.type == FeatherJsErrorType.IS_CONFLICT_ERROR) {
               CustomSnackBar()
                   .errorSnackBar(title: "Error", message: e.message);
             }
+
             if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
               Get.offAllNamed(signIn);
               CustomSnackBar()
@@ -257,7 +260,10 @@ class CoreService {
               userName: data["loginId"],
               userNameFieldName: "loginId",
             );
+
+            debugPrint("Response Response Response Response Response Response Response");
             debugPrint("Response: $response", wrapWidth: 1024);
+
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {

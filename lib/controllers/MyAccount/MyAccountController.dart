@@ -12,6 +12,7 @@ import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:flutter_ibs/utils/Validator.dart';
+RxBool loader = false.obs;
 
 
 class MyAccountController extends GetxController {
@@ -46,8 +47,28 @@ class MyAccountController extends GetxController {
 
     emailController = TextEditingController();
     passwordController = TextEditingController();
-    bool isInternet = await ConnectionCheck().initConnectivity();
+
+    getUserList();
   }
 
+  getUserList() async {
+    bool isInternet = await ConnectionCheck().initConnectivity();
 
+    if (isInternet) {
+      loader.value = true;
+
+      try {
+        // final data = await ServiceApi().signInApi(bodyData: model.toJson());
+        final data = await ServiceApi().getUserList();
+        loader.value = false;
+
+      } catch (error) {
+        error.message.toString().showError();
+        loader.value = false;
+      }
+    } else {
+      CustomSnackBar().errorSnackBar(
+          title: "No Internet", message: "No internet Connection");
+    }
+  }
 }

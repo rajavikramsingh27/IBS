@@ -12,6 +12,12 @@ import 'package:flutter_ibs/screens/RomeQuestionnaire/RomeQuestionnaire.dart';
 import 'package:flutter_ibs/screens/Notifications/Notifications.dart';
 
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ibs/widget/LeadingBackButton.dart';
+import 'package:get/get.dart';
+
 
 class Settings extends StatelessWidget {
 
@@ -57,9 +63,9 @@ class Settings extends StatelessWidget {
         backgroundColor: AppColors.colorHomeBg,
         appBar: AppBar(
           elevation: 0,
-          // leading: LeadingBackButton(
-          //   onPressed: () => Get.back(),
-          // ),
+          leading: LeadingBackButton(
+            onPressed: () => Get.back(),
+          ),
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Text(

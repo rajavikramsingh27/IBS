@@ -12,3 +12,6 @@ const HEALTH_WELLNESS = "/user/wellness";
 const MEDICATIONS = "/user/medications";
 //history
 const TRACKHISTORY = "/user/history";
+
+//  Settings
+const USERS = '/users';

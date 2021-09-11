@@ -1,3 +1,5 @@
+
+
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseModel.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
@@ -10,11 +12,11 @@ import 'package:flutter_ibs/models/track_history/TrackHistoryResponseModel.dart'
 import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/url.dart';
 
+
 class ServiceApi {
   Future<dynamic> signupApi({Map bodyData}) async {
     var result = await CoreService()
         .apiService(method: METHOD.CREATE, endpoint: SIGNUP, data: bodyData);
-
     return SignupResponseModel.fromJson(result);
   }
 
@@ -134,4 +136,19 @@ class ServiceApi {
       return res.trackHistoryList;
     }
   }
+
+  Future<dynamic> getUserList() async {
+    final result = await CoreService().apiService(method: METHOD.FIND, endpoint: USERS);
+
+    print('resultresultresultresultresultresult');
+    print(result);
+
+    if (result == null) {
+      return null;
+    } else {
+      // var res = TrackHistoryResponseModelList.fromJson(result);
+      // return res.trackHistoryList;
+    }
+  }
+
 }
