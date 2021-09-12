@@ -112,6 +112,7 @@ class FoodController extends GetxController {
     if (data is FoodResponseModel) {
       foodTextController.clear();
       noteTextController.clear();
+      foodSendModel.value.items = [];
       _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(

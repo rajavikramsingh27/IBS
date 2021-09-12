@@ -47,6 +47,7 @@ class BowelMovementController extends GetxController {
     loader.value = false;
     if (data is BMR.BowelMovementsResponseModel) {
       noteTextController.clear();
+      bowelMovementsModel.value.items = [];
       _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(

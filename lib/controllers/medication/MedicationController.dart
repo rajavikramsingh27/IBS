@@ -62,6 +62,7 @@ class MedicationController extends GetxController {
     if (data is MedicationResponseModel) {
       medicationTextController.clear();
       noteTextController.clear();
+      medicationSendModel.value.items = [];
       _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(

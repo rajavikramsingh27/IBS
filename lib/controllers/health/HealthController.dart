@@ -53,11 +53,12 @@ class HealthController extends GetxController {
     healthWellnessModel.refresh();
     print("DATA Model : ${json.encode(healthWellnessModel.toJson())}");
     loader.value = true;
-    
+
     final data = await ServiceApi().postHealthWellnessAPI(bodyData: healthWellnessModel.toJson());
     loader.value = false;
     if (data is HealthRsp.HealthWellnessResponseModel) {
       noteTextController.clear();
+      healthWellnessModel.value.items = [];
       _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
