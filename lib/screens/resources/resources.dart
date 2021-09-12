@@ -73,35 +73,35 @@ class Resources extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: ScreenConstant.defaultHeightTwenty,),
-                Text(
-                  'Search all Resources',
-                  style: TextStyles.textStyleSettingQuestionaireButton,
-                ),
-                SizedBox(height: ScreenConstant.defaultHeightTen,),
-                Container(
-                  height: ScreenConstant.defaultHeightSixty,
-                  padding: EdgeInsets.only(
-                    left: ScreenConstant.defaultHeightSixteen,
-                    right: ScreenConstant.defaultHeightSixteen,
-                  ),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(ScreenConstant.defaultHeightTen),
-                  ),
-                  child: CustomTextFormField(
-                    validationFunction: Validator().validateEmail,
-                    controller: _controller.emailController,
-                    inputFormatters: [LengthLimitingTextInputFormatter(50)],
-                    suffixIcon: Padding(
-                      padding: ScreenConstant.spacingAllSmall,
-                      child: Icon(
-                        Icons.search,
-                        color: HexColor('CAC3E1'),
-                        size: ScreenConstant.defaultHeightForty,
-                      ),
-                    ),
-                  ),
-                ),
+                // Text(
+                //   'Search all Resources',
+                //   style: TextStyles.textStyleSettingQuestionaireButton,
+                // ),
+                // SizedBox(height: ScreenConstant.defaultHeightTen,),
+                // Container(
+                //   height: ScreenConstant.defaultHeightSixty,
+                //   padding: EdgeInsets.only(
+                //     left: ScreenConstant.defaultHeightSixteen,
+                //     right: ScreenConstant.defaultHeightSixteen,
+                //   ),
+                //   decoration: BoxDecoration(
+                //       color: Colors.white,
+                //       borderRadius: BorderRadius.circular(ScreenConstant.defaultHeightTen),
+                //   ),
+                //   child: CustomTextFormField(
+                //     validationFunction: Validator().validateEmail,
+                //     controller: _controller.emailController,
+                //     inputFormatters: [LengthLimitingTextInputFormatter(50)],
+                //     suffixIcon: Padding(
+                //       padding: ScreenConstant.spacingAllSmall,
+                //       child: Icon(
+                //         Icons.search,
+                //         color: HexColor('CAC3E1'),
+                //         size: ScreenConstant.defaultHeightForty,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 SizedBox(height: ScreenConstant.defaultHeightTwenty,),
                 buildResourcesList(),
               ],

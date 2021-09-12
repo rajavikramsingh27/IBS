@@ -103,4 +103,14 @@ class TextStyles {
     fontWeight: FontWeight.normal,
   );
 
+  static TextStyle get textStyleSettingResourcesLink => TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Roboto',
+    color: Colors.black,
+    decoration: TextDecoration.underline,
+    decorationColor: Colors.blue,
+    decorationThickness: 2,
+  );
+
 }

@@ -129,13 +129,10 @@ class ResourcesContents {
                   }
             ),
             TextSpan(
-                text: '\n\nIBS Global Impact Report (2018, accessed March 2019).',
-                style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-                    color: Colors.black
-                ),
+                text: '\n\nIBS Global Impact Report (2018, accessed March 2019). \n\n',
+                style: TextStyles.textStyleSettingResourcesLink,
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
-                    print('helllo');
                     final _url = 'https://www.badgut.org/wp-content/uploads/IBS-Global-Impact-Report.pdf';
                     await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
                   }
@@ -204,20 +201,17 @@ class ResourcesContents {
                   }
             ),
             TextSpan(
-                text: '\n\nIBS Global Impact Report 2018.  [accessed 3 September 2018]',
-                    style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-                    color: Colors.black
-                ),
+                text: '\n\nIBS Global Impact Report 2018.  [accessed 3 September 2018',
+                    style: TextStyles.textStyleSettingResourcesLink,
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
-                    print('helllo');
                     final _url = 'https://badgut-5q10xayth7t3zjokbv.netdna-ssl.com/wp-content/uploads/IBS-Global-Impact-Report.pdf';
                     await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
                   }
             ),
             TextSpan(
                 text:
-                    '\n\nGastrointestinal Society. 2016. 2016 Survey Report: Irritable bowel syndrome. [accessed 3 September 2018]'
+                    '\n\nGastrointestinal Society. 2016. 2016 Survey Report: Irritable bowel syndrome. [accessed 3 September 2018'
                     '\n\nLovell RM and Ford AC. Global prevalence of and risk factors for irritable bowel syndrome: A meta-analysis. Clin Gastroenterol Hepatol. 2012 Jul;10(7):712-21.e4.',
                 style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
                     color: Colors.black
@@ -537,9 +531,7 @@ class ResourcesContents {
             ),
             TextSpan(
                 text: '\n\nIBS Global Impact Report',
-                style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-                    color: Colors.black
-                ),
+                style: TextStyles.textStyleSettingResourcesLink,
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
                     print('helllo');
