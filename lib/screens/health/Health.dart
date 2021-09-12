@@ -1,4 +1,4 @@
-
+// First attempt at making rating widget: Health.dart
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/health/HealthController.dart';
@@ -17,8 +17,6 @@ import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
-
-
 
 class Health extends StatelessWidget {
   final _healthWellnessController = Get.put(HealthController());
@@ -101,1735 +99,31 @@ class Health extends StatelessWidget {
                                         .healthWellness.value.items.length,
                                     itemBuilder: (_, mainIndex) {
                                       switch (_signUpController.healthWellness
-                                          .value.items[mainIndex].tid) {
-                                        case "healthWellness-stress_level":
+                                          .value.items[mainIndex].kind) {
+                                        case "rating":
                                           {
-                                            return Stack(
-                                              children: [
-                                                Positioned.fill(
-                                                  top: ScreenConstant
-                                                      .defaultHeightOneHundred,
-                                                  child: Container(
-                                                    color: AppColors
-                                                        .colorYesButton,
-                                                  ),
-                                                ),
-                                                Card(
-                                                  color:
-                                                      AppColors.colorBackground,
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              topLeft: Radius
-                                                                  .circular(20),
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                      20))),
-                                                  margin: EdgeInsets.only(
-                                                    left: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                    right: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                  ),
-                                                  child: Container(
-                                                    padding: EdgeInsets.symmetric(
-                                                        horizontal: ScreenConstant
-                                                            .defaultWidthTwenty),
-                                                    child: Column(
-                                                      children: [
-                                                        SizedBox(
-                                                            height: ScreenConstant
-                                                                .defaultHeightForty),
-                                                        Text(
-                                                            _signUpController
-                                                                .healthWellness
-                                                                .value
-                                                                .items[
-                                                                    mainIndex]
-                                                                .name
-                                                                .tr,
-                                                            style: TextStyles
-                                                                .textStyleIntroDescription
-                                                                .apply(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSizeDelta:
-                                                                        -3)),
-                                                        SizedBox(
-                                                            height: ScreenConstant
-                                                                .defaultHeightTwentyFour),
-                                                        Text(
-                                                          _signUpController
-                                                              .healthWellness
-                                                              .value
-                                                              .items[mainIndex]
-                                                              .description
-                                                              .tr,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyles
-                                                              .textStyleRegular
-                                                              .apply(
-                                                                  color: AppColors
-                                                                      .colorSkipButton),
-                                                        ),
-                                                        SizedBox(
-                                                            height: ScreenConstant
-                                                                .defaultHeightTwenty),
-                                                        Padding(
-                                                          padding: EdgeInsets.symmetric(
-                                                              horizontal:
-                                                                  ScreenConstant
-                                                                      .defaultWidthTen),
-                                                          child: SfSliderTheme(
-                                                            data:
-                                                                SfSliderThemeData(
-                                                              thumbColor: AppColors
-                                                                  .colorArrowButton,
-                                                              thumbStrokeWidth:
-                                                                  5,
-                                                              thumbRadius: 16,
-                                                              thumbStrokeColor:
-                                                                  Colors.white,
-                                                              activeTrackHeight:
-                                                                  4,
-                                                              overlayRadius: 0,
-                                                              disabledActiveTrackColor:
-                                                                  AppColors
-                                                                      .colorTrackSlider,
-                                                              disabledInactiveTrackColor:
-                                                                  AppColors
-                                                                      .colorTrackSlider,
-                                                              activeDividerStrokeWidth:
-                                                                  2,
-                                                              inactiveDividerStrokeWidth:
-                                                                  2,
-                                                              inactiveTrackHeight:
-                                                                  4,
-                                                              activeTrackColor:
-                                                                  AppColors
-                                                                      .colorTrackSlider,
-                                                              inactiveTrackColor:
-                                                                  AppColors
-                                                                      .colorTrackSlider,
-                                                              inactiveDividerStrokeColor:
-                                                                  AppColors
-                                                                      .white,
-                                                              inactiveDividerRadius:
-                                                                  8,
-                                                              inactiveDividerColor:
-                                                                  AppColors
-                                                                      .colorInactiveDividerSlider,
-                                                              activeDividerColor:
-                                                                  AppColors
-                                                                      .colorInactiveDividerSlider,
-                                                              activeDividerStrokeColor:
-                                                                  Colors.white,
-                                                              activeDividerRadius:
-                                                                  8,
-                                                              activeLabelStyle: TextStyles
-                                                                  .textStyleRegular
-                                                                  .apply(
-                                                                      color: AppColors
-                                                                          .colorTrackSlider),
-                                                              inactiveLabelStyle: TextStyles
-                                                                  .textStyleRegular
-                                                                  .apply(
-                                                                      color: AppColors
-                                                                          .colorTrackSlider),
-                                                            ),
-                                                            child: SfSlider(
-                                                              showDividers:
-                                                                  true,
-                                                              min: 1.0,
-                                                              max: _signUpController
-                                                                  .healthWellness
-                                                                  .value
-                                                                  .items[
-                                                                      mainIndex]
-                                                                  .rating
-                                                                  .range,
-                                                              interval: 1,
-                                                              stepSize: 1,
-                                                              showLabels: true,
-                                                              value: _signUpController
-                                                                  .healthWellness
-                                                                  .value
-                                                                  .items[
-                                                                      mainIndex]
-                                                                  .rating
-                                                                  .ratingDefault,
-                                                              onChanged: (dynamic
-                                                                  newValue) {
-                                                                _signUpController
-                                                                    .healthWellness
-                                                                    .value
-                                                                    .items[
-                                                                        mainIndex]
-                                                                    .rating
-                                                                    .ratingDefault = newValue;
-                                                                if (_healthWellnessController
-                                                                        .healthWellnessModel
-                                                                        .value
-                                                                        .items ==
-                                                                    null) {
-                                                                  _healthWellnessController
-                                                                      .healthWellnessModel
-                                                                      .value
-                                                                      .items = [];
-                                                                }
-                                                                Item item = Item(
-                                                                    tid: _signUpController
-                                                                        .healthWellness
-                                                                        .value
-                                                                        .items[
-                                                                            mainIndex]
-                                                                        .tid,
-                                                                    kind: _signUpController
-                                                                        .healthWellness
-                                                                        .value
-                                                                        .items[
-                                                                            mainIndex]
-                                                                        .kind,
-                                                                    dtype:
-                                                                        "num",
-                                                                    value: ItemValue(
-                                                                        numValue:
-                                                                            newValue));
-                                                                _healthWellnessController
-                                                                    .healthWellnessModel
-                                                                    .value
-                                                                    .items
-                                                                    .add(item);
-                                                                _healthWellnessController
-                                                                    .healthWellnessModel
-                                                                    .refresh();
-                                                                _signUpController
-                                                                    .healthWellness
-                                                                    .refresh();
-                                                              },
-                                                              labelFormatterCallback:
-                                                                  (dynamic
-                                                                          actualValue,
-                                                                      String
-                                                                          formattedText) {
-                                                                return actualValue ==
-                                                                        1
-                                                                    ? "None"
-                                                                    : actualValue ==
-                                                                            2
-                                                                        ? ""
-                                                                        : actualValue ==
-                                                                                3
-                                                                            ? ""
-                                                                            : "Extremely";
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                            height: ScreenConstant
-                                                                .defaultHeightTwenty),
-                                                        Divider(
-                                                            thickness: 1,
-                                                            color: AppColors
-                                                                .white
-                                                                .withOpacity(
-                                                                    0.12)),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            );
+                                            return _renderRatingWidget(
+                                                _signUpController.healthWellness
+                                                    .value.items[mainIndex]);
                                           }
                                           break;
-                                        case "healthWellness-anxiety_level":
+                                        case "list":
                                           {
-                                            return Stack(
-                                              children: [
-                                                Positioned.fill(
-                                                  child: Container(
-                                                    color: AppColors
-                                                        .colorYesButton,
-                                                  ),
-                                                ),
-                                                Container(
-                                                  color:
-                                                      AppColors.colorBackground,
-                                                  margin: EdgeInsets.only(
-                                                    left: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                    right: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                  ),
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: ScreenConstant
-                                                          .defaultWidthTwenty),
-                                                  child: Column(
-                                                    children: [
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightForty),
-                                                      Text(
-                                                          _signUpController
-                                                              .healthWellness
-                                                              .value
-                                                              .items[mainIndex]
-                                                              .name
-                                                              .tr,
-                                                          style: TextStyles
-                                                              .textStyleIntroDescription
-                                                              .apply(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSizeDelta:
-                                                                      -3)),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwentyFour),
-                                                      Text(
-                                                        _signUpController
-                                                            .healthWellness
-                                                            .value
-                                                            .items[mainIndex]
-                                                            .description
-                                                            .tr,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyles
-                                                            .textStyleRegular
-                                                            .apply(
-                                                                color: AppColors
-                                                                    .colorSkipButton),
-                                                      ),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwenty),
-                                                      Padding(
-                                                        padding: EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                ScreenConstant
-                                                                    .defaultWidthTen),
-                                                        child: SfSliderTheme(
-                                                          data:
-                                                              SfSliderThemeData(
-                                                            thumbColor: AppColors
-                                                                .colorArrowButton,
-                                                            thumbStrokeWidth: 5,
-                                                            thumbRadius: 16,
-                                                            thumbStrokeColor:
-                                                                Colors.white,
-                                                            activeTrackHeight:
-                                                                4,
-                                                            overlayRadius: 0,
-                                                            disabledActiveTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            disabledInactiveTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            activeDividerStrokeWidth:
-                                                                2,
-                                                            inactiveDividerStrokeWidth:
-                                                                2,
-                                                            inactiveTrackHeight:
-                                                                4,
-                                                            activeTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            inactiveTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            inactiveDividerStrokeColor:
-                                                                AppColors.white,
-                                                            inactiveDividerRadius:
-                                                                8,
-                                                            inactiveDividerColor:
-                                                                AppColors
-                                                                    .colorInactiveDividerSlider,
-                                                            activeDividerColor:
-                                                                AppColors
-                                                                    .colorInactiveDividerSlider,
-                                                            activeDividerStrokeColor:
-                                                                Colors.white,
-                                                            activeDividerRadius:
-                                                                8,
-                                                            activeLabelStyle: TextStyles
-                                                                .textStyleRegular
-                                                                .apply(
-                                                                    color: AppColors
-                                                                        .colorTrackSlider),
-                                                            inactiveLabelStyle: TextStyles
-                                                                .textStyleRegular
-                                                                .apply(
-                                                                    color: AppColors
-                                                                        .colorTrackSlider),
-                                                          ),
-                                                          child: SfSlider(
-                                                            showDividers: true,
-                                                            min: 1.0,
-                                                            max: _signUpController
-                                                                .healthWellness
-                                                                .value
-                                                                .items[
-                                                                    mainIndex]
-                                                                .rating
-                                                                .range,
-                                                            interval: 1,
-                                                            stepSize: 1,
-                                                            showLabels: true,
-                                                            value: _signUpController
-                                                                .healthWellness
-                                                                .value
-                                                                .items[
-                                                                    mainIndex]
-                                                                .rating
-                                                                .ratingDefault,
-                                                            onChanged: (dynamic
-                                                                newValue) {
-                                                              _signUpController
-                                                                  .healthWellness
-                                                                  .value
-                                                                  .items[
-                                                                      mainIndex]
-                                                                  .rating
-                                                                  .ratingDefault = newValue;
-                                                              if (_healthWellnessController
-                                                                      .healthWellnessModel
-                                                                      .value
-                                                                      .items ==
-                                                                  null) {
-                                                                _healthWellnessController
-                                                                    .healthWellnessModel
-                                                                    .value
-                                                                    .items = [];
-                                                              }
-                                                              Item item = Item(
-                                                                  tid: _signUpController
-                                                                      .healthWellness
-                                                                      .value
-                                                                      .items[
-                                                                          mainIndex]
-                                                                      .tid,
-                                                                  kind: _signUpController
-                                                                      .healthWellness
-                                                                      .value
-                                                                      .items[
-                                                                          mainIndex]
-                                                                      .kind,
-                                                                  dtype: "num",
-                                                                  value: ItemValue(
-                                                                      numValue:
-                                                                          newValue));
-                                                              _healthWellnessController
-                                                                  .healthWellnessModel
-                                                                  .value
-                                                                  .items
-                                                                  .add(item);
-                                                              _healthWellnessController
-                                                                  .healthWellnessModel
-                                                                  .refresh();
-                                                              _signUpController
-                                                                  .healthWellness
-                                                                  .refresh();
-                                                            },
-                                                            labelFormatterCallback:
-                                                                (dynamic
-                                                                        actualValue,
-                                                                    String
-                                                                        formattedText) {
-                                                              return actualValue ==
-                                                                      1
-                                                                  ? "None"
-                                                                  : actualValue ==
-                                                                          2
-                                                                      ? ""
-                                                                      : actualValue ==
-                                                                              3
-                                                                          ? ""
-                                                                          : "Extremely";
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwenty),
-                                                      Divider(
-                                                          thickness: 1,
-                                                          color: AppColors.white
-                                                              .withOpacity(
-                                                                  0.12)),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            );
+                                            return _renderListWidget(
+                                                _signUpController.healthWellness
+                                                    .value.items[mainIndex]);
                                           }
                                           break;
-                                        case "healthWellness-depression":
+                                        case "tags":
                                           {
-                                            return Stack(
-                                              children: [
-                                                Positioned.fill(
-                                                  child: Container(
-                                                    color: AppColors
-                                                        .colorYesButton,
-                                                  ),
-                                                ),
-                                                Container(
-                                                  color:
-                                                      AppColors.colorBackground,
-                                                  margin: EdgeInsets.only(
-                                                    left: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                    right: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                  ),
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: ScreenConstant
-                                                          .defaultWidthTwenty),
-                                                  child: Column(
-                                                    children: [
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightForty),
-                                                      Text(
-                                                          _signUpController
-                                                              .healthWellness
-                                                              .value
-                                                              .items[mainIndex]
-                                                              .name
-                                                              .tr,
-                                                          style: TextStyles
-                                                              .textStyleIntroDescription
-                                                              .apply(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSizeDelta:
-                                                                      -3)),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwentyFour),
-                                                      Text(
-                                                        _signUpController
-                                                            .healthWellness
-                                                            .value
-                                                            .items[mainIndex]
-                                                            .description
-                                                            .tr,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyles
-                                                            .textStyleRegular
-                                                            .apply(
-                                                                color: AppColors
-                                                                    .colorSkipButton),
-                                                      ),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwenty),
-                                                      Padding(
-                                                        padding: EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                ScreenConstant
-                                                                    .defaultWidthTen),
-                                                        child: SfSliderTheme(
-                                                          data:
-                                                              SfSliderThemeData(
-                                                            thumbColor: AppColors
-                                                                .colorArrowButton,
-                                                            thumbStrokeWidth: 5,
-                                                            thumbRadius: 16,
-                                                            thumbStrokeColor:
-                                                                Colors.white,
-                                                            activeTrackHeight:
-                                                                4,
-                                                            overlayRadius: 0,
-                                                            disabledActiveTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            disabledInactiveTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            activeDividerStrokeWidth:
-                                                                2,
-                                                            inactiveDividerStrokeWidth:
-                                                                2,
-                                                            inactiveTrackHeight:
-                                                                4,
-                                                            activeTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            inactiveTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            inactiveDividerStrokeColor:
-                                                                AppColors.white,
-                                                            inactiveDividerRadius:
-                                                                8,
-                                                            inactiveDividerColor:
-                                                                AppColors
-                                                                    .colorInactiveDividerSlider,
-                                                            activeDividerColor:
-                                                                AppColors
-                                                                    .colorInactiveDividerSlider,
-                                                            activeDividerStrokeColor:
-                                                                Colors.white,
-                                                            activeDividerRadius:
-                                                                8,
-                                                            activeLabelStyle: TextStyles
-                                                                .textStyleRegular
-                                                                .apply(
-                                                                    color: AppColors
-                                                                        .colorTrackSlider),
-                                                            inactiveLabelStyle: TextStyles
-                                                                .textStyleRegular
-                                                                .apply(
-                                                                    color: AppColors
-                                                                        .colorTrackSlider),
-                                                          ),
-                                                          child: SfSlider(
-                                                            showDividers: true,
-                                                            min: 1.0,
-                                                            max: _signUpController
-                                                                .healthWellness
-                                                                .value
-                                                                .items[
-                                                                    mainIndex]
-                                                                .rating
-                                                                .range,
-                                                            interval: 1,
-                                                            stepSize: 1,
-                                                            showLabels: true,
-                                                            value: _signUpController
-                                                                .healthWellness
-                                                                .value
-                                                                .items[
-                                                                    mainIndex]
-                                                                .rating
-                                                                .ratingDefault,
-                                                            onChanged: (dynamic
-                                                                newValue) {
-                                                              _signUpController
-                                                                  .healthWellness
-                                                                  .value
-                                                                  .items[
-                                                                      mainIndex]
-                                                                  .rating
-                                                                  .ratingDefault = newValue;
-                                                              if (_healthWellnessController
-                                                                      .healthWellnessModel
-                                                                      .value
-                                                                      .items ==
-                                                                  null) {
-                                                                _healthWellnessController
-                                                                    .healthWellnessModel
-                                                                    .value
-                                                                    .items = [];
-                                                              }
-                                                              Item item = Item(
-                                                                  tid: _signUpController
-                                                                      .healthWellness
-                                                                      .value
-                                                                      .items[
-                                                                          mainIndex]
-                                                                      .tid,
-                                                                  kind: _signUpController
-                                                                      .healthWellness
-                                                                      .value
-                                                                      .items[
-                                                                          mainIndex]
-                                                                      .kind,
-                                                                  dtype: "num",
-                                                                  value: ItemValue(
-                                                                      numValue:
-                                                                          newValue));
-                                                              _healthWellnessController
-                                                                  .healthWellnessModel
-                                                                  .value
-                                                                  .items
-                                                                  .add(item);
-                                                              _healthWellnessController
-                                                                  .healthWellnessModel
-                                                                  .refresh();
-                                                              _signUpController
-                                                                  .healthWellness
-                                                                  .refresh();
-                                                            },
-                                                            labelFormatterCallback:
-                                                                (dynamic
-                                                                        actualValue,
-                                                                    String
-                                                                        formattedText) {
-                                                              return actualValue ==
-                                                                      1
-                                                                  ? "None"
-                                                                  : actualValue ==
-                                                                          2
-                                                                      ? ""
-                                                                      : actualValue ==
-                                                                              3
-                                                                          ? ""
-                                                                          : "Extremely";
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwenty),
-                                                      Divider(
-                                                          thickness: 1,
-                                                          color: AppColors.white
-                                                              .withOpacity(
-                                                                  0.12)),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            );
+                                            return _renderFixedTagsWidget(
+                                                _signUpController.healthWellness
+                                                    .value.items[mainIndex]);
                                           }
                                           break;
-                                        case "healthWellness-fatigue":
+                                        case "group":
                                           {
-                                            return Stack(
-                                              children: [
-                                                Positioned.fill(
-                                                  child: Container(
-                                                    color: AppColors
-                                                        .colorYesButton,
-                                                  ),
-                                                ),
-                                                Container(
-                                                  color:
-                                                      AppColors.colorBackground,
-                                                  margin: EdgeInsets.only(
-                                                    left: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                    right: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                  ),
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: ScreenConstant
-                                                          .defaultWidthTwenty),
-                                                  child: Column(
-                                                    children: [
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightForty),
-                                                      Text(
-                                                          _signUpController
-                                                              .healthWellness
-                                                              .value
-                                                              .items[mainIndex]
-                                                              .name
-                                                              .tr,
-                                                          style: TextStyles
-                                                              .textStyleIntroDescription
-                                                              .apply(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSizeDelta:
-                                                                      -3)),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwentyFour),
-                                                      Text(
-                                                        _signUpController
-                                                            .healthWellness
-                                                            .value
-                                                            .items[mainIndex]
-                                                            .description
-                                                            .tr,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyles
-                                                            .textStyleRegular
-                                                            .apply(
-                                                                color: AppColors
-                                                                    .colorSkipButton),
-                                                      ),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwenty),
-                                                      Padding(
-                                                        padding: EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                ScreenConstant
-                                                                    .defaultWidthTen),
-                                                        child: SfSliderTheme(
-                                                          data:
-                                                              SfSliderThemeData(
-                                                            thumbColor: AppColors
-                                                                .colorArrowButton,
-                                                            thumbStrokeWidth: 5,
-                                                            thumbRadius: 16,
-                                                            thumbStrokeColor:
-                                                                Colors.white,
-                                                            activeTrackHeight:
-                                                                4,
-                                                            overlayRadius: 0,
-                                                            disabledActiveTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            disabledInactiveTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            activeDividerStrokeWidth:
-                                                                2,
-                                                            inactiveDividerStrokeWidth:
-                                                                2,
-                                                            inactiveTrackHeight:
-                                                                4,
-                                                            activeTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            inactiveTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            inactiveDividerStrokeColor:
-                                                                AppColors.white,
-                                                            inactiveDividerRadius:
-                                                                8,
-                                                            inactiveDividerColor:
-                                                                AppColors
-                                                                    .colorInactiveDividerSlider,
-                                                            activeDividerColor:
-                                                                AppColors
-                                                                    .colorInactiveDividerSlider,
-                                                            activeDividerStrokeColor:
-                                                                Colors.white,
-                                                            activeDividerRadius:
-                                                                8,
-                                                            activeLabelStyle: TextStyles
-                                                                .textStyleRegular
-                                                                .apply(
-                                                                    color: AppColors
-                                                                        .colorTrackSlider),
-                                                            inactiveLabelStyle: TextStyles
-                                                                .textStyleRegular
-                                                                .apply(
-                                                                    color: AppColors
-                                                                        .colorTrackSlider),
-                                                          ),
-                                                          child: SfSlider(
-                                                            showDividers: true,
-                                                            min: 1.0,
-                                                            max: _signUpController
-                                                                .healthWellness
-                                                                .value
-                                                                .items[
-                                                                    mainIndex]
-                                                                .rating
-                                                                .range,
-                                                            interval: 1,
-                                                            stepSize: 1,
-                                                            showLabels: true,
-                                                            value: _signUpController
-                                                                .healthWellness
-                                                                .value
-                                                                .items[
-                                                                    mainIndex]
-                                                                .rating
-                                                                .ratingDefault,
-                                                            onChanged: (dynamic
-                                                                newValue) {
-                                                              _signUpController
-                                                                  .healthWellness
-                                                                  .value
-                                                                  .items[
-                                                                      mainIndex]
-                                                                  .rating
-                                                                  .ratingDefault = newValue;
-                                                              if (_healthWellnessController
-                                                                      .healthWellnessModel
-                                                                      .value
-                                                                      .items ==
-                                                                  null) {
-                                                                _healthWellnessController
-                                                                    .healthWellnessModel
-                                                                    .value
-                                                                    .items = [];
-                                                              }
-                                                              Item item = Item(
-                                                                  tid: _signUpController
-                                                                      .healthWellness
-                                                                      .value
-                                                                      .items[
-                                                                          mainIndex]
-                                                                      .tid,
-                                                                  kind: _signUpController
-                                                                      .healthWellness
-                                                                      .value
-                                                                      .items[
-                                                                          mainIndex]
-                                                                      .kind,
-                                                                  dtype: "num",
-                                                                  value: ItemValue(
-                                                                      numValue:
-                                                                          newValue));
-                                                              _healthWellnessController
-                                                                  .healthWellnessModel
-                                                                  .value
-                                                                  .items
-                                                                  .add(item);
-                                                              _healthWellnessController
-                                                                  .healthWellnessModel
-                                                                  .refresh();
-                                                              _signUpController
-                                                                  .healthWellness
-                                                                  .refresh();
-                                                            },
-                                                            labelFormatterCallback:
-                                                                (dynamic
-                                                                        actualValue,
-                                                                    String
-                                                                        formattedText) {
-                                                              return actualValue ==
-                                                                      1
-                                                                  ? "None"
-                                                                  : actualValue ==
-                                                                          2
-                                                                      ? ""
-                                                                      : actualValue ==
-                                                                              3
-                                                                          ? ""
-                                                                          : "Extremely";
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwenty),
-                                                      Divider(
-                                                          thickness: 1,
-                                                          color: AppColors.white
-                                                              .withOpacity(
-                                                                  0.12)),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          }
-                                          break;
-                                        case "healthWellness-activity_level":
-                                          {
-                                            return Stack(
-                                              children: [
-                                                Positioned.fill(
-                                                  child: Container(
-                                                    color: AppColors
-                                                        .colorYesButton,
-                                                  ),
-                                                ),
-                                                Container(
-                                                  color:
-                                                      AppColors.colorBackground,
-                                                  margin: EdgeInsets.only(
-                                                    left: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                    right: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                  ),
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: ScreenConstant
-                                                          .defaultWidthTwenty),
-                                                  child: Column(
-                                                    children: [
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightForty),
-                                                      Text(
-                                                          _signUpController
-                                                              .healthWellness
-                                                              .value
-                                                              .items[mainIndex]
-                                                              .name
-                                                              .tr,
-                                                          style: TextStyles
-                                                              .textStyleIntroDescription
-                                                              .apply(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSizeDelta:
-                                                                      -3)),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwentyFour),
-                                                      Text(
-                                                        _signUpController
-                                                            .healthWellness
-                                                            .value
-                                                            .items[mainIndex]
-                                                            .description
-                                                            .tr,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyles
-                                                            .textStyleRegular
-                                                            .apply(
-                                                                color: AppColors
-                                                                    .colorSkipButton),
-                                                      ),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwenty),
-                                                      Padding(
-                                                        padding: EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                ScreenConstant
-                                                                    .defaultWidthTen),
-                                                        child: SfSliderTheme(
-                                                          data:
-                                                              SfSliderThemeData(
-                                                            thumbColor: AppColors
-                                                                .colorArrowButton,
-                                                            thumbStrokeWidth: 5,
-                                                            thumbRadius: 16,
-                                                            thumbStrokeColor:
-                                                                Colors.white,
-                                                            activeTrackHeight:
-                                                                4,
-                                                            overlayRadius: 0,
-                                                            disabledActiveTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            disabledInactiveTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            activeDividerStrokeWidth:
-                                                                2,
-                                                            inactiveDividerStrokeWidth:
-                                                                2,
-                                                            inactiveTrackHeight:
-                                                                4,
-                                                            activeTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            inactiveTrackColor:
-                                                                AppColors
-                                                                    .colorTrackSlider,
-                                                            inactiveDividerStrokeColor:
-                                                                AppColors.white,
-                                                            inactiveDividerRadius:
-                                                                8,
-                                                            inactiveDividerColor:
-                                                                AppColors
-                                                                    .colorInactiveDividerSlider,
-                                                            activeDividerColor:
-                                                                AppColors
-                                                                    .colorInactiveDividerSlider,
-                                                            activeDividerStrokeColor:
-                                                                Colors.white,
-                                                            activeDividerRadius:
-                                                                8,
-                                                            activeLabelStyle: TextStyles
-                                                                .textStyleRegular
-                                                                .apply(
-                                                                    color: AppColors
-                                                                        .colorTrackSlider),
-                                                            inactiveLabelStyle: TextStyles
-                                                                .textStyleRegular
-                                                                .apply(
-                                                                    color: AppColors
-                                                                        .colorTrackSlider),
-                                                          ),
-                                                          child: SfSlider(
-                                                            showDividers: true,
-                                                            min: 1.0,
-                                                            max: _signUpController
-                                                                .healthWellness
-                                                                .value
-                                                                .items[
-                                                                    mainIndex]
-                                                                .rating
-                                                                .range,
-                                                            interval: 1,
-                                                            stepSize: 1,
-                                                            showLabels: true,
-                                                            value: _signUpController
-                                                                .healthWellness
-                                                                .value
-                                                                .items[
-                                                                    mainIndex]
-                                                                .rating
-                                                                .ratingDefault,
-                                                            onChanged: (dynamic
-                                                                newValue) {
-                                                              _signUpController
-                                                                  .healthWellness
-                                                                  .value
-                                                                  .items[
-                                                                      mainIndex]
-                                                                  .rating
-                                                                  .ratingDefault = newValue;
-                                                              if (_healthWellnessController
-                                                                      .healthWellnessModel
-                                                                      .value
-                                                                      .items ==
-                                                                  null) {
-                                                                _healthWellnessController
-                                                                    .healthWellnessModel
-                                                                    .value
-                                                                    .items = [];
-                                                              }
-                                                              Item item = Item(
-                                                                  tid: _signUpController
-                                                                      .healthWellness
-                                                                      .value
-                                                                      .items[
-                                                                          mainIndex]
-                                                                      .tid,
-                                                                  kind: _signUpController
-                                                                      .healthWellness
-                                                                      .value
-                                                                      .items[
-                                                                          mainIndex]
-                                                                      .kind,
-                                                                  dtype: "num",
-                                                                  value: ItemValue(
-                                                                      numValue:
-                                                                          newValue));
-                                                              _healthWellnessController
-                                                                  .healthWellnessModel
-                                                                  .value
-                                                                  .items
-                                                                  .add(item);
-                                                              _healthWellnessController
-                                                                  .healthWellnessModel
-                                                                  .refresh();
-                                                              _signUpController
-                                                                  .healthWellness
-                                                                  .refresh();
-                                                            },
-                                                            labelFormatterCallback:
-                                                                (dynamic
-                                                                        actualValue,
-                                                                    String
-                                                                        formattedText) {
-                                                              return actualValue ==
-                                                                      1
-                                                                  ? "None"
-                                                                  : actualValue ==
-                                                                          2
-                                                                      ? ""
-                                                                      : actualValue ==
-                                                                              3
-                                                                          ? ""
-                                                                          : "Extremely";
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwenty),
-                                                      Divider(
-                                                          thickness: 1,
-                                                          color: AppColors.white
-                                                              .withOpacity(
-                                                                  0.12)),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          }
-                                          break;
-                                        case "healthWellness-exercise":
-                                          {
-                                            return Stack(
-                                              children: [
-                                                Positioned.fill(
-                                                  child: Container(
-                                                    color: AppColors
-                                                        .colorYesButton,
-                                                  ),
-                                                ),
-                                                Container(
-                                                  color:
-                                                      AppColors.colorBackground,
-                                                  margin: EdgeInsets.only(
-                                                    left: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                    right: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                  ),
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: ScreenConstant
-                                                          .defaultWidthTwenty),
-                                                  child: Column(
-                                                    children: [
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightForty),
-                                                      Text(
-                                                          _signUpController
-                                                              .healthWellness
-                                                              .value
-                                                              .items[mainIndex]
-                                                              .name
-                                                              .tr,
-                                                          style: TextStyles
-                                                              .textStyleIntroDescription
-                                                              .apply(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSizeDelta:
-                                                                      -3)),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwentyFour),
-                                                      Text(
-                                                        _signUpController
-                                                            .healthWellness
-                                                            .value
-                                                            .items[mainIndex]
-                                                            .description
-                                                            .tr,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyles
-                                                            .textStyleRegular
-                                                            .apply(
-                                                                color: AppColors
-                                                                    .colorSkipButton),
-                                                      ),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwenty),
-                                                      Padding(
-                                                        padding: EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                ScreenConstant
-                                                                    .defaultWidthTen),
-                                                        child: GridView.builder(
-                                                          //   padding: EdgeInsets.symmetric(
-                                                          //       horizontal: ScreenConstant.defaultWidthTwenty),
-                                                          shrinkWrap: true,
-                                                          physics:
-                                                              NeverScrollableScrollPhysics(),
-                                                          itemCount:
-                                                              _signUpController
-                                                                  .healthWellness
-                                                                  .value
-                                                                  .items[
-                                                                      mainIndex]
-                                                                  .list
-                                                                  .options
-                                                                  .length,
-                                                          itemBuilder:
-                                                              (BuildContext
-                                                                      context,
-                                                                  int optIdx) {
-                                                            var model = _signUpController
-                                                                .healthWellness
-                                                                .value
-                                                                .items[
-                                                                    mainIndex]
-                                                                .list
-                                                                .options[optIdx];
-                                                            return InkWell(
-                                                              onTap: () {
-                                                                _healthWellnessController
-                                                                    .onOptionTapped(
-                                                                  model: model,
-                                                                  tid: _signUpController
-                                                                      .healthWellness
-                                                                      .value
-                                                                      .items[
-                                                                          mainIndex]
-                                                                      .tid,
-                                                                  kind: _signUpController
-                                                                      .healthWellness
-                                                                      .value
-                                                                      .items[
-                                                                          mainIndex]
-                                                                      .kind,
-                                                                );
-                                                              },
-                                                              child: Card(
-                                                                  elevation: 0,
-                                                                  color: model
-                                                                          .optionDefault
-                                                                      ? AppColors
-                                                                          .colorCloseLight
-                                                                      : AppColors
-                                                                          .colorSymptomsGridBg,
-                                                                  shape:
-                                                                      RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            16),
-                                                                  ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        ScreenConstant
-                                                                            .spacingAllDefault,
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        Image
-                                                                            .network(
-                                                                          model
-                                                                              .image
-                                                                              .active,
-                                                                          width:
-                                                                              ScreenConstant.defaultWidthTwenty * 2.0,
-                                                                        ),
-                                                                        SizedBox(
-                                                                            height:
-                                                                                ScreenConstant.defaultHeightTen),
-                                                                        Text(
-                                                                            "${model.label.tr}",
-                                                                            textAlign:
-                                                                                TextAlign.center,
-                                                                            overflow: TextOverflow.ellipsis,
-                                                                            style: TextStyles.textStyleRegular.apply(color: AppColors.white, fontSizeDelta: -2)),
-                                                                      ],
-                                                                    ),
-                                                                  )),
-                                                            );
-                                                          },
-                                                          gridDelegate:
-                                                              SliverGridDelegateWithFixedCrossAxisCount(
-                                                                  crossAxisCount:
-                                                                      3,
-                                                                  childAspectRatio:
-                                                                      1),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwenty),
-                                                      Divider(
-                                                          thickness: 1,
-                                                          color: AppColors.white
-                                                              .withOpacity(
-                                                                  0.12)),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          }
-                                          break;
-                                        case "healthWellness-relaxation_techniques":
-                                          {
-                                            return Stack(
-                                              children: [
-                                                Positioned.fill(
-                                                  top: 0,
-                                                  bottom: 0,
-                                                  child: Container(
-                                                    color: AppColors
-                                                        .colorYesButton,
-                                                  ),
-                                                ),
-                                                Container(
-                                                  color:
-                                                      AppColors.colorBackground,
-                                                  margin: EdgeInsets.only(
-                                                    left: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                    right: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                  ),
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: ScreenConstant
-                                                          .defaultWidthTwenty),
-                                                  child: Column(
-                                                    children: [
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightForty),
-                                                      Text(
-                                                          _signUpController
-                                                              .healthWellness
-                                                              .value
-                                                              .items[mainIndex]
-                                                              .name
-                                                              .tr,
-                                                          style: TextStyles
-                                                              .textStyleIntroDescription
-                                                              .apply(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSizeDelta:
-                                                                      -3)),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwentyFour),
-                                                      Text(
-                                                        _signUpController
-                                                            .healthWellness
-                                                            .value
-                                                            .items[mainIndex]
-                                                            .description
-                                                            .tr,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyles
-                                                            .textStyleRegular
-                                                            .apply(
-                                                                color: AppColors
-                                                                    .colorSkipButton),
-                                                      ),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwenty),
-                                                      Padding(
-                                                        padding: EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                ScreenConstant
-                                                                    .defaultWidthTen),
-                                                        child: Wrap(
-                                                          children:
-                                                              _signUpController
-                                                                  .healthWellness
-                                                                  .value
-                                                                  .items[
-                                                                      mainIndex]
-                                                                  .tags
-                                                                  .tagsDefault
-                                                                  .map((item) =>
-                                                                      InkWell(
-                                                                        onTap:
-                                                                            () {
-                                                                          _healthWellnessController.onRelaxTapped(
-                                                                              tid: _signUpController.healthWellness.value.items[mainIndex].tid,
-                                                                              kind: _signUpController.healthWellness.value.items[mainIndex].kind,
-                                                                              model: item);
-                                                                        },
-                                                                        child:
-                                                                            Card(
-                                                                          color: item.required
-                                                                              ? AppColors.colorCloseLight
-                                                                              : AppColors.colorSymptomsGridBg,
-                                                                          shape:
-                                                                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                ScreenConstant.spacingAllExtraSmall,
-                                                                            child:
-                                                                                Text(
-                                                                              item.value.tr,
-                                                                              textAlign: TextAlign.center,
-                                                                              //overflow: TextOverflow.ellipsis,
-                                                                              style: TextStyles.textStyleRegular.apply(color: Colors.white, fontSizeDelta: -2),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ))
-                                                                  .toList()
-                                                                  .cast<
-                                                                      Widget>(),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwenty),
-                                                      Divider(
-                                                          thickness: 1,
-                                                          color: AppColors.white
-                                                              .withOpacity(
-                                                                  0.12)),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          }
-                                          break;
-                                        case "healthWellness-sleepImprovement":
-                                          {
-                                            return Stack(
-                                              children: [
-                                                Positioned.fill(
-                                                  top: 0,
-                                                  bottom: 0,
-                                                  child: Container(
-                                                    color: AppColors
-                                                        .colorYesButton,
-                                                  ),
-                                                ),
-                                                Container(
-                                                  color:
-                                                      AppColors.colorBackground,
-                                                  margin: EdgeInsets.only(
-                                                    left: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                    right: ScreenConstant
-                                                        .defaultWidthTwenty,
-                                                  ),
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: ScreenConstant
-                                                          .defaultWidthTwenty),
-                                                  child: Column(
-                                                    children: [
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightForty),
-                                                      Text(
-                                                          _signUpController
-                                                              .healthWellness
-                                                              .value
-                                                              .items[mainIndex]
-                                                              .name
-                                                              .tr,
-                                                          style: TextStyles
-                                                              .textStyleIntroDescription
-                                                              .apply(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSizeDelta:
-                                                                      -3)),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwentyFour),
-                                                      Text(
-                                                        _signUpController
-                                                            .healthWellness
-                                                            .value
-                                                            .items[mainIndex]
-                                                            .description
-                                                            .tr,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyles
-                                                            .textStyleRegular
-                                                            .apply(
-                                                                color: AppColors
-                                                                    .colorSkipButton),
-                                                      ),
-                                                      SizedBox(
-                                                          height: ScreenConstant
-                                                              .defaultHeightTwenty),
-                                                      Padding(
-                                                        padding: EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                ScreenConstant
-                                                                    .defaultWidthTen),
-                                                        child: ListView.builder(
-                                                            shrinkWrap: true,
-                                                            physics:
-                                                                ClampingScrollPhysics(),
-                                                            itemCount:
-                                                                _signUpController
-                                                                    .healthWellness
-                                                                    .value
-                                                                    .items[
-                                                                        mainIndex]
-                                                                    .children
-                                                                    .first
-                                                                    .items
-                                                                    .length,
-                                                            itemBuilder:
-                                                                (_, count) {
-                                                              switch (_signUpController
-                                                                  .healthWellness
-                                                                  .value
-                                                                  .items[
-                                                                      mainIndex]
-                                                                  .children
-                                                                  .first
-                                                                  .items[count]
-                                                                  .tid) {
-                                                                case "healthWellness-sleepImprovement-quality":
-                                                                  {
-                                                                    return Column(
-                                                                      children: [
-                                                                        Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceBetween,
-                                                                          children: [
-                                                                            Expanded(
-                                                                              flex: 1,
-                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name.tr, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
-                                                                            ),
-                                                                            Container(
-                                                                              width: ScreenConstant.sizeSmall,
-                                                                            ),
-                                                                            Expanded(
-                                                                              flex: 1,
-                                                                              child: Container(
-                                                                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                                                                                decoration: BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
-                                                                                child: CustomDropdown<SelectOption>(
-                                                                                  value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].select.selectDefault.label != null ? _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].select.selectDefault : _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].select.options.first,
-                                                                                  dropdownMenuItemList: buildDropList(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].select.options),
-                                                                                  onChanged: (SelectOption optionItem) {
-                                                                                    _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].select.selectDefault = optionItem;
-                                                                                    _healthWellnessController.onSleepQualityTapped(tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid, kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind, quality: optionItem.value);
-                                                                                    _signUpController.healthWellness.refresh();
-                                                                                  },
-                                                                                  isEnabled: true,
-                                                                                ),
-                                                                              ),
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                        Container(
-                                                                          height:
-                                                                              ScreenConstant.sizeXL,
-                                                                        ),
-                                                                        Divider(
-                                                                            thickness:
-                                                                                1,
-                                                                            color:
-                                                                                AppColors.white.withOpacity(0.12)),
-                                                                        SizedBox(
-                                                                            height:
-                                                                                ScreenConstant.defaultHeightTwenty),
-                                                                      ],
-                                                                    );
-                                                                  }
-                                                                  break;
-
-                                                                case "healthWellness-sleepImprovement-bed_time":
-                                                                  {
-                                                                    return Column(
-                                                                      children: [
-                                                                        Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceBetween,
-                                                                          children: [
-                                                                            Expanded(
-                                                                              flex: 1,
-                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name.tr, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
-                                                                            ),
-                                                                            Container(
-                                                                              width: ScreenConstant.sizeSmall,
-                                                                            ),
-                                                                            Expanded(
-                                                                              flex: 1,
-                                                                              child: Container(
-                                                                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                                                                                decoration: BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
-                                                                                child: CustomDropdown(
-                                                                                  value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue == null ? _healthWellnessController.selectedTime.value : _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue,
-                                                                                  dropdownMenuItemList: buildTimeDropList(_healthWellnessController.timeList),
-                                                                                  onChanged: (optionItem) {
-                                                                                    _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue = optionItem;
-                                                                                    _healthWellnessController.onBedTimeTapped(kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind, tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid, selectedTime: optionItem);
-                                                                                    _signUpController.healthWellness.refresh();
-                                                                                  },
-                                                                                  isEnabled: true,
-                                                                                ),
-                                                                              ),
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                        Container(
-                                                                          height:
-                                                                              ScreenConstant.sizeMedium,
-                                                                        ),
-                                                                      ],
-                                                                    );
-                                                                  }
-                                                                  break;
-                                                                case "healthWellness-sleepImprovement-wake_time":
-                                                                  {
-                                                                    return Column(
-                                                                      children: [
-                                                                        Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceBetween,
-                                                                          children: [
-                                                                            Expanded(
-                                                                              flex: 1,
-                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name.tr, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
-                                                                            ),
-                                                                            Container(
-                                                                              width: ScreenConstant.sizeSmall,
-                                                                            ),
-                                                                            Expanded(
-                                                                              flex: 1,
-                                                                              child: Container(
-                                                                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                                                                                decoration: BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
-                                                                                child: CustomDropdown(
-                                                                                  value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue == null ? _healthWellnessController.selectedTime.value : _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue,
-                                                                                  dropdownMenuItemList: buildTimeDropList(_healthWellnessController.timeList),
-                                                                                  onChanged: (optionItem) {
-                                                                                    _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue = optionItem;
-                                                                                    _healthWellnessController.onWakeTimeTapped(kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind, tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid, selectedTime: optionItem);
-                                                                                    _signUpController.healthWellness.refresh();
-                                                                                  },
-                                                                                  isEnabled: true,
-                                                                                ),
-                                                                              ),
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                        Container(
-                                                                          height:
-                                                                              ScreenConstant.sizeMedium,
-                                                                        ),
-                                                                      ],
-                                                                    );
-                                                                  }
-                                                                  break;
-
-                                                                default:
-                                                                  {
-                                                                    return Column(
-                                                                      children: [
-                                                                        Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceBetween,
-                                                                          children: [
-                                                                            Expanded(
-                                                                              flex: 1,
-                                                                              child: Text(_signUpController.healthWellness.value.items[mainIndex].children.first.items[count].name.tr, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
-                                                                            ),
-                                                                            Container(
-                                                                              width: ScreenConstant.sizeSmall,
-                                                                            ),
-                                                                            Expanded(
-                                                                              flex: 1,
-                                                                              child: Container(
-                                                                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                                                                                decoration: BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
-                                                                                child: CustomDropdown(
-                                                                                  value: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue == null ? _healthWellnessController.selectedTime.value : _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue,
-                                                                                  dropdownMenuItemList: buildTimeDropList(_healthWellnessController.timeList),
-                                                                                  onChanged: (optionItem) {
-                                                                                    _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].selectedValue = optionItem;
-                                                                                    _healthWellnessController.onBedTimeTapped(kind: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].kind, tid: _signUpController.healthWellness.value.items[mainIndex].children.first.items[count].tid, selectedTime: optionItem);
-                                                                                    _signUpController.healthWellness.refresh();
-                                                                                  },
-                                                                                  isEnabled: true,
-                                                                                ),
-                                                                              ),
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                        Container(
-                                                                          height:
-                                                                              ScreenConstant.sizeMedium,
-                                                                        ),
-                                                                      ],
-                                                                    );
-                                                                  }
-                                                                  break;
-                                                              }
-                                                            }),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            );
+                                           return _renderGroupWidget(_signUpController.healthWellness.value.items[mainIndex]);
                                           }
                                           break;
                                         case "healthWellness-tiredness_waking":
@@ -2040,41 +334,11 @@ class Health extends StatelessWidget {
                                             );
                                           }
                                           break;
-                                        case "healthWellness-notes":
+                                        case "textInput":
                                           {
-                                            return Stack(
-                                              children: [
-                                                Positioned.fill(
-                                                  top: 0,
-                                                  bottom: ScreenConstant
-                                                      .screenHeightHalf,
-                                                  child: _buildWavePainter(),
-                                                ),
-                                                SizedBox(
-                                                    height:
-                                                        ScreenConstant.sizeXL),
-                                                Column(
-                                                  children: [
-                                                    Container(
-                                                      height: ScreenConstant
-                                                          .screenHeightThird,
-                                                    ),
-                                                    AdditionalNoteWidget(
-                                                      textEditingController:
-                                                          _healthWellnessController
-                                                              .noteTextController,
-                                                      text: _signUpController
-                                                          .healthWellness
-                                                          .value
-                                                          .items
-                                                          .elementAt(8)
-                                                          .name
-                                                          .tr,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            );
+                                           return _renderTextInputWidget(
+                                             _signUpController.healthWellness.value.items[mainIndex]
+                                           );
                                           }
                                           break;
 
@@ -2138,4 +402,518 @@ class Health extends StatelessWidget {
     }
     return items;
   }
+
+
+
+
+  _renderRatingWidget(TrackableItem ratingItem) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          top: ScreenConstant.defaultHeightOneHundred,
+          child: Container(
+            color: AppColors.colorYesButton,
+          ),
+        ),
+        Card(
+          color: AppColors.colorBackground,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+          margin: EdgeInsets.only(
+            left: ScreenConstant.defaultWidthTwenty,
+            right: ScreenConstant.defaultWidthTwenty,
+          ),
+          child: Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: ScreenConstant.defaultWidthTwenty),
+            child: Column(
+              children: [
+                SizedBox(height: ScreenConstant.defaultHeightForty),
+                Text(ratingItem.name.tr,
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.white, fontSizeDelta: -3)),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                Text(
+                  //ratingItem.description.tr,
+                  ratingItem
+                      .rating
+                      .options[(ratingItem.rating.ratingDefault.toInt() - 1)]
+                      .description
+                      .tr,
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleRegular
+                      .apply(color: AppColors.colorSkipButton),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ScreenConstant.defaultWidthTen),
+                  child: SfSliderTheme(
+                    data: SfSliderThemeData(
+                      thumbColor: AppColors.colorArrowButton,
+                      thumbStrokeWidth: 5,
+                      thumbRadius: 16,
+                      thumbStrokeColor: Colors.white,
+                      activeTrackHeight: 4,
+                      overlayRadius: 0,
+                      disabledActiveTrackColor: AppColors.colorTrackSlider,
+                      disabledInactiveTrackColor: AppColors.colorTrackSlider,
+                      activeDividerStrokeWidth: 2,
+                      inactiveDividerStrokeWidth: 2,
+                      inactiveTrackHeight: 4,
+                      activeTrackColor: AppColors.colorTrackSlider,
+                      inactiveTrackColor: AppColors.colorTrackSlider,
+                      inactiveDividerStrokeColor: AppColors.white,
+                      inactiveDividerRadius: 8,
+                      inactiveDividerColor:
+                          AppColors.colorInactiveDividerSlider,
+                      activeDividerColor: AppColors.colorInactiveDividerSlider,
+                      activeDividerStrokeColor: Colors.white,
+                      activeDividerRadius: 8,
+                      activeLabelStyle: TextStyles.textStyleRegular
+                          .apply(color: AppColors.colorTrackSlider),
+                      inactiveLabelStyle: TextStyles.textStyleRegular
+                          .apply(color: AppColors.colorTrackSlider),
+                    ),
+                    child: SfSlider(
+                      showDividers: true,
+                      min: 1.0,
+                      max: ratingItem.rating.range,
+                      interval: 1,
+                      stepSize: 1,
+                      showLabels: true,
+                      value: ratingItem.rating.ratingDefault,
+                      onChanged: (dynamic newValue) {
+                        ratingItem.rating.ratingDefault = newValue;
+                        if (_healthWellnessController
+                                .healthWellnessModel.value.items ==
+                            null) {
+                          _healthWellnessController
+                              .healthWellnessModel.value.items = [];
+                        }
+                        Item item = Item(
+                            tid: ratingItem.tid,
+                            kind: ratingItem.kind,
+                            dtype: "num",
+                            value: ItemValue(numValue: newValue));
+                        _healthWellnessController
+                            .healthWellnessModel.value.items
+                            .add(item);
+                        _healthWellnessController.healthWellnessModel.refresh();
+                        _signUpController.healthWellness.refresh();
+                      },
+                      labelFormatterCallback:
+                          (dynamic actualValue, String formattedText) {
+                        return actualValue == 1
+                            ? "None"
+                            : actualValue == 2
+                                ? ""
+                                : actualValue == 3
+                                    ? ""
+                                    : "Extremely";
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  _renderListWidget(TrackableItem listItem) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Container(
+            color: AppColors.colorYesButton,
+          ),
+        ),
+        Container(
+          color: AppColors.colorBackground,
+          margin: EdgeInsets.only(
+            left: ScreenConstant.defaultWidthTwenty,
+            right: ScreenConstant.defaultWidthTwenty,
+          ),
+          padding: EdgeInsets.symmetric(
+              horizontal: ScreenConstant.defaultWidthTwenty),
+          child: Column(
+            children: [
+              SizedBox(height: ScreenConstant.defaultHeightForty),
+              Text(listItem.name.tr,
+                  style: TextStyles.textStyleIntroDescription
+                      .apply(color: Colors.white, fontSizeDelta: -3)),
+              SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+              Text(
+                listItem.description.tr,
+                textAlign: TextAlign.center,
+                style: TextStyles.textStyleRegular
+                    .apply(color: AppColors.colorSkipButton),
+              ),
+              SizedBox(height: ScreenConstant.defaultHeightTwenty),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: ScreenConstant.defaultWidthTen),
+                child: GridView.builder(
+                  //   padding: EdgeInsets.symmetric(
+                  //       horizontal: ScreenConstant.defaultWidthTwenty),
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: listItem.list.options.length,
+                  itemBuilder: (BuildContext context, int optIdx) {
+                    var model = listItem.list.options[optIdx];
+                    return InkWell(
+                      onTap: () {
+                        _healthWellnessController.onOptionTapped(
+                          model: model,
+                          tid: listItem.tid,
+                          kind: listItem.kind,
+                        );
+                      },
+                      child: Card(
+                          elevation: 0,
+                          color: model.optionDefault
+                              ? AppColors.colorCloseLight
+                              : AppColors.colorSymptomsGridBg,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Padding(
+                            padding: ScreenConstant.spacingAllDefault,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.network(
+                                  model.image.active,
+                                  width:
+                                      ScreenConstant.defaultWidthTwenty * 2.0,
+                                ),
+                                SizedBox(
+                                    height: ScreenConstant.defaultHeightTen),
+                                Text("${model.label.tr}",
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyles.textStyleRegular.apply(
+                                        color: AppColors.white,
+                                        fontSizeDelta: -2)),
+                              ],
+                            ),
+                          )),
+                    );
+                  },
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3, childAspectRatio: 1),
+                ),
+              ),
+              SizedBox(height: ScreenConstant.defaultHeightTwenty),
+              Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  _renderFixedTagsWidget(TrackableItem tagItem) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          top: 0,
+          bottom: 0,
+          child: Container(
+            color: AppColors.colorYesButton,
+          ),
+        ),
+        Container(
+          color: AppColors.colorBackground,
+          margin: EdgeInsets.only(
+            left: ScreenConstant.defaultWidthTwenty,
+            right: ScreenConstant.defaultWidthTwenty,
+          ),
+          padding: EdgeInsets.symmetric(
+              horizontal: ScreenConstant.defaultWidthTwenty),
+          child: Column(
+            children: [
+              SizedBox(height: ScreenConstant.defaultHeightForty),
+              Text(tagItem.name.tr,
+                  style: TextStyles.textStyleIntroDescription
+                      .apply(color: Colors.white, fontSizeDelta: -3)),
+              SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+              Text(
+                tagItem.description.tr,
+                textAlign: TextAlign.center,
+                style: TextStyles.textStyleRegular
+                    .apply(color: AppColors.colorSkipButton),
+              ),
+              SizedBox(height: ScreenConstant.defaultHeightTwenty),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: ScreenConstant.defaultWidthTen),
+                child: Wrap(
+                  children: tagItem.tags.tagsDefault
+                      .map((item) => InkWell(
+                            onTap: () {
+                              _healthWellnessController.onRelaxTapped(
+                                  tid: tagItem.tid,
+                                  kind: tagItem.kind,
+                                  model: item);
+                            },
+                            child: Card(
+                              color: item.required
+                                  ? AppColors.colorCloseLight
+                                  : AppColors.colorSymptomsGridBg,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding: ScreenConstant.spacingAllExtraSmall,
+                                child: Text(
+                                  item.value.tr,
+                                  textAlign: TextAlign.center,
+                                  //overflow: TextOverflow.ellipsis,
+                                  style: TextStyles.textStyleRegular.apply(
+                                      color: Colors.white, fontSizeDelta: -2),
+                                ),
+                              ),
+                            ),
+                          ))
+                      .toList()
+                      .cast<Widget>(),
+                ),
+              ),
+              SizedBox(height: ScreenConstant.defaultHeightTwenty),
+              Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  _renderTextInputWidget(TrackableItem textItem){
+    return Stack(
+      children: [
+        Positioned.fill(
+          top: 0,
+          bottom: ScreenConstant
+              .screenHeightHalf,
+          child: _buildWavePainter(),
+        ),
+        SizedBox(
+            height:
+            ScreenConstant.sizeXL),
+        Column(
+          children: [
+            Container(
+              height: ScreenConstant
+                  .screenHeightThird,
+            ),
+            AdditionalNoteWidget(
+              textEditingController:
+              _healthWellnessController
+                  .noteTextController,
+              text: textItem.name.tr,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  _renderSelectWidget(TrackableItem selectItem){
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment:
+          MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Text(selectItem.name.tr, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
+            ),
+            Container(
+              width: ScreenConstant.sizeSmall,
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                decoration: BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
+                child: CustomDropdown<SelectOption>(
+                  value: selectItem.select.selectDefault.label != null ? selectItem.select.selectDefault : selectItem.select.options.first,
+                  dropdownMenuItemList: buildDropList(selectItem.select.options),
+                  onChanged: (SelectOption optionItem) {
+                    selectItem.select.selectDefault = optionItem;
+                    _healthWellnessController.onSleepQualityTapped(tid: selectItem.tid, kind: selectItem.kind, quality: optionItem.value);
+                    _signUpController.healthWellness.refresh();
+                  },
+                  isEnabled: true,
+                ),
+              ),
+            )
+          ],
+        ),
+        Container(
+          height:
+          ScreenConstant.sizeXL,
+        ),
+        Divider(
+            thickness:
+            1,
+            color:
+            AppColors.white.withOpacity(0.12)),
+        SizedBox(
+            height:
+            ScreenConstant.defaultHeightTwenty),
+      ],
+    );
+  }
+
+
+  _renderTimePickerWidget(TrackableItem timeItem){
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment:
+          MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Text(timeItem.name.tr, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
+            ),
+            Container(
+              width: ScreenConstant.sizeSmall,
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                decoration: BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
+                child: CustomDropdown(
+                  value: timeItem.selectedValue == null ? _healthWellnessController.selectedTime.value : timeItem.selectedValue,
+                  dropdownMenuItemList: buildTimeDropList(_healthWellnessController.timeList),
+                  onChanged: (optionItem) {
+                    timeItem.selectedValue = optionItem;
+                    _healthWellnessController.onBedTimeTapped(kind: timeItem.kind, tid: timeItem.tid, selectedTime: optionItem);
+                    _signUpController.healthWellness.refresh();
+                  },
+                  isEnabled: true,
+                ),
+              ),
+            )
+          ],
+        ),
+        Container(
+          height:
+          ScreenConstant.sizeMedium,
+        ),
+      ],
+    );
+  }
+
+
+  _renderGroupWidget(TrackableItem groupItem){
+    return Stack(
+      children: [
+        Positioned.fill(
+          top: 0,
+          bottom: 0,
+          child: Container(
+            color: AppColors
+                .colorYesButton,
+          ),
+        ),
+        Container(
+          color:
+          AppColors.colorBackground,
+          margin: EdgeInsets.only(
+            left: ScreenConstant
+                .defaultWidthTwenty,
+            right: ScreenConstant
+                .defaultWidthTwenty,
+          ),
+          padding: EdgeInsets.symmetric(
+              horizontal: ScreenConstant
+                  .defaultWidthTwenty),
+          child: Column(
+            children: [
+              SizedBox(
+                  height: ScreenConstant
+                      .defaultHeightForty),
+              Text(
+                  groupItem.name.tr,
+                  style: TextStyles
+                      .textStyleIntroDescription
+                      .apply(
+                      color: Colors
+                          .white,
+                      fontSizeDelta:
+                      -3)),
+              SizedBox(
+                  height: ScreenConstant
+                      .defaultHeightTwentyFour),
+              Text(
+                groupItem.description.tr,
+                textAlign:
+                TextAlign.center,
+                style: TextStyles
+                    .textStyleRegular
+                    .apply(
+                    color: AppColors
+                        .colorSkipButton),
+              ),
+              SizedBox(
+                  height: ScreenConstant
+                      .defaultHeightTwenty),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal:
+                    ScreenConstant
+                        .defaultWidthTen),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    physics:
+                    ClampingScrollPhysics(),
+                    itemCount:
+                    groupItem
+                        .children
+                        .first
+                        .items
+                        .length,
+                    itemBuilder:
+                        (_, count) {
+                      switch (groupItem
+                          .children
+                          .first
+                          .items[count]
+                          .kind) {
+                        case "select":
+                          {
+                            return _renderSelectWidget(groupItem.children.first.items[count]);
+                          }
+                          break;
+                        case "rating":
+                          {
+                            return _renderRatingWidget(groupItem.children.first.items[count]);
+                          }
+                          break;
+                        default:
+                          {
+                            return _renderTimePickerWidget(groupItem.children.first.items[count]);
+                          }
+                          break;
+                      }
+                    }),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
 }
