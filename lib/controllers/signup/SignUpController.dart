@@ -332,7 +332,7 @@ class SignUpController extends GetxController {
 
   getSymptoms() {
     trackList.value.data.forEach((element) {
-      if (element.category == "symptoms") {
+      if (element.tid == "symptoms") {
         symptoms.value = element;
       }
     });
@@ -340,7 +340,7 @@ class SignUpController extends GetxController {
 
   getBowelMovements() {
     trackList.value.data.forEach((element) {
-      if (element.category == "bowelMovements") {
+      if (element.tid == "bowelMovements") {
         bowelMovements.value = element;
       }
     });
@@ -348,7 +348,7 @@ class SignUpController extends GetxController {
 
   getFoods() {
     trackList.value.data.forEach((element) {
-      if (element.category == "food") {
+      if (element.tid == "food") {
         food.value = element;
       }
     });
@@ -356,7 +356,7 @@ class SignUpController extends GetxController {
 
   getJournalList() {
     trackList.value.data.forEach((element) {
-      if (element.category == "journal") {
+      if (element.tid == "journal") {
         journal.value = element;
       }
     });
@@ -364,7 +364,7 @@ class SignUpController extends GetxController {
 
   getMedicationList() {
     trackList.value.data.forEach((element) {
-      if (element.category == "medications") {
+      if (element.tid == "medications") {
         medications.value = element;
       }
     });
@@ -372,7 +372,7 @@ class SignUpController extends GetxController {
 
   getHealthWellness() {
     trackList.value.data.forEach((element) {
-      if (element.category == "healthWellness") {
+      if (element.tid == "healthWellness") {
         healthWellness.value = element;
       }
     });

@@ -94,7 +94,9 @@ class SymptomsController extends GetxController {
         tid: _signUpController.symptoms.value.items.last.tid,
         kind: _signUpController.symptoms.value.items.last.kind,
         dtype: "str",
-        value: sym.ItemValue(str: noteTextController.text));
+        value: sym.ItemValue(str: noteTextController.text),
+        category: _signUpController.symptoms.value.items.last.category,
+    );
     symptomsModel.value.items.add(item);
     symptomsModel.refresh();
     print("DATA Model : ${symptomsModel.toJson()}");
