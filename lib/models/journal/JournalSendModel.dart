@@ -41,18 +41,21 @@ class Item {
     this.kind = "textInput",
     this.dtype = "str",
     this.value,
+    this.category,
   });
 
   String tid;
   String kind;
   String dtype;
   Value value;
+  String category;
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
         tid: json["tid"] == null ? null : json["tid"],
         kind: json["kind"] == null ? null : json["kind"],
         dtype: json["dtype"] == null ? null : json["dtype"],
         value: json["value"] == null ? null : Value.fromJson(json["value"]),
+        category: "journal",
       );
 
   Map<String, dynamic> toJson() => {
@@ -60,6 +63,7 @@ class Item {
         "kind": kind == null ? null : kind,
         "dtype": dtype == null ? null : dtype,
         "value": value == null ? null : value.toJson(),
+        "category": "journal",
       };
 }
 
