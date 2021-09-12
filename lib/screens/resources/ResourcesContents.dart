@@ -116,18 +116,32 @@ class ResourcesContents {
                 style: TextStyles.textStyleSettingNotificationsResourceTitle.apply(
                     color: Colors.black
                 ),
+            ),
+            TextSpan(
+                text: '\n\nQuigley EM, Fried M, Gwee KA, et al. World Gastroenterology Organisation (WGO) global guidelines irritable bowel syndrome: a global perspective update. J Clin Gastroenterol. 2016;50(9):704-13.'
+                    '\n\nAmerican Gastroenterological Association (AGA). IBS in America. Summary Survey Findings 2015.',
+                style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+                    color: Colors.black
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+
+                  }
+            ),
+            TextSpan(
+                text: '\n\nIBS Global Impact Report (2018, accessed March 2019).',
+                style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+                    color: Colors.black
+                ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
-                  print('helllo');
+                    print('helllo');
                     final _url = 'https://www.badgut.org/wp-content/uploads/IBS-Global-Impact-Report.pdf';
                     await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
                   }
             ),
             TextSpan(
-                text: '\n\nQuigley EM, Fried M, Gwee KA, et al. World Gastroenterology Organisation (WGO) global guidelines irritable bowel syndrome: a global perspective update. J Clin Gastroenterol. 2016;50(9):704-13.'
-                    '\n\nAmerican Gastroenterological Association (AGA). IBS in America. Summary Survey Findings 2015.'
-                    '\n\nIBS Global Impact Report (2018, accessed March 2019).'
-                    '\n\nLovell RM and Ford AC. Global prevalence of and risk factors for irritable bowel syndrome: A meta-analysis. Clin Gastroenterol Hepatol. 2012 Jul;10(7):712-21.e4.',
+                text: '\n\nLovell RM and Ford AC. Global prevalence of and risk factors for irritable bowel syndrome: A meta-analysis. Clin Gastroenterol Hepatol. 2012 Jul;10(7):712-21.e4.',
                 style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
                     color: Colors.black
                 ),
@@ -177,6 +191,23 @@ class ResourcesContents {
                 style: TextStyles.textStyleSettingNotificationsResourceTitle.apply(
                     color: Colors.black
                 ),
+            ),
+            TextSpan(
+                text: '\n\nCitations'
+                    '\n\nGastrointestinal Society. 2018.',
+                style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+                    color: Colors.black
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+
+                  }
+            ),
+            TextSpan(
+                text: '\n\nIBS Global Impact Report 2018.  [accessed 3 September 2018]',
+                    style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+                    color: Colors.black
+                ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
                     print('helllo');
@@ -185,8 +216,7 @@ class ResourcesContents {
                   }
             ),
             TextSpan(
-                text: '\n\nCitations'
-                    '\n\nGastrointestinal Society. 2018. IBS Global Impact Report 2018.  [accessed 3 September 2018]'
+                text:
                     '\n\nGastrointestinal Society. 2016. 2016 Survey Report: Irritable bowel syndrome. [accessed 3 September 2018]'
                     '\n\nLovell RM and Ford AC. Global prevalence of and risk factors for irritable bowel syndrome: A meta-analysis. Clin Gastroenterol Hepatol. 2012 Jul;10(7):712-21.e4.',
                 style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
@@ -496,6 +526,20 @@ class ResourcesContents {
                 style: TextStyles.textStyleSettingNotificationsResourceTitle.apply(
                     color: Colors.black
                 ),
+            ),
+            TextSpan(
+                text: '\n\nBuono JL et al. Economic burden of irritable bowel syndrome with diarrhea: Retrospective analysis of a U.S. commercially insured population. J Manag Care Spec Pharm. 2017 Apr;23(4):453-60.'
+                    '\n\nFedorak RN et al. Canadian Digestive Health Foundation Public Impact Series 3: Irritable bowel syndrome in Canada. Incidence, prevalence, and direct and indirect economic impact. Can J Gastroenterol. 2012 May;26(5):252-6.'
+                    '\n\nGastrointestinal Society. 2018. ',
+              style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+                    color: Colors.black
+                ),
+            ),
+            TextSpan(
+                text: '\n\nIBS Global Impact Report',
+                style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+                    color: Colors.black
+                ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
                     print('helllo');
@@ -504,17 +548,12 @@ class ResourcesContents {
                   }
             ),
             TextSpan(
-                text: '\n\nBuono JL et al. Economic burden of irritable bowel syndrome with diarrhea: Retrospective analysis of a U.S. commercially insured population. J Manag Care Spec Pharm. 2017 Apr;23(4):453-60.'
-                    '\n\nFedorak RN et al. Canadian Digestive Health Foundation Public Impact Series 3: Irritable bowel syndrome in Canada. Incidence, prevalence, and direct and indirect economic impact. Can J Gastroenterol. 2012 May;26(5):252-6.'
-                    '\n\nGastrointestinal Society. 2018. IBS Global Impact Report 2018.  [accessed 3 September 2018]'
-                    '\n\nGastrointestinal Society. 2016. 2016 Survey Report: Irritable bowel syndrome.'
-                    '\n\nHan CJ and Yang GS. Fatigue in irritable bowel syndrome: A systematic review and meta-analysis of pooled frequency and severity of fatigue. Asian Nurs Res (Korean Soc Nurs Sci). 2016 Mar;10(1):1-10.'
-                    '\n\nLovell RM and Ford AC. Global prevalence of and risk factors for irritable bowel syndrome: A meta-analysis. Clin Gastroenterol Hepatol. 2012 Jul;10(7):712-21.e4.',
-
-                style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-                    color: Colors.black
-                ),
-
+              text: '\n\nGastrointestinal Society. 2016. 2016 Survey Report: Irritable bowel syndrome.'
+                  '\n\nHan CJ and Yang GS. Fatigue in irritable bowel syndrome: A systematic review and meta-analysis of pooled frequency and severity of fatigue. Asian Nurs Res (Korean Soc Nurs Sci). 2016 Mar;10(1):1-10.'
+                  '\n\nLovell RM and Ford AC. Global prevalence of and risk factors for irritable bowel syndrome: A meta-analysis. Clin Gastroenterol Hepatol. 2012 Jul;10(7):712-21.e4.',
+              style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
+                  color: Colors.black
+              ),
             ),
           ]
       ),
