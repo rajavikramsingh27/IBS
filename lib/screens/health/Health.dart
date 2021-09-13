@@ -24,6 +24,9 @@ class Health extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var numItems = _signUpController
+        .healthWellness.value.items.length;
+
     return Scaffold(
         bottomNavigationBar: Container(
           color: Colors.white,
@@ -92,19 +95,17 @@ class Health extends StatelessWidget {
                                             child:
                                                 CircularProgressIndicator())),
                                   ))
-                                : ListView.builder(
+                                :   ListView.builder(
                                     shrinkWrap: true,
                                     physics: ClampingScrollPhysics(),
-                                    itemCount: _signUpController
-                                        .healthWellness.value.items.length,
+                                    itemCount: numItems,
                                     itemBuilder: (_, mainIndex) {
                                       return _renderWidgetByType(
                                           _signUpController.healthWellness.value
                                               .items[mainIndex],
                                           isFirst: mainIndex == 0,
                                           isLast: mainIndex ==
-                                              (_signUpController
-                                                  .healthWellness.value.items.length - 1)
+                                              (numItems - 1)
                                       );
                                     }),
                             SizedBox(
@@ -232,7 +233,7 @@ class Health extends StatelessWidget {
                 horizontal: ScreenConstant.defaultWidthTwenty),
             child: Column(
               children: [
-                SizedBox(height: ScreenConstant.defaultHeightForty),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
                 Text(ratingItem.name.tr,
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: Colors.white, fontSizeDelta: -3)),
@@ -251,7 +252,8 @@ class Health extends StatelessWidget {
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: ScreenConstant.defaultWidthTen),
+                      horizontal: ScreenConstant.defaultWidthTen,
+                  ),
                   child: SfSliderTheme(
                     data: SfSliderThemeData(
                       thumbColor: AppColors.colorArrowButton,
@@ -320,7 +322,9 @@ class Health extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                Divider(thickness: isLast ? 0 : 1, color: AppColors.white.withOpacity(0.12)),
+                Visibility(
+                    visible: !isChild,
+                    child: Divider(thickness: 1, color: AppColors.white.withOpacity(0.12))),
               ],
             ),
           ),
@@ -525,44 +529,48 @@ class Health extends StatelessWidget {
   _renderSelectWidget(TrackableItem selectItem) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Text(selectItem.name.tr,
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.white, fontSizeDelta: -6)),
-            ),
-            Container(
-              width: ScreenConstant.sizeSmall,
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                decoration: BoxDecoration(
-                    color: AppColors.colordropdownArrowBg,
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: CustomDropdown<SelectOption>(
-                  value: selectItem.select.selectDefault.label != null
-                      ? selectItem.select.selectDefault
-                      : selectItem.select.options.first,
-                  dropdownMenuItemList:
-                      buildDropList(selectItem.select.options),
-                  onChanged: (SelectOption optionItem) {
-                    selectItem.select.selectDefault = optionItem;
-                    _healthWellnessController.onSleepQualityTapped(
-                        tid: selectItem.tid,
-                        kind: selectItem.kind,
-                        quality: optionItem.value);
-                    _signUpController.healthWellness.refresh();
-                  },
-                  isEnabled: true,
-                ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+          horizontal: ScreenConstant.defaultWidthTwenty),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Text(selectItem.name.tr,
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.white, fontSizeDelta: -6)),
               ),
-            )
-          ],
+              Container(
+                width: ScreenConstant.sizeSmall,
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                  decoration: BoxDecoration(
+                      color: AppColors.colordropdownArrowBg,
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  child: CustomDropdown<SelectOption>(
+                    value: selectItem.select.selectDefault.label != null
+                        ? selectItem.select.selectDefault
+                        : selectItem.select.options.first,
+                    dropdownMenuItemList:
+                        buildDropList(selectItem.select.options),
+                    onChanged: (SelectOption optionItem) {
+                      selectItem.select.selectDefault = optionItem;
+                      _healthWellnessController.onSleepQualityTapped(
+                          tid: selectItem.tid,
+                          kind: selectItem.kind,
+                          quality: optionItem.value);
+                      _signUpController.healthWellness.refresh();
+                    },
+                    isEnabled: true,
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
         Container(
           height: ScreenConstant.sizeXL,
@@ -576,44 +584,49 @@ class Health extends StatelessWidget {
   _renderTimePickerWidget(TrackableItem timeItem) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Text(timeItem.name.tr,
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.white, fontSizeDelta: -6)),
-            ),
-            Container(
-              width: ScreenConstant.sizeSmall,
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                decoration: BoxDecoration(
-                    color: AppColors.colordropdownArrowBg,
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: CustomDropdown(
-                  value: timeItem.selectedValue == null
-                      ? _healthWellnessController.selectedTime.value
-                      : timeItem.selectedValue,
-                  dropdownMenuItemList:
-                      buildTimeDropList(_healthWellnessController.timeList),
-                  onChanged: (optionItem) {
-                    timeItem.selectedValue = optionItem;
-                    _healthWellnessController.onBedTimeTapped(
-                        kind: timeItem.kind,
-                        tid: timeItem.tid,
-                        selectedTime: optionItem);
-                    _signUpController.healthWellness.refresh();
-                  },
-                  isEnabled: true,
-                ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: ScreenConstant.defaultWidthTwenty
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Text(timeItem.name.tr,
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.white, fontSizeDelta: -6)),
               ),
-            )
-          ],
+              Container(
+                width: ScreenConstant.sizeSmall,
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                  decoration: BoxDecoration(
+                      color: AppColors.colordropdownArrowBg,
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  child: CustomDropdown(
+                    value: timeItem.selectedValue == null
+                        ? _healthWellnessController.selectedTime.value
+                        : timeItem.selectedValue,
+                    dropdownMenuItemList:
+                        buildTimeDropList(_healthWellnessController.timeList),
+                    onChanged: (optionItem) {
+                      timeItem.selectedValue = optionItem;
+                      _healthWellnessController.onBedTimeTapped(
+                          kind: timeItem.kind,
+                          tid: timeItem.tid,
+                          selectedTime: optionItem);
+                      _signUpController.healthWellness.refresh();
+                    },
+                    isEnabled: true,
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
         Container(
           height: ScreenConstant.sizeMedium,
@@ -646,36 +659,41 @@ class Health extends StatelessWidget {
             left: isChild ? 0 : ScreenConstant.defaultWidthTwenty,
             right: isChild ? 0 : ScreenConstant.defaultWidthTwenty,
           ),
-          child: Column(
-            children: [
-              SizedBox(height: ScreenConstant.defaultHeightForty),
-              Text(groupItem.name.tr,
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.white, fontSizeDelta: -3)),
-              SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-              Text(
-                groupItem.description.tr,
-                textAlign: TextAlign.center,
-                style: TextStyles.textStyleRegular
-                    .apply(color: AppColors.colorSkipButton),
-              ),
-              SizedBox(height: ScreenConstant.defaultHeightTwenty),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ScreenConstant.defaultWidthTen),
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    itemCount: groupItem.children.first.items.length,
-                    itemBuilder: (_, count) {
-                      return _renderWidgetByType(
-                          groupItem.children.first.items[count],
-                          isChild: true,
+          child: Padding(
+            padding: (EdgeInsets.only(
+              bottom: ScreenConstant.defaultHeightSixteen
+            )),
+            child: Column(
+              children: [
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Text(groupItem.name.tr,
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.white, fontSizeDelta: -3)),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                Text(
+                  groupItem.description.tr,
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleRegular
+                      .apply(color: AppColors.colorSkipButton),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ScreenConstant.defaultWidthTen),
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      itemCount: groupItem.children.first.items.length,
+                      itemBuilder: (_, count) {
+                        return _renderWidgetByType(
+                            groupItem.children.first.items[count],
+                            isChild: true,
 
-                      );
-                    }),
-              ),
-            ],
+                        );
+                      }),
+                ),
+              ],
+            ),
           ),
         ),
       ],
