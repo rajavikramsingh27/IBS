@@ -37,9 +37,6 @@ class CoreService {
                 serviceName: endpoint, objectId: objectId
             );
 
-            print('responseresponseresponseresponseresponseresponseresponse');
-            print(response);
-
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
@@ -215,7 +212,6 @@ class CoreService {
             }
           } catch (er) {
             // Catch  unknown error
-
           }
         }
         break;
@@ -260,7 +256,6 @@ class CoreService {
               userNameFieldName: "loginId",
             );
 
-            debugPrint("Response Response Response Response Response Response Response");
             debugPrint("Response: $response", wrapWidth: 1024);
 
             return response;
@@ -348,3 +343,8 @@ enum METHOD {
   AUTHENTICATE,
   REAUTHENTICATE
 }
+
+
+
+
+

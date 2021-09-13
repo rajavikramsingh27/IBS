@@ -100,9 +100,6 @@ class SignInController extends GetxController {
       final data = await ServiceApi().signInApi(bodyData: model.toJson());
 
       if (data is LoginResponseModel) {
-        print('datadatadatadatadatadatadatadatadata');
-        print(data);
-
         HiveStore().put(Keys.USERID, data.id);
 
         CustomSnackBar().successSnackBar(

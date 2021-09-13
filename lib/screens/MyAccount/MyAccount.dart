@@ -20,6 +20,7 @@ import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/ShadowContainer.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/widget/CustomCheckBox.dart';
+import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 
 
 final FocusNode focusEmail = FocusNode();
@@ -30,7 +31,7 @@ final FocusNode focusNone = FocusNode();
 
 
 class MyAccount extends StatelessWidget {
-  final _controller = Get.put(MyAccountController());
+  final  MyAccountController _controller = Get.put(MyAccountController());
 
   buildEmail() {
     return Column(
@@ -384,39 +385,90 @@ class MyAccount extends StatelessWidget {
           style: TextStyles.appBarTitle,
         ),
       ),
-      body:              Obx(
-            () => ListView(
-          physics: ClampingScrollPhysics(),
-          padding: ScreenConstant.spacingAllLarge,
-          children: [
-            SizedBox(height: ScreenConstant.sizeExtraLarge),
-            Center(
-              child: Text("My Account Details.",
-                style: TextStyles.textStyleSettingTitle,
-              ),
+      body: GetBuilder<MyAccountController>(
+        init: MyAccountController(),
+        initState: (state) async {
+          // print('HomePageController state initialized');
+        },
+        builder: (authController) {
+          authController.getUserList();
+
+          return Obx(
+                () => ListView(
+              physics: ClampingScrollPhysics(),
+              padding: ScreenConstant.spacingAllLarge,
+              children: [
+                SizedBox(height: ScreenConstant.sizeExtraLarge),
+                Center(
+                  child: Text("My Account Details.",
+                    style: TextStyles.textStyleSettingTitle,
+                  ),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTen),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: 40, right: 40
+                  ),
+                  child: Text(
+                    "You may edit your account details at any time. Changing your account’s email address and password requires email confirmation.",
+                    textAlign: TextAlign.center,
+                    style: TextStyles.textStyleSettingDescription,
+                  ),
+                ),
+                buildEmail(),
+                buildPassword(),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                buildGender(),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                buildAgeCard(),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                buildFamilyIBSHistory(),
+                SizedBox(height: ScreenConstant.screenWidthThird/4),
+                Container(
+                  child: _controller.loader.value
+                      ? CustomElevatedButton2(
+                    textColor: Colors.white,
+                    buttonColor: AppColors.colorBackground,
+                    widthFactor: 0.8,
+                    text: "Save Changes",
+                    onTap: () {
+
+                    },
+                  ) : CustomElevatedButton2(
+                    textColor: Colors.white,
+                    buttonColor: AppColors.colorBackground,
+                    widthFactor: 0.8,
+                    text: "Save Changes",
+                    onTap: () {
+
+                    },
+                  ),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Container(
+                  child: _controller.loader.value
+                      ? CustomElevatedButton2(
+                    textColor: Colors.black,
+                    buttonColor: Colors.transparent,
+                    widthFactor: 0.8,
+                    text: "Cancel",
+                    onTap: () {
+
+                    },
+                  ) : CustomElevatedButton2(
+                    textColor: Colors.black,
+                    buttonColor: Colors.transparent,
+                    widthFactor: 0.8,
+                    text: "Cancel",
+                    onTap: () {
+
+                    },
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: ScreenConstant.defaultHeightTen),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: 40, right: 40
-              ),
-              child: Text(
-                "You may edit your account details at any time. Changing your account’s email address and password requires email confirmation.",
-                textAlign: TextAlign.center,
-                style: TextStyles.textStyleSettingDescription,
-              ),
-            ),
-            buildEmail(),
-            buildPassword(),
-            SizedBox(height: ScreenConstant.defaultHeightTwenty),
-            buildGender(),
-            SizedBox(height: ScreenConstant.defaultHeightTwenty),
-            buildAgeCard(),
-            SizedBox(height: ScreenConstant.defaultHeightTwenty),
-            buildFamilyIBSHistory(),
-            SizedBox(height: ScreenConstant.screenWidthThird/4),
-          ],
-        ),
+          );
+        }
       ),
     );
   }

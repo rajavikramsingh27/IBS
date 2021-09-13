@@ -2,6 +2,7 @@
 
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseModel.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart';
+import 'package:flutter_ibs/models/MyAccount/MyAccount.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
@@ -141,17 +142,14 @@ class ServiceApi {
   }
 
   Future<dynamic> getUserList() async {
-    final result = await CoreService().apiService(
-        method: METHOD.FIND, endpoint: USERS);
-
-    print('resultresultresultresultresultresult');
-    print(result);
+    final result = await CoreService().apiService(method: METHOD.GET, endpoint: USERS);
 
     if (result == null) {
       return null;
     } else {
-
+      return MyAccountModel.fromJson(result);
     }
+
   }
 
   Future<dynamic> getFoodHistoryList({String id}) async {
@@ -197,3 +195,5 @@ class ServiceApi {
   }
 
 }
+
+

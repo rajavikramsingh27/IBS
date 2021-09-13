@@ -15,6 +15,7 @@ import 'package:get/get.dart';
 class TrackingOptions extends StatelessWidget {
   final _controller = Get.put(SignUpController());
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

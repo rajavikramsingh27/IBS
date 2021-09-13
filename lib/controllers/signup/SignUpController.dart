@@ -19,6 +19,7 @@ class SignUpController extends GetxController {
   RxBool selectedMale = false.obs;
   RxBool selectedFeMale = false.obs;
   RxBool selectedOtherGender = false.obs;
+
   List<DatumItem> symptomsList = [];
   List<DatumItem> bowelMoveList = [];
   List<DatumItem> foodList = [];
