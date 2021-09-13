@@ -6,14 +6,13 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class RatingWidget extends StatelessWidget {
   final TrackableItem trackableItem;
   final bool isFirst;
   final bool isLast;
   final bool isChild;
-  final List<TrackableItem> submissionList;
+  final Function(int) onValueChanged;
 
   const RatingWidget({
     //Key key,
@@ -21,7 +20,7 @@ class RatingWidget extends StatelessWidget {
     this.isFirst,
     this.isLast,
     this.isChild,
-    this.submissionList
+    this.onValueChanged
   }) : super();
 
   @override
@@ -62,7 +61,7 @@ class RatingWidget extends StatelessWidget {
                     //trackableItem.description.tr,
                     trackableItem
                         .rating
-                        .options[(trackableItem.rating.ratingDefault.toInt() - 1)]
+                        .options[(trackableItem.rating.value.toInt() - 1)]
                         .description
                         .tr,
                     textAlign: TextAlign.center,
@@ -109,7 +108,8 @@ class RatingWidget extends StatelessWidget {
                         showLabels: true,
                         value: trackableItem.rating.ratingDefault,
                         onChanged: (dynamic newValue) {
-                          trackableItem.rating.ratingDefault = newValue;
+                          trackableItem.rating.value = newValue;
+                         // onValueChanged(newValue.toInt());
                           /*
                           if (_healthWellnessController
                               .healthWellnessModel.value.items ==

@@ -16,6 +16,9 @@ class Health extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var widgetList = _signUpController
+        .healthWellness.value.obs().items;
+
     return Scaffold(
         bottomNavigationBar: Container(
           color: Colors.white,
@@ -91,13 +94,13 @@ class Health extends StatelessWidget {
                                         .healthWellness.value.items.length,
                                     itemBuilder: (_, mainIndex) {
                                       return RenderWidgetByType().renderTrackableItem(
-                                          _signUpController.healthWellness.value
-                                              .items[mainIndex],
+                                          widgetList[mainIndex],
                                           isFirst: mainIndex == 0,
                                           isLast: mainIndex ==
-                                              (_signUpController.healthWellness
-                                                      .value.items.length -
+                                              (widgetList.length -
                                                   1));
+                                         // onChanged: _valueChanged,
+
                                     }),
                             SizedBox(
                                 height: ScreenConstant.defaultHeightTwenty),
@@ -114,5 +117,8 @@ class Health extends StatelessWidget {
         ));
   }
 
+  _valueChanged(dynamic value){
+    _signUpController.healthWellness.refresh();
+  }
 
 }

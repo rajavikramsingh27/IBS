@@ -1295,10 +1295,12 @@ class FluffyRating {
     this.options,
     this.labels,
     this.validation,
+    this.value,
   });
 
   int range;
   num ratingDefault;
+  num value;
   List<RatingOption> options;
   Labels labels;
   RatingValidation validation;
@@ -1314,6 +1316,7 @@ class FluffyRating {
         validation: json["validation"] == null
             ? null
             : RatingValidation.fromJson(json["validation"]),
+        value: json["value"] == null ? json["default"]  : json["value"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -1324,6 +1327,7 @@ class FluffyRating {
             : List<dynamic>.from(options.map((x) => x.toJson())),
         "labels": labels == null ? null : labels.toJson(),
         "validation": validation == null ? null : validation.toJson(),
+        "value": value,
       };
 }
 
