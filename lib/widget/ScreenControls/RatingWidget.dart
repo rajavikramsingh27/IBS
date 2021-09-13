@@ -9,7 +9,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class RatingWidget extends StatelessWidget {
-  final TrackableItem ratingItem;
+  final TrackableItem trackableItem;
   final bool isFirst;
   final bool isLast;
   final bool isChild;
@@ -17,7 +17,7 @@ class RatingWidget extends StatelessWidget {
 
   const RatingWidget({
     //Key key,
-    this.ratingItem,
+    this.trackableItem,
     this.isFirst,
     this.isLast,
     this.isChild,
@@ -26,7 +26,7 @@ class RatingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        //(TrackableItem ratingItem,
+        //(TrackableItem trackableItem,
        // {bool isFirst, bool isLast, bool isChild}) {
       return Stack(
         children: [
@@ -50,19 +50,19 @@ class RatingWidget extends StatelessWidget {
             ),
             child: Container(
               padding: EdgeInsets.symmetric(
-                  horizontal: ScreenConstant.defaultWidthTwenty, vertical: 1),
+                  horizontal: isChild ? 0 : ScreenConstant.defaultWidthTwenty, vertical: 1),
               child: Column(
                 children: [
                   SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                  Text(ratingItem.name.tr,
+                  Text(trackableItem.name.tr,
                       style: TextStyles.textStyleIntroDescription
                           .apply(color: Colors.white, fontSizeDelta: -3)),
                   SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                   Text(
-                    //ratingItem.description.tr,
-                    ratingItem
+                    //trackableItem.description.tr,
+                    trackableItem
                         .rating
-                        .options[(ratingItem.rating.ratingDefault.toInt() - 1)]
+                        .options[(trackableItem.rating.ratingDefault.toInt() - 1)]
                         .description
                         .tr,
                     textAlign: TextAlign.center,
@@ -103,13 +103,13 @@ class RatingWidget extends StatelessWidget {
                       child: SfSlider(
                         showDividers: true,
                         min: 1.0,
-                        max: ratingItem.rating.range,
+                        max: trackableItem.rating.range,
                         interval: 1,
                         stepSize: 1,
                         showLabels: true,
-                        value: ratingItem.rating.ratingDefault,
+                        value: trackableItem.rating.ratingDefault,
                         onChanged: (dynamic newValue) {
-                          ratingItem.rating.ratingDefault = newValue;
+                          trackableItem.rating.ratingDefault = newValue;
                           /*
                           if (_healthWellnessController
                               .healthWellnessModel.value.items ==
@@ -118,8 +118,8 @@ class RatingWidget extends StatelessWidget {
                                 .healthWellnessModel.value.items = [];
                           }
                           Item item = Item(
-                              tid: ratingItem.tid,
-                              kind: ratingItem.kind,
+                              tid: trackableItem.tid,
+                              kind: trackableItem.kind,
                               dtype: "num",
                               value: ItemValue(numValue: newValue));
                           _healthWellnessController
