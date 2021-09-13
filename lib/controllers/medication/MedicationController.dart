@@ -15,7 +15,7 @@ class MedicationController extends GetxController {
   RxBool loader = false.obs;
 
   Rx<MedicationSendModel> medicationSendModel = MedicationSendModel().obs;
-  RxList<Default> listfoodDefault = <Default>[].obs;
+  RxList<Tag> listfoodDefault = <Tag>[].obs;
   TextEditingController noteTextController = TextEditingController();
   TextEditingController medicationTextController = TextEditingController();
   SignUpController _signUpController = Get.find();

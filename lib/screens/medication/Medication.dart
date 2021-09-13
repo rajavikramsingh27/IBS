@@ -235,7 +235,7 @@ class Medication extends StatelessWidget {
                     onTap: () {
                       if (_controller
                           .medicationTextController.text.isNotEmpty) {
-                        _controller.listfoodDefault.add(Default(
+                        _controller.listfoodDefault.add(Tag(
                             value: _controller.medicationTextController.text));
                         _controller.listfoodDefault.refresh();
                       }

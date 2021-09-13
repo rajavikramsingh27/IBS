@@ -41,6 +41,7 @@ class RenderWidgetByType {
         {
           return FixedTagListWidget(
               trackableItem: widget,
+              onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
               isChild: isChild

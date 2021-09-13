@@ -22,7 +22,7 @@ class FoodController extends GetxController {
   Rx<FoodSendModel> foodSendModel = FoodSendModel().obs;
   RxList<FoodSubList> listFoodSub = <FoodSubList>[].obs;
   RxList<FoodList> listFood = <FoodList>[].obs;
-  RxList<Default> listfoodDefault = <Default>[].obs;
+  RxList<Tag> listfoodDefault = <Tag>[].obs;
   RxInt noOfGlasses = 0.obs;
   RxString mealtid = "".obs;
   RxBool selected = false.obs;
