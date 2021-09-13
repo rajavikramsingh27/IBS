@@ -275,3 +275,85 @@ class CustomDialog2 extends StatelessWidget {
     );
   }
 }
+
+class CustomDialog3 extends StatelessWidget {
+  final double height;
+  final String title;
+  final String description;
+
+  const CustomDialog3({Key key, this.height, this.title, this.description})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildDialog();
+  }
+
+  _buildDialog() {
+    return Material(
+      borderRadius: BorderRadius.circular(ScreenConstant.sizeMedium),
+      type: MaterialType.transparency,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            ),
+            height: height,
+            margin: EdgeInsets.symmetric(
+                horizontal: ScreenConstant.defaultWidthTwenty),
+            padding: ScreenConstant.spacingAllLarge,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  Assets.stop,
+                  width: ScreenConstant.sizeXXXL,
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightSixteen),
+                Text(
+                  title,
+                  style: TextStyles.textStyleIntroDescription
+                      .apply(color: AppColors.colorDialogTitle),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                Text(
+                  description,
+                  style: TextStyles.textStyleRegular
+                      .apply(color: AppColors.colorDialogTitle),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: ScreenConstant.defaultWidthOneForty,
+                      child: CustomElevatedButton2(
+                        text: "Cancel",
+                        buttonColor: AppColors.colorBtnCancel,
+                        onTap: () {},
+                        textColor: Colors.white,
+                      ),
+                    ),
+                    SizedBox(
+                      width: ScreenConstant.defaultWidthOneForty,
+                      child: CustomElevatedButton2(
+                        text: "Stop",
+                        buttonColor: AppColors.colorArrowButton,
+                        onTap: () {},
+                        textColor: Colors.white,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
