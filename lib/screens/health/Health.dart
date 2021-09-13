@@ -13,6 +13,7 @@ import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/DropDownList.dart';
+import 'package:flutter_ibs/widget/ScreenControls/RatingWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
@@ -166,8 +167,13 @@ class Health extends StatelessWidget {
     switch (widget.kind) {
       case "rating":
         {
-          return _renderRatingWidget(widget,
-              isFirst: isFirst, isLast: isLast, isChild: isChild);
+          //return _renderRatingWidget(widget,
+          //    isFirst: isFirst, isLast: isLast, isChild: isChild);
+          return RatingWidget(
+              ratingItem: widget,
+              isFirst: isFirst,
+              isLast: isLast,
+              isChild: isChild);
         }
         break;
       case "list":
