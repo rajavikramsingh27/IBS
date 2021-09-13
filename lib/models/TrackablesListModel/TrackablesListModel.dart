@@ -796,7 +796,7 @@ class PurpleTags {
   bool userAddable;
   String addableLabel;
   String placeholder;
-  List<Default> tagsDefault;
+  List<Tag> tagsDefault;
   int limit;
 
   factory PurpleTags.fromJson(Map<String, dynamic> json) => PurpleTags(
@@ -808,8 +808,8 @@ class PurpleTags {
         placeholder: json["placeholder"] == null ? null : json["placeholder"],
         tagsDefault: json["default"] == null
             ? null
-            : List<Default>.from(
-                json["default"].map((x) => Default.fromJson(x))),
+            : List<Tag>.from(
+                json["default"].map((x) => Tag.fromJson(x))),
         limit: json["limit"] == null ? null : json["limit"],
       );
 
@@ -826,6 +826,41 @@ class PurpleTags {
       };
 }
 
+class Tag {
+  Tag({
+    this.category,
+    this.key,
+    this.value,
+    this.required,
+    this.selected,
+  });
+
+  String category;
+  String key;
+  String value;
+  bool required;
+  bool selected = false;
+
+  factory Tag.fromJson(Map<String, dynamic> json) => Tag(
+        category: json["category"] == null ? null : json["category"],
+        key: json["key"] == null ? null : json["key"],
+        value: json["value"] == null ? null : json["value"],
+        required: json["required"] == null ? null : json["required"],
+        selected: false,
+      );
+
+  Map<String, dynamic> toJson() => {
+        "category": category == null ? null : category,
+        "key": key == null ? null : key,
+        "value": value == null ? null : value,
+        "required": required == null ? null : required,
+      };
+}
+
+/// TODO: Deprecate this class in favor of the Tag class.
+/// Default is a poor choice of names, it gives no indication
+/// what the hell this thing actually is / does!
+/// I have left this in for compatibility with Treatment Plans for the time being
 class Default {
   Default({
     this.category,
@@ -840,19 +875,21 @@ class Default {
   bool required;
 
   factory Default.fromJson(Map<String, dynamic> json) => Default(
-        category: json["category"] == null ? null : json["category"],
-        key: json["key"] == null ? null : json["key"],
-        value: json["value"] == null ? null : json["value"],
-        required: json["required"] == null ? null : json["required"],
-      );
+    category: json["category"] == null ? null : json["category"],
+    key: json["key"] == null ? null : json["key"],
+    value: json["value"] == null ? null : json["value"],
+    required: json["required"] == null ? null : json["required"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "category": category == null ? null : category,
-        "key": key == null ? null : key,
-        "value": value == null ? null : value,
-        "required": required == null ? null : required,
-      };
+    "category": category == null ? null : category,
+    "key": key == null ? null : key,
+    "value": value == null ? null : value,
+    "required": required == null ? null : required,
+  };
 }
+
+
 
 class PurpleList {
   PurpleList({
@@ -1102,7 +1139,7 @@ class FluffyTags {
   bool userAddable;
   String addableLabel;
   String placeholder;
-  List<Default> tagsDefault;
+  List<Tag> tagsDefault;
   String autocompleteId;
   String source;
   BoolListRelation relation;
@@ -1117,8 +1154,8 @@ class FluffyTags {
         placeholder: json["placeholder"] == null ? null : json["placeholder"],
         tagsDefault: json["default"] == null
             ? null
-            : List<Default>.from(
-                json["default"].map((x) => Default.fromJson(x))),
+            : List<Tag>.from(
+                json["default"].map((x) => Tag.fromJson(x))),
         autocompleteId:
             json["autocompleteId"] == null ? null : json["autocompleteId"],
         source: json["source"] == null ? null : json["source"],
@@ -1136,7 +1173,7 @@ class FluffyTags {
         "placeholder": placeholder == null ? null : placeholder,
         "default": tagsDefault == null
             ? null
-            : List<dynamic>.from(tagsDefault.map((x) => x.toJson())),
+            : List<Tag>.from(tagsDefault.map((x) => x.toJson())),
         "autocompleteId": autocompleteId == null ? null : autocompleteId,
         "source": source == null ? null : source,
         "relation": relation == null ? null : relation.toJson(),

@@ -120,7 +120,8 @@ class ListWidget extends StatelessWidget {
     );
   }
 
-
+  /// Toggle our element's state for tracking
+  /// and send a list of all selected items to onValueChanged.
   _onHandleToggle(TrackableItem item, ListOption option){
     option.optionDefault = !option.optionDefault;
 
@@ -143,53 +144,5 @@ class ListWidget extends StatelessWidget {
     ));
   }
 
-  /*
-  onOptionTapped({ListOption model, String tid, String kind}) {
-    model.optionDefault = !model.optionDefault;
 
-    if (healthWellnessModel.value.items == null) {
-      healthWellnessModel.value.items = [];
-    }
-    if(!switchValue.value){
-      switchValue.value = true;
-      Item item = Item(
-          tid: tid,
-          kind: kind,
-          dtype: "arr",
-          value: ItemValue(arr: []));
-      healthWellnessModel.value.items.add(item);
-      healthWellnessModel.value.items.forEach((Item element) {
-        if(element.tid == tid){
-          if (model.optionDefault) {
-            if (!element.value.arr.contains(model.value)) {
-              element.value.arr.add(model.value);
-            }
-          } else {
-            if (element.value.arr.contains(model.value)) {
-              element.value.arr.remove(model.value);
-            }
-          }
-        }
-      });
-
-    }else{
-      healthWellnessModel.value.items.forEach((Item element) {
-        if(element.tid == tid){
-          if (model.optionDefault) {
-            if (!element.value.arr.contains(model.value)) {
-              element.value.arr.add(model.value);
-            }
-          } else {
-            if (element.value.arr.contains(model.value)) {
-              element.value.arr.remove(model.value);
-            }
-          }
-        }
-      });
-    }
-    _signUpController.healthWellness.refresh();
-    healthWellnessModel.refresh();
-  }}
-
-   */
 }

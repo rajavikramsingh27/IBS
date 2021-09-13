@@ -11,15 +11,16 @@ class FixedTagListWidget extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
   final bool isChild;
+  final Function(TrackableSubmitItem) onValueChanged;
+  List<Tag> _selectedItems;
 
-
-  const FixedTagListWidget({
+  FixedTagListWidget({
     //Key key,
     this.trackableItem,
     this.isFirst,
     this.isLast,
     this.isChild,
-
+    this.onValueChanged,
   }) : super();
 
   @override
@@ -62,6 +63,7 @@ class FixedTagListWidget extends StatelessWidget {
                   children: trackableItem.tags.tagsDefault
                       .map((item) => InkWell(
                     onTap: () {
+                      _onHandleToggle(trackableItem, item);
                       /*
                       _healthWellnessController.onRelaxTapped(
                           tid: trackableItem.tid,
@@ -69,7 +71,7 @@ class FixedTagListWidget extends StatelessWidget {
                           model: item);*/
                     },
                     child: Card(
-                      color: item.required
+                      color: item.selected
                           ? AppColors.colorCloseLight
                           : AppColors.colorSymptomsGridBg,
                       shape: RoundedRectangleBorder(
@@ -97,5 +99,27 @@ class FixedTagListWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  _onHandleToggle(TrackableItem item, Tag tag){
+    tag.selected = !tag.selected;
+
+    if (_selectedItems == null){
+      _selectedItems = [];
+    }
+
+    if (this._selectedItems.contains(tag)){
+      this._selectedItems.remove(tag);
+    }else{
+      this._selectedItems.add(tag);
+    }
+
+    onValueChanged(TrackableSubmitItem(
+      tid: item.tid,
+      category: item.category,
+      kind: item.kind,
+      dtype: "arr",
+      value: this._selectedItems,
+    ));
   }
 }
