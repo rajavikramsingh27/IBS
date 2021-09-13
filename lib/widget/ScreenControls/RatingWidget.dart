@@ -12,7 +12,7 @@ class RatingWidget extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
   final bool isChild;
-  final Function(int) onValueChanged;
+  final Function(TrackableSubmitItem) onValueChanged;
 
   const RatingWidget({
     //Key key,
@@ -106,9 +106,15 @@ class RatingWidget extends StatelessWidget {
                         interval: 1,
                         stepSize: 1,
                         showLabels: true,
-                        value: trackableItem.rating.ratingDefault,
+                        value: trackableItem.rating.value,
                         onChanged: (dynamic newValue) {
                           trackableItem.rating.value = newValue;
+                          onValueChanged(TrackableSubmitItem(
+                            tid: trackableItem.tid,
+                            kind: trackableItem.kind,
+                            dtype: "num",
+                            value: newValue,
+                          ));
                          // onValueChanged(newValue.toInt());
                           /*
                           if (_healthWellnessController

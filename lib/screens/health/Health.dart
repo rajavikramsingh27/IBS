@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/health/HealthController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
@@ -98,9 +99,9 @@ class Health extends StatelessWidget {
                                           isFirst: mainIndex == 0,
                                           isLast: mainIndex ==
                                               (widgetList.length -
-                                                  1));
-                                         // onChanged: _valueChanged,
-
+                                                  1),
+                                          onValueChanged: _valueChanged
+                                      );
                                     }),
                             SizedBox(
                                 height: ScreenConstant.defaultHeightTwenty),
@@ -117,7 +118,8 @@ class Health extends StatelessWidget {
         ));
   }
 
-  _valueChanged(dynamic value){
+  _valueChanged(TrackableSubmitItem value){
+    print (value.toJson());
     _signUpController.healthWellness.refresh();
   }
 

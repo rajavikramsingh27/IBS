@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 
 class RenderWidgetByType {
   renderTrackableItem(TrackableItem widget,
-      {bool isFirst = false, bool isLast = false, bool isChild = false}) {
+      {bool isFirst = false, bool isLast = false, bool isChild = false,
+        Function(TrackableSubmitItem) onValueChanged
+      }) {
     switch (widget.kind) {
       case "rating":
         {
@@ -18,6 +20,7 @@ class RenderWidgetByType {
           //    isFirst: isFirst, isLast: isLast, isChild: isChild);
           return RatingWidget(
               trackableItem: widget,
+              onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
               isChild: isChild);

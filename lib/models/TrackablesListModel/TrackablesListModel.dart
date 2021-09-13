@@ -211,6 +211,36 @@ class TrackableChild {
 
 
 
+/// Data structure for sending user Trackable item data
+class TrackableSubmitItem{
+  TrackableSubmitItem({
+    this.tid,
+    this.kind,
+    this.dtype,
+    this.value
+  });
+
+  String tid;
+  String kind;
+  String dtype;
+  dynamic value;
+
+  factory TrackableSubmitItem.fromJson(Map<String, dynamic> json) => TrackableSubmitItem(
+    tid: json["tid"],
+    kind: json["kind"],
+    dtype: json["dtype"],
+    value: json["value"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "tid": tid,
+    "kind": kind,
+    "dtype": dtype,
+    "value": value,
+  };
+}
+
+
 /* IAN: Deprecated, I made the top-level Datum and DatumItems use the same
 class, TrackableItem.
 
