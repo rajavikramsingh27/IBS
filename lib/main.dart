@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/routes/NavRouter.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
@@ -6,18 +8,30 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/Strings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:flutter/services.dart';
 import 'Store/HiveStore.dart';
 import 'language/LocalTranslations.dart';
 import 'models/language/LanguageResponseModel.dart';
-List<Datum> data = <Datum>[];
-List<String> languages = <String>[];
+
+
 main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
   WidgetsFlutterBinding.ensureInitialized();
   await HiveStore().initBox();
   await getLanguage();
   runApp(IBS());
 }
+
 getLanguage() async {
+  List<Datum> data = <Datum>[];
+  List<String> languages = <String>[];
+
   await ServiceApi().getLanguage().then((response) => data = response.data);
   data.forEach((element) {
     print("lang:${element.lang}");
@@ -33,6 +47,7 @@ void printWrapped(String text) {
   final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
   pattern.allMatches(text).forEach((match) => print(match.group(0)));
 }
+
 class IBS extends StatelessWidget {
 
   // This widget is the root of your application.
@@ -49,7 +64,6 @@ class IBS extends StatelessWidget {
         textSelectionTheme: TextSelectionThemeData(
           cursorColor: AppColors.primaryColor,
         ),
-
         fontFamily: 'Roboto',
         primaryColor: AppColors.primaryColor,
         // textTheme: GoogleFonts.redHatDisplayTextTheme(),
@@ -73,3 +87,5 @@ class IBS extends StatelessWidget {
     );
   }
 }
+
+

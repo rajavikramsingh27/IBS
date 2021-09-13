@@ -58,7 +58,7 @@ class BowelMovementController extends GetxController {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
   }
-  initModel({DatumItem data,String dType, value,}){
+  initModel({TrackableItem data,String dType, value,}){
     bool isPresent = false;
 
     if (bowelMovementsModel.value.items == null) {
@@ -96,7 +96,7 @@ class BowelMovementController extends GetxController {
     }
   }
 
-  initSubModel({PurpleItem data,String dType,bool value,String tid,String kind,mainType}){
+  initSubModel({TrackableItem data,String dType,bool value,String tid,String kind,mainType}){
     Item item;
     bool isPresent = false;
 

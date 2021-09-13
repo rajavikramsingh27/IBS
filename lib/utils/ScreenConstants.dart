@@ -14,6 +14,7 @@ class ScreenConstant {
   static double defaultHeightSeventySix = 76;
   static double defaultHeightNinety = 90;
   static double defaultHeightForty = 40;
+  static double defaultHeightThirty = 30;
   static double defaultHeightSixteen = 16;
   static double defaultHeightTwentyFour = 24;
   static double defaultHeightTwenty = 20;
