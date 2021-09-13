@@ -12,7 +12,7 @@ class TimePickerWidget extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
   final bool isChild;
-
+  final Function(TrackableSubmitItem) onValueChanged;
 
   const TimePickerWidget({
     //Key key,
@@ -20,6 +20,7 @@ class TimePickerWidget extends StatelessWidget {
     this.isFirst,
     this.isLast,
     this.isChild,
+    this.onValueChanged,
   }) : super();
 
   @override

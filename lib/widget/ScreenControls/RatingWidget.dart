@@ -111,6 +111,7 @@ class RatingWidget extends StatelessWidget {
                           trackableItem.rating.value = newValue;
                           onValueChanged(TrackableSubmitItem(
                             tid: trackableItem.tid,
+                            category: trackableItem.category,
                             kind: trackableItem.kind,
                             dtype: "num",
                             value: newValue,

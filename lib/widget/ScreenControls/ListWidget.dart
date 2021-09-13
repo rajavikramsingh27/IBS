@@ -10,16 +10,20 @@ class ListWidget extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
   final bool isChild;
+  final Function(TrackableSubmitItem) onValueChanged;
+  List<ListOption> _selectedItems;
 
-
-  const ListWidget({
+  ListWidget({
     //Key key,
     this.trackableItem,
     this.isFirst,
     this.isLast,
     this.isChild,
+    this.onValueChanged,
 
   }) : super();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +69,12 @@ class ListWidget extends StatelessWidget {
                     var model = trackableItem.list.options[optIdx];
                     return InkWell(
                       onTap: () {
-                      /*  _healthWellnessController.onOptionTapped(
+                        _onHandleToggle(trackableItem, model);
+                        /*_onOptionTapped(
                           model: model,
                           tid: trackableItem.tid,
                           kind: trackableItem.kind,
-                        ); */
+                        );*/
                       },
                       child: Card(
                           elevation: 0,
@@ -114,4 +119,77 @@ class ListWidget extends StatelessWidget {
       ],
     );
   }
+
+
+  _onHandleToggle(TrackableItem item, ListOption option){
+    option.optionDefault = !option.optionDefault;
+
+    if (this._selectedItems == null){
+      this._selectedItems = [];
+    }
+
+    if (this._selectedItems.contains(option)){
+      this._selectedItems.remove(option);
+    }else{
+      this._selectedItems.add(option);
+    }
+
+    onValueChanged(TrackableSubmitItem(
+      tid: item.tid,
+      category: item.category,
+      kind: item.kind,
+      dtype: "arr",
+      value: this._selectedItems,
+    ));
+  }
+
+  /*
+  onOptionTapped({ListOption model, String tid, String kind}) {
+    model.optionDefault = !model.optionDefault;
+
+    if (healthWellnessModel.value.items == null) {
+      healthWellnessModel.value.items = [];
+    }
+    if(!switchValue.value){
+      switchValue.value = true;
+      Item item = Item(
+          tid: tid,
+          kind: kind,
+          dtype: "arr",
+          value: ItemValue(arr: []));
+      healthWellnessModel.value.items.add(item);
+      healthWellnessModel.value.items.forEach((Item element) {
+        if(element.tid == tid){
+          if (model.optionDefault) {
+            if (!element.value.arr.contains(model.value)) {
+              element.value.arr.add(model.value);
+            }
+          } else {
+            if (element.value.arr.contains(model.value)) {
+              element.value.arr.remove(model.value);
+            }
+          }
+        }
+      });
+
+    }else{
+      healthWellnessModel.value.items.forEach((Item element) {
+        if(element.tid == tid){
+          if (model.optionDefault) {
+            if (!element.value.arr.contains(model.value)) {
+              element.value.arr.add(model.value);
+            }
+          } else {
+            if (element.value.arr.contains(model.value)) {
+              element.value.arr.remove(model.value);
+            }
+          }
+        }
+      });
+    }
+    _signUpController.healthWellness.refresh();
+    healthWellnessModel.refresh();
+  }}
+
+   */
 }

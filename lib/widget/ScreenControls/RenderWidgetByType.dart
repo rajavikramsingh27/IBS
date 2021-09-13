@@ -30,6 +30,7 @@ class RenderWidgetByType {
         {
           return ListWidget(
               trackableItem: widget,
+              onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
               isChild: isChild

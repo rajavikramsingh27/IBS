@@ -12,7 +12,7 @@ class SelectWidget extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
   final bool isChild;
-
+  final Function(TrackableSubmitItem) onValueChanged;
 
   const SelectWidget({
     //Key key,
@@ -20,7 +20,7 @@ class SelectWidget extends StatelessWidget {
     this.isFirst,
     this.isLast,
     this.isChild,
-
+    this.onValueChanged,
   }) : super();
 
   @override

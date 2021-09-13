@@ -215,18 +215,21 @@ class TrackableChild {
 class TrackableSubmitItem{
   TrackableSubmitItem({
     this.tid,
+    this.category,
     this.kind,
     this.dtype,
     this.value
   });
 
   String tid;
+  String category;
   String kind;
   String dtype;
   dynamic value;
 
   factory TrackableSubmitItem.fromJson(Map<String, dynamic> json) => TrackableSubmitItem(
     tid: json["tid"],
+    category: json["category"],
     kind: json["kind"],
     dtype: json["dtype"],
     value: json["value"],
@@ -234,6 +237,7 @@ class TrackableSubmitItem{
 
   Map<String, dynamic> toJson() => {
     "tid": tid,
+    "category": category,
     "kind": kind,
     "dtype": dtype,
     "value": value,

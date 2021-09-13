@@ -68,6 +68,7 @@ class HealthController extends GetxController {
     }
   }
 
+
   void onOptionTapped({ListOption model, String tid, String kind}) {
     model.optionDefault = !model.optionDefault;
 
