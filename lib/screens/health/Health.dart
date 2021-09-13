@@ -24,7 +24,7 @@ class Health extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
+    return Scaffold(
         bottomNavigationBar: Container(
           color: Colors.white,
           child: Column(
@@ -92,10 +92,10 @@ class Health extends StatelessWidget {
                                             child:
                                                 CircularProgressIndicator())),
                                   ))
-                                  :   ListView.builder(
+                                : ListView.builder(
                                     shrinkWrap: true,
                                     physics: ClampingScrollPhysics(),
-                                    itemCount:  _signUpController
+                                    itemCount: _signUpController
                                         .healthWellness.value.items.length,
                                     itemBuilder: (_, mainIndex) {
                                       return _renderWidgetByType(
@@ -103,9 +103,9 @@ class Health extends StatelessWidget {
                                               .items[mainIndex],
                                           isFirst: mainIndex == 0,
                                           isLast: mainIndex ==
-                                              ( _signUpController
-                                                  .healthWellness.value.items.length - 1)
-                                      );
+                                              (_signUpController.healthWellness
+                                                      .value.items.length -
+                                                  1));
                                     }),
                             SizedBox(
                                 height: ScreenConstant.defaultHeightTwenty),
@@ -166,7 +166,8 @@ class Health extends StatelessWidget {
     switch (widget.kind) {
       case "rating":
         {
-          return _renderRatingWidget(widget, isFirst: isFirst, isLast: isLast, isChild:isChild);
+          return _renderRatingWidget(widget,
+              isFirst: isFirst, isLast: isLast, isChild: isChild);
         }
         break;
       case "list":
@@ -181,7 +182,8 @@ class Health extends StatelessWidget {
         break;
       case "group":
         {
-          return _renderGroupWidget(widget, isFirst: isFirst, isLast: isLast, isChild:isChild);
+          return _renderGroupWidget(widget,
+              isFirst: isFirst, isLast: isLast, isChild: isChild);
         }
         break;
       case "select":
@@ -206,7 +208,8 @@ class Health extends StatelessWidget {
     }
   }
 
-  _renderRatingWidget(TrackableItem ratingItem, {bool isFirst, bool isLast, bool isChild}) {
+  _renderRatingWidget(TrackableItem ratingItem,
+      {bool isFirst, bool isLast, bool isChild}) {
     return Stack(
       children: [
         Positioned.fill(
@@ -228,10 +231,8 @@ class Health extends StatelessWidget {
             right: isChild ? 0 : ScreenConstant.defaultWidthTwenty,
           ),
           child: Container(
-            color: AppColors.colorBackground,
             padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTwenty,
-                vertical: 0),
+                horizontal: ScreenConstant.defaultWidthTwenty, vertical: 1),
             child: Column(
               children: [
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
@@ -253,8 +254,7 @@ class Health extends StatelessWidget {
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: ScreenConstant.defaultWidthTen,
-                  ),
+                      horizontal: ScreenConstant.defaultWidthTen),
                   child: SfSliderTheme(
                     data: SfSliderThemeData(
                       thumbColor: AppColors.colorArrowButton,
@@ -325,7 +325,9 @@ class Health extends StatelessWidget {
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
                 Visibility(
                     visible: !isChild,
-                    child: Divider(thickness: 1, color: AppColors.white.withOpacity(0.12))),
+                    child: Divider(
+                        thickness: 1,
+                        color: AppColors.white.withOpacity(0.12))),
               ],
             ),
           ),
@@ -530,48 +532,44 @@ class Health extends StatelessWidget {
   _renderSelectWidget(TrackableItem selectItem) {
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(
-          horizontal: ScreenConstant.defaultWidthTwenty),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Text(selectItem.name.tr,
-                    style: TextStyles.textStyleIntroDescription
-                        .apply(color: Colors.white, fontSizeDelta: -6)),
-              ),
-              Container(
-                width: ScreenConstant.sizeSmall,
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                  decoration: BoxDecoration(
-                      color: AppColors.colordropdownArrowBg,
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
-                  child: CustomDropdown<SelectOption>(
-                    value: selectItem.select.selectDefault.label != null
-                        ? selectItem.select.selectDefault
-                        : selectItem.select.options.first,
-                    dropdownMenuItemList:
-                        buildDropList(selectItem.select.options),
-                    onChanged: (SelectOption optionItem) {
-                      selectItem.select.selectDefault = optionItem;
-                      _healthWellnessController.onSleepQualityTapped(
-                          tid: selectItem.tid,
-                          kind: selectItem.kind,
-                          quality: optionItem.value);
-                      _signUpController.healthWellness.refresh();
-                    },
-                    isEnabled: true,
-                  ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Text(selectItem.name.tr,
+                  style: TextStyles.textStyleIntroDescription
+                      .apply(color: Colors.white, fontSizeDelta: -6)),
+            ),
+            Container(
+              width: ScreenConstant.sizeSmall,
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                decoration: BoxDecoration(
+                    color: AppColors.colordropdownArrowBg,
+                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                child: CustomDropdown<SelectOption>(
+                  value: selectItem.select.selectDefault.label != null
+                      ? selectItem.select.selectDefault
+                      : selectItem.select.options.first,
+                  dropdownMenuItemList:
+                      buildDropList(selectItem.select.options),
+                  onChanged: (SelectOption optionItem) {
+                    selectItem.select.selectDefault = optionItem;
+                    _healthWellnessController.onSleepQualityTapped(
+                        tid: selectItem.tid,
+                        kind: selectItem.kind,
+                        quality: optionItem.value);
+                    _signUpController.healthWellness.refresh();
+                  },
+                  isEnabled: true,
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
         Container(
           height: ScreenConstant.sizeXL,
@@ -585,49 +583,44 @@ class Health extends StatelessWidget {
   _renderTimePickerWidget(TrackableItem timeItem) {
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: ScreenConstant.defaultWidthTwenty
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Text(timeItem.name.tr,
-                    style: TextStyles.textStyleIntroDescription
-                        .apply(color: Colors.white, fontSizeDelta: -6)),
-              ),
-              Container(
-                width: ScreenConstant.sizeSmall,
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                  decoration: BoxDecoration(
-                      color: AppColors.colordropdownArrowBg,
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
-                  child: CustomDropdown(
-                    value: timeItem.selectedValue == null
-                        ? _healthWellnessController.selectedTime.value
-                        : timeItem.selectedValue,
-                    dropdownMenuItemList:
-                        buildTimeDropList(_healthWellnessController.timeList),
-                    onChanged: (optionItem) {
-                      timeItem.selectedValue = optionItem;
-                      _healthWellnessController.onBedTimeTapped(
-                          kind: timeItem.kind,
-                          tid: timeItem.tid,
-                          selectedTime: optionItem);
-                      _signUpController.healthWellness.refresh();
-                    },
-                    isEnabled: true,
-                  ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Text(timeItem.name.tr,
+                  style: TextStyles.textStyleIntroDescription
+                      .apply(color: Colors.white, fontSizeDelta: -6)),
+            ),
+            Container(
+              width: ScreenConstant.sizeSmall,
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                decoration: BoxDecoration(
+                    color: AppColors.colordropdownArrowBg,
+                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                child: CustomDropdown(
+                  value: timeItem.selectedValue == null
+                      ? _healthWellnessController.selectedTime.value
+                      : timeItem.selectedValue,
+                  dropdownMenuItemList:
+                      buildTimeDropList(_healthWellnessController.timeList),
+                  onChanged: (optionItem) {
+                    timeItem.selectedValue = optionItem;
+                    _healthWellnessController.onBedTimeTapped(
+                        kind: timeItem.kind,
+                        tid: timeItem.tid,
+                        selectedTime: optionItem);
+                    _signUpController.healthWellness.refresh();
+                  },
+                  isEnabled: true,
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
         Container(
           height: ScreenConstant.sizeMedium,
@@ -661,9 +654,8 @@ class Health extends StatelessWidget {
             right: isChild ? 0 : ScreenConstant.defaultWidthTwenty,
           ),
           child: Padding(
-            padding: (EdgeInsets.only(
-              bottom: ScreenConstant.defaultHeightSixteen
-            )),
+            padding:
+                (EdgeInsets.only(bottom: ScreenConstant.defaultHeightSixteen)),
             child: Column(
               children: [
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
@@ -687,9 +679,8 @@ class Health extends StatelessWidget {
                       itemCount: groupItem.children.first.items.length,
                       itemBuilder: (_, count) {
                         return _renderWidgetByType(
-                            groupItem.children.first.items[count],
-                            isChild: true,
-
+                          groupItem.children.first.items[count],
+                          isChild: true,
                         );
                       }),
                 ),
