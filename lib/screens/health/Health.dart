@@ -100,7 +100,12 @@ class Health extends StatelessWidget {
                                     itemBuilder: (_, mainIndex) {
                                       return _renderWidgetByType(
                                           _signUpController.healthWellness.value
-                                              .items[mainIndex]);
+                                              .items[mainIndex],
+                                          isFirst: mainIndex == 0,
+                                          isLast: mainIndex ==
+                                              (_signUpController
+                                                  .healthWellness.value.items.length - 1)
+                                      );
                                     }),
                             SizedBox(
                                 height: ScreenConstant.defaultHeightTwenty),
@@ -156,11 +161,12 @@ class Health extends StatelessWidget {
     return items;
   }
 
-  _renderWidgetByType(TrackableItem widget) {
+  _renderWidgetByType(TrackableItem widget,
+      {bool isFirst = false, bool isLast = false, bool isChild = false}) {
     switch (widget.kind) {
       case "rating":
         {
-          return _renderRatingWidget(widget);
+          return _renderRatingWidget(widget, isFirst: isFirst, isLast: isLast, isChild:isChild);
         }
         break;
       case "list":
@@ -175,7 +181,7 @@ class Health extends StatelessWidget {
         break;
       case "group":
         {
-          return _renderGroupWidget(widget);
+          return _renderGroupWidget(widget, isFirst: isFirst, isLast: isLast, isChild:isChild);
         }
         break;
       case "select":
@@ -200,11 +206,11 @@ class Health extends StatelessWidget {
     }
   }
 
-  _renderRatingWidget(TrackableItem ratingItem) {
+  _renderRatingWidget(TrackableItem ratingItem, {bool isFirst, bool isLast, bool isChild}) {
     return Stack(
       children: [
         Positioned.fill(
-          top: ScreenConstant.defaultHeightOneHundred,
+          top: isFirst ? ScreenConstant.defaultHeightOneHundred : 0,
           child: Container(
             color: AppColors.colorYesButton,
           ),
@@ -213,10 +219,13 @@ class Health extends StatelessWidget {
           color: AppColors.colorBackground,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                  topLeft: Radius.circular(isFirst ? 20 : 0),
+                  topRight: Radius.circular(isFirst ? 20 : 0),
+                  bottomLeft: Radius.circular(isLast ? 20 : 0),
+                  bottomRight: Radius.circular(isLast ? 20 : 0))),
           margin: EdgeInsets.only(
-            left: ScreenConstant.defaultWidthTwenty,
-            right: ScreenConstant.defaultWidthTwenty,
+            left: isChild ? 0 : ScreenConstant.defaultWidthTwenty,
+            right: isChild ? 0 : ScreenConstant.defaultWidthTwenty,
           ),
           child: Container(
             padding: EdgeInsets.symmetric(
@@ -311,7 +320,7 @@ class Health extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
+                Divider(thickness: isLast ? 0 : 1, color: AppColors.white.withOpacity(0.12)),
               ],
             ),
           ),
@@ -613,7 +622,9 @@ class Health extends StatelessWidget {
     );
   }
 
-  _renderGroupWidget(TrackableItem groupItem) {
+  _renderGroupWidget(TrackableItem groupItem,
+      {bool isFirst = false, bool isLast = false, bool isChild = false}) {
+    isLast = true;
     return Stack(
       children: [
         Positioned.fill(
@@ -623,14 +634,18 @@ class Health extends StatelessWidget {
             color: AppColors.colorYesButton,
           ),
         ),
-        Container(
+        Card(
           color: AppColors.colorBackground,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(isFirst ? 20 : 0),
+                  topRight: Radius.circular(isFirst ? 20 : 0),
+                  bottomLeft: Radius.circular(isLast ? 20 : 0),
+                  bottomRight: Radius.circular(isLast ? 20 : 0))),
           margin: EdgeInsets.only(
-            left: ScreenConstant.defaultWidthTwenty,
-            right: ScreenConstant.defaultWidthTwenty,
+            left: isChild ? 0 : ScreenConstant.defaultWidthTwenty,
+            right: isChild ? 0 : ScreenConstant.defaultWidthTwenty,
           ),
-          padding: EdgeInsets.symmetric(
-              horizontal: ScreenConstant.defaultWidthTwenty),
           child: Column(
             children: [
               SizedBox(height: ScreenConstant.defaultHeightForty),
@@ -654,7 +669,10 @@ class Health extends StatelessWidget {
                     itemCount: groupItem.children.first.items.length,
                     itemBuilder: (_, count) {
                       return _renderWidgetByType(
-                          groupItem.children.first.items[count]);
+                          groupItem.children.first.items[count],
+                          isChild: true,
+
+                      );
                     }),
               ),
             ],
