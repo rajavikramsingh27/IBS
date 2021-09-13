@@ -24,10 +24,7 @@ class Health extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var numItems = _signUpController
-        .healthWellness.value.items.length;
-
-    return Scaffold(
+     return Scaffold(
         bottomNavigationBar: Container(
           color: Colors.white,
           child: Column(
@@ -95,17 +92,19 @@ class Health extends StatelessWidget {
                                             child:
                                                 CircularProgressIndicator())),
                                   ))
-                                :   ListView.builder(
+                                  :   ListView.builder(
                                     shrinkWrap: true,
                                     physics: ClampingScrollPhysics(),
-                                    itemCount: numItems,
+                                    itemCount:  _signUpController
+                                        .healthWellness.value.items.length,
                                     itemBuilder: (_, mainIndex) {
                                       return _renderWidgetByType(
                                           _signUpController.healthWellness.value
                                               .items[mainIndex],
                                           isFirst: mainIndex == 0,
                                           isLast: mainIndex ==
-                                              (numItems - 1)
+                                              ( _signUpController
+                                                  .healthWellness.value.items.length - 1)
                                       );
                                     }),
                             SizedBox(
@@ -229,8 +228,10 @@ class Health extends StatelessWidget {
             right: isChild ? 0 : ScreenConstant.defaultWidthTwenty,
           ),
           child: Container(
+            color: AppColors.colorBackground,
             padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTwenty),
+                horizontal: ScreenConstant.defaultWidthTwenty,
+                vertical: 0),
             child: Column(
               children: [
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
