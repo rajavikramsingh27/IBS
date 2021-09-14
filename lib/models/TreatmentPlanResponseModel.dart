@@ -764,33 +764,6 @@ class Min {
       };
 }
 
-class TimePicker {
-  TimePicker({
-    this.timePickerDefault,
-    this.validation,
-  });
-
-  dynamic timePickerDefault;
-  ListValidation validation;
-
-  factory TimePicker.fromRawJson(String str) =>
-      TimePicker.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory TimePicker.fromJson(Map<String, dynamic> json) => TimePicker(
-        timePickerDefault: json["default"],
-        validation: json["validation"] == null
-            ? null
-            : ListValidation.fromJson(json["validation"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "default": timePickerDefault,
-        "validation": validation == null ? null : validation.toJson(),
-      };
-}
-
 class EnumValues<T> {
   Map<String, T> map;
   Map<T, String> reverseMap;

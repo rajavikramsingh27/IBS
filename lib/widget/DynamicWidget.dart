@@ -14,7 +14,7 @@ class DynamicWidget extends StatelessWidget {
   DynamicWidget({this.data,this.controller});
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         itemCount: data.length,
@@ -26,12 +26,33 @@ class DynamicWidget extends StatelessWidget {
             break;
 
             case "timePicker": {
-              return ListTile(
-                  leading: Icon(Icons.list),
-                  trailing: Text("GFG",
-                    style: TextStyle(
-                        color: Colors.green,fontSize: 15),),
-                  title:Text("List item $index")
+              return Row(
+                mainAxisAlignment:
+                MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Text(data[index].name, style: TextStyles.textStyleIntroDescription.apply(color: Colors.white, fontSizeDelta: -6)),
+                  ),
+                  Container(
+                    width: ScreenConstant.sizeSmall,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                      decoration: BoxDecoration(color: AppColors.colordropdownArrowBg, borderRadius: BorderRadius.all(Radius.circular(8))),
+                      child: CustomDropdown<String>(
+                        value: data[index].timePicker.timePickerDefault == null?"01:00":data[index].timePicker.timePickerDefault,
+                        dropdownMenuItemList: buildTimeDropList(["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00",]),
+                        onChanged: (optionItem) {
+                          data[index].select.selectDefault = optionItem;
+                        },
+                        isEnabled: true,
+                      ),
+                    ),
+                  )
+                ],
               );
             }
             break;
@@ -72,7 +93,9 @@ class DynamicWidget extends StatelessWidget {
             }
             break;
           }
-        }
+        }, separatorBuilder: (BuildContext context, int index) {
+          return Container(height: ScreenConstant.sizeDefault,);
+    },
     );
   }
 
@@ -86,6 +109,17 @@ class DynamicWidget extends StatelessWidget {
           favouriteFoodModel.label,
           overflow: TextOverflow.ellipsis,
         ),
+      ));
+    }
+    return items;
+  }
+  List<DropdownMenuItem<String>> buildTimeDropList(
+      List favouriteFoodModelList) {
+    List<DropdownMenuItem<String>> items = [];
+    for (String favouriteFoodModel in favouriteFoodModelList) {
+      items.add(DropdownMenuItem(
+        value: favouriteFoodModel,
+        child: Text(favouriteFoodModel.tr),
       ));
     }
     return items;
