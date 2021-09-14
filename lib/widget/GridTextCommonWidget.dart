@@ -17,12 +17,12 @@ class GridTextCommonWidget extends StatelessWidget {
 
   const GridTextCommonWidget(
       {Key key,
-      this.title,
-      this.description,
-      this.itemCount,
+      this.title = "",
+      this.description = "",
+      this.itemCount = 0,
       this.onTap,
       this.color,
-      this.gridText,
+      this.gridText = "",
       this.gridPadding,
       this.gridIndex})
       : super(key: key);

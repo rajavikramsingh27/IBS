@@ -11,6 +11,7 @@ import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomSwitch.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
+import 'package:flutter_ibs/widget/PlanDetailsManagmentWidget.dart';
 import 'package:flutter_ibs/widget/ReminderPlanWidget.dart';
 import 'package:flutter_ibs/widget/ReminderWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
@@ -26,6 +27,7 @@ class StartTreatmentPlan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: Container(
         color: Colors.white,
         child: Column(
@@ -107,39 +109,121 @@ class StartTreatmentPlan extends StatelessWidget {
                                   ),
                                   child: Column(
                                     children: [
-                                      _buildRelxTechnique(),
-                                      Column(children: [
-                                        SizedBox(height: ScreenConstant.defaultHeightForty * 1.3),
-                                        Text(data.planDetails.name.tr,
-                                            style: TextStyles.textStyleIntroDescription
-                                                .apply(color: Colors.white, fontSizeDelta: -2)),
-                                        SizedBox(height: ScreenConstant.defaultHeightForty * 1.2),
-                                        Card(
-                                            margin: EdgeInsets.zero,
-                                            color: AppColors.colorBackground,
-                                            shape:
-                                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                            child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal: ScreenConstant.defaultWidthTwenty,
+                                      Card(
+                                        margin: EdgeInsets.zero,
+                                        color: AppColors.colorBackground,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: ScreenConstant
+                                                .defaultWidthTwenty,
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                  height: ScreenConstant
+                                                      .defaultHeightForty),
+                                              Text("Relaxation Techniques",
+                                                  style: TextStyles
+                                                      .textStyleIntroDescription
+                                                      .apply(
+                                                          color: Colors.white,
+                                                          fontSizeDelta: -2)),
+                                              SizedBox(
+                                                  height: ScreenConstant
+                                                      .defaultHeightTwentyFour),
+                                              Text(
+                                                "Select which relaxation techniques you will add to your routine.",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyles
+                                                    .textStyleRegular
+                                                    .apply(
+                                                        color: AppColors
+                                                            .colorSkipButton),
+                                              ),
+                                              _buildRelxTechniqueList(),
+                                              Card(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8)),
+                                                child: FractionallySizedBox(
+                                                  child: TextFormField(
+                                                    decoration: InputDecoration(
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText: "Medit...",
+                                                        hintStyle: TextStyles
+                                                            .textStyleRegular
+                                                            .apply(
+                                                                color: AppColors
+                                                                    .colorTextHint),
+                                                        contentPadding:
+                                                            EdgeInsets
+                                                                .symmetric(
+                                                          horizontal:
+                                                              ScreenConstant
+                                                                  .sizeMedium,
+                                                        )),
+                                                  ),
                                                 ),
-                                                child: Column(
-                                                  children: [
-                                                    SizedBox(height: ScreenConstant.defaultHeightForty),
-                                                    Text(data.planDetails.details.first.heading.tr,
-                                                        style: TextStyles.textStyleIntroDescription
-                                                            .apply(color: Colors.white, fontSizeDelta: -2),textAlign: TextAlign.center,),
-                                                    SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                                                    Text(
-                                                      data.planDetails.details.first.body.tr,
-                                                      textAlign: TextAlign.center,
-                                                      style: TextStyles.textStyleRegular
-                                                          .apply(color: AppColors.colorSkipButton),
+                                              ),
+                                              SizedBox(
+                                                  height: ScreenConstant
+                                                      .defaultHeightSixteen),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  CircleAvatar(
+                                                    radius: ScreenConstant
+                                                            .defaultWidthTen *
+                                                        1.5,
+                                                    backgroundColor: AppColors
+                                                        .colorArrowButton,
+                                                    child: Icon(
+                                                      Icons.add,
+                                                      size: FontSize.s11,
+                                                      color: Colors.white,
                                                     ),
-                                                    _buildRelxTechniqueList(),
-                                                  ],
-                                                )))
-                                      ]),
+                                                  ),
+                                                  SizedBox(
+                                                      width: ScreenConstant
+                                                          .sizeDefault),
+                                                  Text(
+                                                    "Add relaxation technique",
+                                                    style: TextStyles
+                                                        .textStyleRegular
+                                                        .apply(
+                                                            color: AppColors
+                                                                .white),
+                                                  )
+                                                ],
+                                              ),
+                                              ReminderWidget(
+                                                title: data.reminders.name.tr,
+                                                description: data
+                                                    .reminders.description.tr,
+                                                data: data.reminders.children,
+                                                controller: _treatmentPlanController,
+                                              ),
+                                              SizedBox(
+                                                  height: ScreenConstant
+                                                          .defaultHeightForty *
+                                                      1.4),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      PlanDetailsManagementWidget(
+                                        title: data.planDescription.tr,
+                                        heading: data.planDetails.details.first
+                                            .heading.tr,
+                                        body: data
+                                            .planDetails.details.first.body.tr,
+                                      ),
                                     ],
                                   )),
                             ],
@@ -229,7 +313,6 @@ class StartTreatmentPlan extends StatelessWidget {
                     )
                   ],
                 ),
-                ReminderWidget(),
                 //_buildReminders(),
                 SizedBox(height: ScreenConstant.defaultHeightForty * 1.4),
               ],
@@ -279,98 +362,6 @@ class StartTreatmentPlan extends StatelessWidget {
             Get.context.mediaQuerySize.height),
         painter: WavePainter(),
       ),
-    );
-  }
-
-  _buildReminders() {
-    return Column(
-      children: [
-        SizedBox(height: ScreenConstant.defaultHeightForty),
-        Text("Reminders",
-            style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.white, fontSizeDelta: -3)),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-        Text(
-          "Would you like to set up app notifications to remind you?",
-          textAlign: TextAlign.center,
-          style: TextStyles.textStyleRegular
-              .apply(color: AppColors.colorSkipButton),
-        ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-        Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Text(
-                "Remind me:",
-                style: TextStyles.textStyleRegular.apply(color: Colors.white),
-              ),
-            ),
-            Expanded(flex: 2, child: _buildDropDown())
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Text(
-                "At time:",
-                style: TextStyles.textStyleRegular.apply(color: Colors.white),
-              ),
-            ),
-            Expanded(flex: 2, child: _buildDropDown())
-          ],
-        ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "With message:",
-            textAlign: TextAlign.start,
-            style: TextStyles.textStyleRegular.apply(color: Colors.white),
-          ),
-        ),
-        Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          child: TextFormField(
-            inputFormatters: <TextInputFormatter>[],
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(
-                    horizontal: ScreenConstant.sizeMedium,
-                    vertical: ScreenConstant.defaultHeightTwenty),
-                hintText: "It's time to...",
-                hintStyle:
-                    TextStyles.textStyleRegular.apply(color: Colors.black)),
-            textInputAction: TextInputAction.newline,
-            maxLines: 4,
-            minLines: 4,
-
-            // maxLength: 100,
-            // decoration: hintedInputDecoration(""),
-          ),
-        ),
-        SizedBox(height: ScreenConstant.defaultHeightTen),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: ScreenConstant.defaultWidthTen * 1.5,
-              backgroundColor: AppColors.colorArrowButton,
-              child: Icon(
-                Icons.add,
-                size: FontSize.s11,
-                color: Colors.white,
-              ),
-            ),
-            SizedBox(width: ScreenConstant.sizeDefault),
-            Text(
-              "Add Reminders",
-              style: TextStyles.textStyleRegular.apply(color: AppColors.white),
-            )
-          ],
-        ),
-      ],
     );
   }
 
