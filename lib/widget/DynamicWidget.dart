@@ -140,7 +140,7 @@ class DynamicWidget extends StatelessWidget {
               return GridTextCommonWidget(
                   title: data[index].name,
                   description: data[index].description,
-                  dataList: data[index].tags.tagsDefault);
+                  dataList: data[index].tags,);
             }
             break;
           case "rating":
