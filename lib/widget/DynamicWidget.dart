@@ -106,7 +106,7 @@ class DynamicWidget extends StatelessWidget {
       items.add(DropdownMenuItem(
         value: favouriteFoodModel,
         child: Text(
-          favouriteFoodModel.label,
+          favouriteFoodModel.label.tr,
           overflow: TextOverflow.ellipsis,
         ),
       ));
