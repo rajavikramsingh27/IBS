@@ -7,7 +7,7 @@ class ShowMoreWidget extends StatelessWidget {
   final String text;
   final Function() onTap;
 
-  const ShowMoreWidget({Key key, this.text, this.onTap}) : super(key: key);
+  const ShowMoreWidget({Key key, this.text = "", this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

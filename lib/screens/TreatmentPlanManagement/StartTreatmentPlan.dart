@@ -7,9 +7,12 @@ import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomArcPainter.dart';
+import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomSwitch.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
+import 'package:flutter_ibs/widget/ReminderPlanWidget.dart';
+import 'package:flutter_ibs/widget/ReminderWidget.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
@@ -17,7 +20,9 @@ import 'package:get/get.dart';
 class StartTreatmentPlan extends StatelessWidget {
   final TreatmentPlanController _treatmentPlanController = Get.find();
   final TreatmentPlanItemData data;
+
   StartTreatmentPlan({this.data});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,12 +108,48 @@ class StartTreatmentPlan extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       _buildRelxTechnique(),
-                                      _buildPlanDetails(),
-                                      _buildSetReminders()
+                                      Column(children: [
+                                        SizedBox(height: ScreenConstant.defaultHeightForty * 1.3),
+                                        Text(data.planDetails.name.tr,
+                                            style: TextStyles.textStyleIntroDescription
+                                                .apply(color: Colors.white, fontSizeDelta: -2)),
+                                        SizedBox(height: ScreenConstant.defaultHeightForty * 1.2),
+                                        Card(
+                                            margin: EdgeInsets.zero,
+                                            color: AppColors.colorBackground,
+                                            shape:
+                                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                            child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: ScreenConstant.defaultWidthTwenty,
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    SizedBox(height: ScreenConstant.defaultHeightForty),
+                                                    Text(data.planDetails.details.first.heading.tr,
+                                                        style: TextStyles.textStyleIntroDescription
+                                                            .apply(color: Colors.white, fontSizeDelta: -2),textAlign: TextAlign.center,),
+                                                    SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                                                    Text(
+                                                      data.planDetails.details.first.body.tr,
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyles.textStyleRegular
+                                                          .apply(color: AppColors.colorSkipButton),
+                                                    ),
+                                                    _buildRelxTechniqueList(),
+                                                  ],
+                                                )))
+                                      ]),
                                     ],
                                   )),
                             ],
                           ),
+                          SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                          Container(
+                              margin: EdgeInsets.symmetric(
+                                horizontal: ScreenConstant.defaultWidthTwenty,
+                              ),
+                              child: ReminderPlanWidget()),
                           SizedBox(height: ScreenConstant.defaultHeightTwenty),
                         ],
                       ),
@@ -188,28 +229,13 @@ class StartTreatmentPlan extends StatelessWidget {
                     )
                   ],
                 ),
-                _buildReminders(),
+                ReminderWidget(),
+                //_buildReminders(),
                 SizedBox(height: ScreenConstant.defaultHeightForty * 1.4),
               ],
             ),
           ),
         ),
-        // Positioned(
-        //     bottom: -50,
-        //     child: CustomArcPainter2(
-        //         height: 100,
-        //         width: 100,
-        //         quarterTurns: 0,
-        //         painter:
-        //             MyPainter(AppColors.colorSymptomsGridBg.withOpacity(0.5)))),
-        // Positioned(
-        //     bottom: -100,
-        //     child: CustomArcPainter2(
-        //         height: 200,
-        //         width: 200,
-        //         quarterTurns: 0,
-        //         painter: MyPainter(
-        //             AppColors.colorSymptomsGridBg.withOpacity(0.20)))),
       ],
     );
   }
@@ -384,115 +410,6 @@ class StartTreatmentPlan extends StatelessWidget {
               child: Text(value.toString(), style: TextStyles.textStyleRegular),
             );
           }).toList()),
-    );
-  }
-
-  _buildPlanDetails() {
-    return Column(children: [
-      SizedBox(height: ScreenConstant.defaultHeightForty * 1.3),
-      Text("My Plan Details",
-          style: TextStyles.textStyleIntroDescription
-              .apply(color: Colors.white, fontSizeDelta: -2)),
-      SizedBox(height: ScreenConstant.defaultHeightForty * 1.2),
-      Card(
-          margin: EdgeInsets.zero,
-          color: AppColors.colorBackground,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTwenty,
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: ScreenConstant.defaultHeightForty),
-                  Text("Relaxation Trackings",
-                      style: TextStyles.textStyleIntroDescription
-                          .apply(color: Colors.white, fontSizeDelta: -2)),
-                  SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                  Text(
-                    "Relaxation tracking will be added to the Health & Wellness section accessed from the main tracking menu.\n\nThe options below will now be available for you to track.",
-                    textAlign: TextAlign.center,
-                    style: TextStyles.textStyleRegular
-                        .apply(color: AppColors.colorSkipButton),
-                  ),
-                  _buildRelxTechniqueList(),
-                ],
-              )))
-    ]);
-  }
-
-  _buildSetReminders() {
-    return Column(children: [
-      SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.5),
-      Card(
-          margin: EdgeInsets.zero,
-          color: AppColors.colorBackground,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTwenty,
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: ScreenConstant.defaultHeightForty),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Reminders set for this plan",
-                          style: TextStyles.textStyleIntroDescription
-                              .apply(color: Colors.white, fontSizeDelta: -2)),
-                      CustomSwitch(
-                        value: true,
-                        color: AppColors.colorYesButton,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: ScreenConstant.defaultHeightTen),
-                  Divider(
-                      thickness: 1, color: AppColors.white.withOpacity(0.12)),
-                  _buildTimeList(),
-                  SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                ],
-              )))
-    ]);
-  }
-
-  _buildTimeList() {
-    return ListView.separated(
-      itemCount: 2,
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (BuildContext context, int index) {
-        return Row(
-          children: [
-            Icon(
-              Icons.access_time_filled,
-              color: AppColors.colorIcons,
-            ),
-            SizedBox(width: ScreenConstant.sizeDefault),
-            Text(
-              "Daily at 4:00 PM",
-              style: TextStyles.textStyleRegular.apply(color: Colors.white),
-            ),
-            TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Edit",
-                  style: TextStyles.textStyleRegular.apply(
-                      color: AppColors.colorSkipButton, fontSizeDelta: -2),
-                )),
-            Spacer(),
-            CustomSwitch(
-              color: AppColors.colorIcons,
-              value: true,
-            ),
-          ],
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) =>
-          Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
     );
   }
 }
