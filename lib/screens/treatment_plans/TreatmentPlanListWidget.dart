@@ -31,7 +31,7 @@ class TreatmentPlanListWidget extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          data.categoryName.tr,
+          data.planName.tr,
           style: TextStyles.appBarTitle,
         ),
         actions: [
@@ -50,14 +50,14 @@ class TreatmentPlanListWidget extends StatelessWidget {
         physics: ClampingScrollPhysics(),
         children: [
           Center(
-              child: Image.asset(Assets.stressManage,
+              child: Image.network(data.image.active,
                   width: ScreenConstant.defaultHeightTwoHundredTen)),
           SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: ScreenConstant.defaultWidthTwenty * 2),
             child: Text(
-              data.categoryDescription.tr,
+              data.planDescription.tr,
               textAlign: TextAlign.center,
               style: TextStyles.textStyleRegular.apply(color: Colors.black),
             ),
@@ -89,7 +89,10 @@ class TreatmentPlanListWidget extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               var model = data.additionalResources[index];
               return TreatmentPlanListItem(model.name.tr, () {
-                Get.to(TreatmentPlanListWidgetDetails(details: model.details,title: data.categoryName.tr,));
+                Get.to(TreatmentPlanListWidgetDetails(
+                  details: model.details,
+                  title: data.planName.tr,
+                ));
               });
             },
             separatorBuilder: (BuildContext context, int index) => SizedBox(
