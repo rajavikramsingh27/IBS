@@ -12,7 +12,7 @@ class GridTextCommonWidget extends StatelessWidget {
   final EdgeInsetsGeometry gridPadding;
   final Function() onTap;
   final Color color;
-  final List<dynamic> dataList;
+  final dataList;
   final String gridText;
 
   const GridTextCommonWidget(
@@ -47,7 +47,7 @@ class GridTextCommonWidget extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Wrap(
-            children: dataList
+            children: dataList.tagsDefault
                 .map((item) => InkWell(
                       onTap: onTap,
                       child: Card(
@@ -71,6 +71,71 @@ class GridTextCommonWidget extends StatelessWidget {
                 .toList()
                 .cast<Widget>(),
           ),
+          dataList.userAddable?Column(
+            children: [
+              Container(
+                height: ScreenConstant.sizeDefault,
+              ),
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                    BorderRadius.circular(
+                        8)),
+                child: FractionallySizedBox(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                        border:
+                        InputBorder.none,
+                        hintText: "Medit...",
+                        hintStyle: TextStyles
+                            .textStyleRegular
+                            .apply(
+                            color: AppColors
+                                .colorTextHint),
+                        contentPadding:
+                        EdgeInsets
+                            .symmetric(
+                          horizontal:
+                          ScreenConstant
+                              .sizeMedium,
+                        )),
+                  ),
+                ),
+              ),
+              SizedBox(
+                  height: ScreenConstant
+                      .defaultHeightSixteen),
+              Row(
+                mainAxisAlignment:
+                MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: ScreenConstant
+                        .defaultWidthTen *
+                        1.5,
+                    backgroundColor: AppColors
+                        .colorArrowButton,
+                    child: Icon(
+                      Icons.add,
+                      size: FontSize.s11,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
+                      width: ScreenConstant
+                          .sizeDefault),
+                  Text(
+                    "Add relaxation technique",
+                    style: TextStyles
+                        .textStyleRegular
+                        .apply(
+                        color: AppColors
+                            .white),
+                  )
+                ],
+              ),
+            ],
+          ):Offstage(),
         ],
       ),
     );

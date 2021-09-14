@@ -126,64 +126,6 @@ class StartTreatmentPlan extends StatelessWidget {
                                               DynamicWidget(
                                                 data: data.trackables,
                                               ),
-                                              Card(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8)),
-                                                child: FractionallySizedBox(
-                                                  child: TextFormField(
-                                                    decoration: InputDecoration(
-                                                        border:
-                                                            InputBorder.none,
-                                                        hintText: "Medit...",
-                                                        hintStyle: TextStyles
-                                                            .textStyleRegular
-                                                            .apply(
-                                                                color: AppColors
-                                                                    .colorTextHint),
-                                                        contentPadding:
-                                                            EdgeInsets
-                                                                .symmetric(
-                                                          horizontal:
-                                                              ScreenConstant
-                                                                  .sizeMedium,
-                                                        )),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                  height: ScreenConstant
-                                                      .defaultHeightSixteen),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  CircleAvatar(
-                                                    radius: ScreenConstant
-                                                            .defaultWidthTen *
-                                                        1.5,
-                                                    backgroundColor: AppColors
-                                                        .colorArrowButton,
-                                                    child: Icon(
-                                                      Icons.add,
-                                                      size: FontSize.s11,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                      width: ScreenConstant
-                                                          .sizeDefault),
-                                                  Text(
-                                                    "Add relaxation technique",
-                                                    style: TextStyles
-                                                        .textStyleRegular
-                                                        .apply(
-                                                            color: AppColors
-                                                                .white),
-                                                  )
-                                                ],
-                                              ),
                                               ReminderWidget(
                                                 title: data.reminders.name.tr,
                                                 description: data
