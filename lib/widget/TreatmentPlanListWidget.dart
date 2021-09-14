@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
 import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
-import 'package:flutter_ibs/routes/RouteConstants.dart';
-import 'package:flutter_ibs/screens/stress_management/StressTreatmentPlan.dart';
+import 'package:flutter_ibs/screens/TreatmentPlanManagement/StartTreatmentPlan.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
-import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
@@ -66,17 +64,17 @@ class TreatmentPlanListWidget extends StatelessWidget {
           TreatmentPlanListItem(data.planDescription.tr, () {}),
           SizedBox(height: ScreenConstant.defaultHeightSixteen),
           CustomElevatedButton(
-            text: "Start Plan",
+            text: data.startButton.tr,
             widthFactor: 0.95,
             onTap: () {
-              Get.bottomSheet(StressTreatmentPlan(),
+              Get.bottomSheet(StartTreatmentPlan(data: data,),
                   isScrollControlled: true,
                   barrierColor: AppColors.barrierColor.withOpacity(0.60));
             },
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Text(
-            "Additional Resources",
+            data.additionalResourcesButton.tr,
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.black, fontSizeDelta: -4),
             textAlign: TextAlign.start,

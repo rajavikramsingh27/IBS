@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/controllers/symptoms/SymptomsController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart';

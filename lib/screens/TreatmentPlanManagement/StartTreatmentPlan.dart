@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
+import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -12,7 +14,10 @@ import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
 
-class StressTreatmentPlan extends StatelessWidget {
+class StartTreatmentPlan extends StatelessWidget {
+  final TreatmentPlanController _treatmentPlanController = Get.find();
+  final TreatmentPlanItemData data;
+  StartTreatmentPlan({this.data});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +44,7 @@ class StressTreatmentPlan extends StatelessWidget {
           ],
         ),
       ),
-      backgroundColor: Color(0xff1A103E).withOpacity(0.6),
+      backgroundColor: AppColors.barrierColor.withOpacity(0.6),
       body: InkWell(
         onTap: () {
           dismissKeyboard(context);
@@ -66,7 +71,7 @@ class StressTreatmentPlan extends StatelessWidget {
                         children: [
                           SizedBox(height: ScreenConstant.defaultHeightSixty),
                           Text(
-                            "Treatment Plan: Stress Management",
+                            data.planDescription.tr,
                             style: TextStyles.textStyleIntroDescription
                                 .apply(color: Colors.black, fontSizeDelta: -2),
                             textAlign: TextAlign.center,
@@ -79,7 +84,7 @@ class StressTreatmentPlan extends StatelessWidget {
                             widthFactor: 0.7,
                             onTap: () {},
                             textColor: AppColors.colorTextStop,
-                            text: "Stop Plan",
+                            text: data.startButton.tr,
                             buttonColor: AppColors.white,
                           ),
                           SizedBox(

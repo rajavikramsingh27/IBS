@@ -4,7 +4,6 @@ import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodSendModel.dart';
-import 'package:flutter_ibs/models/tags/TagsSendModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/DateTime.dart';
@@ -77,7 +76,7 @@ class FoodController extends GetxController {
     listFoodSub.add(foodTypeModel);
     listFoodSub.refresh();
     FoodList foodModel = FoodList(
-        children: listFoodSub.value,
+        children: listFoodSub,
         tid: _signUpController.food.value.items.last.tid,
         kind: _signUpController.food.value.items.last.kind,
         dtype: "str",

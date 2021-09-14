@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
-import 'package:flutter_ibs/routes/RouteConstants.dart';
-import 'package:flutter_ibs/screens/treatment_plans/TreatmentPlanListWidget.dart';
+import 'package:flutter_ibs/widget/TreatmentPlanListWidget.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:get/get.dart';
