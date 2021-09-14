@@ -76,6 +76,9 @@ class AppColors {
 
   static const Color colorBtnCancel = const Color(0xFF9BA2A8);
 
+  static const Color colorBlack = const Color(0xFF000000);
+
+
   static Color fromHex(String hexString) {
     final buffer = StringBuffer();
     if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');

@@ -6,6 +6,8 @@ import 'dart:convert';
 
 import 'package:flutter_ibs/services/url.dart';
 
+import 'TrackablesListModel/TrackablesListModel.dart';
+
 class TreatmentPlanResponseModel {
   TreatmentPlanResponseModel({
     this.total,
@@ -504,89 +506,8 @@ class RatingValidation {
       };
 }
 
-class Select {
-  Select({
-    this.selectDefault,
-    this.options,
-    this.validation,
-  });
 
-  String selectDefault;
-  List<SelectOption> options;
-  SelectValidation validation;
 
-  factory Select.fromRawJson(String str) => Select.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Select.fromJson(Map<String, dynamic> json) => Select(
-        selectDefault: json["default"] == null ? null : json["default"],
-        options: json["options"] == null
-            ? null
-            : List<SelectOption>.from(
-                json["options"].map((x) => SelectOption.fromJson(x))),
-        validation: json["validation"] == null
-            ? null
-            : SelectValidation.fromJson(json["validation"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "default": selectDefault == null ? null : selectDefault,
-        "options": options == null
-            ? null
-            : List<dynamic>.from(options.map((x) => x.toJson())),
-        "validation": validation == null ? null : validation.toJson(),
-      };
-}
-
-class SelectOption {
-  SelectOption({
-    this.value,
-    this.label,
-  });
-
-  String value;
-  String label;
-
-  factory SelectOption.fromRawJson(String str) =>
-      SelectOption.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory SelectOption.fromJson(Map<String, dynamic> json) => SelectOption(
-        value: json["value"] == null ? null : json["value"],
-        label: json["label"] == null ? null : json["label"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "value": value == null ? null : value,
-        "label": label == null ? null : label,
-      };
-}
-
-class SelectValidation {
-  SelectValidation({
-    this.required,
-  });
-
-  Required required;
-
-  factory SelectValidation.fromRawJson(String str) =>
-      SelectValidation.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory SelectValidation.fromJson(Map<String, dynamic> json) =>
-      SelectValidation(
-        required: json["required"] == null
-            ? null
-            : Required.fromJson(json["required"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "required": required == null ? null : required.toJson(),
-      };
-}
 
 class Required {
   Required({
@@ -850,7 +771,7 @@ class TimePicker {
   });
 
   dynamic timePickerDefault;
-  SelectValidation validation;
+  ListValidation validation;
 
   factory TimePicker.fromRawJson(String str) =>
       TimePicker.fromJson(json.decode(str));
@@ -861,7 +782,7 @@ class TimePicker {
         timePickerDefault: json["default"],
         validation: json["validation"] == null
             ? null
-            : SelectValidation.fromJson(json["validation"]),
+            : ListValidation.fromJson(json["validation"]),
       );
 
   Map<String, dynamic> toJson() => {

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/DynamicWidget.dart';
 import 'package:flutter_ibs/widget/ShowMoreWidget.dart';
+import 'package:get/get.dart';
+
 
 class ReminderWidget extends StatelessWidget {
   final String title;
@@ -18,9 +21,9 @@ class ReminderWidget extends StatelessWidget {
 
   final Function(bool) onChanged;
   final Function(bool) onChangedChild;
-
+  final GetxController controller;
   final String editText;
-
+  final List<Trackable> data;
   const ReminderWidget({
     Key key,
     this.title = "",
@@ -33,7 +36,7 @@ class ReminderWidget extends StatelessWidget {
     this.onPressed,
     this.textRemindMe = "",
     this.textTime = "",
-    this.textMessage = "",
+    this.textMessage = "", this.data, this.controller,
   }) : super(key: key);
 
   @override
@@ -41,7 +44,7 @@ class ReminderWidget extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: ScreenConstant.defaultHeightForty),
-        Text(title,
+        Text(title,textAlign: TextAlign.center,
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.white, fontSizeDelta: -3)),
         SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
@@ -52,7 +55,8 @@ class ReminderWidget extends StatelessWidget {
               .apply(color: AppColors.colorSkipButton),
         ),
         SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-        Row(
+        DynamicWidget(data: data,controller: controller,),
+        /*Row(
           children: [
             Expanded(
               flex: 1,
@@ -104,7 +108,7 @@ class ReminderWidget extends StatelessWidget {
             // maxLength: 100,
             // decoration: hintedInputDecoration(""),
           ),
-        ),
+        ),*/
         SizedBox(height: ScreenConstant.defaultHeightTen),
         ShowMoreWidget()
       ],
