@@ -14,7 +14,6 @@ import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
-import 'package:flutter_ibs/utils/HexColor.dart';
 import 'package:flutter_ibs/utils/ShadowContainer.dart';
 
 

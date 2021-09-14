@@ -30,7 +30,6 @@ main() async{
 
 getLanguage() async {
   List<Datum> data = <Datum>[];
-  List<String> languages = <String>[];
 
   await ServiceApi().getLanguage().then((response) => data = response.data);
   data.forEach((element) {
