@@ -23,17 +23,17 @@ class ReminderWidget extends StatelessWidget {
 
   const ReminderWidget({
     Key key,
-    this.title,
-    this.description,
-    this.valueReminder,
-    this.valueChild,
+    this.title = "",
+    this.description = "",
+    this.valueReminder = false,
+    this.valueChild = false,
     this.onChanged,
     this.onChangedChild,
-    this.editText,
+    this.editText = "",
     this.onPressed,
-    this.textRemindMe,
-    this.textTime,
-    this.textMessage,
+    this.textRemindMe = "",
+    this.textTime = "",
+    this.textMessage = "",
   }) : super(key: key);
 
   @override

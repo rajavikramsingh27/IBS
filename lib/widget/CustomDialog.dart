@@ -388,7 +388,7 @@ class CustomDialog4 extends StatelessWidget {
               margin: EdgeInsets.symmetric(
                   horizontal: ScreenConstant.defaultWidthTwenty),
               padding: ScreenConstant.spacingAllLarge,
-              child: ReminderWidget(
+              child: DialogReminderWidget(
                 title: "Edit Notification",
                 description:
                     "To edit the notification, modify the options below and click Save.",
@@ -402,7 +402,7 @@ class CustomDialog4 extends StatelessWidget {
   }
 }
 
-class ReminderWidget extends StatelessWidget {
+class DialogReminderWidget extends StatelessWidget {
   final String title;
   final String description;
   final String textRemindMe;
@@ -418,19 +418,19 @@ class ReminderWidget extends StatelessWidget {
 
   final String editText;
 
-  const ReminderWidget({
+  const DialogReminderWidget({
     Key key,
-    this.title,
-    this.description,
-    this.valueReminder,
-    this.valueChild,
+    this.title = "",
+    this.description = "",
+    this.valueReminder = false,
+    this.valueChild = false,
     this.onChanged,
     this.onChangedChild,
-    this.editText,
+    this.editText = "",
     this.onPressed,
-    this.textRemindMe,
-    this.textTime,
-    this.textMessage,
+    this.textRemindMe = "",
+    this.textTime = "",
+    this.textMessage = "",
   }) : super(key: key);
 
   @override
