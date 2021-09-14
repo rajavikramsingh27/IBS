@@ -12,7 +12,7 @@ class GridTextCommonWidget extends StatelessWidget {
   final EdgeInsetsGeometry gridPadding;
   final Function() onTap;
   final Color color;
-
+  final List<dynamic> dataList;
   final String gridText;
 
   const GridTextCommonWidget(
@@ -24,7 +24,8 @@ class GridTextCommonWidget extends StatelessWidget {
       this.color,
       this.gridText = "",
       this.gridPadding,
-      this.gridIndex})
+      this.gridIndex,
+      this.dataList})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -45,35 +46,31 @@ class GridTextCommonWidget extends StatelessWidget {
                 .apply(color: AppColors.colorSkipButton),
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-          GridView.builder(
-            padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.sizeLarge,
-                vertical: ScreenConstant.defaultHeightTwentyFour),
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: itemCount,
-            itemBuilder: (BuildContext context, int index) {
-              return InkWell(
-                onTap: onTap,
-                child: Card(
-                  color: AppColors.colorSymptomsGridBg,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100)),
-                  child: Center(
-                    child: Text(
-                      gridText,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyles.textStyleRegular
-                          .apply(color: Colors.white, fontSizeDelta: -2),
-                    ),
-                  ),
-                ),
-              );
-            },
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, childAspectRatio: 2.5),
-          )
+          Wrap(
+            children: dataList
+                .map((item) => InkWell(
+                      onTap: onTap,
+                      child: Card(
+                        color: item.required
+                            ? AppColors.colorCloseLight
+                            : AppColors.colorSymptomsGridBg,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Padding(
+                          padding: ScreenConstant.spacingAllExtraSmall,
+                          child: Text(
+                            item.value,
+                            textAlign: TextAlign.center,
+                            //overflow: TextOverflow.ellipsis,
+                            style: TextStyles.textStyleRegular
+                                .apply(color: Colors.white, fontSizeDelta: -2),
+                          ),
+                        ),
+                      ),
+                    ))
+                .toList()
+                .cast<Widget>(),
+          ),
         ],
       ),
     );

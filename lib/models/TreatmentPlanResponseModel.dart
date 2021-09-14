@@ -506,9 +506,6 @@ class RatingValidation {
       };
 }
 
-
-
-
 class Required {
   Required({
     this.required,
@@ -613,40 +610,6 @@ class Relation {
   Map<String, dynamic> toJson() => {
         "related": related == null ? null : related,
         "property": property == null ? null : property,
-      };
-}
-
-class Default {
-  Default({
-    this.category,
-    this.key,
-    this.value,
-    this.required,
-  });
-
-  Category category;
-  String key;
-  String value;
-  bool required;
-
-  factory Default.fromRawJson(String str) => Default.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Default.fromJson(Map<String, dynamic> json) => Default(
-        category: json["category"] == null
-            ? null
-            : categoryValues.map[json["category"]],
-        key: json["key"] == null ? null : json["key"],
-        value: json["value"] == null ? null : json["value"],
-        required: json["required"] == null ? null : json["required"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "category": category == null ? null : categoryValues.reverse[category],
-        "key": key == null ? null : key,
-        "value": value == null ? null : value,
-        "required": required == null ? null : required,
       };
 }
 

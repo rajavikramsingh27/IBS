@@ -5,7 +5,7 @@ import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
-class SliderWidget extends StatelessWidget {
+class RatingWidget extends StatelessWidget {
   final String title;
   final String description;
   final int max;
@@ -13,11 +13,11 @@ class SliderWidget extends StatelessWidget {
 
   final Function(dynamic) onChanged;
 
-  const SliderWidget(
+  const RatingWidget(
       {Key key,
-      this.title,
-      this.description,
-      this.max,
+      this.title = "",
+      this.description = "",
+      this.max = 0,
       this.currentSelectedValue,
       this.onChanged})
       : super(key: key);

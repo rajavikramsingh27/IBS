@@ -11,6 +11,7 @@ import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomSwitch.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
+import 'package:flutter_ibs/widget/DynamicWidget.dart';
 import 'package:flutter_ibs/widget/PlanDetailsManagmentWidget.dart';
 import 'package:flutter_ibs/widget/ReminderPlanWidget.dart';
 import 'package:flutter_ibs/widget/ReminderWidget.dart';
@@ -122,28 +123,9 @@ class StartTreatmentPlan extends StatelessWidget {
                                           ),
                                           child: Column(
                                             children: [
-                                              SizedBox(
-                                                  height: ScreenConstant
-                                                      .defaultHeightForty),
-                                              Text("Relaxation Techniques",
-                                                  style: TextStyles
-                                                      .textStyleIntroDescription
-                                                      .apply(
-                                                          color: Colors.white,
-                                                          fontSizeDelta: -2)),
-                                              SizedBox(
-                                                  height: ScreenConstant
-                                                      .defaultHeightTwentyFour),
-                                              Text(
-                                                "Select which relaxation techniques you will add to your routine.",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyles
-                                                    .textStyleRegular
-                                                    .apply(
-                                                        color: AppColors
-                                                            .colorSkipButton),
+                                              DynamicWidget(
+                                                data: data.trackables,
                                               ),
-                                              _buildRelxTechniqueList(),
                                               Card(
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
@@ -207,7 +189,8 @@ class StartTreatmentPlan extends StatelessWidget {
                                                 description: data
                                                     .reminders.description.tr,
                                                 data: data.reminders.children,
-                                                controller: _treatmentPlanController,
+                                                controller:
+                                                    _treatmentPlanController,
                                               ),
                                               SizedBox(
                                                   height: ScreenConstant
@@ -249,110 +232,6 @@ class StartTreatmentPlan extends StatelessWidget {
     );
   }
 
-  _buildRelxTechnique() {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Card(
-          margin: EdgeInsets.zero,
-          color: AppColors.colorBackground,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: ScreenConstant.defaultWidthTwenty,
-            ),
-            child: Column(
-              children: [
-                SizedBox(height: ScreenConstant.defaultHeightForty),
-                Text("Relaxation Techniques",
-                    style: TextStyles.textStyleIntroDescription
-                        .apply(color: Colors.white, fontSizeDelta: -2)),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                Text(
-                  "Select which relaxation techniques you will add to your routine.",
-                  textAlign: TextAlign.center,
-                  style: TextStyles.textStyleRegular
-                      .apply(color: AppColors.colorSkipButton),
-                ),
-                _buildRelxTechniqueList(),
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                  child: FractionallySizedBox(
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Medit...",
-                          hintStyle: TextStyles.textStyleRegular
-                              .apply(color: AppColors.colorTextHint),
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: ScreenConstant.sizeMedium,
-                          )),
-                    ),
-                  ),
-                ),
-                SizedBox(height: ScreenConstant.defaultHeightSixteen),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: ScreenConstant.defaultWidthTen * 1.5,
-                      backgroundColor: AppColors.colorArrowButton,
-                      child: Icon(
-                        Icons.add,
-                        size: FontSize.s11,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(width: ScreenConstant.sizeDefault),
-                    Text(
-                      "Add relaxation technique",
-                      style: TextStyles.textStyleRegular
-                          .apply(color: AppColors.white),
-                    )
-                  ],
-                ),
-                //_buildReminders(),
-                SizedBox(height: ScreenConstant.defaultHeightForty * 1.4),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  _buildRelxTechniqueList() {
-    return GridView.builder(
-      padding: EdgeInsets.symmetric(
-          horizontal: ScreenConstant.sizeLarge,
-          vertical: ScreenConstant.defaultHeightTwentyFour),
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: DummyData.medicationList.length,
-      itemBuilder: (BuildContext context, int index) {
-        var model = DummyData.medicationList[index];
-        return Card(
-          color: AppColors.colorSymptomsGridBg,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-          child: Center(
-            child: Text(
-              model.title,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyles.textStyleRegular
-                  .apply(color: Colors.white, fontSizeDelta: -2),
-            ),
-          ),
-        );
-      },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, childAspectRatio: 3.5),
-    );
-  }
-
   _buildWavePainter() {
     return Container(
       margin: EdgeInsets.only(top: ScreenConstant.defaultHeightTwenty * 1.5),
@@ -362,45 +241,6 @@ class StartTreatmentPlan extends StatelessWidget {
             Get.context.mediaQuerySize.height),
         painter: WavePainter(),
       ),
-    );
-  }
-
-  _buildDropDown() {
-    return Container(
-      height: ScreenConstant.defaultHeightForty * 1.2,
-      width: double.maxFinite,
-      margin: EdgeInsets.only(
-          left: ScreenConstant.defaultWidthTen * 1.5,
-          right: ScreenConstant.defaultWidthTen * 1.5,
-          bottom: ScreenConstant.defaultHeightTen * 1.5),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-      decoration: BoxDecoration(
-          color: AppColors.colordropdownArrowBg,
-          borderRadius: BorderRadius.all(Radius.circular(8))),
-      // dropdown below..
-      child: DropdownButton<String>(
-          isExpanded: true,
-          dropdownColor: AppColors.white,
-          value: "Under 20 years",
-          elevation: 30,
-          icon: Icon(
-            Icons.keyboard_arrow_down_outlined,
-            color: AppColors.colordropdownArrow,
-          ),
-          iconSize: 20,
-          underline: SizedBox(),
-          onChanged: (String newValue) {
-            // setState(() {T
-            //   dropdownValue = newValue;
-            // });
-          },
-          items: <String>["Under 20 years", "2", "3", "4", "5", "more"]
-              .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value.toString(),
-              child: Text(value.toString(), style: TextStyles.textStyleRegular),
-            );
-          }).toList()),
     );
   }
 }
