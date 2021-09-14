@@ -78,21 +78,18 @@ class MyAccountModel {
 
 class Profile {
   Profile({
-    this.romeiv,
     this.sex,
     this.age,
     this.familyHistory,
     this.diagnosedIbs,
   });
 
-  Romeiv romeiv;
   String sex;
   String age;
   String familyHistory;
   DiagnosedIbs diagnosedIbs;
 
   factory Profile.fromJson(Map<String, dynamic> json) => Profile(
-    romeiv: Romeiv.fromJson(json["romeiv"]),
     sex: json["sex"],
     age: json["age"],
     familyHistory: json["familyHistory"],
@@ -100,7 +97,6 @@ class Profile {
   );
 
   Map<String, dynamic> toJson() => {
-    "romeiv": romeiv.toJson(),
     "sex": sex,
     "age": age,
     "familyHistory": familyHistory,
@@ -129,38 +125,6 @@ class DiagnosedIbs {
     "isDiagnosed": isDiagnosed,
     "_id": id,
     "ibsType": ibsType,
-  };
-}
-
-class Romeiv {
-  Romeiv({
-    this.abdominalPain,
-    this.abdominalPainTimeBowel,
-    this.abdominalPainBowelMoreLess,
-    this.abdominalPainBowelAppearDifferent,
-    this.stool,
-  });
-
-  bool abdominalPain;
-  bool abdominalPainTimeBowel;
-  bool abdominalPainBowelMoreLess;
-  bool abdominalPainBowelAppearDifferent;
-  String stool;
-
-  factory Romeiv.fromJson(Map<String, dynamic> json) => Romeiv(
-    abdominalPain: json["abdominalPain"],
-    abdominalPainTimeBowel: json["abdominalPainTimeBowel"],
-    abdominalPainBowelMoreLess: json["abdominalPainBowelMoreLess"],
-    abdominalPainBowelAppearDifferent: json["abdominalPainBowelAppearDifferent"],
-    stool: json["stool"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "abdominalPain": abdominalPain,
-    "abdominalPainTimeBowel": abdominalPainTimeBowel,
-    "abdominalPainBowelMoreLess": abdominalPainBowelMoreLess,
-    "abdominalPainBowelAppearDifferent": abdominalPainBowelAppearDifferent,
-    "stool": stool,
   };
 }
 

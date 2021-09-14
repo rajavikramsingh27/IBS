@@ -1,3 +1,5 @@
+
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_feathersjs/flutter_feathersjs.dart';
@@ -217,12 +219,14 @@ class CoreService {
         break;
       case METHOD.PATCH:
         {
-          Get.dialog(Center(child: CircularProgressIndicator()),
-              barrierDismissible: false);
+          // Get.dialog(Center(child: CircularProgressIndicator()),
+          //     barrierDismissible: false);
 
           try {
             final response = await flutterFeathersjs.patch(
-                objectId: objectId, serviceName: endpoint, data: data);
+                objectId: objectId, serviceName: endpoint, data: data
+            );
+
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
@@ -343,8 +347,5 @@ enum METHOD {
   AUTHENTICATE,
   REAUTHENTICATE
 }
-
-
-
 
 

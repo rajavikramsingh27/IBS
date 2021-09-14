@@ -141,17 +141,6 @@ class ServiceApi {
     }
   }
 
-  Future<dynamic> getUserList() async {
-    final result = await CoreService().apiService(method: METHOD.GET, endpoint: USERS);
-
-    if (result == null) {
-      return null;
-    } else {
-      return MyAccountModel.fromJson(result);
-    }
-
-  }
-
   Future<dynamic> getFoodHistoryList({String id}) async {
     var result = await CoreService()
         .apiService(method: METHOD.FIND, endpoint: "$FOODS/$id");
@@ -193,6 +182,37 @@ class ServiceApi {
     } else
       return TreatmentPlanResponseModel.fromJson(result);
   }
+
+  Future<dynamic> getUserList() async {
+    final result = await CoreService().apiService(method: METHOD.GET, endpoint: USERS)
+        .catchError((error) {
+      print(error.message.toString());
+    });
+
+    if (result == null) {
+      return null;
+    } else {
+      return MyAccountModel.fromJson(result);
+    }
+
+  }
+
+  Future<dynamic> updateUser({Map bodyData}) async {
+    print('bodyDatabodyDatabodyDatabodyDatabodyData');
+    print({'profile':bodyData});
+
+    var result = await CoreService().apiService(
+        method: METHOD.PATCH,
+        endpoint: USERS, data: bodyData,
+    )  .catchError((error) {
+      print(error.message.toString());
+    });
+
+    print('resultresultresultresultresultresultresultresultresult');
+    print(result);
+    return MyAccountModel.fromJson(result);
+  }
+
 
 }
 

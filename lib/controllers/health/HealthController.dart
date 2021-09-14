@@ -26,7 +26,6 @@ class HealthController extends GetxController {
   RxBool sleepQualityChanged = false.obs;
   RxBool tirednessChanged = false.obs;
 
-
   Rx<HealthWellnessModel> healthWellnessModel = HealthWellnessModel().obs;
   SignUpController _signUpController = Get.find();
 
@@ -110,6 +109,7 @@ class HealthController extends GetxController {
           }
         });
     }
+
     _signUpController.healthWellness.refresh();
     healthWellnessModel.refresh();
   }

@@ -49,8 +49,8 @@ class MyAccount extends StatelessWidget {
             validationFunction: Validator().validateEmail,
             controller: _controller.emailController,
             inputFormatters: [LengthLimitingTextInputFormatter(50)],
-            currentFocus: focusEmail,
-            nextFocus: focusPassWord,
+            // currentFocus: focusEmail,
+            // nextFocus: focusPassWord,
             suffixIcon: Padding(
               padding: ScreenConstant.spacingAllSmall,
             ),
@@ -85,11 +85,11 @@ class MyAccount extends StatelessWidget {
         Container(
           decoration: AppShadow().shadowSetting(),
           child: CustomTextFormField(
-            validationFunction: Validator().validateEmail,
+            validationFunction: Validator().validatePassword,
             controller: _controller.passwordController,
             inputFormatters: [LengthLimitingTextInputFormatter(50)],
-            currentFocus: focusEmail,
-            nextFocus: focusPassWord,
+            // currentFocus: focusEmail,
+            // nextFocus: focusPassWord,
             suffixIcon: Padding(
               padding: ScreenConstant.spacingAllSmall,
             ),
@@ -387,7 +387,7 @@ class MyAccount extends StatelessWidget {
       ),
       body: GetBuilder<MyAccountController>(
         init: MyAccountController(),
-        initState: (state) async {
+        initState: (state) {
           // print('HomePageController state initialized');
         },
         builder: (authController) {
@@ -425,45 +425,27 @@ class MyAccount extends StatelessWidget {
                 buildFamilyIBSHistory(),
                 SizedBox(height: ScreenConstant.screenWidthThird/4),
                 Container(
-                  child: _controller.loader.value
-                      ? CustomElevatedButton2(
+                  child: CustomElevatedButton2(
                     textColor: Colors.white,
                     buttonColor: AppColors.colorBackground,
                     widthFactor: 0.8,
                     text: "Save Changes",
                     onTap: () {
-
+                      authController.updateUser();
                     },
-                  ) : CustomElevatedButton2(
-                    textColor: Colors.white,
-                    buttonColor: AppColors.colorBackground,
-                    widthFactor: 0.8,
-                    text: "Save Changes",
-                    onTap: () {
-
-                    },
-                  ),
+                  )
                 ),
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
                 Container(
-                  child: _controller.loader.value
-                      ? CustomElevatedButton2(
+                  child: CustomElevatedButton2(
                     textColor: Colors.black,
                     buttonColor: Colors.transparent,
                     widthFactor: 0.8,
                     text: "Cancel",
                     onTap: () {
-
+                      authController.setUIData();
                     },
-                  ) : CustomElevatedButton2(
-                    textColor: Colors.black,
-                    buttonColor: Colors.transparent,
-                    widthFactor: 0.8,
-                    text: "Cancel",
-                    onTap: () {
-
-                    },
-                  ),
+                  )
                 ),
               ],
             ),

@@ -1,5 +1,7 @@
 
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/models/MyAccount/MyAccount.dart';
 
@@ -7,7 +9,8 @@ import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
-import 'package:flutter_ibs/utils/Validator.dart';
+import 'package:flutter/cupertino.dart';
+
 RxBool loader = false.obs;
 
 
@@ -30,6 +33,8 @@ class MyAccountController extends GetxController {
 
   RxString selectedAge = "<20".obs;
 
+  Rx<Profile> profileUser = Profile().obs;
+
   List<String> ageList = [
     "<20",
     "20-29",
@@ -40,6 +45,8 @@ class MyAccountController extends GetxController {
     "70+"
   ];
 
+  dynamic  data;
+
   @override
   void onInit() async {
     super.onInit();
@@ -48,8 +55,6 @@ class MyAccountController extends GetxController {
     passwordController = TextEditingController();
   }
 
-
-
   getUserList() async {
     bool isInternet = await ConnectionCheck().initConnectivity();
 
@@ -57,61 +62,15 @@ class MyAccountController extends GetxController {
       loader.value = true;
 
       try {
-        final data = await ServiceApi().getUserList().catchError((error) {
-          print(error.message.toString());
-        });
+        data = await ServiceApi().getUserList();
 
-        // if (data is MyAccountModel) {
-        //   emailController.text = data.label;
-        //   passwordController.text = data.label;
-        //   //
-        //   // if (data.profile.sex == 'm') {
-        //   //   selectedMale.value = true;
-        //   //   selectedFeMale.value = false;
-        //   //   selectedOtherGender.value = false;
-        //   // } else if (data.profile.sex == 'f') {
-        //   //   selectedMale.value = false;
-        //   //   selectedFeMale.value = true;
-        //   //   selectedOtherGender.value = false;
-        //   // } else {
-        //   //   selectedMale.value = false;
-        //   //   selectedFeMale.value = false;
-        //   //   selectedOtherGender.value = true;
-        //   // }
-        //   //
-        //   // if (data.profile.sex == 'm') {
-        //   //   selectedMale.value = true;
-        //   //   selectedFeMale.value = false;
-        //   //   selectedOtherGender.value = false;
-        //   // } else if (data.profile.sex == 'f') {
-        //   //   selectedMale.value = false;
-        //   //   selectedFeMale.value = true;
-        //   //   selectedOtherGender.value = false;
-        //   // } else {
-        //   //   selectedMale.value = false;
-        //   //   selectedFeMale.value = false;
-        //   //   selectedOtherGender.value = true;
-        //   // }
-        //   //
-        //   // if (data.profile.familyHistory == 'yes') {
-        //   //   selectedIbsHistoryYes.value = true;
-        //   //   selectedIbsHistoryNo.value = false;
-        //   //   selectedIbsHistoryUnsure.value = false;
-        //   // } else if (data.profile.familyHistory == 'no') {
-        //   //   selectedIbsHistoryYes.value = false;
-        //   //   selectedIbsHistoryNo.value = true;
-        //   //   selectedIbsHistoryUnsure.value = false;
-        //   // } else {
-        //   //   selectedIbsHistoryYes.value = false;
-        //   //   selectedIbsHistoryNo.value = false;
-        //   //   selectedIbsHistoryUnsure.value = true;
-        //   // }
-        //   //
-        //   // selectedAge.value = '70+';
-        // }
         loader.value = false;
+
+        setUIData();
       } catch (error) {
-        error.message.toString().showError();
+        CustomSnackBar().errorSnackBar(
+            title: "Error!", message: error.message.toString()
+        );
         loader.value = false;
       }
     } else {
@@ -120,4 +79,62 @@ class MyAccountController extends GetxController {
       );
     }
   }
+
+  setUIData() {
+    if (data is MyAccountModel) {
+      emailController.text = data.label;
+      passwordController.text = '******* ';
+      selectedAge.value = data.profile.age;
+
+      if (data.profile.sex == 'm') {
+        selectedMale.value = true;
+        selectedFeMale.value = false;
+        selectedOtherGender.value = false;
+      } else if (data.profile.sex == 'f') {
+        selectedMale.value = false;
+        selectedFeMale.value = true;
+        selectedOtherGender.value = false;
+      } else {
+        selectedMale.value = false;
+        selectedFeMale.value = false;
+        selectedOtherGender.value = true;
+      }
+
+      if (data.profile.familyHistory == 'yes') {
+        selectedIbsHistoryYes.value = true;
+        selectedIbsHistoryNo.value = false;
+        selectedIbsHistoryUnsure.value = false;
+      } else if (data.profile.familyHistory == 'no') {
+        selectedIbsHistoryYes.value = false;
+        selectedIbsHistoryNo.value = true;
+        selectedIbsHistoryUnsure.value = false;
+      } else {
+        selectedIbsHistoryYes.value = false;
+        selectedIbsHistoryNo.value = false;
+        selectedIbsHistoryUnsure.value = true;
+      }
+    }
+  }
+
+  updateUser() async {
+
+    Profile profileUser = Profile(
+        sex: selectedGender.value,
+        age: selectedAge.value,
+        familyHistory: selectedIbsHistory.value,
+        diagnosedIbs: data.profile.diagnosedIbs,
+    );
+
+    Map hello = {'profile': profileUser.toJson()};
+    print(hello);
+    print('hellohellohellohellohellohello');
+
+    data = await ServiceApi().updateUser(
+        bodyData: hello,
+    );
+
+  }
+
 }
+
+
