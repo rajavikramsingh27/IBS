@@ -15,7 +15,9 @@ import 'DropDownList.dart';
 class DynamicWidget extends StatefulWidget {
   final List<dynamic> data;
 
-  DynamicWidget({this.data,});
+  DynamicWidget({
+    this.data,
+  });
 
   @override
   _DynamicWidgetState createState() => _DynamicWidgetState();
@@ -65,7 +67,9 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                           color: AppColors.colordropdownArrowBg,
                           borderRadius: BorderRadius.all(Radius.circular(8))),
                       child: CustomDropdown<String>(
-                        value: widget.data[index].timePicker.timePickerDefault == null
+                        value: widget
+                                    .data[index].timePicker.timePickerDefault ==
+                                null
                             ? "01:00"
                             : widget.data[index].timePicker.timePickerDefault,
                         dropdownMenuItemList: buildTimeDropList([
@@ -96,7 +100,8 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                         ]),
                         onChanged: (optionItem) {
                           setState(() {
-                            widget.data[index].timePicker.timePickerDefault = optionItem;
+                            widget.data[index].timePicker.timePickerDefault =
+                                optionItem;
                           });
                         },
                         isEnabled: true,
@@ -130,14 +135,16 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                           color: AppColors.colordropdownArrowBg,
                           borderRadius: BorderRadius.all(Radius.circular(8))),
                       child: CustomDropdown<SelectOption>(
-                        value: widget.data[index].select.selectDefault.label == null
+                        value: widget.data[index].select.selectDefault.label ==
+                                null
                             ? widget.data[index].select.options.first
                             : widget.data[index].select.selectDefault,
                         dropdownMenuItemList:
                             buildDropList(widget.data[index].select.options),
                         onChanged: (optionItem) {
                           setState(() {
-                            widget.data[index].select.selectDefault = optionItem;
+                            widget.data[index].select.selectDefault =
+                                optionItem;
                           });
                         },
                         isEnabled: true,
@@ -151,9 +158,10 @@ class _DynamicWidgetState extends State<DynamicWidget> {
           case "tags":
             {
               return GridTextCommonWidget(
-                  title: widget.data[index].name,
-                  description: widget.data[index].description,
-                  dataList: widget.data[index].tags,);
+                title: widget.data[index].name,
+                description: widget.data[index].description,
+                dataList: widget.data[index].tags,
+              );
             }
             break;
           case "rating":
@@ -168,7 +176,10 @@ class _DynamicWidgetState extends State<DynamicWidget> {
             break;
           case "list":
             {
-              return GridImageCommonWidget();
+              return GridImageCommonWidget(
+                title: widget.data[index].name,
+                description: widget.data[index].description,
+              );
             }
             break;
 
