@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:get/get.dart';
 
-class GridTextCommonWidget extends StatelessWidget {
+class GridTextCommonWidget extends StatefulWidget {
   final String title;
   final String description;
   final int itemCount;
   final int gridIndex;
-
   final EdgeInsetsGeometry gridPadding;
   final Function() onTap;
   final Color color;
   final dataList;
   final String gridText;
 
-  const GridTextCommonWidget(
+  GridTextCommonWidget(
       {Key key,
       this.title = "",
       this.description = "",
@@ -27,6 +28,14 @@ class GridTextCommonWidget extends StatelessWidget {
       this.gridIndex,
       this.dataList})
       : super(key: key);
+
+  @override
+  _GridTextCommonWidgetState createState() => _GridTextCommonWidgetState();
+}
+
+class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
+  final TreatmentPlanController _treatmentPlanController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,22 +43,27 @@ class GridTextCommonWidget extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
-          Text(title,
+          Text(widget.title,
               textAlign: TextAlign.center,
               style: TextStyles.textStyleIntroDescription
                   .apply(color: Colors.white, fontSizeDelta: -3)),
           SizedBox(height: ScreenConstant.defaultHeightTen),
           Text(
-            description,
+            widget.description,
             textAlign: TextAlign.center,
             style: TextStyles.textStyleRegular
                 .apply(color: AppColors.colorSkipButton),
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Wrap(
-            children: dataList.tagsDefault
+            children: widget.dataList.tagsDefault
                 .map((item) => InkWell(
-                      onTap: onTap,
+                      onTap: (){
+                        setState(() {
+                          item.required = !item.required;
+
+                        });
+                      },
                       child: Card(
                         color: item.required
                             ? AppColors.colorCloseLight
@@ -71,7 +85,7 @@ class GridTextCommonWidget extends StatelessWidget {
                 .toList()
                 .cast<Widget>(),
           ),
-          dataList.userAddable?Column(
+          widget.dataList.userAddable?Column(
             children: [
               Container(
                 height: ScreenConstant.sizeDefault,

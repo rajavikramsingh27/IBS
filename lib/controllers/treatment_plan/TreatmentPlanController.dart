@@ -38,6 +38,6 @@ class TreatmentPlanController extends GetxController {
     }
   }
   toTreatmentPlanListWidget({TreatmentPlanItemData data}){
-    Get.to(TreatmentPlanListWidget(data: data,));
+    Get.to(()=>TreatmentPlanListWidget(data: data,));
   }
 }

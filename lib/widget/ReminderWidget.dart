@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -20,10 +21,10 @@ class ReminderWidget extends StatelessWidget {
 
   final Function(bool) onChanged;
   final Function(bool) onChangedChild;
-  final GetxController controller;
+  final TreatmentPlanController controller = Get.find();
   final String editText;
   final List<Trackable> data;
-  const ReminderWidget({
+  ReminderWidget({
     Key key,
     this.title = "",
     this.description = "",
@@ -37,7 +38,6 @@ class ReminderWidget extends StatelessWidget {
     this.textTime = "",
     this.textMessage = "",
     this.data,
-    this.controller,
   }) : super(key: key);
 
   @override
@@ -59,7 +59,6 @@ class ReminderWidget extends StatelessWidget {
         SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         DynamicWidget(
           data: data,
-          controller: controller,
         ),
         SizedBox(height: ScreenConstant.defaultHeightTen),
         ShowMoreWidget(text: "Add Reminder",)

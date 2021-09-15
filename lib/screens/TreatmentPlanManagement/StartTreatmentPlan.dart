@@ -131,8 +131,6 @@ class StartTreatmentPlan extends StatelessWidget {
                                                 description: data
                                                     .reminders.description.tr,
                                                 data: data.reminders.children,
-                                                controller:
-                                                    _treatmentPlanController,
                                               ),
                                               SizedBox(
                                                   height: ScreenConstant

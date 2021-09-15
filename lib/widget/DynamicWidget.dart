@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -11,23 +12,31 @@ import 'package:get/get.dart';
 import 'AdditionalNoteWidget.dart';
 import 'DropDownList.dart';
 
-class DynamicWidget extends StatelessWidget {
+class DynamicWidget extends StatefulWidget {
   final List<dynamic> data;
-  final GetxController controller;
-  DynamicWidget({this.data, this.controller});
+
+  DynamicWidget({this.data,});
+
+  @override
+  _DynamicWidgetState createState() => _DynamicWidgetState();
+}
+
+class _DynamicWidgetState extends State<DynamicWidget> {
+  final TreatmentPlanController controller = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
-      itemCount: data.length,
+      itemCount: widget.data.length,
       itemBuilder: (BuildContext context, int index) {
-        switch (data[index].kind) {
+        switch (widget.data[index].kind) {
           case "textInput":
             {
               return AdditionalNoteWidget(
                 bottomText: "",
-                messageText: data[index].name,
+                messageText: widget.data[index].name,
                 hintText: "It's time to...",
               );
             }
@@ -40,7 +49,7 @@ class DynamicWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Text(data[index].name,
+                    child: Text(widget.data[index].name,
                         style: TextStyles.textStyleIntroDescription
                             .apply(color: Colors.white, fontSizeDelta: -6)),
                   ),
@@ -56,9 +65,9 @@ class DynamicWidget extends StatelessWidget {
                           color: AppColors.colordropdownArrowBg,
                           borderRadius: BorderRadius.all(Radius.circular(8))),
                       child: CustomDropdown<String>(
-                        value: data[index].timePicker.timePickerDefault == null
+                        value: widget.data[index].timePicker.timePickerDefault == null
                             ? "01:00"
-                            : data[index].timePicker.timePickerDefault,
+                            : widget.data[index].timePicker.timePickerDefault,
                         dropdownMenuItemList: buildTimeDropList([
                           "01:00",
                           "02:00",
@@ -86,7 +95,9 @@ class DynamicWidget extends StatelessWidget {
                           "24:00",
                         ]),
                         onChanged: (optionItem) {
-                          data[index].select.selectDefault = optionItem;
+                          setState(() {
+                            widget.data[index].timePicker.timePickerDefault = optionItem;
+                          });
                         },
                         isEnabled: true,
                       ),
@@ -103,7 +114,7 @@ class DynamicWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Text(data[index].name,
+                    child: Text(widget.data[index].name,
                         style: TextStyles.textStyleIntroDescription
                             .apply(color: Colors.white, fontSizeDelta: -6)),
                   ),
@@ -119,13 +130,15 @@ class DynamicWidget extends StatelessWidget {
                           color: AppColors.colordropdownArrowBg,
                           borderRadius: BorderRadius.all(Radius.circular(8))),
                       child: CustomDropdown<SelectOption>(
-                        value: data[index].select.selectDefault.label == null
-                            ? data[index].select.options.first
-                            : data[index].select.selectDefault,
+                        value: widget.data[index].select.selectDefault.label == null
+                            ? widget.data[index].select.options.first
+                            : widget.data[index].select.selectDefault,
                         dropdownMenuItemList:
-                            buildDropList(data[index].select.options),
+                            buildDropList(widget.data[index].select.options),
                         onChanged: (optionItem) {
-                          data[index].select.selectDefault = optionItem;
+                          setState(() {
+                            widget.data[index].select.selectDefault = optionItem;
+                          });
                         },
                         isEnabled: true,
                       ),
@@ -138,9 +151,9 @@ class DynamicWidget extends StatelessWidget {
           case "tags":
             {
               return GridTextCommonWidget(
-                  title: data[index].name,
-                  description: data[index].description,
-                  dataList: data[index].tags,);
+                  title: widget.data[index].name,
+                  description: widget.data[index].description,
+                  dataList: widget.data[index].tags,);
             }
             break;
           case "rating":
