@@ -62,7 +62,7 @@ class ReminderWidget extends StatelessWidget {
           controller: controller,
         ),
         SizedBox(height: ScreenConstant.defaultHeightTen),
-        ShowMoreWidget()
+        ShowMoreWidget(text: "Add Reminder",)
       ],
     );
   }

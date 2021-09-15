@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/widget/TreatmentPlanListWidget.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
@@ -12,6 +13,8 @@ class TreatmentPlanController extends GetxController {
   RxBool connectionStatus = false.obs;
   RxBool loader = false.obs;
   RxList<TreatmentPlanItemData>  treatmentPlanItemData= <TreatmentPlanItemData>[].obs;
+
+  RxList<TagsDefault> selectedTags = <TagsDefault>[].obs;
   @override
   void onInit() async{
     super.onInit();

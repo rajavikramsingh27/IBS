@@ -761,7 +761,7 @@ class PurpleTags {
   bool userAddable;
   String addableLabel;
   String placeholder;
-  List<Default> tagsDefault;
+  List<TagsDefault> tagsDefault;
   int limit;
 
   factory PurpleTags.fromJson(Map<String, dynamic> json) => PurpleTags(
@@ -773,8 +773,8 @@ class PurpleTags {
         placeholder: json["placeholder"] == null ? null : json["placeholder"],
         tagsDefault: json["default"] == null
             ? null
-            : List<Default>.from(
-                json["default"].map((x) => Default.fromJson(x))),
+            : List<TagsDefault>.from(
+                json["default"].map((x) => TagsDefault.fromJson(x))),
         limit: json["limit"] == null ? null : json["limit"],
       );
 
@@ -791,8 +791,8 @@ class PurpleTags {
       };
 }
 
-class Default {
-  Default({
+class TagsDefault {
+  TagsDefault({
     this.category,
     this.key,
     this.value,
@@ -804,7 +804,7 @@ class Default {
   String value;
   bool required;
 
-  factory Default.fromJson(Map<String, dynamic> json) => Default(
+  factory TagsDefault.fromJson(Map<String, dynamic> json) => TagsDefault(
         category: json["category"] == null ? null : json["category"],
         key: json["key"] == null ? null : json["key"],
         value: json["value"] == null ? null : json["value"],
@@ -1067,7 +1067,7 @@ class FluffyTags {
   bool userAddable;
   String addableLabel;
   String placeholder;
-  List<Default> tagsDefault;
+  List<TagsDefault> tagsDefault;
   String autocompleteId;
   String source;
   BoolListRelation relation;
@@ -1082,8 +1082,8 @@ class FluffyTags {
         placeholder: json["placeholder"] == null ? null : json["placeholder"],
         tagsDefault: json["default"] == null
             ? null
-            : List<Default>.from(
-                json["default"].map((x) => Default.fromJson(x))),
+            : List<TagsDefault>.from(
+                json["default"].map((x) => TagsDefault.fromJson(x))),
         autocompleteId:
             json["autocompleteId"] == null ? null : json["autocompleteId"],
         source: json["source"] == null ? null : json["source"],

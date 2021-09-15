@@ -148,6 +148,7 @@ class StartTreatmentPlan extends StatelessWidget {
                                             .heading.tr,
                                         body: data
                                             .planDetails.details.first.body.tr,
+                                        tags: _treatmentPlanController.selectedTags,
                                       ),
                                     ],
                                   )),

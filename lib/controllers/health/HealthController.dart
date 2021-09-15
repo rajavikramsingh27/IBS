@@ -114,7 +114,7 @@ class HealthController extends GetxController {
     healthWellnessModel.refresh();
   }
 
-  void onRelaxTapped({Default model, String tid, String kind}) {
+  void onRelaxTapped({TagsDefault model, String tid, String kind}) {
     model.required = !model.required;
 
     if (healthWellnessModel.value.items == null) {
