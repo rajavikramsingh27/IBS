@@ -6,7 +6,7 @@ import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart'
 import 'package:get/get.dart';
 
 
-class FixedTagListWidget extends StatelessWidget {
+class FixedTagListWidget extends StatefulWidget {
   final TrackableItem trackableItem;
   final bool isFirst;
   final bool isLast;
@@ -24,7 +24,21 @@ class FixedTagListWidget extends StatelessWidget {
   }) : super();
 
   @override
+  _FixedTagListWidgetState createState() => _FixedTagListWidgetState();
+}
+
+class _FixedTagListWidgetState extends State<FixedTagListWidget> {
+
+  List<ListOption> _selectedItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return Stack(
       children: [
         Positioned.fill(
@@ -45,12 +59,12 @@ class FixedTagListWidget extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: ScreenConstant.defaultHeightForty),
-              Text(trackableItem.name.tr,
+              Text(widget.trackableItem.name.tr,
                   style: TextStyles.textStyleIntroDescription
                       .apply(color: Colors.white, fontSizeDelta: -3)),
               SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
               Text(
-                trackableItem.description.tr,
+                widget.trackableItem.description.tr,
                 textAlign: TextAlign.center,
                 style: TextStyles.textStyleRegular
                     .apply(color: AppColors.colorSkipButton),
@@ -60,10 +74,10 @@ class FixedTagListWidget extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: ScreenConstant.defaultWidthTen),
                 child: Wrap(
-                  children: trackableItem.tags.tagsDefault
+                  children: widget.trackableItem.tags.tagsDefault
                       .map((item) => InkWell(
                     onTap: () {
-                      _onHandleToggle(trackableItem, item);
+                      _onHandleToggle(widget.trackableItem, item);
                       /*
                       _healthWellnessController.onRelaxTapped(
                           tid: trackableItem.tid,
@@ -103,7 +117,7 @@ class FixedTagListWidget extends StatelessWidget {
 
   _onHandleToggle(TrackableItem item, Tag tag){
     tag.selected = !tag.selected;
-    onValueChanged(TrackableSubmitItem(
+    widget.onValueChanged(TrackableSubmitItem(
       tid: item.tid,
       category: item.category,
       kind: item.kind,

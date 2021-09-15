@@ -32,6 +32,7 @@ class _ListWidgetState extends State<ListWidget> {
 
   @override
   void initState() {
+
     super.initState();
   }
 
@@ -91,7 +92,7 @@ class _ListWidgetState extends State<ListWidget> {
                       },
                       child: Card(
                           elevation: 0,
-                          color: option.optionDefault
+                          color: option.selected
                               ? AppColors.colorCloseLight
                               : AppColors.colorSymptomsGridBg,
                           shape: RoundedRectangleBorder(
@@ -137,9 +138,9 @@ class _ListWidgetState extends State<ListWidget> {
   /// and send a list of all selected items to onValueChanged.
   _onHandleToggle(TrackableItem item, ListOption option){
     setState(() {
-      option.optionDefault = !option.optionDefault;
+      option.selected = !option.selected;
 
-      if (option.optionDefault){
+      if (option.selected){
         _selectedItems.add(option);
       }else{
         _selectedItems.remove(option);
