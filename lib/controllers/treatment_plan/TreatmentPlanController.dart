@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
-import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
+import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanModel.dart';
+import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/widget/TreatmentPlanListWidget.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
@@ -15,6 +16,7 @@ class TreatmentPlanController extends GetxController {
   RxList<TreatmentPlanItemData>  treatmentPlanItemData= <TreatmentPlanItemData>[].obs;
 
   RxList<TagsDefault> selectedTags = <TagsDefault>[].obs;
+  RxList<Reminder> reminderList = <Reminder>[].obs;
   @override
   void onInit() async{
     super.onInit();

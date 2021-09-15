@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
-import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
+import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -159,7 +159,7 @@ class StartTreatmentPlan extends StatelessWidget {
                               margin: EdgeInsets.symmetric(
                                 horizontal: ScreenConstant.defaultWidthTwenty,
                               ),
-                              child: ReminderPlanWidget()),
+                              child: ReminderPlanWidget(listData: _treatmentPlanController.reminderList,)),
                           SizedBox(height: ScreenConstant.defaultHeightTwenty),
                         ],
                       ),

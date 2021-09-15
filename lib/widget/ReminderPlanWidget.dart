@@ -10,22 +10,23 @@ class ReminderPlanWidget extends StatelessWidget {
   final bool valueReminder;
   final bool valueChild;
   final Function() onPressed;
+  final List<dynamic> listData;
 
   final Function(bool) onChanged;
   final Function(bool) onChangedChild;
 
   final String editText;
 
-  const ReminderPlanWidget({
+  ReminderPlanWidget({
     Key key,
-    this.title = "ABX",
+    this.title = "Reminders set for this plan",
     this.childText = "af",
     this.valueReminder = false,
     this.valueChild = false,
     this.onChanged,
     this.onChangedChild,
     this.editText = "Edit",
-    this.onPressed,
+    this.onPressed, this.listData,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -59,48 +60,44 @@ class ReminderPlanWidget extends StatelessWidget {
                   SizedBox(height: ScreenConstant.defaultHeightTen),
                   Divider(
                       thickness: 1, color: AppColors.white.withOpacity(0.12)),
-                  _buildTimeList(),
+                  ListView.separated(
+                    itemCount: listData.length,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Row(
+                        children: [
+                          Icon(
+                            Icons.access_time_filled,
+                            color: AppColors.colorIcons,
+                          ),
+                          SizedBox(width: ScreenConstant.sizeDefault),
+                          Text(
+                            "${listData[index].reminders.day} at ${listData[index].reminders.hour}",
+                            style: TextStyles.textStyleRegular.apply(color: Colors.white),
+                          ),
+                          TextButton(
+                              onPressed: onPressed,
+                              child: Text(
+                                editText,
+                                style: TextStyles.textStyleRegular.apply(
+                                    color: AppColors.colorSkipButton, fontSizeDelta: -2),
+                              )),
+                          Spacer(),
+                          CustomSwitch(
+                            color: AppColors.colorIcons,
+                            value: listData[index].reminders.enabled,
+                            onChanged: onChangedChild,
+                          ),
+                        ],
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) =>
+                        Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
+                  ),
                   SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 ],
               )))
     ]);
-  }
-
-  _buildTimeList() {
-    return ListView.separated(
-      itemCount: 2,
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (BuildContext context, int index) {
-        return Row(
-          children: [
-            Icon(
-              Icons.access_time_filled,
-              color: AppColors.colorIcons,
-            ),
-            SizedBox(width: ScreenConstant.sizeDefault),
-            Text(
-              childText,
-              style: TextStyles.textStyleRegular.apply(color: Colors.white),
-            ),
-            TextButton(
-                onPressed: onPressed,
-                child: Text(
-                  editText,
-                  style: TextStyles.textStyleRegular.apply(
-                      color: AppColors.colorSkipButton, fontSizeDelta: -2),
-                )),
-            Spacer(),
-            CustomSwitch(
-              color: AppColors.colorIcons,
-              value: valueChild,
-              onChanged: onChangedChild,
-            ),
-          ],
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) =>
-          Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
-    );
   }
 }
