@@ -5,28 +5,41 @@ import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
 
-class ListWidget extends StatelessWidget {
+class ListWidget extends StatefulWidget {
   final TrackableItem trackableItem;
   final bool isFirst;
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
-  List<ListOption> _selectedItems;
 
-  ListWidget({
-    //Key key,
+  const ListWidget({
+    Key key,
     this.trackableItem,
     this.isFirst,
     this.isLast,
     this.isChild,
     this.onValueChanged,
 
-  }) : super();
+  }) : super(key: key);
 
+  @override
+  _ListWidgetState createState() => _ListWidgetState();
+}
 
+class _ListWidgetState extends State<ListWidget> {
+
+  List<ListOption> _selectedItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return Stack(
       children: [
         Positioned.fill(
@@ -45,12 +58,12 @@ class ListWidget extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: ScreenConstant.defaultHeightForty),
-              Text(trackableItem.name.tr,
+              Text(widget.trackableItem.name.tr,
                   style: TextStyles.textStyleIntroDescription
                       .apply(color: Colors.white, fontSizeDelta: -3)),
               SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
               Text(
-                trackableItem.description.tr,
+                widget.trackableItem.description.tr,
                 textAlign: TextAlign.center,
                 style: TextStyles.textStyleRegular
                     .apply(color: AppColors.colorSkipButton),
@@ -64,12 +77,12 @@ class ListWidget extends StatelessWidget {
                   //       horizontal: ScreenConstant.defaultWidthTwenty),
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: trackableItem.list.options.length,
+                  itemCount: widget.trackableItem.list.options.length,
                   itemBuilder: (BuildContext context, int optIdx) {
-                    var model = trackableItem.list.options[optIdx];
+                    var option = widget.trackableItem.list.options[optIdx];
                     return InkWell(
                       onTap: () {
-                        _onHandleToggle(trackableItem, model);
+                        _onHandleToggle(widget.trackableItem, option);
                         /*_onOptionTapped(
                           model: model,
                           tid: trackableItem.tid,
@@ -78,7 +91,7 @@ class ListWidget extends StatelessWidget {
                       },
                       child: Card(
                           elevation: 0,
-                          color: model.optionDefault
+                          color: option.optionDefault
                               ? AppColors.colorCloseLight
                               : AppColors.colorSymptomsGridBg,
                           shape: RoundedRectangleBorder(
@@ -90,13 +103,13 @@ class ListWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.network(
-                                  model.image.active,
+                                  option.image.active,
                                   width:
                                   ScreenConstant.defaultWidthTwenty * 2.0,
                                 ),
                                 SizedBox(
                                     height: ScreenConstant.defaultHeightTen),
-                                Text("${model.label.tr}",
+                                Text("${option.label.tr}",
                                     textAlign: TextAlign.center,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyles.textStyleRegular.apply(
@@ -123,15 +136,26 @@ class ListWidget extends StatelessWidget {
   /// Toggle our element's state for tracking
   /// and send a list of all selected items to onValueChanged.
   _onHandleToggle(TrackableItem item, ListOption option){
-    option.optionDefault = !option.optionDefault;
+    setState(() {
+      option.optionDefault = !option.optionDefault;
 
-    onValueChanged(TrackableSubmitItem(
+      if (option.optionDefault){
+        _selectedItems.add(option);
+      }else{
+        _selectedItems.remove(option);
+      }
+    });
+
+
+    widget.onValueChanged(TrackableSubmitItem(
       tid: item.tid,
       category: item.category,
       kind: item.kind,
       dtype: "arr",
-      value: this._selectedItems,
+      value: _selectedItems,
     ));
+
+
   }
 
 
