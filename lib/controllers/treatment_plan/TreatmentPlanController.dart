@@ -19,6 +19,7 @@ class TreatmentPlanController extends GetxController {
   RxList<TagsDefault> selectedTags = <TagsDefault>[].obs;
   Rx<String> selectedCategory = "".obs;
   RxList<Reminder> reminderList = <Reminder>[].obs;
+  RxSet<String> listCategory = <String>{}.obs;
   @override
   void onInit() async {
     super.onInit();
@@ -36,6 +37,12 @@ class TreatmentPlanController extends GetxController {
       loader.value = true;
       await ServiceApi().getTreatmentPlan().then((value) {
         treatmentPlanItemData.value = value.data;
+        // listCategory.add("cat-lifestyle_dietary_changes");
+        // listCategory.add("cat-lifestyle_dietary_changes");
+
+        // treatmentPlanItemData.forEach((element) {
+        //   listCategory.add(element.planCategory);
+        // });
       });
       loader.value = false;
     }
