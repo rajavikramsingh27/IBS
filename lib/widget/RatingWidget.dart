@@ -17,7 +17,7 @@ class RatingWidget extends StatelessWidget {
       {Key key,
       this.title = "",
       this.description = "",
-      this.max = 0,
+      this.max,
       this.currentSelectedValue,
       this.onChanged})
       : super(key: key);
@@ -27,9 +27,11 @@ class RatingWidget extends StatelessWidget {
       padding:
           EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: ScreenConstant.defaultHeightForty),
           Text(title,
+              textAlign: TextAlign.center,
               style: TextStyles.textStyleIntroDescription
                   .apply(color: Colors.white, fontSizeDelta: -3)),
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
@@ -46,24 +48,24 @@ class RatingWidget extends StatelessWidget {
             child: SfSliderTheme(
               data: SfSliderThemeData(
                 thumbColor: AppColors.colorArrowButton,
-                thumbStrokeWidth: 5,
-                thumbRadius: 16,
+                thumbStrokeWidth: 5.0,
+                thumbRadius: 16.0,
                 thumbStrokeColor: Colors.white,
-                activeTrackHeight: 4,
-                overlayRadius: 0,
+                activeTrackHeight: 4.0,
+                overlayRadius: 0.0,
                 disabledActiveTrackColor: AppColors.colorTrackSlider,
                 disabledInactiveTrackColor: AppColors.colorTrackSlider,
-                activeDividerStrokeWidth: 2,
-                inactiveDividerStrokeWidth: 2,
-                inactiveTrackHeight: 4,
+                activeDividerStrokeWidth: 2.0,
+                inactiveDividerStrokeWidth: 2.0,
+                inactiveTrackHeight: 4.0,
                 activeTrackColor: AppColors.colorTrackSlider,
                 inactiveTrackColor: AppColors.colorTrackSlider,
                 inactiveDividerStrokeColor: AppColors.white,
-                inactiveDividerRadius: 8,
+                inactiveDividerRadius: 8.0,
                 inactiveDividerColor: AppColors.colorInactiveDividerSlider,
                 activeDividerColor: AppColors.colorInactiveDividerSlider,
                 activeDividerStrokeColor: Colors.white,
-                activeDividerRadius: 8,
+                activeDividerRadius: 8.0,
                 activeLabelStyle: TextStyles.textStyleRegular
                     .apply(color: AppColors.colorTrackSlider),
                 inactiveLabelStyle: TextStyles.textStyleRegular
@@ -73,8 +75,8 @@ class RatingWidget extends StatelessWidget {
                 showDividers: true,
                 min: 1.0,
                 max: max,
-                interval: 1,
-                stepSize: 1,
+                interval: 1.0,
+                stepSize: 1.0,
                 showLabels: true,
                 value: currentSelectedValue,
                 onChanged: onChanged,

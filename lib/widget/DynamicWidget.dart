@@ -138,19 +138,26 @@ class DynamicWidget extends StatelessWidget {
           case "tags":
             {
               return GridTextCommonWidget(
-                  title: data[index].name,
-                  description: data[index].description,
-                  dataList: data[index].tags,);
+                title: data[index].name,
+                description: data[index].description,
+                dataList: data[index].tags,
+              );
             }
             break;
           case "rating":
             {
-              return RatingWidget();
+              return RatingWidget(
+                title: data[index].name,
+                description: data[index].description,
+              );
             }
             break;
           case "list":
             {
-              return GridImageCommonWidget();
+              return GridImageCommonWidget(
+                title: data[index].name,
+                description: data[index].description,
+              );
             }
             break;
 
