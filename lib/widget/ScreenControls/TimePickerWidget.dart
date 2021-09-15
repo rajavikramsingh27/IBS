@@ -6,8 +6,18 @@ import 'package:flutter_ibs/widget/DropDownList.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
 
+class TimeDisplay {
+  TimeDisplay({
+    this.label,
+    this.value,
+  });
 
-class TimePickerWidget extends StatelessWidget {
+  String label;
+  String value;
+}
+
+
+class TimePickerWidget extends StatefulWidget {
   final TrackableItem trackableItem;
   final bool isFirst;
   final bool isLast;
@@ -23,9 +33,30 @@ class TimePickerWidget extends StatelessWidget {
     this.onValueChanged,
   }) : super();
 
+
+  @override
+  _TimePickerWidgetState createState() => _TimePickerWidgetState();
+}
+
+class _TimePickerWidgetState extends State<TimePickerWidget> {
+
+  TimeOfDay _selectedTime;
+
+  @override
+  void initState() {
+    _selectedTime = TimeOfDay.now();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<String> timeList = ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00",];
+    /*List<TimeDisplay> timeList = [
+      TimeDisplay(
+          label:"00:00",
+          value: "12:00 AM",
+      ),
+    ];*/
+     // "02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00",];
 
     return Column(
       children: [
@@ -34,7 +65,7 @@ class TimePickerWidget extends StatelessWidget {
           children: [
             Expanded(
               flex: 1,
-              child: Text(trackableItem.name.tr,
+              child: Text(widget.trackableItem.name.tr,
                   style: TextStyles.textStyleIntroDescription
                       .apply(color: Colors.white, fontSizeDelta: -6)),
             ),
@@ -48,24 +79,15 @@ class TimePickerWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: AppColors.colordropdownArrowBg,
                     borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: CustomDropdown(
-                  value: "01:00",
-                  /*timeItem.selectedValue == null
-                      ? _healthWellnessController.selectedTime.value
-                      : timeItem.selectedValue,*/
-                  dropdownMenuItemList:
-                  buildTimeDropList(timeList),
-                  onChanged: (optionItem) {
-                    trackableItem.selectedValue = optionItem;
-                    /*
-                    _healthWellnessController.onBedTimeTapped(
-                        kind: trackableItem.kind,
-                        tid: trackableItem.tid,
-                        selectedTime: optionItem);
-                    _signUpController.healthWellness.refresh();
-                    */
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    primary: Colors.black87,
+                  ),
+                  onPressed: () {
+                    _selectTime(context);
                   },
-                  isEnabled: true,
+                  child: Text(_selectedTime.format(context)),
+
                 ),
               ),
             )
@@ -80,31 +102,19 @@ class TimePickerWidget extends StatelessWidget {
 
 
 
-  List<DropdownMenuItem<SelectOption>> buildDropList(
-      List favouriteFoodModelList) {
-    List<DropdownMenuItem<SelectOption>> items = [];
-    for (SelectOption favouriteFoodModel in favouriteFoodModelList) {
-      items.add(DropdownMenuItem(
-        value: favouriteFoodModel,
-        child: Text(
-          favouriteFoodModel.label.tr,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ));
-    }
-    return items;
-  }
 
-  List<DropdownMenuItem<String>> buildTimeDropList(
-      List favouriteFoodModelList) {
-    List<DropdownMenuItem<String>> items = [];
-    for (String favouriteFoodModel in favouriteFoodModelList) {
-      items.add(DropdownMenuItem(
-        value: favouriteFoodModel,
-        child: Text(favouriteFoodModel.tr),
-      ));
-    }
-    return items;
-  }
+  _selectTime(BuildContext context) async {
+    final TimeOfDay timeOfDay = await showTimePicker(
+      context: context,
+      initialTime: _selectedTime,
+      initialEntryMode: TimePickerEntryMode.dial,
 
+    );
+    if(timeOfDay != null && timeOfDay != _selectedTime)
+    {
+      setState(() {
+        _selectedTime = timeOfDay;
+      });
+    }
+  }
 }
