@@ -40,9 +40,9 @@ class TreatmentPlanController extends GetxController {
         // listCategory.add("cat-lifestyle_dietary_changes");
         // listCategory.add("cat-lifestyle_dietary_changes");
 
-        // treatmentPlanItemData.forEach((element) {
-        //   listCategory.add(element.planCategory);
-        // });
+        treatmentPlanItemData.forEach((element) {
+          listCategory.add(element.planCategory);
+        });
       });
       loader.value = false;
     }
