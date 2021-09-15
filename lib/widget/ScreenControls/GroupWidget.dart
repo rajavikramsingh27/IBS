@@ -75,6 +75,7 @@ class GroupWidget extends StatelessWidget {
                         return RenderWidgetByType().renderTrackableItem(
                           trackableItem.children.first.items[count],
                           isChild: true,
+                          onValueChanged: onValueChanged
                         );
                       }),
                 ),

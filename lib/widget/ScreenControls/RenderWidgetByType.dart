@@ -52,6 +52,7 @@ class RenderWidgetByType {
         {
           return GroupWidget(
               trackableItem: widget,
+              onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
               isChild: isChild
@@ -83,6 +84,7 @@ class RenderWidgetByType {
         {
           return TimePickerWidget(
               trackableItem: widget,
+              onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
               isChild: isChild

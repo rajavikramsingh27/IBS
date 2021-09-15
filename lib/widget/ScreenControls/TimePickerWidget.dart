@@ -2,19 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/DropDownList.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
-
-class TimeDisplay {
-  TimeDisplay({
-    this.label,
-    this.value,
-  });
-
-  String label;
-  String value;
-}
 
 
 class TimePickerWidget extends StatefulWidget {
@@ -115,6 +104,14 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
       setState(() {
         _selectedTime = timeOfDay;
       });
+
+      widget.onValueChanged(TrackableSubmitItem(
+        tid: widget.trackableItem.tid,
+        category: widget.trackableItem.category,
+        kind: widget.trackableItem.kind,
+        dtype: "string",
+        value:  _selectedTime.hour.toString() + ":" + _selectedTime.minute.toString(),
+      ));
     }
   }
 }
