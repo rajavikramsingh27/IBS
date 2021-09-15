@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
+import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';

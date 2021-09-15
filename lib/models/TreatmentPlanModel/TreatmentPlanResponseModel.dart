@@ -6,7 +6,7 @@ import 'dart:convert';
 
 import 'package:flutter_ibs/services/url.dart';
 
-import 'TrackablesListModel/TrackablesListModel.dart';
+import '../TrackablesListModel/TrackablesListModel.dart';
 
 class TreatmentPlanResponseModel {
   TreatmentPlanResponseModel({
