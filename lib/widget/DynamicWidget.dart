@@ -171,6 +171,11 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                 description: widget.data[index].description,
                 max: widget.data[index].rating.range,
                 currentSelectedValue: widget.data[index].rating.ratingDefault,
+                onChanged: (dynamic newValue) {
+                  setState(() {
+                    widget.data[index].rating.ratingDefault = newValue;
+                  });
+                },
               );
             }
             break;
