@@ -100,7 +100,7 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
                     decoration: InputDecoration(
                         border:
                         InputBorder.none,
-                        hintText: "Medit...",
+                        hintText: "Edit...",
                         hintStyle: TextStyles
                             .textStyleRegular
                             .apply(
