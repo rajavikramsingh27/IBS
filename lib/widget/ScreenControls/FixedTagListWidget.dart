@@ -29,7 +29,7 @@ class FixedTagListWidget extends StatefulWidget {
 
 class _FixedTagListWidgetState extends State<FixedTagListWidget> {
 
-  List<ListOption> _selectedItems = [];
+  List<Tag> _selectedItems = [];
 
   @override
   void initState() {
@@ -116,7 +116,18 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
   }
 
   _onHandleToggle(TrackableItem item, Tag tag){
-    tag.selected = !tag.selected;
+
+    setState(() {
+      tag.selected = !tag.selected;
+
+      if (tag.selected){
+        _selectedItems.add(tag);
+      }else{
+        _selectedItems.remove(tag);
+      }
+    });
+
+
     widget.onValueChanged(TrackableSubmitItem(
       tid: item.tid,
       category: item.category,

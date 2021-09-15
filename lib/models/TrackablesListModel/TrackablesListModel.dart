@@ -11,7 +11,6 @@
 //
 //     final trackablesListModel = trackablesListModelFromJson(jsonString);
 
-import 'dart:convert';
 
 import 'package:flutter_ibs/services/url.dart';
 
@@ -501,7 +500,7 @@ class BoolListRelation {
       };
 }
 
-/* IAN: Deprecated. TrackabelChild is basically PurpleChild.
+/* IAN: Deprecated. TrackableChild is basically PurpleChild.
 
 class PurpleChild {
   PurpleChild({
@@ -925,7 +924,6 @@ class ListOption {
     this.image,
     this.optionDefault,
     this.conditionalDefault,
-    this.selected,
   });
 
   String value;
@@ -933,7 +931,6 @@ class ListOption {
   ModelImage image;
   bool optionDefault;
   ConditionalDefault conditionalDefault;
-  bool selected;
 
   factory ListOption.fromJson(Map<String, dynamic> json) => ListOption(
         value: json["value"] == null ? null : json["value"],
