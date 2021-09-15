@@ -13,12 +13,15 @@ class TreatmentPlanController extends GetxController {
   RxInt selectedindex = 0.obs;
   RxBool connectionStatus = false.obs;
   RxBool loader = false.obs;
-  RxList<TreatmentPlanItemData>  treatmentPlanItemData= <TreatmentPlanItemData>[].obs;
+  RxList<TreatmentPlanItemData> treatmentPlanItemData =
+      <TreatmentPlanItemData>[].obs;
 
   RxList<TagsDefault> selectedTags = <TagsDefault>[].obs;
+  Rx<String> selectedCategory = "".obs;
   RxList<Reminder> reminderList = <Reminder>[].obs;
+  RxSet<String> listCategory = <String>{}.obs;
   @override
-  void onInit() async{
+  void onInit() async {
     super.onInit();
     pageController.addListener(() {
       currentPage.value = pageController.page;
@@ -28,16 +31,25 @@ class TreatmentPlanController extends GetxController {
     connectionStatus.value = isInternet;
     getTreatmentPlanList();
   }
+
   getTreatmentPlanList() async {
     if (connectionStatus.value) {
       loader.value = true;
       await ServiceApi().getTreatmentPlan().then((value) {
         treatmentPlanItemData.value = value.data;
+        treatmentPlanItemData.forEach((element) {
+          listCategory.add(element.planCategory);
+        });
       });
       loader.value = false;
     }
   }
   toTreatmentPlanListWidget({TreatmentPlanItemData data}){
     Get.to(()=>TreatmentPlanListWidget(data: data,));
+
+  }
+
+  category(String value) {
+    selectedCategory.value = value;
   }
 }
