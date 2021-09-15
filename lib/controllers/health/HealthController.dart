@@ -6,17 +6,20 @@ import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessModel.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart' as HealthRsp;
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class HealthController extends GetxController {
+  RxBool loader = false.obs;
+
+  /*
   Rx<DateTime> now = DateTime.now().obs;
   TextEditingController noteTextController = TextEditingController();
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
-  RxBool loader = false.obs;
   List<String> timeList = ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00",];
   RxString selectedTime = "01:00".obs;
   RxBool switchValue = false.obs;
@@ -25,21 +28,96 @@ class HealthController extends GetxController {
   RxBool wakeTimeChanged = false.obs;
   RxBool sleepQualityChanged = false.obs;
   RxBool tirednessChanged = false.obs;
-
+*/
 
   Rx<HealthWellnessModel> healthWellnessModel = HealthWellnessModel().obs;
   SignUpController _signUpController = Get.find();
 
+  RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
+  RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
+
+  /*
   onTapped(int index) async {
     currentIndex.value = index;
   }
+*/
+
 
   @override
   void onInit() {
+    // Get the source of the data:
+    _signUpController
+        .healthWellness.value.items.forEach((element) {
+          formWidgetList.add(element);
+    });
+
+    // Refresh the local list so the form can generate:
+    formWidgetList.refresh();
+    _selectedItems = RxList<TrackableSubmitItem>();
     super.onInit();
-    formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+   // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 
+  valueChanged(TrackableSubmitItem submitItem){
+    var count = _selectedItems.length;
+    bool isAdded = false;
+    for(var i=0; i < count; i++) {
+      if (_selectedItems[i].tid == submitItem.tid) {
+        _selectedItems[i] = submitItem;
+        isAdded = true;
+        break;
+      }
+    }
+
+    if (!isAdded){
+      _selectedItems.add(submitItem);
+    }
+
+    formWidgetList.refresh();
+/*
+    print ('-------');
+    _selectedItems.forEach((element) {
+      print(element.toJson());
+    });
+
+ */
+  }
+
+
+
+/*
+    formWidgetList.forEach((item) {
+      if (item.tid == updatedItem.tid){
+        item = updatedItem;
+
+      }else{
+        item.children.forEach((child) {
+          child.items.forEach((childItem) {
+            if(childItem.tid == updatedItem.tid){
+              childItem = updatedItem;
+            }
+          });
+        });
+      }
+    });
+*/
+
+
+/*
+  _findTrackableItemInList(TrackableItem searchItem, RxList<TrackableItem> list){
+    var count = list.length;
+    for(var i; i < count; i++){
+      if (list[i].tid == searchItem.tid){
+        return list[i];
+      }
+      list[i].children.forEach((child) {
+        return _findTrackableItemInList(searchItem, child.items);
+      });
+    }
+  }
+*/
+
+  /*
   void onSave()async{
     if (healthWellnessModel.value.items == null) {
       healthWellnessModel.value.items = [];
@@ -253,4 +331,7 @@ class HealthController extends GetxController {
     _signUpController.healthWellness.refresh();
     healthWellnessModel.refresh();
   }
+
+
+   */
 }

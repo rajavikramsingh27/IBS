@@ -125,16 +125,6 @@ class ListWidget extends StatelessWidget {
   _onHandleToggle(TrackableItem item, ListOption option){
     option.optionDefault = !option.optionDefault;
 
-    if (this._selectedItems == null){
-      this._selectedItems = [];
-    }
-
-    if (this._selectedItems.contains(option)){
-      this._selectedItems.remove(option);
-    }else{
-      this._selectedItems.add(option);
-    }
-
     onValueChanged(TrackableSubmitItem(
       tid: item.tid,
       category: item.category,

@@ -103,17 +103,6 @@ class FixedTagListWidget extends StatelessWidget {
 
   _onHandleToggle(TrackableItem item, Tag tag){
     tag.selected = !tag.selected;
-
-    if (_selectedItems == null){
-      _selectedItems = [];
-    }
-
-    if (this._selectedItems.contains(tag)){
-      this._selectedItems.remove(tag);
-    }else{
-      this._selectedItems.add(tag);
-    }
-
     onValueChanged(TrackableSubmitItem(
       tid: item.tid,
       category: item.category,

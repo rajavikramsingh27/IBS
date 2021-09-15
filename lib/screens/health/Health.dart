@@ -12,13 +12,11 @@ import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
 import 'package:get/get.dart';
 
 class Health extends StatelessWidget {
-  final _healthWellnessController = Get.put(HealthController());
+  final controller = Get.put(HealthController());
   final SignUpController _signUpController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    var widgetList = _signUpController
-        .healthWellness.value.obs().items;
 
     return Scaffold(
         bottomNavigationBar: Container(
@@ -31,7 +29,7 @@ class Health extends StatelessWidget {
               CustomElevatedButton(
                 widthFactor: 0.7,
                 text: "Save",
-                onTap: _healthWellnessController.onSave,
+               // onTap: _healthWellnessController.onSave,
               ),
               TextButton(
                   onPressed: () {
@@ -77,7 +75,7 @@ class Health extends StatelessWidget {
                             SizedBox(height: ScreenConstant.defaultHeightForty),
                             DateTimeCardWidget(),
                             SizedBox(height: ScreenConstant.defaultHeightForty),
-                            _healthWellnessController.loader.value
+                            controller.loader.value
                                 ? Center(
                                     child: Padding(
                                     padding: ScreenConstant.spacingAllLarge,
@@ -91,16 +89,15 @@ class Health extends StatelessWidget {
                                 : ListView.builder(
                                     shrinkWrap: true,
                                     physics: ClampingScrollPhysics(),
-                                    itemCount: _signUpController
-                                        .healthWellness.value.items.length,
+                                    itemCount: controller.formWidgetList.length,
                                     itemBuilder: (_, mainIndex) {
                                       return RenderWidgetByType().renderTrackableItem(
-                                          widgetList[mainIndex],
+                                          controller.formWidgetList[mainIndex],
                                           isFirst: mainIndex == 0,
                                           isLast: mainIndex ==
-                                              (widgetList.length -
+                                              (controller.formWidgetList.length -
                                                   1),
-                                          onValueChanged: _valueChanged
+                                          onValueChanged: controller.valueChanged
                                       );
                                     }),
                             SizedBox(
@@ -118,9 +115,6 @@ class Health extends StatelessWidget {
         ));
   }
 
-  _valueChanged(TrackableSubmitItem value){
-    print (value.toJson());
-    _signUpController.healthWellness.refresh();
-  }
+
 
 }

@@ -20,7 +20,7 @@ class RatingWidget extends StatelessWidget {
     this.isFirst,
     this.isLast,
     this.isChild,
-    this.onValueChanged
+    this.onValueChanged,
   }) : super();
 
   @override
@@ -116,26 +116,6 @@ class RatingWidget extends StatelessWidget {
                             dtype: "num",
                             value: newValue,
                           ));
-                         // onValueChanged(newValue.toInt());
-                          /*
-                          if (_healthWellnessController
-                              .healthWellnessModel.value.items ==
-                              null) {
-                            _healthWellnessController
-                                .healthWellnessModel.value.items = [];
-                          }
-                          Item item = Item(
-                              tid: trackableItem.tid,
-                              kind: trackableItem.kind,
-                              dtype: "num",
-                              value: ItemValue(numValue: newValue));
-                          _healthWellnessController
-                              .healthWellnessModel.value.items
-                              .add(item);
-                          _healthWellnessController.healthWellnessModel.refresh();
-                          _signUpController.healthWellness.refresh();
-
-                           */
                         },
                         labelFormatterCallback:
                             (dynamic actualValue, String formattedText) {

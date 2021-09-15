@@ -1173,7 +1173,7 @@ class FluffyTags {
         "placeholder": placeholder == null ? null : placeholder,
         "default": tagsDefault == null
             ? null
-            : List<Tag>.from(tagsDefault.map((x) => x.toJson())),
+            : List<dynamic>.from(tagsDefault.map((x) => x.toJson())),
         "autocompleteId": autocompleteId == null ? null : autocompleteId,
         "source": source == null ? null : source,
         "relation": relation == null ? null : relation.toJson(),
