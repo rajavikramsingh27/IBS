@@ -1,6 +1,7 @@
 import 'package:flutter_ibs/widget/ScreenControls/FixedTagListWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/GroupWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/ListWidget.dart';
+import 'package:flutter_ibs/widget/ScreenControls/NumberInputWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RatingWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/SelectWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/TextInputWidget.dart';
@@ -9,17 +10,17 @@ import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart'
 import 'package:flutter/material.dart';
 
 class RenderWidgetByType {
-  renderTrackableItem(TrackableItem widget,
+  renderTrackableItem(TrackableItem trackableItem,
       {bool isFirst = false, bool isLast = false, bool isChild = false,
         Function(TrackableSubmitItem) onValueChanged
       }) {
-    switch (widget.kind) {
+    switch (trackableItem.kind) {
       case "rating":
         {
           //return _renderRatingWidget(widget,
           //    isFirst: isFirst, isLast: isLast, isChild: isChild);
           return RatingWidget(
-              trackableItem: widget,
+              trackableItem: trackableItem,
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
@@ -29,7 +30,7 @@ class RenderWidgetByType {
       case "list":
         {
           return ListWidget(
-              trackableItem: widget,
+              trackableItem: trackableItem,
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
@@ -40,7 +41,7 @@ class RenderWidgetByType {
       case "tags":
         {
           return FixedTagListWidget(
-              trackableItem: widget,
+              trackableItem: trackableItem,
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
@@ -51,7 +52,7 @@ class RenderWidgetByType {
       case "group":
         {
           return GroupWidget(
-              trackableItem: widget,
+              trackableItem: trackableItem,
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
@@ -63,7 +64,7 @@ class RenderWidgetByType {
       case "select":
         {
           return SelectWidget(
-              trackableItem: widget,
+              trackableItem: trackableItem,
               isFirst: isFirst,
               isLast: isLast,
               isChild: isChild
@@ -73,7 +74,7 @@ class RenderWidgetByType {
       case "textInput":
         {
           return TextInputWidget(
-              trackableItem: widget,
+              trackableItem: trackableItem,
               isFirst: isFirst,
               isLast: isLast,
               isChild: isChild
@@ -83,7 +84,17 @@ class RenderWidgetByType {
       case "timePicker":
         {
           return TimePickerWidget(
-              trackableItem: widget,
+              trackableItem: trackableItem,
+              onValueChanged: onValueChanged,
+              isFirst: isFirst,
+              isLast: isLast,
+              isChild: isChild
+          );
+        }
+      case "numberInput":
+        {
+          return NumberInputWidget(
+              trackableItem: trackableItem,
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
@@ -92,6 +103,7 @@ class RenderWidgetByType {
         }
       default:
         {
+          print("Getting offstage: " + trackableItem.kind);
           return Offstage();
         }
         break;

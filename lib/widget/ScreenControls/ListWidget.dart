@@ -4,6 +4,7 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
+import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
 
 class ListWidget extends StatefulWidget {
   final TrackableItem trackableItem;
@@ -19,7 +20,6 @@ class ListWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
-
   }) : super(key: key);
 
   @override
@@ -27,20 +27,15 @@ class ListWidget extends StatefulWidget {
 }
 
 class _ListWidgetState extends State<ListWidget> {
-
   List<ListOption> _selectedItems = [];
 
   @override
   void initState() {
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return Stack(
       children: [
         Positioned.fill(
@@ -106,7 +101,7 @@ class _ListWidgetState extends State<ListWidget> {
                                 Image.network(
                                   option.image.active,
                                   width:
-                                  ScreenConstant.defaultWidthTwenty * 2.0,
+                                      ScreenConstant.defaultWidthTwenty * 2.0,
                                 ),
                                 SizedBox(
                                     height: ScreenConstant.defaultHeightTen),
@@ -125,6 +120,30 @@ class _ListWidgetState extends State<ListWidget> {
                       crossAxisCount: 3, childAspectRatio: 1),
                 ),
               ),
+              Padding(
+                padding: ScreenConstant.spacingAllDefault,
+
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ListView.builder(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemCount:
+                                widget.trackableItem.children.first.items.length,
+                            itemBuilder: (_, idx) {
+                              var item =
+                                  widget.trackableItem.children.first.items[idx];
+                              var render = RenderWidgetByType()
+                                  .renderTrackableItem(item,
+                                      isChild: false,
+                                      onValueChanged: widget.onValueChanged);
+                              return render;
+                            }),
+                      ]),
+                ),
+
+
               SizedBox(height: ScreenConstant.defaultHeightTwenty),
               Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
             ],
@@ -136,17 +155,16 @@ class _ListWidgetState extends State<ListWidget> {
 
   /// Toggle our element's state for tracking
   /// and send a list of all selected items to onValueChanged.
-  _onHandleToggle(TrackableItem item, ListOption option){
+  _onHandleToggle(TrackableItem item, ListOption option) {
     setState(() {
       option.optionDefault = !option.optionDefault;
 
-      if (option.optionDefault){
+      if (option.optionDefault) {
         _selectedItems.add(option);
-      }else{
+      } else {
         _selectedItems.remove(option);
       }
     });
-
 
     widget.onValueChanged(TrackableSubmitItem(
       tid: item.tid,
@@ -155,9 +173,5 @@ class _ListWidgetState extends State<ListWidget> {
       dtype: "arr",
       value: _selectedItems,
     ));
-
-
   }
-
-
 }
