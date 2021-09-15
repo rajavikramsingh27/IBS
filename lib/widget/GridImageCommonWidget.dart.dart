@@ -3,12 +3,12 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 
-class GridImageCommonWidget extends StatelessWidget {
+class GridImageCommonWidget extends StatefulWidget {
   final String title;
   final String description;
   final int itemCount;
   final int gridIndex;
-
+  final dataList;
   final EdgeInsetsGeometry gridPadding;
   final Function() onTap;
   final Color color;
@@ -25,8 +25,15 @@ class GridImageCommonWidget extends StatelessWidget {
       this.imageText,
       this.gridText,
       this.gridPadding,
-      this.gridIndex})
+      this.gridIndex,
+      this.dataList})
       : super(key: key);
+
+  @override
+  State<GridImageCommonWidget> createState() => _GridImageCommonWidgetState();
+}
+
+class _GridImageCommonWidgetState extends State<GridImageCommonWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,29 +41,30 @@ class GridImageCommonWidget extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
-          Text(title,
+          Text(widget.title,
               textAlign: TextAlign.center,
               style: TextStyles.textStyleIntroDescription
                   .apply(color: Colors.white, fontSizeDelta: -3)),
           SizedBox(height: ScreenConstant.defaultHeightTen),
           Text(
-            description,
+            widget.description,
             textAlign: TextAlign.center,
             style: TextStyles.textStyleRegular
                 .apply(color: AppColors.colorSkipButton),
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           GridView.builder(
-            padding: gridPadding,
+            padding: widget.gridPadding,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            itemCount: itemCount,
+            itemCount: widget.dataList.options.length,
             itemBuilder: (BuildContext context, int index) {
+              var model = widget.dataList.options[index];
               return InkWell(
-                onTap: onTap,
+                onTap: widget.onTap,
                 child: Card(
                     elevation: 0,
-                    color: color,
+                    color: AppColors.colorSymptomsGridBg,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
@@ -66,11 +74,11 @@ class GridImageCommonWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.network(
-                            imageText,
+                            model.image.active,
                             width: ScreenConstant.defaultWidthTwenty * 2.0,
                           ),
                           SizedBox(height: ScreenConstant.defaultHeightTen),
-                          Text(gridText,
+                          Text(model.value,
                               textAlign: TextAlign.center,
                               style: TextStyles.textStyleRegular.apply(
                                   color: AppColors.white, fontSizeDelta: -2)),
@@ -80,7 +88,7 @@ class GridImageCommonWidget extends StatelessWidget {
               );
             },
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, childAspectRatio: 1),
+                crossAxisCount: 3, childAspectRatio: 0.85),
           ),
         ],
       ),

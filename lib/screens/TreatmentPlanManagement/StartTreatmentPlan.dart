@@ -119,6 +119,31 @@ class StartTreatmentPlan extends StatelessWidget {
                                           ),
                                           child: Column(
                                             children: [
+                                              // SizedBox(
+                                              //     height: ScreenConstant
+                                              //         .defaultHeightTwenty),
+                                              // Text(data.trackables.,
+                                              //     textAlign: TextAlign.center,
+                                              //     style: TextStyles
+                                              //         .textStyleIntroDescription
+                                              //         .apply(
+                                              //             color: Colors.white,
+                                              //             fontSizeDelta: -3)),
+                                              // SizedBox(
+                                              //     height: ScreenConstant
+                                              //         .defaultHeightTen),
+                                              // Text(
+                                              //   widget.description,
+                                              //   textAlign: TextAlign.center,
+                                              //   style: TextStyles
+                                              //       .textStyleRegular
+                                              //       .apply(
+                                              //           color: AppColors
+                                              //               .colorSkipButton),
+                                              // ),
+                                              // SizedBox(
+                                              //     height: ScreenConstant
+                                              //         .defaultHeightTwentyFour),
                                               DynamicWidget(
                                                 data: data.trackables,
                                               ),
@@ -142,7 +167,8 @@ class StartTreatmentPlan extends StatelessWidget {
                                             .heading.tr,
                                         body: data
                                             .planDetails.details.first.body.tr,
-                                        tags: _treatmentPlanController.selectedTags,
+                                        tags: _treatmentPlanController
+                                            .selectedTags,
                                       ),
                                     ],
                                   )),
@@ -153,7 +179,9 @@ class StartTreatmentPlan extends StatelessWidget {
                               margin: EdgeInsets.symmetric(
                                 horizontal: ScreenConstant.defaultWidthTwenty,
                               ),
-                              child: ReminderPlanWidget(listData: _treatmentPlanController.reminderList,)),
+                              child: ReminderPlanWidget(
+                                listData: _treatmentPlanController.reminderList,
+                              )),
                           SizedBox(height: ScreenConstant.defaultHeightTwenty),
                         ],
                       ),

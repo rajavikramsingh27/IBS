@@ -184,6 +184,7 @@ class _DynamicWidgetState extends State<DynamicWidget> {
               return GridImageCommonWidget(
                 title: widget.data[index].name,
                 description: widget.data[index].description,
+                dataList: widget.data[index].list,
               );
             }
             break;
