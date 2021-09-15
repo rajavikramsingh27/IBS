@@ -358,8 +358,8 @@ class Rating {
     this.validation,
   });
 
-  int range;
-  int ratingDefault;
+  num range;
+  num ratingDefault;
   List<RatingOption> options;
   Labels labels;
   RatingValidation validation;

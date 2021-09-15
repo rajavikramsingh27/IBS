@@ -158,7 +158,12 @@ class _DynamicWidgetState extends State<DynamicWidget> {
             break;
           case "rating":
             {
-              return RatingWidget();
+              return RatingWidget(
+                title: widget.data[index].name,
+                description: widget.data[index].description,
+                max: widget.data[index].rating.range,
+                currentSelectedValue: widget.data[index].rating.ratingDefault,
+              );
             }
             break;
           case "list":
