@@ -76,7 +76,7 @@ class TreatmentPlans extends StatelessWidget {
                 ),
                 SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 Text(
-                  "Lifestyle and Dietary Changes",
+                  _treatmentPlanController.selectedCategory.value,
                   style: TextStyles.textStyleIntroDescription
                       .apply(color: Colors.black, fontSizeDelta: -4),
                   textAlign: TextAlign.start,
@@ -86,14 +86,24 @@ class TreatmentPlans extends StatelessWidget {
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),
                     itemCount:
-                    _treatmentPlanController.treatmentPlanItemData.length,
+                        _treatmentPlanController.treatmentPlanItemData.length,
                     itemBuilder: (BuildContext context, int index) {
+                      var model =
+                          _treatmentPlanController.treatmentPlanItemData[index];
+                      Future.delayed(Duration.zero, () {
+                        _treatmentPlanController.category(model.planCategory);
+                        _treatmentPlanController.treatmentPlanItemData
+                            .refresh();
+                      });
+                      print(
+                          "cat:${_treatmentPlanController.selectedCategory.value}");
                       return Column(
                         children: [
                           TreatmentPlanListItem(
                               _treatmentPlanController
                                   .treatmentPlanItemData[index]
-                                  .planName.tr, () {
+                                  .planName
+                                  .tr, () {
                             _treatmentPlanController.toTreatmentPlanListWidget(
                                 data: _treatmentPlanController
                                     .treatmentPlanItemData[index]);
