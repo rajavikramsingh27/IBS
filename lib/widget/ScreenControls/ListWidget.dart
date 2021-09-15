@@ -120,30 +120,16 @@ class _ListWidgetState extends State<ListWidget> {
                       crossAxisCount: 3, childAspectRatio: 1),
                 ),
               ),
-              Padding(
-                padding: ScreenConstant.spacingAllDefault,
-
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ListView.builder(
-                            shrinkWrap: true,
-                            physics: ClampingScrollPhysics(),
-                            itemCount:
-                                widget.trackableItem.children.first.items.length,
-                            itemBuilder: (_, idx) {
-                              var item =
-                                  widget.trackableItem.children.first.items[idx];
-                              var render = RenderWidgetByType()
-                                  .renderTrackableItem(item,
-                                      isChild: false,
-                                      onValueChanged: widget.onValueChanged);
-                              return render;
-                            }),
-                      ]),
-                ),
-
-
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  itemCount: widget.trackableItem.children.first.items.length,
+                  itemBuilder: (_, idx) {
+                    var item = widget.trackableItem.children.first.items[idx];
+                    var render = RenderWidgetByType().renderTrackableItem(item,
+                        isChild: true, onValueChanged: widget.onValueChanged);
+                    return render;
+                  }),
               SizedBox(height: ScreenConstant.defaultHeightTwenty),
               Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
             ],

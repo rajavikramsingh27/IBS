@@ -150,7 +150,8 @@ class _RatingWidgetState extends State<RatingWidget> {
                     ),
                   ),
                 ),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty,
+                    width: 800),
                 Visibility(
                     visible: !widget.isChild,
                     child: Divider(

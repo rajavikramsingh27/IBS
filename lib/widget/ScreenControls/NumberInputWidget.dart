@@ -81,12 +81,11 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
                         .apply(color: AppColors.colorSkipButton),
                   ),
                 ),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ScreenConstant.defaultWidthTen),
-                    child: CustomNumberPicker(
-                      valueTextStyle:TextStyle(color: Colors.white, fontSize: 30),
+
+
+                    CustomNumberPicker(
+                      valueTextStyle:
+                          TextStyle(color: Colors.white, fontSize: 30),
                       shape: Border(top: BorderSide.none),
                       initialValue: _currentValue,
                       maxValue: 180,
@@ -97,8 +96,21 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
                           _currentValue = value;
                         });
                       },
-                    )),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                      customMinusButton: TextButton(
+                        child: Text("-",
+                            style:
+                                TextStyle(fontSize: 30, color: Colors.white)),
+                      ),
+                      customAddButton: TextButton(
+                        child: Text("+",
+                            style:
+                                TextStyle(fontSize: 30, color: Colors.white)),
+                      ),
+                    ),
+                SizedBox(
+                    height: ScreenConstant.defaultHeightTwenty,
+                    width:
+                        800), // TODO: Fix this hack of forcing the width on children
                 Visibility(
                     visible: !widget.isChild,
                     child: Divider(
