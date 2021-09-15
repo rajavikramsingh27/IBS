@@ -73,7 +73,7 @@ class HealthController extends GetxController {
       _selectedItems.add(submitItem);
     }
 
-    formWidgetList.refresh();
+
 /*
     print ('-------');
     _selectedItems.forEach((element) {
