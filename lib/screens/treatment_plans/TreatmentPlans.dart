@@ -82,24 +82,26 @@ class TreatmentPlans extends StatelessWidget {
                   textAlign: TextAlign.start,
                 ),
                 SizedBox(height: ScreenConstant.defaultHeightTen),
-                TreatmentPlanListItem("Stress management ", () {
-                  _treatmentPlanController.toTreatmentPlanListWidget(
-                      data:
-                          _treatmentPlanController.treatmentPlanItemData.first);
-                }),
-                SizedBox(height: ScreenConstant.sizeDefault),
-                TreatmentPlanListItem("Low FODMAP diet", () {
-                  _treatmentPlanController.toTreatmentPlanListWidget();
-                }),
-                SizedBox(height: ScreenConstant.sizeDefault),
-                TreatmentPlanListItem("Increase exercise", () {
-                  _treatmentPlanController.toTreatmentPlanListWidget();
-                }),
-                SizedBox(height: ScreenConstant.sizeDefault),
-                TreatmentPlanListItem("Improve sleep", () {
-                  _treatmentPlanController.toTreatmentPlanListWidget();
-                }),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                ListView.builder(
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    itemCount:
+                    _treatmentPlanController.treatmentPlanItemData.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: [
+                          TreatmentPlanListItem(
+                              _treatmentPlanController
+                                  .treatmentPlanItemData[index]
+                                  .planName.tr, () {
+                            _treatmentPlanController.toTreatmentPlanListWidget(
+                                data: _treatmentPlanController
+                                    .treatmentPlanItemData[index]);
+                          }),
+                          SizedBox(height: ScreenConstant.sizeDefault),
+                        ],
+                      );
+                    }),
                 Text(
                   "Physician Prescribed Changes",
                   style: TextStyles.textStyleIntroDescription

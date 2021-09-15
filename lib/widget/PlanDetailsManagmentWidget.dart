@@ -8,7 +8,8 @@ class PlanDetailsManagementWidget extends StatelessWidget {
   final String title;
   final String heading;
   final String body;
-  PlanDetailsManagementWidget({this.body = "", this.heading = "", this.title = ""});
+  final List<dynamic> tags;
+  PlanDetailsManagementWidget({this.body = "", this.heading = "", this.title = "", this.tags});
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -36,12 +37,11 @@ class PlanDetailsManagementWidget extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                 horizontal: ScreenConstant
                     .defaultWidthTwenty,
+                vertical: ScreenConstant
+                    .defaultWidthTwenty,
               ),
               child: Column(
                 children: [
-                  SizedBox(
-                      height: ScreenConstant
-                          .defaultHeightForty),
                   Text(
                     heading,
                     style: TextStyles
@@ -67,39 +67,34 @@ class PlanDetailsManagementWidget extends StatelessWidget {
                         color: AppColors
                             .colorSkipButton),
                   ),
-                  _buildRelxTechniqueList(),
+                  Wrap(
+                    children: tags
+                        .map((item) => InkWell(
+                      onTap: null,
+                      child: Card(
+                        color: item.required
+                            ? AppColors.colorCloseLight
+                            : AppColors.colorSymptomsGridBg,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Padding(
+                          padding: ScreenConstant.spacingAllExtraSmall,
+                          child: Text(
+                            item.value,
+                            textAlign: TextAlign.center,
+                            //overflow: TextOverflow.ellipsis,
+                            style: TextStyles.textStyleRegular
+                                .apply(color: Colors.white, fontSizeDelta: -2),
+                          ),
+                        ),
+                      ),
+                    ))
+                        .toList()
+                        .cast<Widget>(),
+                  ),
                 ],
               )))
     ]);
-  }
-  _buildRelxTechniqueList() {
-    return GridView.builder(
-      padding: EdgeInsets.symmetric(
-          horizontal: ScreenConstant.sizeLarge,
-          vertical: ScreenConstant.defaultHeightTwentyFour),
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: DummyData.medicationList.length,
-      itemBuilder: (BuildContext context, int index) {
-        var model = DummyData.medicationList[index];
-        return Card(
-          color: AppColors.colorSymptomsGridBg,
-          shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-          child: Center(
-            child: Text(
-              model.title,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyles.textStyleRegular
-                  .apply(color: Colors.white, fontSizeDelta: -2),
-            ),
-          ),
-        );
-      },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, childAspectRatio: 3.5),
-    );
   }
 
 }

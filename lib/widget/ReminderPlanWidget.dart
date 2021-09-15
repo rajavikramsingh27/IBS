@@ -18,13 +18,13 @@ class ReminderPlanWidget extends StatelessWidget {
 
   const ReminderPlanWidget({
     Key key,
-    this.title = "",
-    this.childText = "",
+    this.title = "ABX",
+    this.childText = "af",
     this.valueReminder = false,
     this.valueChild = false,
     this.onChanged,
     this.onChangedChild,
-    this.editText = "",
+    this.editText = "Edit",
     this.onPressed,
   }) : super(key: key);
   @override

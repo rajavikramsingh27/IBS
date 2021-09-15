@@ -486,7 +486,7 @@ class Tags {
 
   bool userAddable;
   int limit;
-  List<Default> tagsDefault;
+  List<TagsDefault> tagsDefault;
   String autocompleteId;
   String source;
   Relation relation;
@@ -494,7 +494,7 @@ class Tags {
   factory Tags.fromJson(Map<String, dynamic> json) => Tags(
     userAddable: json["userAddable"] == null ? null : json["userAddable"],
     limit: json["limit"] == null ? null : json["limit"],
-    tagsDefault: json["default"] == null ? null : List<Default>.from(json["default"].map((x) => Default.fromJson(x))),
+    tagsDefault: json["default"] == null ? null : List<TagsDefault>.from(json["default"].map((x) => TagsDefault.fromJson(x))),
     autocompleteId: json["autocompleteId"] == null ? null : json["autocompleteId"],
     source: json["source"] == null ? null : json["source"],
     relation: json["relation"] == null ? null : Relation.fromJson(json["relation"]),
