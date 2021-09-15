@@ -82,18 +82,21 @@ class Profile {
     this.age,
     this.familyHistory,
     this.diagnosedIbs,
+    this.romeiv,
   });
 
   String sex;
   String age;
   String familyHistory;
   DiagnosedIbs diagnosedIbs;
+  Romeiv romeiv;
 
   factory Profile.fromJson(Map<String, dynamic> json) => Profile(
     sex: json["sex"],
     age: json["age"],
     familyHistory: json["familyHistory"],
     diagnosedIbs: DiagnosedIbs.fromJson(json["diagnosedIbs"]),
+    romeiv: Romeiv.fromJson(json["romeiv"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -101,30 +104,63 @@ class Profile {
     "age": age,
     "familyHistory": familyHistory,
     "diagnosedIbs": diagnosedIbs.toJson(),
+    "romeiv": romeiv.toJson(),
   };
 }
 
 class DiagnosedIbs {
   DiagnosedIbs({
     this.isDiagnosed,
-    this.id,
+    // this.id,
     this.ibsType,
   });
 
   bool isDiagnosed;
-  String id;
+  // String id;
   String ibsType;
 
   factory DiagnosedIbs.fromJson(Map<String, dynamic> json) => DiagnosedIbs(
     isDiagnosed: json["isDiagnosed"],
-    id: json["_id"],
+    // id: json["_id"],
     ibsType: json["ibsType"],
   );
 
   Map<String, dynamic> toJson() => {
     "isDiagnosed": isDiagnosed,
-    "_id": id,
+    // "_id": id,
     "ibsType": ibsType,
+  };
+}
+
+class Romeiv {
+  Romeiv({
+    this.abdominalPain,
+    this.abdominalPainTimeBowel,
+    this.abdominalPainBowelMoreLess,
+    this.abdominalPainBowelAppearDifferent,
+    this.stool,
+  });
+
+  bool abdominalPain;
+  bool abdominalPainTimeBowel;
+  bool abdominalPainBowelMoreLess;
+  bool abdominalPainBowelAppearDifferent;
+  String stool;
+
+  factory Romeiv.fromJson(Map<String, dynamic> json) => Romeiv(
+    abdominalPain: json["abdominalPain"],
+    abdominalPainTimeBowel: json["abdominalPainTimeBowel"],
+    abdominalPainBowelMoreLess: json["abdominalPainBowelMoreLess"],
+    abdominalPainBowelAppearDifferent: json["abdominalPainBowelAppearDifferent"],
+    stool: json["stool"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "abdominalPain": abdominalPain,
+    "abdominalPainTimeBowel": abdominalPainTimeBowel,
+    "abdominalPainBowelMoreLess": abdominalPainBowelMoreLess,
+    "abdominalPainBowelAppearDifferent": abdominalPainBowelAppearDifferent,
+    "stool": stool,
   };
 }
 
@@ -193,14 +229,14 @@ class Tracking {
     this.foods,
   });
 
-  List<Symptom> symptoms;
+  List<dynamic> symptoms;
   List<dynamic> bowelMovements;
   List<dynamic> medications;
   List<dynamic> healthWellness;
   List<dynamic> foods;
 
   factory Tracking.fromJson(Map<String, dynamic> json) => Tracking(
-    symptoms: List<Symptom>.from(json["symptoms"].map((x) => Symptom.fromJson(x))),
+    symptoms: List<dynamic>.from(json["symptoms"].map((x) => x)),
     bowelMovements: List<dynamic>.from(json["bowelMovements"].map((x) => x)),
     medications: json["medications"] == null ? null : List<dynamic>.from(json["medications"].map((x) => x)),
     healthWellness: List<dynamic>.from(json["healthWellness"].map((x) => x)),
@@ -208,42 +244,10 @@ class Tracking {
   );
 
   Map<String, dynamic> toJson() => {
-    "symptoms": List<dynamic>.from(symptoms.map((x) => x.toJson())),
+    "symptoms": List<dynamic>.from(symptoms.map((x) => x)),
     "bowelMovements": List<dynamic>.from(bowelMovements.map((x) => x)),
     "medications": medications == null ? null : List<dynamic>.from(medications.map((x) => x)),
     "healthWellness": List<dynamic>.from(healthWellness.map((x) => x)),
     "foods": List<dynamic>.from(foods.map((x) => x)),
-  };
-}
-
-class Symptom {
-  Symptom({
-    this.required,
-    this.userAdded,
-    this.id,
-    this.tid,
-    this.category,
-  });
-
-  bool required;
-  bool userAdded;
-  String id;
-  String tid;
-  String category;
-
-  factory Symptom.fromJson(Map<String, dynamic> json) => Symptom(
-    required: json["required"],
-    userAdded: json["userAdded"],
-    id: json["_id"],
-    tid: json["tid"],
-    category: json["category"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "required": required,
-    "userAdded": userAdded,
-    "_id": id,
-    "tid": tid,
-    "category": category,
   };
 }

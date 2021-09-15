@@ -112,6 +112,10 @@ class TrackingOptions extends StatelessWidget {
       itemCount: _controller.trackList.value.data?.length ?? 0,
       itemBuilder: (_, index) {
         var model = _controller.trackList.value.data[index];
+
+        print('model model model model model model model model ');
+        print(model.toJson());
+
         return Theme(
           data: Get.theme.copyWith(dividerColor: Colors.transparent),
           child: CustomExpansionTile(

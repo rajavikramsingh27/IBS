@@ -1,7 +1,5 @@
 
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/models/MyAccount/MyAccount.dart';
 
@@ -16,6 +14,9 @@ RxBool loader = false.obs;
 
 class MyAccountController extends GetxController {
 
+  RxString settingType = "".obs;
+
+  // ToDo Setting My Account variables
   RxBool loader = true.obs;
 
   TextEditingController emailController;
@@ -47,6 +48,24 @@ class MyAccountController extends GetxController {
 
   dynamic  data;
 
+
+  // ToDo Setting My IBS Diagnosis variables
+
+  RxInt pagecount = 0.obs;
+  RxInt pagecount2 = 0.obs;
+
+  RxBool isDiagnoisedIbs = true.obs;
+  RxBool checkBoxValue = false.obs;
+
+  RxInt selctedIbsType = 0.obs;
+  RxBool isDiagnoisedAbdominalPain = false.obs;
+  RxBool isabdominalPainTimeBowel = false.obs;
+  RxBool isabdominalPainBowelMoreLess = false.obs;
+  RxBool isabdominalPainBowelAppearDifferent = false.obs;
+  RxInt selectedStoolType = 0.obs;
+
+
+
   @override
   void onInit() async {
     super.onInit();
@@ -65,8 +84,12 @@ class MyAccountController extends GetxController {
         data = await ServiceApi().getUserList();
 
         loader.value = false;
+        if (settingType == '0') {
+          setUIDataMyAccount();
+        } else if (settingType == '1') {
+          setUIDataMyIBSDiagnosis();
+        }
 
-        setUIData();
       } catch (error) {
         CustomSnackBar().errorSnackBar(
             title: "Error!", message: error.message.toString()
@@ -80,7 +103,7 @@ class MyAccountController extends GetxController {
     }
   }
 
-  setUIData() {
+  setUIDataMyAccount() {
     if (data is MyAccountModel) {
       emailController.text = data.label;
       passwordController.text = '******* ';
@@ -116,24 +139,112 @@ class MyAccountController extends GetxController {
     }
   }
 
+  setUIDataMyIBSDiagnosis() {
+    final selctedIbs = getIbsType(data.profile.diagnosedIbs.ibsType);
+    selctedIbsType.value = selctedIbs;
+    selectIbsType(selctedIbsType.value);
+  }
+
   updateUser() async {
+    DiagnosedIbs diagnosedIbs = DiagnosedIbs(
+        isDiagnosed: data.profile.diagnosedIbs.isDiagnosed,
+        ibsType: selectIbsType(selctedIbsType.value)
+    ) ;
 
     Profile profileUser = Profile(
         sex: selectedGender.value,
         age: selectedAge.value,
         familyHistory: selectedIbsHistory.value,
-        diagnosedIbs: data.profile.diagnosedIbs,
+        diagnosedIbs: diagnosedIbs,
+        romeiv: data.profile.romeiv,
     );
 
-    Map hello = {'profile': profileUser.toJson()};
-    print(hello);
-    print('hellohellohellohellohellohello');
-
     data = await ServiceApi().updateUser(
-        bodyData: hello,
+        bodyData: profileUser.toJson(),
     );
 
   }
+
+  updateIBS() async {
+    DiagnosedIbs diagnosedIbs = DiagnosedIbs(
+      // id: data.profile.diagnosedIbs.id,
+        isDiagnosed: data.profile.diagnosedIbs.isDiagnosed,
+        ibsType: selectIbsType(selctedIbsType.value)
+    ) ;
+
+    Profile profileUser = Profile(
+      sex: data.profile.sex,
+      age: data.profile.age,
+      familyHistory: data.profile.familyHistory,
+      diagnosedIbs: diagnosedIbs,
+      // romeiv: data.profile.romeiv,
+    );
+
+    data = await ServiceApi().updateIBS(
+      bodyData: profileUser.toJson(),
+    );
+
+  }
+
+// ToDo Setting My IBS Diagnosis functions
+
+  getIbsType(String selectectedIBS) {
+    switch (selectectedIBS) {
+      case 'c':
+        return 0;
+        break;
+      case 'd':
+        return 1;
+        break;
+      case 'm':
+        return 2;
+        break;
+      case 'u':
+        return 3;
+        break;
+      default:
+        return 4;
+    }
+  }
+
+  selectIbsType(int index) {
+    switch (index) {
+      case 0:
+        return "c";
+        break;
+      case 1:
+        return "d";
+        break;
+      case 2:
+        return "m";
+        break;
+      case 3:
+        return "u";
+        break;
+      default:
+        return "idk";
+    }
+  }
+
+  selectStoolType(int index) {
+    switch (index) {
+      case 0:
+        return 'constipated';
+        break;
+      case 1:
+        return 'diarrhea';
+        break;
+      case 2:
+        return 'normal';
+        break;
+      case 3:
+        return 'both';
+        break;
+      default:
+        return "null";
+    }
+  }
+
 
 }
 

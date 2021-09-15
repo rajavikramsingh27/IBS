@@ -1,5 +1,6 @@
 
 
+import 'package:flutter_ibs/controllers/MyAccount/MyAccountController.dart';
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseModel.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart';
 import 'package:flutter_ibs/models/MyAccount/MyAccount.dart';
@@ -16,6 +17,8 @@ import 'package:flutter_ibs/models/tags/TagsResponseModel.dart';
 import 'package:flutter_ibs/models/track_history/TrackHistoryResponseModel.dart';
 import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/url.dart';
+
+import 'package:get/get.dart';
 
 
 class ServiceApi {
@@ -198,21 +201,46 @@ class ServiceApi {
   }
 
   Future<dynamic> updateUser({Map bodyData}) async {
-    print('bodyDatabodyDatabodyDatabodyDatabodyData');
-    print({'profile':bodyData});
+    final  MyAccountController _controller = Get.put(MyAccountController());
 
-    var result = await CoreService().apiService(
+    final data = {
+      'profile':bodyData,
+      'label' : _controller.emailController.text
+    };
+
+    print(data);
+
+    final result = await CoreService().apiService(
         method: METHOD.PATCH,
-        endpoint: USERS, data: bodyData,
+        endpoint: USERS,
+      data: data,
     )  .catchError((error) {
       print(error.message.toString());
+      Get.snackbar("Sorry", error.message.toString());
+    }).then((value)  {
+      Get.snackbar("Success!", "Profile updated.");
     });
 
-    print('resultresultresultresultresultresultresultresultresult');
-    print(result);
     return MyAccountModel.fromJson(result);
   }
 
+  Future<dynamic> updateIBS({Map bodyData}) async {
+
+    final data = {'profile':bodyData,};
+    print(data);
+    final result = await CoreService().apiService(
+      method: METHOD.PATCH,
+      endpoint: USERS,
+      data: data,
+    )  .catchError((error) {
+      print(error.message.toString());
+      Get.snackbar("Sorry", error.message.toString());
+    }).then((value)  {
+      Get.snackbar("Success!", "IBS Diagnosis updated.");
+    });
+
+    return MyAccountModel.fromJson(result);
+  }
 
 }
 

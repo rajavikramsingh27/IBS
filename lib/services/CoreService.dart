@@ -39,6 +39,8 @@ class CoreService {
                 serviceName: endpoint, objectId: objectId
             );
 
+            print('responseresponseresponseresponseresponseresponse');
+            print(response);
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
