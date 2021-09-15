@@ -87,7 +87,7 @@ class TreatmentPlanListWidget extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               var model = data.additionalResources[index];
               return TreatmentPlanListItem(model.name.tr, () {
-                Get.to(TreatmentPlanListWidgetDetails(
+                Get.to(()=>TreatmentPlanListWidgetDetails(
                   details: model.details,
                   title: data.planName.tr,
                 ));

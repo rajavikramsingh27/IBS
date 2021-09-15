@@ -37,9 +37,6 @@ class TreatmentPlanController extends GetxController {
       loader.value = true;
       await ServiceApi().getTreatmentPlan().then((value) {
         treatmentPlanItemData.value = value.data;
-        // listCategory.add("cat-lifestyle_dietary_changes");
-        // listCategory.add("cat-lifestyle_dietary_changes");
-
         treatmentPlanItemData.forEach((element) {
           listCategory.add(element.planCategory);
         });
@@ -47,11 +44,9 @@ class TreatmentPlanController extends GetxController {
       loader.value = false;
     }
   }
+  toTreatmentPlanListWidget({TreatmentPlanItemData data}){
+    Get.to(()=>TreatmentPlanListWidget(data: data,));
 
-  toTreatmentPlanListWidget({TreatmentPlanItemData data}) {
-    Get.to(TreatmentPlanListWidget(
-      data: data,
-    ));
   }
 
   category(String value) {
