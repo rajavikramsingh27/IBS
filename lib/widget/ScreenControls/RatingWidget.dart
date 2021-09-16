@@ -41,9 +41,7 @@ class _RatingWidgetState extends State<RatingWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isLast){
-      print("CHILD! " + widget.trackableItem.tid);
-    }
+
     return Stack(
       children: [
         Positioned.fill(

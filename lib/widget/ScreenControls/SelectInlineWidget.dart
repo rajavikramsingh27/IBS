@@ -6,14 +6,14 @@ import 'package:flutter_ibs/widget/DropDownList.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
 
-class SelectWidget extends StatefulWidget {
+class SelectInlineWidget extends StatefulWidget {
   final TrackableItem trackableItem;
   final bool isFirst;
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
 
-  const SelectWidget({
+  const SelectInlineWidget({
     //Key key,
     this.trackableItem,
     this.isFirst,
@@ -23,10 +23,10 @@ class SelectWidget extends StatefulWidget {
   }) : super();
 
   @override
-  _SelectWidgetState createState() => _SelectWidgetState();
+  _SelectInlineWidgetState createState() => _SelectInlineWidgetState();
 }
 
-class _SelectWidgetState extends State<SelectWidget> {
+class _SelectInlineWidgetState extends State<SelectInlineWidget> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -51,7 +51,7 @@ class _SelectWidgetState extends State<SelectWidget> {
           child: Container(
             padding: EdgeInsets.symmetric(
                 horizontal:
-                    widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
+                widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
                 vertical: 1),
             child: Column(
               children: [
@@ -89,16 +89,16 @@ class _SelectWidgetState extends State<SelectWidget> {
                       flex: 1,
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                        EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                         decoration: BoxDecoration(
                             color: AppColors.colordropdownArrowBg,
                             borderRadius: BorderRadius.all(Radius.circular(8))),
                         child: CustomDropdown<SelectOption>(
                           value:
-                              widget.trackableItem.select.selectDefault.label !=
-                                      null
-                                  ? widget.trackableItem.select.selectDefault
-                                  : widget.trackableItem.select.options.first,
+                          widget.trackableItem.select.selectDefault.label !=
+                              null
+                              ? widget.trackableItem.select.selectDefault
+                              : widget.trackableItem.select.options.first,
                           dropdownMenuItemList: buildDropList(
                               widget.trackableItem.select.options),
                           onChanged: (SelectOption optionItem) {
