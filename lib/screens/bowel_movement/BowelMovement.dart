@@ -99,7 +99,7 @@ class BowelMovement extends StatelessWidget {
                               physics: ClampingScrollPhysics(),
                               itemCount: controller.formWidgetList.length,
                               itemBuilder: (_, mainIndex) {
-                                bool isFist = mainIndex == 0;
+                                bool isFirst = mainIndex == 0;
                                 bool isLast = false;
                                 int listLength = controller.formWidgetList.length;
 
@@ -113,7 +113,7 @@ class BowelMovement extends StatelessWidget {
                                 if (mainIndex > 0){
                                   TrackableItem previous = controller.formWidgetList[mainIndex - 1];
                                   if (previous.style == TrackableStyle.WHITE_WHITE || previous.style == TrackableStyle.BLUE_WHITE){
-                                    isFist = true;
+                                    isFirst = true;
                                   }
                                 }
 
@@ -126,7 +126,7 @@ class BowelMovement extends StatelessWidget {
 
                                 return RenderWidgetByType().renderTrackableItem(
                                     controller.formWidgetList[mainIndex],
-                                    isFirst: isFist,
+                                    isFirst: isFirst,
                                     isLast: isLast,
                                     onValueChanged: controller.valueChanged
                                 );
@@ -219,11 +219,14 @@ class BowelMovement extends StatelessWidget {
                           value: data.rating.ratingDefault,
                           onChanged: (dynamic newValue) {
                             data.rating.ratingDefault = newValue;
+                            /*
                             controller.initModel(
                                 data: data,
                                 dType: "num",
                                 value: data.rating.ratingDefault);
                             _signUpController.bowelMovements.refresh();
+                            */
+
                           },
                           labelFormatterCallback:
                               (dynamic actualValue, String formattedText) {

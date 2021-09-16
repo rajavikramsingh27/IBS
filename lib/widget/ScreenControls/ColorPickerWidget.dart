@@ -48,7 +48,7 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
         ),
       ),
       Card(
-          color: AppColors.white,
+          color: AppColors.colorBackground,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(widget.isFirst ? 20 : 0),
@@ -59,63 +59,100 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
             left: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
             right: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
           ),
-          child: Container(
+          child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.sizeXL,
-                vertical: ScreenConstant.defaultHeightTwentyFour),
-            child: Column(
-              children: [
-                Text(widget.trackableItem.name.tr,
-                    style: TextStyles.textStyleIntroDescription
-                        .apply(color: Colors.black, fontSizeDelta: -3)),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: widget.trackableItem.color.options.length ?? 0,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {
-                        widget.trackableItem.color.colorDefault =
-                            widget.trackableItem.color.options[index];
-                      },
-                      child: widget.trackableItem.color.colorDefault.value ==
-                              widget.trackableItem.color.options[index].value
-                          ? CircleAvatar(
-                              radius: 20,
-                              backgroundColor: AppColors.colordropdownArrow,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColors.fromHex(widget
+                vertical: ScreenConstant.defaultHeightTwenty),
+            child: Column(children: [
+              Card(
+                color: AppColors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20))),
+                margin: EdgeInsets.only(
+                  left: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
+                  right: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ScreenConstant.sizeXL,
+                      vertical: ScreenConstant.defaultHeightTwentyFour),
+                  child: Column(
+                    children: [
+                      Text(widget.trackableItem.name.tr,
+                          style: TextStyles.textStyleIntroDescription
+                              .apply(color: Colors.black, fontSizeDelta: -3)),
+                      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                    /*  Text(
+                        widget.trackableItem.color.,
+                        textAlign: TextAlign.center,
+                        style: TextStyles.textStyleRegular.apply(),
+                      ),
+                      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),*/
+                      GridView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount:
+                            widget.trackableItem.color.options.length ?? 0,
+                        itemBuilder: (BuildContext context, int index) {
+                          return InkWell(
+                            onTap: () {
+                              setState(() {
+                                widget.trackableItem.color.colorDefault =
+                                widget.trackableItem.color.options[index];
+                              });
+
+                            },
+                            child: widget.trackableItem.color.colorDefault
+                                        .value ==
+                                    widget.trackableItem.color.options[index]
+                                        .value
+                                ? CircleAvatar(
+                                    radius: 30,
+                                    backgroundColor:
+                                        AppColors.colordropdownArrow,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppColors.fromHex(widget
+                                              .trackableItem
+                                              .color
+                                              .options[index]
+                                              .hex)),
+                                      width: ScreenConstant.sizeXL,
+                                    ),
+                                  )
+                                : CircleAvatar(
+                                    radius: 30,
+                                    backgroundColor: AppColors.fromHex(widget
                                         .trackableItem
                                         .color
                                         .options[index]
-                                        .hex)),
-                                width: ScreenConstant.sizeXL,
-                              ),
-                            )
-                          : CircleAvatar(
-                              radius: 20,
-                              backgroundColor: AppColors.fromHex(widget
-                                  .trackableItem.color.options[index].hex),
-                            ),
-                    );
-                  },
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      crossAxisCount: 3,
-                      childAspectRatio: 2.4),
+                                        .hex),
+                                  ),
+                          );
+                        },
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            mainAxisSpacing: 20,
+                            crossAxisSpacing: 20,
+                            crossAxisCount: 3,
+                            childAspectRatio: 1.4),
+                      ),
+
+                      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                    ],
+                  ),
                 ),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                Text(
-                  widget.trackableItem.description.tr,
-                  textAlign: TextAlign.center,
-                  style: TextStyles.textStyleRegular.apply(),
-                ),
-              ],
-            ),
+              ),
+              SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+              Visibility(
+                  visible: true,// !widget.isChild && !widget.isLast,
+                  child: Divider(
+                      thickness: 1,
+                      color: AppColors.white.withOpacity(0.12))),
+            ]),
           ))
     ]);
   }
