@@ -85,12 +85,12 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                           style: TextStyles.textStyleIntroDescription
                               .apply(color: Colors.black, fontSizeDelta: -3)),
                       SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                    /*  Text(
-                        widget.trackableItem.color.,
+                      Text(
+                       /* widget.trackableItem.color.value,
                         textAlign: TextAlign.center,
-                        style: TextStyles.textStyleRegular.apply(),
+                        style: TextStyles.textStyleRegular.apply(),*/
                       ),
-                      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),*/
+                      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                       GridView.builder(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -103,7 +103,13 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                                 widget.trackableItem.color.colorDefault =
                                 widget.trackableItem.color.options[index];
                               });
-
+                              widget.onValueChanged(TrackableSubmitItem(
+                                tid: widget.trackableItem.tid,
+                                category: widget.trackableItem.category,
+                                kind: widget.trackableItem.kind,
+                                dtype: "str",
+                                value: widget.trackableItem.color.value,
+                              ));
                             },
                             child: widget.trackableItem.color.colorDefault
                                         .value ==
