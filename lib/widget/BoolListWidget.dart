@@ -11,7 +11,7 @@ class BoolListWidget extends StatefulWidget {
   final EdgeInsetsGeometry gridPadding;
   final Function(bool) onChanged;
   final bool value;
-  final dataList;
+  final List<dynamic> dataList;
   final String listText;
 
   BoolListWidget(
@@ -50,7 +50,7 @@ class _BoolListWidgetState extends State<BoolListWidget> {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           ListView.separated(
-            itemCount: widget.itemCount,
+            itemCount: widget.dataList.length,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {

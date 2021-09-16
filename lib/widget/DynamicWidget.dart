@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/CopyOnlyWidget.dart';
 import 'package:flutter_ibs/widget/GridImageCommonWidget.dart.dart';
 import 'package:flutter_ibs/widget/GridTextCommonWidget.dart';
 import 'package:flutter_ibs/widget/RatingWidget.dart';
 import 'package:get/get.dart';
 
 import 'AdditionalNoteWidget.dart';
+import 'BoolListWidget.dart';
 import 'DropDownList.dart';
 
 class DynamicWidget extends StatefulWidget {
@@ -193,12 +196,20 @@ class _DynamicWidgetState extends State<DynamicWidget> {
             break;
           case "boolList":
             {
-              return Offstage();
+              return BoolListWidget(
+                title: widget.data[index].name,
+                description: widget.data[index].description,
+                dataList: widget.data[index].boolList.boolListDefault,
+              );
             }
             break;
           case "copyOnly":
             {
-              return Offstage();
+              return CopyOnlyWidget(
+                title: widget.data[index].name,
+                description: widget.data[index].description,
+                dataList: widget.data[index].copyOnly,
+              );
             }
             break;
 
