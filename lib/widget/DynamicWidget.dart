@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
-import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
@@ -14,6 +13,7 @@ import 'package:get/get.dart';
 import 'AdditionalNoteWidget.dart';
 import 'BoolListWidget.dart';
 import 'DropDownList.dart';
+import 'HeadingWidget.dart';
 
 class DynamicWidget extends StatefulWidget {
   final List<dynamic> data;
@@ -209,6 +209,14 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                 title: widget.data[index].name,
                 description: widget.data[index].description,
                 dataList: widget.data[index].copyOnly,
+              );
+            }
+            break;
+          case "heading":
+            {
+              return HeadingWidget(
+                title: widget.data[index].name,
+                description: widget.data[index].description,
               );
             }
             break;
