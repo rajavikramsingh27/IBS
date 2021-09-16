@@ -91,12 +91,17 @@ class Health extends StatelessWidget {
                                     physics: ClampingScrollPhysics(),
                                     itemCount: controller.formWidgetList.length,
                                     itemBuilder: (_, mainIndex) {
+                                      var isLast = false;
+
+                                      if (mainIndex ==  (controller.formWidgetList.length - 2)
+                                          || mainIndex ==  (controller.formWidgetList.length - 1 )){
+                                        // If it's the last one or two... because additional notes could be after.
+                                        isLast = true;
+                                      }
                                       return RenderWidgetByType().renderTrackableItem(
                                           controller.formWidgetList[mainIndex],
                                           isFirst: mainIndex == 0,
-                                          isLast: mainIndex ==
-                                              (controller.formWidgetList.length -
-                                                  1),
+                                          isLast: isLast,
                                           onValueChanged: controller.valueChanged
                                       );
                                     }),
