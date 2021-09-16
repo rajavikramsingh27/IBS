@@ -8,6 +8,7 @@ import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
+import 'dart:convert';
 
 RxBool loader = false.obs;
 
@@ -159,8 +160,33 @@ class MyAccountController extends GetxController {
         romeiv: data.profile.romeiv,
     );
 
+    // Map mapProfile = {
+    //   "profile": {
+    //     "sex": "f",
+    //     "age": "30-39",
+    //     "familyHistory": "yes",
+    //     "diagnosedIbs": {
+    //       "isDiagnosed": true,
+    //       "ibsType": "c"
+    //     },
+    //     "romeiv": {
+    //       "abdominalPain": true,
+    //       "abdominalPainTimeBowel": true,
+    //       "abdominalPainBowelMoreLess": true,
+    //       "abdominalPainBowelAppearDifferent": true,
+    //       "stool": "constipated"
+    //     }
+    //   },
+    //   "label": "hello@gmail.com"
+    // };
+
+    Map mapProfile = {"profile":{"sex":"f","age":"30-39","familyHistory":"yes","diagnosedIbs":{"isDiagnosed":true,"ibsType":"c"},"romeiv":{"abdominalPain":true,"abdominalPainTimeBowel":true,"abdominalPainBowelMoreLess":true,"abdominalPainBowelAppearDifferent":true,"stool":"constipated"}},"label":"hello@gmail.com"};
+
+     final mapString = json.encode(mapProfile);
+     print(mapString);
+
     data = await ServiceApi().updateUser(
-        bodyData: profileUser.toJson(),
+        bodyData: mapProfile,
     );
 
   }
