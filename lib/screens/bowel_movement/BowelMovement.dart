@@ -12,13 +12,14 @@ import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomSwitch.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
+import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class BowelMovement extends StatelessWidget {
-  final _bowelMovementController = Get.put(BowelMovementController());
+  final controller = Get.put(BowelMovementController());
   final SignUpController _signUpController = Get.find();
 
   @override
@@ -32,12 +33,12 @@ class BowelMovement extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             SizedBox(height: ScreenConstant.defaultHeightTen),
-            _bowelMovementController.loader.value
+            controller.loader.value
                 ? Offstage()
                 : CustomElevatedButton(
                     widthFactor: 0.7,
                     text: "Save",
-                    onTap: _bowelMovementController.onSave,
+                    onTap: controller.onSave,
                   ),
             TextButton(
                 onPressed: () {
@@ -52,12 +53,12 @@ class BowelMovement extends StatelessWidget {
       ),
       backgroundColor: AppColors.barrierColor.withOpacity(0.6),
       body: Obx(
-        () => ListView(
+            () => ListView(
           physics: ClampingScrollPhysics(),
           children: [
             Padding(
               padding:
-                  EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
+              EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
               child: Stack(
                 children: [
                   Padding(
@@ -67,170 +68,53 @@ class BowelMovement extends StatelessWidget {
                       margin: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24),
-                        topRight: Radius.circular(24),
-                      )),
+                            topLeft: Radius.circular(24),
+                            topRight: Radius.circular(24),
+                          )),
                       child: Column(
                         children: [
                           SizedBox(height: ScreenConstant.defaultHeightSixty),
                           Text(
-                            _signUpController.bowelMovements.value.items
-                                .elementAt(2)
-                                .name
-                                .tr,
-                            style: TextStyles.textStyleIntroDescription
-                                .apply(color: Colors.black, fontSizeDelta: -2),
+                            "Track Bowel Movements",
+                            style: TextStyles.textStyleIntroDescription.apply(
+                                color: Colors.black, fontSizeDelta: -2),
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(height: ScreenConstant.defaultHeightForty),
                           DateTimeCardWidget(),
-                          SizedBox(
-                              height: ScreenConstant.defaultHeightForty * 1.25),
-                          _bowelMovementController.loader.value
+                          SizedBox(height: ScreenConstant.defaultHeightForty),
+                          controller.loader.value
                               ? Center(
-                                  child: Padding(
-                                  padding: ScreenConstant.spacingAllLarge,
-                                  child: Container(
-                                      height: ScreenConstant.screenHeightThird,
-                                      child: Center(
-                                          child: CircularProgressIndicator())),
-                                ))
+                              child: Padding(
+                                padding: ScreenConstant.spacingAllLarge,
+                                child: Container(
+                                    height:
+                                    ScreenConstant.screenHeightThird,
+                                    child: Center(
+                                        child:
+                                        CircularProgressIndicator())),
+                              ))
                               : ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: ClampingScrollPhysics(),
-                                  itemCount: _signUpController
-                                      .bowelMovements.value.items.length,
-                                  itemBuilder: (_, index) {
-                                    switch (_signUpController.bowelMovements
-                                        .value.items[index].tid) {
-                                      case "bowelMovements-notes":
-                                        {
-                                          return AdditionalNoteWidget(
-                                            textEditingController:
-                                                _bowelMovementController
-                                                    .noteTextController,
-                                            text: _signUpController
-                                                .bowelMovements.value.items
-                                                .elementAt(4)
-                                                .name
-                                                .tr,
-                                          );
-                                        }
-                                        break;
+                              shrinkWrap: true,
+                              physics: ClampingScrollPhysics(),
+                              itemCount: controller.formWidgetList.length,
+                              itemBuilder: (_, mainIndex) {
+                                var isLast = false;
 
-                                      case "bowelMovements-consistency":
-                                        {
-                                          return _buildBowelTypeSlider(
-                                              data: _signUpController
-                                                  .bowelMovements
-                                                  .value
-                                                  .items[index]);
-                                        }
-                                        break;
-                                      case "bowelMovements-urgency":
-                                        {
-                                          return Stack(
-                                            children: [
-                                              Positioned.fill(
-                                                top: ScreenConstant
-                                                    .defaultHeightOneHundred,
-                                                //bottom: ScreenConstant.defaultHeightOneHundred,
-                                                child: Container(
-                                                  color:
-                                                      AppColors.colorYesButton,
-                                                ),
-                                              ),
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                    left: ScreenConstant
-                                                        .sizeMedium,
-                                                    right: ScreenConstant
-                                                        .sizeMedium),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20)),
-                                                child: _buildUrgency(
-                                                    data: _signUpController
-                                                        .bowelMovements
-                                                        .value
-                                                        .items[index]),
-                                              ),
-                                            ],
-                                          );
-                                        }
-                                        break;
-                                      case "bowelMovements-color":
-                                        {
-                                          return Stack(
-                                            children: [
-                                              Positioned.fill(
-                                                top: 0,
-                                                bottom: 0,
-                                                child: Container(
-                                                  color:
-                                                      AppColors.colorYesButton,
-                                                ),
-                                              ),
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                    left: ScreenConstant
-                                                        .sizeMedium,
-                                                    right: ScreenConstant
-                                                        .sizeMedium),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                ),
-                                                child: _buildColorPortion(
-                                                    data: _signUpController
-                                                        .bowelMovements
-                                                        .value
-                                                        .items[index]),
-                                              ),
-                                            ],
-                                          );
-                                        }
-                                        break;
-                                      case "bowelMovements-relief":
-                                        {
-                                          return Stack(
-                                            children: [
-                                              Positioned.fill(
-                                                //top: ScreenConstant.defaultHeightOneHundred,
-                                                bottom: ScreenConstant
-                                                    .defaultHeightOneHundred,
-                                                child: _buildWavePainter(),
-                                              ),
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                    left: ScreenConstant
-                                                        .sizeMedium,
-                                                    right: ScreenConstant
-                                                        .sizeMedium),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20)),
-                                                child: _buildRelief(
-                                                    data: _signUpController
-                                                        .bowelMovements
-                                                        .value
-                                                        .items[index]),
-                                              ),
-                                            ],
-                                          );
-                                        }
-                                        break;
-
-                                      default:
-                                        {
-                                          return Offstage();
-                                        }
-                                        break;
-                                    }
-                                  }),
+                                if (mainIndex ==  (controller.formWidgetList.length - 2)
+                                    || mainIndex ==  (controller.formWidgetList.length - 1 )){
+                                  // If it's the last one or two... because additional notes could be after.
+                                  isLast = true;
+                                }
+                                return RenderWidgetByType().renderTrackableItem(
+                                    controller.formWidgetList[mainIndex],
+                                    isFirst: mainIndex == 0,
+                                    isLast: isLast,
+                                    onValueChanged: controller.valueChanged
+                                );
+                              }),
+                          SizedBox(
+                              height: ScreenConstant.defaultHeightTwenty),
                         ],
                       ),
                     ),
@@ -338,7 +222,7 @@ class BowelMovement extends StatelessWidget {
                 value: data.rating.ratingDefault,
                 onChanged: (dynamic newValue) {
                   data.rating.ratingDefault = newValue;
-                  _bowelMovementController.initModel(
+                  controller.initModel(
                       data: data,
                       dType: "num",
                       value: data.rating.ratingDefault);
@@ -423,7 +307,7 @@ class BowelMovement extends StatelessWidget {
                           value: data.rating.ratingDefault,
                           onChanged: (dynamic newValue) {
                             data.rating.ratingDefault = newValue;
-                            _bowelMovementController.initModel(
+                            controller.initModel(
                                 data: data,
                                 dType: "num",
                                 value: data.rating.ratingDefault);
@@ -475,7 +359,7 @@ class BowelMovement extends StatelessWidget {
               return InkWell(
                 onTap: () {
                   data.color.colorDefault = data.color.options[index];
-                  _bowelMovementController.initModel(
+                  controller.initModel(
                       data: data,
                       dType: "str",
                       value: data.color.options[index].value);
@@ -588,7 +472,7 @@ class BowelMovement extends StatelessWidget {
                           value: data.rating.ratingDefault,
                           onChanged: (dynamic newValue) {
                             data.rating.ratingDefault = newValue;
-                            _bowelMovementController.initModel(
+                            controller.initModel(
                               data: data,
                               dType: "num",
                               value: data.rating.ratingDefault,
@@ -656,7 +540,7 @@ class BowelMovement extends StatelessWidget {
                                         onChanged: (val) {
                                           data.children.first.items[index]
                                               .toggle.toggleDefault = val;
-                                          _bowelMovementController.initSubModel(
+                                          controller.initSubModel(
                                               data: data
                                                   .children.first.items[index],
                                               dType: "bool",

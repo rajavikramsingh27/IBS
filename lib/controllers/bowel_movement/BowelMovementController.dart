@@ -14,11 +14,17 @@ class BowelMovementController extends GetxController {
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   TextEditingController noteTextController = TextEditingController();
-  SignUpController _signUpController = Get.find();
+ // SignUpController _signUpController = Get.find();
   RxBool loader = false.obs;
 
   RxBool switchValue = true.obs;
   Rx<BowelMovementsModel> bowelMovementsModel = BowelMovementsModel().obs;
+
+  SignUpController _signUpController = Get.find();
+
+  RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
+  RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
+
 
   onTapped(int index) async {
     currentIndex.value = index;
@@ -28,7 +34,44 @@ class BowelMovementController extends GetxController {
   void onInit() {
     super.onInit();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+    _signUpController
+        .bowelMovements.value.items.forEach((element) {
+      formWidgetList.add(element);
+    });
+
+    // Refresh the local list so the form can generate:
+    formWidgetList.refresh();
+    _selectedItems = RxList<TrackableSubmitItem>();
+    super.onInit();
+    // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
+
+  valueChanged(TrackableSubmitItem submitItem){
+    var count = _selectedItems.length;
+    bool isAdded = false;
+    for(var i=0; i < count; i++) {
+      if (_selectedItems[i].tid == submitItem.tid) {
+        _selectedItems[i] = submitItem;
+        isAdded = true;
+        break;
+      }
+    }
+
+    if (!isAdded){
+      _selectedItems.add(submitItem);
+    }
+
+
+/*
+    print ('-------');
+    _selectedItems.forEach((element) {
+      print(element.toJson());
+    });
+
+ */
+  }
+
+
   onSave() async {
     if (bowelMovementsModel.value.items == null) {
       bowelMovementsModel.value.items = [];
