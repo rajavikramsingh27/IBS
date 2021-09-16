@@ -60,9 +60,9 @@ class ReminderWidget extends StatelessWidget {
         DynamicWidget(
           data: data,
         ),
-        SizedBox(height: ScreenConstant.defaultHeightTen),
-        ShowMoreWidget(text: "Add Reminder",onTap:
-          _treatmentPlanController.addReminder,
+        ShowMoreWidget(
+          text: "Add Reminder",
+          onTap: _treatmentPlanController.addReminder,
         )
       ],
     );
