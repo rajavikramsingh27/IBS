@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import 'AdditionalNoteWidget.dart';
 import 'BoolListWidget.dart';
 import 'DropDownList.dart';
+import 'HeadingWidget.dart';
 
 class DynamicWidget extends StatefulWidget {
   final List<dynamic> data;
@@ -209,6 +210,14 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                 title: widget.data[index].name,
                 description: widget.data[index].description,
                 dataList: widget.data[index].copyOnly,
+              );
+            }
+            break;
+          case "heading":
+            {
+              return HeadingWidget(
+                title: widget.data[index].name,
+                description: widget.data[index].description,
               );
             }
             break;
