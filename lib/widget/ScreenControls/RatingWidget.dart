@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/ScreenControls/RenderItemChildrenWidget.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
@@ -129,6 +130,7 @@ class _RatingWidgetState extends State<RatingWidget> {
                       onChanged: (dynamic newValue) {
                         setState(() {
                           _currentValue = newValue;
+                          widget.trackableItem.rating.value = newValue;
                         });
 
                         widget.onValueChanged(TrackableSubmitItem(
@@ -152,6 +154,13 @@ class _RatingWidgetState extends State<RatingWidget> {
                       },
                     ),
                   ),
+                ),
+                RenderItemChildrenWidget(
+                  trackableItem: widget.trackableItem,
+                  isChild: true,
+                  isFirst: false,
+                  isLast: false,
+                  onValueChanged: widget.onValueChanged,
                 ),
                 SizedBox(height: ScreenConstant.defaultHeightTwenty,
                     width: 800),

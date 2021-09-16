@@ -7,7 +7,7 @@ import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart'
 import 'package:get/get.dart';
 
 
-class SelectWidget extends StatelessWidget {
+class SelectWidget extends StatefulWidget {
   final TrackableItem trackableItem;
   final bool isFirst;
   final bool isLast;
@@ -23,55 +23,77 @@ class SelectWidget extends StatelessWidget {
     this.onValueChanged,
   }) : super();
 
+
+  @override
+  _SelectWidgetState createState() => _SelectWidgetState();
+}
+
+class _SelectWidgetState extends State<SelectWidget> {
+
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Text(trackableItem.name.tr,
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.white, fontSizeDelta: -6)),
-            ),
-            Container(
-              width: ScreenConstant.sizeSmall,
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                decoration: BoxDecoration(
-                    color: AppColors.colordropdownArrowBg,
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: CustomDropdown<SelectOption>(
-                  value: trackableItem.select.selectDefault.label != null
-                      ? trackableItem.select.selectDefault
-                      : trackableItem.select.options.first,
-                  dropdownMenuItemList:
-                  buildDropList(trackableItem.select.options),
-                  onChanged: (SelectOption optionItem) {/*
-                    trackableItem.select.selectDefault = optionItem;
-                    _healthWellnessController.onSleepQualityTapped(
-                        tid: trackableItem.tid,
-                        kind: trackableItem.kind,
-                        quality: optionItem.value);
-                    _signUpController.healthWellness.refresh();
-                  */},
-                  isEnabled: true,
-                ),
+    return Container(
+      color:  AppColors.colorBackground,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Text(widget.trackableItem.name.tr,
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.white, fontSizeDelta: -6)),
               ),
-            )
-          ],
-        ),
-        Container(
-          height: ScreenConstant.sizeXL,
-        ),
-        Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
-        SizedBox(height: ScreenConstant.defaultHeightTwenty),
-      ],
+              Container(
+                width: ScreenConstant.sizeSmall,
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                  decoration: BoxDecoration(
+                      color: AppColors.colordropdownArrowBg,
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  child: CustomDropdown<SelectOption>(
+                    value: widget.trackableItem.select.selectDefault.label != null
+                        ? widget.trackableItem.select.selectDefault
+                        : widget.trackableItem.select.options.first,
+                    dropdownMenuItemList:
+                    buildDropList(widget.trackableItem.select.options),
+                    onChanged: (SelectOption optionItem) {
+                      setState(() {
+                        widget.trackableItem.select.selectDefault = optionItem;
+                      });
+
+                      /*
+                      _healthWellnessController.onSleepQualityTapped(
+                          tid: trackableItem.tid,
+                          kind: trackableItem.kind,
+                          quality: optionItem.value);
+                      _signUpController.healthWellness.refresh();
+                    */},
+                    isEnabled: true,
+                  ),
+                ),
+              )
+            ],
+          ),
+          Visibility(
+            visible: !widget.isChild,
+            child: Container(
+              height: ScreenConstant.sizeXL,
+            ),
+          ),
+          Visibility(
+              visible: !widget.isChild,
+              child: Divider(
+                  thickness: 1,
+                  color: AppColors.white.withOpacity(0.12))),
+          SizedBox(height: ScreenConstant.defaultHeightTwenty),
+        ],
+      ),
     );
   }
 

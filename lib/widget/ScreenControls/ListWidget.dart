@@ -47,11 +47,11 @@ class _ListWidgetState extends State<ListWidget> {
         Container(
           color: AppColors.colorBackground,
           margin: EdgeInsets.only(
-            left: ScreenConstant.defaultWidthTwenty,
-            right: ScreenConstant.defaultWidthTwenty,
+            left: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
+            right: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
           ),
           padding: EdgeInsets.symmetric(
-              horizontal: ScreenConstant.defaultWidthTwenty),
+              horizontal: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty),
           child: Column(
             children: [
               SizedBox(height: ScreenConstant.defaultHeightForty),
@@ -71,7 +71,7 @@ class _ListWidgetState extends State<ListWidget> {
               SizedBox(height: ScreenConstant.defaultHeightTwenty),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: ScreenConstant.defaultWidthTen),
+                    horizontal: widget.isChild ? 0 : ScreenConstant.defaultWidthTen),
                 child: GridView.builder(
                   //   padding: EdgeInsets.symmetric(
                   //       horizontal: ScreenConstant.defaultWidthTwenty),
