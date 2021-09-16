@@ -21,7 +21,7 @@ class ReminderWidget extends StatelessWidget {
 
   final Function(bool) onChanged;
   final Function(bool) onChangedChild;
-  final TreatmentPlanController controller = Get.find();
+  final TreatmentPlanController _treatmentPlanController = Get.find();
   final String editText;
   final List<Trackable> data;
   ReminderWidget({
@@ -61,7 +61,9 @@ class ReminderWidget extends StatelessWidget {
           data: data,
         ),
         SizedBox(height: ScreenConstant.defaultHeightTen),
-        ShowMoreWidget(text: "Add Reminder",)
+        ShowMoreWidget(text: "Add Reminder",onTap:
+          _treatmentPlanController.addReminder,
+        )
       ],
     );
   }

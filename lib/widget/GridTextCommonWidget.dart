@@ -61,7 +61,7 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
                       onTap: (){
                         setState(() {
                           item.required = !item.required;
-
+                          _treatmentPlanController.onTagTapped(model: item);
                         });
                       },
                       child: Card(

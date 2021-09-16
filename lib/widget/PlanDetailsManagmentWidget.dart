@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:get/get.dart';
 
 class PlanDetailsManagementWidget extends StatelessWidget {
   final String title;
@@ -66,7 +67,7 @@ class PlanDetailsManagementWidget extends StatelessWidget {
                         color: AppColors
                             .colorSkipButton),
                   ),
-                  Wrap(
+                  Obx(()=>Wrap(
                     children: tags
                         .map((item) => InkWell(
                       onTap: null,
@@ -90,7 +91,7 @@ class PlanDetailsManagementWidget extends StatelessWidget {
                     ))
                         .toList()
                         .cast<Widget>(),
-                  ),
+                  ),),
                 ],
               )))
     ]);
