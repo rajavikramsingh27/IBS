@@ -99,16 +99,34 @@ class BowelMovement extends StatelessWidget {
                               physics: ClampingScrollPhysics(),
                               itemCount: controller.formWidgetList.length,
                               itemBuilder: (_, mainIndex) {
-                                var isLast = false;
+                                bool isFist = mainIndex == 0;
+                                bool isLast = false;
+                                int listLength = controller.formWidgetList.length;
 
-                                if (mainIndex ==  (controller.formWidgetList.length - 2)
-                                    || mainIndex ==  (controller.formWidgetList.length - 1 )){
+                                if (mainIndex ==  (listLength - 2)
+                                    || mainIndex ==  (listLength - 1 )){
                                   // If it's the last one or two... because additional notes could be after.
                                   isLast = true;
                                 }
+
+                                // Check for above/below class:
+                                if (mainIndex > 0){
+                                  TrackableItem previous = controller.formWidgetList[mainIndex - 1];
+                                  if (previous.style == TrackableStyle.WHITE_WHITE || previous.style == TrackableStyle.BLUE_WHITE){
+                                    isFist = true;
+                                  }
+                                }
+
+                                if (mainIndex < listLength-1){
+                                  TrackableItem next = controller.formWidgetList[mainIndex + 1];
+                                  if (next.style == TrackableStyle.WHITE_WHITE || next.style == TrackableStyle.BLUE_WHITE){
+                                    isLast = true;
+                                  }
+                                }
+
                                 return RenderWidgetByType().renderTrackableItem(
                                     controller.formWidgetList[mainIndex],
-                                    isFirst: mainIndex == 0,
+                                    isFirst: isFist,
                                     isLast: isLast,
                                     onValueChanged: controller.valueChanged
                                 );
@@ -129,113 +147,7 @@ class BowelMovement extends StatelessWidget {
     );
   }
 
-  _buildBowelTypeSlider({TrackableItem data}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTen),
-      child: Column(
-        children: [
-          Text(
-            data.name.tr,
-            style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.black, fontSizeDelta: -2),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.5),
-          Center(
-            child: Stack(
-              children: [
-                getImage(
-                    item: data
-                        .rating.options[data.rating.ratingDefault.toInt() - 1]),
-                Positioned(
-                  bottom: 0,
-                  left: ScreenConstant.defaultWidthTwenty,
-                  right: ScreenConstant.defaultWidthTwenty,
-                  child: Container(
-                    height: ScreenConstant.defaultHeightTwenty,
-                    width: ScreenConstant.sizeXXXL,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: AppColors.colorButton,
-                    ),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ScreenConstant.sizeExtraSmall, vertical: 1),
-                    child: FittedBox(
-                      fit: BoxFit.contain,
-                      child: Text("Type ${data.rating.ratingDefault.toInt()}",
-                          textAlign: TextAlign.center,
-                          style: TextStyles.textStyleIntroDescription
-                              .apply(color: Colors.white, fontSizeDelta: -9)),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: ScreenConstant.sizeMedium),
-          getDesc(
-              item: data.rating.options[data.rating.ratingDefault.toInt() - 1]),
-          SizedBox(height: ScreenConstant.sizeMedium),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTen),
-            child: SfSliderTheme(
-              data: SfSliderThemeData(
-                  thumbColor: AppColors.colorArrowButton,
-                  thumbStrokeWidth: 5,
-                  thumbRadius: 16,
-                  thumbStrokeColor: AppColors.colorBackground,
-                  activeTrackHeight: 4,
-                  overlayRadius: 0,
-                  disabledActiveTrackColor: AppColors.colorTrackSlider,
-                  disabledInactiveTrackColor: AppColors.colorTrackSlider,
-                  activeDividerStrokeWidth: 2,
-                  inactiveDividerStrokeWidth: 2,
-                  inactiveTrackHeight: 4,
-                  activeTrackColor: AppColors.colorTrackSlider,
-                  inactiveTrackColor: AppColors.colorTrackSlider,
-                  inactiveDividerStrokeColor: AppColors.colorTrackSlider,
-                  inactiveDividerRadius: 8,
-                  inactiveDividerColor: AppColors.white,
-                  activeDividerColor: AppColors.white,
-                  activeDividerStrokeColor: AppColors.colorTrackSlider,
-                  activeDividerRadius: 8,
-                  activeLabelStyle: TextStyles.textStyleRegular,
-                  inactiveLabelStyle: TextStyles.textStyleRegular),
-              child: SfSlider(
-                showDividers: true,
-                min: 1.0,
-                max: data.rating.range ?? 2,
-                interval: 1,
-                stepSize: 1,
-                showLabels: true,
-                labelFormatterCallback:
-                    (dynamic actualValue, String formattedText) {
-                  if (actualValue == 1.0) {
-                    return "Type 1";
-                  }
-                  if (actualValue == data.rating.range) {
-                    return "Type ${data.rating.range}";
-                  }
-                  return "";
-                },
-                value: data.rating.ratingDefault,
-                onChanged: (dynamic newValue) {
-                  data.rating.ratingDefault = newValue;
-                  controller.initModel(
-                      data: data,
-                      dType: "num",
-                      value: data.rating.ratingDefault);
-                  _signUpController.bowelMovements.refresh();
-                },
-              ),
-            ),
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightForty),
-        ],
-      ),
-    );
-  }
+
 
   _buildUrgency({TrackableItem data}) {
     return Container(
@@ -341,65 +253,7 @@ class BowelMovement extends StatelessWidget {
   }
 
   _buildColorPortion({TrackableItem data}) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: ScreenConstant.sizeXL,
-          vertical: ScreenConstant.defaultHeightTwentyFour),
-      child: Column(
-        children: [
-          Text(data.name.tr,
-              style: TextStyles.textStyleIntroDescription
-                  .apply(color: Colors.black, fontSizeDelta: -3)),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-          GridView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: data.color.options.length ?? 0,
-            itemBuilder: (BuildContext context, int index) {
-              return InkWell(
-                onTap: () {
-                  data.color.colorDefault = data.color.options[index];
-                  controller.initModel(
-                      data: data,
-                      dType: "str",
-                      value: data.color.options[index].value);
-                  _signUpController.bowelMovements.refresh();
-                },
-                child: data.color.colorDefault.value ==
-                        data.color.options[index].value
-                    ? CircleAvatar(
-                        radius: 20,
-                        backgroundColor: AppColors.colordropdownArrow,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColors.fromHex(
-                                  data.color.options[index].hex)),
-                          width: ScreenConstant.sizeXL,
-                        ),
-                      )
-                    : CircleAvatar(
-                        radius: 20,
-                        backgroundColor:
-                            AppColors.fromHex(data.color.options[index].hex),
-                      ),
-              );
-            },
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                crossAxisCount: 3,
-                childAspectRatio: 2.4),
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-          Text(
-            data.description.tr,
-            textAlign: TextAlign.center,
-            style: TextStyles.textStyleRegular.apply(),
-          ),
-        ],
-      ),
-    );
+
   }
 
   _buildRelief({TrackableItem data}) {
@@ -592,25 +446,6 @@ class BowelMovement extends StatelessWidget {
     );
   }
 
-  getImage({RatingOption item}) {
-    Widget image = FadeInImage(
-      width: ScreenConstant.defaultWidthOneHundredSeven,
-      height: ScreenConstant.defaultHeightOneHundred,
-      image: NetworkImage(item.image.normal),
-      placeholder: NetworkImage(BLANK_PLACEHOLDER),
-      imageErrorBuilder: (context, error, stackTrace) {
-        return Image.network(BLANK_PLACEHOLDER,
-            width: ScreenConstant.defaultWidthOneHundredSeven,
-            height: ScreenConstant.defaultHeightOneHundred,
-            fit: BoxFit.fitWidth);
-      },
-      fit: BoxFit.fitWidth,
-    );
-    return image;
-  }
 
-  getDesc({RatingOption item}) {
-    return Text(item.description.tr ?? "",
-        textAlign: TextAlign.center, style: TextStyles.textStyleRegular);
-  }
+
 }

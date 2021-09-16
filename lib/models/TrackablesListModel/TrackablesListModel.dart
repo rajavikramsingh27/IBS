@@ -1472,11 +1472,12 @@ class RatingValidation {
       };
 }
 
-enum TrackableStyle { PURPLE_BLUE, WHITE_WHITE, BLUE_BLUE }
+enum TrackableStyle { PURPLE_BLUE, WHITE_WHITE, BLUE_BLUE, BLUE_WHITE }
 final trackableStyleValues = EnumValues({
   "BLUE_BLUE": TrackableStyle.BLUE_BLUE,
   "PURPLE_BLUE": TrackableStyle.PURPLE_BLUE,
-  "WHITE_WHITE": TrackableStyle.WHITE_WHITE
+  "WHITE_WHITE": TrackableStyle.WHITE_WHITE,
+  "BLUE_WHITE": TrackableStyle.BLUE_WHITE
 });
 
 enum PurpleStyle { PURPLE_BLUE, WHITE_WHITE, BLUE_BLUE }

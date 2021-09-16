@@ -1,3 +1,5 @@
+import 'package:flutter_ibs/widget/ScreenControls/BristolScaleWidget.dart';
+import 'package:flutter_ibs/widget/ScreenControls/ColorPickerWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/FixedTagListWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/GroupWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/ListWidget.dart';
@@ -105,6 +107,26 @@ class RenderWidgetByType {
       case "numberInput":
         {
           return NumberInputWidget(
+              trackableItem: trackableItem,
+              onValueChanged: onValueChanged,
+              isFirst: isFirst,
+              isLast: isLast,
+              isChild: isChild
+          );
+        }
+      case "bristolScale":
+        {
+          return BristolScaleWidget(
+              trackableItem: trackableItem,
+              onValueChanged: onValueChanged,
+              isFirst: isFirst,
+              isLast: isLast,
+              isChild: isChild
+          );
+        }
+      case "color":
+        {
+          return ColorPickerWidget(
               trackableItem: trackableItem,
               onValueChanged: onValueChanged,
               isFirst: isFirst,
