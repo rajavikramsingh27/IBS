@@ -24,7 +24,7 @@ class DynamicWidget extends StatefulWidget {
 }
 
 class _DynamicWidgetState extends State<DynamicWidget> {
-  final TreatmentPlanController controller = Get.find();
+  final TreatmentPlanController _treatmentPlanController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +40,7 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                 bottomText: "",
                 messageText: widget.data[index].name,
                 hintText: "It's time to...",
+                textEditingController: _treatmentPlanController.noteTextController,
               );
             }
             break;
@@ -98,10 +99,12 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                           "23:00",
                           "24:00",
                         ]),
-                        onChanged: (optionItem) {
+                        onChanged: (String optionItem) {
                           setState(() {
                             widget.data[index].timePicker.timePickerDefault =
                                 optionItem;
+                            _treatmentPlanController.selectedTimeHours.value = optionItem.split(":").first;
+                            _treatmentPlanController.selectedTimeMinutes.value = optionItem.split(":").last;
                           });
                         },
                         isEnabled: true,

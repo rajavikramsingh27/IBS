@@ -3,6 +3,7 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomSwitch.dart';
+import 'package:get/get.dart';
 
 class ReminderPlanWidget extends StatelessWidget {
   final String title;
@@ -60,10 +61,10 @@ class ReminderPlanWidget extends StatelessWidget {
                   SizedBox(height: ScreenConstant.defaultHeightTen),
                   Divider(
                       thickness: 1, color: AppColors.white.withOpacity(0.12)),
-                  ListView.separated(
+                  Obx(()=>ListView.separated(
                     itemCount: listData.length,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: ClampingScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
                       return Row(
                         children: [
@@ -94,7 +95,7 @@ class ReminderPlanWidget extends StatelessWidget {
                     },
                     separatorBuilder: (BuildContext context, int index) =>
                         Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
-                  ),
+                  ),),
                   SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 ],
               )))

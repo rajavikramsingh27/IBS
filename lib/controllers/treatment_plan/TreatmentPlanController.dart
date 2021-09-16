@@ -18,8 +18,13 @@ class TreatmentPlanController extends GetxController {
 
   RxList<TagsDefault> selectedTags = <TagsDefault>[].obs;
   Rx<String> selectedCategory = "".obs;
+  Rx<String> selectedTimeHours = "".obs;
+  Rx<String> selectedTimeMinutes = "".obs;
+
   RxList<Reminder> reminderList = <Reminder>[].obs;
   RxSet<String> listCategory = <String>{}.obs;
+  TextEditingController noteTextController = TextEditingController();
+
   @override
   void onInit() async {
     super.onInit();
@@ -51,5 +56,18 @@ class TreatmentPlanController extends GetxController {
 
   category(String value) {
     selectedCategory.value = value;
+  }
+
+  void onTagTapped({TagsDefault model}) {
+    if(selectedTags.contains(model)){
+      selectedTags.remove(model);
+    }else{
+      selectedTags.add(model);
+    }
+
+  }
+
+  void addReminder() {
+    reminderList.add(Reminder(message: noteTextController.text,));
   }
 }
