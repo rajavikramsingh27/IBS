@@ -59,11 +59,14 @@ class _ListWidgetState extends State<ListWidget> {
                   style: TextStyles.textStyleIntroDescription
                       .apply(color: Colors.white, fontSizeDelta: -3)),
               SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-              Text(
-                widget.trackableItem.description.tr,
-                textAlign: TextAlign.center,
-                style: TextStyles.textStyleRegular
-                    .apply(color: AppColors.colorSkipButton),
+              Visibility(
+                visible: widget.trackableItem.description.tr != "",
+                child: Text(
+                  widget.trackableItem.description.tr,
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleRegular
+                      .apply(color: AppColors.colorSkipButton),
+                ),
               ),
               SizedBox(height: ScreenConstant.defaultHeightTwenty),
               Padding(

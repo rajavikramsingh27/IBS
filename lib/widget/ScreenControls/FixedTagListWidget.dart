@@ -78,7 +78,7 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
                       .map((item) => InkWell(
                     onTap: () {
                       _onHandleToggle(widget.trackableItem, item);
-                      
+
                     },
                     child: Card(
                       color: item.selected
