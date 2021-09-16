@@ -88,7 +88,7 @@ class StartTreatmentPlan extends StatelessWidget {
                             widthFactor: 0.7,
                             onTap: () {},
                             textColor: AppColors.colorTextStop,
-                            text: data.startButton.tr,
+                            text: data.stopPlan.tr,
                             buttonColor: AppColors.white,
                           ),
                           SizedBox(
@@ -119,31 +119,6 @@ class StartTreatmentPlan extends StatelessWidget {
                                           ),
                                           child: Column(
                                             children: [
-                                              // SizedBox(
-                                              //     height: ScreenConstant
-                                              //         .defaultHeightTwenty),
-                                              // Text(data.trackables.,
-                                              //     textAlign: TextAlign.center,
-                                              //     style: TextStyles
-                                              //         .textStyleIntroDescription
-                                              //         .apply(
-                                              //             color: Colors.white,
-                                              //             fontSizeDelta: -3)),
-                                              // SizedBox(
-                                              //     height: ScreenConstant
-                                              //         .defaultHeightTen),
-                                              // Text(
-                                              //   widget.description,
-                                              //   textAlign: TextAlign.center,
-                                              //   style: TextStyles
-                                              //       .textStyleRegular
-                                              //       .apply(
-                                              //           color: AppColors
-                                              //               .colorSkipButton),
-                                              // ),
-                                              // SizedBox(
-                                              //     height: ScreenConstant
-                                              //         .defaultHeightTwentyFour),
                                               DynamicWidget(
                                                 data: data.trackables,
                                               ),
