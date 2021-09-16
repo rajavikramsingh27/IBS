@@ -3,9 +3,10 @@ import 'package:flutter_ibs/widget/ScreenControls/GroupWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/ListWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/NumberInputWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RatingWidget.dart';
+import 'package:flutter_ibs/widget/ScreenControls/SelectInlineWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/SelectWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/TextInputWidget.dart';
-import 'package:flutter_ibs/widget/ScreenControls/TimePickerWidget.dart';
+import 'package:flutter_ibs/widget/ScreenControls/TimePickerInlineWidget.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter/material.dart';
 
@@ -71,6 +72,16 @@ class RenderWidgetByType {
           );
         }
         break;
+      case "selectInline":
+        {
+          return SelectInlineWidget(
+              trackableItem: trackableItem,
+              isFirst: isFirst,
+              isLast: isLast,
+              isChild: isChild
+          );
+        }
+        break;
       case "textInput":
         {
           return TextInputWidget(
@@ -81,9 +92,9 @@ class RenderWidgetByType {
           );
         }
         break;
-      case "timePicker":
+      case "timePickerInline":
         {
-          return TimePickerWidget(
+          return TimePickerInlineWidget(
               trackableItem: trackableItem,
               onValueChanged: onValueChanged,
               isFirst: isFirst,

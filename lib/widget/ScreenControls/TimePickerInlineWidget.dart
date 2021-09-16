@@ -6,14 +6,14 @@ import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart'
 import 'package:get/get.dart';
 
 
-class TimePickerWidget extends StatefulWidget {
+class TimePickerInlineWidget extends StatefulWidget {
   final TrackableItem trackableItem;
   final bool isFirst;
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
 
-  const TimePickerWidget({
+  const TimePickerInlineWidget({
     //Key key,
     this.trackableItem,
     this.isFirst,
@@ -24,10 +24,10 @@ class TimePickerWidget extends StatefulWidget {
 
 
   @override
-  _TimePickerWidgetState createState() => _TimePickerWidgetState();
+  _TimePickerInlineWidgetState createState() => _TimePickerInlineWidgetState();
 }
 
-class _TimePickerWidgetState extends State<TimePickerWidget> {
+class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
 
   TimeOfDay _selectedTime;
 
