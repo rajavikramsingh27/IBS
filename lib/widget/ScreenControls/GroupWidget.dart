@@ -72,6 +72,7 @@ class GroupWidget extends StatelessWidget {
                       physics: ClampingScrollPhysics(),
                       itemCount: trackableItem.children.first.items.length,
                       itemBuilder: (_, count) {
+                        // TODO: This is only rendering the first child for now.
                         return RenderWidgetByType().renderTrackableItem(
                           trackableItem.children.first.items[count],
                           isChild: true,

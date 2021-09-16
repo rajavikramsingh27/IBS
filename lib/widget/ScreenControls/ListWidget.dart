@@ -3,6 +3,7 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:flutter_ibs/widget/ScreenControls/RenderItemChildrenWidget.dart';
 import 'package:get/get.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
 
@@ -120,18 +121,18 @@ class _ListWidgetState extends State<ListWidget> {
                       crossAxisCount: 3, childAspectRatio: 1),
                 ),
               ),
-              ListView.builder(
-                  shrinkWrap: true,
-                  physics: ClampingScrollPhysics(),
-                  itemCount: widget.trackableItem.children.first.items.length,
-                  itemBuilder: (_, idx) {
-                    var item = widget.trackableItem.children.first.items[idx];
-                    var render = RenderWidgetByType().renderTrackableItem(item,
-                        isChild: true, onValueChanged: widget.onValueChanged);
-                    return render;
-                  }),
+              RenderItemChildrenWidget(
+                trackableItem: widget.trackableItem,
+                isChild: true,
+                isFirst: false,
+                isLast: false,
+              ),
               SizedBox(height: ScreenConstant.defaultHeightTwenty),
-              Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
+              Visibility(
+                  visible: !widget.isChild,
+                  child: Divider(
+                      thickness: 1,
+                      color: AppColors.white.withOpacity(0.12))),
             ],
           ),
         ),

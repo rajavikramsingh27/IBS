@@ -58,7 +58,7 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
               horizontal: ScreenConstant.defaultWidthTwenty),
           child: Column(
             children: [
-              SizedBox(height: ScreenConstant.defaultHeightForty),
+              SizedBox(height: ScreenConstant.defaultHeightTwenty),
               Text(widget.trackableItem.name.tr,
                   style: TextStyles.textStyleIntroDescription
                       .apply(color: Colors.white, fontSizeDelta: -3)),
@@ -78,11 +78,7 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
                       .map((item) => InkWell(
                     onTap: () {
                       _onHandleToggle(widget.trackableItem, item);
-                      /*
-                      _healthWellnessController.onRelaxTapped(
-                          tid: trackableItem.tid,
-                          kind: trackableItem.kind,
-                          model: item);*/
+                      
                     },
                     child: Card(
                       color: item.selected
@@ -107,7 +103,11 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
                 ),
               ),
               SizedBox(height: ScreenConstant.defaultHeightTwenty),
-              Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
+              Visibility(
+                  visible: !widget.isChild,
+                  child: Divider(
+                      thickness: 1,
+                      color: AppColors.white.withOpacity(0.12))),
             ],
           ),
         ),
