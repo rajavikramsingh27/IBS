@@ -188,6 +188,16 @@ class _DynamicWidgetState extends State<DynamicWidget> {
               );
             }
             break;
+          case "boolList":
+            {
+              return Offstage();
+            }
+            break;
+          case "copyOnly":
+            {
+              return Offstage();
+            }
+            break;
 
           default:
             {

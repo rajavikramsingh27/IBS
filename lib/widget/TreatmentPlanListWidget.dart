@@ -61,7 +61,12 @@ class TreatmentPlanListWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
-          TreatmentPlanListItem(data.planDescription.tr, () {}),
+          TreatmentPlanListItem(data.planDescription.tr, () {
+            Get.to(()=>TreatmentPlanListWidgetDetails(
+              details: data.planDetails.details,
+              title: data.planDetails.name.tr,
+            ));
+          }),
           SizedBox(height: ScreenConstant.defaultHeightSixteen),
           CustomElevatedButton(
             text: data.startButton.tr,
