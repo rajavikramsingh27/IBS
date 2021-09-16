@@ -143,12 +143,12 @@ class _RatingWidgetState extends State<RatingWidget> {
                       labelFormatterCallback:
                           (dynamic actualValue, String formattedText) {
                         return actualValue == 1
-                            ? "None"
+                            ? widget.trackableItem.rating.labels.min
                             : actualValue == 2
                             ? ""
                             : actualValue == 3
                             ? ""
-                            : "Extremely";
+                            :  widget.trackableItem.rating.labels.max;
                       },
                     ),
                   ),
