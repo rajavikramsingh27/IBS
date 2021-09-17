@@ -147,18 +147,22 @@ class MyAccountController extends GetxController {
   }
 
   updateUser() async {
-    DiagnosedIbs diagnosedIbs = DiagnosedIbs(
-        isDiagnosed: data.profile.diagnosedIbs.isDiagnosed,
-        ibsType: selectIbsType(selctedIbsType.value)
-    ) ;
-
     Profile profileUser = Profile(
-        sex: selectedGender.value,
-        age: selectedAge.value,
-        familyHistory: selectedIbsHistory.value,
-        diagnosedIbs: diagnosedIbs,
-        romeiv: data.profile.romeiv,
+      sex: selectedGender.value,
+      age: selectedAge.value,
+      familyHistory: selectedIbsHistory.value,
+      diagnosedIbs: data.profile.diagnosedIbs,
     );
+
+
+
+    // Profile profileUser = Profile(
+    //     sex: selectedGender.value,
+    //     age: selectedAge.value,
+    //     familyHistory: selectedIbsHistory.value,
+    //     diagnosedIbs: diagnosedIbs,
+    //     romeiv: data.profile.romeiv,
+    // );
 
     // Map mapProfile = {
     //   "profile": {
@@ -180,13 +184,14 @@ class MyAccountController extends GetxController {
     //   "label": "hello@gmail.com"
     // };
 
-    Map mapProfile = {"profile":{"sex":"f","age":"30-39","familyHistory":"yes","diagnosedIbs":{"isDiagnosed":true,"ibsType":"c"},"romeiv":{"abdominalPain":true,"abdominalPainTimeBowel":true,"abdominalPainBowelMoreLess":true,"abdominalPainBowelAppearDifferent":true,"stool":"constipated"}},"label":"hello@gmail.com"};
+    Map<String, dynamic> mapProfile = {"profile":{"sex":"f","age":"30-39","familyHistory":"yes","diagnosedIbs":{"isDiagnosed":true,"ibsType":"c"},"romeiv":{"abdominalPain":true,"abdominalPainTimeBowel":true,"abdominalPainBowelMoreLess":true,"abdominalPainBowelAppearDifferent":true,"stool":"constipated"}},"label":"hello@gmail.com"};
 
-     final mapString = json.encode(mapProfile);
-     print(mapString);
+     // final mapString = json.encode(mapProfile);
+     // print(mapString);
 
     data = await ServiceApi().updateUser(
-        bodyData: mapProfile,
+        // bodyData: mapProfile,
+      bodyData: profileUser.toJson(),
     );
 
   }

@@ -203,17 +203,31 @@ class ServiceApi {
   Future<dynamic> updateUser({Map bodyData}) async {
     final  MyAccountController _controller = Get.put(MyAccountController());
 
-    // final data = {
+    // Map<String, dynamic> data = {
     //   'profile':bodyData,
     //   'label' : _controller.emailController.text
     // };
 
-    // print(data);
+
+    Map<String, dynamic> data = {
+      "profile": {
+        "sex": "f",
+        "age": "30-39",
+        "familyHistory": "yes",
+        "diagnosedIbs": {
+          "isDiagnosed": true,
+          "ibsType": "c"
+        }
+      }
+    };
+
+    print(data);
 
     final result = await CoreService().apiService(
         method: METHOD.PATCH,
         endpoint: USERS,
-      data: bodyData,
+      // objectId: '4d41ab9a695021519bccee17cf3cba5dcc1902d8',
+      data: data,
     )  .catchError((error) {
       print(error.message.toString());
       Get.snackbar("Sorry", error.message.toString());

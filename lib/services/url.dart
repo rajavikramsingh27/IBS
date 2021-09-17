@@ -13,7 +13,7 @@ const MEDICATIONS = "/user/medications";
 const TRACKHISTORY = "/user/history";
 
 //  Settings
-const USERS = '/users/me';
+const USERS = '/users';
 const TRACK_HISTORY = "/user/history";
 const LANG = "/lang";
 const TAGS = "/user/tags";

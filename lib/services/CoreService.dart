@@ -7,6 +7,8 @@ import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/url.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
+import 'dart:convert';
+
 
 class CoreService {
   static final CoreService _default = new CoreService._internal();
@@ -32,6 +34,7 @@ class CoreService {
       method,
       password,
       username}) async {
+
     switch (method) {
       case METHOD.GET: {
           try {
@@ -39,8 +42,8 @@ class CoreService {
                 serviceName: endpoint, objectId: objectId
             );
 
-            print('responseresponseresponseresponseresponseresponse');
-            print(response);
+            // print('responseresponseresponseresponseresponseresponse');
+            // print(response);
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
@@ -224,9 +227,11 @@ class CoreService {
           // Get.dialog(Center(child: CircularProgressIndicator()),
           //     barrierDismissible: false);
 
+          final jsonData = json.encode(data);
+
           try {
             final response = await flutterFeathersjs.patch(
-                objectId: objectId, serviceName: endpoint, data: data
+                objectId: objectId, serviceName: endpoint, data: jsonData
             );
 
             return response;
@@ -248,7 +253,9 @@ class CoreService {
           } catch (er) {
             // Catch  unknown error
 
+            print(er.message.toString());
           }
+
         }
         break;
       case METHOD.AUTHENTICATE:
