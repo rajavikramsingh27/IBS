@@ -43,13 +43,17 @@ class RenderWidgetByType {
         break;
       case "tags":
         {
-          return FixedTagListWidget(
-              trackableItem: trackableItem,
-              onValueChanged: onValueChanged,
-              isFirst: isFirst,
-              isLast: isLast,
-              isChild: isChild
-          );
+          if (trackableItem.tags.userAddable == false) {
+            return FixedTagListWidget(
+                trackableItem: trackableItem,
+                onValueChanged: onValueChanged,
+                isFirst: isFirst,
+                isLast: isLast,
+                isChild: isChild
+            );
+          }else{
+            print("User addable tags");
+          }
         }
         break;
       case "group":
