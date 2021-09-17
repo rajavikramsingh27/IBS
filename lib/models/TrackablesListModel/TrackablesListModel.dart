@@ -1270,10 +1270,12 @@ class ModelColor {
   ModelColor({
     this.colorDefault,
     this.options,
+    this.value,
   });
 
   ColorOption colorDefault;
   List<ColorOption> options;
+  ColorOption value;
 
   factory ModelColor.fromJson(Map<String, dynamic> json) => ModelColor(
         colorDefault: json["default"] == null ? ColorOption() : json["default"],
@@ -1281,6 +1283,7 @@ class ModelColor {
             ? null
             : List<ColorOption>.from(
                 json["options"].map((x) => ColorOption.fromJson(x))),
+        value: json["value"] == null ? json["default"] : json["value"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -1288,6 +1291,7 @@ class ModelColor {
         "options": options == null
             ? null
             : List<dynamic>.from(options.map((x) => x.toJson())),
+        "value": value,
       };
 }
 

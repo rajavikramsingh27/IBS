@@ -83,12 +83,12 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                     children: [
                       Text(widget.trackableItem.name.tr,
                           style: TextStyles.textStyleIntroDescription
-                              .apply(color: Colors.black, fontSizeDelta: -3)),
+                              .apply(color: Colors.black)),// fontSizeDelta: -1)),
                       SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                      Text(
-                       /* widget.trackableItem.color.value,
+                   Text(
+                        widget.trackableItem.color.value == null ? "" : widget.trackableItem.color.value.description,
                         textAlign: TextAlign.center,
-                        style: TextStyles.textStyleRegular.apply(),*/
+                        style: TextStyles.textStyleRegular.apply(),
                       ),
                       SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                       GridView.builder(
@@ -100,7 +100,7 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                           return InkWell(
                             onTap: () {
                               setState(() {
-                                widget.trackableItem.color.colorDefault =
+                                widget.trackableItem.color.value =
                                 widget.trackableItem.color.options[index];
                               });
                               widget.onValueChanged(TrackableSubmitItem(
