@@ -15,9 +15,9 @@ class PostTreatmentPlanSendModel {
 
   String pid;
   String category;
-  List<TrackingDefault> trackingDefaults;
+  List<TrackingSendData> trackingDefaults;
   List<dynamic> tags;
-  List<Reminder> reminders;
+  List<ReminderSet> reminders;
 
   factory PostTreatmentPlanSendModel.fromRawJson(String str) =>
       PostTreatmentPlanSendModel.fromJson(json.decode(str));
@@ -30,15 +30,15 @@ class PostTreatmentPlanSendModel {
         category: json["category"] == null ? null : json["category"],
         trackingDefaults: json["trackingDefaults"] == null
             ? null
-            : List<TrackingDefault>.from(json["trackingDefaults"]
-                .map((x) => TrackingDefault.fromJson(x))),
+            : List<TrackingSendData>.from(json["trackingDefaults"]
+                .map((x) => TrackingSendData.fromJson(x))),
         tags: json["tags"] == null
             ? null
             : List<dynamic>.from(json["tags"].map((x) => x)),
         reminders: json["reminders"] == null
             ? null
-            : List<Reminder>.from(
-                json["reminders"].map((x) => Reminder.fromJson(x))),
+            : List<ReminderSet>.from(
+                json["reminders"].map((x) => ReminderSet.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -54,12 +54,12 @@ class PostTreatmentPlanSendModel {
       };
 }
 
-class Reminder {
-  Reminder({
+class ReminderSet {
+  ReminderSet({
     this.day,
     this.time,
     this.message,
-    this.enabled,
+    this.enabled = true,
   });
 
   String day;
@@ -67,12 +67,12 @@ class Reminder {
   String message;
   bool enabled;
 
-  factory Reminder.fromRawJson(String str) =>
-      Reminder.fromJson(json.decode(str));
+  factory ReminderSet.fromRawJson(String str) =>
+      ReminderSet.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Reminder.fromJson(Map<String, dynamic> json) => Reminder(
+  factory ReminderSet.fromJson(Map<String, dynamic> json) => ReminderSet(
         day: json["day"] == null ? null : json["day"],
         time: json["time"] == null ? null : json["time"],
         message: json["message"] == null ? null : json["message"],
@@ -87,8 +87,8 @@ class Reminder {
       };
 }
 
-class TrackingDefault {
-  TrackingDefault({
+class TrackingSendData {
+  TrackingSendData({
     this.tid,
     this.category,
     this.kind,
@@ -100,20 +100,22 @@ class TrackingDefault {
   String category;
   String kind;
   String dtype;
-  Value value;
+  TrackingValue value;
 
-  factory TrackingDefault.fromRawJson(String str) =>
-      TrackingDefault.fromJson(json.decode(str));
+  factory TrackingSendData.fromRawJson(String str) =>
+      TrackingSendData.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory TrackingDefault.fromJson(Map<String, dynamic> json) =>
-      TrackingDefault(
+  factory TrackingSendData.fromJson(Map<String, dynamic> json) =>
+      TrackingSendData(
         tid: json["tid"] == null ? null : json["tid"],
         category: json["category"] == null ? null : json["category"],
         kind: json["kind"] == null ? null : json["kind"],
         dtype: json["dtype"] == null ? null : json["dtype"],
-        value: json["value"] == null ? null : Value.fromJson(json["value"]),
+        value: json["value"] == null
+            ? null
+            : TrackingValue.fromJson(json["value"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -125,8 +127,8 @@ class TrackingDefault {
       };
 }
 
-class Value {
-  Value({
+class TrackingValue {
+  TrackingValue({
     this.str,
     this.arr,
   });
@@ -134,11 +136,12 @@ class Value {
   String str;
   String arr;
 
-  factory Value.fromRawJson(String str) => Value.fromJson(json.decode(str));
+  factory TrackingValue.fromRawJson(String str) =>
+      TrackingValue.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Value.fromJson(Map<String, dynamic> json) => Value(
+  factory TrackingValue.fromJson(Map<String, dynamic> json) => TrackingValue(
         str: json["str"] == null ? null : json["str"],
         arr: json["arr"] == null ? null : json["arr"],
       );

@@ -397,7 +397,7 @@ class TreatmentPlan {
   List<RelaxationTechnique> trackables;
   List<dynamic> trackingDefaults;
   List<RelaxationTechnique> tags;
-  List<Reminder> reminders;
+  List<ReminderResponseData> reminders;
   DateTime updatedAt;
   DateTime createdAt;
 
@@ -423,8 +423,8 @@ class TreatmentPlan {
                 json["tags"].map((x) => RelaxationTechnique.fromJson(x))),
         reminders: json["reminders"] == null
             ? null
-            : List<Reminder>.from(
-                json["reminders"].map((x) => Reminder.fromJson(x))),
+            : List<ReminderResponseData>.from(
+                json["reminders"].map((x) => ReminderResponseData.fromJson(x))),
         updatedAt: json["updatedAt"] == null
             ? null
             : DateTime.parse(json["updatedAt"]),
@@ -454,8 +454,8 @@ class TreatmentPlan {
       };
 }
 
-class Reminder {
-  Reminder({
+class ReminderResponseData {
+  ReminderResponseData({
     this.id,
     this.day,
     this.hour,
@@ -471,12 +471,12 @@ class Reminder {
   String message;
   bool enabled;
 
-  factory Reminder.fromRawJson(String str) =>
-      Reminder.fromJson(json.decode(str));
+  factory ReminderResponseData.fromRawJson(String str) =>
+      ReminderResponseData.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Reminder.fromJson(Map<String, dynamic> json) => Reminder(
+  factory ReminderResponseData.fromJson(Map<String, dynamic> json) => ReminderResponseData(
         id: json["_id"] == null ? null : json["_id"],
         day: json["day"] == null ? null : json["day"],
         hour: json["hour"] == null ? null : json["hour"],
