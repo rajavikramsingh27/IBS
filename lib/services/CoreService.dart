@@ -231,7 +231,7 @@ class CoreService {
 
           try {
             final response = await flutterFeathersjs.patch(
-                objectId: objectId, serviceName: endpoint, data: jsonData
+                objectId: objectId, serviceName: endpoint, data: data
             );
 
             return response;
