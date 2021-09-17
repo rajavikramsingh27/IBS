@@ -3,6 +3,7 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomSwitch.dart';
+import 'package:flutter_ibs/widget/ShowMoreWidget.dart';
 
 class BoolListWidget extends StatefulWidget {
   final String title;
@@ -11,7 +12,7 @@ class BoolListWidget extends StatefulWidget {
   final EdgeInsetsGeometry gridPadding;
   final Function(bool) onChanged;
   final bool value;
-  final List<dynamic> dataList;
+  final dataList;
   final String listText;
 
   BoolListWidget(
@@ -48,9 +49,11 @@ class _BoolListWidgetState extends State<BoolListWidget> {
             style: TextStyles.textStyleRegular
                 .apply(color: AppColors.colorSkipButton),
           ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+          widget.dataList.boolList.boolListDefault.length > 0
+              ? SizedBox(height: ScreenConstant.defaultHeightTwentyFour)
+              : Offstage(),
           ListView.separated(
-            itemCount: widget.dataList.length,
+            itemCount: widget.dataList.boolList.boolListDefault.length,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
@@ -73,6 +76,37 @@ class _BoolListWidgetState extends State<BoolListWidget> {
             separatorBuilder: (BuildContext context, int index) =>
                 Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
           ),
+          SizedBox(height: ScreenConstant.defaultHeightTen),
+          widget.dataList.boolList.userAddable
+              ? Column(
+                  children: [
+                    Container(
+                      height: ScreenConstant.sizeDefault,
+                    ),
+                    Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      child: FractionallySizedBox(
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Add medication",
+                              hintStyle: TextStyles.textStyleRegular
+                                  .apply(color: AppColors.colorTextHint),
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: ScreenConstant.sizeMedium,
+                              )),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: ScreenConstant.defaultHeightSixteen),
+                    ShowMoreWidget(
+                      text: "Add medication",
+                    ),
+                    SizedBox(height: ScreenConstant.defaultHeightSixteen),
+                  ],
+                )
+              : Offstage(),
         ],
       ),
     );

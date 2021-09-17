@@ -119,9 +119,16 @@ class StartTreatmentPlan extends StatelessWidget {
                                           ),
                                           child: Column(
                                             children: [
+                                              SizedBox(
+                                                  height: ScreenConstant
+                                                      .defaultHeightTen),
                                               DynamicWidget(
                                                 data: data.trackables,
                                               ),
+                                              Divider(
+                                                  thickness: 1,
+                                                  color: AppColors.white
+                                                      .withOpacity(0.12)),
                                               ReminderWidget(
                                                 title: data.reminders.name.tr,
                                                 description: data

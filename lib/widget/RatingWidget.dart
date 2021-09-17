@@ -24,12 +24,13 @@ class RatingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
+      // padding: EdgeInsets.symmetric(horizontal: ScreenConstant.sizeMedium),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: ScreenConstant.defaultHeightForty),
+          SizedBox(height: ScreenConstant.defaultHeightTwenty),
+          Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
+          SizedBox(height: ScreenConstant.defaultHeightTwenty),
           Text(title,
               textAlign: TextAlign.center,
               style: TextStyles.textStyleIntroDescription
@@ -94,6 +95,8 @@ class RatingWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
+
+          // Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
         ],
       ),
     );

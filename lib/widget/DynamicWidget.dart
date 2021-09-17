@@ -40,10 +40,12 @@ class _DynamicWidgetState extends State<DynamicWidget> {
           case "textInput":
             {
               return AdditionalNoteWidget(
+                margin: EdgeInsets.symmetric(vertical: 4),
                 bottomText: "",
                 messageText: widget.data[index].name,
                 hintText: "It's time to...",
-                textEditingController: _treatmentPlanController.noteTextController,
+                textEditingController:
+                    _treatmentPlanController.noteTextController,
               );
             }
             break;
@@ -63,7 +65,7 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                     width: ScreenConstant.sizeSmall,
                   ),
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 0),
@@ -106,8 +108,10 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                           setState(() {
                             widget.data[index].timePicker.timePickerDefault =
                                 optionItem;
-                            _treatmentPlanController.selectedTimeHours.value = optionItem.split(":").first;
-                            _treatmentPlanController.selectedTimeMinutes.value = optionItem.split(":").last;
+                            _treatmentPlanController.selectedTimeHours.value =
+                                optionItem.split(":").first;
+                            _treatmentPlanController.selectedTimeMinutes.value =
+                                optionItem.split(":").last;
                           });
                         },
                         isEnabled: true,
@@ -133,7 +137,7 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                     width: ScreenConstant.sizeSmall,
                   ),
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 0),
@@ -200,7 +204,7 @@ class _DynamicWidgetState extends State<DynamicWidget> {
               return BoolListWidget(
                 title: widget.data[index].name,
                 description: widget.data[index].description,
-                dataList: widget.data[index].boolList.boolListDefault,
+                dataList: widget.data[index],
               );
             }
             break;
