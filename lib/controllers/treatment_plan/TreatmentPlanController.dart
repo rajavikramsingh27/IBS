@@ -52,6 +52,7 @@ class TreatmentPlanController extends GetxController {
     }
   }
   toTreatmentPlanListWidget({TreatmentPlanItemData data}){
+    clearData();
     Get.to(()=>TreatmentPlanListWidget(data: data,));
 
   }
@@ -71,5 +72,15 @@ class TreatmentPlanController extends GetxController {
 
   void addReminder() {
     reminderList.add(Reminder(message: noteTextController.text,hour: int.parse(selectedTimeHours.value),minute: int.parse(selectedTimeMinutes.value),day: selectedDay.value));
+  }
+  clearData(){
+    selectedTags = <TagsDefault>[].obs;
+    selectedCategory = "".obs;
+    selectedTimeHours = "".obs;
+    selectedTimeMinutes = "".obs;
+    selectedDay = "".obs;
+    reminderList = <Reminder>[].obs;
+    listCategory = <String>{}.obs;
+     noteTextController.clear();
   }
 }
