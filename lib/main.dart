@@ -29,16 +29,16 @@ main() async{
 }
 
 getLanguage() async {
-  List<Datum> data = <Datum>[];
+  var data;
 
   await ServiceApi().getLanguage().then((response) => data = response.data);
   data.forEach((element) {
-    print("lang:${element.lang}");
-    LocalizationService.languages.add(element.lang);
-    LocalizationService.locales.add(Locale(element.lang));
-    Datum lg = element;
-    HiveStore().put(element.lang, lg.toJson());
-    LocalizationService.keyList[element.lang] = HiveStore().get(element.lang);
+    LocalizationService.languages.add(element["lang"]);
+    LocalizationService.locales.add(Locale(element["lang"]));
+    Map<String,String> stringParams = {};
+    element.forEach((k,v)=>stringParams[k.toString()] = v.toString());
+    HiveStore().put(element["lang"], stringParams);
+    LocalizationService.keyList[element["lang"]] = HiveStore().get(element["lang"]);
     printWrapped("KeyList: ${LocalizationService.keyList}",);
   });
 }
