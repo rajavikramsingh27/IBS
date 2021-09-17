@@ -1,8 +1,7 @@
-
-
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseModel.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
+import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/journal/JournalResponseModel.dart';
@@ -15,7 +14,6 @@ import 'package:flutter_ibs/models/tags/TagsResponseModel.dart';
 import 'package:flutter_ibs/models/track_history/TrackHistoryResponseModel.dart';
 import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/url.dart';
-
 
 class ServiceApi {
   Future<dynamic> signupApi({Map bodyData}) async {
@@ -141,17 +139,15 @@ class ServiceApi {
   }
 
   Future<dynamic> getUserList() async {
-    final result = await CoreService().apiService(
-        method: METHOD.FIND, endpoint: USERS);
+    final result =
+        await CoreService().apiService(method: METHOD.FIND, endpoint: USERS);
 
     print('resultresultresultresultresultresult');
     print(result);
 
     if (result == null) {
       return null;
-    } else {
-
-    }
+    } else {}
   }
 
   Future<dynamic> getFoodHistoryList({String id}) async {
@@ -164,10 +160,11 @@ class ServiceApi {
   }
 
   Future<dynamic> postHealthWellnessAPI({Map bodyData}) async {
-    var result = await CoreService().apiService(method: METHOD.CREATE, endpoint: HEALTH_WELLNESS, data: bodyData);
+    var result = await CoreService().apiService(
+        method: METHOD.CREATE, endpoint: HEALTH_WELLNESS, data: bodyData);
 
     return HealthWellnessResponseModel.fromJson(result);
-    }
+  }
 
   Future<LanguageResponseModel> getLanguage() async {
     var result =
@@ -196,4 +193,14 @@ class ServiceApi {
       return TreatmentPlanResponseModel.fromJson(result);
   }
 
+  Future<dynamic> postTreatmentPlanAPI({Map bodyData}) async {
+    var result = await CoreService().apiService(
+        method: METHOD.CREATE, endpoint: POST_TREATMENT_PLAN, data: bodyData);
+
+    if (result == null) {
+      return null;
+    } else {
+      return PostTreatmentPlanResponseModel.fromJson(result);
+    }
+  }
 }
