@@ -46,7 +46,7 @@ class Reminder {
     this.hour,
     this.minute,
     this.message,
-    this.enabled = false,
+    this.enabled = true,
   });
 
   String day;

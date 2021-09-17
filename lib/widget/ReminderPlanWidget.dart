@@ -74,7 +74,7 @@ class ReminderPlanWidget extends StatelessWidget {
                           ),
                           SizedBox(width: ScreenConstant.sizeDefault),
                           Text(
-                            "${listData[index].reminders.day} at ${listData[index].reminders.hour}",
+                            "${listData[index].day} at ${listData[index].hour}:${listData[index].minute}",
                             style: TextStyles.textStyleRegular.apply(color: Colors.white),
                           ),
                           TextButton(
@@ -86,8 +86,8 @@ class ReminderPlanWidget extends StatelessWidget {
                               )),
                           Spacer(),
                           CustomSwitch(
-                            color: AppColors.colorIcons,
-                            value: listData[index].reminders.enabled,
+                            color: AppColors.colorYesButton,
+                            value: !listData[index].enabled,
                             onChanged: onChangedChild,
                           ),
                         ],

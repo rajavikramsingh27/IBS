@@ -20,6 +20,8 @@ class TreatmentPlanController extends GetxController {
   Rx<String> selectedCategory = "".obs;
   Rx<String> selectedTimeHours = "".obs;
   Rx<String> selectedTimeMinutes = "".obs;
+  Rx<String> selectedDay = "".obs;
+
 
   RxList<Reminder> reminderList = <Reminder>[].obs;
   RxSet<String> listCategory = <String>{}.obs;
@@ -68,6 +70,6 @@ class TreatmentPlanController extends GetxController {
   }
 
   void addReminder() {
-    reminderList.add(Reminder(message: noteTextController.text,));
+    reminderList.add(Reminder(message: noteTextController.text,hour: int.parse(selectedTimeHours.value),minute: int.parse(selectedTimeMinutes.value),day: selectedDay.value));
   }
 }
