@@ -3,7 +3,6 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -15,11 +14,13 @@ import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 import 'package:flutter_ibs/utils/ShadowContainer.dart';
+import 'package:flutter_ibs/controllers/MyAccount/MyAccountController.dart';
 
 
 
 class RomeQuestionnaire extends StatelessWidget {
-  final MyProfileController _controller = Get.put(MyProfileController());
+  MyAccountController _controller;
+  // = Get.put(MyAccountController());
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +43,26 @@ class RomeQuestionnaire extends StatelessWidget {
           style: TextStyles.appBarTitle,
         ),
       ),
-      body: Obx(() => Stack(
-        fit: StackFit.expand,
-        children: [
-          _toggleView(_controller.pagecount2.value),
-          (_controller.pagecount2.value > 1) ? _buildBottom() : SizedBox(height: 1,),
-        ],
-      )),
+      body: GetBuilder<MyAccountController>(
+          init: MyAccountController(),
+          initState: (state) {
+            // print('HomePageController state initialized');
+          },
+
+          builder: (authController) {
+            _controller = authController;
+            authController.settingType = '2'.obs;
+
+            authController.getUserList();
+            return Obx(() => Stack(
+              fit: StackFit.expand,
+              children: [
+                _toggleView(_controller.pagecount2.value),
+                (_controller.pagecount2.value > 1) ? _buildBottom() : SizedBox(height: 1,),
+              ],
+            ));
+          }
+      ),
     );
   }
 
@@ -212,7 +226,7 @@ class RomeQuestionnaire extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightForty),
           Text(
-            "Based on the Rome IV criteria \nyou may have IBS-D.",
+            "Based on the Rome IV criteria \nyou may have IBS-"+_controller.IbsTypeValue.value.toUpperCase(),
             textAlign: TextAlign.center,
             style: TextStyles.textStyleIntroDescription.apply(
               color: Colors.black
@@ -266,7 +280,6 @@ class RomeQuestionnaire extends StatelessWidget {
         ]
     );
   }
-
 
   _buildAbdominalPain() {
     return Padding(
@@ -556,16 +569,14 @@ class RomeQuestionnaire extends StatelessWidget {
                 child: Obx(
                       () => CustomElevatedButton2(
                     onTap: () {
-                      _controller.isabdominalPainBowelAppearDifferent.value =
-                      true;
+                      _controller.isabdominalPainBowelAppearDifferent.value = true;
                     },
                     text: "Yes",
-                    textColor:
-                    _controller.isabdominalPainBowelMoreLess.value == true
+                    textColor: _controller.isabdominalPainBowelAppearDifferent.value == true
                         ? AppColors.white
                         : AppColors.colorButton,
                     buttonColor:
-                    _controller.isabdominalPainBowelMoreLess.value == true
+                    _controller.isabdominalPainBowelAppearDifferent.value == true
                         ? AppColors.colorYesButton
                         : Colors.white,
                   ),
@@ -576,23 +587,21 @@ class RomeQuestionnaire extends StatelessWidget {
                 child: Obx(
                       () => CustomElevatedButton2(
                     onTap: () {
-                      _controller.isabdominalPainBowelAppearDifferent.value =
-                      false;
+                      _controller.isabdominalPainBowelAppearDifferent.value = false;
                     },
                     text: "No",
-                    textColor:
-                    _controller.isabdominalPainBowelMoreLess.value == false
+                    textColor: _controller.isabdominalPainBowelAppearDifferent.value == false
                         ? AppColors.white
                         : AppColors.colorButton,
                     buttonColor:
-                    _controller.isabdominalPainBowelMoreLess.value == false
+                    _controller.isabdominalPainBowelAppearDifferent.value == false
                         ? AppColors.colorYesButton
                         : Colors.white,
                   ),
                 ),
               )
             ],
-          )
+          ),
         ],
       ),
     );
