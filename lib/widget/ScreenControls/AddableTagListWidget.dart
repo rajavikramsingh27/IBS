@@ -60,61 +60,65 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
             left: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
             right: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
           ),
-          child: Column(
-            children: [
-              SizedBox(height: ScreenConstant.defaultHeightTwenty),
-              Text(widget.trackableItem.name.tr,
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.white, fontSizeDelta: -3)),
-              Text("Select from this list of common medications and supplements or add your own.",
-                style: TextStyles.textStyleRegular
-                    .apply(color: AppColors.textGray),
-              ),
-
-              /* SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-              Text(
-                widget.trackableItem.description.tr,
-                textAlign: TextAlign.center,
-                style: TextStyles.textStyleRegular
-                    .apply(color: AppColors.colorSkipButton),
-              ),*/
-              // Selected Item Tags
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ScreenConstant.defaultWidthTen,
-                    vertical: ScreenConstant.defaultHeightTen),
-                child: Wrap(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: ScreenConstant.defaultWidthTen,
+                vertical: ScreenConstant.defaultHeightTen),
+            child: Column(
+              children: [
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Text(widget.trackableItem.name.tr,
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.white, fontSizeDelta: -3)),
+                SizedBox(height: ScreenConstant.defaultHeightTen),
+                Text(widget.trackableItem.description.tr,
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.white, fontSizeDelta: -5)),
+               /* Text(
+                  "Select from this list of common medications and supplements or add your own.",
+                  style: TextStyles.textStyleRegular
+                      .apply(color: AppColors.textGray),
+                ),
+*/
+                 SizedBox(height: ScreenConstant.defaultHeightTen),
+                /*  Text(
+                  widget.trackableItem.description.tr,
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleRegular
+                      .apply(color: AppColors.colorSkipButton),
+                ),*/
+                // Selected Item Tags
+                Wrap(
                   children: selectedItems
                       .map((item) => InkWell(
-                    child: TagWidget(
-                      tag: item,
-                      onValueChanged: _userTagListTapped,
-                    ),
-                  ))
+                            child: TagWidget(
+                              tag: item,
+                              onValueChanged: _userTagListTapped,
+                            ),
+                          ))
                       .toList()
                       .cast<Widget>(),
                 ),
-              ),
 
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                margin: ScreenConstant.spacingAllLarge,
-                child: FractionallySizedBox(
-                  child: TextFormField(
-                    //     controller: _controller.foodTextController,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Add Food",
-                        hintStyle: TextStyles.textStyleRegular
-                            .apply(color: AppColors.colorTextHint),
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: ScreenConstant.sizeMedium,
-                        )),
+                Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  margin: ScreenConstant.spacingAllLarge,
+                  child: FractionallySizedBox(
+                    child: TextFormField(
+                      //     controller: _controller.foodTextController,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "Add Food",
+                          hintStyle: TextStyles.textStyleRegular
+                              .apply(color: AppColors.colorTextHint),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: ScreenConstant.sizeMedium,
+                          )),
+                    ),
                   ),
                 ),
-              ),
-              Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
@@ -127,20 +131,19 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
                       ),
                     ),
                     SizedBox(width: ScreenConstant.sizeDefault),
-                    Text(widget.trackableItem.tags.addableLabel.tr,
+                    Text(
+                      widget.trackableItem.tags.addableLabel.tr,
                       style: TextStyles.textStyleRegular
                           .apply(color: AppColors.white),
                     ),
                   ],
                 ),
 
-              SizedBox(width: ScreenConstant.sizeDefault, height: ScreenConstant.defaultHeightTwenty),
+                SizedBox(
+                    width: ScreenConstant.sizeDefault,
+                    height: ScreenConstant.defaultHeightTwenty),
 
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ScreenConstant.defaultWidthTen,
-                    vertical: ScreenConstant.defaultHeightTwenty),
-                child: Wrap(
+                Wrap(
                   children: widget.trackableItem.tags.tagsDefault
                       .map((item) => InkWell(
                             child: TagWidget(
@@ -151,14 +154,15 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
                       .toList()
                       .cast<Widget>(),
                 ),
-              ),
-              SizedBox(height: ScreenConstant.defaultHeightTwenty),
-              Visibility(
-                  visible: !widget.isChild && !widget.isLast && !hasChildren,
-                  child: Divider(
-                      thickness: 1,
-                      color: AppColors.white.withOpacity(0.12))),
-            ],
+
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Visibility(
+                    visible: !widget.isChild && !widget.isLast && !hasChildren,
+                    child: Divider(
+                        thickness: 1,
+                        color: AppColors.white.withOpacity(0.12))),
+              ],
+            ),
           ),
         ),
       ],

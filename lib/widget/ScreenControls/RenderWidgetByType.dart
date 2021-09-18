@@ -158,7 +158,7 @@ class RenderWidgetByType {
         }
       default:
         {
-          print("Getting offstage: " + trackableItem.kind);
+          print("\n\n****************> Getting offstage: " + trackableItem.kind);
           return Offstage();
         }
         break;
