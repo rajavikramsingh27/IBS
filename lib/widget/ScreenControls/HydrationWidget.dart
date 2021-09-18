@@ -59,13 +59,13 @@ class _HydrationWidgetState extends State<HydrationWidget> {
                 SizedBox(height: ScreenConstant.defaultHeightForty),
                 Text(widget.trackableItem.name.tr,
                     style: TextStyles.textStyleIntroDescription
-                        .apply(color: Colors.white, fontSizeDelta: -2)),
+                        .apply(color: Colors.black, fontSizeDelta: -2)),
                 SizedBox(height: ScreenConstant.sizeDefault),
                 Text(
                   widget.trackableItem.description.tr,
                   textAlign: TextAlign.center,
                   style:
-                      TextStyles.textStyleRegular.apply(color: AppColors.white),
+                      TextStyles.textStyleRegular.apply(color: Colors.black),
                 ),
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
                  _buildHydrationList(num),
@@ -81,8 +81,8 @@ class _HydrationWidgetState extends State<HydrationWidget> {
 
   _buildHydrationList(int index) {
     return GridView.builder(
-      padding:
-      EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
+     // padding:
+     // EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: widget.trackableItem.sum.range ?? 0,
@@ -116,13 +116,13 @@ class _HydrationWidgetState extends State<HydrationWidget> {
                     .image
                     .normal,
                 width: ScreenConstant.defaultWidthTwenty * 20,
-                height: ScreenConstant.defaultHeightTwenty * 5,
+                height: ScreenConstant.defaultHeightTwenty * 10,
               )),
           // ),
         );
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: .01,
+          crossAxisSpacing: 0.01,
           mainAxisSpacing: 0.01,
           crossAxisCount: 5,
           childAspectRatio: 1),
