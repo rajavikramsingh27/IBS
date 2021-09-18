@@ -227,8 +227,6 @@ class CoreService {
           // Get.dialog(Center(child: CircularProgressIndicator()),
           //     barrierDismissible: false);
 
-          final jsonData = json.encode(data);
-
           try {
             final response = await flutterFeathersjs.patch(
                 objectId: objectId, serviceName: endpoint, data: data

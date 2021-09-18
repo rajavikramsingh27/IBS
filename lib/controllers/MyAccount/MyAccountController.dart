@@ -2,20 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/models/MyAccount/MyAccount.dart';
-
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
-import 'dart:convert';
 
 RxBool loader = false.obs;
 
 
 class MyAccountController extends GetxController {
 
-  RxString settingType = "".obs;
+  RxString settingType = "0".obs;
 
   // ToDo Setting My Account variables
   RxBool loader = true.obs;
@@ -49,7 +47,6 @@ class MyAccountController extends GetxController {
 
   dynamic  data;
 
-
   // ToDo Setting My IBS Diagnosis variables
 
   RxInt pagecount = 0.obs;
@@ -58,14 +55,13 @@ class MyAccountController extends GetxController {
   RxBool isDiagnoisedIbs = true.obs;
   RxBool checkBoxValue = false.obs;
 
+  RxInt selectedStoolType = 0.obs;
   RxInt selctedIbsType = 0.obs;
+  RxString IbsTypeValue = "c".obs;
   RxBool isDiagnoisedAbdominalPain = false.obs;
   RxBool isabdominalPainTimeBowel = false.obs;
   RxBool isabdominalPainBowelMoreLess = false.obs;
   RxBool isabdominalPainBowelAppearDifferent = false.obs;
-  RxInt selectedStoolType = 0.obs;
-
-
 
   @override
   void onInit() async {
@@ -85,12 +81,14 @@ class MyAccountController extends GetxController {
         data = await ServiceApi().getUserList();
 
         loader.value = false;
+
         if (settingType == '0') {
           setUIDataMyAccount();
         } else if (settingType == '1') {
           setUIDataMyIBSDiagnosis();
+        } else if (settingType == '2') {
+          setUIDataRomeIV();
         }
-
       } catch (error) {
         CustomSnackBar().errorSnackBar(
             title: "Error!", message: error.message.toString()
@@ -143,7 +141,20 @@ class MyAccountController extends GetxController {
   setUIDataMyIBSDiagnosis() {
     final selctedIbs = getIbsType(data.profile.diagnosedIbs.ibsType);
     selctedIbsType.value = selctedIbs;
+    // IbsTypeValue = selectIbsType(selctedIbsType.value);
+  }
+
+  setUIDataRomeIV() {
+    final selctedIbs = getIbsType(data.profile.diagnosedIbs.ibsType);
+    selctedIbsType.value = selctedIbs;
     selectIbsType(selctedIbsType.value);
+
+    isDiagnoisedAbdominalPain.value = data.profile.romeiv.abdominalPain;
+    isabdominalPainTimeBowel.value = data.profile.romeiv.abdominalPainTimeBowel;
+    isabdominalPainBowelMoreLess.value = data.profile.romeiv.abdominalPainBowelMoreLess;
+    isabdominalPainBowelAppearDifferent.value = data.profile.romeiv.abdominalPainBowelAppearDifferent;
+
+    selectedStoolType.value = getIbsType(selctedIbsType.value.toString());
   }
 
   updateUser() async {
@@ -152,45 +163,10 @@ class MyAccountController extends GetxController {
       age: selectedAge.value,
       familyHistory: selectedIbsHistory.value,
       diagnosedIbs: data.profile.diagnosedIbs,
+      romeiv: data.profile.romeiv,
     );
 
-
-
-    // Profile profileUser = Profile(
-    //     sex: selectedGender.value,
-    //     age: selectedAge.value,
-    //     familyHistory: selectedIbsHistory.value,
-    //     diagnosedIbs: diagnosedIbs,
-    //     romeiv: data.profile.romeiv,
-    // );
-
-    // Map mapProfile = {
-    //   "profile": {
-    //     "sex": "f",
-    //     "age": "30-39",
-    //     "familyHistory": "yes",
-    //     "diagnosedIbs": {
-    //       "isDiagnosed": true,
-    //       "ibsType": "c"
-    //     },
-    //     "romeiv": {
-    //       "abdominalPain": true,
-    //       "abdominalPainTimeBowel": true,
-    //       "abdominalPainBowelMoreLess": true,
-    //       "abdominalPainBowelAppearDifferent": true,
-    //       "stool": "constipated"
-    //     }
-    //   },
-    //   "label": "hello@gmail.com"
-    // };
-
-    Map<String, dynamic> mapProfile = {"profile":{"sex":"f","age":"30-39","familyHistory":"yes","diagnosedIbs":{"isDiagnosed":true,"ibsType":"c"},"romeiv":{"abdominalPain":true,"abdominalPainTimeBowel":true,"abdominalPainBowelMoreLess":true,"abdominalPainBowelAppearDifferent":true,"stool":"constipated"}},"label":"hello@gmail.com"};
-
-     // final mapString = json.encode(mapProfile);
-     // print(mapString);
-
     data = await ServiceApi().updateUser(
-        // bodyData: mapProfile,
       bodyData: profileUser.toJson(),
     );
 
@@ -208,7 +184,7 @@ class MyAccountController extends GetxController {
       age: data.profile.age,
       familyHistory: data.profile.familyHistory,
       diagnosedIbs: diagnosedIbs,
-      // romeiv: data.profile.romeiv,
+      romeiv: data.profile.romeiv,
     );
 
     data = await ServiceApi().updateIBS(
@@ -272,10 +248,10 @@ class MyAccountController extends GetxController {
         return 'both';
         break;
       default:
-        return "null";
+        return "both";
     }
-  }
 
+  }
 
 }
 

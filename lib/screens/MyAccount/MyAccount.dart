@@ -25,7 +25,6 @@ final FocusNode focusRePassWord = FocusNode();
 final FocusNode focusNone = FocusNode();
 
 
-
 class MyAccount extends StatelessWidget {
   final  MyAccountController _controller = Get.put(MyAccountController());
 

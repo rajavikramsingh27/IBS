@@ -203,37 +203,23 @@ class ServiceApi {
   Future<dynamic> updateUser({Map bodyData}) async {
     final  MyAccountController _controller = Get.put(MyAccountController());
 
-    // Map<String, dynamic> data = {
-    //   'profile':bodyData,
-    //   'label' : _controller.emailController.text
-    // };
-
-
     Map<String, dynamic> data = {
-      "profile": {
-        "sex": "f",
-        "age": "30-39",
-        "familyHistory": "yes",
-        "diagnosedIbs": {
-          "isDiagnosed": true,
-          "ibsType": "c"
-        }
-      }
+      'profile':bodyData,
+      'label' : _controller.emailController.text
     };
-
-    print(data);
 
     final result = await CoreService().apiService(
         method: METHOD.PATCH,
         endpoint: USERS,
-      // objectId: '4d41ab9a695021519bccee17cf3cba5dcc1902d8',
       data: data,
-    )  .catchError((error) {
-      print(error.message.toString());
-      Get.snackbar("Sorry", error.message.toString());
-    }).then((value)  {
-      Get.snackbar("Success!", "Profile updated.");
-    });
+    ) ;
+
+    //     .catchError((error) {
+    //   print(error.message.toString());
+    //   Get.snackbar("Sorry", error.message.toString());
+    // }).then((value)  {
+    //   Get.snackbar("Success!", "Profile updated.");
+    // });
 
     return MyAccountModel.fromJson(result);
   }
@@ -246,12 +232,7 @@ class ServiceApi {
       method: METHOD.PATCH,
       endpoint: USERS,
       data: data,
-    )  .catchError((error) {
-      print(error.message.toString());
-      Get.snackbar("Sorry", error.message.toString());
-    }).then((value)  {
-      Get.snackbar("Success!", "IBS Diagnosis updated.");
-    });
+    );
 
     return MyAccountModel.fromJson(result);
   }
