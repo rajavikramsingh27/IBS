@@ -41,7 +41,8 @@ class _RatingWidgetState extends State<RatingWidget> {
 
   @override
   Widget build(BuildContext context) {
-
+    bool hasChildren = widget.trackableItem.children.length > 0;
+    print(widget.trackableItem.tid + ", " + hasChildren.toString());
     return Stack(
       children: [
         Positioned.fill(
@@ -163,7 +164,7 @@ class _RatingWidgetState extends State<RatingWidget> {
                 ),
 
                 Visibility(
-                    visible: !widget.isChild && !widget.isLast,
+                    visible: !widget.isChild && !widget.isLast && !hasChildren,
                     child: Divider(
                         thickness: 1,
                         color: AppColors.white.withOpacity(0.12))),

@@ -371,8 +371,6 @@ class BowelMovement extends StatelessWidget {
                                                 .first
                                                 .items[index]
                                                 .toggle
-                                                .options
-                                                .optionsTrue
                                                 .label
                                                 .tr
                                             : data
@@ -380,8 +378,6 @@ class BowelMovement extends StatelessWidget {
                                                 .first
                                                 .items[index]
                                                 .toggle
-                                                .options
-                                                .optionsFalse
                                                 .label
                                                 .tr,
                                         overflow: TextOverflow.ellipsis,

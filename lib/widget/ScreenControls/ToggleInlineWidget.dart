@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/CustomSwitch.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderItemChildrenWidget.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
@@ -47,49 +48,47 @@ class _ToggleInlineWidgetState extends State<ToggleInlineWidget> {
         Positioned.fill(
           top: widget.isFirst ? ScreenConstant.defaultHeightOneHundred : 0,
           child: Container(
-            color: AppColors.shadow,
+            color: AppColors.colorBackground,
           ),
         ),
         Card(
-          color: AppColors.colorBackground,
+          color: AppColors.nestedToggle,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(widget.isFirst ? 20 : 0),
-                  topRight: Radius.circular(widget.isFirst ? 20 : 0),
-                  bottomLeft: Radius.circular(widget.isLast ? 20 : 0),
-                  bottomRight: Radius.circular(widget.isLast ? 20 : 0))),
+                  topLeft: Radius.circular( 20),
+                  topRight: Radius.circular(20 ),
+                  bottomLeft: Radius.circular( 20 ),
+                  bottomRight: Radius.circular( 20 ))),
           margin: EdgeInsets.only(
-            left: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
-            right: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
+           // left:  ScreenConstant.defaultWidthTen,
+          //  right: ScreenConstant.defaultWidthTen,
+            bottom: ScreenConstant.defaultHeightTwenty,
           ),
           child: Container(
             padding: EdgeInsets.symmetric(
-                horizontal: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty, vertical: 1),
+                horizontal:  ScreenConstant.defaultWidthTwenty),
             child: Column(
               children: [
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                Text(widget.trackableItem.name.tr,
-                    style: TextStyles.textStyleIntroDescription
-                        .apply(color: Colors.white, fontSizeDelta: -3)),
-                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                SizedBox(
-                  height: 34,
-                  child: Text(
-                    //trackableItem.description.tr,
-                    widget.trackableItem
-                        .toggle.options.optionsTrue
-                        .label
-                        .tr,
-                    textAlign: TextAlign.center,
-                    style: TextStyles.textStyleRegular
-                        .apply(color: AppColors.colorSkipButton),
-                  ),
-                ),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ScreenConstant.defaultWidthTen),
-                  child: Text("Hello there")
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: Text(widget.trackableItem.name.tr,
+                          style: TextStyles.textStyleIntroDescription
+                              .apply(color: Colors.black, fontSizeDelta: -5)),
+                    ),
+
+                    Expanded(
+                      flex: 1,
+                      child: CustomSwitch(
+                        value: widget.trackableItem.toggle.value,
+                        onChanged: onToggleChanged,
+                      )
+
+                    )
+                  ],
                 ),
                 RenderItemChildrenWidget(
                   trackableItem: widget.trackableItem,
@@ -113,4 +112,7 @@ class _ToggleInlineWidgetState extends State<ToggleInlineWidget> {
     );
   }
 
+  onToggleChanged(bool val){
+    widget.trackableItem.toggle.value = val;
+  }
 }

@@ -62,13 +62,13 @@ class _CustomSwitchState extends State<CustomSwitch>
               borderRadius: BorderRadius.circular(40),
               color: _circleAnimation.value == Alignment.centerLeft
                   ? widget.color
-                  : HexColor('D2C5FC'),
+                  : HexColor('5b5278'),
             ),
             child: Padding(
               padding: const EdgeInsets.only(
                 top: 2.0,
                 bottom: 2.0,
-                //  right: 2.0, left: 2.0
+                right: 4.0, left: 4.0
               ),
               child: Container(
                 alignment: _circleAnimation.value == Alignment.centerLeft
