@@ -42,6 +42,7 @@ dependencies:
   url_launcher:
   flutter_localizations:
     sdk: flutter
+  flutter_number_picker: ^1.0.4
 
 
 dev_dependencies:

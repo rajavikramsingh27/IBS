@@ -14,11 +14,17 @@ class BowelMovementController extends GetxController {
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   TextEditingController noteTextController = TextEditingController();
-  SignUpController _signUpController = Get.find();
+ // SignUpController _signUpController = Get.find();
   RxBool loader = false.obs;
 
   RxBool switchValue = true.obs;
   Rx<BowelMovementsModel> bowelMovementsModel = BowelMovementsModel().obs;
+
+  SignUpController _signUpController = Get.find();
+
+  RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
+  RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
+
 
   onTapped(int index) async {
     currentIndex.value = index;
@@ -28,7 +34,44 @@ class BowelMovementController extends GetxController {
   void onInit() {
     super.onInit();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+    _signUpController
+        .bowelMovements.value.items.forEach((element) {
+      formWidgetList.add(element);
+    });
+
+    // Refresh the local list so the form can generate:
+    formWidgetList.refresh();
+    _selectedItems = RxList<TrackableSubmitItem>();
+    super.onInit();
+    // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
+
+  valueChanged(TrackableSubmitItem submitItem){
+    var count = _selectedItems.length;
+    bool isAdded = false;
+    for(var i=0; i < count; i++) {
+      if (_selectedItems[i].tid == submitItem.tid) {
+        _selectedItems[i] = submitItem;
+        isAdded = true;
+        break;
+      }
+    }
+
+    if (!isAdded){
+      _selectedItems.add(submitItem);
+    }
+
+
+/*
+    print ('-------');
+    _selectedItems.forEach((element) {
+      print(element.toJson());
+    });
+
+ */
+  }
+
+
   onSave() async {
     if (bowelMovementsModel.value.items == null) {
       bowelMovementsModel.value.items = [];
@@ -47,6 +90,7 @@ class BowelMovementController extends GetxController {
     loader.value = false;
     if (data is BMR.BowelMovementsResponseModel) {
       noteTextController.clear();
+      bowelMovementsModel.value.items = [];
       _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
@@ -58,7 +102,7 @@ class BowelMovementController extends GetxController {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
   }
-  initModel({DatumItem data,String dType, value,}){
+  initModel({TrackableItem data,String dType, value,}){
     bool isPresent = false;
 
     if (bowelMovementsModel.value.items == null) {
@@ -96,7 +140,7 @@ class BowelMovementController extends GetxController {
     }
   }
 
-  initSubModel({PurpleItem data,String dType,bool value,String tid,String kind,mainType}){
+  initSubModel({TrackableItem data,String dType,bool value,String tid,String kind,mainType}){
     Item item;
     bool isPresent = false;
 

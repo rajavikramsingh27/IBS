@@ -12,6 +12,7 @@ import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
+import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,7 @@ import 'package:get/get.dart';
 
 
 class Medication extends StatelessWidget {
-  final MedicationController _controller = Get.put(MedicationController());
+  final MedicationController controller = Get.put(MedicationController());
   final SignUpController _signUpController = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class Medication extends StatelessWidget {
           children: [
             SizedBox(height: ScreenConstant.defaultHeightTen),
             CustomElevatedButton(
-                widthFactor: 0.7, text: "Save", onTap: _controller.onSave),
+                widthFactor: 0.7, text: "Save", onTap: controller.onSave),
             TextButton(
                 onPressed: () {
                   Get.back();
@@ -46,141 +47,84 @@ class Medication extends StatelessWidget {
         ),
       ),
       backgroundColor: AppColors.barrierColor.withOpacity(0.6),
-      body: Obx(
-        () => InkWell(
-          onTap: () => dismissKeyboard(context),
-          child: _controller.loader.value
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : ListView(
-                  physics: ClampingScrollPhysics(),
+        body: Obx(
+              () => ListView(
+            physics: ClampingScrollPhysics(),
+            children: [
+              Padding(
+                padding:
+                EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
+                child: Stack(
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          top: ScreenConstant.defaultHeightOneThirty),
-                      child: Stack(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: ScreenConstant.defaultHeightTwenty),
-                            child: Card(
-                              margin: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(24),
-                                topRight: Radius.circular(24),
-                              )),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                      height:
-                                          ScreenConstant.defaultHeightSixty),
-                                  Text(
-                                    _signUpController
-                                        .medications.value.header.tr,
-                                    style: TextStyles.textStyleIntroDescription
-                                        .apply(
-                                            color: Colors.black,
-                                            fontSizeDelta: -2),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          ScreenConstant.defaultHeightForty),
-                                  DateTimeCardWidget(),
-                                  SizedBox(
-                                      height:
-                                          ScreenConstant.defaultHeightForty),
-                                  Stack(
-                                    children: [
-                                      Positioned.fill(
-                                        top: ScreenConstant
-                                                .defaultHeightOneHundred *
-                                            1.1,
-                                        child: _buildWavePainter(),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                          left:
-                                              ScreenConstant.defaultWidthTwenty,
-                                          right:
-                                              ScreenConstant.defaultWidthTwenty,
-                                          bottom:
-                                              ScreenConstant.defaultHeightForty,
-                                        ),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(20)),
-                                        child: _buildMedication(),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          ScreenConstant.defaultHeightTwenty),
-                                  Text(
-                                      _signUpController.medications.value.items
-                                          .elementAt(2)
-                                          .name
-                                          .tr,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyles
-                                          .textStyleIntroDescription
-                                          .apply(
-                                              color: Colors.black,
-                                              fontSizeDelta: -3)),
-                                  Padding(
-                                    padding: ScreenConstant.spacingAllMedium,
-                                    child: Card(
-                                      shadowColor: Colors.grey,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(16)),
-                                      child: TextFormField(
-                                        controller:
-                                            _controller.noteTextController,
-                                        inputFormatters: <TextInputFormatter>[
-                                          LengthLimitingTextInputFormatter(500)
-                                        ],
-
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none),
-                                        textInputAction:
-                                            TextInputAction.newline,
-                                        maxLines: 4,
-                                        minLines: 4,
-                                        // maxLength: 100,
-                                        // decoration: hintedInputDecoration(""),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      height: ScreenConstant
-                                          .defaultHeightTwentyFour),
-                                  Text(
-                                    '''For best results track your medications\n every day.\n\nClick “Save” to log your results.''',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyles.textStyleRegular,
-                                  ),
-                                  SizedBox(
-                                      height: ScreenConstant
-                                          .defaultHeightTwentyFour),
-                                ],
-                              ),
+                          top: ScreenConstant.defaultHeightTwenty),
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(24),
+                              topRight: Radius.circular(24),
+                            )),
+                        child: Column(
+                          children: [
+                            SizedBox(height: ScreenConstant.defaultHeightSixty),
+                            Text(
+                              "Track Medications",
+                              style: TextStyles.textStyleIntroDescription.apply(
+                                  color: Colors.black, fontSizeDelta: -2),
+                              textAlign: TextAlign.center,
                             ),
-                          ),
-                          Positioned(
-                              right: 0, left: 0, child: CustomArcPainter())
-                        ],
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            DateTimeCardWidget(),
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            controller.loader.value
+                                ? Center(
+                                child: Padding(
+                                  padding: ScreenConstant.spacingAllLarge,
+                                  child: Container(
+                                      height:
+                                      ScreenConstant.screenHeightThird,
+                                      child: Center(
+                                          child:
+                                          CircularProgressIndicator())),
+                                ))
+                                : ListView.builder(
+                                shrinkWrap: true,
+                                physics: ClampingScrollPhysics(),
+                                itemCount: controller.formWidgetList.length,
+                                itemBuilder: (_, mainIndex) {
+                                  var isLast = false;
+
+                                  if (mainIndex ==  (controller.formWidgetList.length - 2)
+                                      || mainIndex ==  (controller.formWidgetList.length - 1 )){
+                                    // If it's the last one or two... because additional notes could be after.
+                                    isLast = true;
+                                  }
+                                  return RenderWidgetByType().renderTrackableItem(
+                                      controller.formWidgetList[mainIndex],
+                                      isFirst: mainIndex == 0,
+                                      isLast: isLast,
+                                      onValueChanged: controller.valueChanged
+                                  );
+                                }),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightTwenty),
+                          ],
+                        ),
                       ),
                     ),
+                    Positioned(right: 0, left: 0, child: CustomArcPainter())
                   ],
                 ),
-        ),
-      ),
+              ),
+            ],
+          ),
+        )
     );
   }
+
+  /*
 
   _buildMedication() {
     return Stack(
@@ -235,7 +179,7 @@ class Medication extends StatelessWidget {
                     onTap: () {
                       if (_controller
                           .medicationTextController.text.isNotEmpty) {
-                        _controller.listfoodDefault.add(Default(
+                        _controller.listfoodDefault.add(Tag(
                             value: _controller.medicationTextController.text));
                         _controller.listfoodDefault.refresh();
                       }
@@ -388,4 +332,6 @@ class Medication extends StatelessWidget {
           crossAxisCount: 3, childAspectRatio: 2.5),
     );
   }
+
+   */
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
-import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart' as sym;
+import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart' ;
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
@@ -10,12 +10,13 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class SymptomsController extends GetxController {
+  /*
   Rx<DateTime> now = DateTime.now().obs;
   RxDouble sliderValue = 0.0.obs;
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   RxInt selectedIndex = 0.obs;
-  RxBool loader = false.obs;
+
   SignUpController _signUpController = Get.find();
   Rx<SelectOption> optionItemSelected = SelectOption().obs;
   RxList<SelectOption> dropListModel = <SelectOption>[
@@ -27,7 +28,31 @@ class SymptomsController extends GetxController {
   onTapped(int index) async {
     currentIndex.value = index;
   }
+*/
+  RxBool loader = false.obs;
 
+  Rx<SymptomsModel> symptomsModel = SymptomsModel().obs;
+  SignUpController _signUpController = Get.find();
+
+  RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
+  RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
+
+  @override
+  void onInit() {
+    // Get the source of the data:
+    _signUpController
+        .symptoms.value.items.forEach((element) {
+      formWidgetList.add(element);
+    });
+
+    // Refresh the local list so the form can generate:
+    formWidgetList.refresh();
+    _selectedItems = RxList<TrackableSubmitItem>();
+    super.onInit();
+    // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+  }
+
+  /*
   @override
   void onInit() {
     super.onInit();
@@ -86,7 +111,11 @@ class SymptomsController extends GetxController {
     return modelValue;
   }
 
+
+   */
+
   onSave() async {
+    /*
     if (symptomsModel.value.items == null) {
       symptomsModel.value.items = [];
     }
@@ -94,7 +123,9 @@ class SymptomsController extends GetxController {
         tid: _signUpController.symptoms.value.items.last.tid,
         kind: _signUpController.symptoms.value.items.last.kind,
         dtype: "str",
-        value: sym.ItemValue(str: noteTextController.text));
+        value: sym.ItemValue(str: noteTextController.text),
+        category: _signUpController.symptoms.value.items.last.category,
+    );
     symptomsModel.value.items.add(item);
     symptomsModel.refresh();
     print("DATA Model : ${symptomsModel.toJson()}");
@@ -104,6 +135,7 @@ class SymptomsController extends GetxController {
     loader.value = false;
     if (data is SymptomsResponseModel) {
       noteTextController.clear();
+      symptomsModel.value.items = [];
       _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
@@ -111,7 +143,35 @@ class SymptomsController extends GetxController {
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
+
+     */
   }
+
+  valueChanged(TrackableSubmitItem submitItem){
+    var count = _selectedItems.length;
+    bool isAdded = false;
+    for(var i=0; i < count; i++) {
+      if (_selectedItems[i].tid == submitItem.tid) {
+        _selectedItems[i] = submitItem;
+        isAdded = true;
+        break;
+      }
+    }
+
+    if (!isAdded){
+      _selectedItems.add(submitItem);
+    }
+
+
+/*
+    print ('-------');
+    _selectedItems.forEach((element) {
+      print(element.toJson());
+    });
+
+ */
+  }
+
 
   void checkData() {
     if (_signUpController.symptoms.value == null) {

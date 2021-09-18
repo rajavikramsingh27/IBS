@@ -1,5 +1,10 @@
-
-
+/*
+  IAN Notes:
+    Originally this was only walking the top-level trackables, it did not
+    send the nested trackables to the server.
+    Updated to recursively walk down the item.child.items[x] path to assemble
+    all values.
+ */
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
@@ -12,7 +17,7 @@ import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:flutter_ibs/utils/Validator.dart';
-
+import 'dart:developer' as developer;
 
 class SignUpController extends GetxController {
   Rx<TrackablesListModel> trackList = TrackablesListModel().obs;
@@ -21,13 +26,12 @@ class SignUpController extends GetxController {
   RxBool selectedMale = false.obs;
   RxBool selectedFeMale = false.obs;
   RxBool selectedOtherGender = false.obs;
-
-  List<DatumItem> symptomsList = [];
-  List<DatumItem> bowelMoveList = [];
-  List<DatumItem> foodList = [];
-  List<DatumItem> wellnessList = [];
-  List<DatumItem> medicationList = [];
-  List<DatumItem> journalList = [];
+  List<TrackableItem> symptomsList = [];
+  List<TrackableItem> bowelMoveList = [];
+  List<TrackableItem> foodList = [];
+  List<TrackableItem> wellnessList = [];
+  List<TrackableItem> medicationList = [];
+  List<TrackableItem> journalList = [];
 
   RxString selectedAge = "<20".obs;
   List<String> ageList = [
@@ -52,12 +56,12 @@ class SignUpController extends GetxController {
   TextEditingController confirmPasswordController;
   RxBool isPasswordVisible = true.obs;
   RxBool agreeToTerms = false.obs;
-  Rx<Datum> symptoms = Datum().obs;
-  Rx<Datum> bowelMovements = Datum().obs;
-  Rx<Datum> food = Datum().obs;
-  Rx<Datum> journal = Datum().obs;
-  Rx<Datum> medications = Datum().obs;
-  Rx<Datum> healthWellness = Datum().obs;
+  Rx<TrackableItem> symptoms = TrackableItem().obs;
+  Rx<TrackableItem> bowelMovements = TrackableItem().obs;
+  Rx<TrackableItem> food = TrackableItem().obs;
+  Rx<TrackableItem> journal = TrackableItem().obs;
+  Rx<TrackableItem> medications = TrackableItem().obs;
+  Rx<TrackableItem> healthWellness = TrackableItem().obs;
 
   RxList<ListOption> listFoodOptions = <ListOption>[].obs;
 
@@ -138,27 +142,35 @@ class SignUpController extends GetxController {
 
     RomeivSendModel romeivSendModel = RomeivSendModel(
       abdominalPain:
-          _myProFileController.isDiagnoisedAbdominalPain.value ?? false,
+      _myProFileController.isDiagnoisedAbdominalPain.value ?? false,
       abdominalPainBowelAppearDifferent:
-          _myProFileController.isabdominalPainBowelAppearDifferent.value ??
-              false,
+      _myProFileController.isabdominalPainBowelAppearDifferent.value ??
+          false,
       abdominalPainBowelMoreLess:
-          _myProFileController.isabdominalPainBowelMoreLess.value ?? false,
+      _myProFileController.isabdominalPainBowelMoreLess.value ?? false,
       abdominalPainTimeBowel:
-          _myProFileController.isabdominalPainTimeBowel.value ?? false,
+      _myProFileController.isabdominalPainTimeBowel.value ?? false,
       stool: _myProFileController.selectStoolType(
           _myProFileController.selectedStoolType.value ?? null),
     );
 
+    // Recursively loop through category descendants to compile
+    // a flat list of all enabled values:
     trackList.value.data.forEach((element) {
-      if (element.tid == "symptoms") {
+      _recursivelyParseChildren(element.items);
+    });
+
+    /* IAN: Deprecated. This was only walking the top level list.
+      Data needed to include items[x].child[y].items
+
+    trackList.value.data.forEach((element) {
+      if (element.category == "symptoms") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             symptomsList.add(el);
           }
         });
-
-      } else if (element.tid == "bowelMovements") {
+      } else if (element.category == "bowelMovements") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             bowelMoveList.add(el);
@@ -166,15 +178,14 @@ class SignUpController extends GetxController {
         });
       }
 
-      if (element.tid == "food") {
+      if (element.category == "food") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             foodList.add(el);
           }
         });
       }
-
-      if (element.tid == "healthWellness") {
+      if (element.category == "healthWellness") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             wellnessList.add(el);
@@ -182,7 +193,7 @@ class SignUpController extends GetxController {
         });
       }
 
-      if (element.tid == "medications") {
+      if (element.category == "medications") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             medicationList.add(el);
@@ -190,7 +201,7 @@ class SignUpController extends GetxController {
         });
       }
 
-      if (element.tid == "journal") {
+      if (element.category == "journal") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             journalList.add(el);
@@ -199,6 +210,8 @@ class SignUpController extends GetxController {
       }
 
     });
+    */
+
 
     TrackingSendModel trackModel = TrackingSendModel(
       symptoms: symptomsList,
@@ -207,6 +220,7 @@ class SignUpController extends GetxController {
       healthWellness: wellnessList,
       medications: medicationList,
     );
+    // print("track: ${trackModel.toJson()}");
 
     ProfileSendModel profileModel = ProfileSendModel(
         sex: selectedGender.value,
@@ -244,10 +258,17 @@ class SignUpController extends GetxController {
 
   }
 
+
+
   getTrackList() async {
     if (connectionStatus.value) {
       loader.value = true;
       await ServiceApi().getTrackables().then((value) {
+        // Sort the list bw "weight" property ascending:
+        value.data.sort((a, b) {
+          return a.weight.compareTo(b.weight);
+        });
+
         trackList.value = value;
       });
       getSymptoms();
@@ -299,7 +320,7 @@ class SignUpController extends GetxController {
 
   trackingDataSend(String tid) {
     trackList.value.data.forEach((element) {
-      if (element.tid == tid) {
+      if (element.category == tid) {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             symptomsList.add(el);
@@ -355,5 +376,42 @@ class SignUpController extends GetxController {
         healthWellness.value = element;
       }
     });
+  }
+
+
+  /// Walk the Trackables tree adding active elements.
+  _recursivelyParseChildren(List<TrackableItem> items){
+    items.forEach((element) {
+      if (element.enabledDefault){
+        _addItemToTrackingList(element);
+        element.children.forEach( (child) {
+          return _recursivelyParseChildren(child.items);
+        });
+      }
+    });
+  }
+
+  _addItemToTrackingList(dynamic item){
+
+    switch(item.category){
+      case "symptoms":
+        symptomsList.add(item);
+        break;
+      case "bowelMovements":
+        bowelMoveList.add(item);
+        break;
+      case "food":
+        foodList.add(item);
+        break;
+      case "healthWellness":
+        wellnessList.add(item);
+        break;
+      case "medications":
+        medicationList.add(item);
+        break;
+      case "journal":
+        journalList.add(item);
+        break;
+    }
   }
 }

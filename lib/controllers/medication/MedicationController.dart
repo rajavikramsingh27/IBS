@@ -9,13 +9,15 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class MedicationController extends GetxController {
+  RxBool loader = false.obs;
+  /*
   Rx<DateTime> now = DateTime.now().obs;
 
   RxInt formattedTime = 0.obs;
   RxBool loader = false.obs;
 
   Rx<MedicationSendModel> medicationSendModel = MedicationSendModel().obs;
-  RxList<Default> listfoodDefault = <Default>[].obs;
+  RxList<Tag> listfoodDefault = <Tag>[].obs;
   TextEditingController noteTextController = TextEditingController();
   TextEditingController medicationTextController = TextEditingController();
   SignUpController _signUpController = Get.find();
@@ -25,9 +27,60 @@ class MedicationController extends GetxController {
     super.onInit();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
     checkData();
+  }*/
+
+//  Rx<MedicationM> healthWellnessModel = HealthWellnessModel().obs;
+  SignUpController _signUpController = Get.find();
+
+  RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
+  RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
+
+
+  /*
+  onTapped(int index) async {
+    currentIndex.value = index;
+  }
+*/
+
+
+  @override
+  void onInit() {
+    // Get the source of the data:
+    _signUpController
+        .medications.value.items.forEach((element) {
+      formWidgetList.add(element);
+    });
+
+    // Refresh the local list so the form can generate:
+    formWidgetList.refresh();
+    _selectedItems = RxList<TrackableSubmitItem>();
+    super.onInit();
+    // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 
-  onSave() async {
+  valueChanged(TrackableSubmitItem submitItem) {
+    var count = _selectedItems.length;
+    bool isAdded = false;
+    for (var i = 0; i < count; i++) {
+      if (_selectedItems[i].tid == submitItem.tid) {
+        _selectedItems[i] = submitItem;
+        isAdded = true;
+        break;
+      }
+    }
+
+    if (!isAdded) {
+      _selectedItems.add(submitItem);
+    }
+
+  }
+
+    onSave() async {
+      print("on save called");
+    }
+
+
+    /*
     if (medicationSendModel.value.items == null) {
       medicationSendModel.value.items = [];
     }
@@ -62,6 +115,7 @@ class MedicationController extends GetxController {
     if (data is MedicationResponseModel) {
       medicationTextController.clear();
       noteTextController.clear();
+      medicationSendModel.value.items = [];
       _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
@@ -82,4 +136,7 @@ class MedicationController extends GetxController {
       loader.value = false;
     }
   }
+
+     */
+
 }

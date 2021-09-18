@@ -210,7 +210,7 @@ class Foods extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       if (_controller.foodTextController.text.isNotEmpty)
-                        _controller.listfoodDefault.add(Default(
+                        _controller.listfoodDefault.add(Tag(
                             value: _controller.foodTextController.text));
                     },
                     child: Row(
