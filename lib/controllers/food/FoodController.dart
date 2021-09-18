@@ -13,6 +13,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class FoodController extends GetxController {
+
+  /*
   Rx<FoodResponseModel> foodModel;
   Rx<DateTime> currentDateTime = DateTime.now().obs;
   HomeController homeController = Get.find();
@@ -39,10 +41,29 @@ class FoodController extends GetxController {
   RxInt startTimeDifference = 0.obs;
   SignUpController _signUpController = Get.find();
   RxInt modelMealIndex = 0.obs;
+*/
+  RxBool loader = false.obs;
+
+  Rx<FoodResponseModel> foodModel = FoodResponseModel().obs;
+  SignUpController _signUpController = Get.find();
+
+  RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
+  RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
+
 
   @override
   void onInit() async {
+    _signUpController
+        .food.value.items.forEach((element) {
+      formWidgetList.add(element);
+    });
+
+    // Refresh the local list so the form can generate:
+    formWidgetList.refresh();
+    _selectedItems = RxList<TrackableSubmitItem>();
+
     super.onInit();
+    /*
     formattedTime = int.parse(
             DateFormat.Hm().format(currentDateTime.value).split(":").first)
         .obs;
@@ -50,6 +71,8 @@ class FoodController extends GetxController {
 
     var v = homeController.trackFoodList.value;
     print("vdsdfat-- $v");
+
+     */
   }
 
   // onFoodTagSave() {
@@ -61,6 +84,7 @@ class FoodController extends GetxController {
   // }
 
   onSave() async {
+    /*
     if (foodSendModel.value.items == null) {
       foodSendModel.value.items = [];
     }
@@ -124,8 +148,11 @@ class FoodController extends GetxController {
       _signUpController.getTrackList();
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
+
+     */
   }
 
+  /*
   getFood() async {
     final data = await ServiceApi().getFoodList();
     if (data == null) {
@@ -177,4 +204,32 @@ class FoodController extends GetxController {
     //     });
     //   }
   }
+
+   */
+
+  valueChanged(TrackableSubmitItem submitItem){
+    var count = _selectedItems.length;
+    bool isAdded = false;
+    for(var i=0; i < count; i++) {
+      if (_selectedItems[i].tid == submitItem.tid) {
+        _selectedItems[i] = submitItem;
+        isAdded = true;
+        break;
+      }
+    }
+
+    if (!isAdded){
+      _selectedItems.add(submitItem);
+    }
+
+
+/*
+    print ('-------');
+    _selectedItems.forEach((element) {
+      print(element.toJson());
+    });
+
+ */
+  }
+
 }

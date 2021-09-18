@@ -11,6 +11,7 @@ import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
+import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
@@ -20,45 +21,131 @@ class Foods extends StatelessWidget {
 
   Foods({Key key, this.trackFoodList}) : super(key: key);
 
-  final FoodController _controller = Get.put(FoodController());
+  final FoodController controller = Get.put(FoodController());
   final SignUpController _signUpController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    print("model:$trackFoodList");
+    //print("model:$trackFoodList");
+
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      bottomNavigationBar: _signUpController.loader.value
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Container(
-              color: Colors.white,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(height: ScreenConstant.defaultHeightTen),
-                  _controller.loader.value
-                      ? Offstage()
-                      : CustomElevatedButton(
-                          widthFactor: 0.7,
-                          text: "Save",
-                          onTap: _controller.onSave,
-                        ),
-                  TextButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: Text("Cancel",
-                          style: TextStyles.textStyleIntroDescription.apply(
-                            color: AppColors.colorskip_also_proceed,
-                          )))
-                ],
+        resizeToAvoidBottomInset: false,
+        bottomNavigationBar: _signUpController.loader.value
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Container(
+                color: Colors.white,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(height: ScreenConstant.defaultHeightTen),
+                    controller.loader.value
+                        ? Offstage()
+                        : CustomElevatedButton(
+                            widthFactor: 0.7,
+                            text: "Save",
+                            onTap: controller.onSave,
+                          ),
+                    TextButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        child: Text("Cancel",
+                            style: TextStyles.textStyleIntroDescription.apply(
+                              color: AppColors.colorskip_also_proceed,
+                            )))
+                  ],
+                ),
               ),
-            ),
-      backgroundColor: Color(0xff1A103E).withOpacity(0.6),
-      body: Obx(
+        backgroundColor: Color(0xff1A103E).withOpacity(0.6),
+        body: Obx(
+          () => ListView(
+            physics: ClampingScrollPhysics(),
+            children: [
+              Padding(
+                padding:
+                    EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: ScreenConstant.defaultHeightTwenty),
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
+                        )),
+                        child: Column(
+                          children: [
+                            SizedBox(height: ScreenConstant.defaultHeightSixty),
+                            Text(
+                              "Track Food",
+                              style: TextStyles.textStyleIntroDescription.apply(
+                                  color: Colors.black, fontSizeDelta: -2),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            DateTimeCardWidget(),
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            controller.loader.value
+                                ? Center(
+                                    child: Padding(
+                                    padding: ScreenConstant.spacingAllLarge,
+                                    child: Container(
+                                        height:
+                                            ScreenConstant.screenHeightThird,
+                                        child: Center(
+                                            child:
+                                                CircularProgressIndicator())),
+                                  ))
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: ClampingScrollPhysics(),
+                                    itemCount: controller.formWidgetList.length,
+                                    itemBuilder: (_, mainIndex) {
+                                      var isLast = false;
+
+                                      if (mainIndex ==
+                                              (controller
+                                                      .formWidgetList.length -
+                                                  2) ||
+                                          mainIndex ==
+                                              (controller
+                                                      .formWidgetList.length -
+                                                  1)) {
+                                        // If it's the last one or two... because additional notes could be after.
+                                        isLast = true;
+                                      }
+                                      return RenderWidgetByType()
+                                          .renderTrackableItem(
+                                              controller
+                                                  .formWidgetList[mainIndex],
+                                              isFirst: mainIndex == 0,
+                                              isLast: isLast,
+                                              onValueChanged:
+                                                  controller.valueChanged);
+                                    }),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightTwenty),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Positioned(right: 0, left: 0, child: CustomArcPainter())
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
+
+  /*
+  Obx(
         () => InkWell(
           onTap: () => dismissKeyboard(context),
           child: ListView(
@@ -146,8 +233,7 @@ class Foods extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
+   */
 
   _buildWavePainter() {
     return CustomPaint(
@@ -156,6 +242,8 @@ class Foods extends StatelessWidget {
       painter: WavePainter(),
     );
   }
+
+  /*
 
   _buildFoods(int index) {
     return Stack(
@@ -634,4 +722,5 @@ class Foods extends StatelessWidget {
           childAspectRatio: 1),
     );
   }
+*/
 }
