@@ -1351,9 +1351,11 @@ class ItemCondition {
 class FluffyList {
   FluffyList({
     this.options,
+    this.value,
   });
 
   List<ListOption> options;
+  ListOption value;
 
   factory FluffyList.fromJson(Map<String, dynamic> json) => FluffyList(
         options: json["options"] == null

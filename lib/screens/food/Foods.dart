@@ -11,6 +11,7 @@ import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
+import 'package:flutter_ibs/widget/ScreenControls/RenderItemChildrenWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:flutter_ibs/widget/utils.dart';
@@ -62,6 +63,161 @@ class Foods extends StatelessWidget {
         backgroundColor: Color(0xff1A103E).withOpacity(0.6),
         body: Obx(
           () => ListView(
+            physics: ClampingScrollPhysics(),
+            children: [
+              Padding(
+                padding:
+                EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: ScreenConstant.defaultHeightTwenty),
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(24),
+                              topRight: Radius.circular(24),
+                            )),
+                        child: Column(
+                          children: [
+                            SizedBox(height: ScreenConstant.defaultHeightSixty),
+                            Text(
+                              _signUpController.food.value.header.tr,
+                              style: TextStyles.textStyleIntroDescription.apply(
+                                  color: Colors.black, fontSizeDelta: -2),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            DateTimeCardWidget(),
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            Text(
+                              _signUpController.food.value.items.first.name.tr,
+                              style: TextStyles.textStyleIntroDescription.apply(
+                                  color: Colors.black, fontSizeDelta: -2),
+                              textAlign: TextAlign.center,
+                            ),
+                            _buildMealList(controller.formWidgetList.first),
+
+                            controller.loader.value
+                                ? Center(
+                                child: Padding(
+                                  padding: ScreenConstant.spacingAllLarge,
+                                  child: Container(
+                                      height:
+                                      ScreenConstant.screenHeightThird,
+                                      child: Center(
+                                          child:
+                                          CircularProgressIndicator())),
+                                ))
+                                : RenderItemChildrenWidget(trackableItem:controller.formWidgetList.first),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightTwenty),
+                            AdditionalNoteWidget(
+                             // textEditingController:
+                             // _controller.noteTextController,
+                              text: "Additional Note"
+                            ),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightTwentyFour),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Positioned(right: 0, left: 0, child: CustomArcPainter())
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+
+        ));
+  }
+
+
+  /// HACK: We're hard-coding the food selection list to save some time.
+  _buildMealList(TrackableItem foodParent) {
+    return GridView.builder(
+      padding: EdgeInsets.symmetric(
+          horizontal: ScreenConstant.defaultHeightForty * 1.2,
+          vertical: ScreenConstant.defaultHeightTwentyFour),
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount:
+        foodParent.list?.options?.length ?? 0,
+      itemBuilder: (BuildContext context, int index) {
+        // _controller.mealOptionDefault(mealIndex: index);
+        var model =
+        foodParent.list?.options[index];
+
+        return InkWell(
+          onTap: () {
+            controller.formWidgetList.first.list.options
+                .forEach((element) {
+              if (element.optionDefault) {
+                element.optionDefault = false;
+              }
+              controller.formWidgetList.first.list.value = model;
+            });
+            model.optionDefault = !model.optionDefault;
+        //    controller.formWidgetList.first.
+            controller.formWidgetList.refresh();
+            /*    _controller.modelMealIndex.value = index;
+            _controller.mealTypeValue.value = model.value;
+            _controller.modelMealIndex.refresh();
+            _signUpController.food.refresh();
+            */
+          },
+          child: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                    // ((endTime.difference(u).inSeconds) > 0 &&
+                    //         (u.difference(startTime).inSeconds) > 0)
+                    //     ? model.image.active
+                    model.optionDefault
+                        ? model.image.active
+                        : model.image.normal,
+                  ),
+                ),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: AppColors.colorBorder, width: 1)),
+            child: Stack(
+              children: [
+                Positioned(
+                  bottom: ScreenConstant.sizeLarge,
+                  left: 0,
+                  right: 0,
+                  child: Text(
+                    model.label.tr ?? "",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyles.textStyleRegular.apply(
+                        color:
+                        model.optionDefault ? Colors.white : Colors.black,
+                        fontSizeDelta: 2),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
+          crossAxisCount: 2,
+          childAspectRatio: 1.2),
+    );
+  }
+
+  _buildFoodSelection(){
+    return Offstage();
+
+    return ListView(
             physics: ClampingScrollPhysics(),
             children: [
               Padding(
@@ -140,8 +296,7 @@ class Foods extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ));
+          );
   }
 
   /*
@@ -360,81 +515,10 @@ class Foods extends StatelessWidget {
       ],
     );
   }
+*/
 
-  _buildMealList() {
-    return GridView.builder(
-      padding: EdgeInsets.symmetric(
-          horizontal: ScreenConstant.defaultHeightForty * 1.2,
-          vertical: ScreenConstant.defaultHeightTwentyFour),
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount:
-          _signUpController.food.value.items?.first?.list?.options?.length ?? 0,
-      itemBuilder: (BuildContext context, int index) {
-        _controller.mealOptionDefault(mealIndex: index);
-        var model =
-            _signUpController.food.value.items?.first?.list?.options[index];
 
-        return InkWell(
-          onTap: () {
-            _signUpController.food.value.items.first.list.options
-                .forEach((element) {
-              if (element.optionDefault) {
-                element.optionDefault = false;
-                _signUpController.food.refresh();
-              }
-            });
-
-            model.optionDefault = !model.optionDefault;
-            _controller.modelMealIndex.value = index;
-            _controller.mealTypeValue.value = model.value;
-            _controller.modelMealIndex.refresh();
-            _signUpController.food.refresh();
-          },
-          child: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                    // ((endTime.difference(u).inSeconds) > 0 &&
-                    //         (u.difference(startTime).inSeconds) > 0)
-                    //     ? model.image.active
-                    model.optionDefault
-                        ? model.image.active
-                        : model.image.normal,
-                  ),
-                ),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: AppColors.colorBorder, width: 1)),
-            child: Stack(
-              children: [
-                Positioned(
-                  bottom: ScreenConstant.sizeLarge,
-                  left: 0,
-                  right: 0,
-                  child: Text(
-                    model.label.tr ?? "",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyles.textStyleRegular.apply(
-                        color:
-                            model.optionDefault ? Colors.white : Colors.black,
-                        fontSizeDelta: 2),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
-          crossAxisCount: 2,
-          childAspectRatio: 1.2),
-    );
-  }
-
+  /*
   _buildListDefaultFood(int index) {
     // print("ind$index");
     return _controller.listfoodDefault.isNotEmpty
