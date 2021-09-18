@@ -231,7 +231,6 @@ class CoreService {
             final response = await flutterFeathersjs.patch(
                 objectId: objectId, serviceName: endpoint, data: data
             );
-
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {

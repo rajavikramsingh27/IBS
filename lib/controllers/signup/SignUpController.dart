@@ -19,6 +19,7 @@ import 'package:get/get.dart';
 import 'package:flutter_ibs/utils/Validator.dart';
 import 'dart:developer' as developer;
 
+
 class SignUpController extends GetxController {
   Rx<TrackablesListModel> trackList = TrackablesListModel().obs;
 
@@ -26,6 +27,7 @@ class SignUpController extends GetxController {
   RxBool selectedMale = false.obs;
   RxBool selectedFeMale = false.obs;
   RxBool selectedOtherGender = false.obs;
+
   List<TrackableItem> symptomsList = [];
   List<TrackableItem> bowelMoveList = [];
   List<TrackableItem> foodList = [];
@@ -134,6 +136,7 @@ class SignUpController extends GetxController {
 
   registrationApi() async {
     final MyProfileController _myProFileController = Get.find();
+
     DiagnosedIbsSendModel diagnoisedModel = DiagnosedIbsSendModel(
       isDiagnosed: _myProFileController.isDiagnoisedIbs.value ?? false,
       ibsType: _myProFileController
@@ -213,6 +216,7 @@ class SignUpController extends GetxController {
     */
 
 
+
     TrackingSendModel trackModel = TrackingSendModel(
       symptoms: symptomsList,
       bowelMovements: bowelMoveList,
@@ -258,8 +262,6 @@ class SignUpController extends GetxController {
 
   }
 
-
-
   getTrackList() async {
     if (connectionStatus.value) {
       loader.value = true;
@@ -271,14 +273,17 @@ class SignUpController extends GetxController {
 
         trackList.value = value;
       });
+
       getSymptoms();
       getBowelMovements();
       getFoods();
       getJournalList();
       getMedicationList();
       getHealthWellness();
+
       loader.value = false;
     }
+
   }
 
   bool isFormValid() {
@@ -377,7 +382,6 @@ class SignUpController extends GetxController {
       }
     });
   }
-
 
   /// Walk the Trackables tree adding active elements.
   _recursivelyParseChildren(List<TrackableItem> items){

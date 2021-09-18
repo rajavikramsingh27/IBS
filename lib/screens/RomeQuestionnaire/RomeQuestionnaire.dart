@@ -20,11 +20,9 @@ import 'package:flutter_ibs/controllers/MyAccount/MyAccountController.dart';
 
 class RomeQuestionnaire extends StatelessWidget {
   MyAccountController _controller;
-  // = Get.put(MyAccountController());
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold (
       backgroundColor: AppColors.colorProfileBg,
       appBar: AppBar(
@@ -108,6 +106,7 @@ class RomeQuestionnaire extends StatelessWidget {
   // Physicians worldwide follow the Rome IV criteria when diagnosing IBS.
   // The following questions are for informational purposes only and should not substitute
   // for the medical advice of you doctor.
+
 
 
   _buildStartQuestionnaire() {
@@ -339,6 +338,8 @@ class RomeQuestionnaire extends StatelessWidget {
                       () => CustomElevatedButton2(
                     onTap: () {
                       _controller.isDiagnoisedAbdominalPain.value = true;
+
+                      _controller.updateRomeIVQuestionaire();
                     },
                     text: "Yes",
                     textColor:
@@ -358,6 +359,7 @@ class RomeQuestionnaire extends StatelessWidget {
                       () => CustomElevatedButton2(
                     onTap: () {
                       _controller.isDiagnoisedAbdominalPain.value = false;
+                      _controller.updateRomeIVQuestionaire();
                     },
                     text: "No",
                     textColor:
@@ -422,6 +424,8 @@ class RomeQuestionnaire extends StatelessWidget {
                     () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainTimeBowel.value = true;
+
+                    _controller.updateRomeIVQuestionaire();
                   },
                   text: "Yes",
                   textColor: _controller.isabdominalPainTimeBowel.value == true
@@ -440,6 +444,8 @@ class RomeQuestionnaire extends StatelessWidget {
                     () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainTimeBowel.value = false;
+
+                    _controller.updateRomeIVQuestionaire();
                   },
                   text: "No",
                   textColor: _controller.isabdominalPainTimeBowel.value == false
@@ -477,6 +483,8 @@ class RomeQuestionnaire extends StatelessWidget {
                     () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainBowelMoreLess.value = true;
+
+                    _controller.updateRomeIVQuestionaire();
                   },
                   text: "Yes",
                   textColor:
@@ -496,6 +504,8 @@ class RomeQuestionnaire extends StatelessWidget {
                     () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainBowelMoreLess.value = false;
+
+                    _controller.updateRomeIVQuestionaire();
                   },
                   text: "No",
                   textColor:
@@ -570,6 +580,8 @@ class RomeQuestionnaire extends StatelessWidget {
                       () => CustomElevatedButton2(
                     onTap: () {
                       _controller.isabdominalPainBowelAppearDifferent.value = true;
+
+                      _controller.updateRomeIVQuestionaire();
                     },
                     text: "Yes",
                     textColor: _controller.isabdominalPainBowelAppearDifferent.value == true
@@ -588,6 +600,8 @@ class RomeQuestionnaire extends StatelessWidget {
                       () => CustomElevatedButton2(
                     onTap: () {
                       _controller.isabdominalPainBowelAppearDifferent.value = false;
+
+                      _controller.updateRomeIVQuestionaire();
                     },
                     text: "No",
                     textColor: _controller.isabdominalPainBowelAppearDifferent.value == false
@@ -686,6 +700,8 @@ class RomeQuestionnaire extends StatelessWidget {
               onTap: () {
                 _controller.selectedStoolType.value = index;
                 _controller.selectStoolType(index);
+
+                _controller.updateRomeIVQuestionaire();
               },
               child: Card(
                 elevation: 0,
@@ -697,14 +713,16 @@ class RomeQuestionnaire extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      vertical: ScreenConstant.defaultHeightSixteen),
+                      vertical: ScreenConstant.defaultHeightSixteen
+                  ),
                   child: Text(model.text,
                       textAlign: TextAlign.center,
                       style: TextStyles.textStyleIntroDescription.apply(
                           color: _controller.selectedStoolType.value == index
                               ? Colors.white
                               : AppColors.colorBackground,
-                          fontSizeDelta: -3)),
+                          fontSizeDelta: -3)
+                  ),
                 ),
 
                 //  ListTile(

@@ -102,6 +102,7 @@ class ServiceApi {
     } else {
       return BowelMovementsResponseModel.fromJson(result);
     }
+
   }
 
   Future<dynamic> postJournalAPI({Map bodyData}) async {
@@ -224,10 +225,23 @@ class ServiceApi {
     return MyAccountModel.fromJson(result);
   }
 
-  Future<dynamic> updateIBS({Map bodyData}) async {
-
+  Future<dynamic> updateIBS_RomeIV({Map bodyData}) async {
     final data = {'profile':bodyData,};
     print(data);
+
+    final result = await CoreService().apiService(
+      method: METHOD.PATCH,
+      endpoint: USERS,
+      data: data,
+    );
+
+    return MyAccountModel.fromJson(result);
+  }
+
+  Future<dynamic> updateTrackingOption({Map bodyData}) async {
+    final data = {'tracking':bodyData,};
+    print(data);
+
     final result = await CoreService().apiService(
       method: METHOD.PATCH,
       endpoint: USERS,
