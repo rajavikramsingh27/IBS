@@ -42,7 +42,7 @@ class _RatingWidgetState extends State<RatingWidget> {
   @override
   Widget build(BuildContext context) {
     bool hasChildren = widget.trackableItem.children.length > 0;
-    print(widget.trackableItem.tid + ", " + hasChildren.toString());
+
     return Stack(
       children: [
         Positioned.fill(

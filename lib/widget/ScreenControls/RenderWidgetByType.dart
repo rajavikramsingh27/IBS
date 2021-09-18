@@ -1,3 +1,4 @@
+import 'package:flutter_ibs/widget/ScreenControls/AddableTagListWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/BristolScaleWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/ColorPickerWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/FixedTagListWidget.dart';
@@ -53,7 +54,7 @@ class RenderWidgetByType {
                 isChild: isChild
             );
           }else{
-            return FixedTagListWidget(
+            return AddableTagListWidget(
                 trackableItem: trackableItem,
                 onValueChanged: onValueChanged,
                 isFirst: isFirst,

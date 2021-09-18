@@ -188,7 +188,7 @@ class Medication extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CircleAvatar(
-                          radius: ScreenConstant.defaultWidthTen * 1.5,
+                      circular(100    radius: ScreenConstant.defaultWidthTen * 1.5,
                           backgroundColor: AppColors.colorArrowButton,
                           child: Icon(
                             Icons.add,
