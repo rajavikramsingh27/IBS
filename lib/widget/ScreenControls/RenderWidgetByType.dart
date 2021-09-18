@@ -11,6 +11,7 @@ import 'package:flutter_ibs/widget/ScreenControls/TextInputWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/TimePickerInlineWidget.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/widget/ScreenControls/ToggleInlineWidget.dart';
 
 class RenderWidgetByType {
   renderTrackableItem(TrackableItem trackableItem,
@@ -52,7 +53,13 @@ class RenderWidgetByType {
                 isChild: isChild
             );
           }else{
-            print("User addable tags");
+            return FixedTagListWidget(
+                trackableItem: trackableItem,
+                onValueChanged: onValueChanged,
+                isFirst: isFirst,
+                isLast: isLast,
+                isChild: isChild
+            );
           }
         }
         break;
@@ -111,6 +118,16 @@ class RenderWidgetByType {
       case "numberInput":
         {
           return NumberInputWidget(
+              trackableItem: trackableItem,
+              onValueChanged: onValueChanged,
+              isFirst: isFirst,
+              isLast: isLast,
+              isChild: isChild
+          );
+        }
+      case "toggleInline":
+        {
+          return ToggleInlineWidget(
               trackableItem: trackableItem,
               onValueChanged: onValueChanged,
               isFirst: isFirst,
