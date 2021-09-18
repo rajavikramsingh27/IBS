@@ -3,6 +3,7 @@ import 'package:flutter_ibs/widget/ScreenControls/BristolScaleWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/ColorPickerWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/FixedTagListWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/GroupWidget.dart';
+import 'package:flutter_ibs/widget/ScreenControls/HydrationWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/ListWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/NumberInputWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RatingWidget.dart';
@@ -149,6 +150,16 @@ class RenderWidgetByType {
       case "color":
         {
           return ColorPickerWidget(
+              trackableItem: trackableItem,
+              onValueChanged: onValueChanged,
+              isFirst: isFirst,
+              isLast: isLast,
+              isChild: isChild
+          );
+        }
+      case "sum":
+        {
+          return HydrationWidget(
               trackableItem: trackableItem,
               onValueChanged: onValueChanged,
               isFirst: isFirst,

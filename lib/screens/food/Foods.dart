@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/food/FoodController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
@@ -111,14 +112,10 @@ class Foods extends StatelessWidget {
                                           child:
                                           CircularProgressIndicator())),
                                 ))
-                                : RenderItemChildrenWidget(trackableItem:controller.formWidgetList.first),
-                            SizedBox(
-                                height: ScreenConstant.defaultHeightTwenty),
-                            AdditionalNoteWidget(
-                             // textEditingController:
-                             // _controller.noteTextController,
-                              text: "Additional Note"
-                            ),
+                                : //RenderItemChildrenWidget(trackableItem:controller.formWidgetList.first),
+                            controller.formWidgetList.first.list.value != null ? _renderFoodGroup(controller.formWidgetList.first.list.value) : Offstage(),
+                              RenderWidgetByType().renderTrackableItem(controller.formWidgetList[controller.formWidgetList.length -2], isLast: true),
+                            RenderWidgetByType().renderTrackableItem(controller.formWidgetList.last),
                             SizedBox(
                                 height: ScreenConstant.defaultHeightTwentyFour),
                           ],
@@ -135,6 +132,7 @@ class Foods extends StatelessWidget {
 
         ));
   }
+
 
 
   /// HACK: We're hard-coding the food selection list to save some time.
@@ -159,10 +157,10 @@ class Foods extends StatelessWidget {
               if (element.optionDefault) {
                 element.optionDefault = false;
               }
-              controller.formWidgetList.first.list.value = model;
+
             });
             model.optionDefault = !model.optionDefault;
-        //    controller.formWidgetList.first.
+            controller.formWidgetList.first.list.value = model;
             controller.formWidgetList.refresh();
             /*    _controller.modelMealIndex.value = index;
             _controller.mealTypeValue.value = model.value;
@@ -213,6 +211,32 @@ class Foods extends StatelessWidget {
           childAspectRatio: 1.2),
     );
   }
+
+
+
+  _renderFoodGroup(ListOption option){
+    TrackableItem item;
+
+    switch (option.value){
+      case "breakfast":
+        item = controller.formWidgetList.first.children[0].items[0];
+        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true );
+      case "lunch":
+        item = controller.formWidgetList.first.children[1].items[0];
+        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true );
+      case "dinner":
+        item = controller.formWidgetList.first.children[2].items[0];
+        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true  );
+      case "snacks":
+        item = controller.formWidgetList.first.children[3].items[0];
+        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true  );
+      default:
+        return Offstage();
+    }
+  }
+
+
+
 
   _buildFoodSelection(){
     return Offstage();
@@ -808,3 +832,4 @@ class Foods extends StatelessWidget {
   }
 */
 }
+
