@@ -22,6 +22,7 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Login Page");
     return Scaffold(
         backgroundColor: AppColors.colorBackground,
         // appBar: AppBar(

@@ -44,7 +44,7 @@ class _IntroState extends State<Intro> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Positioned(
+          /*Positioned(
               top: 0,
               child: Image.asset(
                 "assets/images/intro/curl1.png",
@@ -62,7 +62,7 @@ class _IntroState extends State<Intro> {
               child: Image.asset(
                 "assets/images/intro/curl3.png",
                 height: Get.mediaQuery.size.height / 2,
-              )),
+              )),*/
           Padding(
               padding: EdgeInsets.only(
                   top: context.mediaQuerySize.width > 400
@@ -82,7 +82,7 @@ class _IntroState extends State<Intro> {
                     child: Column(
                       children: [
                         _getStartedButton(),
-                        SizedBox(height: ScreenConstant.defaultHeightTen),
+                        SizedBox(height: ScreenConstant.defaultHeightTwenty),
                         RichText(
                           text: TextSpan(
                             text: 'Have an Account? ',
@@ -96,7 +96,7 @@ class _IntroState extends State<Intro> {
                                 text: 'Log in',
                                 style: TextStyles.textStyleIntroDescription
                                     .apply(
-                                        fontSizeDelta: -3, color: Colors.white),
+                                        fontSizeDelta: -2, color: Colors.white),
                               ),
                             ],
                           ),

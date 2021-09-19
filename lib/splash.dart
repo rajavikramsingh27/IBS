@@ -31,8 +31,12 @@ class _SplashState extends State<Splash> {
     ScreenConstant.setScreenAwareConstant(context);
     return Container(
         color: AppColors.colorBackground,
-        child: Center(
-          child: Image.asset("assets/images/intro/intro0.png"),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: ScreenConstant.defaultWidthSixty, vertical: ScreenConstant.defaultHeightSixty),
+          child: Center(
+            child: Image.asset("assets/images/intro/intro0.png"),
+          ),
         ));
   }
 }
