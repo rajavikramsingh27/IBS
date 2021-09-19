@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_ibs/controllers/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessModel.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart' as HealthRsp;
@@ -31,7 +32,7 @@ class HealthController extends GetxController {
 */
 
   Rx<HealthWellnessModel> healthWellnessModel = HealthWellnessModel().obs;
-  SignUpController _signUpController = Get.find();
+  TrackablesController _trackablesController = Get.find();
 
   RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
@@ -46,7 +47,7 @@ class HealthController extends GetxController {
   @override
   void onInit() {
     // Get the source of the data:
-    _signUpController
+    _trackablesController
         .healthWellness.value.items.forEach((element) {
           formWidgetList.add(element);
     });

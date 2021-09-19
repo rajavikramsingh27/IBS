@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
@@ -45,7 +46,7 @@ class FoodController extends GetxController {
   RxBool loader = false.obs;
 
   Rx<FoodResponseModel> foodModel = FoodResponseModel().obs;
-  SignUpController _signUpController = Get.find();
+  TrackablesController _trackablesController = Get.find();
 
   RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
@@ -53,7 +54,7 @@ class FoodController extends GetxController {
 
   @override
   void onInit() async {
-    _signUpController
+    _trackablesController
         .food.value.items.forEach((element) {
       formWidgetList.add(element);
     });

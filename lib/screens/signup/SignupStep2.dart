@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
@@ -14,6 +15,7 @@ import 'package:get/get.dart';
 
 class SignupStep2 extends StatelessWidget {
   final _controller = Get.put(SignUpController());
+  final TrackablesController _trackablesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class SignupStep2 extends StatelessWidget {
         //     },
         //   ),
         // ),
-        body: Obx(() => _controller.loader.value
+        body: Obx(() => _trackablesController.loader.value
             ? Center(
                 child: CircularProgressIndicator(),
               )
@@ -119,9 +121,9 @@ class SignupStep2 extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: _controller.trackList.value.data?.length ?? 0,
+      itemCount: _trackablesController.trackList.value.data?.length ?? 0,
       itemBuilder: (_, index) {
-        var topLevelItem = _controller.trackList.value.data[index];
+        var topLevelItem = _trackablesController.trackList.value.data[index];
 
         return Theme(
             data: Get.theme.copyWith(dividerColor: Colors.transparent),
@@ -141,10 +143,10 @@ class SignupStep2 extends StatelessWidget {
                         onChanged: (val) {
                           topLevelItem.enabled = !topLevelItem.enabled;
                           _setEnabledStateOfChildrenForTrackable(topLevelItem, topLevelItem);
-                          _controller.trackList.refresh();
+                          _trackablesController.trackList.refresh();
                         },
                       ),
-                      Text("${_controller.trackList.value.data[index].name}".tr,
+                      Text("${_trackablesController.trackList.value.data[index].name}".tr,
                           style: TextStyles.textStyleIntroDescription
                               .apply(color: Colors.white, fontSizeDelta: -3)),
                       Spacer(),
@@ -166,7 +168,7 @@ class SignupStep2 extends StatelessWidget {
                       child: ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: _controller
+                          itemCount: _trackablesController
                               .trackList.value.data[index].items.length,
                           itemBuilder: (BuildContext context, int idx) {
                             return _renderSubItem(topLevelItem.items[idx], topLevelItem);
@@ -194,7 +196,7 @@ class SignupStep2 extends StatelessWidget {
                   onChanged: (val) {
                     item.enabled = !item.enabled;
                     _setEnabledStateOfChildrenForTrackable(item, topLevelItem);
-                    _controller.trackList.refresh();
+                    _trackablesController.trackList.refresh();
                   },
                 ),
                 Expanded(

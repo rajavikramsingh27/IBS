@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/HexColor.dart';
@@ -14,6 +15,7 @@ import 'package:get/get.dart';
 
 class TrackingOptions extends StatelessWidget {
   final _controller = Get.put(SignUpController());
+  final TrackablesController _trackablesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -108,9 +110,9 @@ class TrackingOptions extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: _controller.trackList.value.data?.length ?? 0,
+      itemCount: _trackablesController.trackList.value.data?.length ?? 0,
       itemBuilder: (_, index) {
-        var model = _controller.trackList.value.data[index];
+        var model = _trackablesController.trackList.value.data[index];
         return Theme(
           data: Get.theme.copyWith(dividerColor: Colors.transparent),
           child: CustomExpansionTile(
@@ -125,14 +127,14 @@ class TrackingOptions extends StatelessWidget {
                   children: [
                     CustomCheckBox(
                       checkedFillColor: AppColors.colorYesButton,
-                      value: _controller.trackList.value.data[index].enabled,
+                      value: _trackablesController.trackList.value.data[index].enabled,
                       onChanged: (val) {
-                        _controller.trackList.value.data[index].enabled =
-                        !_controller.trackList.value.data[index].enabled;
-                        _controller.trackList.refresh();
+                        _trackablesController.trackList.value.data[index].enabled =
+                        !_trackablesController.trackList.value.data[index].enabled;
+                        _trackablesController.trackList.refresh();
                       },
                     ),
-                    Text("${_controller.trackList.value.data[index].tid}",
+                    Text("${_trackablesController.trackList.value.data[index].tid}",
                         style: TextStyles.textStyleIntroDescription
                             .apply(color: Colors.white, fontSizeDelta: -3)),
                     Spacer(),
@@ -155,10 +157,10 @@ class TrackingOptions extends StatelessWidget {
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount:
-                    _controller.trackList.value.data[index].items.length,
+                    _trackablesController.trackList.value.data[index].items.length,
                     itemBuilder: (BuildContext context, int idx) {
                       var subModel =
-                      _controller.trackList.value.data[index].items[idx];
+                      _trackablesController.trackList.value.data[index].items[idx];
                       return CustomExpansionTile(
                         tilePadding: EdgeInsets.zero,
                         onExpansionChanged: (isExpanding) {},
@@ -169,14 +171,14 @@ class TrackingOptions extends StatelessWidget {
                             CustomCheckBox(
                               value: model.enabled == false
                                   ? false
-                                  : _controller.trackList.value.data[index]
+                                  : _trackablesController.trackList.value.data[index]
                                   .items[idx].enabledDefault,
                               onChanged: (val) {
-                                _controller.trackList.value.data[index]
+                                _trackablesController.trackList.value.data[index]
                                     .items[idx].enabledDefault =
-                                !_controller.trackList.value.data[index]
+                                !_trackablesController.trackList.value.data[index]
                                     .items[idx].enabledDefault;
-                                _controller.trackList.refresh();
+                                _trackablesController.trackList.refresh();
                               },
                             ),
                             Expanded(
@@ -221,7 +223,7 @@ class TrackingOptions extends StatelessWidget {
                                       onChanged: (val) {
                                         subModelChild.enabledDefault =
                                         !subModelChild.enabledDefault;
-                                        _controller.trackList.refresh();
+                                        _trackablesController.trackList.refresh();
                                       },
                                     ),
                                     Expanded(

@@ -255,6 +255,7 @@ class BowelMovement extends StatelessWidget {
     );
   }
 
+  /*
   _buildColorPortion({TrackableItem data}) {
 
   }
@@ -444,7 +445,7 @@ class BowelMovement extends StatelessWidget {
       painter: WavePainter(),
     );
   }
-
+*/
 
 
 }

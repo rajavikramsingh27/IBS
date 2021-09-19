@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/food/FoodController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
@@ -24,7 +25,7 @@ class Foods extends StatelessWidget {
   Foods({Key key, this.trackFoodList}) : super(key: key);
 
   final FoodController controller = Get.put(FoodController());
-  final SignUpController _signUpController = Get.find();
+  final TrackablesController _trackablesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class Foods extends StatelessWidget {
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        bottomNavigationBar: _signUpController.loader.value
+        bottomNavigationBar: _trackablesController.loader.value
             ? Center(
                 child: CircularProgressIndicator(),
               )
@@ -85,7 +86,7 @@ class Foods extends StatelessWidget {
                           children: [
                             SizedBox(height: ScreenConstant.defaultHeightSixty),
                             Text(
-                              _signUpController.food.value.header.tr,
+                              _trackablesController.food.value.header.tr,
                               style: TextStyles.textStyleIntroDescription.apply(
                                   color: Colors.black, fontSizeDelta: -2),
                               textAlign: TextAlign.center,
@@ -94,7 +95,7 @@ class Foods extends StatelessWidget {
                             DateTimeCardWidget(),
                             SizedBox(height: ScreenConstant.defaultHeightForty),
                             Text(
-                              _signUpController.food.value.items.first.name.tr,
+                              _trackablesController.food.value.items.first.name.tr,
                               style: TextStyles.textStyleIntroDescription.apply(
                                   color: Colors.black, fontSizeDelta: -2),
                               textAlign: TextAlign.center,

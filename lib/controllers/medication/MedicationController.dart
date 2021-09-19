@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/medication/MedicationResponseModel.dart';
@@ -30,7 +31,7 @@ class MedicationController extends GetxController {
   }*/
 
 //  Rx<MedicationM> healthWellnessModel = HealthWellnessModel().obs;
-  SignUpController _signUpController = Get.find();
+  TrackablesController _trackablesController = Get.find();
 
   RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
@@ -46,7 +47,7 @@ class MedicationController extends GetxController {
   @override
   void onInit() {
     // Get the source of the data:
-    _signUpController
+    _trackablesController
         .medications.value.items.forEach((element) {
       formWidgetList.add(element);
     });
