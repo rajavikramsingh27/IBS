@@ -1,3 +1,6 @@
+
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
@@ -12,6 +15,8 @@ import 'package:flutter_ibs/widget/CustomCheckBox.dart';
 import 'package:flutter_ibs/widget/CustomExpansionTile.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
+
+
 
 class SignupStep2 extends StatelessWidget {
   final _controller = Get.put(SignUpController());
@@ -117,6 +122,11 @@ class SignupStep2 extends StatelessWidget {
   /// Calls supporting functions to build the nested set of children.
   /// The nested functions, _renderSubItem and _renderChildren
   /// get called recursively to walk down the tree.
+
+
+
+
+
   _buildTrackingList() {
     return ListView.builder(
       shrinkWrap: true,
@@ -166,8 +176,8 @@ class SignupStep2 extends StatelessWidget {
                               bottomLeft: Radius.circular(16),
                               bottomRight: Radius.circular(16))),
                       child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
                           itemCount: _trackablesController
                               .trackList.value.data[index].items.length,
                           itemBuilder: (BuildContext context, int idx) {
@@ -181,6 +191,7 @@ class SignupStep2 extends StatelessWidget {
   /// Renders a specific TrackableItem
   /// This items children will be passed to
   /// _renderChildren for rendering.
+
   _renderSubItem(TrackableItem item, TrackableItem topLevelItem) {
     return Visibility(
         visible: item.isVisible,
@@ -246,8 +257,6 @@ class SignupStep2 extends StatelessWidget {
     });
     return widgets;
   }
-
-
 
   _setEnabledStateOfChildrenForTrackable(TrackableItem item, TrackableItem topLevelItem){
     // Set children:

@@ -191,6 +191,7 @@ class HealthController extends GetxController {
           }
         });
     }
+
     _signUpController.healthWellness.refresh();
     healthWellnessModel.refresh();
   }

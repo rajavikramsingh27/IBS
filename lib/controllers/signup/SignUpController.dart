@@ -20,6 +20,7 @@ import 'package:get/get.dart';
 import 'package:flutter_ibs/utils/Validator.dart';
 import 'dart:developer' as developer;
 
+
 class SignUpController extends GetxController {
   TrackablesController _trackablesController = Get.find();
 
@@ -133,6 +134,7 @@ class SignUpController extends GetxController {
 
   registrationApi() async {
     final MyProfileController _myProFileController = Get.find();
+
     DiagnosedIbsSendModel diagnoisedModel = DiagnosedIbsSendModel(
       isDiagnosed: _myProFileController.isDiagnoisedIbs.value ?? false,
       ibsType: _myProFileController
@@ -210,6 +212,7 @@ class SignUpController extends GetxController {
 
     });
     */
+
 
 
     TrackingSendModel trackModel = TrackingSendModel(
@@ -292,6 +295,7 @@ class SignUpController extends GetxController {
         journalList.add(item);
         break;
     }
+
   }
 
   bool isFormValid() {

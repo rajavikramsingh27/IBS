@@ -31,7 +31,7 @@ class SignupStep3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.colorMyProfileBackground,
         appBar: AppBar(
           elevation: 0,
@@ -76,6 +76,7 @@ class SignupStep3 extends StatelessWidget {
                   SizedBox(height: ScreenConstant.defaultHeightOneHundred)
                 ],
               ),
+
               // Align(
               //   alignment: Alignment(0, 0.8),
               //   child: TextButton(

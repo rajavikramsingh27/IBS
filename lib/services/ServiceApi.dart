@@ -1,7 +1,9 @@
 
 
+import 'package:flutter_ibs/controllers/MyAccount/MyAccountController.dart';
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseModel.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart';
+import 'package:flutter_ibs/models/MyAccount/MyAccount.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
@@ -15,6 +17,8 @@ import 'package:flutter_ibs/models/tags/TagsResponseModel.dart';
 import 'package:flutter_ibs/models/track_history/TrackHistoryResponseModel.dart';
 import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/url.dart';
+
+import 'package:get/get.dart';
 
 
 class ServiceApi {
@@ -98,6 +102,7 @@ class ServiceApi {
     } else {
       return BowelMovementsResponseModel.fromJson(result);
     }
+
   }
 
   Future<dynamic> postJournalAPI({Map bodyData}) async {
@@ -137,20 +142,6 @@ class ServiceApi {
     } else {
       var res = TrackHistoryResponseModelList.fromJson(result);
       return res.trackHistoryList;
-    }
-  }
-
-  Future<dynamic> getUserList() async {
-    final result = await CoreService().apiService(
-        method: METHOD.FIND, endpoint: USERS);
-
-    print('resultresultresultresultresultresult');
-    print(result);
-
-    if (result == null) {
-      return null;
-    } else {
-
     }
   }
 
@@ -196,4 +187,70 @@ class ServiceApi {
       return TreatmentPlanResponseModel.fromJson(result);
   }
 
+  Future<dynamic> getUserList() async {
+    final result = await CoreService().apiService(method: METHOD.GET, endpoint: USERS)
+        .catchError((error) {
+      print(error.message.toString());
+    });
+
+    if (result == null) {
+      return null;
+    } else {
+      return MyAccountModel.fromJson(result);
+    }
+
+  }
+
+  Future<dynamic> updateUser({Map bodyData}) async {
+    final  MyAccountController _controller = Get.put(MyAccountController());
+
+    Map<String, dynamic> data = {
+      'profile':bodyData,
+      'label' : _controller.emailController.text
+    };
+
+    final result = await CoreService().apiService(
+        method: METHOD.PATCH,
+        endpoint: USERS,
+      data: data,
+    ) ;
+
+    //     .catchError((error) {
+    //   print(error.message.toString());
+    //   Get.snackbar("Sorry", error.message.toString());
+    // }).then((value)  {
+    //   Get.snackbar("Success!", "Profile updated.");
+    // });
+
+    return MyAccountModel.fromJson(result);
+  }
+
+  Future<dynamic> updateIBS_RomeIV({Map bodyData}) async {
+    final data = {'profile':bodyData,};
+    print(data);
+
+    final result = await CoreService().apiService(
+      method: METHOD.PATCH,
+      endpoint: USERS,
+      data: data,
+    );
+
+    return MyAccountModel.fromJson(result);
+  }
+
+  Future<dynamic> updateTrackingOption({Map bodyData}) async {
+    final data = {'tracking':bodyData,};
+    print(data);
+
+    final result = await CoreService().apiService(
+      method: METHOD.PATCH,
+      endpoint: USERS,
+      data: data,
+    );
+
+    return MyAccountModel.fromJson(result);
+  }
+
 }
+
+

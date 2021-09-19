@@ -3,7 +3,6 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -14,16 +13,16 @@ import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
-import 'package:flutter_ibs/utils/HexColor.dart';
 import 'package:flutter_ibs/utils/ShadowContainer.dart';
+import 'package:flutter_ibs/controllers/MyAccount/MyAccountController.dart';
+
 
 
 class RomeQuestionnaire extends StatelessWidget {
-  final MyProfileController _controller = Get.put(MyProfileController());
+  MyAccountController _controller;
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold (
       backgroundColor: AppColors.colorProfileBg,
       appBar: AppBar(
@@ -42,13 +41,26 @@ class RomeQuestionnaire extends StatelessWidget {
           style: TextStyles.appBarTitle,
         ),
       ),
-      body: Obx(() => Stack(
-        fit: StackFit.expand,
-        children: [
-          _toggleView(_controller.pagecount2.value),
-          (_controller.pagecount2.value > 1) ? _buildBottom() : SizedBox(height: 1,),
-        ],
-      )),
+      body: GetBuilder<MyAccountController>(
+          init: MyAccountController(),
+          initState: (state) {
+            // print('HomePageController state initialized');
+          },
+
+          builder: (authController) {
+            _controller = authController;
+            authController.settingType = '2'.obs;
+
+            authController.getUserList();
+            return Obx(() => Stack(
+              fit: StackFit.expand,
+              children: [
+                _toggleView(_controller.pagecount2.value),
+                (_controller.pagecount2.value > 1) ? _buildBottom() : SizedBox(height: 1,),
+              ],
+            ));
+          }
+      ),
     );
   }
 
@@ -94,6 +106,7 @@ class RomeQuestionnaire extends StatelessWidget {
   // Physicians worldwide follow the Rome IV criteria when diagnosing IBS.
   // The following questions are for informational purposes only and should not substitute
   // for the medical advice of you doctor.
+
 
 
   _buildStartQuestionnaire() {
@@ -212,7 +225,7 @@ class RomeQuestionnaire extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightForty),
           Text(
-            "Based on the Rome IV criteria \nyou may have IBS-D.",
+            "Based on the Rome IV criteria \nyou may have IBS-"+_controller.IbsTypeValue.value.toUpperCase(),
             textAlign: TextAlign.center,
             style: TextStyles.textStyleIntroDescription.apply(
               color: Colors.black
@@ -266,7 +279,6 @@ class RomeQuestionnaire extends StatelessWidget {
         ]
     );
   }
-
 
   _buildAbdominalPain() {
     return Padding(
@@ -326,6 +338,8 @@ class RomeQuestionnaire extends StatelessWidget {
                       () => CustomElevatedButton2(
                     onTap: () {
                       _controller.isDiagnoisedAbdominalPain.value = true;
+
+                      _controller.updateRomeIVQuestionaire();
                     },
                     text: "Yes",
                     textColor:
@@ -345,6 +359,7 @@ class RomeQuestionnaire extends StatelessWidget {
                       () => CustomElevatedButton2(
                     onTap: () {
                       _controller.isDiagnoisedAbdominalPain.value = false;
+                      _controller.updateRomeIVQuestionaire();
                     },
                     text: "No",
                     textColor:
@@ -409,6 +424,8 @@ class RomeQuestionnaire extends StatelessWidget {
                     () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainTimeBowel.value = true;
+
+                    _controller.updateRomeIVQuestionaire();
                   },
                   text: "Yes",
                   textColor: _controller.isabdominalPainTimeBowel.value == true
@@ -427,6 +444,8 @@ class RomeQuestionnaire extends StatelessWidget {
                     () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainTimeBowel.value = false;
+
+                    _controller.updateRomeIVQuestionaire();
                   },
                   text: "No",
                   textColor: _controller.isabdominalPainTimeBowel.value == false
@@ -464,6 +483,8 @@ class RomeQuestionnaire extends StatelessWidget {
                     () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainBowelMoreLess.value = true;
+
+                    _controller.updateRomeIVQuestionaire();
                   },
                   text: "Yes",
                   textColor:
@@ -483,6 +504,8 @@ class RomeQuestionnaire extends StatelessWidget {
                     () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainBowelMoreLess.value = false;
+
+                    _controller.updateRomeIVQuestionaire();
                   },
                   text: "No",
                   textColor:
@@ -556,16 +579,16 @@ class RomeQuestionnaire extends StatelessWidget {
                 child: Obx(
                       () => CustomElevatedButton2(
                     onTap: () {
-                      _controller.isabdominalPainBowelAppearDifferent.value =
-                      true;
+                      _controller.isabdominalPainBowelAppearDifferent.value = true;
+
+                      _controller.updateRomeIVQuestionaire();
                     },
                     text: "Yes",
-                    textColor:
-                    _controller.isabdominalPainBowelMoreLess.value == true
+                    textColor: _controller.isabdominalPainBowelAppearDifferent.value == true
                         ? AppColors.white
                         : AppColors.colorButton,
                     buttonColor:
-                    _controller.isabdominalPainBowelMoreLess.value == true
+                    _controller.isabdominalPainBowelAppearDifferent.value == true
                         ? AppColors.colorYesButton
                         : Colors.white,
                   ),
@@ -576,23 +599,23 @@ class RomeQuestionnaire extends StatelessWidget {
                 child: Obx(
                       () => CustomElevatedButton2(
                     onTap: () {
-                      _controller.isabdominalPainBowelAppearDifferent.value =
-                      false;
+                      _controller.isabdominalPainBowelAppearDifferent.value = false;
+
+                      _controller.updateRomeIVQuestionaire();
                     },
                     text: "No",
-                    textColor:
-                    _controller.isabdominalPainBowelMoreLess.value == false
+                    textColor: _controller.isabdominalPainBowelAppearDifferent.value == false
                         ? AppColors.white
                         : AppColors.colorButton,
                     buttonColor:
-                    _controller.isabdominalPainBowelMoreLess.value == false
+                    _controller.isabdominalPainBowelAppearDifferent.value == false
                         ? AppColors.colorYesButton
                         : Colors.white,
                   ),
                 ),
               )
             ],
-          )
+          ),
         ],
       ),
     );
@@ -677,6 +700,8 @@ class RomeQuestionnaire extends StatelessWidget {
               onTap: () {
                 _controller.selectedStoolType.value = index;
                 _controller.selectStoolType(index);
+
+                _controller.updateRomeIVQuestionaire();
               },
               child: Card(
                 elevation: 0,
@@ -688,14 +713,16 @@ class RomeQuestionnaire extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      vertical: ScreenConstant.defaultHeightSixteen),
+                      vertical: ScreenConstant.defaultHeightSixteen
+                  ),
                   child: Text(model.text,
                       textAlign: TextAlign.center,
                       style: TextStyles.textStyleIntroDescription.apply(
                           color: _controller.selectedStoolType.value == index
                               ? Colors.white
                               : AppColors.colorBackground,
-                          fontSizeDelta: -3)),
+                          fontSizeDelta: -3)
+                  ),
                 ),
 
                 //  ListTile(

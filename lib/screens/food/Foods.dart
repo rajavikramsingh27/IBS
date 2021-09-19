@@ -19,6 +19,7 @@ import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
 
+
 class Foods extends StatelessWidget {
   final TrackablesListModel trackFoodList;
 
