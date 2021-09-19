@@ -511,7 +511,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         {
           SymptomsController _symptomsController =
               Get.put(SymptomsController());
-          _symptomsController.checkData();
+          //_symptomsController.checkData();
           return Get.bottomSheet(Symptoms(),
               barrierColor: AppColors.barrierColor.withOpacity(0.60),
               isScrollControlled: true);

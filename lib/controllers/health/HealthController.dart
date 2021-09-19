@@ -56,6 +56,7 @@ class HealthController extends GetxController {
       item.toJson();
     });
 
+    loader.value = true;
     final data = await ServiceApi().postHealthWellnessAPI(bodyData: healthWellnessModel.toJson());
     loader.value = false;
     if (data is HealthWellnessResponseModel) {
@@ -64,11 +65,10 @@ class HealthController extends GetxController {
     //  _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
-          title: "Success", message: "Wellness Added Successfully");
+          title: "Success", message: "Health & Wellness Added Successfully");
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
-
 
   }
 

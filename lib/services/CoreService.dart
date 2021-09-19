@@ -107,7 +107,7 @@ class CoreService {
             // Check the error type as above and handle it
           } catch (er) {
             // Catch  unknown error
-
+print(er.toString());
           }
         }
         break;

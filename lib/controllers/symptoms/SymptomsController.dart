@@ -11,31 +11,13 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class SymptomsController extends GetxController {
-  /*
-  Rx<DateTime> now = DateTime.now().obs;
-  RxDouble sliderValue = 0.0.obs;
-  RxInt formattedTime = 0.obs;
-  RxInt currentIndex = 0.obs;
-  RxInt selectedIndex = 0.obs;
 
-  SignUpController _signUpController = Get.find();
-  Rx<SelectOption> optionItemSelected = SelectOption().obs;
-  RxList<SelectOption> dropListModel = <SelectOption>[
-    SelectOption(value: "ab", label: "AB"),
-    SelectOption(value: "bc", label: "BC")
-  ].obs;
-  Rx<sym.SymptomsModel> symptomsModel = sym.SymptomsModel().obs;
-  TextEditingController noteTextController = TextEditingController();
-  onTapped(int index) async {
-    currentIndex.value = index;
-  }
-*/
   RxBool loader = false.obs;
 
-  Rx<SymptomsModel> symptomsModel = SymptomsModel().obs;
+  Rx<SymptomsModel> symptomsModel = SymptomsModel(items: []).obs;
   TrackablesController _trackablesController = Get.find();
 
-  RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
+  //RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
 
   @override
@@ -48,11 +30,53 @@ class SymptomsController extends GetxController {
 
     // Refresh the local list so the form can generate:
     formWidgetList.refresh();
-    _selectedItems = RxList<TrackableSubmitItem>();
+    //_selectedItems = RxList<TrackableSubmitItem>();
     super.onInit();
     // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 
+
+  void onSave()async{
+    symptomsModel.value.items.forEach((item) {
+      item.toJson();
+    });
+
+    loader.value = true;
+    final data = await ServiceApi().postSymptomsAPI(bodyData: symptomsModel.toJson());
+    loader.value = false;
+    if (data is SymptomsResponseModel) {
+      // noteTextController.clear();
+      //  healthWellnessModel.value.items = [];
+      //  _signUpController.getTrackList();
+      Get.back();
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Symptoms Added Successfully");
+    } else {
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
+
+  }
+
+
+  valueChanged(TrackableSubmitItem submitItem){
+    var count = symptomsModel.value.items.length;
+    bool isAdded = false;
+    for(var i=0; i < count; i++) {
+      if (symptomsModel.value.items[i].tid == submitItem.tid) {
+        symptomsModel.value.items[i] = submitItem;
+        isAdded = true;
+        break;
+      }
+    }
+
+    if (!isAdded){
+      symptomsModel.value.items.add(submitItem);
+    }
+  }
+
+
+}
+  /*
   /*
   @override
   void onInit() {
@@ -148,30 +172,7 @@ class SymptomsController extends GetxController {
      */
   }
 
-  valueChanged(TrackableSubmitItem submitItem){
-    var count = _selectedItems.length;
-    bool isAdded = false;
-    for(var i=0; i < count; i++) {
-      if (_selectedItems[i].tid == submitItem.tid) {
-        _selectedItems[i] = submitItem;
-        isAdded = true;
-        break;
-      }
-    }
 
-    if (!isAdded){
-      _selectedItems.add(submitItem);
-    }
-
-
-/*
-    print ('-------');
-    _selectedItems.forEach((element) {
-      print(element.toJson());
-    });
-
- */
-  }
 
 
   void checkData() {
@@ -182,3 +183,4 @@ class SymptomsController extends GetxController {
     }
   }
 }
+*/

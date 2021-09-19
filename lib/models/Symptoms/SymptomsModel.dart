@@ -9,6 +9,8 @@
  */
 import 'dart:convert';
 
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+
 SymptomsModel symptomsModelFromJson(String str) => SymptomsModel.fromJson(json.decode(str));
 
 String symptomsModelToJson(SymptomsModel data) => json.encode(data.toJson());
@@ -20,11 +22,11 @@ class SymptomsModel {
   });
 
   String category;
-  List<Item> items;
+  List<TrackableSubmitItem> items;
 
   factory SymptomsModel.fromJson(Map<String, dynamic> json) => SymptomsModel(
     category: json["category"] == null ? null : json["category"],
-    items: json["items"] == null ? null : List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
+    items: json["items"] == null ? null : List<TrackableSubmitItem>.from(json["items"].map((x) => TrackableSubmitItem.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -32,7 +34,7 @@ class SymptomsModel {
     "items": items == null ? null : List<dynamic>.from(items.map((x) => x.toJson())),
   };
 }
-
+/*
 class Item {
   Item({
     this.tid,
@@ -140,3 +142,5 @@ class ItemValue {
     "str": str == null ? null : str,
   };
 }
+
+*/
