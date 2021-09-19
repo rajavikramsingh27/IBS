@@ -34,12 +34,21 @@ class _HydrationWidgetState extends State<HydrationWidget> {
   @override
   void initState() {
     num = 0;
+
+    // As this is tracked, set its initial tracking state:
+    widget.onValueChanged(TrackableSubmitItem(
+      tid: widget.trackableItem.tid,
+      category: widget.trackableItem.category,
+      kind: widget.trackableItem.kind,
+      dtype: "num",
+      value: num,
+    ));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    bool hasChildren = widget.trackableItem.children.length > 0;
+
 
     return Stack(
       children: [

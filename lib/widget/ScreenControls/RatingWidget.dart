@@ -31,11 +31,19 @@ class RatingWidget extends StatefulWidget  {
 
 class _RatingWidgetState extends State<RatingWidget> {
 
-  double _currentValue; // this.trackableItem.rating.value.toDouble();
+  double _currentValue;
 
   @override
   void initState() {
-    _currentValue = widget.trackableItem.rating.value.toDouble();
+    _currentValue = widget.trackableItem.rating.ratingDefault.toDouble();
+    // As this is tracked, set its initial tracking state:
+    widget.onValueChanged(TrackableSubmitItem(
+      tid: widget.trackableItem.tid,
+      category: widget.trackableItem.category,
+      kind: widget.trackableItem.kind,
+      dtype: "num",
+      value: _currentValue,
+    ));
     super.initState();
   }
 

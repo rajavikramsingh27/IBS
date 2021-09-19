@@ -29,10 +29,24 @@ class FixedTagListWidget extends StatefulWidget {
 
 class _FixedTagListWidgetState extends State<FixedTagListWidget> {
 
-  List<Tag> _selectedItems = [];
+  List<Tag> _selectedItems;
 
   @override
   void initState() {
+    _selectedItems = [];
+
+    widget.trackableItem.tags.tagsDefault.forEach((element) {
+      element.selected = false;
+    });
+
+    widget.onValueChanged(TrackableSubmitItem(
+      tid: widget.trackableItem.tid,
+      category: widget.trackableItem.category,
+      kind: widget.trackableItem.kind,
+      dtype: "arr",
+      value: _selectedItems,
+    ));
+
     super.initState();
   }
 
@@ -127,13 +141,18 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
       }
     });
 
+    List<String> flatList = [];
+
+    _selectedItems.forEach((element) {
+      flatList.add(element.value);
+    });
 
     widget.onValueChanged(TrackableSubmitItem(
       tid: item.tid,
       category: item.category,
       kind: item.kind,
       dtype: "arr",
-      value: this._selectedItems,
+      value: flatList,
     ));
   }
 }

@@ -924,6 +924,7 @@ class ListOption {
     this.image,
     this.optionDefault,
     this.conditionalDefault,
+    this.selected,
   });
 
   String value;
@@ -931,13 +932,15 @@ class ListOption {
   ModelImage image;
   bool optionDefault;
   ConditionalDefault conditionalDefault;
+  bool selected;
 
   factory ListOption.fromJson(Map<String, dynamic> json) => ListOption(
         value: json["value"] == null ? null : json["value"],
         label: json["label"] == null ? null : json["label"],
         image:
             json["image"] == null ? null : ModelImage.fromJson(json["image"]),
-        optionDefault: json["default"] == null ? null : json["default"],
+        optionDefault: json["default"] == false ? null : json["default"],
+        selected: json["default"] == null ? false : json["default"],
         conditionalDefault: json["conditionalDefault"] == null
             ? null
             : ConditionalDefault.fromJson(json["conditionalDefault"]),

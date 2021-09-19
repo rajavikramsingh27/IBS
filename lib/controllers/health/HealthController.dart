@@ -1,35 +1,14 @@
-
-import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
-import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessModel.dart';
-import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart' as HealthRsp;
+import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
-import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+
 
 class HealthController extends GetxController {
   RxBool loader = false.obs;
-
-  /*
-  Rx<DateTime> now = DateTime.now().obs;
-  TextEditingController noteTextController = TextEditingController();
-  RxInt formattedTime = 0.obs;
-  RxInt currentIndex = 0.obs;
-  List<String> timeList = ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00",];
-  RxString selectedTime = "01:00".obs;
-  RxBool switchValue = false.obs;
-  RxBool tappedRelax = false.obs;
-  RxBool bedTimeChanged = false.obs;
-  RxBool wakeTimeChanged = false.obs;
-  RxBool sleepQualityChanged = false.obs;
-  RxBool tirednessChanged = false.obs;
-*/
 
   Rx<HealthWellnessModel> healthWellnessModel = HealthWellnessModel().obs;
   TrackablesController _trackablesController = Get.find();
@@ -37,11 +16,6 @@ class HealthController extends GetxController {
   RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
 
-  /*
-  onTapped(int index) async {
-    currentIndex.value = index;
-  }
-*/
 
 
   @override
@@ -74,16 +48,26 @@ class HealthController extends GetxController {
       _selectedItems.add(submitItem);
     }
 
-
-/*
-    print ('-------');
-    _selectedItems.forEach((element) {
-      print(element.toJson());
-    });
-
- */
   }
 
+  void onSave()async{
+    print(_selectedItems.toJson());
+    /*
+    final data = await ServiceApi().postHealthWellnessAPI(bodyData: healthWellnessModel.toJson());
+    loader.value = false;
+    if (data is HealthWellnessResponseModel) {
+     // noteTextController.clear();
+    //  healthWellnessModel.value.items = [];
+    //  _signUpController.getTrackList();
+   //   Get.back();
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Wellness Added Successfully");
+    } else {
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
+
+     */
+  }
 
 
 /*

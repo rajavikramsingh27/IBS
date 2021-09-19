@@ -34,6 +34,14 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
   @override
   void initState() {
     _currentValue = 0;
+    // As this is tracked, set its initial tracking state:
+    widget.onValueChanged(TrackableSubmitItem(
+      tid: widget.trackableItem.tid,
+      category: widget.trackableItem.category,
+      kind: widget.trackableItem.kind,
+      dtype: "num",
+      value: _currentValue,
+    ));
     super.initState();
   }
 

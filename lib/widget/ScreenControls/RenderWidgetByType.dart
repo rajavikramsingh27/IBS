@@ -93,6 +93,7 @@ class RenderWidgetByType {
         {
           return SelectWidget(
               trackableItem: trackableItem,
+              onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
               isChild: isChild
@@ -103,6 +104,7 @@ class RenderWidgetByType {
         {
           return SelectInlineWidget(
               trackableItem: trackableItem,
+              onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
               isChild: isChild
@@ -113,6 +115,7 @@ class RenderWidgetByType {
         {
           return TextInputWidget(
               trackableItem: trackableItem,
+              onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
               isChild: isChild

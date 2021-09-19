@@ -13,7 +13,6 @@ import 'package:get/get.dart';
 
 class Health extends StatelessWidget {
   final controller = Get.put(HealthController());
-  final SignUpController _signUpController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class Health extends StatelessWidget {
               CustomElevatedButton(
                 widthFactor: 0.7,
                 text: "Save",
-               // onTap: _healthWellnessController.onSave,
+                onTap: controller.onSave,
               ),
               TextButton(
                   onPressed: () {

@@ -34,6 +34,14 @@ class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
   @override
   void initState() {
     _selectedTime = TimeOfDay.now();
+    // As this is tracked, set its initial tracking state:
+    widget.onValueChanged(TrackableSubmitItem(
+      tid: widget.trackableItem.tid,
+      category: widget.trackableItem.category,
+      kind: widget.trackableItem.kind,
+      dtype: "str",
+      value:  _selectedTime.hour.toString() + ":" + _selectedTime.minute.toString(),
+    ));
     super.initState();
   }
 

@@ -27,6 +27,26 @@ class SelectInlineWidget extends StatefulWidget {
 }
 
 class _SelectInlineWidgetState extends State<SelectInlineWidget> {
+  SelectOption _selectedOption;
+
+  @override
+  void initState() {
+    _selectedOption = widget.trackableItem.select.selectDefault.label != null
+        ? widget.trackableItem.select.selectDefault
+        : widget.trackableItem.select.options.first;
+
+    // As this is tracked, set its initial tracking state:
+    widget.onValueChanged(TrackableSubmitItem(
+      tid: widget.trackableItem.tid,
+      category: widget.trackableItem.category,
+      kind: widget.trackableItem.kind,
+      dtype: "str",
+      value: _selectedOption.value,
+    ));
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,14 +73,12 @@ class _SelectInlineWidgetState extends State<SelectInlineWidget> {
                       color: AppColors.colordropdownArrowBg,
                       borderRadius: BorderRadius.all(Radius.circular(8))),
                   child: CustomDropdown<SelectOption>(
-                    value: widget.trackableItem.select.selectDefault.label != null
-                        ? widget.trackableItem.select.selectDefault
-                        : widget.trackableItem.select.options.first,
+                    value: _selectedOption,
                     dropdownMenuItemList:
                     buildDropList(widget.trackableItem.select.options),
                     onChanged: (SelectOption optionItem) {
                       setState(() {
-                        widget.trackableItem.select.selectDefault = optionItem;
+                        _selectedOption = optionItem;
                       });
                     },
                     isEnabled: true,
