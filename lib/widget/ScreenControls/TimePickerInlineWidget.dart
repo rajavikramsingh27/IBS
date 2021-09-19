@@ -40,7 +40,7 @@ class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "str",
-      value:  _selectedTime.hour.toString() + ":" + _selectedTime.minute.toString(),
+      value: TrackableSubmitItemValue(str: _selectedTime.hour.toString() + ":" + _selectedTime.minute.toString() ),
     ));
     super.initState();
   }
@@ -117,8 +117,8 @@ class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
         tid: widget.trackableItem.tid,
         category: widget.trackableItem.category,
         kind: widget.trackableItem.kind,
-        dtype: "string",
-        value:  _selectedTime.hour.toString() + ":" + _selectedTime.minute.toString(),
+        dtype: "str",
+        value:  TrackableSubmitItemValue(str: _selectedTime.hour.toString() + ":" + _selectedTime.minute.toString() ),
       ));
     }
   }

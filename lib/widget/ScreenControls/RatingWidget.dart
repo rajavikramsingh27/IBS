@@ -42,7 +42,7 @@ class _RatingWidgetState extends State<RatingWidget> {
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "num",
-      value: _currentValue,
+      value: TrackableSubmitItemValue(number: _currentValue),
     ));
     super.initState();
   }
@@ -145,7 +145,7 @@ class _RatingWidgetState extends State<RatingWidget> {
                           category: widget.trackableItem.category,
                           kind: widget.trackableItem.kind,
                           dtype: "num",
-                          value: newValue,
+                          value: TrackableSubmitItemValue(number: _currentValue),
                         ));
 
                       },

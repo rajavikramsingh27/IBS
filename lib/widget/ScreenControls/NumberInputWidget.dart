@@ -40,7 +40,7 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "num",
-      value: _currentValue,
+      value: TrackableSubmitItemValue(number: _currentValue),
     ));
     super.initState();
   }
@@ -103,6 +103,13 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
                         setState(() {
                           _currentValue = value;
                         });
+                        widget.onValueChanged(TrackableSubmitItem(
+                          tid: widget.trackableItem.tid,
+                          category: widget.trackableItem.category,
+                          kind: widget.trackableItem.kind,
+                          dtype: "num",
+                          value: TrackableSubmitItemValue(number: _currentValue),
+                        ));
                       },
                       customMinusButton: TextButton(
                         child: Text("-",

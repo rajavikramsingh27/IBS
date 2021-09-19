@@ -183,12 +183,17 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
       }
     });
 
+    List<String> flatList = [];
+    selectedItems.forEach((element) {
+      flatList.add(element.value);
+    });
+
     widget.onValueChanged(TrackableSubmitItem(
       tid: item.tid,
       category: item.category,
       kind: item.kind,
       dtype: "arr",
-      value: selectedItems,
+      value: TrackableSubmitItemValue(arr:flatList),
     ));
   }
 }

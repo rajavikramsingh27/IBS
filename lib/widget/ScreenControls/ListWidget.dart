@@ -43,7 +43,7 @@ class _ListWidgetState extends State<ListWidget> {
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "arr",
-      value: _selectedItems,
+      value: TrackableSubmitItemValue(arr: []),
     ));
     super.initState();
   }
@@ -181,7 +181,7 @@ class _ListWidgetState extends State<ListWidget> {
       category: item.category,
       kind: item.kind,
       dtype: "arr",
-      value: flatList,
+      value: TrackableSubmitItemValue(arr: flatList),
     ));
   }
 }

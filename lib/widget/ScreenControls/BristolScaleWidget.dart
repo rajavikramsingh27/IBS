@@ -43,7 +43,7 @@ class _BristolScaleWidgetState extends State<BristolScaleWidget> {
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "num",
-      value: _currentValue,
+      value: TrackableSubmitItemValue(number: _currentValue),
     ));
 
     super.initState();

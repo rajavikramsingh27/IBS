@@ -108,7 +108,7 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                                 category: widget.trackableItem.category,
                                 kind: widget.trackableItem.kind,
                                 dtype: "str",
-                                value: widget.trackableItem.color.value,
+                                value: TrackableSubmitItemValue(str: widget.trackableItem.color.value.toString() ),
                               ));
                             },
                             child: widget.trackableItem.color.colorDefault

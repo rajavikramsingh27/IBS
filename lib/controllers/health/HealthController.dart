@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 class HealthController extends GetxController {
   RxBool loader = false.obs;
 
-  Rx<HealthWellnessModel> healthWellnessModel = HealthWellnessModel().obs;
+  Rx<HealthWellnessModel> healthWellnessModel = HealthWellnessModel(items: []).obs;
   TrackablesController _trackablesController = Get.find();
 
   RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
@@ -34,39 +34,42 @@ class HealthController extends GetxController {
   }
 
   valueChanged(TrackableSubmitItem submitItem){
-    var count = _selectedItems.length;
+    var count = healthWellnessModel.value.items.length;
     bool isAdded = false;
     for(var i=0; i < count; i++) {
-      if (_selectedItems[i].tid == submitItem.tid) {
-        _selectedItems[i] = submitItem;
+      if (healthWellnessModel.value.items[i].tid == submitItem.tid) {
+        healthWellnessModel.value.items[i] = submitItem;
         isAdded = true;
         break;
       }
     }
 
     if (!isAdded){
-      _selectedItems.add(submitItem);
+      healthWellnessModel.value.items.add(submitItem);
     }
 
   }
 
   void onSave()async{
-    print(_selectedItems.toJson());
-    /*
+
+    _selectedItems.forEach((item) {
+      item.toJson();
+    });
+
     final data = await ServiceApi().postHealthWellnessAPI(bodyData: healthWellnessModel.toJson());
     loader.value = false;
     if (data is HealthWellnessResponseModel) {
      // noteTextController.clear();
     //  healthWellnessModel.value.items = [];
     //  _signUpController.getTrackList();
-   //   Get.back();
+      Get.back();
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Wellness Added Successfully");
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
 
-     */
+
   }
 
 

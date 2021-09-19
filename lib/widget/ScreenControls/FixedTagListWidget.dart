@@ -44,7 +44,7 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "arr",
-      value: _selectedItems,
+      value: TrackableSubmitItemValue(arr: []),
     ));
 
     super.initState();
@@ -152,7 +152,7 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
       category: item.category,
       kind: item.kind,
       dtype: "arr",
-      value: flatList,
+      value: TrackableSubmitItemValue(arr:flatList),
     ));
   }
 }

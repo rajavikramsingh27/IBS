@@ -41,7 +41,7 @@ class _HydrationWidgetState extends State<HydrationWidget> {
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "num",
-      value: num,
+      value: TrackableSubmitItemValue(number: num),
     ));
     super.initState();
   }
@@ -101,6 +101,14 @@ class _HydrationWidgetState extends State<HydrationWidget> {
             setState((){
               num = ind+1;
             });
+
+            widget.onValueChanged(TrackableSubmitItem(
+              tid: widget.trackableItem.tid,
+              category: widget.trackableItem.category,
+              kind: widget.trackableItem.kind,
+              dtype: "num",
+              value: TrackableSubmitItemValue(number: num),
+            ));
 
            /* ind++;
             _controller.noOfGlasses.value = ind;

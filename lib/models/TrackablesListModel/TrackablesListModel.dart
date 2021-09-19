@@ -224,7 +224,7 @@ class TrackableSubmitItem{
   String category;
   String kind;
   String dtype;
-  dynamic value;
+  TrackableSubmitItemValue value;
 
   factory TrackableSubmitItem.fromJson(Map<String, dynamic> json) => TrackableSubmitItem(
     tid: json["tid"],
@@ -243,6 +243,33 @@ class TrackableSubmitItem{
   };
 }
 
+class TrackableSubmitItemValue {
+  TrackableSubmitItemValue({
+    this.number,
+    this.arr,
+    this.str,
+    this.boolean,
+  });
+
+  num number;
+  String str;
+  List<String> arr;
+  bool boolean;
+
+  factory TrackableSubmitItemValue.fromJson(Map<String, dynamic> json) => TrackableSubmitItemValue(
+    number: json["num"] == null ? null : json["num"],
+    arr: json["arr"] == null ? null : List<String>.from(json["arr"].map((x) => x)),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "num": number == null ? null : number,
+    "str": str == null ? null : str,
+    "arr": arr == null ? null : List<dynamic>.from(arr.map((x) => x)),
+    "boolean": boolean == null ? null : boolean
+  };
+
+
+}
 
 /* IAN: Deprecated, I made the top-level Datum and DatumItems use the same
 class, TrackableItem.

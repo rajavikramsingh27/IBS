@@ -41,7 +41,7 @@ class _SelectInlineWidgetState extends State<SelectInlineWidget> {
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "str",
-      value: _selectedOption.value,
+      value: TrackableSubmitItemValue(str: _selectedOption.value),
     ));
     super.initState();
   }
@@ -80,6 +80,14 @@ class _SelectInlineWidgetState extends State<SelectInlineWidget> {
                       setState(() {
                         _selectedOption = optionItem;
                       });
+
+                      widget.onValueChanged(TrackableSubmitItem(
+                        tid: widget.trackableItem.tid,
+                        category: widget.trackableItem.category,
+                        kind: widget.trackableItem.kind,
+                        dtype: "str",
+                        value: TrackableSubmitItemValue(str: _selectedOption.value),
+                      ));
                     },
                     isEnabled: true,
                   ),
