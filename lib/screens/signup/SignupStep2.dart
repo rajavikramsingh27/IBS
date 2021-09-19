@@ -178,7 +178,6 @@ class SignupStep2 extends StatelessWidget {
                       child: ListView.builder(
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
                           itemCount: _trackablesController
                               .trackList.value.data[index].items.length,
                           itemBuilder: (BuildContext context, int idx) {
