@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_ibs/controllers/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart' ;
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
@@ -32,7 +33,7 @@ class SymptomsController extends GetxController {
   RxBool loader = false.obs;
 
   Rx<SymptomsModel> symptomsModel = SymptomsModel().obs;
-  SignUpController _signUpController = Get.find();
+  TrackablesController _trackablesController = Get.find();
 
   RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
@@ -40,7 +41,7 @@ class SymptomsController extends GetxController {
   @override
   void onInit() {
     // Get the source of the data:
-    _signUpController
+    _trackablesController
         .symptoms.value.items.forEach((element) {
       formWidgetList.add(element);
     });
@@ -174,7 +175,7 @@ class SymptomsController extends GetxController {
 
 
   void checkData() {
-    if (_signUpController.symptoms.value == null) {
+    if (_trackablesController.symptoms.value == null) {
       loader.value = true;
     } else {
       loader.value = false;

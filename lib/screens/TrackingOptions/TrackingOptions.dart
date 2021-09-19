@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/MyAccount/MyAccountController.dart';
+import 'package:flutter_ibs/controllers/TrackablesController.dart';
+import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/HexColor.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -17,6 +19,7 @@ import 'dart:convert';
 
 class TrackingOptions extends StatelessWidget {
   final _controller = Get.put(MyAccountController());
+  final TrackablesController _trackablesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +135,7 @@ class TrackingOptions extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: _controller.trackList.value.data?.length ?? 0,
+      itemCount: _trackablesController.trackList.value.data?.length ?? 0,
       itemBuilder: (_, index) {
         var topLevelItem = _controller.trackList.value.data[index];
 

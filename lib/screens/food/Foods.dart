@@ -1,6 +1,6 @@
 
-
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/food/FoodController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
@@ -13,6 +13,8 @@ import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
+import 'package:flutter_ibs/widget/ScreenControls/RenderItemChildrenWidget.dart';
+import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
@@ -23,46 +25,308 @@ class Foods extends StatelessWidget {
 
   Foods({Key key, this.trackFoodList}) : super(key: key);
 
-  final FoodController _controller = Get.put(FoodController());
-  final SignUpController _signUpController = Get.find();
+  final FoodController controller = Get.put(FoodController());
+  final TrackablesController _trackablesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    print("model:$trackFoodList");
+    //print("model:$trackFoodList");
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      bottomNavigationBar: _signUpController.loader.value
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Container(
-              color: Colors.white,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(height: ScreenConstant.defaultHeightTen),
-                  _controller.loader.value
-                      ? Offstage()
-                      : CustomElevatedButton(
-                          widthFactor: 0.7,
-                          text: "Save",
-                          onTap: _controller.onSave,
-                        ),
-                  TextButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: Text("Cancel",
-                          style: TextStyles.textStyleIntroDescription.apply(
-                            color: AppColors.colorskip_also_proceed,
-                          )))
-                ],
+        resizeToAvoidBottomInset: false,
+        bottomNavigationBar: _trackablesController.loader.value
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Container(
+                color: Colors.white,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(height: ScreenConstant.defaultHeightTen),
+                    controller.loader.value
+                        ? Offstage()
+                        : CustomElevatedButton(
+                            widthFactor: 0.7,
+                            text: "Save",
+                            onTap: controller.onSave,
+                          ),
+                    TextButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        child: Text("Cancel",
+                            style: TextStyles.textStyleIntroDescription.apply(
+                              color: AppColors.colorskip_also_proceed,
+                            )))
+                  ],
+                ),
               ),
+        backgroundColor: Color(0xff1A103E).withOpacity(0.6),
+        body: Obx(
+          () => ListView(
+            physics: ClampingScrollPhysics(),
+            children: [
+              Padding(
+                padding:
+                EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: ScreenConstant.defaultHeightTwenty),
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(24),
+                              topRight: Radius.circular(24),
+                            )),
+                        child: Column(
+                          children: [
+                            SizedBox(height: ScreenConstant.defaultHeightSixty),
+                            Text(
+                              _trackablesController.food.value.header.tr,
+                              style: TextStyles.textStyleIntroDescription.apply(
+                                  color: Colors.black, fontSizeDelta: -2),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            DateTimeCardWidget(),
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            Text(
+                              _trackablesController.food.value.items.first.name.tr,
+                              style: TextStyles.textStyleIntroDescription.apply(
+                                  color: Colors.black, fontSizeDelta: -2),
+                              textAlign: TextAlign.center,
+                            ),
+                            _buildMealList(controller.formWidgetList.first),
+
+                            controller.loader.value
+                                ? Center(
+                                child: Padding(
+                                  padding: ScreenConstant.spacingAllLarge,
+                                  child: Container(
+                                      height:
+                                      ScreenConstant.screenHeightThird,
+                                      child: Center(
+                                          child:
+                                          CircularProgressIndicator())),
+                                ))
+                                : //RenderItemChildrenWidget(trackableItem:controller.formWidgetList.first),
+                            controller.formWidgetList.first.list.value != null ? _renderFoodGroup(controller.formWidgetList.first.list.value) : Offstage(),
+                              RenderWidgetByType().renderTrackableItem(controller.formWidgetList[controller.formWidgetList.length -2], isLast: true),
+                            RenderWidgetByType().renderTrackableItem(controller.formWidgetList.last),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightTwentyFour),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Positioned(right: 0, left: 0, child: CustomArcPainter())
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+
+        ));
+  }
+
+
+
+  /// HACK: We're hard-coding the food selection list to save some time.
+  _buildMealList(TrackableItem foodParent) {
+    return GridView.builder(
+      padding: EdgeInsets.symmetric(
+          horizontal: ScreenConstant.defaultHeightForty * 1.2,
+          vertical: ScreenConstant.defaultHeightTwentyFour),
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount:
+        foodParent.list?.options?.length ?? 0,
+      itemBuilder: (BuildContext context, int index) {
+        // _controller.mealOptionDefault(mealIndex: index);
+        var model =
+        foodParent.list?.options[index];
+
+        return InkWell(
+          onTap: () {
+            controller.formWidgetList.first.list.options
+                .forEach((element) {
+              if (element.optionDefault) {
+                element.optionDefault = false;
+              }
+
+            });
+            model.optionDefault = !model.optionDefault;
+            controller.formWidgetList.first.list.value = model;
+            controller.formWidgetList.refresh();
+            /*    _controller.modelMealIndex.value = index;
+            _controller.mealTypeValue.value = model.value;
+            _controller.modelMealIndex.refresh();
+            _signUpController.food.refresh();
+            */
+          },
+          child: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                    // ((endTime.difference(u).inSeconds) > 0 &&
+                    //         (u.difference(startTime).inSeconds) > 0)
+                    //     ? model.image.active
+                    model.optionDefault
+                        ? model.image.active
+                        : model.image.normal,
+                  ),
+                ),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: AppColors.colorBorder, width: 1)),
+            child: Stack(
+              children: [
+                Positioned(
+                  bottom: ScreenConstant.sizeLarge,
+                  left: 0,
+                  right: 0,
+                  child: Text(
+                    model.label.tr ?? "",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyles.textStyleRegular.apply(
+                        color:
+                        model.optionDefault ? Colors.white : Colors.black,
+                        fontSizeDelta: 2),
+                  ),
+                ),
+              ],
             ),
-      backgroundColor: Color(0xff1A103E).withOpacity(0.6),
-      body: Obx(
+          ),
+        );
+      },
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
+          crossAxisCount: 2,
+          childAspectRatio: 1.2),
+    );
+  }
+
+
+
+  _renderFoodGroup(ListOption option){
+    TrackableItem item;
+
+    switch (option.value){
+      case "breakfast":
+        item = controller.formWidgetList.first.children[0].items[0];
+        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true );
+      case "lunch":
+        item = controller.formWidgetList.first.children[1].items[0];
+        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true );
+      case "dinner":
+        item = controller.formWidgetList.first.children[2].items[0];
+        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true  );
+      case "snacks":
+        item = controller.formWidgetList.first.children[3].items[0];
+        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true  );
+      default:
+        return Offstage();
+    }
+  }
+
+
+
+
+  _buildFoodSelection(){
+    return Offstage();
+
+    return ListView(
+            physics: ClampingScrollPhysics(),
+            children: [
+              Padding(
+                padding:
+                    EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: ScreenConstant.defaultHeightTwenty),
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
+                        )),
+                        child: Column(
+                          children: [
+                            SizedBox(height: ScreenConstant.defaultHeightSixty),
+                            Text(
+                              "Track Food",
+                              style: TextStyles.textStyleIntroDescription.apply(
+                                  color: Colors.black, fontSizeDelta: -2),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            DateTimeCardWidget(),
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            controller.loader.value
+                                ? Center(
+                                    child: Padding(
+                                    padding: ScreenConstant.spacingAllLarge,
+                                    child: Container(
+                                        height:
+                                            ScreenConstant.screenHeightThird,
+                                        child: Center(
+                                            child:
+                                                CircularProgressIndicator())),
+                                  ))
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: ClampingScrollPhysics(),
+                                    itemCount: controller.formWidgetList.length,
+                                    itemBuilder: (_, mainIndex) {
+                                      var isLast = false;
+
+                                      if (mainIndex ==
+                                              (controller
+                                                      .formWidgetList.length -
+                                                  2) ||
+                                          mainIndex ==
+                                              (controller
+                                                      .formWidgetList.length -
+                                                  1)) {
+                                        // If it's the last one or two... because additional notes could be after.
+                                        isLast = true;
+                                      }
+                                      return RenderWidgetByType()
+                                          .renderTrackableItem(
+                                              controller
+                                                  .formWidgetList[mainIndex],
+                                              isFirst: mainIndex == 0,
+                                              isLast: isLast,
+                                              onValueChanged:
+                                                  controller.valueChanged);
+                                    }),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightTwenty),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Positioned(right: 0, left: 0, child: CustomArcPainter())
+                  ],
+                ),
+              ),
+            ],
+          );
+  }
+
+  /*
+  Obx(
         () => InkWell(
           onTap: () => dismissKeyboard(context),
           child: ListView(
@@ -150,8 +414,7 @@ class Foods extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
+   */
 
   _buildWavePainter() {
     return CustomPaint(
@@ -160,6 +423,8 @@ class Foods extends StatelessWidget {
       painter: WavePainter(),
     );
   }
+
+  /*
 
   _buildFoods(int index) {
     return Stack(
@@ -276,81 +541,10 @@ class Foods extends StatelessWidget {
       ],
     );
   }
+*/
 
-  _buildMealList() {
-    return GridView.builder(
-      padding: EdgeInsets.symmetric(
-          horizontal: ScreenConstant.defaultHeightForty * 1.2,
-          vertical: ScreenConstant.defaultHeightTwentyFour),
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount:
-          _signUpController.food.value.items?.first?.list?.options?.length ?? 0,
-      itemBuilder: (BuildContext context, int index) {
-        _controller.mealOptionDefault(mealIndex: index);
-        var model =
-            _signUpController.food.value.items?.first?.list?.options[index];
 
-        return InkWell(
-          onTap: () {
-            _signUpController.food.value.items.first.list.options
-                .forEach((element) {
-              if (element.optionDefault) {
-                element.optionDefault = false;
-                _signUpController.food.refresh();
-              }
-            });
-
-            model.optionDefault = !model.optionDefault;
-            _controller.modelMealIndex.value = index;
-            _controller.mealTypeValue.value = model.value;
-            _controller.modelMealIndex.refresh();
-            _signUpController.food.refresh();
-          },
-          child: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                    // ((endTime.difference(u).inSeconds) > 0 &&
-                    //         (u.difference(startTime).inSeconds) > 0)
-                    //     ? model.image.active
-                    model.optionDefault
-                        ? model.image.active
-                        : model.image.normal,
-                  ),
-                ),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: AppColors.colorBorder, width: 1)),
-            child: Stack(
-              children: [
-                Positioned(
-                  bottom: ScreenConstant.sizeLarge,
-                  left: 0,
-                  right: 0,
-                  child: Text(
-                    model.label.tr ?? "",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyles.textStyleRegular.apply(
-                        color:
-                            model.optionDefault ? Colors.white : Colors.black,
-                        fontSizeDelta: 2),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
-          crossAxisCount: 2,
-          childAspectRatio: 1.2),
-    );
-  }
-
+  /*
   _buildListDefaultFood(int index) {
     // print("ind$index");
     return _controller.listfoodDefault.isNotEmpty
@@ -638,4 +832,6 @@ class Foods extends StatelessWidget {
           childAspectRatio: 1),
     );
   }
+*/
 }
+

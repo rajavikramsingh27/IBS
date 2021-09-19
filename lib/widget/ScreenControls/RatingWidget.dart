@@ -41,6 +41,7 @@ class _RatingWidgetState extends State<RatingWidget> {
 
   @override
   Widget build(BuildContext context) {
+    bool hasChildren = widget.trackableItem.children.length > 0;
 
     return Stack(
       children: [
@@ -143,12 +144,12 @@ class _RatingWidgetState extends State<RatingWidget> {
                       labelFormatterCallback:
                           (dynamic actualValue, String formattedText) {
                         return actualValue == 1
-                            ? widget.trackableItem.rating.labels.min
+                            ? widget.trackableItem.rating.labels.min.tr
                             : actualValue == 2
                             ? ""
                             : actualValue == 3
                             ? ""
-                            :  widget.trackableItem.rating.labels.max;
+                            :  widget.trackableItem.rating.labels.max.tr;
                       },
                     ),
                   ),
@@ -163,7 +164,7 @@ class _RatingWidgetState extends State<RatingWidget> {
                 ),
 
                 Visibility(
-                    visible: !widget.isChild && !widget.isLast,
+                    visible: !widget.isChild && !widget.isLast && !hasChildren,
                     child: Divider(
                         thickness: 1,
                         color: AppColors.white.withOpacity(0.12))),

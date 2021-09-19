@@ -8,8 +8,10 @@ class TrackableItemUtils {
       case "rating":
         return item.rating.value;
         break;
+      case "list":
+        return item.list.value;
       default:
-        print ("getItemValue called for unknown type " + item.tid + ", " + item.kind);
+        print ("TrackableItemUtils.getItemValue called for unknown type " + item.tid + ", " + item.kind);
     }
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsModel.dart';
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseModel.dart' as BMR;
@@ -20,7 +21,7 @@ class BowelMovementController extends GetxController {
   RxBool switchValue = true.obs;
   Rx<BowelMovementsModel> bowelMovementsModel = BowelMovementsModel().obs;
 
-  SignUpController _signUpController = Get.find();
+  TrackablesController _trackablesController = Get.find();
 
   RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
@@ -34,7 +35,7 @@ class BowelMovementController extends GetxController {
   void onInit() {
     super.onInit();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
-    _signUpController
+    _trackablesController
         .bowelMovements.value.items.forEach((element) {
       formWidgetList.add(element);
     });
@@ -77,8 +78,8 @@ class BowelMovementController extends GetxController {
       bowelMovementsModel.value.items = [];
     }
     Item item = Item(
-        tid: _signUpController.bowelMovements.value.items.last.tid,
-        kind: _signUpController.bowelMovements.value.items.last.kind,
+        tid: _trackablesController.bowelMovements.value.items.last.tid,
+        kind: _trackablesController.bowelMovements.value.items.last.kind,
         dtype: "str",
         value: ItemValue(str: noteTextController.text));
     bowelMovementsModel.value.items.add(item);
@@ -91,13 +92,13 @@ class BowelMovementController extends GetxController {
     if (data is BMR.BowelMovementsResponseModel) {
       noteTextController.clear();
       bowelMovementsModel.value.items = [];
-      _signUpController.getTrackList();
+      //_signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Bowel Movements Added Successfully");
     } else {
       noteTextController.clear();
-      _signUpController.getTrackList();
+     // _signUpController.getTrackList();
       bowelMovementsModel.value = BowelMovementsModel();
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }

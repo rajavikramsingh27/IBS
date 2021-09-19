@@ -255,6 +255,7 @@ class BowelMovement extends StatelessWidget {
     );
   }
 
+  /*
   _buildColorPortion({TrackableItem data}) {
 
   }
@@ -371,8 +372,6 @@ class BowelMovement extends StatelessWidget {
                                                 .first
                                                 .items[index]
                                                 .toggle
-                                                .options
-                                                .optionsTrue
                                                 .label
                                                 .tr
                                             : data
@@ -380,8 +379,6 @@ class BowelMovement extends StatelessWidget {
                                                 .first
                                                 .items[index]
                                                 .toggle
-                                                .options
-                                                .optionsFalse
                                                 .label
                                                 .tr,
                                         overflow: TextOverflow.ellipsis,
@@ -448,7 +445,7 @@ class BowelMovement extends StatelessWidget {
       painter: WavePainter(),
     );
   }
-
+*/
 
 
 }

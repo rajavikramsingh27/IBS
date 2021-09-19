@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_ibs/controllers/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/journal/JournalController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
@@ -15,7 +16,7 @@ import 'package:get/get.dart';
 
 class Journal extends StatelessWidget {
   final JournalController _journalController = Get.put(JournalController());
-  final SignUpController _signUpController = Get.find();
+  final TrackablesController _trackablesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +71,7 @@ class Journal extends StatelessWidget {
                         children: [
                           SizedBox(height: ScreenConstant.defaultHeightSixty),
                           Text(
-                            _signUpController.journal.value.header.tr,
+                            _trackablesController.journal.value.header.tr,
                             style: TextStyles.textStyleIntroDescription
                                 .apply(color: Colors.black, fontSizeDelta: -2),
                             textAlign: TextAlign.center,
@@ -138,7 +139,7 @@ class Journal extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                         horizontal: ScreenConstant.sizeExtraLarge),
                     child: Text(
-                        _signUpController.journal.value.items.first.name.tr,
+                        _trackablesController.journal.value.items.first.name.tr,
                         textAlign: TextAlign.center,
                         style: TextStyles.textStyleIntroDescription
                             .apply(color: Colors.white, fontSizeDelta: -3)),
@@ -148,7 +149,7 @@ class Journal extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                         horizontal: ScreenConstant.sizeExtraLarge),
                     child: Text(
-                      "${_signUpController.journal.value.items.first.description.tr ?? ""}",
+                      "${_trackablesController.journal.value.items.first.description.tr ?? ""}",
                       textAlign: TextAlign.center,
                       style: TextStyles.textStyleRegular
                           .apply(color: AppColors.colorSkipButton),

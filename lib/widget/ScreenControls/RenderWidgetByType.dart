@@ -1,7 +1,9 @@
+import 'package:flutter_ibs/widget/ScreenControls/AddableTagListWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/BristolScaleWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/ColorPickerWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/FixedTagListWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/GroupWidget.dart';
+import 'package:flutter_ibs/widget/ScreenControls/HydrationWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/ListWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/NumberInputWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RatingWidget.dart';
@@ -53,7 +55,7 @@ class RenderWidgetByType {
                 isChild: isChild
             );
           }else{
-            return FixedTagListWidget(
+            return AddableTagListWidget(
                 trackableItem: trackableItem,
                 onValueChanged: onValueChanged,
                 isFirst: isFirst,
@@ -155,9 +157,19 @@ class RenderWidgetByType {
               isChild: isChild
           );
         }
+      case "sum":
+        {
+          return HydrationWidget(
+              trackableItem: trackableItem,
+              onValueChanged: onValueChanged,
+              isFirst: isFirst,
+              isLast: isLast,
+              isChild: isChild
+          );
+        }
       default:
         {
-          print("Getting offstage: " + trackableItem.kind);
+          print("\n\n****************> Getting offstage: " + trackableItem.kind);
           return Offstage();
         }
         break;

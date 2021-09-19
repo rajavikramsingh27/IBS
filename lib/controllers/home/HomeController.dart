@@ -47,7 +47,7 @@ class HomeController extends GetxController {
     super.onInit();
     //for login id
     print("loginId:${HiveStore().get(Keys.LOGINID)}");
-    _signUpController.getTrackList();
+    //_signUpController.getTrackList();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();

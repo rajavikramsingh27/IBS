@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/journal/JournalResponseModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
@@ -13,7 +14,7 @@ class JournalController extends GetxController {
   RxDouble sliderValue = 1.0.obs;
   RxInt formattedTime = 0.obs;
   final TextEditingController noteTextController = TextEditingController();
-  SignUpController _signUpController = Get.find();
+  TrackablesController _trackablesController = Get.find();
   RxBool loader = false.obs;
   Rx<journal.JournalSendModel> journalSendModel =
       journal.JournalSendModel().obs;
@@ -41,20 +42,20 @@ class JournalController extends GetxController {
     if (data is JournalResponseModel) {
       noteTextController.clear();
       journalSendModel.value.items = [];
-      _signUpController.getTrackList();
+     // _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Journal Added Successfully");
     } else {
       loader.value = false;
       noteTextController.clear();
-      _signUpController.getTrackList();
+    //  _signUpController.getTrackList();
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
   }
 
   void checkData() {
-    if (_signUpController.journal.value == null) {
+    if (_trackablesController.journal.value == null) {
       loader.value = true;
     } else {
       loader.value = false;

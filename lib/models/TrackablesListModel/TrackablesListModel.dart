@@ -1205,18 +1205,24 @@ class TimePicker {
 class Toggle {
   Toggle({
     this.toggleDefault,
-    this.options,
+    this.value,
     this.validation,
+    this.label,
   });
 
   bool toggleDefault;
-  Options options;
+  bool value;
+  //Options options;
   ListValidation validation;
+  String label;
 
   factory Toggle.fromJson(Map<String, dynamic> json) => Toggle(
         toggleDefault: json["default"] == null ? null : json["default"],
-        options:
+        value: json["value"] == null ? json["default"] : json["value"],
+        /*options:
             json["options"] == null ? null : Options.fromJson(json["options"]),
+         */
+        label: json["label"] == null ? "" : json["label"],
         validation: json["validation"] == null
             ? null
             : ListValidation.fromJson(json["validation"]),
@@ -1224,29 +1230,30 @@ class Toggle {
 
   Map<String, dynamic> toJson() => {
         "default": toggleDefault == null ? null : toggleDefault,
-        "options": options == null ? null : options.toJson(),
+        "value": value == null ? false : value,
+        //"options": options == null ? null : options.toJson(),
         "validation": validation == null ? null : validation.toJson(),
       };
 }
 
 class Options {
   Options({
-    this.optionsTrue,
-    this.optionsFalse,
+    this.trueLabel,
+    this.falseLabel,
   });
 
-  False optionsTrue;
-  False optionsFalse;
+  String trueLabel;
+  String falseLabel;
 
   factory Options.fromJson(Map<String, dynamic> json) => Options(
-        optionsTrue: json["true"] == null ? null : False.fromJson(json["true"]),
-        optionsFalse:
-            json["false"] == null ? null : False.fromJson(json["false"]),
+    trueLabel: json["true"] == null ? "" : False.fromJson(json["true"]),
+    falseLabel:
+            json["false"] == null ? "" : False.fromJson(json["false"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "true": optionsTrue == null ? null : optionsTrue.toJson(),
-        "false": optionsFalse == null ? null : optionsFalse.toJson(),
+        "trueLabel": trueLabel == null ? "" : trueLabel,
+        "false": falseLabel == null ? "" : falseLabel,
       };
 }
 
@@ -1344,9 +1351,11 @@ class ItemCondition {
 class FluffyList {
   FluffyList({
     this.options,
+    this.value,
   });
 
   List<ListOption> options;
+  ListOption value;
 
   factory FluffyList.fromJson(Map<String, dynamic> json) => FluffyList(
         options: json["options"] == null
