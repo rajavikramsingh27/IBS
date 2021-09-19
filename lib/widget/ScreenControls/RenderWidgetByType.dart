@@ -1,3 +1,4 @@
+import 'package:flutter_ibs/controllers/user/UserController.dart';
 import 'package:flutter_ibs/widget/ScreenControls/AddableTagListWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/BristolScaleWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/ColorPickerWidget.dart';
@@ -14,12 +15,23 @@ import 'package:flutter_ibs/widget/ScreenControls/TimePickerInlineWidget.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/widget/ScreenControls/ToggleInlineWidget.dart';
+import 'package:get/get.dart';
 
 class RenderWidgetByType {
+
+  UserController _userController = Get.find();
+
   renderTrackableItem(TrackableItem trackableItem,
       {bool isFirst = false, bool isLast = false, bool isChild = false,
         Function(TrackableSubmitItem) onValueChanged
       }) {
+
+    //See if the user tracks this:
+    bool isTracked = _userController.doesUserTrack(trackableItem);
+    if (!isTracked){
+      return Offstage();
+    }
+
     switch (trackableItem.kind) {
       case "rating":
         {

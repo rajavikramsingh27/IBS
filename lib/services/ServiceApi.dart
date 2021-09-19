@@ -9,7 +9,7 @@ import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/journal/JournalResponseModel.dart';
 import 'package:flutter_ibs/models/language/LanguageResponseModel.dart';
-import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
+import 'package:flutter_ibs/models/user/UserModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/medication/MedicationResponseModel.dart';
 import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
@@ -43,7 +43,7 @@ class ServiceApi {
     if (result == null) {
       return null;
     } else {
-      return LoginResponseModel.fromJson(result);
+      return UserModel.fromJson(result);
     }
   }
 

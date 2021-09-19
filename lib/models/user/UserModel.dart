@@ -4,12 +4,14 @@
 
 import 'dart:convert';
 
-LoginResponseModel loginResponseModelFromJson(String str) => LoginResponseModel.fromJson(json.decode(str));
 
-String loginResponseModelToJson(LoginResponseModel data) => json.encode(data.toJson());
 
-class LoginResponseModel {
-  LoginResponseModel({
+UserModel loginResponseModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+
+String loginResponseModelToJson(UserModel data) => json.encode(data.toJson());
+
+class UserModel {
+  UserModel({
     this.id,
     this.profile,
     this.tags,
@@ -39,7 +41,7 @@ class LoginResponseModel {
   DateTime updatedAt;
   int v;
 
-  factory LoginResponseModel.fromJson(Map<String, dynamic> json) => LoginResponseModel(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
     id: json["_id"] == null ? null : json["_id"],
     profile: json["profile"] == null ? null : Profile.fromJson(json["profile"]),
     tags: json["tags"] == null ? null : Tags.fromJson(json["tags"]),
@@ -225,18 +227,18 @@ class Tracking {
     this.foods,
   });
 
-  List<BowelMovement> symptoms;
-  List<BowelMovement> bowelMovements;
-  dynamic medications;
-  List<dynamic> healthWellness;
-  List<dynamic> foods;
+  List<UserTrackable> symptoms;
+  List<UserTrackable> bowelMovements;
+  List<UserTrackable> medications;
+  List<UserTrackable> healthWellness;
+  List<UserTrackable> foods;
 
   factory Tracking.fromJson(Map<String, dynamic> json) => Tracking(
-    symptoms: json["symptoms"] == null ? null : List<BowelMovement>.from(json["symptoms"].map((x) => BowelMovement.fromJson(x))),
-    bowelMovements: json["bowelMovements"] == null ? null : List<BowelMovement>.from(json["bowelMovements"].map((x) => BowelMovement.fromJson(x))),
-    medications: json["medications"],
-    healthWellness: json["healthWellness"] == null ? null : List<dynamic>.from(json["healthWellness"].map((x) => x)),
-    foods: json["foods"] == null ? null : List<dynamic>.from(json["foods"].map((x) => x)),
+    symptoms: json["symptoms"] == null ? null             : List<UserTrackable>.from(json["symptoms"].map((x) => UserTrackable.fromJson(x))),
+    bowelMovements: json["bowelMovements"] == null ? null : List<UserTrackable>.from(json["bowelMovements"].map((x) => UserTrackable.fromJson(x))),
+    medications: json["medications"] == null ? null       : List<UserTrackable>.from(json["medications"].map((x) => UserTrackable.fromJson(x))),
+    healthWellness: json["healthWellness"] == null ? null : List<UserTrackable>.from(json["healthWellness"].map((x) => UserTrackable.fromJson(x))),
+    foods: json["foods"] == null ? null                   : List<UserTrackable>.from(json["foods"].map((x) => UserTrackable.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -248,8 +250,8 @@ class Tracking {
   };
 }
 
-class BowelMovement {
-  BowelMovement({
+class UserTrackable {
+  UserTrackable({
     this.required,
     this.userAdded,
     this.id,
@@ -263,7 +265,7 @@ class BowelMovement {
   String tid;
   Category category;
 
-  factory BowelMovement.fromJson(Map<String, dynamic> json) => BowelMovement(
+  factory UserTrackable.fromJson(Map<String, dynamic> json) => UserTrackable(
     required: json["required"] == null ? null : json["required"],
     userAdded: json["userAdded"] == null ? null : json["userAdded"],
     id: json["_id"] == null ? null : json["_id"],
@@ -278,6 +280,8 @@ class BowelMovement {
     "tid": tid == null ? null : tid,
     "category": category == null ? null : categoryValues.reverse[category],
   };
+
+
 }
 
 enum Category { MEDICATIONS, SYMPTOMS }
@@ -300,3 +304,5 @@ class EnumValues<T> {
     return reverseMap;
   }
 }
+
+
