@@ -1,28 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/controllers/symptoms/SymptomsController.dart';
-import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
-import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/AdditionalNoteWidget.dart';
 import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
-import 'package:flutter_ibs/widget/DropDownList.dart';
-import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
-import 'package:flutter_ibs/widget/WavePainter.dart';
-import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_core/theme.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
+
 
 class Symptoms extends StatelessWidget {
   final SymptomsController controller = Get.put(SymptomsController());
-  final SignUpController _signUpController = Get.find();
 
   @override
   Widget build(BuildContext context) {

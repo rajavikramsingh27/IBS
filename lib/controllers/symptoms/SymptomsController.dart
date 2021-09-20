@@ -16,8 +16,6 @@ class SymptomsController extends GetxController {
 
   Rx<SymptomsModel> symptomsModel = SymptomsModel(items: []).obs;
   TrackablesController _trackablesController = Get.find();
-
-  //RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
 
   @override
@@ -30,17 +28,13 @@ class SymptomsController extends GetxController {
 
     // Refresh the local list so the form can generate:
     formWidgetList.refresh();
-    //_selectedItems = RxList<TrackableSubmitItem>();
+
     super.onInit();
     // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 
 
   void onSave()async{
-    symptomsModel.value.items.forEach((item) {
-      item.toJson();
-    });
-
     loader.value = true;
     final data = await ServiceApi().postSymptomsAPI(bodyData: symptomsModel.toJson());
     loader.value = false;

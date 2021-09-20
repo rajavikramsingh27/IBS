@@ -12,8 +12,6 @@ class HealthController extends GetxController {
 
   Rx<HealthWellnessModel> healthWellnessModel = HealthWellnessModel(items: []).obs;
   TrackablesController _trackablesController = Get.find();
-
-  RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
 
 
@@ -28,7 +26,7 @@ class HealthController extends GetxController {
 
     // Refresh the local list so the form can generate:
     formWidgetList.refresh();
-    _selectedItems = RxList<TrackableSubmitItem>();
+
     super.onInit();
    // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
@@ -51,11 +49,6 @@ class HealthController extends GetxController {
   }
 
   void onSave()async{
-
-    _selectedItems.forEach((item) {
-      item.toJson();
-    });
-
     loader.value = true;
     final data = await ServiceApi().postHealthWellnessAPI(bodyData: healthWellnessModel.toJson());
     loader.value = false;
