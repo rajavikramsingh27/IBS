@@ -37,6 +37,8 @@ class HomeController extends GetxController {
 
   RxString selcetedDailyLogCategory = "".obs;
 
+  RxString selectedDateLabel = "".obs;
+
   var foodValue;
   onTapped(int index) async {
     currentIndex.value = index;
@@ -49,6 +51,12 @@ class HomeController extends GetxController {
     print("loginId:${HiveStore().get(Keys.LOGINID)}");
     //_signUpController.getTrackList();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+
+    selectedDate = new DateTime.now();
+    var formatter = new DateFormat('yyyy-MM-dd');
+    selectedDateLabel.value = formatter.format(selectedDate);
+
+
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();
     connectionStatus.value = isInternet;
@@ -77,7 +85,7 @@ class HomeController extends GetxController {
     ).then((datePicked) {
       if (datePicked != selectedDate) {
         selectedDate = datePicked;
-        dateController.text = DateFormat.yMMMMd('en_US').format(selectedDate);
+        selectedDateLabel.value = DateFormat.yMMMMd('en_US').format(selectedDate);
       }
     });
   }
@@ -96,7 +104,7 @@ class HomeController extends GetxController {
             if (datePicked != selectedDate) {
               selectedDate = datePicked;
               print("${dateController.text}");
-              dateController.text =
+              selectedDateLabel.value =
                   DateFormat.yMMMMd('en_US').format(selectedDate);
               // ?.toString()
               // ?.split(' ')

@@ -33,221 +33,223 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: AppColors.colorHomeBg,
-        appBar: PreferredSize(
-          preferredSize:
-              Size.fromHeight(ScreenConstant.defaultHeightTwoHundred),
-          child: AppBar(
-            flexibleSpace: Stack(
-              fit: StackFit.expand,
-              children: [
-                Image.asset(
-                  (_controller.formattedTime.value >= 5 &&
-                          _controller.formattedTime.value < 12)
-                      ? Assets.morning
-                      : (_controller.formattedTime.value >= 12 &&
-                              _controller.formattedTime.value < 18)
-                          ? Assets.afternoon
-                          : (_controller.formattedTime.value >= 18 &&
-                                  _controller.formattedTime.value < 22)
-                              ? Assets.evening
-                              : Assets.night,
-                  fit: BoxFit.fill,
-                ),
-                Positioned(
-                    bottom: ScreenConstant.defaultHeightTwenty,
-                    left: ScreenConstant.defaultWidthTwenty,
-                    child: Container(
-                      padding: ScreenConstant.spacingAllDefault,
-                      decoration: BoxDecoration(
-                        color: AppColors.colorHomeCard,
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(16),
-                            bottomLeft: Radius.circular(16),
-                            bottomRight: Radius.circular(16)),
-                      ),
-                      child: Text(
-                        (_controller.formattedTime.value >= 5 &&
-                                _controller.formattedTime.value < 12)
-                            ? "Good Morning"
-                            : (_controller.formattedTime.value >= 12 &&
-                                    _controller.formattedTime.value < 18)
-                                ? "Good Afternoon"
-                                : (_controller.formattedTime.value >= 18 &&
-                                        _controller.formattedTime.value < 22)
-                                    ? "Good Evening"
-                                    : "Good Night",
-                        style: TextStyles.textStyleIntroDescription
-                            .apply(fontSizeDelta: -4, color: Colors.white),
-                      ),
-                    ))
-              ],
-            ),
-            centerTitle: true,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                    icon: Icon(
-                      Icons.arrow_back_ios_outlined,
-                      color: AppColors.colorButton,
-                    ),
-                    onPressed: () {
-                      if (Platform.isIOS)
-                        _controller.getCupertinoDatePicker();
-                      else
-                        _controller.getAndroidDatePicker();
-                    }),
-                Text(_controller.dateController.text,
-                    style: TextStyles.appBarTitle),
-                IconButton(
-                    icon: Icon(Icons.arrow_forward_ios_outlined,
-                        color: AppColors.colorButton),
-                    onPressed: () {
-                      if (Platform.isIOS)
-                        _controller.getCupertinoDatePicker();
-                      else
-                        _controller.getAndroidDatePicker();
-                    }),
-              ],
-            ),
-            elevation: 0,
-            backgroundColor: Colors.white,
-            actions: [
-              InkWell(
-                onTap: () => Get.toNamed(settings),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ScreenConstant.defaultWidthTwenty),
-                  child: Image.asset(
-                    Assets.settings,
-                    width: ScreenConstant.defaultWidthTwenty,
+    return  Obx(
+          () =>  Scaffold(
+          backgroundColor: AppColors.colorHomeBg,
+          appBar: PreferredSize(
+            preferredSize:
+                Size.fromHeight(ScreenConstant.defaultHeightTwoHundred),
+            child: AppBar(
+              flexibleSpace: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.asset(
+                    (_controller.formattedTime.value >= 5 &&
+                            _controller.formattedTime.value < 12)
+                        ? Assets.morning
+                        : (_controller.formattedTime.value >= 12 &&
+                                _controller.formattedTime.value < 18)
+                            ? Assets.afternoon
+                            : (_controller.formattedTime.value >= 18 &&
+                                    _controller.formattedTime.value < 22)
+                                ? Assets.evening
+                                : Assets.night,
+                    fit: BoxFit.fill,
                   ),
-                ),
-              )
-            ],
-            automaticallyImplyLeading: false,
-          ),
-        ),
-
-        // bottomNavigationBar: Padding(
-        //     padding: const EdgeInsets.all(8.0),
-        //     child: SizedBox(
-        //         height: ScreenConstant.defaultHeightNinety,
-        //         child: Card(
-        //           elevation: 0,
-        //           color: Colors.white,
-        //           shape: RoundedRectangleBorder(
-        //               borderRadius: BorderRadius.circular(24)),
-        //           child: Wrap(
-        //               direction: Axis.horizontal,
-        //               alignment: WrapAlignment.spaceAround,
-        //               runAlignment: WrapAlignment.spaceAround,
-        //               children: [
-        //                 Column(
-        //                   children: [
-        //                     Image.asset(
-        //                       Assets.treatPlans,
-        //                       fit: BoxFit.fill,
-        //                       width: ScreenConstant.defaultWidthTen * 1.5,
-        //                     ),
-        //                     SizedBox(height: ScreenConstant.defaultHeightTen),
-        //                     Text(
-        //                       "Treatment \nPlans",
-        //                       style: TextStyles.textStylebottom,
-        //                       textAlign: TextAlign.center,
-        //                     )
-        //                   ],
-        //                 ),
-        //                 InkWell(
-        //                   onTap: () {},
-        //                   child: Column(
-        //                     children: [
-        //                       Image.asset(Assets.report,
-        //                           fit: BoxFit.fill,
-        //                           width: ScreenConstant.defaultWidthTen * 1.8),
-        //                       SizedBox(height: ScreenConstant.defaultHeightTen),
-        //                       Text(
-        //                         "Reports",
-        //                         style: TextStyles.textStylebottom,
-        //                       )
-        //                     ],
-        //                   ),
-        //                 ),
-        //                 Column(
-        //                   children: [
-        //                     Image.asset(Assets.track,
-        //                         fit: BoxFit.fill,
-        //                         width: ScreenConstant.defaultWidthTen * 1.8),
-        //                     SizedBox(height: ScreenConstant.defaultHeightTen),
-        //                     Text(
-        //                       "Track",
-        //                       style: TextStyles.textStylebottom,
-        //                     )
-        //                   ],
-        //                 ),
-        //                 InkWell(
-        //                   onTap: () {},
-        //                   child: Column(children: [
-        //                     Image.asset(Assets.resources,
-        //                         fit: BoxFit.fill,
-        //                         width: ScreenConstant.defaultWidthTwenty),
-        //                     SizedBox(height: ScreenConstant.defaultHeightTen),
-        //                     Text(
-        //                       "Resources",
-        //                       style: TextStyles.textStylebottom,
-        //                     )
-        //                   ]),
-        //                 ),
-        //                 Column(children: [
-        //                   Image.asset(Assets.profile,
-        //                       fit: BoxFit.fill,
-        //                       width: ScreenConstant.defaultWidthTwenty),
-        //                   SizedBox(height: ScreenConstant.defaultHeightTen),
-        //                   Text(
-        //                     "My IBS",
-        //                     style: TextStyles.textStylebottom,
-        //                   )
-        //                 ])
-        //               ]),
-        //         ))),
-        body: Obx(
-          () => Stack(
-            children: [
-              _signUpController.loader.value
-                  ? Center(child: CircularProgressIndicator())
-                  : Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
-                      margin: EdgeInsets.zero,
-                      clipBehavior: Clip.antiAlias,
-                      color: AppColors.colorTracBg,
-                      child: ListView(
-                        physics: ClampingScrollPhysics(),
-                        padding: ScreenConstant.spacingAllLarge,
-                        children: [
-                          SizedBox(height: ScreenConstant.defaultHeightSixteen),
-                          _buildTrackAndLogBar(),
-                          SizedBox(
-                              height: ScreenConstant.defaultHeightTwentyFour),
-                          Obx(() =>
-                              _controller.segmentedControlGroupValue.value == 1
-                                  ? _buildDailyLogList()
-                                  : _buildTrackList()),
-                          SizedBox(
-                              height: ScreenConstant.defaultHeightOneHundred),
-                        ],
+                  Positioned(
+                      bottom: ScreenConstant.defaultHeightTwenty,
+                      left: ScreenConstant.defaultWidthTwenty,
+                      child: Container(
+                        padding: ScreenConstant.spacingAllDefault,
+                        decoration: BoxDecoration(
+                          color: AppColors.colorHomeCard,
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(16),
+                              bottomLeft: Radius.circular(16),
+                              bottomRight: Radius.circular(16)),
+                        ),
+                        child: Text(
+                          (_controller.formattedTime.value >= 5 &&
+                                  _controller.formattedTime.value < 12)
+                              ? "Good Morning"
+                              : (_controller.formattedTime.value >= 12 &&
+                                      _controller.formattedTime.value < 18)
+                                  ? "Good Afternoon"
+                                  : (_controller.formattedTime.value >= 18 &&
+                                          _controller.formattedTime.value < 22)
+                                      ? "Good Evening"
+                                      : "Good Night",
+                          style: TextStyles.textStyleIntroDescription
+                              .apply(fontSizeDelta: -4, color: Colors.white),
+                        ),
+                      ))
+                ],
+              ),
+              centerTitle: true,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                      icon: Icon(
+                        Icons.arrow_back_ios_outlined,
+                        color: AppColors.colorButton,
                       ),
+                      onPressed: () {
+                        if (Platform.isIOS)
+                          _controller.getCupertinoDatePicker();
+                        else
+                          _controller.getAndroidDatePicker();
+                      }),
+                  Text(_controller.selectedDateLabel.value, //_controller.dateController.text,
+                      style: TextStyles.appBarTitle),
+                  IconButton(
+                      icon: Icon(Icons.arrow_forward_ios_outlined,
+                          color: AppColors.colorButton),
+                      onPressed: () {
+                        if (Platform.isIOS)
+                          _controller.getCupertinoDatePicker();
+                        else
+                          _controller.getAndroidDatePicker();
+                      }),
+                ],
+              ),
+              elevation: 0,
+              backgroundColor: Colors.white,
+              actions: [
+                InkWell(
+                  onTap: () => Get.toNamed(settings),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ScreenConstant.defaultWidthTwenty),
+                    child: Image.asset(
+                      Assets.settings,
+                      width: ScreenConstant.defaultWidthTwenty,
                     ),
-              Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: CustomBottomNavigation()),
-            ],
+                  ),
+                )
+              ],
+              automaticallyImplyLeading: false,
+            ),
           ),
-        ));
+
+          // bottomNavigationBar: Padding(
+          //     padding: const EdgeInsets.all(8.0),
+          //     child: SizedBox(
+          //         height: ScreenConstant.defaultHeightNinety,
+          //         child: Card(
+          //           elevation: 0,
+          //           color: Colors.white,
+          //           shape: RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.circular(24)),
+          //           child: Wrap(
+          //               direction: Axis.horizontal,
+          //               alignment: WrapAlignment.spaceAround,
+          //               runAlignment: WrapAlignment.spaceAround,
+          //               children: [
+          //                 Column(
+          //                   children: [
+          //                     Image.asset(
+          //                       Assets.treatPlans,
+          //                       fit: BoxFit.fill,
+          //                       width: ScreenConstant.defaultWidthTen * 1.5,
+          //                     ),
+          //                     SizedBox(height: ScreenConstant.defaultHeightTen),
+          //                     Text(
+          //                       "Treatment \nPlans",
+          //                       style: TextStyles.textStylebottom,
+          //                       textAlign: TextAlign.center,
+          //                     )
+          //                   ],
+          //                 ),
+          //                 InkWell(
+          //                   onTap: () {},
+          //                   child: Column(
+          //                     children: [
+          //                       Image.asset(Assets.report,
+          //                           fit: BoxFit.fill,
+          //                           width: ScreenConstant.defaultWidthTen * 1.8),
+          //                       SizedBox(height: ScreenConstant.defaultHeightTen),
+          //                       Text(
+          //                         "Reports",
+          //                         style: TextStyles.textStylebottom,
+          //                       )
+          //                     ],
+          //                   ),
+          //                 ),
+          //                 Column(
+          //                   children: [
+          //                     Image.asset(Assets.track,
+          //                         fit: BoxFit.fill,
+          //                         width: ScreenConstant.defaultWidthTen * 1.8),
+          //                     SizedBox(height: ScreenConstant.defaultHeightTen),
+          //                     Text(
+          //                       "Track",
+          //                       style: TextStyles.textStylebottom,
+          //                     )
+          //                   ],
+          //                 ),
+          //                 InkWell(
+          //                   onTap: () {},
+          //                   child: Column(children: [
+          //                     Image.asset(Assets.resources,
+          //                         fit: BoxFit.fill,
+          //                         width: ScreenConstant.defaultWidthTwenty),
+          //                     SizedBox(height: ScreenConstant.defaultHeightTen),
+          //                     Text(
+          //                       "Resources",
+          //                       style: TextStyles.textStylebottom,
+          //                     )
+          //                   ]),
+          //                 ),
+          //                 Column(children: [
+          //                   Image.asset(Assets.profile,
+          //                       fit: BoxFit.fill,
+          //                       width: ScreenConstant.defaultWidthTwenty),
+          //                   SizedBox(height: ScreenConstant.defaultHeightTen),
+          //                   Text(
+          //                     "My IBS",
+          //                     style: TextStyles.textStylebottom,
+          //                   )
+          //                 ])
+          //               ]),
+          //         ))),
+          body: Obx(
+            () => Stack(
+              children: [
+                _signUpController.loader.value
+                    ? Center(child: CircularProgressIndicator())
+                    : Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
+                        margin: EdgeInsets.zero,
+                        clipBehavior: Clip.antiAlias,
+                        color: AppColors.colorTracBg,
+                        child: ListView(
+                          physics: ClampingScrollPhysics(),
+                          padding: ScreenConstant.spacingAllLarge,
+                          children: [
+                            SizedBox(height: ScreenConstant.defaultHeightSixteen),
+                            _buildTrackAndLogBar(),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightTwentyFour),
+                            Obx(() =>
+                                _controller.segmentedControlGroupValue.value == 1
+                                    ? _buildDailyLogList()
+                                    : _buildTrackList()),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightOneHundred),
+                          ],
+                        ),
+                      ),
+                Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: CustomBottomNavigation()),
+              ],
+            ),
+          )),
+    );
   }
 
   _buildTrackAndLogBar() {
