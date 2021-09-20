@@ -21,8 +21,8 @@ class TreatmentPlanController extends GetxController {
 
   RxList<TagsDefault> selectedTags = <TagsDefault>[].obs;
   Rx<String> selectedCategory = "".obs;
-  Rx<String> selectedTime = "".obs;
-  Rx<String> selectedDay = "".obs;
+  Rx<String> selectedTime = "01:00".obs;
+  Rx<String> selectedDay = "option_every_day".obs;
   Rx<String> selectedPID = "".obs;
 
 
