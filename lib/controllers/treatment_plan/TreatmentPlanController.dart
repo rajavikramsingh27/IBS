@@ -21,9 +21,10 @@ class TreatmentPlanController extends GetxController {
 
   RxList<TagsDefault> selectedTags = <TagsDefault>[].obs;
   Rx<String> selectedCategory = "".obs;
-  Rx<String> selectedTimeHours = "".obs;
-  Rx<String> selectedTimeMinutes = "".obs;
+  Rx<String> selectedTime = "".obs;
   Rx<String> selectedDay = "".obs;
+  Rx<String> selectedPID = "".obs;
+
 
   RxList<Reminder> reminderList = <Reminder>[].obs;
   RxSet<String> listCategory = <String>{}.obs;
@@ -32,7 +33,6 @@ class TreatmentPlanController extends GetxController {
       PostTreatmentPlanSendModel().obs;
   RxList<TrackingSendData> listTrackData = <TrackingSendData>[].obs;
   RxList<dynamic> listTags = <dynamic>[].obs;
-  RxList<ReminderSet> listReminderData = <ReminderSet>[].obs;
   @override
   void onInit() async {
     super.onInit();
@@ -60,13 +60,11 @@ class TreatmentPlanController extends GetxController {
 
   toTreatmentPlanListWidget({TreatmentPlanItemData data}) {
     clearData();
+    selectedPID.value = data.pid;
+    selectedCategory.value = data.category;
     Get.to(() => TreatmentPlanListWidget(
           data: data,
         ));
-  }
-
-  category(String value) {
-    selectedCategory.value = value;
   }
 
   void onTagTapped({TagsDefault model}) {
@@ -80,16 +78,14 @@ class TreatmentPlanController extends GetxController {
   void addReminder() {
     reminderList.add(Reminder(
         message: noteTextController.text,
-        hour: int.parse(selectedTimeHours.value),
-        minute: int.parse(selectedTimeMinutes.value),
+        time: selectedTime.value,
         day: selectedDay.value));
   }
 
   clearData() {
     selectedTags = <TagsDefault>[].obs;
     selectedCategory = "".obs;
-    selectedTimeHours = "".obs;
-    selectedTimeMinutes = "".obs;
+    selectedTime = "".obs;
     selectedDay = "".obs;
     reminderList = <Reminder>[].obs;
     listCategory = <String>{}.obs;
@@ -100,7 +96,7 @@ class TreatmentPlanController extends GetxController {
     // if (treatmentPlanSendModel.value == null) {
     //   treatmentPlanSendModel.value.items = [];
     // }
-    treatmentPlanSendModel.value = PostTreatmentPlanSendModel(category: selectedCategory.value,reminders: [],tags: [],trackingDefaults: []);
+    treatmentPlanSendModel.value = PostTreatmentPlanSendModel(category: selectedCategory.value,reminders: [],tags: [],trackingDefaults: [],pid: selectedPID.value);
     TrackingSendData trackTreatmentModel = TrackingSendData(
         category: selectedCategory.value,
         // tid: ,
@@ -109,7 +105,7 @@ class TreatmentPlanController extends GetxController {
         value: TrackingValue(arr: ""));
 
     treatmentPlanSendModel.value.tags.addAll(selectedTags);
-    treatmentPlanSendModel.value.reminders.addAll(listReminderData);
+    treatmentPlanSendModel.value.reminders.addAll(reminderList);
     treatmentPlanSendModel.refresh();
 
     print("data: ${treatmentPlanSendModel.toJson()}");

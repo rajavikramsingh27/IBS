@@ -74,7 +74,7 @@ class ReminderPlanWidget extends StatelessWidget {
                           ),
                           SizedBox(width: ScreenConstant.sizeDefault),
                           Text(
-                            "${listData[index].day} at ${listData[index].hour}:${listData[index].minute}",
+                            "${listData[index].day} at ${listData[index].time}",
                             style: TextStyles.textStyleRegular.apply(color: Colors.white),
                           ),
                           TextButton(

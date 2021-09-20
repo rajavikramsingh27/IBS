@@ -108,10 +108,8 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                           setState(() {
                             widget.data[index].timePicker.timePickerDefault =
                                 optionItem;
-                            _treatmentPlanController.selectedTimeHours.value =
-                                optionItem.split(":").first;
-                            _treatmentPlanController.selectedTimeMinutes.value =
-                                optionItem.split(":").last;
+                            _treatmentPlanController.selectedTime.value =
+                                optionItem;
                           });
                         },
                         isEnabled: true,

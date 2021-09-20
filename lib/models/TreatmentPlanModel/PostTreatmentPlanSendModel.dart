@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanModel.dart';
+
 class PostTreatmentPlanSendModel {
   PostTreatmentPlanSendModel({
     this.pid,
@@ -17,7 +19,7 @@ class PostTreatmentPlanSendModel {
   String category;
   List<TrackingSendData> trackingDefaults;
   List<dynamic> tags;
-  List<ReminderSet> reminders;
+  List<Reminder> reminders;
 
   factory PostTreatmentPlanSendModel.fromRawJson(String str) =>
       PostTreatmentPlanSendModel.fromJson(json.decode(str));
@@ -37,8 +39,8 @@ class PostTreatmentPlanSendModel {
             : List<dynamic>.from(json["tags"].map((x) => x)),
         reminders: json["reminders"] == null
             ? null
-            : List<ReminderSet>.from(
-                json["reminders"].map((x) => ReminderSet.fromJson(x))),
+            : List<Reminder>.from(
+                json["reminders"].map((x) => Reminder.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -51,39 +53,6 @@ class PostTreatmentPlanSendModel {
         "reminders": reminders == null
             ? null
             : List<dynamic>.from(reminders.map((x) => x.toJson())),
-      };
-}
-
-class ReminderSet {
-  ReminderSet({
-    this.day,
-    this.time,
-    this.message,
-    this.enabled = true,
-  });
-
-  String day;
-  String time;
-  String message;
-  bool enabled;
-
-  factory ReminderSet.fromRawJson(String str) =>
-      ReminderSet.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory ReminderSet.fromJson(Map<String, dynamic> json) => ReminderSet(
-        day: json["day"] == null ? null : json["day"],
-        time: json["time"] == null ? null : json["time"],
-        message: json["message"] == null ? null : json["message"],
-        enabled: json["enabled"] == null ? null : json["enabled"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "day": day == null ? null : day,
-        "time": time == null ? null : time,
-        "message": message == null ? null : message,
-        "enabled": enabled == null ? null : enabled,
       };
 }
 

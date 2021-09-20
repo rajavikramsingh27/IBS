@@ -43,30 +43,26 @@ class TreatmentPlanModel {
 class Reminder {
   Reminder({
     this.day,
-    this.hour,
-    this.minute,
+    this.time,
     this.message,
     this.enabled = true,
   });
 
   String day;
-  int hour;
-  int minute;
+  String time;
   String message;
   bool enabled;
 
   factory Reminder.fromJson(Map<String, dynamic> json) => Reminder(
     day: json["day"] == null ? null : json["day"],
-    hour: json["hour"] == null ? null : json["hour"],
-    minute: json["minute"] == null ? null : json["minute"],
+    time: json["time"] == null ? null : json["minute"],
     message: json["message"] == null ? null : json["message"],
     enabled: json["enabled"] == null ? null : json["enabled"],
   );
 
   Map<String, dynamic> toJson() => {
     "day": day == null ? null : day,
-    "hour": hour == null ? null : hour,
-    "minute": minute == null ? null : minute,
+    "time": time == null ? null : time,
     "message": message == null ? null : message,
     "enabled": enabled == null ? null : enabled,
   };
