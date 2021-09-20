@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanModel.dart';
+import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
+import 'package:flutter_ibs/widget/DropDownList.dart';
 import 'package:get/get.dart';
 
 class CustomDialog extends StatelessWidget {
@@ -363,8 +368,15 @@ class CustomDialog4 extends StatelessWidget {
   final double height;
   final String title;
   final String description;
-
-  const CustomDialog4({Key key, this.height, this.title, this.description})
+  final data;
+  final List<Trackable> listOption;
+  const CustomDialog4(
+      {Key key,
+      this.height,
+      this.title,
+      this.description,
+      this.data,
+      this.listOption})
       : super(key: key);
 
   @override
@@ -389,6 +401,8 @@ class CustomDialog4 extends StatelessWidget {
                   horizontal: ScreenConstant.defaultWidthTwenty),
               padding: ScreenConstant.spacingAllLarge,
               child: DialogReminderWidget(
+                listOption: listOption,
+                data: data,
                 title: "Edit Notification",
                 description:
                     "To edit the notification, modify the options below and click Save.",
@@ -402,12 +416,14 @@ class CustomDialog4 extends StatelessWidget {
   }
 }
 
-class DialogReminderWidget extends StatelessWidget {
+class DialogReminderWidget extends StatefulWidget {
   final String title;
   final String description;
   final String textRemindMe;
   final String textTime;
   final String textMessage;
+  final data;
+  final List<Trackable> listOption;
 
   final bool valueReminder;
   final bool valueChild;
@@ -418,66 +434,60 @@ class DialogReminderWidget extends StatelessWidget {
 
   final String editText;
 
-  const DialogReminderWidget({
-    Key key,
-    this.title = "",
-    this.description = "",
-    this.valueReminder = false,
-    this.valueChild = false,
-    this.onChanged,
-    this.onChangedChild,
-    this.editText = "",
-    this.onPressed,
-    this.textRemindMe = "",
-    this.textTime = "",
-    this.textMessage = "",
-  }) : super(key: key);
+  const DialogReminderWidget(
+      {Key key,
+      this.title = "",
+      this.description = "",
+      this.valueReminder = false,
+      this.valueChild = false,
+      this.onChanged,
+      this.onChangedChild,
+      this.editText = "",
+      this.onPressed,
+      this.textRemindMe = "",
+      this.textTime = "",
+      this.textMessage = "",
+      this.data,
+      this.listOption})
+      : super(key: key);
+
+  @override
+  State<DialogReminderWidget> createState() => _DialogReminderWidgetState();
+}
+
+class _DialogReminderWidgetState extends State<DialogReminderWidget> {
+  final TreatmentPlanController _treatmentPlanController = Get.find();
+  TextEditingController messageTextController;
+  @override
+  void initState() {
+    super.initState();
+    messageTextController = TextEditingController(text: widget.data.message);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(height: ScreenConstant.defaultHeightForty),
-        Text(title,
+        Text(widget.title,
             style: TextStyles.textStyleIntroDescription
                 .apply(color: AppColors.colorDialogTitle, fontSizeDelta: -3)),
         SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Text(
-          description,
+          widget.description,
           textAlign: TextAlign.center,
           style: TextStyles.textStyleRegular
               .apply(color: AppColors.colorDialogDescription),
         ),
         SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-        Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Text(
-                textRemindMe,
-                style: TextStyles.textStyleRegular.apply(color: Colors.black),
-              ),
-            ),
-            Expanded(flex: 2, child: _buildDropDown())
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Text(
-                textTime,
-                style: TextStyles.textStyleRegular.apply(color: Colors.black),
-              ),
-            ),
-            Expanded(flex: 2, child: _buildDropDown())
-          ],
-        ),
+        _dayPicker(),
+        SizedBox(height: ScreenConstant.defaultHeightSixteen),
+        _timePicker(),
         SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            textMessage,
+            widget.textMessage,
             textAlign: TextAlign.start,
             style: TextStyles.textStyleRegular.apply(color: Colors.black),
           ),
@@ -485,6 +495,7 @@ class DialogReminderWidget extends StatelessWidget {
         Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           child: TextFormField(
+            controller: messageTextController,
             inputFormatters: <TextInputFormatter>[],
             decoration: InputDecoration(
                 border: InputBorder.none,
@@ -511,7 +522,7 @@ class DialogReminderWidget extends StatelessWidget {
               child: CustomElevatedButton2(
                 text: "Cancel",
                 buttonColor: AppColors.colorBtnCancel,
-                onTap: () {},
+                onTap: () => Navigator.pop(context),
                 textColor: Colors.white,
               ),
             ),
@@ -520,7 +531,16 @@ class DialogReminderWidget extends StatelessWidget {
               child: CustomElevatedButton2(
                 text: "Save",
                 buttonColor: AppColors.colorArrowButton,
-                onTap: () {},
+                onTap: () {
+                  Reminder saveReminder = Reminder(
+                      day: _treatmentPlanController.selectedDay.value == null
+                          ? widget.data.day
+                          : _treatmentPlanController.selectedDay.value,
+                      time: _treatmentPlanController.selectedTime.value == null
+                          ? widget.data.time
+                          : _treatmentPlanController.selectedTime.value,
+                      message: messageTextController.text);
+                },
                 textColor: Colors.white,
               ),
             )
@@ -531,42 +551,131 @@ class DialogReminderWidget extends StatelessWidget {
     );
   }
 
-  _buildDropDown() {
-    return Container(
-      height: ScreenConstant.defaultHeightForty * 1.2,
-      width: double.maxFinite,
-      margin: EdgeInsets.only(
-          left: ScreenConstant.defaultWidthTen * 1.5,
-          right: ScreenConstant.defaultWidthTen * 1.5,
-          bottom: ScreenConstant.defaultHeightTen * 1.5),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-      decoration: BoxDecoration(
-          color: AppColors.colordropdownArrowBg,
-          borderRadius: BorderRadius.all(Radius.circular(8))),
-      // dropdown below..
-      child: DropdownButton<String>(
-          isExpanded: true,
-          dropdownColor: AppColors.white,
-          value: "Under 20 years",
-          elevation: 30,
-          icon: Icon(
-            Icons.keyboard_arrow_down_outlined,
-            color: AppColors.colordropdownArrow,
+  _dayPicker() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Text(
+            widget.textRemindMe,
+            style: TextStyles.textStyleRegular.apply(color: Colors.black),
           ),
-          iconSize: 20,
-          underline: SizedBox(),
-          onChanged: (String newValue) {
-            // setState(() {T
-            //   dropdownValue = newValue;
-            // });
-          },
-          items: <String>["Under 20 years", "2", "3", "4", "5", "more"]
-              .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value.toString(),
-              child: Text(value.toString(), style: TextStyles.textStyleRegular),
-            );
-          }).toList()),
+        ),
+        Container(
+          width: ScreenConstant.sizeSmall,
+        ),
+        Expanded(
+          flex: 2,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+            decoration: BoxDecoration(
+                color: AppColors.colordropdownArrowBg,
+                borderRadius: BorderRadius.all(Radius.circular(8))),
+            child: CustomDropdown<SelectOption>(
+              value: widget.listOption.first.select.options.first,
+              dropdownMenuItemList:
+                  buildDropList(widget.listOption.first.select.options),
+              onChanged: (optionItem) {
+                setState(() {
+                  widget.data.day = optionItem.value;
+                  widget.listOption.first.select.selectDefault = optionItem;
+                  _treatmentPlanController.selectedDay.value = optionItem.label;
+                });
+              },
+              isEnabled: true,
+            ),
+          ),
+        )
+      ],
     );
+  }
+
+  _timePicker() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Text(widget.textTime,
+              style: TextStyles.textStyleRegular.apply(color: Colors.black)),
+        ),
+        Container(
+          width: ScreenConstant.sizeSmall,
+        ),
+        Expanded(
+          flex: 2,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+            decoration: BoxDecoration(
+                color: AppColors.colordropdownArrowBg,
+                borderRadius: BorderRadius.all(Radius.circular(8))),
+            child: CustomDropdown<String>(
+              value: widget.data.time == null ? "01:00" : widget.data.time,
+              dropdownMenuItemList: buildTimeDropList([
+                "01:00",
+                "02:00",
+                "03:00",
+                "04:00",
+                "05:00",
+                "06:00",
+                "07:00",
+                "08:00",
+                "09:00",
+                "10:00",
+                "11:00",
+                "12:00",
+                "13:00",
+                "14:00",
+                "15:00",
+                "16:00",
+                "17:00",
+                "18:00",
+                "19:00",
+                "20:00",
+                "21:00",
+                "22:00",
+                "23:00",
+                "24:00",
+              ]),
+              onChanged: (String optionItem) {
+                setState(() {
+                  widget.data.time = optionItem;
+                  _treatmentPlanController.selectedTime.value = optionItem;
+                });
+              },
+              isEnabled: true,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  List<DropdownMenuItem<SelectOption>> buildDropList(
+      List favouriteFoodModelList) {
+    List<DropdownMenuItem<SelectOption>> items = [];
+    for (SelectOption favouriteFoodModel in favouriteFoodModelList) {
+      items.add(DropdownMenuItem(
+        value: favouriteFoodModel,
+        child: Text(
+          favouriteFoodModel.label.tr,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ));
+    }
+    return items;
+  }
+
+  List<DropdownMenuItem<String>> buildTimeDropList(
+      List favouriteFoodModelList) {
+    List<DropdownMenuItem<String>> items = [];
+    for (String favouriteFoodModel in favouriteFoodModelList) {
+      items.add(DropdownMenuItem(
+        value: favouriteFoodModel,
+        child: Text(favouriteFoodModel.tr),
+      ));
+    }
+    return items;
   }
 }
