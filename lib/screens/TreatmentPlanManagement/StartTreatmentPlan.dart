@@ -169,9 +169,6 @@ class StartTreatmentPlan extends StatelessWidget {
                                   });
                                   _treatmentPlanController.reminderList.refresh();
                                 },
-                                onPressed: () {
-                                  Get.dialog(CustomDialog4());
-                                },
                                 listData: _treatmentPlanController.reminderList,
                               )),
                           SizedBox(height: ScreenConstant.defaultHeightTwenty),
