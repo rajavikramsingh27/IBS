@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+
 FoodSendModel foodSendModelFromJson(String str) =>
     FoodSendModel.fromJson(json.decode(str));
 
@@ -16,14 +18,14 @@ class FoodSendModel {
   });
 
   String category;
-  List<FoodList> items;
+  List<TrackableSubmitItem> items;
 
   factory FoodSendModel.fromJson(Map<String, dynamic> json) => FoodSendModel(
         category: json["category"] == null ? null : json["category"],
         items: json["items"] == null
             ? null
-            : List<FoodList>.from(
-                json["items"].map((x) => FoodList.fromJson(x))),
+            : List<TrackableSubmitItem>.from(
+                json["items"].map((x) => TrackableSubmitItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,7 +35,7 @@ class FoodSendModel {
             : List<dynamic>.from(items.map((x) => x.toJson())),
       };
 }
-
+/*
 class FoodList {
   FoodList({
     this.tid = "food-meal",
@@ -145,3 +147,4 @@ class FoodValue {
         "num": num == null ? null : num,
       };
 }
+*/

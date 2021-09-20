@@ -966,7 +966,7 @@ class ListOption {
         label: json["label"] == null ? null : json["label"],
         image:
             json["image"] == null ? null : ModelImage.fromJson(json["image"]),
-        optionDefault: json["default"] == false ? null : json["default"],
+        optionDefault: json["default"] == null ? false : json["default"],
         selected: json["default"] == null ? false : json["default"],
         conditionalDefault: json["conditionalDefault"] == null
             ? null

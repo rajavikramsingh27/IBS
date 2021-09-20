@@ -116,8 +116,10 @@ class Foods extends StatelessWidget {
                                 ))
                                 : //RenderItemChildrenWidget(trackableItem:controller.formWidgetList.first),
                             controller.formWidgetList.first.list.value != null ? _renderFoodGroup(controller.formWidgetList.first.list.value) : Offstage(),
-                              RenderWidgetByType().renderTrackableItem(controller.formWidgetList[controller.formWidgetList.length -2], isLast: true),
-                            RenderWidgetByType().renderTrackableItem(controller.formWidgetList.last),
+                            RenderWidgetByType().renderTrackableItem(controller.formWidgetList[controller.formWidgetList.length -2], isLast: true,
+                                onValueChanged: controller.valueChanged),
+                            RenderWidgetByType().renderTrackableItem(controller.formWidgetList.last,
+                                onValueChanged: controller.valueChanged),
                             SizedBox(
                                 height: ScreenConstant.defaultHeightTwentyFour),
                           ],
@@ -178,7 +180,7 @@ class Foods extends StatelessWidget {
                     // ((endTime.difference(u).inSeconds) > 0 &&
                     //         (u.difference(startTime).inSeconds) > 0)
                     //     ? model.image.active
-                    model.optionDefault
+                    model.selected
                         ? model.image.active
                         : model.image.normal,
                   ),
@@ -197,7 +199,7 @@ class Foods extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles.textStyleRegular.apply(
                         color:
-                        model.optionDefault ? Colors.white : Colors.black,
+                        model.selected ? Colors.white : Colors.black,
                         fontSizeDelta: 2),
                   ),
                 ),
@@ -222,16 +224,20 @@ class Foods extends StatelessWidget {
     switch (option.value){
       case "breakfast":
         item = controller.formWidgetList.first.children[0].items[0];
-        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true );
+        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true,
+            onValueChanged: controller.valueChanged );
       case "lunch":
         item = controller.formWidgetList.first.children[1].items[0];
-        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true );
+        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true,
+            onValueChanged: controller.valueChanged );
       case "dinner":
         item = controller.formWidgetList.first.children[2].items[0];
-        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true  );
+        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true,
+            onValueChanged: controller.valueChanged  );
       case "snacks":
         item = controller.formWidgetList.first.children[3].items[0];
-        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true  );
+        return RenderWidgetByType().renderTrackableItem( item, isFirst: true, isLast: true,
+            onValueChanged: controller.valueChanged  );
       default:
         return Offstage();
     }

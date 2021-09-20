@@ -17,45 +17,18 @@ import 'package:intl/intl.dart';
 
 class FoodController extends GetxController {
 
-  /*
-  Rx<FoodResponseModel> foodModel;
-  Rx<DateTime> currentDateTime = DateTime.now().obs;
-  HomeController homeController = Get.find();
-  RxInt formattedTime = 0.obs;
-  RxInt currentIndex = 0.obs;
-  RxString mealTypeValue = "".obs;
-  Rx<FoodSendModel> foodSendModel = FoodSendModel().obs;
-  RxList<FoodSubList> listFoodSub = <FoodSubList>[].obs;
-  RxList<FoodList> listFood = <FoodList>[].obs;
-  RxList<Tag> listfoodDefault = <Tag>[].obs;
-  RxInt noOfGlasses = 0.obs;
-  RxString mealtid = "".obs;
-  RxBool selected = false.obs;
-
-  TextEditingController noteTextController = TextEditingController();
-  TextEditingController foodTextController = TextEditingController();
-
-  // RxList<FoodList> listFood = [].obs;
 
   RxBool loader = false.obs;
-  RxBool switchValue = true.obs;
-  RxBool connectionStatus = false.obs;
-  RxInt endTimeDifference = 0.obs;
-  RxInt startTimeDifference = 0.obs;
-  SignUpController _signUpController = Get.find();
-  RxInt modelMealIndex = 0.obs;
-*/
-  RxBool loader = false.obs;
 
-  Rx<FoodResponseModel> foodModel = FoodResponseModel().obs;
+  Rx<FoodSendModel> foodModel = FoodSendModel(items: []).obs;
   TrackablesController _trackablesController = Get.find();
 
-  RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
 
 
   @override
   void onInit() async {
+    print("Food controller onInit");
     _trackablesController
         .food.value.items.forEach((element) {
       formWidgetList.add(element);
@@ -63,7 +36,6 @@ class FoodController extends GetxController {
 
     // Refresh the local list so the form can generate:
     formWidgetList.refresh();
-    _selectedItems = RxList<TrackableSubmitItem>();
 
     super.onInit();
     /*
@@ -78,6 +50,43 @@ class FoodController extends GetxController {
      */
   }
 
+  valueChanged(TrackableSubmitItem submitItem){
+    var count = foodModel.value.items.length;
+    bool isAdded = false;
+    for(var i=0; i < count; i++) {
+      if (foodModel.value.items[i].tid == submitItem.tid) {
+        foodModel.value.items[i] = submitItem;
+        isAdded = true;
+        break;
+      }
+    }
+
+    if (!isAdded){
+      foodModel.value.items.add(submitItem);
+    }
+
+  }
+
+  void onSave()async{
+    loader.value = true;
+    final data = await ServiceApi().foodTrackApi(bodyData: foodModel.toJson());
+    loader.value = false;
+    if (data is FoodResponseModel) {
+      // noteTextController.clear();
+      //  healthWellnessModel.value.items = [];
+      //  _signUpController.getTrackList();
+      Get.back();
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Health & Wellness Added Successfully");
+    } else {
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
+
+  }
+
+}
+
+  /*
   // onFoodTagSave() {
   //   TagsSendModel foodTags = TagsSendModel(
   //     category: _signUpController.food.value.category,
@@ -236,3 +245,4 @@ class FoodController extends GetxController {
   }
 
 }
+*/
