@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+
 
 
 UserModel loginResponseModelFromJson(String str) => UserModel.fromJson(json.decode(str));
@@ -29,7 +31,7 @@ class UserModel {
 
   String id;
   Profile profile;
-  Tags tags;
+  UserTags tags;
   dynamic label;
   String email;
   bool agreeTos;
@@ -44,7 +46,7 @@ class UserModel {
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
     id: json["_id"] == null ? null : json["_id"],
     profile: json["profile"] == null ? null : Profile.fromJson(json["profile"]),
-    tags: json["tags"] == null ? null : Tags.fromJson(json["tags"]),
+    tags: json["tags"] == null ? [] : UserTags.fromJson(json["tags"]),
     label: json["label"],
     email: json["email"] == null ? null : json["email"],
     agreeTos: json["agreeTos"] == null ? null : json["agreeTos"],
@@ -178,33 +180,33 @@ class Results {
   };
 }
 
-class Tags {
-  Tags({
+class UserTags {
+  UserTags({
     this.breakfast,
     this.lunch,
     this.dinner,
     this.snacks,
     this.relaxationTechniques,
-    this.prescriptionMedications,
-    this.otherMedications,
+    this.medicationsPrescription,
+    this.medicationsOther,
   });
 
-  List<dynamic> breakfast;
-  List<dynamic> lunch;
-  List<dynamic> dinner;
-  List<dynamic> snacks;
-  List<dynamic> relaxationTechniques;
-  List<dynamic> prescriptionMedications;
-  List<dynamic> otherMedications;
+  List<Tag> breakfast;
+  List<Tag> lunch;
+  List<Tag> dinner;
+  List<Tag> snacks;
+  List<Tag> relaxationTechniques;
+  List<Tag> medicationsPrescription;
+  List<Tag> medicationsOther;
 
-  factory Tags.fromJson(Map<String, dynamic> json) => Tags(
-    breakfast: json["breakfast"] == null ? null : List<dynamic>.from(json["breakfast"].map((x) => x)),
-    lunch: json["lunch"] == null ? null : List<dynamic>.from(json["lunch"].map((x) => x)),
-    dinner: json["dinner"] == null ? null : List<dynamic>.from(json["dinner"].map((x) => x)),
-    snacks: json["snacks"] == null ? null : List<dynamic>.from(json["snacks"].map((x) => x)),
-    relaxationTechniques: json["relaxationTechniques"] == null ? null : List<dynamic>.from(json["relaxationTechniques"].map((x) => x)),
-    prescriptionMedications: json["prescriptionMedications"] == null ? null : List<dynamic>.from(json["prescriptionMedications"].map((x) => x)),
-    otherMedications: json["otherMedications"] == null ? null : List<dynamic>.from(json["otherMedications"].map((x) => x)),
+  factory UserTags.fromJson(Map<String, dynamic> json) => UserTags(
+    breakfast: json["breakfast"] == null ? [] : List<Tag>.from(json["breakfast"].map((x) => Tag.fromJson(x))),
+    lunch: json["lunch"] == null ? [] : List<Tag>.from(json["lunch"].map((x) => Tag.fromJson(x))),
+    dinner: json["dinner"] == null ? [] : List<Tag>.from(json["dinner"].map((x) => Tag.fromJson(x))),
+    snacks: json["snacks"] == null ? [] : List<Tag>.from(json["snacks"].map((x) => Tag.fromJson(x))),
+    relaxationTechniques: json["relaxationTechniques"] == null ? [] : List<Tag>.from(json["relaxationTechniques"].map((x) => Tag.fromJson(x))),
+    medicationsPrescription: json["medicationsPrescription"] == null ? [] : List<Tag>.from(json["medicationsPrescription"].map((x) => Tag.fromJson(x))),
+    medicationsOther: json["medicationsOther"] == null ? [] : List<Tag>.from(json["medicationsOther"].map((x) => Tag.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -212,9 +214,9 @@ class Tags {
     "lunch": lunch == null ? null : List<dynamic>.from(lunch.map((x) => x)),
     "dinner": dinner == null ? null : List<dynamic>.from(dinner.map((x) => x)),
     "snacks": snacks == null ? null : List<dynamic>.from(snacks.map((x) => x)),
-    "relaxationTechniques": relaxationTechniques == null ? null : List<dynamic>.from(relaxationTechniques.map((x) => x)),
-    "prescriptionMedications": prescriptionMedications == null ? null : List<dynamic>.from(prescriptionMedications.map((x) => x)),
-    "otherMedications": otherMedications == null ? null : List<dynamic>.from(otherMedications.map((x) => x)),
+    "relaxationTechniques": relaxationTechniques == null ? null : List<Tag>.from(relaxationTechniques.map((x) => x)),
+    "medicationsPrescription": medicationsPrescription == null ? [] : List<Tag>.from(medicationsPrescription.map((x) => x)),
+    "otherMedications": medicationsOther == null ? null : List<Tag>.from(medicationsOther.map((x) => x)),
   };
 }
 

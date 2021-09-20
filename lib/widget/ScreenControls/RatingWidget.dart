@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/CustomArcPainter.dart';
+import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderItemChildrenWidget.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
@@ -76,6 +78,7 @@ class _RatingWidgetState extends State<RatingWidget> {
                 horizontal: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty, vertical: 1),
             child: Column(
               children: [
+
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
                 Text(widget.trackableItem.name.tr,
                     style: TextStyles.textStyleIntroDescription

@@ -36,6 +36,14 @@ class UserController extends GetxController {
     }
   }
 
+
+  addTagToUser(Tag tag){
+
+  }
+
+
+
+  /// Check to see if the list contains the item in question
   bool _testIsTracking(TrackableItem item, List<UserTrackable> list ){
     int num = list.length;
     bool found = false;
@@ -49,4 +57,6 @@ class UserController extends GetxController {
 
     return found;
   }
+
+
 }

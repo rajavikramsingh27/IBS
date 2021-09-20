@@ -1,4 +1,5 @@
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
+import 'package:flutter_ibs/controllers/user/UserController.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessModel.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
@@ -31,7 +32,7 @@ class HealthController extends GetxController {
    // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 
-  valueChanged(TrackableSubmitItem submitItem){
+  void valueChanged(TrackableSubmitItem submitItem){
     var count = healthWellnessModel.value.items.length;
     bool isAdded = false;
     for(var i=0; i < count; i++) {
@@ -63,7 +64,11 @@ class HealthController extends GetxController {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
 
+
   }
+
+
+
 
 
 /*

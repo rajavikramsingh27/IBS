@@ -3,6 +3,7 @@ import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:flutter_ibs/utils/TrackableItemUtils.dart';
 import 'package:get/get.dart';
 
 
@@ -88,7 +89,7 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
                 padding: EdgeInsets.symmetric(
                     horizontal: ScreenConstant.defaultWidthTen),
                 child: Wrap(
-                  children: widget.trackableItem.tags.tagsDefault
+                  children: TrackableItemUtils().addUserTagsToList(tags: widget.trackableItem.tags.tagsDefault)
                       .map((item) => InkWell(
                     onTap: () {
                       _onHandleToggle(widget.trackableItem, item);

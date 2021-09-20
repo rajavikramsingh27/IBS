@@ -115,7 +115,8 @@ class SignInController extends GetxController {
         loader.value = false;
       }
     } catch (error) {
-      error.message.toString().showError();
+      print(error.toString());
+ //     error.message.toString().showError();
     }
   }
 
