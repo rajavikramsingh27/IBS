@@ -38,7 +38,7 @@ class UserController extends GetxController {
 
 
   addTagToUser(Tag tag){
-
+    
   }
 
 

@@ -4,6 +4,7 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/TrackableItemUtils.dart';
+import 'package:flutter_ibs/widget/ScreenControls/TagWidget.dart';
 import 'package:get/get.dart';
 
 
@@ -91,26 +92,9 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
                 child: Wrap(
                   children: TrackableItemUtils().addUserTagsToList(tags: widget.trackableItem.tags.tagsDefault)
                       .map((item) => InkWell(
-                    onTap: () {
-                      _onHandleToggle(widget.trackableItem, item);
-
-                    },
-                    child: Card(
-                      color: item.selected
-                          ? AppColors.colorCloseLight
-                          : AppColors.colorSymptomsGridBg,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Padding(
-                        padding: ScreenConstant.spacingAllExtraSmall,
-                        child: Text(
-                          item.value.tr,
-                          textAlign: TextAlign.center,
-                          //overflow: TextOverflow.ellipsis,
-                          style: TextStyles.textStyleRegular.apply(
-                              color: Colors.white, fontSizeDelta: -2),
-                        ),
-                      ),
+                    child: TagWidget(
+                      tag: item,
+                      onValueChanged: _userTagListTapped,
                     ),
                   ))
                       .toList()
@@ -130,6 +114,36 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
     );
   }
 
+
+  /// Tap of the list of tags under the input field
+  _userTagListTapped(Tag tag) {
+    _onHandleToggle(widget.trackableItem, tag);
+  }
+
+  _onHandleToggle(TrackableItem item, Tag tag) {
+    setState(() {
+      if (tag.selected) {
+        _selectedItems.add(tag);
+      } else {
+        _selectedItems.remove(tag);
+      }
+    });
+
+    List<String> flatList = [];
+    _selectedItems.forEach((element) {
+      flatList.add(element.value);
+    });
+
+    widget.onValueChanged(TrackableSubmitItem(
+      tid: item.tid,
+      category: item.category,
+      kind: item.kind,
+      dtype: "arr",
+      value: TrackableSubmitItemValue(arr:flatList),
+    ));
+  }
+
+  /*
   _onHandleToggle(TrackableItem item, Tag tag){
 
     setState(() {
@@ -156,4 +170,6 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
       value: TrackableSubmitItemValue(arr:flatList),
     ));
   }
+
+   */
 }

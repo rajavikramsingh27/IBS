@@ -83,22 +83,25 @@ class _IntroState extends State<Intro> {
                       children: [
                         _getStartedButton(),
                         SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                        RichText(
-                          text: TextSpan(
-                            text: 'Have an Account? ',
-                            style: TextStyles.textStyleIntroDescription.apply(
-                                fontSizeDelta: -3,
-                                color: Colors.white.withOpacity(0.36)),
-                            children: <TextSpan>[
-                              TextSpan(
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () => Get.toNamed(signIn),
-                                text: 'Log in',
-                                style: TextStyles.textStyleIntroDescription
-                                    .apply(
-                                        fontSizeDelta: -2, color: Colors.white),
-                              ),
-                            ],
+                        InkWell(
+                          onTap: () => Get.toNamed(signIn),
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'Have an Account? ',
+                              style: TextStyles.textStyleIntroDescription.apply(
+                                  fontSizeDelta: -3,
+                                  color: Colors.white.withOpacity(0.36)),
+                              children: <TextSpan>[
+                                TextSpan(
+                                 // recognizer: TapGestureRecognizer()
+                                //    ..onTap = () => Get.toNamed(signIn),
+                                  text: 'Log in',
+                                  style: TextStyles.textStyleIntroDescription
+                                      .apply(
+                                          fontSizeDelta: -2, color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(height: 40),

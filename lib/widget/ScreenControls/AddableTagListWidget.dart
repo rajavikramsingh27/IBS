@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/user/UserController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:flutter_ibs/utils/TrackableItemUtils.dart';
 import 'package:flutter_ibs/widget/ScreenControls/TagWidget.dart';
 import 'package:get/get.dart';
 
@@ -30,9 +32,12 @@ class AddableTagListWidget extends StatefulWidget {
 class _AddableTagListWidgetState extends State<AddableTagListWidget> {
   List<Tag> selectedItems;
 
+  UserController _userController;
+
   @override
   void initState() {
     selectedItems = [];
+    _userController  = Get.find();
     super.initState();
   }
 
@@ -74,19 +79,9 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
                 Text(widget.trackableItem.description.tr,
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: Colors.white, fontSizeDelta: -5)),
-               /* Text(
-                  "Select from this list of common medications and supplements or add your own.",
-                  style: TextStyles.textStyleRegular
-                      .apply(color: AppColors.textGray),
-                ),
-*/
+
                  SizedBox(height: ScreenConstant.defaultHeightTen),
-                /*  Text(
-                  widget.trackableItem.description.tr,
-                  textAlign: TextAlign.center,
-                  style: TextStyles.textStyleRegular
-                      .apply(color: AppColors.colorSkipButton),
-                ),*/
+
                 // Selected Item Tags
                 Wrap(
                   children: selectedItems
@@ -109,7 +104,7 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
                       //     controller: _controller.foodTextController,
                       decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "Add Food",
+                          hintText: widget.trackableItem.tags.addableLabel.tr,
                           hintStyle: TextStyles.textStyleRegular
                               .apply(color: AppColors.colorTextHint),
                           contentPadding: EdgeInsets.symmetric(
@@ -118,33 +113,36 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: ScreenConstant.defaultWidthTen * 1.5,
-                      backgroundColor: AppColors.colorArrowButton,
-                      child: Icon(
-                        Icons.add,
-                        size: FontSize.s11,
-                        color: Colors.white,
+                InkWell(
+                  onTap: _addNewTag,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: ScreenConstant.defaultWidthTen * 1.5,
+                        backgroundColor: AppColors.colorArrowButton,
+                        child: Icon(
+                          Icons.add,
+                          size: FontSize.s11,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: ScreenConstant.sizeDefault),
-                    Text(
-                      widget.trackableItem.tags.addableLabel.tr,
-                      style: TextStyles.textStyleRegular
-                          .apply(color: AppColors.white),
-                    ),
-                  ],
+                      SizedBox(width: ScreenConstant.sizeDefault),
+                      Text(
+                        widget.trackableItem.tags.addableLabel.tr,
+                        style: TextStyles.textStyleRegular
+                            .apply(color: AppColors.white),
+                      ),
+                    ],
+                  ),
                 ),
 
                 SizedBox(
                     width: ScreenConstant.sizeDefault,
                     height: ScreenConstant.defaultHeightTwenty),
-
+                // Available tags list
                 Wrap(
-                  children: widget.trackableItem.tags.tagsDefault
+                  children: TrackableItemUtils().addUserTagsToList(tags: widget.trackableItem.tags.tagsDefault)
                       .map((item) => InkWell(
                             child: TagWidget(
                               tag: item,
@@ -167,6 +165,14 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
         ),
       ],
     );
+  }
+
+
+  _addNewTag(){
+    Tag tag = Tag();
+    tag.value = "xannax";
+    tag.category = widget.trackableItem.tags.tagsDefault[0].category;
+    _userController.addTagToUser(tag);
   }
 
   /// Tap of the list of tags under the input field
