@@ -14,7 +14,7 @@ class AddableTagListWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
-  List<Tag> _selectedItems;
+ // List<Tag> _selectedItems;
 
   AddableTagListWidget({
     //Key key,
@@ -31,13 +31,25 @@ class AddableTagListWidget extends StatefulWidget {
 
 class _AddableTagListWidgetState extends State<AddableTagListWidget> {
   List<Tag> selectedItems;
-
   UserController _userController;
+
+
+  final _textController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    _textController.dispose();
+    super.dispose();
+  }
+
 
   @override
   void initState() {
     selectedItems = [];
-    _userController  = Get.find();
+    _userController = Get.find();
+    _textController.addListener(_onAddTagFieldChanged);
     super.initState();
   }
 
@@ -80,7 +92,7 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: Colors.white, fontSizeDelta: -5)),
 
-                 SizedBox(height: ScreenConstant.defaultHeightTen),
+                SizedBox(height: ScreenConstant.defaultHeightTen),
 
                 // Selected Item Tags
                 Wrap(
@@ -101,7 +113,7 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
                   margin: ScreenConstant.spacingAllLarge,
                   child: FractionallySizedBox(
                     child: TextFormField(
-                      //     controller: _controller.foodTextController,
+                      controller: _textController,
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: widget.trackableItem.tags.addableLabel.tr,
@@ -141,16 +153,20 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
                     width: ScreenConstant.sizeDefault,
                     height: ScreenConstant.defaultHeightTwenty),
                 // Available tags list
-                Wrap(
-                  children: TrackableItemUtils().addUserTagsToList(tags: widget.trackableItem.tags.tagsDefault)
-                      .map((item) => InkWell(
-                            child: TagWidget(
-                              tag: item,
-                              onValueChanged: _userTagListTapped,
-                            ),
-                          ))
-                      .toList()
-                      .cast<Widget>(),
+                Obx(
+                  () => Wrap(
+                    children: TrackableItemUtils()
+                        .addUserTagsToList(
+                            tags: widget.trackableItem.tags.tagsDefault)
+                        .map((item) => InkWell(
+                              child: TagWidget(
+                                tag: item,
+                                onValueChanged: _userTagListTapped,
+                              ),
+                            ))
+                        .toList()
+                        .cast<Widget>(),
+                  ),
                 ),
 
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
@@ -167,12 +183,22 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
     );
   }
 
+  /// Add tag button hit:
+  _addNewTag() {
+    String copy = _textController.text.trim();
+    if (copy.length == 0){
+      return;
+    }
 
-  _addNewTag(){
     Tag tag = Tag();
-    tag.value = "xannax";
+    tag.value = copy;
     tag.category = widget.trackableItem.tags.tagsDefault[0].category;
     _userController.addTagToUser(tag);
+    tag.selected = true;
+
+    _onHandleToggle(widget.trackableItem, tag);
+
+    _textController.text = "";
   }
 
   /// Tap of the list of tags under the input field
@@ -180,6 +206,7 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
     _onHandleToggle(widget.trackableItem, tag);
   }
 
+  /// Flip the state of the tag and track the data:
   _onHandleToggle(TrackableItem item, Tag tag) {
     setState(() {
       if (tag.selected) {
@@ -199,7 +226,13 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
       category: item.category,
       kind: item.kind,
       dtype: "arr",
-      value: TrackableSubmitItemValue(arr:flatList),
+      value: TrackableSubmitItemValue(arr: flatList),
     ));
   }
+
+
+  _onAddTagFieldChanged(){
+
+  }
+
 }

@@ -858,14 +858,14 @@ class Tag {
     this.key,
     this.value,
     this.required,
-    this.selected,
+    this.selected = false,
   });
 
   String category;
   String key;
   String value;
   bool required;
-  bool selected = false;
+  bool selected;
 
   factory Tag.fromJson(Map<String, dynamic> json) => Tag(
         category: json["category"] == null ? null : json["category"],

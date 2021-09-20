@@ -1,6 +1,7 @@
 
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/user/UserModel.dart';
+import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:get/get.dart';
 
 class UserController extends GetxController {
@@ -37,8 +38,9 @@ class UserController extends GetxController {
   }
 
 
-  addTagToUser(Tag tag){
-    
+   addTagToUser(Tag tag) async {
+    this.user.value = await ServiceApi().createUserTag(tagData: tag.toJson());
+    this.user.refresh();
   }
 
 

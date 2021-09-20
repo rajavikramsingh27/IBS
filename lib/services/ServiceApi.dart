@@ -169,6 +169,17 @@ class ServiceApi {
       return LanguageResponseModel.fromJson(result);
   }
 
+
+  Future<UserModel> createUserTag({Map tagData}) async {
+    var result =
+    await CoreService().apiService(method: METHOD.CREATE, endpoint: TAGS, data: tagData);
+    if (result == null) {
+      return null;
+    } else
+      return UserModel.fromJson(result);
+  }
+
+
   Future<TagsResponseModel> postTags() async {
     var result =
         await CoreService().apiService(method: METHOD.CREATE, endpoint: TAGS);
@@ -250,6 +261,8 @@ class ServiceApi {
 
     return MyAccountModel.fromJson(result);
   }
+
+
 
 }
 
