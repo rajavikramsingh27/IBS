@@ -163,12 +163,14 @@ class StartTreatmentPlan extends StatelessWidget {
                                 horizontal: ScreenConstant.defaultWidthTwenty,
                               ),
                               child: ReminderPlanWidget(
+                                onChanged: (_){
+                                  _treatmentPlanController.reminderList.forEach((element) {
+                                    element.enabled = false;
+                                  });
+                                  _treatmentPlanController.reminderList.refresh();
+                                },
                                 onPressed: () {
-                                  Get.dialog(CustomDialog4(
-                                    title: "jg",
-                                    description: "jg",
-                                    // height: 300,
-                                  ));
+                                  Get.dialog(CustomDialog4());
                                 },
                                 listData: _treatmentPlanController.reminderList,
                               )),

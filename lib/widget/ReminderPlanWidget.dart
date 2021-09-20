@@ -5,6 +5,8 @@ import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomSwitch.dart';
 import 'package:get/get.dart';
 
+import 'CustomDialog.dart';
+
 class ReminderPlanWidget extends StatelessWidget {
   final String title;
   final String childText;
@@ -27,8 +29,10 @@ class ReminderPlanWidget extends StatelessWidget {
     this.onChanged,
     this.onChangedChild,
     this.editText = "Edit",
-    this.onPressed, this.listData,
+    this.onPressed,
+    this.listData,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -61,41 +65,49 @@ class ReminderPlanWidget extends StatelessWidget {
                   SizedBox(height: ScreenConstant.defaultHeightTen),
                   Divider(
                       thickness: 1, color: AppColors.white.withOpacity(0.12)),
-                  Obx(()=>ListView.separated(
-                    itemCount: listData.length,
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Row(
-                        children: [
-                          Icon(
-                            Icons.access_time_filled,
-                            color: AppColors.colorIcons,
-                          ),
-                          SizedBox(width: ScreenConstant.sizeDefault),
-                          Text(
-                            "${listData[index].day} at ${listData[index].time}",
-                            style: TextStyles.textStyleRegular.apply(color: Colors.white),
-                          ),
-                          TextButton(
-                              onPressed: onPressed,
-                              child: Text(
-                                editText,
-                                style: TextStyles.textStyleRegular.apply(
-                                    color: AppColors.colorSkipButton, fontSizeDelta: -2),
-                              )),
-                          Spacer(),
-                          CustomSwitch(
-                            color: AppColors.colorYesButton,
-                            value: !listData[index].enabled,
-                            onChanged: onChangedChild,
-                          ),
-                        ],
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
-                  ),),
+                  Obx(
+                    () => ListView.separated(
+                      itemCount: listData.length,
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        return Row(
+                          children: [
+                            Icon(
+                              Icons.access_time_filled,
+                              color: AppColors.colorIcons,
+                            ),
+                            SizedBox(width: ScreenConstant.sizeDefault),
+                            Text(
+                              "${listData[index].day} at ${listData[index].time}",
+                              style: TextStyles.textStyleRegular
+                                  .apply(color: Colors.white),
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  Get.dialog(CustomDialog4());
+                                },
+                                child: Text(
+                                  editText,
+                                  style: TextStyles.textStyleRegular.apply(
+                                      color: AppColors.colorSkipButton,
+                                      fontSizeDelta: -2),
+                                )),
+                            Spacer(),
+                            CustomSwitch(
+                              color: AppColors.colorYesButton,
+                              value: !listData[index].enabled,
+                              onChanged: onChangedChild,
+                            ),
+                          ],
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          Divider(
+                              thickness: 1,
+                              color: AppColors.white.withOpacity(0.12)),
+                    ),
+                  ),
                   SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 ],
               )))
