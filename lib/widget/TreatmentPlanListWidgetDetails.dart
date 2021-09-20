@@ -25,7 +25,7 @@ class TreatmentPlanListWidgetDetails extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          title,
+          title.tr,
           style: TextStyles.appBarTitle,
         ),
         actions: [
@@ -49,7 +49,8 @@ class TreatmentPlanListWidgetDetails extends StatelessWidget {
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
               children: [
-                details[index].image == null ||details[index].image.filename.isEmpty ||
+                details[index].image == null ||
+                        details[index].image.filename.isEmpty ||
                         details[index].image.filename == null
                     ? Offstage()
                     : AspectRatio(
@@ -60,18 +61,22 @@ class TreatmentPlanListWidgetDetails extends StatelessWidget {
                         ),
                       ),
                 SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                details[index].heading.isEmpty?Offstage():Text(
-                  details[index].heading.tr,
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.black),
-                ),
+                details[index].heading.isEmpty
+                    ? Offstage()
+                    : Text(
+                        details[index].heading.tr,
+                        style: TextStyles.textStyleIntroDescription
+                            .apply(color: Colors.black),
+                      ),
                 SizedBox(height: ScreenConstant.defaultHeightSixteen),
-                details[index].body.isEmpty?Offstage():Text(
-                  details[index].body.tr,
-                  style: TextStyles.textStyleRegular.apply(
-                      color: AppColors.colorskip_also_proceed,
-                      fontSizeDelta: 1),
-                ),
+                details[index].body.isEmpty
+                    ? Offstage()
+                    : Text(
+                        details[index].body.tr,
+                        style: TextStyles.textStyleRegular.apply(
+                            color: AppColors.colorskip_also_proceed,
+                            fontSizeDelta: 1),
+                      ),
                 SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
               ],
             );

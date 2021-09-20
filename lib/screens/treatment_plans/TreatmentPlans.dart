@@ -84,7 +84,9 @@ class TreatmentPlans extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          _treatmentPlanController.listCategory.toList()[index],
+                          _treatmentPlanController.listCategory
+                              .toList()[index]
+                              .tr,
                           style: TextStyles.textStyleIntroDescription
                               .apply(color: Colors.black, fontSizeDelta: -4),
                           textAlign: TextAlign.start,
