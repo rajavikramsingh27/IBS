@@ -100,7 +100,7 @@ class TreatmentPlanController extends GetxController {
     // if (treatmentPlanSendModel.value == null) {
     //   treatmentPlanSendModel.value.items = [];
     // }
-
+    treatmentPlanSendModel.value = PostTreatmentPlanSendModel(category: selectedCategory.value,reminders: [],tags: [],trackingDefaults: []);
     TrackingSendData trackTreatmentModel = TrackingSendData(
         category: selectedCategory.value,
         // tid: ,
@@ -108,14 +108,8 @@ class TreatmentPlanController extends GetxController {
         // dtype: "arr",
         value: TrackingValue(arr: ""));
 
-    ReminderSet reminderSendModel = ReminderSet(
-        message: noteTextController.text,
-        time: "${selectedTimeHours.value}:${selectedTimeMinutes.value}",
-        day: selectedDay.value);
-
-    treatmentPlanSendModel.value.tags.add(selectedTags);
-    treatmentPlanSendModel.value.trackingDefaults.add(trackTreatmentModel);
-    treatmentPlanSendModel.value.reminders.add(reminderSendModel);
+    treatmentPlanSendModel.value.tags.addAll(selectedTags);
+    treatmentPlanSendModel.value.reminders.addAll(listReminderData);
     treatmentPlanSendModel.refresh();
 
     print("data: ${treatmentPlanSendModel.toJson()}");

@@ -35,7 +35,7 @@ class StartTreatmentPlan extends StatelessWidget {
             CustomElevatedButton(
               widthFactor: 0.7,
               text: "Save Changes",
-              onTap: () {},
+              onTap: _treatmentPlanController.onSave,
             ),
             TextButton(
                 onPressed: () {
