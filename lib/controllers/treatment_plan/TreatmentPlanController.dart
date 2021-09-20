@@ -4,6 +4,7 @@ import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanResponseM
 import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanSendModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
+import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:flutter_ibs/widget/TreatmentPlanListWidget.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
@@ -21,10 +22,9 @@ class TreatmentPlanController extends GetxController {
 
   RxList<TagsDefault> selectedTags = <TagsDefault>[].obs;
   Rx<String> selectedCategory = "".obs;
-  Rx<String> selectedTime = "".obs;
-  Rx<String> selectedDay = "".obs;
+  Rx<String> selectedTime = "01:00".obs;
+  Rx<String> selectedDay = "option_every_day".obs;
   Rx<String> selectedPID = "".obs;
-
 
   RxList<Reminder> reminderList = <Reminder>[].obs;
   RxSet<String> listCategory = <String>{}.obs;
@@ -96,7 +96,12 @@ class TreatmentPlanController extends GetxController {
     // if (treatmentPlanSendModel.value == null) {
     //   treatmentPlanSendModel.value.items = [];
     // }
-    treatmentPlanSendModel.value = PostTreatmentPlanSendModel(category: selectedCategory.value,reminders: [],tags: [],trackingDefaults: [],pid: selectedPID.value);
+    treatmentPlanSendModel.value = PostTreatmentPlanSendModel(
+        category: selectedCategory.value,
+        reminders: [],
+        tags: [],
+        trackingDefaults: [],
+        pid: selectedPID.value);
     TrackingSendData trackTreatmentModel = TrackingSendData(
         category: selectedCategory.value,
         // tid: ,
@@ -109,18 +114,18 @@ class TreatmentPlanController extends GetxController {
     treatmentPlanSendModel.refresh();
 
     print("data: ${treatmentPlanSendModel.toJson()}");
-    // loader.value = true;
-    // final data = await ServiceApi()
-    //     .foodTrackApi(bodyData: treatmentPlanSendModel.toJson());
-    // loader.value = false;
-    // if (data is PostTreatmentPlanResponseModel) {
-    //   Get.back();
-    //   CustomSnackBar().successSnackBar(
-    //       title: "Success", message: "Foods Added Successfully");
-    // } else {
+    //   loader.value = true;
+    //   final data = await ServiceApi()
+    //       .foodTrackApi(bodyData: treatmentPlanSendModel.toJson());
     //   loader.value = false;
+    //   if (data is PostTreatmentPlanResponseModel) {
+    //     Get.offAllNamed(home);
+    //     CustomSnackBar().successSnackBar(
+    //         title: "Success", message: "Foods Added Successfully");
+    //   } else {
+    //     loader.value = false;
 
-    //   CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-    // }
+    //     CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    //   }
   }
 }

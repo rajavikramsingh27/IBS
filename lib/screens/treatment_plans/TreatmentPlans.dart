@@ -31,13 +31,7 @@ class TreatmentPlans extends StatelessWidget {
         ),
         actions: [
           InkWell(
-            onTap: () {
-              Get.dialog(CustomDialog4(
-                title: "jg",
-                description: "jg",
-                // height: 300,
-              ));
-            },
+            onTap: () {},
             child: Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: ScreenConstant.defaultWidthTwenty),
