@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
@@ -95,6 +96,7 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
                         borderRadius: BorderRadius.circular(8)),
                     child: FractionallySizedBox(
                       child: TextFormField(
+                        controller: _treatmentPlanController.tagsController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: "Edit...",
@@ -109,6 +111,15 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
                   SizedBox(height: ScreenConstant.defaultHeightSixteen),
                   ShowMoreWidget(
                     text: "Add relaxation technique",
+                    onTap: ()async{
+                      TagsDefault tagsDefault = TagsDefault(value: _treatmentPlanController.tagsController.text,key: _treatmentPlanController.tagsController.text,category: widget.dataList.tagsDefault.first.category);
+
+                      if(await _treatmentPlanController.addTags(tagValue: tagsDefault)){
+                        setState(() {
+                          widget.dataList.tagsDefault.add(tagsDefault);
+                        });
+                      }
+                    },
                   ),
                   SizedBox(height: ScreenConstant.defaultHeightSixteen),
                 ],

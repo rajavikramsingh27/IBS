@@ -796,7 +796,7 @@ class TagsDefault {
     this.category,
     this.key,
     this.value,
-    this.required,
+    this.required = false,
   });
 
   String category;
