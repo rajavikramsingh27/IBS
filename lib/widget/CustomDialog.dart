@@ -522,7 +522,7 @@ class _DialogReminderWidgetState extends State<DialogReminderWidget> {
               child: CustomElevatedButton2(
                 text: "Cancel",
                 buttonColor: AppColors.colorBtnCancel,
-                onTap: () => Navigator.pop(context),
+                onTap: () => Get.back(),
                 textColor: Colors.white,
               ),
             ),
@@ -540,6 +540,7 @@ class _DialogReminderWidgetState extends State<DialogReminderWidget> {
                           ? widget.data.time
                           : _treatmentPlanController.selectedTime.value,
                       message: messageTextController.text);
+                  Get.back(result: saveReminder);
                 },
                 textColor: Colors.white,
               ),
@@ -573,7 +574,9 @@ class _DialogReminderWidgetState extends State<DialogReminderWidget> {
                 color: AppColors.colordropdownArrowBg,
                 borderRadius: BorderRadius.all(Radius.circular(8))),
             child: CustomDropdown<SelectOption>(
-              value: widget.listOption.first.select.options.first,
+              value: widget.listOption.first.select.selectDefault.label == null
+                  ? widget.data.day
+                  : widget.listOption.first.select.selectDefault,
               dropdownMenuItemList:
                   buildDropList(widget.listOption.first.select.options),
               onChanged: (optionItem) {
