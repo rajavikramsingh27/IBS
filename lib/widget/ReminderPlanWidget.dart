@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
@@ -14,24 +15,31 @@ class ReminderPlanWidget extends StatelessWidget {
   final bool valueChild;
   final Function() onPressed;
   final List<dynamic> listData;
-
+  final List<Trackable> listOption;
   final Function(bool) onChanged;
   final Function(bool) onChangedChild;
 
   final String editText;
+  String dayValue;
+  String timeValue;
+  String messageValue;
 
-  ReminderPlanWidget({
-    Key key,
-    this.title = "Reminders set for this plan",
-    this.childText = "af",
-    this.valueReminder = false,
-    this.valueChild = false,
-    this.onChanged,
-    this.onChangedChild,
-    this.editText = "Edit",
-    this.onPressed,
-    this.listData,
-  }) : super(key: key);
+  ReminderPlanWidget(
+      {Key key,
+      this.title = "Reminders set for this plan",
+      this.childText = "af",
+      this.valueReminder = false,
+      this.valueChild = false,
+      this.onChanged,
+      this.onChangedChild,
+      this.editText = "Edit",
+      this.onPressed,
+      this.listData,
+      this.listOption,
+      this.dayValue,
+      this.timeValue,
+      this.messageValue})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +79,7 @@ class ReminderPlanWidget extends StatelessWidget {
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
+                        var model = listData[index];
                         return Row(
                           children: [
                             Icon(
@@ -79,13 +88,21 @@ class ReminderPlanWidget extends StatelessWidget {
                             ),
                             SizedBox(width: ScreenConstant.sizeDefault),
                             Text(
-                              "${listData[index].day} at ${listData[index].time}",
+                              (dayValue == null && timeValue == null)
+                                  ? "${listData[index].day} at ${listData[index].time}"
+                                  : "$dayValue at $timeValue",
                               style: TextStyles.textStyleRegular
                                   .apply(color: Colors.white),
                             ),
                             TextButton(
                                 onPressed: () {
-                                  Get.dialog(CustomDialog4());
+                                  Get.dialog(CustomDialog4(
+                                          data: model, listOption: listOption))
+                                      .then((value) {
+                                    dayValue = value.day;
+                                    timeValue = value.time;
+                                    messageValue = value.message;
+                                  });
                                 },
                                 child: Text(
                                   editText,

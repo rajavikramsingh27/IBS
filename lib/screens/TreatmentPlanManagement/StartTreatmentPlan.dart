@@ -163,9 +163,11 @@ class StartTreatmentPlan extends StatelessWidget {
                                 horizontal: ScreenConstant.defaultWidthTwenty,
                               ),
                               child: ReminderPlanWidget(
-                                onChanged: (_){
+                                listOption: data.reminders.children,
+                                onChanged: (_) {
                                   _treatmentPlanController.reminderList.clear();
-                                  _treatmentPlanController.reminderList.refresh();
+                                  _treatmentPlanController.reminderList
+                                      .refresh();
                                 },
                                 listData: _treatmentPlanController.reminderList,
                               )),
