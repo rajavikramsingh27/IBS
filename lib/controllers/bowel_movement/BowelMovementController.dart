@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsModel.dart';
-import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseModel.dart' as BMR;
+import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
@@ -15,15 +15,14 @@ class BowelMovementController extends GetxController {
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   TextEditingController noteTextController = TextEditingController();
- // SignUpController _signUpController = Get.find();
+
   RxBool loader = false.obs;
 
   RxBool switchValue = true.obs;
-  Rx<BowelMovementsModel> bowelMovementsModel = BowelMovementsModel().obs;
+  Rx<BowelMovementsModel> bowelMovementsModel = BowelMovementsModel(items: []).obs;
 
   TrackablesController _trackablesController = Get.find();
 
-  RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
 
 
@@ -42,27 +41,46 @@ class BowelMovementController extends GetxController {
 
     // Refresh the local list so the form can generate:
     formWidgetList.refresh();
-    _selectedItems = RxList<TrackableSubmitItem>();
+
     super.onInit();
     // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 
-  valueChanged(TrackableSubmitItem submitItem){
-    var count = _selectedItems.length;
+  valueChanged(TrackableSubmitItem submitItem) {
+    var count = bowelMovementsModel.value.items.length;
     bool isAdded = false;
-    for(var i=0; i < count; i++) {
-      if (_selectedItems[i].tid == submitItem.tid) {
-        _selectedItems[i] = submitItem;
+    for (var i = 0; i < count; i++) {
+      if (bowelMovementsModel.value.items[i].tid == submitItem.tid) {
+        bowelMovementsModel.value.items[i] = submitItem;
         isAdded = true;
         break;
       }
     }
 
-    if (!isAdded){
-      _selectedItems.add(submitItem);
+    if (!isAdded) {
+      bowelMovementsModel.value.items.add(submitItem);
+    }
+  }
+
+
+  void onSave()async{
+    loader.value = true;
+    final data = await ServiceApi().postBowelMovementAPI(bodyData: bowelMovementsModel.toJson());
+    loader.value = false;
+    if (data is BowelMovementsResponseModel) {
+      // noteTextController.clear();
+      //  healthWellnessModel.value.items = [];
+      //  _signUpController.getTrackList();
+      Get.back();
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Health & Wellness Added Successfully");
+    } else {
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
 
+  }
 
+}
 /*
     print ('-------');
     _selectedItems.forEach((element) {
@@ -70,8 +88,8 @@ class BowelMovementController extends GetxController {
     });
 
  */
-  }
 
+/*
 
   onSave() async {
     if (bowelMovementsModel.value.items == null) {
@@ -169,3 +187,4 @@ class BowelMovementController extends GetxController {
 
     }
   }
+*/

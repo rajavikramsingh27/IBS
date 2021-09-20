@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+
 class MedicationSendModel {
   MedicationSendModel({
     this.category = "medications",
@@ -11,7 +13,7 @@ class MedicationSendModel {
   });
 
   String category;
-  List<MedicationItem> items;
+  List<TrackableSubmitItem> items;
 
   factory MedicationSendModel.fromRawJson(String str) =>
       MedicationSendModel.fromJson(json.decode(str));
@@ -23,8 +25,8 @@ class MedicationSendModel {
         category: json["category"] == null ? null : json["category"],
         items: json["items"] == null
             ? null
-            : List<MedicationItem>.from(
-                json["items"].map((x) => MedicationItem.fromJson(x))),
+            : List<TrackableSubmitItem>.from(
+                json["items"].map((x) => TrackableSubmitItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,7 +36,7 @@ class MedicationSendModel {
             : List<dynamic>.from(items.map((x) => x.toJson())),
       };
 }
-
+/*
 class MedicationItem {
   MedicationItem({
     this.tid,
@@ -101,3 +103,4 @@ class MedicationValue {
         "str": str == null ? null : str,
       };
 }
+ */

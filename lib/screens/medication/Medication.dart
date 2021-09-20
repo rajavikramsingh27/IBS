@@ -21,7 +21,7 @@ import 'package:get/get.dart';
 
 class Medication extends StatelessWidget {
   final MedicationController controller = Get.put(MedicationController());
-  final SignUpController _signUpController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

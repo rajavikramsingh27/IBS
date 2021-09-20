@@ -1,47 +1,18 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
-import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/medication/MedicationResponseModel.dart';
 import 'package:flutter_ibs/models/medication/MedicationSendModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class MedicationController extends GetxController {
   RxBool loader = false.obs;
-  /*
-  Rx<DateTime> now = DateTime.now().obs;
 
-  RxInt formattedTime = 0.obs;
-  RxBool loader = false.obs;
-
-  Rx<MedicationSendModel> medicationSendModel = MedicationSendModel().obs;
-  RxList<Tag> listfoodDefault = <Tag>[].obs;
-  TextEditingController noteTextController = TextEditingController();
-  TextEditingController medicationTextController = TextEditingController();
-  SignUpController _signUpController = Get.find();
-
-  @override
-  void onInit() {
-    super.onInit();
-    formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
-    checkData();
-  }*/
-
-//  Rx<MedicationM> healthWellnessModel = HealthWellnessModel().obs;
+  Rx<MedicationSendModel> medicationsModel = MedicationSendModel(items: []).obs;
   TrackablesController _trackablesController = Get.find();
-
-  RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
 
-
-  /*
-  onTapped(int index) async {
-    currentIndex.value = index;
-  }
-*/
 
 
   @override
@@ -54,31 +25,44 @@ class MedicationController extends GetxController {
 
     // Refresh the local list so the form can generate:
     formWidgetList.refresh();
-    _selectedItems = RxList<TrackableSubmitItem>();
+
     super.onInit();
     // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 
   valueChanged(TrackableSubmitItem submitItem) {
-    var count = _selectedItems.length;
+    var count = medicationsModel.value.items.length;
     bool isAdded = false;
     for (var i = 0; i < count; i++) {
-      if (_selectedItems[i].tid == submitItem.tid) {
-        _selectedItems[i] = submitItem;
+      if (medicationsModel.value.items[i].tid == submitItem.tid) {
+        medicationsModel.value.items[i] = submitItem;
         isAdded = true;
         break;
       }
     }
 
     if (!isAdded) {
-      _selectedItems.add(submitItem);
+      medicationsModel.value.items.add(submitItem);
     }
 
   }
 
-    onSave() async {
-      print("on save called");
+
+  void onSave()async{
+    loader.value = true;
+    final data = await ServiceApi().postMedicationAPI(bodyData: medicationsModel.toJson());
+    loader.value = false;
+    if (data is MedicationResponseModel) {
+      formWidgetList = RxList<TrackableItem>();
+      formWidgetList.refresh();
+      Get.back();
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Health & Wellness Added Successfully");
+    } else {
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
+
+  }
 
 
     /*

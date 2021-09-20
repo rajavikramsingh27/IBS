@@ -64,6 +64,7 @@ class CoreService {
             }
           } catch (er) {
             // Catch  unknown error
+            print(er.errorMessage());
           }
         }
         break;
@@ -137,7 +138,7 @@ print(er.toString());
             }
           } catch (er) {
             // Catch  unknown error
-
+            print(er.errorMessage());
           }
         }
         break;
@@ -164,7 +165,7 @@ print(er.toString());
             }
           } catch (er) {
             // Catch  unknown error
-
+            print(er.errorMessage());
           }
         }
         break;
@@ -191,7 +192,7 @@ print(er.toString());
             }
           } catch (er) {
             // Catch  unknown error
-
+            print(er.errorMessage());
           }
         }
         break;
@@ -219,6 +220,7 @@ print(er.toString());
             }
           } catch (er) {
             // Catch  unknown error
+            print(er.errorMessage());
           }
         }
         break;
@@ -290,7 +292,7 @@ print(er.toString());
 
           } catch (er) {
             // Catch  unknown error
-
+            print(er.errorMessage());
           }
         }
         break;
