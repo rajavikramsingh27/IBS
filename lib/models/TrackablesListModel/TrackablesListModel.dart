@@ -1159,6 +1159,7 @@ class FluffyTags {
     this.tagsDefault,
     this.autocompleteId,
     this.source,
+    this.category,
     this.relation,
     this.limit,
   });
@@ -1171,6 +1172,7 @@ class FluffyTags {
   List<Tag> tagsDefault;
   String autocompleteId;
   String source;
+  String category;
   BoolListRelation relation;
   int limit;
 
@@ -1188,6 +1190,7 @@ class FluffyTags {
         autocompleteId:
             json["autocompleteId"] == null ? null : json["autocompleteId"],
         source: json["source"] == null ? null : json["source"],
+        category: json["category"] == null ? null : json["category"],
         relation: json["relation"] == null
             ? null
             : BoolListRelation.fromJson(json["relation"]),
@@ -1205,6 +1208,7 @@ class FluffyTags {
             : List<dynamic>.from(tagsDefault.map((x) => x.toJson())),
         "autocompleteId": autocompleteId == null ? null : autocompleteId,
         "source": source == null ? null : source,
+         "category": category == null ? null : category,
         "relation": relation == null ? null : relation.toJson(),
         "limit": limit == null ? null : limit,
       };

@@ -21,9 +21,9 @@ class TrackableItemUtils {
 
   List<Tag> addUserTagsToList({
     List<Tag> tags,
+    String category
   }){
     List<Tag> userTags;
-    String category = tags[0].category;
 
     switch (category){
       case "breakfast":
@@ -47,6 +47,8 @@ class TrackableItemUtils {
       case "medicationsOther":
         userTags = _userController.user.value.tags.medicationsOther;
         break;
+      default:
+        throw Exception("addUserTagsToList for unknown category $category");
     }
 
     return ([...userTags, ...tags]);

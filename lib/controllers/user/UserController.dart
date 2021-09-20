@@ -21,6 +21,10 @@ class UserController extends GetxController {
 
   /// Does a user track a particular trackable?
   bool doesUserTrack(TrackableItem item){
+    if (user.value == null){
+      print("** User is null in doesUserTrack $item.tid");
+      return true;
+    }
     switch (item.category){
       case "symptoms":
         return _testIsTracking(item, user.value.tracking.symptoms);

@@ -90,7 +90,7 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
                 padding: EdgeInsets.symmetric(
                     horizontal: ScreenConstant.defaultWidthTen),
                 child: Wrap(
-                  children: TrackableItemUtils().addUserTagsToList(tags: widget.trackableItem.tags.tagsDefault)
+                  children: TrackableItemUtils().addUserTagsToList(tags: widget.trackableItem.tags.tagsDefault, category: widget.trackableItem.tags.category)
                       .map((item) => InkWell(
                     child: TagWidget(
                       tag: item,

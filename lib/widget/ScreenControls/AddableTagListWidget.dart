@@ -157,7 +157,8 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
                   () => Wrap(
                     children: TrackableItemUtils()
                         .addUserTagsToList(
-                            tags: widget.trackableItem.tags.tagsDefault)
+                            tags: widget.trackableItem.tags.tagsDefault,
+                            category: widget.trackableItem.tags.category)
                         .map((item) => InkWell(
                               child: TagWidget(
                                 tag: item,
@@ -192,7 +193,7 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
 
     Tag tag = Tag();
     tag.value = copy;
-    tag.category = widget.trackableItem.tags.tagsDefault[0].category;
+    tag.category = widget.trackableItem.tags.category;
     _userController.addTagToUser(tag);
     tag.selected = true;
 
@@ -216,6 +217,8 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
       }
     });
 
+
+
     List<String> flatList = [];
     selectedItems.forEach((element) {
       flatList.add(element.value);
@@ -236,3 +239,20 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
   }
 
 }
+/*
+   var count = selectedItems.length;
+      bool isFound = false;
+      for(var i=0; i < count; i++) {
+        if (selectedItems[i].value == tag.value) {
+          selectedItems.removeAt(i);
+          isFound = true;
+          break;
+        }
+      }
+
+      if (!isFound){
+
+        selectedItems.add(tag);
+      }
+
+ */
