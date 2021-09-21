@@ -153,7 +153,7 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                           setState(() {
                             widget.data[index].select.selectDefault =
                                 optionItem;
-                            _treatmentPlanController.selectedDay.value = optionItem.label;
+                            _treatmentPlanController.selectedDay.value = optionItem.value;
                           });
                         },
                         isEnabled: true,

@@ -85,14 +85,14 @@ class TreatmentPlanController extends GetxController {
   }
 
   void addReminder() {
-    noteTextController.clear();
     (selectedDay.isEmpty || selectedTime.isEmpty)
         ? CustomSnackBar()
             .errorSnackBar(title: "Error", message: "Select time and day both")
         : reminderList.add(Reminder(
             message: noteTextController.text,
-            time: selectedTime.value ?? "01:00",
-            day: selectedDay.value ?? "option_every_day"));
+            time: selectedTime.value,
+            day: selectedDay.value));
+    noteTextController.clear();
   }
 
   clearData() {
@@ -161,7 +161,7 @@ class TreatmentPlanController extends GetxController {
 
   onStopTreatmentPlan() async {
     // loader.value = true;
-    final data = await ServiceApi().removeTreatmentPlan(selectedID.value);
+    final data = await ServiceApi().removeTreatmentPlan(selectedPID.value);
     // loader.value = false;
     // if (data is PostTreatmentPlanResponseModel) {
     Get.offAllNamed(home);

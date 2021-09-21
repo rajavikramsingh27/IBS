@@ -207,9 +207,10 @@ class ServiceApi {
   Future<dynamic> removeTreatmentPlan(String objectId) async {
     var result = await CoreService().apiService(
         method: METHOD.DELETE,
-        endpoint: POST_TREATMENT_PLAN,
-        objectId: objectId);
-
+        endpoint: "$POST_TREATMENT_PLAN/$objectId",
+      objectId: objectId
+    );
+    print("Result: $result");
     if (result == null) {
       return null;
     }
