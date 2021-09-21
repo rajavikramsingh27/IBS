@@ -33,16 +33,10 @@ class ReminderPlanWidget extends StatelessWidget {
       this.editText = "Edit",
       this.onPressed,
       this.listData,
-      this.listOption,
-      this.dayValue,
-      this.timeValue,
-      this.messageValue})
+      this.listOption,})
       : super(key: key);
   final TreatmentPlanController _treatmentPlanController =
       Get.put(TreatmentPlanController());
-  String dayValue;
-  String timeValue;
-  String messageValue;
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -90,21 +84,18 @@ class ReminderPlanWidget extends StatelessWidget {
                               color: AppColors.colorIcons,
                             ),
                             SizedBox(width: ScreenConstant.sizeDefault),
-                            Text(
-                              (dayValue == null && timeValue == null)
-                                  ? "${listData[index].day} at ${listData[index].time}"
-                                  : "$dayValue at $timeValue",
+                            Obx(()=>Text( "${listData[index].day} at ${listData[index].time}",
                               style: TextStyles.textStyleRegular
                                   .apply(color: Colors.white),
-                            ),
+                            ),),
                             TextButton(
                                 onPressed: () {
                                   Get.dialog(CustomDialog4(
                                           data: model, listOption: listOption))
                                       .then((value) {
-                                    dayValue = value.day;
-                                    timeValue = value.time;
-                                    messageValue = value.message;
+                                    model.day = value.day;
+                                    model.time = value.time;
+                                    model.message = value.message;
                                   });
                                 },
                                 child: Text(

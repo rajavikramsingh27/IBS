@@ -534,13 +534,8 @@ class _DialogReminderWidgetState extends State<DialogReminderWidget> {
                 onTap: () {
                   setState(() {
                     Reminder saveReminder = Reminder(
-                        day: _treatmentPlanController.selectedDay.value == null
-                            ? widget.data.day
-                            : _treatmentPlanController.selectedDay.value,
-                        time:
-                            _treatmentPlanController.selectedTime.value == null
-                                ? widget.data.time
-                                : _treatmentPlanController.selectedTime.value,
+                        day: widget.data.day,
+                        time:widget.data.time,
                         message: messageTextController.text);
                     Get.back(result: saveReminder);
                   });
