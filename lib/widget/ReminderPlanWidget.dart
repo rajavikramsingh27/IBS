@@ -21,9 +21,6 @@ class ReminderPlanWidget extends StatelessWidget {
   final Function(bool) onChangedChild;
 
   final String editText;
-  String dayValue;
-  String timeValue;
-  String messageValue;
 
   ReminderPlanWidget(
       {Key key,
@@ -43,6 +40,9 @@ class ReminderPlanWidget extends StatelessWidget {
       : super(key: key);
   final TreatmentPlanController _treatmentPlanController =
       Get.put(TreatmentPlanController());
+  String dayValue;
+  String timeValue;
+  String messageValue;
   @override
   Widget build(BuildContext context) {
     return Column(children: [

@@ -176,8 +176,8 @@ class ServiceApi {
   }
 
   Future<TagsResponseModel> postTags({Map bodyData}) async {
-    var result = await CoreService().apiService(
-        method: METHOD.CREATE, endpoint: TAGS, data: bodyData);
+    var result = await CoreService()
+        .apiService(method: METHOD.CREATE, endpoint: TAGS, data: bodyData);
     if (result == null) {
       return null;
     } else
@@ -202,5 +202,19 @@ class ServiceApi {
     } else {
       return PostTreatmentPlanResponseModel.fromJson(result);
     }
+  }
+
+  Future<dynamic> removeTreatmentPlan(String objectId) async {
+    var result = await CoreService().apiService(
+        method: METHOD.DELETE,
+        endpoint: POST_TREATMENT_PLAN,
+        objectId: objectId);
+
+    if (result == null) {
+      return null;
+    }
+    // else {
+    //   return PostTreatmentPlanResponseModel.fromJson(result);
+    // }
   }
 }

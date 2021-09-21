@@ -26,6 +26,7 @@ class TreatmentPlanController extends GetxController {
   Rx<String> selectedTime = "01:00".obs;
   Rx<String> selectedDay = "option_every_day".obs;
   Rx<String> selectedPID = "".obs;
+  Rx<String> selectedID = "".obs;
 
   RxList<Reminder> reminderList = <Reminder>[].obs;
   RxSet<String> listCategory = <String>{}.obs;
@@ -67,6 +68,8 @@ class TreatmentPlanController extends GetxController {
   toTreatmentPlanListWidget({TreatmentPlanItemData data}) {
     clearData();
     selectedPID.value = data.pid;
+    selectedID.value = data.id;
+
     selectedCategory.value = data.category;
     Get.to(() => TreatmentPlanListWidget(
           data: data,
@@ -154,5 +157,19 @@ class TreatmentPlanController extends GetxController {
           .errorSnackBar(title: "Error", message: "Operation unsuccessful");
       return false;
     }
+  }
+
+  onStopTreatmentPlan() async {
+    // loader.value = true;
+    final data = await ServiceApi().removeTreatmentPlan(selectedID.value);
+    // loader.value = false;
+    // if (data is PostTreatmentPlanResponseModel) {
+    Get.offAllNamed(home);
+    // CustomSnackBar().successSnackBar(
+    //     title: "Success", message: "Treatment Plan Stopped Successfully");
+    // } else {
+    //   loader.value = false;
+    // CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    // }
   }
 }
