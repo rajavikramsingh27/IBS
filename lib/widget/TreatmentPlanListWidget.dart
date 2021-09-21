@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
-import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
-import 'package:flutter_ibs/routes/RouteConstants.dart';
-import 'package:flutter_ibs/screens/stress_management/StressTreatmentPlan.dart';
+import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
+import 'package:flutter_ibs/screens/TreatmentPlanManagement/StartTreatmentPlan.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
-import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
@@ -31,7 +29,7 @@ class TreatmentPlanListWidget extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          data.categoryName.tr,
+          data.planName.tr,
           style: TextStyles.appBarTitle,
         ),
         actions: [
@@ -50,33 +48,38 @@ class TreatmentPlanListWidget extends StatelessWidget {
         physics: ClampingScrollPhysics(),
         children: [
           Center(
-              child: Image.asset(Assets.stressManage,
+              child: Image.network(data.image.active,
                   width: ScreenConstant.defaultHeightTwoHundredTen)),
           SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: ScreenConstant.defaultWidthTwenty * 2),
             child: Text(
-              data.categoryDescription.tr,
+              data.planDescription.tr,
               textAlign: TextAlign.center,
               style: TextStyles.textStyleRegular.apply(color: Colors.black),
             ),
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
-          TreatmentPlanListItem(data.planDescription.tr, () {}),
+          TreatmentPlanListItem(data.planDescription.tr, () {
+            Get.to(()=>TreatmentPlanListWidgetDetails(
+              details: data.planDetails.details,
+              title: data.planDetails.name.tr,
+            ));
+          }),
           SizedBox(height: ScreenConstant.defaultHeightSixteen),
           CustomElevatedButton(
-            text: "Start Plan",
+            text: data.startButton.tr,
             widthFactor: 0.95,
             onTap: () {
-              Get.bottomSheet(StressTreatmentPlan(),
+              Get.bottomSheet(StartTreatmentPlan(data: data,),
                   isScrollControlled: true,
                   barrierColor: AppColors.barrierColor.withOpacity(0.60));
             },
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Text(
-            "Additional Resources",
+            data.additionalResourcesButton.tr,
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.black, fontSizeDelta: -4),
             textAlign: TextAlign.start,
@@ -89,7 +92,10 @@ class TreatmentPlanListWidget extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               var model = data.additionalResources[index];
               return TreatmentPlanListItem(model.name.tr, () {
-                Get.to(TreatmentPlanListWidgetDetails(details: model.details,title: data.categoryName.tr,));
+                Get.to(()=>TreatmentPlanListWidgetDetails(
+                  details: model.details,
+                  title: data.planName.tr,
+                ));
               });
             },
             separatorBuilder: (BuildContext context, int index) => SizedBox(

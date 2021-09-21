@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
+import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomSwitch.dart';
+import 'package:get/get.dart';
+
+import 'CustomDialog.dart';
 
 class ReminderPlanWidget extends StatelessWidget {
   final String title;
@@ -10,23 +15,28 @@ class ReminderPlanWidget extends StatelessWidget {
   final bool valueReminder;
   final bool valueChild;
   final Function() onPressed;
-
+  final List<dynamic> listData;
+  final List<Trackable> listOption;
   final Function(bool) onChanged;
   final Function(bool) onChangedChild;
 
   final String editText;
 
-  const ReminderPlanWidget({
-    Key key,
-    this.title,
-    this.childText,
-    this.valueReminder,
-    this.valueChild,
-    this.onChanged,
-    this.onChangedChild,
-    this.editText,
-    this.onPressed,
-  }) : super(key: key);
+  ReminderPlanWidget(
+      {Key key,
+      this.title = "Reminders set for this plan",
+      this.childText = "af",
+      this.valueReminder = false,
+      this.valueChild = false,
+      this.onChanged,
+      this.onChangedChild,
+      this.editText = "Edit",
+      this.onPressed,
+      this.listData,
+      this.listOption,})
+      : super(key: key);
+  final TreatmentPlanController _treatmentPlanController =
+      Get.put(TreatmentPlanController());
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -59,48 +69,59 @@ class ReminderPlanWidget extends StatelessWidget {
                   SizedBox(height: ScreenConstant.defaultHeightTen),
                   Divider(
                       thickness: 1, color: AppColors.white.withOpacity(0.12)),
-                  _buildTimeList(),
+                  Obx(
+                    () => ListView.separated(
+                      itemCount: listData.length,
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        var model = listData[index];
+
+                        return Row(
+                          children: [
+                            Icon(
+                              Icons.access_time_filled,
+                              color: AppColors.colorIcons,
+                            ),
+                            SizedBox(width: ScreenConstant.sizeDefault),
+                            Obx(()=>Text( "${listData[index].day} at ${listData[index].time}",
+                              style: TextStyles.textStyleRegular
+                                  .apply(color: Colors.white),
+                            ),),
+                            TextButton(
+                                onPressed: () {
+                                  Get.dialog(CustomDialog4(
+                                          data: model, listOption: listOption))
+                                      .then((value) {
+                                    model.day = value.day;
+                                    model.time = value.time;
+                                    model.message = value.message;
+                                  });
+                                },
+                                child: Text(
+                                  editText,
+                                  style: TextStyles.textStyleRegular.apply(
+                                      color: AppColors.colorSkipButton,
+                                      fontSizeDelta: -2),
+                                )),
+                            Spacer(),
+                            CustomSwitch(
+                              color: AppColors.colorYesButton,
+                              value: !listData[index].enabled,
+                              onChanged: onChangedChild,
+                            ),
+                          ],
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          Divider(
+                              thickness: 1,
+                              color: AppColors.white.withOpacity(0.12)),
+                    ),
+                  ),
                   SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
                 ],
               )))
     ]);
-  }
-
-  _buildTimeList() {
-    return ListView.separated(
-      itemCount: 2,
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (BuildContext context, int index) {
-        return Row(
-          children: [
-            Icon(
-              Icons.access_time_filled,
-              color: AppColors.colorIcons,
-            ),
-            SizedBox(width: ScreenConstant.sizeDefault),
-            Text(
-              childText,
-              style: TextStyles.textStyleRegular.apply(color: Colors.white),
-            ),
-            TextButton(
-                onPressed: onPressed,
-                child: Text(
-                  editText,
-                  style: TextStyles.textStyleRegular.apply(
-                      color: AppColors.colorSkipButton, fontSizeDelta: -2),
-                )),
-            Spacer(),
-            CustomSwitch(
-              color: AppColors.colorIcons,
-              value: valueChild,
-              onChanged: onChangedChild,
-            ),
-          ],
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) =>
-          Divider(thickness: 1, color: AppColors.white.withOpacity(0.12)),
-    );
   }
 }

@@ -24,10 +24,10 @@ class LanguageResponseModel {
   List<dynamic> data;
 
   factory LanguageResponseModel.fromJson(Map<String, dynamic> json) => LanguageResponseModel(
-      total: json["total"] == null ? null : json["total"],
-      limit: json["limit"] == null ? null : json["limit"],
-      skip: json["skip"] == null ? null : json["skip"],
-      data: json["data"] == null ? null : json["data"]
+    total: json["total"] == null ? null : json["total"],
+    limit: json["limit"] == null ? null : json["limit"],
+    skip: json["skip"] == null ? null : json["skip"],
+    data: json["data"] == null ? null : json["data"]
   );
 
   Map<String, dynamic> toJson() => {
