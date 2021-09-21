@@ -59,7 +59,7 @@ class StartTreatmentPlan extends StatelessWidget {
           children: [
             Padding(
               padding:
-                  EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
+              EdgeInsets.only(top: ScreenConstant.defaultHeightOneThirty),
               child: Stack(
                 children: [
                   Padding(
@@ -69,9 +69,9 @@ class StartTreatmentPlan extends StatelessWidget {
                       margin: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24),
-                        topRight: Radius.circular(24),
-                      )),
+                            topLeft: Radius.circular(24),
+                            topRight: Radius.circular(24),
+                          )),
                       child: Column(
                         children: [
                           SizedBox(height: ScreenConstant.defaultHeightSixty),
@@ -103,7 +103,7 @@ class StartTreatmentPlan extends StatelessWidget {
                               Container(
                                   margin: EdgeInsets.symmetric(
                                     horizontal:
-                                        ScreenConstant.defaultWidthTwenty,
+                                    ScreenConstant.defaultWidthTwenty,
                                   ),
                                   child: Column(
                                     children: [
@@ -112,13 +112,15 @@ class StartTreatmentPlan extends StatelessWidget {
                                         color: AppColors.colorBackground,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(20)),
+                                            BorderRadius.circular(20)),
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(
                                             horizontal: ScreenConstant
                                                 .defaultWidthTwenty,
                                           ),
-                                          child: Column(
+                                          child: _treatmentPlanController.loader.value?Center(
+                                            child: CircularProgressIndicator(),
+                                          ):Column(
                                             children: [
                                               SizedBox(
                                                   height: ScreenConstant
@@ -138,7 +140,7 @@ class StartTreatmentPlan extends StatelessWidget {
                                               ),
                                               SizedBox(
                                                   height: ScreenConstant
-                                                          .defaultHeightForty *
+                                                      .defaultHeightForty *
                                                       1.4),
                                             ],
                                           ),

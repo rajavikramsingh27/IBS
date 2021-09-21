@@ -79,6 +79,7 @@ class TreatmentPlanController extends GetxController {
   }
 
   void addReminder() {
+    noteTextController.clear();
     reminderList.add(Reminder(
         message: noteTextController.text,
         time: selectedTime.value,
@@ -117,19 +118,18 @@ class TreatmentPlanController extends GetxController {
     treatmentPlanSendModel.refresh();
 
     print("data: ${treatmentPlanSendModel.toJson()}");
-    //   loader.value = true;
-    //   final data = await ServiceApi()
-    //       .foodTrackApi(bodyData: treatmentPlanSendModel.toJson());
-    //   loader.value = false;
-    //   if (data is PostTreatmentPlanResponseModel) {
-    //     Get.offAllNamed(home);
-    //     CustomSnackBar().successSnackBar(
-    //         title: "Success", message: "Foods Added Successfully");
-    //   } else {
-    //     loader.value = false;
-
-    //     CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-    //   }
+      loader.value = true;
+      final data = await ServiceApi()
+          .postTreatmentPlanAPI(bodyData: treatmentPlanSendModel.toJson());
+      loader.value = false;
+      if (data is PostTreatmentPlanResponseModel) {
+        Get.offAllNamed(home);
+        CustomSnackBar().successSnackBar(
+            title: "Success", message: "Treatment Plan Added Successfully");
+      } else {
+        loader.value = false;
+        CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+      }
   }
 
   Future<bool> addTags({category,tagValue}) async{
