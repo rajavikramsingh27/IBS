@@ -286,8 +286,10 @@ class CustomDialog3 extends StatelessWidget {
   final double height;
   final String title;
   final String description;
+  final Function() onTap;
 
-  const CustomDialog3({Key key, this.height, this.title, this.description})
+  const CustomDialog3(
+      {Key key, this.height, this.title, this.description, this.onTap})
       : super(key: key);
 
   @override
@@ -339,7 +341,7 @@ class CustomDialog3 extends StatelessWidget {
                       child: CustomElevatedButton2(
                         text: "Cancel",
                         buttonColor: AppColors.colorBtnCancel,
-                        onTap: () {},
+                        onTap: () => Get.back(),
                         textColor: Colors.white,
                       ),
                     ),
@@ -348,7 +350,7 @@ class CustomDialog3 extends StatelessWidget {
                       child: CustomElevatedButton2(
                         text: "Stop",
                         buttonColor: AppColors.colorArrowButton,
-                        onTap: () {},
+                        onTap: onTap,
                         textColor: Colors.white,
                       ),
                     )
@@ -535,7 +537,7 @@ class _DialogReminderWidgetState extends State<DialogReminderWidget> {
                   setState(() {
                     Reminder saveReminder = Reminder(
                         day: widget.data.day,
-                        time:widget.data.time,
+                        time: widget.data.time,
                         message: messageTextController.text);
                     Get.back(result: saveReminder);
                   });
