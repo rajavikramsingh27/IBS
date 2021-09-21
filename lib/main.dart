@@ -12,8 +12,6 @@ import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'Store/HiveStore.dart';
 import 'language/LocalTranslations.dart';
-import 'models/language/LanguageResponseModel.dart';
-
 
 main() async{
   WidgetsFlutterBinding.ensureInitialized();

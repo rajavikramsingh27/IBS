@@ -88,6 +88,7 @@ class Assets {
   static const String medicationSuplements =
       "$baseImage/track/medicationSuplements.png";
   static const String sleepemoji = "$baseImage/track/sleepEmoji.png";
+  static const String stop = "$baseImage/track/stop.png";
 
 // home
   static const String settings = "$baseImage/home/settings.png";

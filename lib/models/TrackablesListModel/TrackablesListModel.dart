@@ -857,7 +857,7 @@ class Tag {
     this.category,
     this.key,
     this.value,
-    this.required,
+    this.required = false,
     this.selected = false,
   });
 

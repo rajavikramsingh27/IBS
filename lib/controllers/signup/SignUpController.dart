@@ -18,7 +18,6 @@ import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:flutter_ibs/utils/Validator.dart';
-import 'dart:developer' as developer;
 
 
 class SignUpController extends GetxController {

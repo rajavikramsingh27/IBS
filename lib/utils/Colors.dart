@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -74,6 +72,13 @@ class AppColors {
   static const Color barrierColor = const Color(0xFF1A103E);
 
   static const Color colorDotUnselected = const Color(0xFFA29BC2);
+
+  static const Color colorDialogTitle = const Color(0xFF232323);
+
+  static const Color colorBtnCancel = const Color(0xFF9BA2A8);
+
+  static const Color colorBlack = const Color(0xFF000000);
+
 
   static Color fromHex(String hexString) {
     final buffer = StringBuffer();

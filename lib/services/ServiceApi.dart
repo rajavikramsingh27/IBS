@@ -5,7 +5,8 @@ import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseMod
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart';
 import 'package:flutter_ibs/models/MyAccount/MyAccount.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
-import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
+import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanResponseModel.dart';
+import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/journal/JournalResponseModel.dart';
 import 'package:flutter_ibs/models/language/LanguageResponseModel.dart';
@@ -145,6 +146,18 @@ class ServiceApi {
     }
   }
 
+  Future<dynamic> getUserList() async {
+    final result =
+        await CoreService().apiService(method: METHOD.FIND, endpoint: USERS);
+
+    print('resultresultresultresultresultresult');
+    print(result);
+
+    if (result == null) {
+      return null;
+    } else {}
+  }
+
   Future<dynamic> getFoodHistoryList({String id}) async {
     var result = await CoreService()
         .apiService(method: METHOD.FIND, endpoint: "$FOODS/$id");
@@ -155,10 +168,11 @@ class ServiceApi {
   }
 
   Future<dynamic> postHealthWellnessAPI({Map bodyData}) async {
-    var result = await CoreService().apiService(method: METHOD.CREATE, endpoint: HEALTH_WELLNESS, data: bodyData);
+    var result = await CoreService().apiService(
+        method: METHOD.CREATE, endpoint: HEALTH_WELLNESS, data: bodyData);
 
     return HealthWellnessResponseModel.fromJson(result);
-    }
+  }
 
   Future<LanguageResponseModel> getLanguage() async {
     var result =
@@ -180,9 +194,9 @@ class ServiceApi {
   }
 
 
-  Future<TagsResponseModel> postTags() async {
-    var result =
-        await CoreService().apiService(method: METHOD.CREATE, endpoint: TAGS);
+  Future<TagsResponseModel> postTags({Map bodyData}) async {
+    var result = await CoreService()
+        .apiService(method: METHOD.CREATE, endpoint: TAGS, data: bodyData);
     if (result == null) {
       return null;
     } else
@@ -198,19 +212,31 @@ class ServiceApi {
       return TreatmentPlanResponseModel.fromJson(result);
   }
 
-  Future<dynamic> getUserList() async {
-    final result = await CoreService().apiService(method: METHOD.GET, endpoint: USERS)
-        .catchError((error) {
-      print(error.message.toString());
-    });
+  Future<dynamic> postTreatmentPlanAPI({Map bodyData}) async {
+    var result = await CoreService().apiService(
+        method: METHOD.CREATE, endpoint: POST_TREATMENT_PLAN, data: bodyData);
 
     if (result == null) {
       return null;
     } else {
-      return MyAccountModel.fromJson(result);
+      return PostTreatmentPlanResponseModel.fromJson(result);
     }
-
   }
+
+  Future<dynamic> removeTreatmentPlan(String objectId) async {
+    var result = await CoreService().apiService(
+        method: METHOD.DELETE,
+        endpoint: "$POST_TREATMENT_PLAN/$objectId",
+        objectId: objectId);
+    print("Result: $result");
+    if (result == null) {
+      return null;
+    } else {
+      return PostTreatmentPlanResponseModel.fromJson(result);
+    }
+  }
+
+
 
   Future<dynamic> updateUser({Map bodyData}) async {
     final  MyAccountController _controller = Get.put(MyAccountController());

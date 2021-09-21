@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/ShowMoreWidget.dart';
 
-class GridImageCommonWidget extends StatelessWidget {
+class GridImageCommonWidget extends StatefulWidget {
   final String title;
   final String description;
   final int itemCount;
   final int gridIndex;
-
+  final dataList;
   final EdgeInsetsGeometry gridPadding;
   final Function() onTap;
   final Color color;
@@ -25,65 +26,100 @@ class GridImageCommonWidget extends StatelessWidget {
       this.imageText,
       this.gridText,
       this.gridPadding,
-      this.gridIndex})
+      this.gridIndex,
+      this.dataList})
       : super(key: key);
+
+  @override
+  State<GridImageCommonWidget> createState() => _GridImageCommonWidgetState();
+}
+
+class _GridImageCommonWidgetState extends State<GridImageCommonWidget> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: ScreenConstant.spacingAllMedium,
-      child: Column(
-        children: [
-          SizedBox(height: ScreenConstant.defaultHeightTwenty),
-          Text(title,
-              textAlign: TextAlign.center,
-              style: TextStyles.textStyleIntroDescription
-                  .apply(color: Colors.white, fontSizeDelta: -3)),
-          SizedBox(height: ScreenConstant.defaultHeightTen),
-          Text(
-            description,
+    return Column(
+      children: [
+        SizedBox(height: ScreenConstant.defaultHeightTwenty),
+        Text(widget.title,
             textAlign: TextAlign.center,
-            style: TextStyles.textStyleRegular
-                .apply(color: AppColors.colorSkipButton),
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-          GridView.builder(
-            padding: gridPadding,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: itemCount,
-            itemBuilder: (BuildContext context, int index) {
-              return InkWell(
-                onTap: onTap,
-                child: Card(
-                    elevation: 0,
-                    color: color,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Padding(
-                      padding: ScreenConstant.spacingAllDefault,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.network(
-                            imageText,
-                            width: ScreenConstant.defaultWidthTwenty * 2.0,
-                          ),
-                          SizedBox(height: ScreenConstant.defaultHeightTen),
-                          Text(gridText,
-                              textAlign: TextAlign.center,
-                              style: TextStyles.textStyleRegular.apply(
-                                  color: AppColors.white, fontSizeDelta: -2)),
-                        ],
+            style: TextStyles.textStyleIntroDescription
+                .apply(color: Colors.white, fontSizeDelta: -3)),
+        SizedBox(height: ScreenConstant.defaultHeightTen),
+        Text(
+          widget.description,
+          textAlign: TextAlign.center,
+          style: TextStyles.textStyleRegular
+              .apply(color: AppColors.colorSkipButton),
+        ),
+        widget.dataList.options.length > 0
+            ? SizedBox(height: ScreenConstant.defaultHeightTwentyFour)
+            : Offstage(),
+        GridView.builder(
+          padding: widget.gridPadding,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: widget.dataList.options.length,
+          itemBuilder: (BuildContext context, int index) {
+            var model = widget.dataList.options[index];
+            return InkWell(
+              onTap: widget.onTap,
+              child: Card(
+                  elevation: 0,
+                  color: AppColors.colorSymptomsGridBg,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.network(
+                        model.image.active,
+                        width: ScreenConstant.defaultWidthTwenty * 2.0,
                       ),
-                    )),
-              );
-            },
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, childAspectRatio: 1),
-          ),
-        ],
-      ),
+                      SizedBox(height: ScreenConstant.defaultHeightTen),
+                      Text(model.value,
+                          textAlign: TextAlign.center,
+                          style: TextStyles.textStyleRegular.apply(
+                              color: AppColors.white, fontSizeDelta: -2)),
+                    ],
+                  )),
+            );
+          },
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3, childAspectRatio: 0.85),
+        ),
+        SizedBox(height: ScreenConstant.defaultHeightTen),
+        widget.dataList.userAddable
+            ? Column(
+                children: [
+                  Container(
+                    height: ScreenConstant.sizeDefault,
+                  ),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    child: FractionallySizedBox(
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Edit...",
+                            hintStyle: TextStyles.textStyleRegular
+                                .apply(color: AppColors.colorTextHint),
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: ScreenConstant.sizeMedium,
+                            )),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: ScreenConstant.defaultHeightSixteen),
+                  ShowMoreWidget(
+                    text: "Add custom exercise",
+                  ),
+                  SizedBox(height: ScreenConstant.defaultHeightSixteen),
+                ],
+              )
+            : Offstage(),
+      ],
     );
   }
 }
