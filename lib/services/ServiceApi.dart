@@ -235,19 +235,8 @@ class ServiceApi {
       return PostTreatmentPlanResponseModel.fromJson(result);
     }
   }
-  Future<dynamic> getUserList() async {
-    final result = await CoreService().apiService(method: METHOD.GET, endpoint: USERS)
-        .catchError((error) {
-      print(error.message.toString());
-    });
 
-    if (result == null) {
-      return null;
-    } else {
-      return MyAccountModel.fromJson(result);
-    }
 
-  }
 
   Future<dynamic> updateUser({Map bodyData}) async {
     final  MyAccountController _controller = Get.put(MyAccountController());
