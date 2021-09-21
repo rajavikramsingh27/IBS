@@ -112,7 +112,7 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
                   ShowMoreWidget(
                     text: "Add relaxation technique",
                     onTap: ()async{
-                      TagsDefault tagsDefault = TagsDefault(value: _treatmentPlanController.tagsController.text,key: _treatmentPlanController.tagsController.text,category: widget.dataList.tagsDefault.first.category);
+                      Tag tagsDefault = Tag(value: _treatmentPlanController.tagsController.text,key: _treatmentPlanController.tagsController.text,category: widget.dataList.tagsDefault.first.category);
 
                       if(await _treatmentPlanController.addTags(tagValue: tagsDefault)){
                         setState(() {

@@ -1,47 +1,36 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_ibs/controllers/home/HomeController.dart';
-import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodSendModel.dart';
-import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
-import 'package:flutter_ibs/utils/DateTime.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+
 
 class FoodController extends GetxController {
-  Rx<FoodResponseModel> foodModel;
-  Rx<DateTime> currentDateTime = DateTime.now().obs;
-  HomeController homeController = Get.find();
-  RxInt formattedTime = 0.obs;
-  RxInt currentIndex = 0.obs;
-  RxString mealTypeValue = "".obs;
-  Rx<FoodSendModel> foodSendModel = FoodSendModel().obs;
-  RxList<FoodSubList> listFoodSub = <FoodSubList>[].obs;
-  RxList<FoodList> listFood = <FoodList>[].obs;
-  RxList<TagsDefault> listfoodDefault = <TagsDefault>[].obs;
-  RxInt noOfGlasses = 0.obs;
-  RxString mealtid = "".obs;
-  RxBool selected = false.obs;
 
-  TextEditingController noteTextController = TextEditingController();
-  TextEditingController foodTextController = TextEditingController();
-
-  // RxList<FoodList> listFood = [].obs;
 
   RxBool loader = false.obs;
-  RxBool switchValue = true.obs;
-  RxBool connectionStatus = false.obs;
-  RxInt endTimeDifference = 0.obs;
-  RxInt startTimeDifference = 0.obs;
-  SignUpController _signUpController = Get.find();
-  RxInt modelMealIndex = 0.obs;
+
+  Rx<FoodSendModel> foodModel = FoodSendModel(items: []).obs;
+  TrackablesController _trackablesController = Get.find();
+
+  RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
+
 
   @override
   void onInit() async {
+    print("Food controller onInit");
+    _trackablesController
+        .food.value.items.forEach((element) {
+      formWidgetList.add(element);
+    });
+
+    // Refresh the local list so the form can generate:
+    formWidgetList.refresh();
+
     super.onInit();
+    /*
     formattedTime = int.parse(
             DateFormat.Hm().format(currentDateTime.value).split(":").first)
         .obs;
@@ -49,8 +38,47 @@ class FoodController extends GetxController {
 
     var v = homeController.trackFoodList.value;
     print("vdsdfat-- $v");
+
+     */
   }
 
+  valueChanged(TrackableSubmitItem submitItem){
+    var count = foodModel.value.items.length;
+    bool isAdded = false;
+    for(var i=0; i < count; i++) {
+      if (foodModel.value.items[i].tid == submitItem.tid) {
+        foodModel.value.items[i] = submitItem;
+        isAdded = true;
+        break;
+      }
+    }
+
+    if (!isAdded){
+      foodModel.value.items.add(submitItem);
+    }
+
+  }
+
+  void onSave()async{
+    loader.value = true;
+    final data = await ServiceApi().foodTrackApi(bodyData: foodModel.toJson());
+    loader.value = false;
+    if (data is FoodResponseModel) {
+      // noteTextController.clear();
+      //  healthWellnessModel.value.items = [];
+      //  _signUpController.getTrackList();
+      Get.back();
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Food Added Successfully");
+    } else {
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
+
+  }
+
+}
+
+  /*
   // onFoodTagSave() {
   //   TagsSendModel foodTags = TagsSendModel(
   //     category: _signUpController.food.value.category,
@@ -60,6 +88,7 @@ class FoodController extends GetxController {
   // }
 
   onSave() async {
+    /*
     if (foodSendModel.value.items == null) {
       foodSendModel.value.items = [];
     }
@@ -111,6 +140,7 @@ class FoodController extends GetxController {
     if (data is FoodResponseModel) {
       foodTextController.clear();
       noteTextController.clear();
+      foodSendModel.value.items = [];
       _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
@@ -122,8 +152,11 @@ class FoodController extends GetxController {
       _signUpController.getTrackList();
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
+
+     */
   }
 
+  /*
   getFood() async {
     final data = await ServiceApi().getFoodList();
     if (data == null) {
@@ -175,4 +208,33 @@ class FoodController extends GetxController {
     //     });
     //   }
   }
+
+   */
+
+  valueChanged(TrackableSubmitItem submitItem){
+    var count = _selectedItems.length;
+    bool isAdded = false;
+    for(var i=0; i < count; i++) {
+      if (_selectedItems[i].tid == submitItem.tid) {
+        _selectedItems[i] = submitItem;
+        isAdded = true;
+        break;
+      }
+    }
+
+    if (!isAdded){
+      _selectedItems.add(submitItem);
+    }
+
+
+/*
+    print ('-------');
+    _selectedItems.forEach((element) {
+      print(element.toJson());
+    });
+
+ */
+  }
+
 }
+*/

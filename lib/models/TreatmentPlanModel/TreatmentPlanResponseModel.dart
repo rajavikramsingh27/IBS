@@ -554,7 +554,7 @@ class Tags {
 
   bool userAddable;
   int limit;
-  List<TagsDefault> tagsDefault;
+  List<Tag> tagsDefault;
   String autocompleteId;
   String source;
   Relation relation;
@@ -564,8 +564,8 @@ class Tags {
         limit: json["limit"] == null ? null : json["limit"],
         tagsDefault: json["default"] == null
             ? null
-            : List<TagsDefault>.from(
-                json["default"].map((x) => TagsDefault.fromJson(x))),
+            : List<Tag>.from(
+                json["default"].map((x) => Tag.fromJson(x))),
         autocompleteId:
             json["autocompleteId"] == null ? null : json["autocompleteId"],
         source: json["source"] == null ? null : json["source"],

@@ -89,4 +89,28 @@ class TextStyles {
     color: Colors.white,
   );
 
+  static TextStyle get textStyleSettingNotificationsResourceTitle => TextStyle(
+    fontFamily: 'Roboto',
+    color: Colors.black,
+    fontSize: FontSize.s20,
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle get textStyleSettingNotificationsResourceSubTitle => TextStyle(
+    fontFamily: 'Roboto',
+    color: Colors.blue,
+    fontSize: FontSize.s18,
+    fontWeight: FontWeight.normal,
+  );
+
+  static TextStyle get textStyleSettingResourcesLink => TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Roboto',
+    color: Colors.black,
+    decoration: TextDecoration.underline,
+    decorationColor: Colors.blue,
+    decorationThickness: 2,
+  );
+
 }

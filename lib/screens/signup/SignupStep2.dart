@@ -1,4 +1,8 @@
+
+
+
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
@@ -12,8 +16,11 @@ import 'package:flutter_ibs/widget/CustomExpansionTile.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 
+
+
 class SignupStep2 extends StatelessWidget {
   final _controller = Get.put(SignUpController());
+  final TrackablesController _trackablesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +49,7 @@ class SignupStep2 extends StatelessWidget {
         //     },
         //   ),
         // ),
-        body: Obx(() => _controller.loader.value
+        body: Obx(() => _trackablesController.loader.value
             ? Center(
                 child: CircularProgressIndicator(),
               )
@@ -115,13 +122,18 @@ class SignupStep2 extends StatelessWidget {
   /// Calls supporting functions to build the nested set of children.
   /// The nested functions, _renderSubItem and _renderChildren
   /// get called recursively to walk down the tree.
+
+
+
+
+
   _buildTrackingList() {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: _controller.trackList.value.data?.length ?? 0,
+      itemCount: _trackablesController.trackList.value.data?.length ?? 0,
       itemBuilder: (_, index) {
-        var topLevelItem = _controller.trackList.value.data[index];
+        var topLevelItem = _trackablesController.trackList.value.data[index];
 
         return Theme(
             data: Get.theme.copyWith(dividerColor: Colors.transparent),
@@ -141,10 +153,10 @@ class SignupStep2 extends StatelessWidget {
                         onChanged: (val) {
                           topLevelItem.enabled = !topLevelItem.enabled;
                           _setEnabledStateOfChildrenForTrackable(topLevelItem, topLevelItem);
-                          _controller.trackList.refresh();
+                          _trackablesController.trackList.refresh();
                         },
                       ),
-                      Text("${_controller.trackList.value.data[index].name}".tr,
+                      Text("${_trackablesController.trackList.value.data[index].name}".tr,
                           style: TextStyles.textStyleIntroDescription
                               .apply(color: Colors.white, fontSizeDelta: -3)),
                       Spacer(),
@@ -164,9 +176,9 @@ class SignupStep2 extends StatelessWidget {
                               bottomLeft: Radius.circular(16),
                               bottomRight: Radius.circular(16))),
                       child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: _controller
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: _trackablesController
                               .trackList.value.data[index].items.length,
                           itemBuilder: (BuildContext context, int idx) {
                             return _renderSubItem(topLevelItem.items[idx], topLevelItem);
@@ -179,6 +191,7 @@ class SignupStep2 extends StatelessWidget {
   /// Renders a specific TrackableItem
   /// This items children will be passed to
   /// _renderChildren for rendering.
+
   _renderSubItem(TrackableItem item, TrackableItem topLevelItem) {
     return Visibility(
         visible: item.isVisible,
@@ -194,7 +207,7 @@ class SignupStep2 extends StatelessWidget {
                   onChanged: (val) {
                     item.enabled = !item.enabled;
                     _setEnabledStateOfChildrenForTrackable(item, topLevelItem);
-                    _controller.trackList.refresh();
+                    _trackablesController.trackList.refresh();
                   },
                 ),
                 Expanded(
@@ -244,8 +257,6 @@ class SignupStep2 extends StatelessWidget {
     });
     return widgets;
   }
-
-
 
   _setEnabledStateOfChildrenForTrackable(TrackableItem item, TrackableItem topLevelItem){
     // Set children:

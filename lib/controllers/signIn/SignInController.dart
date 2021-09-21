@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
-import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
+import 'package:flutter_ibs/controllers/user/UserController.dart';
+import 'package:flutter_ibs/models/user/UserModel.dart';
 import 'package:flutter_ibs/models/login/LoginSendModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
@@ -12,6 +13,8 @@ import 'package:get/get.dart';
 
 
 class SignInController extends GetxController {
+  final UserController _userController = Get.find();
+
   var formKey = GlobalKey<FormState>();
   TextEditingController emailController;
 
@@ -99,22 +102,21 @@ class SignInController extends GetxController {
     try {
       final data = await ServiceApi().signInApi(bodyData: model.toJson());
 
-      if (data is LoginResponseModel) {
-        print('datadatadatadatadatadatadatadatadata');
-        print(data);
-
+      if (data is UserModel) {
         HiveStore().put(Keys.USERID, data.id);
 
         CustomSnackBar().successSnackBar(
             title: "Success", message: "SignIn Successfully"
         );
+        _userController.setUser(data);
 
         Get.offAllNamed(home);
       } else {
         loader.value = false;
       }
     } catch (error) {
-      error.message.toString().showError();
+      print(error.toString());
+ //     error.message.toString().showError();
     }
   }
 

@@ -1,9 +1,10 @@
 
-
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/user/UserController.dart';
 import 'package:flutter_ibs/routes/NavRouter.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
+import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/Strings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -23,6 +24,10 @@ main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await HiveStore().initBox();
   await getLanguage();
+
+  Get.put(TrackablesController());//Init trackables which pulls the list together
+  Get.put(UserController());
+
   runApp(IBS());
 }
 
@@ -84,5 +89,6 @@ class IBS extends StatelessWidget {
     );
   }
 }
+
 
 

@@ -1,3 +1,5 @@
+
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_feathersjs/flutter_feathersjs.dart';
@@ -5,6 +7,8 @@ import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/url.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
+import 'dart:convert';
+
 
 class CoreService {
   static final CoreService _default = new CoreService._internal();
@@ -30,6 +34,7 @@ class CoreService {
       method,
       password,
       username}) async {
+
     switch (method) {
       case METHOD.GET: {
           try {
@@ -37,9 +42,8 @@ class CoreService {
                 serviceName: endpoint, objectId: objectId
             );
 
-            print('responseresponseresponseresponseresponseresponseresponse');
-            print(response);
-
+            // print('responseresponseresponseresponseresponseresponse');
+            // print(response);
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
@@ -60,6 +64,7 @@ class CoreService {
             }
           } catch (er) {
             // Catch  unknown error
+            print(er.errorMessage());
           }
         }
         break;
@@ -103,7 +108,7 @@ class CoreService {
             // Check the error type as above and handle it
           } catch (er) {
             // Catch  unknown error
-
+print(er.toString());
           }
         }
         break;
@@ -133,7 +138,7 @@ class CoreService {
             }
           } catch (er) {
             // Catch  unknown error
-
+            print(er.errorMessage());
           }
         }
         break;
@@ -160,7 +165,7 @@ class CoreService {
             }
           } catch (er) {
             // Catch  unknown error
-
+            print(er.errorMessage());
           }
         }
         break;
@@ -187,7 +192,7 @@ class CoreService {
             }
           } catch (er) {
             // Catch  unknown error
-
+            print(er.errorMessage());
           }
         }
         break;
@@ -215,18 +220,19 @@ class CoreService {
             }
           } catch (er) {
             // Catch  unknown error
-
+            print(er.errorMessage());
           }
         }
         break;
       case METHOD.PATCH:
         {
-          Get.dialog(Center(child: CircularProgressIndicator()),
-              barrierDismissible: false);
+          // Get.dialog(Center(child: CircularProgressIndicator()),
+          //     barrierDismissible: false);
 
           try {
             final response = await flutterFeathersjs.patch(
-                objectId: objectId, serviceName: endpoint, data: data);
+                objectId: objectId, serviceName: endpoint, data: data
+            );
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
@@ -246,7 +252,9 @@ class CoreService {
           } catch (er) {
             // Catch  unknown error
 
+            print(er.message.toString());
           }
+
         }
         break;
       case METHOD.AUTHENTICATE:
@@ -260,7 +268,6 @@ class CoreService {
               userNameFieldName: "loginId",
             );
 
-            debugPrint("Response Response Response Response Response Response Response");
             debugPrint("Response: $response", wrapWidth: 1024);
 
             return response;
@@ -285,7 +292,7 @@ class CoreService {
 
           } catch (er) {
             // Catch  unknown error
-
+            print(er.errorMessage());
           }
         }
         break;
@@ -348,3 +355,5 @@ enum METHOD {
   AUTHENTICATE,
   REAUTHENTICATE
 }
+
+

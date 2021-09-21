@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+
 FoodSendModel foodSendModelFromJson(String str) =>
     FoodSendModel.fromJson(json.decode(str));
 
@@ -16,14 +18,14 @@ class FoodSendModel {
   });
 
   String category;
-  List<FoodList> items;
+  List<TrackableSubmitItem> items;
 
   factory FoodSendModel.fromJson(Map<String, dynamic> json) => FoodSendModel(
         category: json["category"] == null ? null : json["category"],
         items: json["items"] == null
             ? null
-            : List<FoodList>.from(
-                json["items"].map((x) => FoodList.fromJson(x))),
+            : List<TrackableSubmitItem>.from(
+                json["items"].map((x) => TrackableSubmitItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,7 +35,7 @@ class FoodSendModel {
             : List<dynamic>.from(items.map((x) => x.toJson())),
       };
 }
-
+/*
 class FoodList {
   FoodList({
     this.tid = "food-meal",
@@ -41,6 +43,7 @@ class FoodList {
     this.dtype = "str",
     this.value,
     this.children,
+    this.category,
   });
 
   String tid;
@@ -48,6 +51,7 @@ class FoodList {
   String dtype;
   FoodValue value;
   List<FoodSubList> children;
+  String category;
 
   factory FoodList.fromJson(Map<String, dynamic> json) => FoodList(
         tid: json["tid"] == null ? null : json["tid"],
@@ -58,7 +62,8 @@ class FoodList {
             ? null
             : List<FoodSubList>.from(
                 json["children"].map((x) => FoodSubList.fromJson(x))),
-      );
+        category: "food",
+  );
 
   Map<String, dynamic> toJson() => {
         "tid": tid == null ? null : tid,
@@ -68,6 +73,7 @@ class FoodList {
         "children": children == null
             ? null
             : List<dynamic>.from(children.map((x) => x.toJson())),
+        "category": "food",
       };
 }
 
@@ -77,12 +83,14 @@ class FoodSubList {
     this.kind = "tags",
     this.dtype = "arr",
     this.value,
+    this.category,
   });
 
   String tid;
   String kind;
   String dtype;
   FoodSubValue value;
+  String category;
 
   factory FoodSubList.fromJson(Map<String, dynamic> json) => FoodSubList(
         tid: json["tid"] == null ? null : json["tid"],
@@ -90,6 +98,7 @@ class FoodSubList {
         dtype: json["dtype"] == null ? null : json["dtype"],
         value:
             json["value"] == null ? null : FoodSubValue.fromJson(json["value"]),
+        category: "food",
       );
 
   Map<String, dynamic> toJson() => {
@@ -97,6 +106,7 @@ class FoodSubList {
         "kind": kind == null ? null : kind,
         "dtype": dtype == null ? null : dtype,
         "value": value == null ? null : value.toJson(),
+        "category": "food",
       };
 }
 
@@ -137,3 +147,4 @@ class FoodValue {
         "num": num == null ? null : num,
       };
 }
+*/

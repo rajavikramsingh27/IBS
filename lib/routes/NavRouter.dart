@@ -25,7 +25,7 @@ import 'package:get/get.dart';
 import 'RouteConstants.dart';
 import 'package:flutter_ibs/screens/resources/resources.dart';
 import 'package:flutter_ibs/screens/resourcesArticleView/resourcesArticleView.dart';
-
+import 'package:flutter_ibs/screens/ResourcesAdditionalRelated/ResourcesAdditionalRelated.dart';
 
 
 class NavRouter {
@@ -121,6 +121,10 @@ class NavRouter {
     GetPage(
       name: resourcesArticleView,
       page: () => ResourcesArticleView(),
+    ),
+    GetPage(
+      name: resourcesAdditionalRelated,
+      page: () => ResourcesAdditionalRelated(),
     ),
   ];
 }
