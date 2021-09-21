@@ -4,6 +4,7 @@ import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanResponseM
 import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanSendModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
+import 'package:flutter_ibs/models/tags/TagsResponseModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:flutter_ibs/widget/TreatmentPlanListWidget.dart';
@@ -33,6 +34,8 @@ class TreatmentPlanController extends GetxController {
       PostTreatmentPlanSendModel().obs;
   RxList<TrackingSendData> listTrackData = <TrackingSendData>[].obs;
   RxList<dynamic> listTags = <dynamic>[].obs;
+
+  TextEditingController tagsController = TextEditingController();
   @override
   void onInit() async {
     super.onInit();
@@ -127,5 +130,23 @@ class TreatmentPlanController extends GetxController {
 
     //     CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     //   }
+  }
+
+  Future<bool> addTags({category,tagValue}) async{
+      loader.value = true;
+      final data = await ServiceApi()
+          .postTags(bodyData: tagValue.toJson());
+      loader.value = false;
+      if (data is TagsResponseModel) {
+        tagsController.clear();
+        CustomSnackBar().successSnackBar(
+            title: "Success", message: "Tag Added Successfully");
+        return true;
+      } else {
+        loader.value = false;
+
+        CustomSnackBar().errorSnackBar(title: "Error", message: "Operation unsuccessful");
+        return false;
+      }
   }
 }

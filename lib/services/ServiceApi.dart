@@ -175,9 +175,9 @@ class ServiceApi {
       return LanguageResponseModel.fromJson(result);
   }
 
-  Future<TagsResponseModel> postTags() async {
-    var result =
-        await CoreService().apiService(method: METHOD.CREATE, endpoint: TAGS);
+  Future<TagsResponseModel> postTags({Map bodyData}) async {
+    var result = await CoreService().apiService(
+        method: METHOD.CREATE, endpoint: TAGS, data: bodyData);
     if (result == null) {
       return null;
     } else
