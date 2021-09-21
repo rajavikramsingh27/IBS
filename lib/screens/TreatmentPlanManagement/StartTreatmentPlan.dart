@@ -118,30 +118,40 @@ class StartTreatmentPlan extends StatelessWidget {
                                             horizontal: ScreenConstant
                                                 .defaultWidthTwenty,
                                           ),
-                                          child: Column(
-                                            children: [
-                                              SizedBox(
-                                                  height: ScreenConstant
-                                                      .defaultHeightTen),
-                                              DynamicWidget(
-                                                data: data.trackables,
-                                              ),
-                                              Divider(
-                                                  thickness: 1,
-                                                  color: AppColors.white
-                                                      .withOpacity(0.12)),
-                                              ReminderWidget(
-                                                title: data.reminders.name.tr,
-                                                description: data
-                                                    .reminders.description.tr,
-                                                data: data.reminders.children,
-                                              ),
-                                              SizedBox(
-                                                  height: ScreenConstant
-                                                          .defaultHeightForty *
-                                                      1.4),
-                                            ],
-                                          ),
+                                          child: _treatmentPlanController
+                                                  .loader.value
+                                              ? Center(
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                )
+                                              : Column(
+                                                  children: [
+                                                    SizedBox(
+                                                        height: ScreenConstant
+                                                            .defaultHeightTen),
+                                                    DynamicWidget(
+                                                      data: data.trackables,
+                                                    ),
+                                                    Divider(
+                                                        thickness: 1,
+                                                        color: AppColors.white
+                                                            .withOpacity(0.12)),
+                                                    ReminderWidget(
+                                                      title: data
+                                                          .reminders.name.tr,
+                                                      description: data
+                                                          .reminders
+                                                          .description
+                                                          .tr,
+                                                      data: data
+                                                          .reminders.children,
+                                                    ),
+                                                    SizedBox(
+                                                        height: ScreenConstant
+                                                                .defaultHeightForty *
+                                                            1.4),
+                                                  ],
+                                                ),
                                         ),
                                       ),
                                       PlanDetailsManagementWidget(

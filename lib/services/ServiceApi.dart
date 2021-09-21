@@ -208,14 +208,12 @@ class ServiceApi {
     var result = await CoreService().apiService(
         method: METHOD.DELETE,
         endpoint: "$POST_TREATMENT_PLAN/$objectId",
-      objectId: objectId
-    );
+        objectId: objectId);
     print("Result: $result");
     if (result == null) {
       return null;
+    } else {
+      return PostTreatmentPlanResponseModel.fromJson(result);
     }
-    // else {
-    //   return PostTreatmentPlanResponseModel.fromJson(result);
-    // }
   }
 }

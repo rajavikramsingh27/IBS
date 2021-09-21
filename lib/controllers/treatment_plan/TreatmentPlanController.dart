@@ -160,16 +160,16 @@ class TreatmentPlanController extends GetxController {
   }
 
   onStopTreatmentPlan() async {
-    // loader.value = true;
+    loader.value = true;
     final data = await ServiceApi().removeTreatmentPlan(selectedPID.value);
-    // loader.value = false;
-    // if (data is PostTreatmentPlanResponseModel) {
-    Get.offAllNamed(home);
-    // CustomSnackBar().successSnackBar(
-    //     title: "Success", message: "Treatment Plan Stopped Successfully");
-    // } else {
-    //   loader.value = false;
-    // CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-    // }
+    loader.value = false;
+    if (data is PostTreatmentPlanResponseModel) {
+      Get.offAllNamed(home);
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Treatment Plan Stopped Successfully");
+    } else {
+      loader.value = false;
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
   }
 }
