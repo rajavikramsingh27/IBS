@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
-import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -32,13 +31,7 @@ class TreatmentPlans extends StatelessWidget {
         ),
         actions: [
           InkWell(
-            onTap: () {
-              Get.dialog(CustomDialog4(
-                title: "jg",
-                description: "jg",
-                // height: 300,
-              ));
-            },
+            onTap: () {},
             child: Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: ScreenConstant.defaultWidthTwenty),
@@ -76,45 +69,57 @@ class TreatmentPlans extends StatelessWidget {
                   itemCount: 4,
                 ),
                 SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                Text(
-                  "Lifestyle and Dietary Changes",
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.black, fontSizeDelta: -4),
-                  textAlign: TextAlign.start,
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  itemCount: _treatmentPlanController.listCategory.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _treatmentPlanController.listCategory
+                              .toList()[index]
+                              .tr,
+                          style: TextStyles.textStyleIntroDescription
+                              .apply(color: Colors.black, fontSizeDelta: -4),
+                          textAlign: TextAlign.start,
+                        ),
+                        SizedBox(height: ScreenConstant.defaultHeightTen),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemCount: _treatmentPlanController
+                                .treatmentPlanItemData.length,
+                            itemBuilder: (BuildContext context, int ind) {
+                              if (_treatmentPlanController.listCategory
+                                      .toList()[index] ==
+                                  _treatmentPlanController
+                                      .treatmentPlanItemData[ind]
+                                      .planCategory) {
+                                return Column(
+                                  children: [
+                                    TreatmentPlanListItem(
+                                        _treatmentPlanController
+                                            .treatmentPlanItemData[ind]
+                                            .planName
+                                            .tr, () {
+                                      _treatmentPlanController
+                                          .toTreatmentPlanListWidget(
+                                              data: _treatmentPlanController
+                                                  .treatmentPlanItemData[ind]);
+                                    }),
+                                    SizedBox(
+                                        height: ScreenConstant.sizeDefault),
+                                  ],
+                                );
+                              } else
+                                return Offstage();
+                            }),
+                      ],
+                    );
+                  },
                 ),
-                SizedBox(height: ScreenConstant.defaultHeightTen),
-                TreatmentPlanListItem("Stress management ", () {
-                  _treatmentPlanController.toTreatmentPlanListWidget(
-                      data:
-                          _treatmentPlanController.treatmentPlanItemData.first);
-                }),
-                SizedBox(height: ScreenConstant.sizeDefault),
-                TreatmentPlanListItem("Low FODMAP diet", () {
-                  _treatmentPlanController.toTreatmentPlanListWidget();
-                }),
-                SizedBox(height: ScreenConstant.sizeDefault),
-                TreatmentPlanListItem("Increase exercise", () {
-                  _treatmentPlanController.toTreatmentPlanListWidget();
-                }),
-                SizedBox(height: ScreenConstant.sizeDefault),
-                TreatmentPlanListItem("Improve sleep", () {
-                  _treatmentPlanController.toTreatmentPlanListWidget();
-                }),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                Text(
-                  "Physician Prescribed Changes",
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.black, fontSizeDelta: -4),
-                  textAlign: TextAlign.start,
-                ),
-                SizedBox(height: ScreenConstant.defaultHeightTen),
-                TreatmentPlanListItem("Medication and supplements", () {
-                  _treatmentPlanController.toTreatmentPlanListWidget();
-                }),
-                SizedBox(height: ScreenConstant.sizeDefault),
-                TreatmentPlanListItem("Cognitive Behavioural Therapy", () {
-                  _treatmentPlanController.toTreatmentPlanListWidget();
-                }),
                 SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
               ],
             )),

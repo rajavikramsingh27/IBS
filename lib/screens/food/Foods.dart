@@ -3,7 +3,6 @@ import 'package:flutter_ibs/controllers/food/FoodController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
-import 'package:flutter_ibs/utils/DateTime.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/AdditionalNoteWidget.dart';
@@ -207,7 +206,7 @@ class Foods extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       if (_controller.foodTextController.text.isNotEmpty)
-                        _controller.listfoodDefault.add(Default(
+                        _controller.listfoodDefault.add(TagsDefault(
                             value: _controller.foodTextController.text));
                     },
                     child: Row(
