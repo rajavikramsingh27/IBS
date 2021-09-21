@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -40,7 +41,8 @@ class ReminderPlanWidget extends StatelessWidget {
       this.timeValue,
       this.messageValue})
       : super(key: key);
-
+  final TreatmentPlanController _treatmentPlanController =
+      Get.put(TreatmentPlanController());
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -80,6 +82,7 @@ class ReminderPlanWidget extends StatelessWidget {
                       physics: ClampingScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
                         var model = listData[index];
+
                         return Row(
                           children: [
                             Icon(

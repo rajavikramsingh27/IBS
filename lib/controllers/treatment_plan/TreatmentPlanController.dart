@@ -36,6 +36,9 @@ class TreatmentPlanController extends GetxController {
   RxList<dynamic> listTags = <dynamic>[].obs;
 
   TextEditingController tagsController = TextEditingController();
+  RxString dayValue = "".obs;
+  RxString timeValue = "".obs;
+  RxString messageValue = "".obs;
   @override
   void onInit() async {
     super.onInit();
@@ -80,10 +83,13 @@ class TreatmentPlanController extends GetxController {
 
   void addReminder() {
     noteTextController.clear();
-    reminderList.add(Reminder(
-        message: noteTextController.text,
-        time: selectedTime.value,
-        day: selectedDay.value));
+    (selectedDay.isEmpty || selectedTime.isEmpty)
+        ? CustomSnackBar()
+            .errorSnackBar(title: "Error", message: "Select time and day both")
+        : reminderList.add(Reminder(
+            message: noteTextController.text,
+            time: selectedTime.value ?? "01:00",
+            day: selectedDay.value ?? "option_every_day"));
   }
 
   clearData() {
@@ -118,35 +124,35 @@ class TreatmentPlanController extends GetxController {
     treatmentPlanSendModel.refresh();
 
     print("data: ${treatmentPlanSendModel.toJson()}");
-      loader.value = true;
-      final data = await ServiceApi()
-          .postTreatmentPlanAPI(bodyData: treatmentPlanSendModel.toJson());
+    loader.value = true;
+    final data = await ServiceApi()
+        .postTreatmentPlanAPI(bodyData: treatmentPlanSendModel.toJson());
+    loader.value = false;
+    if (data is PostTreatmentPlanResponseModel) {
+      Get.offAllNamed(home);
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Treatment Plan Added Successfully");
+    } else {
       loader.value = false;
-      if (data is PostTreatmentPlanResponseModel) {
-        Get.offAllNamed(home);
-        CustomSnackBar().successSnackBar(
-            title: "Success", message: "Treatment Plan Added Successfully");
-      } else {
-        loader.value = false;
-        CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-      }
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
   }
 
-  Future<bool> addTags({category,tagValue}) async{
-      loader.value = true;
-      final data = await ServiceApi()
-          .postTags(bodyData: tagValue.toJson());
+  Future<bool> addTags({category, tagValue}) async {
+    loader.value = true;
+    final data = await ServiceApi().postTags(bodyData: tagValue.toJson());
+    loader.value = false;
+    if (data is TagsResponseModel) {
+      tagsController.clear();
+      CustomSnackBar()
+          .successSnackBar(title: "Success", message: "Tag Added Successfully");
+      return true;
+    } else {
       loader.value = false;
-      if (data is TagsResponseModel) {
-        tagsController.clear();
-        CustomSnackBar().successSnackBar(
-            title: "Success", message: "Tag Added Successfully");
-        return true;
-      } else {
-        loader.value = false;
 
-        CustomSnackBar().errorSnackBar(title: "Error", message: "Operation unsuccessful");
-        return false;
-      }
+      CustomSnackBar()
+          .errorSnackBar(title: "Error", message: "Operation unsuccessful");
+      return false;
+    }
   }
 }

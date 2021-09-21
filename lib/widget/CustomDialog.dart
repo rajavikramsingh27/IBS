@@ -532,15 +532,18 @@ class _DialogReminderWidgetState extends State<DialogReminderWidget> {
                 text: "Save",
                 buttonColor: AppColors.colorArrowButton,
                 onTap: () {
-                  Reminder saveReminder = Reminder(
-                      day: _treatmentPlanController.selectedDay.value == null
-                          ? widget.data.day
-                          : _treatmentPlanController.selectedDay.value,
-                      time: _treatmentPlanController.selectedTime.value == null
-                          ? widget.data.time
-                          : _treatmentPlanController.selectedTime.value,
-                      message: messageTextController.text);
-                  Get.back(result: saveReminder);
+                  setState(() {
+                    Reminder saveReminder = Reminder(
+                        day: _treatmentPlanController.selectedDay.value == null
+                            ? widget.data.day
+                            : _treatmentPlanController.selectedDay.value,
+                        time:
+                            _treatmentPlanController.selectedTime.value == null
+                                ? widget.data.time
+                                : _treatmentPlanController.selectedTime.value,
+                        message: messageTextController.text);
+                    Get.back(result: saveReminder);
+                  });
                 },
                 textColor: Colors.white,
               ),
@@ -583,7 +586,6 @@ class _DialogReminderWidgetState extends State<DialogReminderWidget> {
                 setState(() {
                   widget.data.day = optionItem.value;
                   widget.listOption.first.select.selectDefault = optionItem;
-                  _treatmentPlanController.selectedDay.value = optionItem.label;
                 });
               },
               isEnabled: true,
@@ -644,7 +646,6 @@ class _DialogReminderWidgetState extends State<DialogReminderWidget> {
               onChanged: (String optionItem) {
                 setState(() {
                   widget.data.time = optionItem;
-                  _treatmentPlanController.selectedTime.value = optionItem;
                 });
               },
               isEnabled: true,
