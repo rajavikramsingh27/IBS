@@ -24,7 +24,7 @@ class TreatmentPlanController extends GetxController {
   RxList<TreatmentPlanItemData> treatmentPlanItemData =
       <TreatmentPlanItemData>[].obs;
 
-  RxList<TagsDefault> selectedTags = <TagsDefault>[].obs;
+  RxList<dynamic> selectedTags = <dynamic>[].obs;
   Rx<String> selectedCategory = "".obs;
   Rx<String> selectedTime = "01:00".obs;
   Rx<String> selectedDay = "option_every_day".obs;
@@ -82,11 +82,17 @@ class TreatmentPlanController extends GetxController {
         ));
   }
 
-  void onTagTapped({TagsDefault model}) {
+  void onTagTapped({model}) {
     if (selectedTags.contains(model)) {
       selectedTags.remove(model);
+      (model is ListOption)
+          ? model?.optionDefault = false
+          : model?.required = false;
     } else {
       selectedTags.add(model);
+      (model is ListOption)
+          ? model?.optionDefault = true
+          : model?.required = true;
     }
   }
 
@@ -102,7 +108,7 @@ class TreatmentPlanController extends GetxController {
   }
 
   clearData() {
-    selectedTags = <TagsDefault>[].obs;
+    selectedTags = <dynamic>[].obs;
     selectedCategory = "".obs;
     selectedTime = "".obs;
     selectedDay = "".obs;
