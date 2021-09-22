@@ -30,9 +30,7 @@ class Symptoms extends StatelessWidget {
                 onTap: controller.onSave,
               ),
               TextButton(
-                  onPressed: () {
-                    Get.back();
-                  },
+                  onPressed: controller.onCancel,
                   child: Text("Cancel",
                       style: TextStyles.textStyleIntroDescription.apply(
                         color: AppColors.colorskip_also_proceed,

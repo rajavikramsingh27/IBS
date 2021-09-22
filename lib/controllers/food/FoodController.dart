@@ -17,13 +17,25 @@ class FoodController extends GetxController {
   Rx<FoodSendModel> foodModel = FoodSendModel(items: []).obs;
   TrackablesController _trackablesController = Get.find();
 
-  RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
+  RxList<TrackableItem> formWidgetList ;
 
   bool _isDefaultFoodSet;
 
   @override
   void onInit() async {
-    print("Food controller onInit");
+    doInit();
+    super.onInit();
+  }
+
+
+  onCancel() {
+    doInit();
+    Get.back();
+  }
+
+
+  void doInit(){
+    formWidgetList = RxList<TrackableItem>();
     _trackablesController.food.value.items.forEach((element) {
       formWidgetList.add(element);
     });
@@ -36,11 +48,13 @@ class FoodController extends GetxController {
 
     // Refresh the local list so the form can generate:
     formWidgetList.refresh();
-
-    super.onInit();
   }
 
+
+/// Set the meal selection based on time of day
   mealOptionDefault(ListOption mealOption) {
+    mealOption.selected = false;
+
     var startTime = CustomDateTime().parseTimeAsDateTime(
         dateTime: mealOption.conditionalDefault.time.first.startTime,
         returnFormat: "HH:mm");
@@ -89,6 +103,7 @@ class FoodController extends GetxController {
       // noteTextController.clear();
       //  healthWellnessModel.value.items = [];
       //  _signUpController.getTrackList();
+      doInit();
       Get.back();
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Food Added Successfully");

@@ -31,8 +31,8 @@ class BowelMovementController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+
     _trackablesController
         .bowelMovements.value.items.forEach((element) {
       formWidgetList.add(element);

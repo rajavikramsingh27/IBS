@@ -12,10 +12,17 @@ class SymptomsController extends GetxController {
 
   Rx<SymptomsModel> symptomsModel = SymptomsModel(items: []).obs;
   TrackablesController _trackablesController = Get.find();
-  RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
+  RxList<TrackableItem> formWidgetList;
 
   @override
   void onInit() {
+    doInit();
+    super.onInit();
+    // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+  }
+
+  void doInit(){
+    formWidgetList = RxList<TrackableItem>() ;
     // Get the source of the data:
     _trackablesController
         .symptoms.value.items.forEach((element) {
@@ -24,11 +31,13 @@ class SymptomsController extends GetxController {
 
     // Refresh the local list so the form can generate:
     formWidgetList.refresh();
-
-    super.onInit();
-    // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 
+
+  void onCancel(){
+    doInit();
+    Get.back();
+  }
 
   void onSave()async{
     loader.value = true;
@@ -38,6 +47,7 @@ class SymptomsController extends GetxController {
       // noteTextController.clear();
       //  healthWellnessModel.value.items = [];
       //  _signUpController.getTrackList();
+      doInit();
       Get.back();
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Symptoms Added Successfully");
