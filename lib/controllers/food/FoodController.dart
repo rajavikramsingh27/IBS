@@ -3,6 +3,7 @@ import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart'
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodSendModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
+import 'package:flutter_ibs/utils/DateTime.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
@@ -31,9 +32,7 @@ class FoodController extends GetxController {
     // Turn off all the selections for food type:
     formWidgetList.first.list.options
         .forEach((element) {
-          var start = element.conditionalDefault.time[0].startTime;
-          var end = element.conditionalDefault.time[0].endTime;
-          
+          mealOptionDefault(element);
     });
 
     // Refresh the local list so the form can generate:
@@ -41,6 +40,41 @@ class FoodController extends GetxController {
 
     super.onInit();
 
+  }
+
+  mealOptionDefault(ListOption mealOption) {
+
+    var startTime = CustomDateTime().parseTimeAsDateTime(
+        dateTime: mealOption.conditionalDefault.time.first.startTime,
+        returnFormat: "HH:mm");
+    var endTime = CustomDateTime().parseTimeAsDateTime(
+        dateTime: mealOption.conditionalDefault.time.first.endTime,
+        returnFormat: "HH:mm");
+
+    var s = "${currentDateTime.value.hour}:${currentDateTime.value.minute}";
+    var u = CustomDateTime()
+        .parseTimeAsDateTime(dateTime: s, returnFormat: "HH:mm");
+
+    startTimeDifference.value = u
+        .difference(startTime)
+        .inSeconds;
+    endTimeDifference.value = (endTime
+        .difference(u)
+        .inSeconds);
+    if ((endTime
+        .difference(u)
+        .inSeconds) > 0 &&
+        (u
+            .difference(startTime)
+            .inSeconds) > 0) {
+      if (!selected.value) {
+        selected.value = true;
+        model.optionDefault = !model.optionDefault;
+        Future.delayed(Duration(seconds: 1), () {
+          _signUpController.food.refresh();
+        });
+      }
+    }
   }
 
   valueChanged(TrackableSubmitItem submitItem){
