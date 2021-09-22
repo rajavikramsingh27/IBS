@@ -19,19 +19,23 @@ class SymptomsModel {
   SymptomsModel({
     this.category = "symptoms",
     this.items,
+    this.trackedAt,
   });
 
   String category;
   List<TrackableSubmitItem> items;
+  DateTime trackedAt;
 
   factory SymptomsModel.fromJson(Map<String, dynamic> json) => SymptomsModel(
     category: json["category"] == null ? null : json["category"],
     items: json["items"] == null ? null : List<TrackableSubmitItem>.from(json["items"].map((x) => TrackableSubmitItem.fromJson(x))),
+    trackedAt:  json["trackedAt"] == null ? null : new DateTime(json["trackedAt"]),
   );
 
   Map<String, dynamic> toJson() => {
     "category": category == null ? null : category,
     "items": items == null ? null : List<dynamic>.from(items.map((x) => x.toJson())),
+    "trackedAt": trackedAt == null ? new DateTime.now() : trackedAt,
   };
 }
 /*

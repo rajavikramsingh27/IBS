@@ -48,7 +48,7 @@ class SymptomsController extends GetxController {
   }
 
 
-  valueChanged(TrackableSubmitItem submitItem){
+  void valueChanged(TrackableSubmitItem submitItem){
     var count = symptomsModel.value.items.length;
     bool isAdded = false;
     for(var i=0; i < count; i++) {
