@@ -104,7 +104,7 @@ class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
     final TimeOfDay timeOfDay = await showTimePicker(
       context: context,
       initialTime: _selectedTime,
-      initialEntryMode: TimePickerEntryMode.dial,
+      initialEntryMode: TimePickerEntryMode.input,
 
     );
     if(timeOfDay != null && timeOfDay != _selectedTime)

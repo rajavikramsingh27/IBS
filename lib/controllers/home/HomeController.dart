@@ -38,6 +38,7 @@ class HomeController extends GetxController {
   RxString selectedDailyLogCategory = "".obs;
 
   RxString selectedDateLabel = "".obs;
+  RxString selectedTimeLabel = "".obs;
 
   var foodValue;
   onTapped(int index) async {
@@ -54,7 +55,7 @@ class HomeController extends GetxController {
 
     selectedDate = new DateTime.now();
 
-    selectedDateLabel.value = DateFormat.yMMMMd('en_US').format(selectedDate);
+    formatSelectedDate();
 
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();
@@ -70,15 +71,21 @@ class HomeController extends GetxController {
       goBackOneDay();
       return;
     }
-    selectedDateLabel.value = DateFormat.yMMMMd('en_US').format(selectedDate);
+    formatSelectedDate();
   }
 
   void goBackOneDay(){
    // selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day - 1);
     selectedDate = selectedDate.subtract(Duration(days: 1));
-    selectedDateLabel.value = DateFormat.yMMMMd('en_US').format(selectedDate);
+    formatSelectedDate();
   }
 
+
+  void formatSelectedDate(){
+    selectedDateLabel.value = DateFormat('EEEE, MMM d, y').format(selectedDate);
+    selectedTimeLabel.value = DateFormat('hh:mm a').format(selectedDate);
+
+  }
 
   getAndroidDatePicker() {
     return showDatePicker(
@@ -101,9 +108,9 @@ class HomeController extends GetxController {
       },
       lastDate: DateTime(2100),
     ).then((datePicked) {
-      if (datePicked != selectedDate) {
+      if (datePicked != null && datePicked != selectedDate) {
         selectedDate = datePicked;
-        selectedDateLabel.value = DateFormat.yMMMMd('en_US').format(selectedDate);
+        formatSelectedDate();
       }
     });
   }
@@ -119,15 +126,9 @@ class HomeController extends GetxController {
         child: CupertinoDatePicker(
           mode: CupertinoDatePickerMode.date,
           onDateTimeChanged: (datePicked) {
-            if (datePicked != selectedDate) {
+            if (datePicked != null && datePicked != selectedDate) {
               selectedDate = datePicked;
-              print("${dateController.text}");
-              selectedDateLabel.value =
-                  DateFormat.yMMMMd('en_US').format(selectedDate);
-              // ?.toString()
-              // ?.split(' ')
-              // ?.first;
-
+              formatSelectedDate();
             }
           },
           initialDateTime: DateTime.now(),
@@ -139,6 +140,37 @@ class HomeController extends GetxController {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     );
   }
+
+
+  getCupertinoTimePicker(BuildContext context) async{
+    final TimeOfDay timeOfDay = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(this.selectedDate),
+      initialEntryMode: TimePickerEntryMode.input,
+
+    );
+    if(timeOfDay != null && timeOfDay != TimeOfDay.fromDateTime(this.selectedDate))
+    {
+      this.selectedDate = DateTime(this.selectedDate.year, this.selectedDate.month, this.selectedDate.day, timeOfDay.hour, timeOfDay.minute);
+      this.formatSelectedDate();
+    }
+  }
+
+  getAndroidTimePicker(BuildContext context) async{
+    final TimeOfDay timeOfDay = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(this.selectedDate),
+      initialEntryMode: TimePickerEntryMode.input,
+
+    );
+    if(timeOfDay != null && timeOfDay != TimeOfDay.fromDateTime(this.selectedDate))
+    {
+      this.selectedDate = DateTime(this.selectedDate.year, this.selectedDate.month, this.selectedDate.day, timeOfDay.hour, timeOfDay.minute);
+      this.formatSelectedDate();
+    }
+  }
+
+
 
   getTrackHistoryList() async {
     if (connectionStatus.value) {
