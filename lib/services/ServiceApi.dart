@@ -238,14 +238,13 @@ class ServiceApi {
     return MyAccountModel.fromJson(result);
   }
 
-  Future<dynamic> updateTrackingOption({Map bodyData}) async {
-    final data = {'tracking':bodyData,};
-    print(data);
-
+  Future<dynamic> updateTrackingOption({
+    Map bodyData
+  }) async {
     final result = await CoreService().apiService(
-      method: METHOD.PATCH,
-      endpoint: USERS,
-      data: data,
+      method: METHOD.CREATE,
+      endpoint: TRACK_UPDATE,
+      data: bodyData,
     );
 
     return MyAccountModel.fromJson(result);

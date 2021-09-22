@@ -1,6 +1,7 @@
 const BASE_URL = "https://myibs.not4prod.com";
 const SIGNUP = "/users";
 const TRACK_LIST = "/trackables";
+const TRACK_UPDATE = "/user/trackables";
 const SIGN_IN = "/authentication";
 const SYMPTOMS = "/user/symptoms";
 const FOODS = "/user/foods";

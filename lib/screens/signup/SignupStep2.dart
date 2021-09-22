@@ -74,11 +74,17 @@ class SignupStep2 extends StatelessWidget {
   _buildTrackingOptions() {
     return Stack(
       children: [
-        AspectRatio(aspectRatio: 1.6, child: Image.asset(Assets.signupBg2)),
+        AspectRatio(
+            aspectRatio: 1.6,
+            child: Image.asset(
+                Assets.signupBg2
+            )
+        ),
         Positioned(
             bottom: ScreenConstant.defaultHeightTwentyFour,
             left: ScreenConstant.sizeXXXL,
             right: ScreenConstant.sizeXXXL,
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -97,7 +103,8 @@ class SignupStep2 extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ],
-            ))
+            )
+        )
       ],
     );
 
@@ -120,10 +127,6 @@ class SignupStep2 extends StatelessWidget {
   /// Calls supporting functions to build the nested set of children.
   /// The nested functions, _renderSubItem and _renderChildren
   /// get called recursively to walk down the tree.
-
-
-
-
 
   _buildTrackingList() {
     return ListView.builder(
@@ -172,15 +175,20 @@ class SignupStep2 extends StatelessWidget {
                           color: Colors.grey[50],
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(16),
-                              bottomRight: Radius.circular(16))),
+                              bottomRight: Radius.circular(16)
+                          )
+                      ),
                       child: ListView.builder(
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: _controller.trackList.value.data[index].items.length,
                           itemBuilder: (BuildContext context, int idx) {
                             return _renderSubItem(topLevelItem.items[idx], topLevelItem);
-                          })),
-                ]));
+                          })
+                  ),
+                ]
+            )
+        );
       },
     );
   }
