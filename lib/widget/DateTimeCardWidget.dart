@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class DateTimeCardWidget extends StatelessWidget {
+  HomeController homeController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -38,6 +42,6 @@ class DateTimeCardWidget extends StatelessWidget {
   }
 
   String _getDate() {
-    return DateFormat('EEEE, MMMd').format(DateTime.now()).toString();
+    return DateFormat('EEEE, MMMd').format(homeController.selectedDate).toString();
   }
 }
