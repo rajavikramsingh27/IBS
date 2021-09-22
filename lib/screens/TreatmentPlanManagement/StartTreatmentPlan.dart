@@ -33,7 +33,7 @@ class StartTreatmentPlan extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             SizedBox(height: ScreenConstant.defaultHeightTen),
-            CustomElevatedButton(
+            _treatmentPlanController.existTreatmentPlans.contains(data.pid)?Offstage():CustomElevatedButton(
               widthFactor: 0.7,
               text: "Save Changes",
               onTap: _treatmentPlanController.onSave,
@@ -84,14 +84,14 @@ class StartTreatmentPlan extends StatelessWidget {
                           SizedBox(height: ScreenConstant.defaultHeightForty),
                           DateTimeCardWidget(),
                           SizedBox(height: ScreenConstant.sizeDefault),
-                          CustomElevatedButton2(
+                          _treatmentPlanController.existTreatmentPlans.contains(data.pid)?CustomElevatedButton2(
                             elevation: 16,
                             widthFactor: 0.7,
                             onTap: _treatmentPlanController.onStopTreatmentPlan,
                             textColor: AppColors.colorTextStop,
                             text: data.stopPlan.tr,
                             buttonColor: AppColors.white,
-                          ),
+                          ):Offstage(),
                           SizedBox(
                               height: ScreenConstant.defaultHeightTwentyFour),
                           Stack(

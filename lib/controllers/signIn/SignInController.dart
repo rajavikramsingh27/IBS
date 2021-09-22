@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
+import 'package:flutter_ibs/Store/ShareStore.dart';
 import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/login/LoginSendModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
@@ -104,7 +105,7 @@ class SignInController extends GetxController {
         print(data);
 
         HiveStore().put(Keys.USERID, data.id);
-
+        ShareStore().saveData(store: KeyStore.userprofile,object: data);
         CustomSnackBar().successSnackBar(
             title: "Success", message: "SignIn Successfully"
         );

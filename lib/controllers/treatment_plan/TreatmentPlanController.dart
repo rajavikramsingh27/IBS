@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/Store/ShareStore.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanSendModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
+import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/tags/TagsResponseModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
@@ -40,12 +42,15 @@ class TreatmentPlanController extends GetxController {
   RxString dayValue = "".obs;
   RxString timeValue = "".obs;
   RxString messageValue = "".obs;
+  LoginResponseModel userData;
+  RxList<String> existTreatmentPlans = <String>[].obs;
   @override
   void onInit() async {
     super.onInit();
     pageController.addListener(() {
       currentPage.value = pageController.page;
     });
+    getExistTreatmentPlans();
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();
     connectionStatus.value = isInternet;
@@ -171,5 +176,12 @@ class TreatmentPlanController extends GetxController {
       loader.value = false;
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
+  }
+
+  void getExistTreatmentPlans() {
+    userData = ShareStore().getData(store: KeyStore.userprofile);
+    userData.treatmentPlans.forEach((element) {
+      existTreatmentPlans.add(element["pid"]);
+    });
   }
 }
