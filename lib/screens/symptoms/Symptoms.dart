@@ -109,18 +109,24 @@ class Symptoms extends StatelessWidget {
                                               onValueChanged:
                                                   controller.valueChanged);
                                     }),
-                           // SizedBox(
-                              //  height: ScreenConstant.defaultHeightTwenty),
-                            Positioned.fill(
-                              bottom: 0,
-                              child: _buildWavePainter(),
+                            // SizedBox(
+                            //  height: ScreenConstant.defaultHeightTwenty),
+                            Container(
+                              height: 70,
+                              child: Stack(children: [
+                                Positioned.fill(
+                                  bottom: 0,
+                                  child: _buildWavePainter(),
+                                ),
+                              ]),
                             ),
                             Text(
                               "For best results track your symptoms every day.",
                               textAlign: TextAlign.center,
                               style: TextStyles.textStyleRegular,
                             ),
-                            SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightTwenty),
                             Text(
                               '''Click “Save” to log your results''',
                               textAlign: TextAlign.center,

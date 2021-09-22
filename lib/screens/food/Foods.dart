@@ -129,9 +129,14 @@ class Foods extends StatelessWidget {
                                 RenderWidgetByType().renderTrackableItem(
                                     controller.formWidgetList.last,
                                     onValueChanged: controller.valueChanged),
-                                Positioned.fill(
-                                  bottom: 0,
-                                  child: _buildWavePainter(),
+                                Container(
+                                  height: 70,
+                                  child: Stack(children: [
+                                    Positioned.fill(
+                                      bottom: 0,
+                                      child: _buildWavePainter(),
+                                    ),
+                                  ]),
                                 ),
                                 Text(
                                   "For best results track your food every day.",
