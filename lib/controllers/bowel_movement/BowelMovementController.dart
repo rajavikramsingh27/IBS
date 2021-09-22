@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsModel.dart';
-import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseModel.dart' as BMR;
+import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
@@ -14,11 +14,16 @@ class BowelMovementController extends GetxController {
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   TextEditingController noteTextController = TextEditingController();
-  SignUpController _signUpController = Get.find();
+
   RxBool loader = false.obs;
 
   RxBool switchValue = true.obs;
-  Rx<BowelMovementsModel> bowelMovementsModel = BowelMovementsModel().obs;
+  Rx<BowelMovementsModel> bowelMovementsModel = BowelMovementsModel(items: []).obs;
+
+  TrackablesController _trackablesController = Get.find();
+
+  RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
+
 
   onTapped(int index) async {
     currentIndex.value = index;
@@ -28,14 +33,70 @@ class BowelMovementController extends GetxController {
   void onInit() {
     super.onInit();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+    _trackablesController
+        .bowelMovements.value.items.forEach((element) {
+      formWidgetList.add(element);
+    });
+
+    // Refresh the local list so the form can generate:
+    formWidgetList.refresh();
+
+    super.onInit();
+    // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
+
+  valueChanged(TrackableSubmitItem submitItem) {
+    var count = bowelMovementsModel.value.items.length;
+    bool isAdded = false;
+    for (var i = 0; i < count; i++) {
+      if (bowelMovementsModel.value.items[i].tid == submitItem.tid) {
+        bowelMovementsModel.value.items[i] = submitItem;
+        isAdded = true;
+        break;
+      }
+    }
+
+    if (!isAdded) {
+      bowelMovementsModel.value.items.add(submitItem);
+    }
+  }
+
+
+  void onSave()async{
+    loader.value = true;
+    final data = await ServiceApi().postBowelMovementAPI(bodyData: bowelMovementsModel.toJson());
+    loader.value = false;
+    if (data is BowelMovementsResponseModel) {
+      // noteTextController.clear();
+      //  healthWellnessModel.value.items = [];
+      //  _signUpController.getTrackList();
+      Get.back();
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Health & Wellness Added Successfully");
+    } else {
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
+
+  }
+
+}
+/*
+    print ('-------');
+    _selectedItems.forEach((element) {
+      print(element.toJson());
+    });
+
+ */
+
+/*
+
   onSave() async {
     if (bowelMovementsModel.value.items == null) {
       bowelMovementsModel.value.items = [];
     }
     Item item = Item(
-        tid: _signUpController.bowelMovements.value.items.last.tid,
-        kind: _signUpController.bowelMovements.value.items.last.kind,
+        tid: _trackablesController.bowelMovements.value.items.last.tid,
+        kind: _trackablesController.bowelMovements.value.items.last.kind,
         dtype: "str",
         value: ItemValue(str: noteTextController.text));
     bowelMovementsModel.value.items.add(item);
@@ -47,18 +108,19 @@ class BowelMovementController extends GetxController {
     loader.value = false;
     if (data is BMR.BowelMovementsResponseModel) {
       noteTextController.clear();
-      _signUpController.getTrackList();
+      bowelMovementsModel.value.items = [];
+      //_signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Bowel Movements Added Successfully");
     } else {
       noteTextController.clear();
-      _signUpController.getTrackList();
+     // _signUpController.getTrackList();
       bowelMovementsModel.value = BowelMovementsModel();
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
   }
-  initModel({DatumItem data,String dType, value,}){
+  initModel({TrackableItem data,String dType, value,}){
     bool isPresent = false;
 
     if (bowelMovementsModel.value.items == null) {
@@ -96,7 +158,7 @@ class BowelMovementController extends GetxController {
     }
   }
 
-  initSubModel({PurpleItem data,String dType,bool value,String tid,String kind,mainType}){
+  initSubModel({TrackableItem data,String dType,bool value,String tid,String kind,mainType}){
     Item item;
     bool isPresent = false;
 
@@ -124,3 +186,4 @@ class BowelMovementController extends GetxController {
 
     }
   }
+*/

@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
@@ -9,8 +11,10 @@ import 'package:flutter_ibs/widget/CustomCheckBox.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 
+
 class SignupStep1 extends StatelessWidget {
   final _controller = Get.put(SignUpController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -217,7 +221,8 @@ class SignupStep1 extends StatelessWidget {
             margin: EdgeInsets.only(
                 left: ScreenConstant.defaultWidthTen * 1.5,
                 right: ScreenConstant.defaultWidthTen * 1.5,
-                bottom: ScreenConstant.defaultHeightTen * 1.5),
+                bottom: ScreenConstant.defaultHeightTen * 1.5
+            ),
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
             decoration: BoxDecoration(
                 color: AppColors.colordropdownArrowBg,

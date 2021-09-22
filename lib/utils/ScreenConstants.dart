@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/utils/DeviceManager.dart';
 
- Size screenSize;
+Size screenSize;
 double defaultScreenWidth = 400.0;
 double defaultScreenHeight = 810.0;
 double screenWidth = defaultScreenWidth;
@@ -14,6 +14,7 @@ class ScreenConstant {
   static double defaultHeightSeventySix = 76;
   static double defaultHeightNinety = 90;
   static double defaultHeightForty = 40;
+  static double defaultHeightThirty = 30;
   static double defaultHeightSixteen = 16;
   static double defaultHeightTwentyFour = 24;
   static double defaultHeightTwenty = 20;
@@ -34,6 +35,8 @@ class ScreenConstant {
   static double defaultWidthOneSeventy = 170;
   static double defaultWidthThreeThirtySix = 336;
   static double defaultWidthOneHundredSeven = 107;
+  static double defaultWidthOneForty = 140;
+
   static double defaultWidthSixty = 60;
   static double defaultWidthTen = 10;
   static double defaultWidthTwenty = 20;
@@ -259,12 +262,14 @@ class ScreenConstant {
     defaultHeightTwoHundred = DeviceManager.instance.setHeight(200.0);
     defaultHeightTwoHundredFifty = DeviceManager.instance.setHeight(350.0);
     defaultHeightTwoHundredTen = DeviceManager.instance.setHeight(222.0);
+    defaultHeightThirty = DeviceManager.instance.setHeight(30.0);
     /* Nimmio Default Width*/
     defaultWidthNinetyEight = DeviceManager.instance.setWidth(98.0);
     defaultWidthOneEighty = DeviceManager.instance.setWidth(180.0);
     defaultWidthOneSeventy = DeviceManager.instance.setWidth(170.0);
     defaultWidthThreeThirtySix = DeviceManager.instance.setWidth(336.0);
     defaultWidthOneHundredSeven = DeviceManager.instance.setWidth(107.0);
+    defaultWidthOneForty = DeviceManager.instance.setWidth(140.0);
     defaultWidthSixty = DeviceManager.instance.setWidth(60.0);
     defaultWidthTen = DeviceManager.instance.setWidth(10.0);
     defaultWidthTwenty = DeviceManager.instance.setWidth(20.0);

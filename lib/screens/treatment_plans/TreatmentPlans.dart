@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
-import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/Indicator.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
+import 'package:flutter_ibs/widget/TreatmentPlanListItem.dart';
 import 'package:get/get.dart';
 
 class TreatmentPlans extends StatelessWidget {
-  final _controller = Get.put(TreatmentPlanController());
+  final TreatmentPlanController _treatmentPlanController =
+      Get.put(TreatmentPlanController());
 
   @override
   Widget build(BuildContext context) {
@@ -28,113 +30,99 @@ class TreatmentPlans extends StatelessWidget {
           style: TextStyles.appBarTitle,
         ),
         actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTwenty),
-            child: Image.asset(
-              Assets.settings,
-              width: ScreenConstant.defaultWidthTwenty,
+          InkWell(
+            onTap: () {},
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: ScreenConstant.defaultWidthTwenty),
+              child: Image.asset(
+                Assets.settings,
+                width: ScreenConstant.defaultWidthTwenty,
+              ),
             ),
           )
         ],
       ),
-      body: ListView(
-        padding: ScreenConstant.spacingAllMedium,
-        physics: ClampingScrollPhysics(),
-        children: [
-          Center(
-              child: Image.asset(Assets.treatment,
-                  width: ScreenConstant.defaultHeightTwoHundredTen)),
-          SizedBox(height: ScreenConstant.defaultHeightSixteen),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ScreenConstant.defaultWidthTwenty * 2),
-            child: Text(
-              "There is no cure for IBS but several treatments exist to help you manage your symptoms.",
-              textAlign: TextAlign.center,
-              style: TextStyles.textStyleRegular.apply(color: Colors.black),
-            ),
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightSixteen),
-          Indicator(
-            controller: _controller.pageController,
-            itemCount: 4,
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-          Text(
-            "Lifestyle and Dietary Changes",
-            style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.black, fontSizeDelta: -4),
-            textAlign: TextAlign.start,
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightTen),
-          _buildTreatmentPlans("Stress management ", () {
-            Get.toNamed(stressManagement);
-          }),
-          SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("Low FODMAP diet", () {
-            Get.toNamed(lowDiet);
-          }),
-          SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("Increase exercise", () {
-            Get.toNamed(exercise);
-          }),
-          SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("Improve sleep", () {
-            Get.toNamed(sleep);
-          }),
-          SizedBox(height: ScreenConstant.defaultHeightTwenty),
-          Text(
-            "Physician Prescribed Changes",
-            style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.black, fontSizeDelta: -4),
-            textAlign: TextAlign.start,
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightTen),
-          _buildTreatmentPlans("Medication and supplements", () {
-            Get.toNamed(medication_supplements);
-          }),
-          SizedBox(height: ScreenConstant.sizeDefault),
-          _buildTreatmentPlans("Cognitive Behavioural Therapy", () {}),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTreatmentPlans(String title, Function onPressed) {
-    return Container(
-      padding: ScreenConstant.spacingAllSmall,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.colorBorder, width: 1)),
-      child: ListTile(
-        dense: true,
-        contentPadding: EdgeInsets.zero,
-        title: Padding(
-          padding: EdgeInsets.only(left: ScreenConstant.sizeXXL),
-          child: Text(
-            title,
-            style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.black, fontSizeDelta: -6),
-          ),
-        ),
-        trailing: Container(
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.colorArrowButton, width: 1)),
-          child: IconButton(
-            visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-            icon: Icon(
-              Icons.arrow_forward_ios_outlined,
-              color: AppColors.colorArrowButton,
-              size: FontSize.s14,
-            ),
-            onPressed: onPressed,
-          ),
-        ),
-      ),
+      body: Obx(() => _treatmentPlanController.loader.value
+          ? Center(child: CircularProgressIndicator())
+          : ListView(
+              padding: ScreenConstant.spacingAllMedium,
+              physics: ClampingScrollPhysics(),
+              children: [
+                Center(
+                    child: Image.asset(Assets.treatment,
+                        width: ScreenConstant.defaultHeightTwoHundredTen)),
+                SizedBox(height: ScreenConstant.defaultHeightSixteen),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ScreenConstant.defaultWidthTwenty * 2),
+                  child: Text(
+                    "There is no cure for IBS but several treatments exist to help you manage your symptoms.",
+                    textAlign: TextAlign.center,
+                    style:
+                        TextStyles.textStyleRegular.apply(color: Colors.black),
+                  ),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightSixteen),
+                Indicator(
+                  controller: _treatmentPlanController.pageController,
+                  itemCount: 4,
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  itemCount: _treatmentPlanController.listCategory.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _treatmentPlanController.listCategory
+                              .toList()[index]
+                              .tr,
+                          style: TextStyles.textStyleIntroDescription
+                              .apply(color: Colors.black, fontSizeDelta: -4),
+                          textAlign: TextAlign.start,
+                        ),
+                        SizedBox(height: ScreenConstant.defaultHeightTen),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemCount: _treatmentPlanController
+                                .treatmentPlanItemData.length,
+                            itemBuilder: (BuildContext context, int ind) {
+                              if (_treatmentPlanController.listCategory
+                                      .toList()[index] ==
+                                  _treatmentPlanController
+                                      .treatmentPlanItemData[ind]
+                                      .planCategory) {
+                                return Column(
+                                  children: [
+                                    TreatmentPlanListItem(
+                                        _treatmentPlanController
+                                            .treatmentPlanItemData[ind]
+                                            .planName
+                                            .tr, () {
+                                      _treatmentPlanController
+                                          .toTreatmentPlanListWidget(
+                                              data: _treatmentPlanController
+                                                  .treatmentPlanItemData[ind]);
+                                    }),
+                                    SizedBox(
+                                        height: ScreenConstant.sizeDefault),
+                                  ],
+                                );
+                              } else
+                                return Offstage();
+                            }),
+                      ],
+                    );
+                  },
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+              ],
+            )),
     );
   }
 }

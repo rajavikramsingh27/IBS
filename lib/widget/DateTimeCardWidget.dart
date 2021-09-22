@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class DateTimeCardWidget extends StatelessWidget {
+  HomeController homeController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -20,15 +25,23 @@ class DateTimeCardWidget extends StatelessWidget {
               Assets.clock,
               width: ScreenConstant.defaultWidthTen * 1.3,
             ),
-            Text("3 pm EST", style: TextStyles.textStyleRegular),
+            Text(_getTime(), style: TextStyles.textStyleRegular),
             CircleAvatar(
               backgroundColor: AppColors.colorTextRegular,
               radius: 1,
             ),
-            Text("Monday, May 31", style: TextStyles.textStyleRegular),
+            Text(_getDate(), style: TextStyles.textStyleRegular),
           ],
         ),
       ),
     );
+  }
+
+  String _getTime() {
+    return DateFormat('hh:mm a').format(DateTime.now()).toString();
+  }
+
+  String _getDate() {
+    return DateFormat('EEEE, MMMd').format(homeController.selectedDate).toString();
   }
 }

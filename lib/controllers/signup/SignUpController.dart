@@ -1,5 +1,13 @@
+/*
+  IAN Notes:
+    Originally this was only walking the top-level trackables, it did not
+    send the nested trackables to the server.
+    Updated to recursively walk down the item.child.items[x] path to assemble
+    all values.
+ */
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
+import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
@@ -13,19 +21,20 @@ import 'package:flutter_ibs/utils/Validator.dart';
 
 
 class SignUpController extends GetxController {
-  Rx<TrackablesListModel> trackList = TrackablesListModel().obs;
-  Rx<TrackablesListModel> trackFoodList = TrackablesListModel().obs;
+  TrackablesController _trackablesController = Get.find();
+
+  List<TrackableItem> symptomsList = [];
+  List<TrackableItem> bowelMoveList = [];
+  List<TrackableItem> foodList = [];
+  List<TrackableItem> wellnessList = [];
+  List<TrackableItem> medicationList = [];
+  List<TrackableItem> journalList = [];
+  //Rx<TrackablesListModel> trackList = TrackablesListModel().obs;
 
   RxString selectedGender = "".obs;
   RxBool selectedMale = false.obs;
   RxBool selectedFeMale = false.obs;
   RxBool selectedOtherGender = false.obs;
-  List<DatumItem> symptomsList = [];
-  List<DatumItem> bowelMoveList = [];
-  List<DatumItem> foodList = [];
-  List<DatumItem> wellnessList = [];
-  List<DatumItem> medicationList = [];
-  List<DatumItem> journalList = [];
 
   RxString selectedAge = "<20".obs;
   List<String> ageList = [
@@ -50,12 +59,8 @@ class SignUpController extends GetxController {
   TextEditingController confirmPasswordController;
   RxBool isPasswordVisible = true.obs;
   RxBool agreeToTerms = false.obs;
-  Rx<Datum> symptoms = Datum().obs;
-  Rx<Datum> bowelMovements = Datum().obs;
-  Rx<Datum> food = Datum().obs;
-  Rx<Datum> journal = Datum().obs;
-  Rx<Datum> medications = Datum().obs;
-  Rx<Datum> healthWellness = Datum().obs;
+
+
 
   RxList<ListOption> listFoodOptions = <ListOption>[].obs;
 
@@ -86,10 +91,9 @@ class SignUpController extends GetxController {
       'Password should be 6 character'.showError();
     } else if (confirmPasswordController.text.isEmpty) {
       'Enter Confirm Password'.showError();
-    }  else if (isFormValid()) {
-
+    }  else if (!isFormValid()) {
+      debugPrint('password or terms and conditions are not selected');
     } else {
-
       bool check = await ConnectionCheck().initConnectivity();
 
       if (check) {
@@ -129,77 +133,105 @@ class SignUpController extends GetxController {
 
   registrationApi() async {
     final MyProfileController _myProFileController = Get.find();
+
     DiagnosedIbsSendModel diagnoisedModel = DiagnosedIbsSendModel(
       isDiagnosed: _myProFileController.isDiagnoisedIbs.value ?? false,
       ibsType: _myProFileController
           .selectIbsType(_myProFileController.selctedIbsType.value),
     );
+
     RomeivSendModel romeivSendModel = RomeivSendModel(
       abdominalPain:
-          _myProFileController.isDiagnoisedAbdominalPain.value ?? false,
+      _myProFileController.isDiagnoisedAbdominalPain.value ?? false,
       abdominalPainBowelAppearDifferent:
-          _myProFileController.isabdominalPainBowelAppearDifferent.value ??
-              false,
+      _myProFileController.isabdominalPainBowelAppearDifferent.value ??
+          false,
       abdominalPainBowelMoreLess:
-          _myProFileController.isabdominalPainBowelMoreLess.value ?? false,
+      _myProFileController.isabdominalPainBowelMoreLess.value ?? false,
       abdominalPainTimeBowel:
-          _myProFileController.isabdominalPainTimeBowel.value ?? false,
+      _myProFileController.isabdominalPainTimeBowel.value ?? false,
       stool: _myProFileController.selectStoolType(
           _myProFileController.selectedStoolType.value ?? null),
     );
+
+    // Recursively loop through category descendants to compile
+    // a flat list of all enabled values:
+    _trackablesController.trackList.value.data.forEach((element) {
+      _recursivelyParseChildren(element.items);
+    });
+
+    /* IAN: Deprecated. This was only walking the top level list.
+      Data needed to include items[x].child[y].items
+
     trackList.value.data.forEach((element) {
-      if (element.tid == "symptoms") {
+      if (element.category == "symptoms") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             symptomsList.add(el);
           }
         });
-      } else if (element.tid == "bowel_movements") {
+      } else if (element.category == "bowelMovements") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             bowelMoveList.add(el);
           }
         });
       }
-      if (element.tid == "food") {
+
+      if (element.category == "food") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             foodList.add(el);
           }
         });
       }
-      if (element.tid == "wellness") {
+      if (element.category == "healthWellness") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             wellnessList.add(el);
           }
         });
       }
-      if (element.tid == "medications") {
+
+      if (element.category == "medications") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             medicationList.add(el);
           }
         });
       }
-      if (element.tid == "journal") {
+
+      if (element.category == "journal") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             journalList.add(el);
           }
         });
       }
+
     });
+    */
+
+
 
     TrackingSendModel trackModel = TrackingSendModel(
-        symptoms: symptomsList, bowelMovements: bowelMoveList);
+      symptoms: symptomsList,
+      bowelMovements: bowelMoveList,
+      food: foodList,
+      healthWellness: wellnessList,
+      medications: medicationList,
+      journal: journalList,
+    );
     // print("track: ${trackModel.toJson()}");
+
     ProfileSendModel profileModel = ProfileSendModel(
         sex: selectedGender.value,
         age: selectedAge.value,
         familyHistory: selectedIbsHistory.value,
         diagnosedIbs: diagnoisedModel,
-        romeiv: romeivSendModel);
+        romeiv: romeivSendModel
+    );
+
     SignupSendModel model = SignupSendModel(
       label: emailController?.text,
       email: emailController?.text,
@@ -208,41 +240,69 @@ class SignUpController extends GetxController {
       profile: profileModel,
       tracking: trackModel,
     );
+
     print("data: ${model.toJson()}");
+
     final data = await ServiceApi().signupApi(bodyData: model.toJson());
 
     if (data is SignupResponseModel) {
       HiveStore().put(Keys.LOGINID, data.loginId);
       HiveStore().put(Keys.EMAIL, data.email);
-      Get.offAllNamed(signIn, arguments: [data.loginId, data.email]);
+      // Get.offAllNamed(signIn, arguments: [data.loginId, data.email]);
+      Get.offAllNamed(intro, arguments: [data.loginId, data.email]);
+      Get.toNamed(signIn);
 
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Registered Successfully");
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
+
   }
 
-  getTrackList() async {
-    if (connectionStatus.value) {
-      loader.value = true;
-      await ServiceApi().getTrackables().then((value) {
-        trackList.value = value;
-      });
-      getSymptoms();
-      getBowelMovements();
-      getFoods();
-      getJournalList();
-      getMedicationList();
-      getHealthWellness();
-      loader.value = false;
+
+  /// Walk the Trackables tree adding active elements.
+  _recursivelyParseChildren(List<TrackableItem> items){
+    items.forEach((element) {
+      if (element.enabledDefault){
+        _addItemToTrackingList(element);
+        element.children.forEach( (child) {
+          return _recursivelyParseChildren(child.items);
+        });
+      }
+    });
+  }
+
+  _addItemToTrackingList(dynamic item){
+
+    switch(item.category){
+      case "symptoms":
+        symptomsList.add(item);
+        break;
+      case "bowelMovements":
+        bowelMoveList.add(item);
+        break;
+      case "food":
+        foodList.add(item);
+        break;
+      case "healthWellness":
+        wellnessList.add(item);
+        break;
+      case "medications":
+        medicationList.add(item);
+        break;
+      case "journal":
+        journalList.add(item);
+        break;
     }
+
   }
 
   bool isFormValid() {
     if (passwordController.text != confirmPasswordController.text) {
       CustomSnackBar()
           .errorSnackBar(title: "Password", message: "Password do not match");
+      return false;
     } else  if (agreeToTerms.value == false) {
       CustomSnackBar().errorSnackBar(
           title: "Terms and Condition",
@@ -250,7 +310,8 @@ class SignUpController extends GetxController {
 
       return false;
     }
-    return false;
+
+    return true;
   }
 
   bool isFormStep1valid() {
@@ -269,14 +330,14 @@ class SignUpController extends GetxController {
 
   navigateToNextScreen() {
     if (isFormStep1valid()) {
-      getTrackList();
+      //getTrackList();
       Get.toNamed(signup2);
     }
   }
 
   trackingDataSend(String tid) {
-    trackList.value.data.forEach((element) {
-      if (element.tid == tid) {
+    _trackablesController.trackList.value.data.forEach((element) {
+      if (element.category == tid) {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             symptomsList.add(el);
@@ -286,51 +347,4 @@ class SignUpController extends GetxController {
     });
   }
 
-  getSymptoms() {
-    trackList.value.data.forEach((element) {
-      if (element.tid == "symptoms") {
-        symptoms.value = element;
-      }
-    });
-  }
-
-  getBowelMovements() {
-    trackList.value.data.forEach((element) {
-      if (element.tid == "bowelMovements") {
-        bowelMovements.value = element;
-      }
-    });
-  }
-
-  getFoods() {
-    trackList.value.data.forEach((element) {
-      if (element.tid == "food") {
-        food.value = element;
-      }
-    });
-  }
-
-  getJournalList() {
-    trackList.value.data.forEach((element) {
-      if (element.tid == "journal") {
-        journal.value = element;
-      }
-    });
-  }
-
-  getMedicationList() {
-    trackList.value.data.forEach((element) {
-      if (element.tid == "medications") {
-        medications.value = element;
-      }
-    });
-  }
-
-  getHealthWellness() {
-    trackList.value.data.forEach((element) {
-      if (element.tid == "healthWellness") {
-        healthWellness.value = element;
-      }
-    });
-  }
 }

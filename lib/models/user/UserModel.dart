@@ -4,12 +4,16 @@
 
 import 'dart:convert';
 
-LoginResponseModel loginResponseModelFromJson(String str) => LoginResponseModel.fromJson(json.decode(str));
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 
-String loginResponseModelToJson(LoginResponseModel data) => json.encode(data.toJson());
 
-class LoginResponseModel {
-  LoginResponseModel({
+
+UserModel loginResponseModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+
+String loginResponseModelToJson(UserModel data) => json.encode(data.toJson());
+
+class UserModel {
+  UserModel({
     this.id,
     this.profile,
     this.tags,
@@ -27,7 +31,7 @@ class LoginResponseModel {
 
   String id;
   Profile profile;
-  Tags tags;
+  UserTags tags;
   dynamic label;
   String email;
   bool agreeTos;
@@ -39,10 +43,10 @@ class LoginResponseModel {
   DateTime updatedAt;
   int v;
 
-  factory LoginResponseModel.fromJson(Map<String, dynamic> json) => LoginResponseModel(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
     id: json["_id"] == null ? null : json["_id"],
     profile: json["profile"] == null ? null : Profile.fromJson(json["profile"]),
-    tags: json["tags"] == null ? null : Tags.fromJson(json["tags"]),
+    tags: json["tags"] == null ? [] : UserTags.fromJson(json["tags"]),
     label: json["label"],
     email: json["email"] == null ? null : json["email"],
     agreeTos: json["agreeTos"] == null ? null : json["agreeTos"],
@@ -176,33 +180,33 @@ class Results {
   };
 }
 
-class Tags {
-  Tags({
+class UserTags {
+  UserTags({
     this.breakfast,
     this.lunch,
     this.dinner,
     this.snacks,
     this.relaxationTechniques,
-    this.prescriptionMedications,
-    this.otherMedications,
+    this.medicationsPrescription,
+    this.medicationsOther,
   });
 
-  List<dynamic> breakfast;
-  List<dynamic> lunch;
-  List<dynamic> dinner;
-  List<dynamic> snacks;
-  List<dynamic> relaxationTechniques;
-  List<dynamic> prescriptionMedications;
-  List<dynamic> otherMedications;
+  List<Tag> breakfast;
+  List<Tag> lunch;
+  List<Tag> dinner;
+  List<Tag> snacks;
+  List<Tag> relaxationTechniques;
+  List<Tag> medicationsPrescription;
+  List<Tag> medicationsOther;
 
-  factory Tags.fromJson(Map<String, dynamic> json) => Tags(
-    breakfast: json["breakfast"] == null ? null : List<dynamic>.from(json["breakfast"].map((x) => x)),
-    lunch: json["lunch"] == null ? null : List<dynamic>.from(json["lunch"].map((x) => x)),
-    dinner: json["dinner"] == null ? null : List<dynamic>.from(json["dinner"].map((x) => x)),
-    snacks: json["snacks"] == null ? null : List<dynamic>.from(json["snacks"].map((x) => x)),
-    relaxationTechniques: json["relaxationTechniques"] == null ? null : List<dynamic>.from(json["relaxationTechniques"].map((x) => x)),
-    prescriptionMedications: json["prescriptionMedications"] == null ? null : List<dynamic>.from(json["prescriptionMedications"].map((x) => x)),
-    otherMedications: json["otherMedications"] == null ? null : List<dynamic>.from(json["otherMedications"].map((x) => x)),
+  factory UserTags.fromJson(Map<String, dynamic> json) => UserTags(
+    breakfast: json["breakfast"] == null ? [] : List<Tag>.from(json["breakfast"].map((x) => Tag.fromJson(x))),
+    lunch: json["lunch"] == null ? [] : List<Tag>.from(json["lunch"].map((x) => Tag.fromJson(x))),
+    dinner: json["dinner"] == null ? [] : List<Tag>.from(json["dinner"].map((x) => Tag.fromJson(x))),
+    snacks: json["snacks"] == null ? [] : List<Tag>.from(json["snacks"].map((x) => Tag.fromJson(x))),
+    relaxationTechniques: json["relaxationTechniques"] == null ? [] : List<Tag>.from(json["relaxationTechniques"].map((x) => Tag.fromJson(x))),
+    medicationsPrescription: json["medicationsPrescription"] == null ? [] : List<Tag>.from(json["medicationsPrescription"].map((x) => Tag.fromJson(x))),
+    medicationsOther: json["medicationsOther"] == null ? [] : List<Tag>.from(json["medicationsOther"].map((x) => Tag.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -210,9 +214,9 @@ class Tags {
     "lunch": lunch == null ? null : List<dynamic>.from(lunch.map((x) => x)),
     "dinner": dinner == null ? null : List<dynamic>.from(dinner.map((x) => x)),
     "snacks": snacks == null ? null : List<dynamic>.from(snacks.map((x) => x)),
-    "relaxationTechniques": relaxationTechniques == null ? null : List<dynamic>.from(relaxationTechniques.map((x) => x)),
-    "prescriptionMedications": prescriptionMedications == null ? null : List<dynamic>.from(prescriptionMedications.map((x) => x)),
-    "otherMedications": otherMedications == null ? null : List<dynamic>.from(otherMedications.map((x) => x)),
+    "relaxationTechniques": relaxationTechniques == null ? null : List<Tag>.from(relaxationTechniques.map((x) => x)),
+    "medicationsPrescription": medicationsPrescription == null ? [] : List<Tag>.from(medicationsPrescription.map((x) => x)),
+    "otherMedications": medicationsOther == null ? null : List<Tag>.from(medicationsOther.map((x) => x)),
   };
 }
 
@@ -223,20 +227,23 @@ class Tracking {
     this.medications,
     this.healthWellness,
     this.foods,
+    this.journal,
   });
 
-  List<BowelMovement> symptoms;
-  List<BowelMovement> bowelMovements;
-  dynamic medications;
-  List<dynamic> healthWellness;
-  List<dynamic> foods;
+  List<UserTrackable> symptoms;
+  List<UserTrackable> bowelMovements;
+  List<UserTrackable> medications;
+  List<UserTrackable> healthWellness;
+  List<UserTrackable> foods;
+  List<UserTrackable> journal;
 
   factory Tracking.fromJson(Map<String, dynamic> json) => Tracking(
-    symptoms: json["symptoms"] == null ? null : List<BowelMovement>.from(json["symptoms"].map((x) => BowelMovement.fromJson(x))),
-    bowelMovements: json["bowelMovements"] == null ? null : List<BowelMovement>.from(json["bowelMovements"].map((x) => BowelMovement.fromJson(x))),
-    medications: json["medications"],
-    healthWellness: json["healthWellness"] == null ? null : List<dynamic>.from(json["healthWellness"].map((x) => x)),
-    foods: json["foods"] == null ? null : List<dynamic>.from(json["foods"].map((x) => x)),
+    symptoms: json["symptoms"] == null ? null             : List<UserTrackable>.from(json["symptoms"].map((x) => UserTrackable.fromJson(x))),
+    bowelMovements: json["bowelMovements"] == null ? null : List<UserTrackable>.from(json["bowelMovements"].map((x) => UserTrackable.fromJson(x))),
+    medications: json["medications"] == null ? null       : List<UserTrackable>.from(json["medications"].map((x) => UserTrackable.fromJson(x))),
+    healthWellness: json["healthWellness"] == null ? null : List<UserTrackable>.from(json["healthWellness"].map((x) => UserTrackable.fromJson(x))),
+    foods: json["foods"] == null ? null                   : List<UserTrackable>.from(json["foods"].map((x) => UserTrackable.fromJson(x))),
+    journal: json["journal"] == null ? null               : List<UserTrackable>.from(json["journal"].map((x) => UserTrackable.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -245,11 +252,12 @@ class Tracking {
     "medications": medications,
     "healthWellness": healthWellness == null ? null : List<dynamic>.from(healthWellness.map((x) => x)),
     "foods": foods == null ? null : List<dynamic>.from(foods.map((x) => x)),
+    "journal": foods == null ? null : List<dynamic>.from(journal.map((x) => x)),
   };
 }
 
-class BowelMovement {
-  BowelMovement({
+class UserTrackable {
+  UserTrackable({
     this.required,
     this.userAdded,
     this.id,
@@ -263,7 +271,7 @@ class BowelMovement {
   String tid;
   Category category;
 
-  factory BowelMovement.fromJson(Map<String, dynamic> json) => BowelMovement(
+  factory UserTrackable.fromJson(Map<String, dynamic> json) => UserTrackable(
     required: json["required"] == null ? null : json["required"],
     userAdded: json["userAdded"] == null ? null : json["userAdded"],
     id: json["_id"] == null ? null : json["_id"],
@@ -278,6 +286,8 @@ class BowelMovement {
     "tid": tid == null ? null : tid,
     "category": category == null ? null : categoryValues.reverse[category],
   };
+
+
 }
 
 enum Category { MEDICATIONS, SYMPTOMS }
@@ -300,3 +310,5 @@ class EnumValues<T> {
     return reverseMap;
   }
 }
+
+

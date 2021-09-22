@@ -1,33 +1,73 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
-import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart' as sym;
+import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
+import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart' ;
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
-import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class SymptomsController extends GetxController {
-  Rx<DateTime> now = DateTime.now().obs;
-  RxDouble sliderValue = 0.0.obs;
-  RxInt formattedTime = 0.obs;
-  RxInt currentIndex = 0.obs;
-  RxInt selectedIndex = 0.obs;
+
   RxBool loader = false.obs;
-  SignUpController _signUpController = Get.find();
-  Rx<SelectOption> optionItemSelected = SelectOption().obs;
-  RxList<SelectOption> dropListModel = <SelectOption>[
-    SelectOption(value: "ab", label: "AB"),
-    SelectOption(value: "bc", label: "BC")
-  ].obs;
-  Rx<sym.SymptomsModel> symptomsModel = sym.SymptomsModel().obs;
-  TextEditingController noteTextController = TextEditingController();
-  onTapped(int index) async {
-    currentIndex.value = index;
+
+  Rx<SymptomsModel> symptomsModel = SymptomsModel(items: []).obs;
+  TrackablesController _trackablesController = Get.find();
+  RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
+
+  @override
+  void onInit() {
+    // Get the source of the data:
+    _trackablesController
+        .symptoms.value.items.forEach((element) {
+      formWidgetList.add(element);
+    });
+
+    // Refresh the local list so the form can generate:
+    formWidgetList.refresh();
+
+    super.onInit();
+    // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 
+
+  void onSave()async{
+    loader.value = true;
+    final data = await ServiceApi().postSymptomsAPI(bodyData: symptomsModel.toJson());
+    loader.value = false;
+    if (data is SymptomsResponseModel) {
+      // noteTextController.clear();
+      //  healthWellnessModel.value.items = [];
+      //  _signUpController.getTrackList();
+      Get.back();
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: "Symptoms Added Successfully");
+    } else {
+      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+    }
+
+  }
+
+
+  void valueChanged(TrackableSubmitItem submitItem){
+    var count = symptomsModel.value.items.length;
+    bool isAdded = false;
+    for(var i=0; i < count; i++) {
+      if (symptomsModel.value.items[i].tid == submitItem.tid) {
+        symptomsModel.value.items[i] = submitItem;
+        isAdded = true;
+        break;
+      }
+    }
+
+    if (!isAdded){
+      symptomsModel.value.items.add(submitItem);
+    }
+  }
+
+
+}
+  /*
+  /*
   @override
   void onInit() {
     super.onInit();
@@ -86,7 +126,11 @@ class SymptomsController extends GetxController {
     return modelValue;
   }
 
+
+   */
+
   onSave() async {
+    /*
     if (symptomsModel.value.items == null) {
       symptomsModel.value.items = [];
     }
@@ -94,7 +138,9 @@ class SymptomsController extends GetxController {
         tid: _signUpController.symptoms.value.items.last.tid,
         kind: _signUpController.symptoms.value.items.last.kind,
         dtype: "str",
-        value: sym.ItemValue(str: noteTextController.text));
+        value: sym.ItemValue(str: noteTextController.text),
+        category: _signUpController.symptoms.value.items.last.category,
+    );
     symptomsModel.value.items.add(item);
     symptomsModel.refresh();
     print("DATA Model : ${symptomsModel.toJson()}");
@@ -104,6 +150,7 @@ class SymptomsController extends GetxController {
     loader.value = false;
     if (data is SymptomsResponseModel) {
       noteTextController.clear();
+      symptomsModel.value.items = [];
       _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
@@ -111,13 +158,19 @@ class SymptomsController extends GetxController {
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
+
+     */
   }
 
+
+
+
   void checkData() {
-    if (_signUpController.symptoms.value == null) {
+    if (_trackablesController.symptoms.value == null) {
       loader.value = true;
     } else {
       loader.value = false;
     }
   }
 }
+*/

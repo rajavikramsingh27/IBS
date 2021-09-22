@@ -1,3 +1,5 @@
+
+
 class Assets {
   static const String baseImage = "assets/images";
 
@@ -86,6 +88,7 @@ class Assets {
   static const String medicationSuplements =
       "$baseImage/track/medicationSuplements.png";
   static const String sleepemoji = "$baseImage/track/sleepEmoji.png";
+  static const String stop = "$baseImage/track/stop.png";
 
 // home
   static const String settings = "$baseImage/home/settings.png";
@@ -137,4 +140,7 @@ class Assets {
   static const String logout = "assets/images/logout.png";
 
   static const String noInternet = "assets/images/nointernet.gif";
+
+  static const String resources_1 = "$baseImage/resources/resources.png";
+  static const String resources_2 = "$baseImage/resources/resources_2.png";
 }

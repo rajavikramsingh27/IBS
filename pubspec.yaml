@@ -34,8 +34,16 @@ dependencies:
   pin_code_fields: 
   syncfusion_flutter_sliders:
   page_view_indicators:
+  device_info: ^2.0.0
+  flutter_native_timezone: ^1.0.10
+  http: ^0.13.0
+  rxdart: ^0.26.0-nullsafety.1
+  shared_preferences: ^2.0.1
+  url_launcher:
   flutter_localizations:
     sdk: flutter
+  flutter_number_picker: ^1.0.4
+
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +71,7 @@ flutter:
     - assets/images/exercise/
     - assets/images/settings/
     - assets/images/report/
+    - assets/images/resources/
 
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

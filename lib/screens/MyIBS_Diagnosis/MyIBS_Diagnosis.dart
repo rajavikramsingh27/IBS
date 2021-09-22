@@ -10,25 +10,26 @@ import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
-import 'package:flutter_ibs/utils/HexColor.dart';
+import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
+import 'package:flutter_ibs/controllers/MyAccount/MyAccountController.dart';
+
 
 class MyIBSDiagnosis extends StatelessWidget {
-  final MyProfileController _controller = Get.put(MyProfileController());
+  final MyAccountController _controller = Get.put(MyAccountController());
+
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         backgroundColor: AppColors.colorProfileBg,
         appBar: AppBar(
           elevation: 0,
-          leading: Obx(() => _controller.pagecount.value >= 1
+          leading: _controller.pagecount.value >= 1
               ? LeadingBackButton(
             onPressed: () => _controller.pagecount.value--,
-          )
-              : LeadingBackButton(
+          ) : LeadingBackButton(
             onPressed: () => Get.back(),
-          )),
+          ),
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Text(
@@ -46,10 +47,10 @@ class MyIBSDiagnosis extends StatelessWidget {
         SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
         Container(
             padding: EdgeInsets.only(
-              bottom: 20,
-              top: 20,
-              left: 40,
-              right: 40,
+              bottom: ScreenConstant.defaultHeightTwenty,
+              top: ScreenConstant.defaultHeightTwenty,
+              left: ScreenConstant.defaultHeightForty,
+              right: ScreenConstant.defaultHeightForty,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,12 +58,7 @@ class MyIBSDiagnosis extends StatelessWidget {
               children: [
                 Text(
                   "Your IBS Diagnosis",
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Roboto-Regular',
-                    color: HexColor('4A358B'),
-                  ),
+                  style: TextStyles.textStyleSettingTitle,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: ScreenConstant.sizeDefault),
@@ -70,12 +66,7 @@ class MyIBSDiagnosis extends StatelessWidget {
                   "You may change your IBS Diagnosis at any time. "
                       "Note that you may only have one diagnosis at any given time. "
                       "All data previously collected will remain unchanged.",
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontFamily: 'Roboto-Regular',
-                    // fontWeight: FontWeight.w400,
-                    color: HexColor('4A358B'),
-                  ),
+                  style: TextStyles.textStyleSettingDescription,
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -105,7 +96,8 @@ class MyIBSDiagnosis extends StatelessWidget {
                           text: "which type of IBS ",
                           style: TextStyles.textStyleIntroDescription.apply(
                               color: AppColors.colorBackground,
-                              fontSizeDelta: -4)),
+                              fontSizeDelta: -4)
+                      ),
                       TextSpan(text: "you have ?")
                     ],
                   ),
@@ -116,8 +108,31 @@ class MyIBSDiagnosis extends StatelessWidget {
         SizedBox(height: ScreenConstant.defaultHeightTen),
         _buildListIbsType(),
         SizedBox(
-          height: 100,
-        )
+          height: ScreenConstant.defaultHeightOneHundred,
+        ),
+        Container(
+            child: CustomElevatedButton2(
+              textColor: Colors.white,
+              buttonColor: AppColors.colorBackground,
+              widthFactor: 0.8,
+              text: "Save Changes",
+              onTap: () {
+                _controller.updateIBS();
+              },
+            )
+        ),
+        SizedBox(height: ScreenConstant.defaultHeightTwenty),
+        Container(
+            child: CustomElevatedButton2(
+              textColor: Colors.black,
+              buttonColor: Colors.transparent,
+              widthFactor: 0.8,
+              text: "Cancel",
+              onTap: () {
+                _controller.setUIDataMyIBSDiagnosis();
+              },
+            )
+        ),
       ],
     );
   }
@@ -131,38 +146,50 @@ class MyIBSDiagnosis extends StatelessWidget {
       itemCount: DummyData.iBsType.length,
       itemBuilder: (BuildContext context, int index) {
         var model = DummyData.iBsType[index];
-        return Obx(
-              () => GestureDetector(
-            onTap: () {
-              _controller.selctedIbsType.value = index;
-              _controller.selectIbsType(_controller.selctedIbsType.value);
+        return GetBuilder<MyAccountController>(
+            init: MyAccountController(),
+            initState: (state) {
+              // print('HomePageController state initialized');
             },
-            child: Card(
-                elevation: 0,
-                color: _controller.selctedIbsType.value == index
-                    ? AppColors.colorYesButton
-                    : Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+
+            builder: (authController) {
+              authController.settingType = '1'.obs;
+              authController.getUserList();
+
+              return Obx(
+                    () => GestureDetector(
+                  onTap: () {
+                    _controller.selctedIbsType.value = index;
+                    _controller.selectIbsType(_controller.selctedIbsType.value);
+                  },
+                  child: Card(
+                      elevation: 0,
+                      color: _controller.selctedIbsType.value == index
+                          ? AppColors.colorYesButton
+                          : Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("${model.title}",
+                              style: TextStyles.textStyleIntroDescription.apply(
+                                  color: _controller.selctedIbsType.value == index
+                                      ? Colors.white
+                                      : AppColors.colorBackground,
+                                  fontSizeDelta: -3)),
+                          Text("${model.description}",
+                              style: TextStyles.textStyleIntroDescription.apply(
+                                  color: _controller.selctedIbsType.value == index
+                                      ? Colors.white
+                                      : AppColors.colorBackground,
+                                  fontSizeDelta: -9)),
+                        ],
+                      )),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("${model.title}",
-                        style: TextStyles.textStyleIntroDescription.apply(
-                            color: _controller.selctedIbsType.value == index
-                                ? Colors.white
-                                : AppColors.colorBackground,
-                            fontSizeDelta: -3)),
-                    Text("${model.description}",
-                        style: TextStyles.textStyleIntroDescription.apply(
-                            color: _controller.selctedIbsType.value == index
-                                ? Colors.white
-                                : AppColors.colorBackground,
-                            fontSizeDelta: -9)),
-                  ],
-                )),
-          ),
+              );
+            }
         );
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

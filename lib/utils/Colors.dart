@@ -16,6 +16,7 @@ class AppColors {
   static const Color textGray = const Color(0xFFCFCFCF);
   static const Color borderColor = const Color(0xFFEAEFF5);
   static const Color iconColorBlue = const Color(0xFF6191BE);
+  static const Color nestedToggle = const Color(0xFFD5C9E1);
 
   static const Color colorProfileBg = const Color(0xFFEFF3FF);
 
@@ -71,6 +72,13 @@ class AppColors {
   static const Color barrierColor = const Color(0xFF1A103E);
 
   static const Color colorDotUnselected = const Color(0xFFA29BC2);
+
+  static const Color colorDialogTitle = const Color(0xFF232323);
+
+  static const Color colorBtnCancel = const Color(0xFF9BA2A8);
+
+  static const Color colorBlack = const Color(0xFF000000);
+
 
   static Color fromHex(String hexString) {
     final buffer = StringBuffer();

@@ -50,7 +50,11 @@ class CustomBottomNavigation extends StatelessWidget {
                         imageText: Assets.report),
                     Container(width: context.mediaQuerySize.width * 0.13),
                     _buildTabItem(
-                        title: "Resources", imageText: Assets.resources),
+                        title: "Resources", imageText: Assets.resources,
+                      onTap: () {
+                        Get.toNamed(resources);
+                      }
+                    ),
                     _buildTabItem(
                         onTap: () {
                           Get.toNamed(myIbs);

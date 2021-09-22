@@ -3,7 +3,6 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
@@ -14,55 +13,54 @@ import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
-import 'package:flutter_ibs/utils/HexColor.dart';
+import 'package:flutter_ibs/utils/ShadowContainer.dart';
+import 'package:flutter_ibs/controllers/MyAccount/MyAccountController.dart';
 
 
 
-class RomeQuestionnaire extends StatefulWidget {
-
-  @override
-  _RomeQuestionnaireState createState() => _RomeQuestionnaireState();
-}
-
-class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
-  final MyProfileController _controller = Get.put(MyProfileController());
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    _controller.pagecount2.value = 0;
-  }
+class RomeQuestionnaire extends StatelessWidget {
+  MyAccountController _controller;
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold (
-        backgroundColor: AppColors.colorProfileBg,
-        appBar: AppBar(
-          elevation: 0,
-          leading: Obx(() => _controller.pagecount2.value >= 1
-              ? LeadingBackButton(
-            onPressed: () => _controller.pagecount2.value--,
-          )
-              : LeadingBackButton(
-            onPressed: () => Get.back(),
-          )),
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: Text(
-            "ROME IV QUESTIONNAIRE",
-            style: TextStyles.appBarTitle,
-          ),
-        ),
-        body: Obx(() => Stack(
-          fit: StackFit.expand,
-          children: [
-            _toggleView(_controller.pagecount2.value),
-            (_controller.pagecount2.value > 1) ? _buildBottom() : SizedBox(height: 1,),
-          ],
+      backgroundColor: AppColors.colorProfileBg,
+      appBar: AppBar(
+        elevation: 0,
+        leading: Obx(() => _controller.pagecount2.value >= 1
+            ? LeadingBackButton(
+          onPressed: () => _controller.pagecount2.value--,
+        )
+            : LeadingBackButton(
+          onPressed: () => Get.back(),
         )),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: Text(
+          "ROME IV QUESTIONNAIRE",
+          style: TextStyles.appBarTitle,
+        ),
+      ),
+      body: GetBuilder<MyAccountController>(
+          init: MyAccountController(),
+          initState: (state) {
+            // print('HomePageController state initialized');
+          },
+
+          builder: (authController) {
+            _controller = authController;
+            authController.settingType = '2'.obs;
+
+            authController.getUserList();
+            return Obx(() => Stack(
+              fit: StackFit.expand,
+              children: [
+                _toggleView(_controller.pagecount2.value),
+                (_controller.pagecount2.value > 1) ? _buildBottom() : SizedBox(height: 1,),
+              ],
+            ));
+          }
+      ),
     );
   }
 
@@ -91,9 +89,6 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
       case 1:
         return _buildRetakeQuestionnaire();
         break;
-      // case 2:
-      //   return _buildRomeIVCriteria();
-      //   break;
       case 2:
         return _buildAbdominalPain();
         break;
@@ -113,197 +108,76 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
   // for the medical advice of you doctor.
 
 
+
   _buildStartQuestionnaire() {
-    return ListView(
-      padding: ScreenConstant.spacingAllLarge,
-      children: [
-        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-        Text("Rome IV Questionnaire.",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.w500,
-            fontFamily: 'Roboto-Regular',
-            color: HexColor('4A358B'),
-          ),
-        ),
-        SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-        Center(
-            child: Image.asset(Assets.myProfile5,
-                width: ScreenConstant.defaultHeightTwoHundredTen)
-        ),
-        SizedBox(height: ScreenConstant.defaultHeightForty),
-        Card(
-          elevation: 0,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Padding(
-              padding: EdgeInsets.only(
-                  left: 30, right: 30,
-                  top: 30, bottom: 30
-              ),
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: "Physicians worldwide follow the ",
-                  // style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Roboto-Regular',
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () => _buildAbdominalPainDialog(),
-                        text: "Rome IV criteria  ",
-                        style: TextStyles.textStyleIntroDescription.apply(
-                            color: AppColors.colorBackground,
-                            fontSizeDelta: -4)),
-                    TextSpan(
-                        text:
-                        "when diagnosing IBS. \n\n"
-                            "The following questions are for informational purposes only and should not substitute"
-                            "for the medical advice of you doctor.")
-                  ],
-                ),
-              )
-
-            // Text(
-            //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
-            //   style: TextStyles.textStyleRegular,
-            //   textAlign: TextAlign.center,
-            // ),
-          ),
-        ),
-        SizedBox(height: ScreenConstant.defaultHeightSixteen),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              decoration: decoration(),
-              height: 54,
-              width: 230,
-              child: TextButton(
-                child: Text(
-                  "Start Questionnaire",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Roboto-Regular',
-                    color: HexColor('4A358B'),
-                  ),
-                ),
-                onPressed: () {
-                  if (_controller.pagecount2.value <= 4)
-                    _controller.pagecount2.value++;
-                  // else
-                  //   Get.toNamed(signup);
-                },
-              ),
-            ),
-          ],
-        )
-      ]
-    );
-  }
-
-  _buildRetakeQuestionnaire() {
     return ListView(
         padding: ScreenConstant.spacingAllLarge,
         children: [
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-          Text("Rome IV Questionnaire",
+          Text("Rome IV Questionnaire.",
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w500,
-              fontFamily: 'Roboto-Regular',
-              color: HexColor('4A358B'),
-            ),
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-          Padding(
-            padding: EdgeInsets.only(
-              left: 20, right: 20
-            ),
-            child: Text(
-              "You have taken the Rome IV.  "
-                  "You may retake the questionnaire by selecting “Retake Questionnaire” below.",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                fontFamily: 'Roboto-Regular',
-                color: HexColor('4A358B'),
-              ),
-            ),
+            style: TextStyles.textStyleSettingTitle
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Center(
-              child: Image.asset(
-                  'assets/images/my_profile/retakeQuestionnaire.png',
-                  width: ScreenConstant.defaultHeightTwoHundredTen
-              )
+              child: Image.asset(Assets.myProfile5,
+                  width: ScreenConstant.defaultHeightTwoHundredTen)
           ),
           SizedBox(height: ScreenConstant.defaultHeightForty),
-          Text(
-            "Based on the Rome IV criteria \nyou may have IBS-D.",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-              fontFamily: 'Roboto-Regular',
-              color: Colors.black,
+          Card(
+            elevation: 0,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
             ),
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightForty),
-          Padding(
-              padding: EdgeInsets.only(
-                  left: 30, right: 30,
-                  bottom: 30
-              ),
-              child: Text(
-                "Its important to understand that this is not a diagnosis. "
-                    "\n\nContinue to track your symptoms and take these test results "
-                    "and your symptom tracker to your next appointment With your doctor.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Roboto-Regular',
+            child: Padding(
+                padding: EdgeInsets.only(
+                    left: ScreenConstant.defaultHeightForty-10,
+                    right: ScreenConstant.defaultHeightForty-10,
+                    top: ScreenConstant.defaultHeightForty-10,
+                    bottom: ScreenConstant.defaultHeightForty-10,
                 ),
-              )
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: "Physicians worldwide follow the ",
+                    style: TextStyles.textStyleSettingQuestionaireBlack,
+                    children: <TextSpan>[
+                      TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => _buildAbdominalPainDialog(),
+                          text: "Rome IV criteria  ",
+                        style: TextStyles.textStyleSettingQuestionaireBlue,
+                      ),
+                      TextSpan(
+                          text:
+                          "when diagnosing IBS. \n\n"
+                              "The following questions are for informational purposes only and should not substitute"
+                              "for the medical advice of you doctor.")
+                    ],
+                  ),
+                )
 
-            // Text(
-            //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
-            //   style: TextStyles.textStyleRegular,
-            //   textAlign: TextAlign.center,
-            // ),
+              // Text(
+              //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
+              //   style: TextStyles.textStyleRegular,
+              //   textAlign: TextAlign.center,
+              // ),
+            ),
           ),
           SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                decoration: decoration(),
+                decoration: AppShadow().shadowSettingQuestionaire(),
                 height: 54,
                 width: 230,
                 child: TextButton(
                   child: Text(
-                    "Retake Questionnaire",
+                    "Start Questionnaire",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Roboto-Regular',
-                      color: HexColor('4A358B'),
-                    ),
+                    style: TextStyles.textStyleSettingTitle
                   ),
                   onPressed: () {
                     if (_controller.pagecount2.value <= 4)
@@ -319,66 +193,92 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
     );
   }
 
-  /*_buildRomeIVCriteria() {
-    return ListView(physics: ClampingScrollPhysics(), children: [
-      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-      Center(
-          child: Image.asset(Assets.myProfile5,
-              width: ScreenConstant.defaultHeightTwoHundredTen)),
-      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-      Text("No problem. This app can help you understand your IBS",
-          textAlign: TextAlign.center,
-          style:
-          TextStyles.textStyleIntroDescription.apply(color: Colors.black)),
-      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-      Card(
-        elevation: 0,
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Padding(
-            padding: ScreenConstant.spacingAllLarge,
-            child: RichText(
+  _buildRetakeQuestionnaire() {
+    return ListView(
+        padding: ScreenConstant.spacingAllLarge,
+        children: [
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+          Text("Rome IV Questionnaire",
+            textAlign: TextAlign.center,
+              style: TextStyles.textStyleSettingTitle
+          ),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+          Padding(
+            padding: EdgeInsets.only(
+                left: ScreenConstant.defaultHeightTwentyFour, right: ScreenConstant.defaultHeightTwentyFour
+            ),
+            child: Text(
+              "You have taken the Rome IV.  "
+                  "You may retake the questionnaire by selecting “Retake Questionnaire” below.",
               textAlign: TextAlign.center,
-              text: TextSpan(
-                text: "Physicains worldwide follow the ",
-                style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
-                children: <TextSpan>[
-                  TextSpan(
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => _buildRomeIVCriteriaDialog(),
-                      text: "Rome IV Criteria ",
-                      style: TextStyles.textStyleIntroDescription.apply(
-                          color: AppColors.colorBackground, fontSizeDelta: -4)),
-                  TextSpan(
-                      text:
-                      "when diagnosing IBS.\n\nThe following questions are for informational purposes only and should not substitute for the medical advice of you doctor.")
-                ],
-              ),
+              style: TextStyles.textStyleRegular.apply(
+                color: AppColors.colorBlue2
+              )
+            ),
+          ),
+          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+          Center(
+              child: Image.asset(
+                  'assets/images/my_profile/retakeQuestionnaire.png',
+                  width: ScreenConstant.defaultHeightTwoHundredTen
+              )
+          ),
+          SizedBox(height: ScreenConstant.defaultHeightForty),
+          Text(
+            "Based on the Rome IV criteria \nyou may have IBS-"+_controller.IbsTypeValue.value.toUpperCase(),
+            textAlign: TextAlign.center,
+            style: TextStyles.textStyleIntroDescription.apply(
+              color: Colors.black
             )
+          ),
+          SizedBox(height: ScreenConstant.defaultHeightForty),
+          Padding(
+              padding: EdgeInsets.only(
+                  left: ScreenConstant.defaultHeightTwentyFour,
+                  right: ScreenConstant.defaultHeightTwentyFour,
+                  bottom: ScreenConstant.defaultHeightTwentyFour
+              ),
+              child: Text(
+                "Its important to understand that this is not a diagnosis. "
+                    "\n\nContinue to track your symptoms and take these test results "
+                    "and your symptom tracker to your next appointment With your doctor.",
+                textAlign: TextAlign.center,
+                style: TextStyles.textStyleRegular
+              )
 
-          // Text(
-          //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
-          //   style: TextStyles.textStyleRegular,
-          //   textAlign: TextAlign.center,
-          // ),
-        ),
-      ),
-      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-    ]);
-  }*/
-
-  /*_buildRomeIVCriteriaDialog() {
-    Get.dialog(
-      CustomDialog(
-        title: "Rome IV Criteria",
-        description:
-        '''Symptom-based criteria of IBS were first developed in 1989 by an international working group based in Rome (the Rome criteria). These criteria have been updated in the Rome Il, III, and most recently, in 2016, the Rome IV criteria for IBS.  According to the Rome IV diagnostic criteria, IBS is characterised by recurrent abdominal pain for, on average, at least one day per week in the past three months, associated with two or more of the following: * Symptoms related to defecation. * Symptoms associated with a  change in stool frequency. * Symptoms associated with a  change in stool form or appearance, based on the Bristol Stool Form Scale (BSFS).''',
-      ),
+            // Text(
+            //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
+            //   style: TextStyles.textStyleRegular,
+            //   textAlign: TextAlign.center,
+            // ),
+          ),
+          SizedBox(height: ScreenConstant.defaultHeightSixteen),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                decoration: AppShadow().shadowSettingQuestionaire(),
+                height: 54,
+                width: 230,
+                child: TextButton(
+                  child: Text(
+                    "Retake Questionnaire",
+                    textAlign: TextAlign.center,
+                      style: TextStyles.textStyleSettingQuestionaireButton
+                  ),
+                  onPressed: () {
+                    if (_controller.pagecount2.value <= 4)
+                      _controller.pagecount2.value++;
+                    // else
+                    //   Get.toNamed(signup);
+                  },
+                ),
+              ),
+            ],
+          )
+        ]
     );
-  }*/
+  }
 
   _buildAbdominalPain() {
     return Padding(
@@ -438,6 +338,8 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
                       () => CustomElevatedButton2(
                     onTap: () {
                       _controller.isDiagnoisedAbdominalPain.value = true;
+
+                      _controller.updateRomeIVQuestionaire();
                     },
                     text: "Yes",
                     textColor:
@@ -457,6 +359,7 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
                       () => CustomElevatedButton2(
                     onTap: () {
                       _controller.isDiagnoisedAbdominalPain.value = false;
+                      _controller.updateRomeIVQuestionaire();
                     },
                     text: "No",
                     textColor:
@@ -521,6 +424,8 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
                     () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainTimeBowel.value = true;
+
+                    _controller.updateRomeIVQuestionaire();
                   },
                   text: "Yes",
                   textColor: _controller.isabdominalPainTimeBowel.value == true
@@ -539,6 +444,8 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
                     () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainTimeBowel.value = false;
+
+                    _controller.updateRomeIVQuestionaire();
                   },
                   text: "No",
                   textColor: _controller.isabdominalPainTimeBowel.value == false
@@ -576,6 +483,8 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
                     () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainBowelMoreLess.value = true;
+
+                    _controller.updateRomeIVQuestionaire();
                   },
                   text: "Yes",
                   textColor:
@@ -595,6 +504,8 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
                     () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainBowelMoreLess.value = false;
+
+                    _controller.updateRomeIVQuestionaire();
                   },
                   text: "No",
                   textColor:
@@ -668,16 +579,16 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
                 child: Obx(
                       () => CustomElevatedButton2(
                     onTap: () {
-                      _controller.isabdominalPainBowelAppearDifferent.value =
-                      true;
+                      _controller.isabdominalPainBowelAppearDifferent.value = true;
+
+                      _controller.updateRomeIVQuestionaire();
                     },
                     text: "Yes",
-                    textColor:
-                    _controller.isabdominalPainBowelMoreLess.value == true
+                    textColor: _controller.isabdominalPainBowelAppearDifferent.value == true
                         ? AppColors.white
                         : AppColors.colorButton,
                     buttonColor:
-                    _controller.isabdominalPainBowelMoreLess.value == true
+                    _controller.isabdominalPainBowelAppearDifferent.value == true
                         ? AppColors.colorYesButton
                         : Colors.white,
                   ),
@@ -688,23 +599,23 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
                 child: Obx(
                       () => CustomElevatedButton2(
                     onTap: () {
-                      _controller.isabdominalPainBowelAppearDifferent.value =
-                      false;
+                      _controller.isabdominalPainBowelAppearDifferent.value = false;
+
+                      _controller.updateRomeIVQuestionaire();
                     },
                     text: "No",
-                    textColor:
-                    _controller.isabdominalPainBowelMoreLess.value == false
+                    textColor: _controller.isabdominalPainBowelAppearDifferent.value == false
                         ? AppColors.white
                         : AppColors.colorButton,
                     buttonColor:
-                    _controller.isabdominalPainBowelMoreLess.value == false
+                    _controller.isabdominalPainBowelAppearDifferent.value == false
                         ? AppColors.colorYesButton
                         : Colors.white,
                   ),
                 ),
               )
             ],
-          )
+          ),
         ],
       ),
     );
@@ -789,6 +700,8 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
               onTap: () {
                 _controller.selectedStoolType.value = index;
                 _controller.selectStoolType(index);
+
+                _controller.updateRomeIVQuestionaire();
               },
               child: Card(
                 elevation: 0,
@@ -800,14 +713,16 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      vertical: ScreenConstant.defaultHeightSixteen),
+                      vertical: ScreenConstant.defaultHeightSixteen
+                  ),
                   child: Text(model.text,
                       textAlign: TextAlign.center,
                       style: TextStyles.textStyleIntroDescription.apply(
                           color: _controller.selectedStoolType.value == index
                               ? Colors.white
                               : AppColors.colorBackground,
-                          fontSizeDelta: -3)),
+                          fontSizeDelta: -3)
+                  ),
                 ),
 
                 //  ListTile(
@@ -894,7 +809,9 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
                                 style: TextStyles.textStyleIntroDescription
                                     .apply(
                                     color: Colors.black,
-                                    fontSizeDelta: -6)),
+                                    fontSizeDelta: -6
+                                )
+                            ),
                             SizedBox(height: ScreenConstant.sizeExtraSmall),
                             Container(
                               decoration: BoxDecoration(
@@ -946,17 +863,5 @@ class _RomeQuestionnaireState extends State<RomeQuestionnaire> {
     );
   }
 
-  decoration() {
-    return BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.1),
-          blurRadius: 6,
-          offset: Offset(0, 0), // Shadow position
-        ),
-      ],
-    );
-  }
 }
+

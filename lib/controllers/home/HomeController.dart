@@ -32,10 +32,12 @@ class HomeController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxList<TrackHistoryResponseModel> trackHistoryList =
       <TrackHistoryResponseModel>[].obs;
-  RxInt selcetedDailyLogIndex = 0.obs;
-  RxString selcetedDailyLogindividualId = "".obs;
+  RxInt selectedDailyLogIndex = 0.obs;
+  RxString selectedDailyLogindividualId = "".obs;
 
-  RxString selcetedDailyLogCategory = "".obs;
+  RxString selectedDailyLogCategory = "".obs;
+
+  RxString selectedDateLabel = "".obs;
 
   var foodValue;
   onTapped(int index) async {
@@ -47,12 +49,36 @@ class HomeController extends GetxController {
     super.onInit();
     //for login id
     print("loginId:${HiveStore().get(Keys.LOGINID)}");
-    _signUpController.getTrackList();
+    //_signUpController.getTrackList();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+
+    selectedDate = new DateTime.now();
+
+    selectedDateLabel.value = DateFormat.yMMMMd('en_US').format(selectedDate);
+
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();
     connectionStatus.value = isInternet;
   }
+
+
+
+  void goForwardOneDay(){
+   // selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day + 1);
+    selectedDate = selectedDate.add(Duration(days: 1));
+    if (selectedDate.isAfter(new DateTime.now() )){
+      goBackOneDay();
+      return;
+    }
+    selectedDateLabel.value = DateFormat.yMMMMd('en_US').format(selectedDate);
+  }
+
+  void goBackOneDay(){
+   // selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day - 1);
+    selectedDate = selectedDate.subtract(Duration(days: 1));
+    selectedDateLabel.value = DateFormat.yMMMMd('en_US').format(selectedDate);
+  }
+
 
   getAndroidDatePicker() {
     return showDatePicker(
@@ -77,7 +103,7 @@ class HomeController extends GetxController {
     ).then((datePicked) {
       if (datePicked != selectedDate) {
         selectedDate = datePicked;
-        dateController.text = DateFormat.yMMMMd('en_US').format(selectedDate);
+        selectedDateLabel.value = DateFormat.yMMMMd('en_US').format(selectedDate);
       }
     });
   }
@@ -96,7 +122,7 @@ class HomeController extends GetxController {
             if (datePicked != selectedDate) {
               selectedDate = datePicked;
               print("${dateController.text}");
-              dateController.text =
+              selectedDateLabel.value =
                   DateFormat.yMMMMd('en_US').format(selectedDate);
               // ?.toString()
               // ?.split(' ')
