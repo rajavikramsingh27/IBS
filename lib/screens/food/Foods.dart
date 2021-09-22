@@ -2,21 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/food/FoodController.dart';
-import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/AdditionalNoteWidget.dart';
 import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
-import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
-import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
-import 'package:flutter_ibs/widget/ScreenControls/RenderItemChildrenWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
-import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
 
 
@@ -53,9 +47,7 @@ class Foods extends StatelessWidget {
                 onTap: controller.onSave,
               ),
               TextButton(
-                  onPressed: () {
-                    Get.back();
-                  },
+                  onPressed: controller.onCancel,
                   child: Text("Cancel",
                       style: TextStyles.textStyleIntroDescription.apply(
                         color: AppColors.colorskip_also_proceed,
@@ -127,17 +119,24 @@ class Foods extends StatelessWidget {
                                     ? _renderFoodGroup(
                                     controller.formWidgetList.first.list.value)
                                     : Offstage(),
+                                // Render hydration:
                                 RenderWidgetByType().renderTrackableItem(
                                     controller.formWidgetList[controller
                                         .formWidgetList.length - 2],
                                     isLast: true,
                                     onValueChanged: controller.valueChanged),
+                                //Render text input:
                                 RenderWidgetByType().renderTrackableItem(
                                     controller.formWidgetList.last,
                                     onValueChanged: controller.valueChanged),
-                                Positioned.fill(
-                                  bottom: 0,
-                                  child: _buildWavePainter(),
+                                Container(
+                                  height: 70,
+                                  child: Stack(children: [
+                                    Positioned.fill(
+                                      bottom: 0,
+                                      child: _buildWavePainter(),
+                                    ),
+                                  ]),
                                 ),
                                 Text(
                                   "For best results track your food every day.",
@@ -186,11 +185,11 @@ class Foods extends StatelessWidget {
           onTap: () {
             controller.formWidgetList.first.list.options
                 .forEach((element) {
-              if (element.optionDefault) {
-                element.optionDefault = false;
+              if (element.selected) {
+                element.selected = false;
               }
             });
-            model.optionDefault = !model.optionDefault;
+            model.selected = true;
             controller.formWidgetList.first.list.value = model;
             controller.formWidgetList.refresh();
             /*    _controller.modelMealIndex.value = index;

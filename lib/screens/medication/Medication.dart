@@ -108,9 +108,14 @@ class Medication extends StatelessWidget {
                                       onValueChanged: controller.valueChanged
                                   );
                                 }),
-                            Positioned.fill(
-                              bottom: 0,
-                              child: _buildWavePainter(),
+                            Container(
+                              height: 70,
+                              child: Stack(children: [
+                                Positioned.fill(
+                                  bottom: 0,
+                                  child: _buildWavePainter(),
+                                ),
+                              ]),
                             ),
                             Text(
                               "For best results track your medications every day.",
