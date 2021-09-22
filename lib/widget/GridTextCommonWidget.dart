@@ -111,10 +111,14 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
                   SizedBox(height: ScreenConstant.defaultHeightSixteen),
                   ShowMoreWidget(
                     text: "Add relaxation technique",
-                    onTap: ()async{
-                      TagsDefault tagsDefault = TagsDefault(value: _treatmentPlanController.tagsController.text,key: _treatmentPlanController.tagsController.text,category: widget.dataList.tagsDefault.first.category);
+                    onTap: () async {
+                      TagsDefault tagsDefault = TagsDefault(
+                          value: _treatmentPlanController.tagsController.text,
+                          key: _treatmentPlanController.tagsController.text,
+                          category: widget.dataList.tagsDefault.first.category);
 
-                      if(await _treatmentPlanController.addTags(tagValue: tagsDefault)){
+                      if (await _treatmentPlanController.addTags(
+                          tagValue: tagsDefault)) {
                         setState(() {
                           widget.dataList.tagsDefault.add(tagsDefault);
                         });
