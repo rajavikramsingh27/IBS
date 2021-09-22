@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
@@ -46,10 +47,17 @@ class TextInputWidget extends StatelessWidget {
                     //controller: textEditingController,
                     // inputFormatters: <TextInputFormatter>[],
                     textInputAction: TextInputAction.newline,
-                    maxLines: 4,
-                    minLines: 4,
-                    // maxLength: 100,
-                    decoration: InputDecoration(border: InputBorder.none),
+                    maxLines: 8,
+                    minLines: 7,
+                    inputFormatters: <TextInputFormatter>[
+                      LengthLimitingTextInputFormatter(500)
+                    ],
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: ScreenConstant.defaultWidthTen,
+                            vertical: ScreenConstant.defaultHeightTen)),
+
                   ),
                 ),
                // SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
