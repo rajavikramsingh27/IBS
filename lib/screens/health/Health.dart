@@ -9,6 +9,7 @@ import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
+import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 
 class Health extends StatelessWidget {
@@ -104,8 +105,22 @@ class Health extends StatelessWidget {
                                           onValueChanged: controller.valueChanged
                                       );
                                     }),
-                            SizedBox(
-                                height: ScreenConstant.defaultHeightTwenty),
+                            Positioned.fill(
+                              bottom: 0,
+                              child: _buildWavePainter(),
+                            ),
+                            Text(
+                              "For best results track your health & wellness every day.",
+                              textAlign: TextAlign.center,
+                              style: TextStyles.textStyleRegular,
+                            ),
+                            SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                            Text(
+                              '''Click “Save” to log your results''',
+                              textAlign: TextAlign.center,
+                              style: TextStyles.textStyleRegular,
+                            ),
+                            SizedBox(height: ScreenConstant.defaultHeightForty)
                           ],
                         ),
                       ),
@@ -119,6 +134,17 @@ class Health extends StatelessWidget {
         ));
   }
 
+  _buildWavePainter() {
+    return Container(
+      margin:
+      EdgeInsets.only(bottom: 30), //ScreenConstant.defaultHeightSeventy),
+      width: Get.context.mediaQuerySize.width,
+      child: CustomPaint(
+        size: Size(Get.context.mediaQuerySize.width, 52),
+        painter: WavePainter(),
+      ),
+    );
+  }
 
 
 }
