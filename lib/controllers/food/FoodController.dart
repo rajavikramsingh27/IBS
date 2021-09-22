@@ -26,20 +26,21 @@ class FoodController extends GetxController {
       formWidgetList.add(element);
     });
 
+    DateTime now = DateTime.now();
+
+    // Turn off all the selections for food type:
+    formWidgetList.first.list.options
+        .forEach((element) {
+          var start = element.conditionalDefault.time[0].startTime;
+          var end = element.conditionalDefault.time[0].endTime;
+          
+    });
+
     // Refresh the local list so the form can generate:
     formWidgetList.refresh();
 
     super.onInit();
-    /*
-    formattedTime = int.parse(
-            DateFormat.Hm().format(currentDateTime.value).split(":").first)
-        .obs;
-    checkData();
 
-    var v = homeController.trackFoodList.value;
-    print("vdsdfat-- $v");
-
-     */
   }
 
   valueChanged(TrackableSubmitItem submitItem){

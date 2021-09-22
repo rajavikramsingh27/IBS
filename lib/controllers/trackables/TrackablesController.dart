@@ -71,9 +71,10 @@ class TrackablesController extends GetxController {
           break;
         case "medications":
           medications.value = element;
-          break;case "healthWellness":
-        healthWellness.value = element;
-        break;
+          break;
+        case "healthWellness":
+          healthWellness.value = element;
+          break;
       }
     });
   }
