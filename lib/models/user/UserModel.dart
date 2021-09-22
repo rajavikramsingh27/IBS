@@ -227,6 +227,7 @@ class Tracking {
     this.medications,
     this.healthWellness,
     this.foods,
+    this.journal,
   });
 
   List<UserTrackable> symptoms;
@@ -234,6 +235,7 @@ class Tracking {
   List<UserTrackable> medications;
   List<UserTrackable> healthWellness;
   List<UserTrackable> foods;
+  List<UserTrackable> journal;
 
   factory Tracking.fromJson(Map<String, dynamic> json) => Tracking(
     symptoms: json["symptoms"] == null ? null             : List<UserTrackable>.from(json["symptoms"].map((x) => UserTrackable.fromJson(x))),
@@ -241,6 +243,7 @@ class Tracking {
     medications: json["medications"] == null ? null       : List<UserTrackable>.from(json["medications"].map((x) => UserTrackable.fromJson(x))),
     healthWellness: json["healthWellness"] == null ? null : List<UserTrackable>.from(json["healthWellness"].map((x) => UserTrackable.fromJson(x))),
     foods: json["foods"] == null ? null                   : List<UserTrackable>.from(json["foods"].map((x) => UserTrackable.fromJson(x))),
+    journal: json["journal"] == null ? null               : List<UserTrackable>.from(json["journal"].map((x) => UserTrackable.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -249,6 +252,7 @@ class Tracking {
     "medications": medications,
     "healthWellness": healthWellness == null ? null : List<dynamic>.from(healthWellness.map((x) => x)),
     "foods": foods == null ? null : List<dynamic>.from(foods.map((x) => x)),
+    "journal": foods == null ? null : List<dynamic>.from(journal.map((x) => x)),
   };
 }
 

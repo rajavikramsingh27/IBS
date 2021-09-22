@@ -36,6 +36,8 @@ class UserController extends GetxController {
         return _testIsTracking(item, user.value.tracking.healthWellness);
       case "food":
         return _testIsTracking(item, user.value.tracking.foods);
+      case "journal":
+        return _testIsTracking(item, user.value.tracking.journal);
       default:
         throw new Exception("doesUserTrack called on unknown category " + item.tid + ", "+  item.category);
     }
