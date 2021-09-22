@@ -87,7 +87,13 @@ class StartTreatmentPlan extends StatelessWidget {
                           _treatmentPlanController.existTreatmentPlans.contains(data.pid)?CustomElevatedButton2(
                             elevation: 16,
                             widthFactor: 0.7,
-                            onTap: _treatmentPlanController.onStopTreatmentPlan,
+                            onTap: () => Get.dialog(CustomDialog3(
+                              title: "Are you sure?",
+                              description:
+                                  '''Stopping the treatment plan will remove all plan notifications and tracking options associated with this plan. Any data associated with the plan will remain''',
+                              onTap:
+                                  _treatmentPlanController.onStopTreatmentPlan,
+                            )),
                             textColor: AppColors.colorTextStop,
                             text: data.stopPlan.tr,
                             buttonColor: AppColors.white,
