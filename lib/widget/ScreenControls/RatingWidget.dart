@@ -106,6 +106,7 @@ class _RatingWidgetState extends State<RatingWidget> {
                       horizontal: ScreenConstant.defaultWidthTen),
                   child: SfSliderTheme(
                     data: SfSliderThemeData(
+                      labelOffset: Offset(0.0, 26.0),
                       thumbColor: AppColors.colorArrowButton,
                       thumbStrokeWidth: 5,
                       thumbRadius: 16,
