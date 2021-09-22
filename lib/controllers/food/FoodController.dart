@@ -7,9 +7,10 @@ import 'package:flutter_ibs/utils/DateTime.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
-
 class FoodController extends GetxController {
-
+  Rx<DateTime> currentDateTime = DateTime.now().obs;
+  RxInt endTimeDifference = 0.obs;
+  RxInt startTimeDifference = 0.obs;
 
   RxBool loader = false.obs;
 
@@ -18,32 +19,28 @@ class FoodController extends GetxController {
 
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
 
+  bool _isDefaultFoodSet;
 
   @override
   void onInit() async {
     print("Food controller onInit");
-    _trackablesController
-        .food.value.items.forEach((element) {
+    _trackablesController.food.value.items.forEach((element) {
       formWidgetList.add(element);
     });
 
-    DateTime now = DateTime.now();
-
     // Turn off all the selections for food type:
-    formWidgetList.first.list.options
-        .forEach((element) {
-          mealOptionDefault(element);
+    _isDefaultFoodSet = false;
+    formWidgetList.first.list.options.forEach((element) {
+      mealOptionDefault(element);
     });
 
     // Refresh the local list so the form can generate:
     formWidgetList.refresh();
 
     super.onInit();
-
   }
 
   mealOptionDefault(ListOption mealOption) {
-
     var startTime = CustomDateTime().parseTimeAsDateTime(
         dateTime: mealOption.conditionalDefault.time.first.startTime,
         returnFormat: "HH:mm");
@@ -55,32 +52,23 @@ class FoodController extends GetxController {
     var u = CustomDateTime()
         .parseTimeAsDateTime(dateTime: s, returnFormat: "HH:mm");
 
-    startTimeDifference.value = u
-        .difference(startTime)
-        .inSeconds;
-    endTimeDifference.value = (endTime
-        .difference(u)
-        .inSeconds);
-    if ((endTime
-        .difference(u)
-        .inSeconds) > 0 &&
-        (u
-            .difference(startTime)
-            .inSeconds) > 0) {
-      if (!selected.value) {
-        selected.value = true;
-        model.optionDefault = !model.optionDefault;
-        Future.delayed(Duration(seconds: 1), () {
-          _signUpController.food.refresh();
-        });
+    startTimeDifference.value = u.difference(startTime).inSeconds;
+    endTimeDifference.value = (endTime.difference(u).inSeconds);
+    if ((endTime.difference(u).inSeconds) > 0 &&
+        (u.difference(startTime).inSeconds) > 0) {
+      if (!_isDefaultFoodSet) {
+        mealOption.selected = true;
+        formWidgetList.first.list.value = mealOption;
+        _isDefaultFoodSet = true;
       }
+
     }
   }
 
-  valueChanged(TrackableSubmitItem submitItem){
+  valueChanged(TrackableSubmitItem submitItem) {
     var count = foodModel.value.items.length;
     bool isAdded = false;
-    for(var i=0; i < count; i++) {
+    for (var i = 0; i < count; i++) {
       if (foodModel.value.items[i].tid == submitItem.tid) {
         foodModel.value.items[i] = submitItem;
         isAdded = true;
@@ -88,13 +76,12 @@ class FoodController extends GetxController {
       }
     }
 
-    if (!isAdded){
+    if (!isAdded) {
       foodModel.value.items.add(submitItem);
     }
-
   }
 
-  void onSave()async{
+  void onSave() async {
     loader.value = true;
     final data = await ServiceApi().foodTrackApi(bodyData: foodModel.toJson());
     loader.value = false;
@@ -108,12 +95,10 @@ class FoodController extends GetxController {
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
-
   }
-
 }
 
-  /*
+/*
   // onFoodTagSave() {
   //   TagsSendModel foodTags = TagsSendModel(
   //     category: _signUpController.food.value.category,
