@@ -121,19 +121,22 @@ class TreatmentPlanController extends GetxController {
         tags: [],
         trackingDefaults: [],
         pid: selectedPID.value);
-    TrackingSendData trackTreatmentModel = TrackingSendData(
+    /*TrackingSendData trackTreatmentModel = TrackingSendData(
         category: selectedCategory.value,
         // tid: ,
         // kind: "tags",
         // dtype: "arr",
-        value: TrackingValue(arr: ""));
+        value: TrackingValue(arr: ""));*/
 
     treatmentPlanSendModel.value.tags.addAll(selectedTags);
     treatmentPlanSendModel.value.reminders.addAll(reminderList);
     treatmentPlanSendModel.refresh();
-
+    treatmentPlanItemData.forEach((element) {
+      if(element.pid == "plan-sleepImprovement"){
+      }
+    });
     print("data: ${treatmentPlanSendModel.toJson()}");
-    loader.value = true;
+    /*loader.value = true;
     final data = await ServiceApi()
         .postTreatmentPlanAPI(bodyData: treatmentPlanSendModel.toJson());
     loader.value = false;
@@ -144,7 +147,7 @@ class TreatmentPlanController extends GetxController {
     } else {
       loader.value = false;
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-    }
+    }*/
   }
 
   Future<bool> addTags({category, tagValue}) async {
