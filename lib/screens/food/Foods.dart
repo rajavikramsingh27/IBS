@@ -127,11 +127,13 @@ class Foods extends StatelessWidget {
                                     ? _renderFoodGroup(
                                     controller.formWidgetList.first.list.value)
                                     : Offstage(),
+                                // Render hydration:
                                 RenderWidgetByType().renderTrackableItem(
                                     controller.formWidgetList[controller
                                         .formWidgetList.length - 2],
                                     isLast: true,
                                     onValueChanged: controller.valueChanged),
+                                //Render text input:
                                 RenderWidgetByType().renderTrackableItem(
                                     controller.formWidgetList.last,
                                     onValueChanged: controller.valueChanged),
@@ -186,11 +188,11 @@ class Foods extends StatelessWidget {
           onTap: () {
             controller.formWidgetList.first.list.options
                 .forEach((element) {
-              if (element.optionDefault) {
-                element.optionDefault = false;
+              if (element.selected) {
+                element.selected = false;
               }
             });
-            model.optionDefault = !model.optionDefault;
+            model.selected = true;
             controller.formWidgetList.first.list.value = model;
             controller.formWidgetList.refresh();
             /*    _controller.modelMealIndex.value = index;

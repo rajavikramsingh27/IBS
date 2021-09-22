@@ -78,7 +78,7 @@ class _HydrationWidgetState extends State<HydrationWidget> {
                 ),
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
                  _buildHydrationList(num),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+             
               ],
             ),
           ),
