@@ -118,13 +118,13 @@ class _ListWidgetState extends State<ListWidget> {
                                 Image.network(
                                   option.image.active,
                                   width:
-                                      ScreenConstant.defaultWidthTwenty * 2.0,
+                                      ScreenConstant.defaultWidthTwenty * 1.6,
                                 ),
                                 SizedBox(
                                     height: ScreenConstant.defaultHeightTen),
                                 Text("${option.label.tr}",
                                     textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
+                                    //overflow: TextOverflow.ellipsis,
                                     style: TextStyles.textStyleRegular.apply(
                                         color: AppColors.white,
                                         fontSizeDelta: -2)),

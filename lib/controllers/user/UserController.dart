@@ -34,12 +34,35 @@ class UserController extends GetxController {
         return _testIsTracking(item, user.value.tracking.medications);
       case "healthWellness":
         return _testIsTracking(item, user.value.tracking.healthWellness);
-      case "food":
+      case "foods":
         return _testIsTracking(item, user.value.tracking.foods);
       case "journal":
         return _testIsTracking(item, user.value.tracking.journal);
       default:
         throw new Exception("doesUserTrack called on unknown category " + item.tid + ", "+  item.category);
+    }
+  }
+
+  bool doesUserTrackCategory(String category){
+    if (user.value == null){
+      print("** User is null in doesUserTrackCategory $category");
+      return true;
+    }
+    switch (category){
+      case "symptoms":
+        return user.value.tracking.symptoms.length > 0;
+      case "bowelMovements":
+        return user.value.tracking.bowelMovements.length > 0;
+      case "medications":
+        return  user.value.tracking.medications.length > 0;
+      case "healthWellness":
+        return user.value.tracking.healthWellness.length > 0;
+      case "foods":
+        return user.value.tracking.foods.length > 0;
+      case "journal":
+        return user.value.tracking.journal.length > 0;
+      default:
+        throw new Exception("doesUserTrack called on unknown category $category");
     }
   }
 

@@ -72,7 +72,7 @@ class BowelMovementController extends GetxController {
       //  _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
-          title: "Success", message: "Health & Wellness Added Successfully");
+          title: "Success", message: "Bowel Movement Added Successfully");
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }

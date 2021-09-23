@@ -23,14 +23,17 @@ class RenderWidgetByType {
 
   renderTrackableItem(TrackableItem trackableItem,
       {bool isFirst = false, bool isLast = false, bool isChild = false,
+        int count = 0,
         Function(TrackableSubmitItem) onValueChanged
       }) {
 
+/*
     //See if the user tracks this:
     bool isTracked = _userController.doesUserTrack(trackableItem);
     if (!isTracked){
       return Offstage();
     }
+*/
 
     switch (trackableItem.kind) {
       case "rating":

@@ -178,7 +178,7 @@ class SignUpController extends GetxController {
         });
       }
 
-      if (element.category == "food") {
+      if (element.category == "foods") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             foodList.add(el);
@@ -255,7 +255,7 @@ class SignUpController extends GetxController {
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Registered Successfully");
     } else {
-      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+      //CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
 
   }
@@ -264,7 +264,7 @@ class SignUpController extends GetxController {
   /// Walk the Trackables tree adding active elements.
   _recursivelyParseChildren(List<TrackableItem> items){
     items.forEach((element) {
-      if (element.enabledDefault){
+      if (element.enabled){
         _addItemToTrackingList(element);
         element.children.forEach( (child) {
           return _recursivelyParseChildren(child.items);
@@ -282,7 +282,7 @@ class SignUpController extends GetxController {
       case "bowelMovements":
         bowelMoveList.add(item);
         break;
-      case "food":
+      case "foods":
         foodList.add(item);
         break;
       case "healthWellness":
@@ -329,10 +329,12 @@ class SignUpController extends GetxController {
   }
 
   navigateToNextScreen() {
+
     if (isFormStep1valid()) {
       //getTrackList();
       Get.toNamed(signup2);
     }
+
   }
 
   trackingDataSend(String tid) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/symptoms/SymptomsController.dart';
+import 'package:flutter_ibs/controllers/user/UserController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
@@ -12,9 +13,13 @@ import 'package:get/get.dart';
 
 class Symptoms extends StatelessWidget {
   final SymptomsController controller = Get.put(SymptomsController());
+  final UserController _userController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    int _numRendered = 0;
+    int _numSkipped = 0;
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         bottomNavigationBar: Container(
@@ -62,7 +67,7 @@ class Symptoms extends StatelessWidget {
                           children: [
                             SizedBox(height: ScreenConstant.defaultHeightSixty),
                             Text(
-                              "Track Wellness",
+                              "Track Symptoms",
                               style: TextStyles.textStyleIntroDescription.apply(
                                   color: Colors.black, fontSizeDelta: -2),
                               textAlign: TextAlign.center,
@@ -86,28 +91,34 @@ class Symptoms extends StatelessWidget {
                                     physics: ClampingScrollPhysics(),
                                     itemCount: controller.formWidgetList.length,
                                     itemBuilder: (_, mainIndex) {
-                                      var isLast = false;
+                                      bool isLast = false;
+                                      int listLength =
+                                          controller.formWidgetList.length;
 
-                                      if (mainIndex ==
-                                              (controller
-                                                      .formWidgetList.length -
-                                                  2) ||
-                                          mainIndex ==
-                                              (controller
-                                                      .formWidgetList.length -
-                                                  1)) {
+                                      int total = (listLength -2) - ( _numSkipped ) ;
+                                      if ( mainIndex >= total ){
                                         // If it's the last one or two... because additional notes could be after.
                                         isLast = true;
                                       }
-                                      //return Offstage();
-                                      return RenderWidgetByType()
-                                          .renderTrackableItem(
-                                              controller
-                                                  .formWidgetList[mainIndex],
-                                              isFirst: mainIndex == 0,
-                                              isLast: isLast,
-                                              onValueChanged:
-                                                  controller.valueChanged);
+print("IDx $mainIndex  total $total - $isLast");
+
+                                      bool isTracked =
+                                      _userController.doesUserTrack(controller
+                                          .formWidgetList[mainIndex]);
+                                      if (isTracked) {
+                                        _numRendered++;
+                                        return RenderWidgetByType()
+                                            .renderTrackableItem(
+                                            controller
+                                                .formWidgetList[mainIndex],
+                                            isFirst: _numRendered == 1,
+                                            isLast: isLast,
+                                            onValueChanged:
+                                            controller.valueChanged);
+                                      } else {
+                                        _numSkipped ++;
+                                        return Offstage();
+                                      }
                                     }),
                             // SizedBox(
                             //  height: ScreenConstant.defaultHeightTwenty),
