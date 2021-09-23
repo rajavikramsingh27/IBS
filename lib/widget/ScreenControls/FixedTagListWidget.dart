@@ -54,7 +54,6 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     return Stack(
       children: [
         Positioned.fill(
@@ -64,50 +63,63 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
             color: AppColors.colorYesButton,
           ),
         ),
-        Container(
+        Card(
           color: AppColors.colorBackground,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(widget.isFirst ? 20 : 0),
+                  topRight: Radius.circular(widget.isFirst ? 20 : 0),
+                  bottomLeft: Radius.circular(widget.isLast ? 20 : 0),
+                  bottomRight: Radius.circular(widget.isLast ? 20 : 0))),
           margin: EdgeInsets.only(
-            left: ScreenConstant.defaultWidthTwenty,
-            right: ScreenConstant.defaultWidthTwenty,
+            left: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
+            right: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
           ),
-          padding: EdgeInsets.symmetric(
-              horizontal: ScreenConstant.defaultWidthTwenty),
-          child: Column(
-            children: [
-              SizedBox(height: ScreenConstant.defaultHeightTwenty),
-              Text(widget.trackableItem.name.tr,
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.white, fontSizeDelta: -3)),
-              SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-              Text(
-                widget.trackableItem.description.tr,
-                textAlign: TextAlign.center,
-                style: TextStyles.textStyleRegular
-                    .apply(color: AppColors.colorSkipButton),
-              ),
-              SizedBox(height: ScreenConstant.defaultHeightTwenty),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ScreenConstant.defaultWidthTen),
-                child: Wrap(
-                  children: TrackableItemUtils().addUserTagsToList(tags: widget.trackableItem.tags.tagsDefault, category: widget.trackableItem.tags.category)
-                      .map((item) => InkWell(
-                    child: TagWidget(
-                      tag: item,
-                      onValueChanged: _userTagListTapped,
-                    ),
-                  ))
-                      .toList()
-                      .cast<Widget>(),
+          child: Container(
+            color: AppColors.colorBackground,
+            margin: EdgeInsets.only(
+              left: ScreenConstant.defaultWidthTwenty,
+              right: ScreenConstant.defaultWidthTwenty,
+            ),
+            padding: EdgeInsets.symmetric(
+                horizontal: ScreenConstant.defaultWidthTwenty),
+            child: Column(
+              children: [
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Text(widget.trackableItem.name.tr,
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.white, fontSizeDelta: -3)),
+                SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                Text(
+                  widget.trackableItem.description.tr,
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleRegular
+                      .apply(color: AppColors.colorSkipButton),
                 ),
-              ),
-              SizedBox(height: ScreenConstant.defaultHeightTwenty),
-              Visibility(
-                  visible: !widget.isChild,
-                  child: Divider(
-                      thickness: 1,
-                      color: AppColors.white.withOpacity(0.12))),
-            ],
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ScreenConstant.defaultWidthTen),
+                  child: Wrap(
+                    children: TrackableItemUtils().addUserTagsToList(tags: widget.trackableItem.tags.tagsDefault, category: widget.trackableItem.tags.category)
+                        .map((item) => InkWell(
+                      child: TagWidget(
+                        tag: item,
+                        onValueChanged: _userTagListTapped,
+                      ),
+                    ))
+                        .toList()
+                        .cast<Widget>(),
+                  ),
+                ),
+                SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                Visibility(
+                    visible: !widget.isLast && !widget.isChild,
+                    child: Divider(
+                        thickness: 1,
+                        color: AppColors.white.withOpacity(0.12))),
+              ],
+            ),
           ),
         ),
       ],
