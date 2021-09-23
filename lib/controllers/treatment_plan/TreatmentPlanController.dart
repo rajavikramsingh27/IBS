@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/Store/ShareStore.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanSendModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
+import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/tags/TagsResponseModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
@@ -22,7 +24,10 @@ class TreatmentPlanController extends GetxController {
   RxList<TreatmentPlanItemData> treatmentPlanItemData =
       <TreatmentPlanItemData>[].obs;
 
-  RxList<Tag> selectedTags = <Tag>[].obs;
+  RxList<dynamic> selectedTagsList = <dynamic>[].obs;
+  RxList<TagsDefault> selectedTags = <TagsDefault>[].obs;
+  RxList<ListOption> selectedOptionList = <ListOption>[].obs;
+
   Rx<String> selectedCategory = "".obs;
   Rx<String> selectedTime = "01:00".obs;
   Rx<String> selectedDay = "option_every_day".obs;
@@ -41,12 +46,15 @@ class TreatmentPlanController extends GetxController {
   RxString dayValue = "".obs;
   RxString timeValue = "".obs;
   RxString messageValue = "".obs;
+  LoginResponseModel userData;
+  RxList<String> existTreatmentPlans = <String>[].obs;
   @override
   void onInit() async {
     super.onInit();
     pageController.addListener(() {
       currentPage.value = pageController.page;
     });
+    getExistTreatmentPlans();
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();
     connectionStatus.value = isInternet;
@@ -77,12 +85,26 @@ class TreatmentPlanController extends GetxController {
         ));
   }
 
-  void onTagTapped({Tag model}) {
-    if (selectedTags.contains(model)) {
-      selectedTags.remove(model);
-    } else {
-      selectedTags.add(model);
+  void onTagTapped({model}) {
+    if(model is TagsDefault){
+      if (selectedTags.contains(model)) {
+        selectedTags.remove(model);
+      } else {
+        selectedTags.add(model);
+      }
+    }else{
+      if (selectedOptionList.contains(model)) {
+        selectedOptionList.remove(model);
+      } else {
+        selectedOptionList.add(model);
+      }
     }
+    if (selectedTagsList.contains(model)) {
+      selectedTagsList.remove(model);
+    } else {
+      selectedTagsList.add(model);
+    }
+    selectedTagsList.refresh();
   }
 
   void addReminder() {
@@ -97,7 +119,9 @@ class TreatmentPlanController extends GetxController {
   }
 
   clearData() {
-    selectedTags = <Tag>[].obs;
+    selectedTagsList = <dynamic>[].obs;
+    selectedOptionList = <ListOption>[].obs;
+    selectedTags = <TagsDefault>[].obs;
     selectedCategory = "".obs;
     selectedTime = "".obs;
     selectedDay = "".obs;
@@ -116,19 +140,22 @@ class TreatmentPlanController extends GetxController {
         tags: [],
         trackingDefaults: [],
         pid: selectedPID.value);
-    TrackingSendData trackTreatmentModel = TrackingSendData(
+    /*TrackingSendData trackTreatmentModel = TrackingSendData(
         category: selectedCategory.value,
         // tid: ,
         // kind: "tags",
         // dtype: "arr",
-        value: TrackingValue(arr: ""));
+        value: TrackingValue(arr: ""));*/
 
-    treatmentPlanSendModel.value.tags.addAll(selectedTags);
+    treatmentPlanSendModel.value.tags.addAll(selectedTagsList);
     treatmentPlanSendModel.value.reminders.addAll(reminderList);
     treatmentPlanSendModel.refresh();
-
+    treatmentPlanItemData.forEach((element) {
+      if(element.pid == "plan-sleepImprovement"){
+      }
+    });
     print("data: ${treatmentPlanSendModel.toJson()}");
-    loader.value = true;
+    /*loader.value = true;
     final data = await ServiceApi()
         .postTreatmentPlanAPI(bodyData: treatmentPlanSendModel.toJson());
     loader.value = false;
@@ -139,7 +166,7 @@ class TreatmentPlanController extends GetxController {
     } else {
       loader.value = false;
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-    }
+    }*/
   }
 
   Future<bool> addTags({category, tagValue}) async {
@@ -172,5 +199,12 @@ class TreatmentPlanController extends GetxController {
       loader.value = false;
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
+  }
+
+  void getExistTreatmentPlans() {
+    userData = ShareStore().getData(store: KeyStore.userprofile);
+    userData.treatmentPlans.forEach((element) {
+      existTreatmentPlans.add(element["pid"]);
+    });
   }
 }
