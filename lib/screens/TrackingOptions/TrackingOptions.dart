@@ -30,13 +30,16 @@ class TrackingOptions extends StatelessWidget {
           leading: LeadingBackButton(
             onPressed: () => Get.back(),
           ),
+
           backgroundColor: Colors.white,
           centerTitle: true,
+
           title: Text(
             "TRACKING OPTIONS",
             style: TextStyles.appBarTitle,
           ),
         ),
+
         body: GetBuilder<MyAccountController>(
             init: MyAccountController(),
             initState: (state) {
@@ -48,8 +51,7 @@ class TrackingOptions extends StatelessWidget {
               return Obx(() => _controller.loader.value
                   ? Center(
                 child: CircularProgressIndicator(),
-              )
-                  : Stack(
+              )  :  Stack(
                 children: [
                   ListView(
                     // physics: ClampingScrollPhysics(),
@@ -64,11 +66,15 @@ class TrackingOptions extends StatelessWidget {
                             buttonColor: AppColors.colorBackground,
                             widthFactor: 0.8,
                             text: "Save Changes",
+
                             onTap: () {
-                              authController.updateTrackingOption();;
+                              authController.updateTrackingOption();
                             },
+
                           )
+
                       ),
+
                       // SizedBox(height: ScreenConstant.defaultHeightTwenty),
                       // Container(
                       //     child: CustomElevatedButton2(

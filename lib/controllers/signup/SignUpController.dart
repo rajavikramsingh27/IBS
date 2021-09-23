@@ -329,10 +329,12 @@ class SignUpController extends GetxController {
   }
 
   navigateToNextScreen() {
+
     if (isFormStep1valid()) {
       //getTrackList();
       Get.toNamed(signup2);
     }
+
   }
 
   trackingDataSend(String tid) {
