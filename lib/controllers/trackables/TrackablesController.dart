@@ -63,7 +63,7 @@ class TrackablesController extends GetxController {
         case "bowelMovements":
           bowelMovements.value = element;
           break;
-        case "food":
+        case "foods":
           food.value = element;
           break;
         case "journal":

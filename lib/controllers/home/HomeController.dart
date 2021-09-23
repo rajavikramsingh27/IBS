@@ -210,7 +210,7 @@ class HomeController extends GetxController {
             isScrollControlled: true);
 
         break;
-      case "food":
+      case "foods":
         {
           if (connectionStatus.value) {
             loader.value = true;

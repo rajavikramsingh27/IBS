@@ -15,7 +15,7 @@ String foodSendModelToJson(FoodSendModel data) => json.encode(data.toJson());
 
 class FoodSendModel {
   FoodSendModel({
-    this.category = "food",
+    this.category = "foods",
     this.items,
     this.trackedAt,
   });
@@ -76,7 +76,7 @@ class FoodList {
             ? null
             : List<FoodSubList>.from(
                 json["children"].map((x) => FoodSubList.fromJson(x))),
-        category: "food",
+        category: "foods",
   );
 
   Map<String, dynamic> toJson() => {
@@ -87,7 +87,7 @@ class FoodList {
         "children": children == null
             ? null
             : List<dynamic>.from(children.map((x) => x.toJson())),
-        "category": "food",
+        "category": "foods",
       };
 }
 
@@ -112,7 +112,7 @@ class FoodSubList {
         dtype: json["dtype"] == null ? null : json["dtype"],
         value:
             json["value"] == null ? null : FoodSubValue.fromJson(json["value"]),
-        category: "food",
+        category: "foods",
       );
 
   Map<String, dynamic> toJson() => {
@@ -120,7 +120,7 @@ class FoodSubList {
         "kind": kind == null ? null : kind,
         "dtype": dtype == null ? null : dtype,
         "value": value == null ? null : value.toJson(),
-        "category": "food",
+        "category": "foods",
       };
 }
 
