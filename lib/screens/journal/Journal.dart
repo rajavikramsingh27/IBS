@@ -18,6 +18,7 @@ class Journal extends StatelessWidget {
   final JournalController _journalController = Get.put(JournalController());
   final TrackablesController _trackablesController = Get.find();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,11 +82,7 @@ class Journal extends StatelessWidget {
                           SizedBox(height: ScreenConstant.defaultHeightForty),
                           Stack(
                             children: [
-                              Positioned.fill(
-                                top: ScreenConstant.defaultHeightOneHundred *
-                                    1.1,
-                                child: _buildWavePainter(),
-                              ),
+
                               Container(
                                 margin: EdgeInsets.only(
                                   left: ScreenConstant.defaultWidthTwenty,
@@ -99,8 +96,6 @@ class Journal extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(
-                              height: ScreenConstant.defaultHeightTwentyFour),
                           Text(
                             '''Click “Save” to log your journal entry''',
                             textAlign: TextAlign.center,

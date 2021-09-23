@@ -63,7 +63,7 @@ class TrackablesController extends GetxController {
         case "bowelMovements":
           bowelMovements.value = element;
           break;
-        case "food":
+        case "foods":
           food.value = element;
           break;
         case "journal":
@@ -71,9 +71,10 @@ class TrackablesController extends GetxController {
           break;
         case "medications":
           medications.value = element;
-          break;case "healthWellness":
-        healthWellness.value = element;
-        break;
+          break;
+        case "healthWellness":
+          healthWellness.value = element;
+          break;
       }
     });
   }

@@ -104,7 +104,7 @@ class SignInController extends GetxController {
 
       if (data is UserModel) {
         HiveStore().put(Keys.USERID, data.id);
-
+        ShareStore().saveData(store: KeyStore.userprofile,object: data);
         CustomSnackBar().successSnackBar(
             title: "Success", message: "SignIn Successfully"
         );

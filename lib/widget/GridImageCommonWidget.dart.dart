@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/ShowMoreWidget.dart';
+import 'package:get/get.dart';
 
 class GridImageCommonWidget extends StatefulWidget {
   final String title;
@@ -35,6 +38,13 @@ class GridImageCommonWidget extends StatefulWidget {
 }
 
 class _GridImageCommonWidgetState extends State<GridImageCommonWidget> {
+  final TreatmentPlanController _treatmentPlanController = Get.find();
+  @override
+  void initState() {
+    super.initState();
+    _treatmentPlanController.selectedTagsList = <ListOption>[].obs;
+    _treatmentPlanController.selectedTagsList.refresh();
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -62,10 +72,17 @@ class _GridImageCommonWidgetState extends State<GridImageCommonWidget> {
           itemBuilder: (BuildContext context, int index) {
             var model = widget.dataList.options[index];
             return InkWell(
-              onTap: widget.onTap,
+              onTap: () {
+                setState(() {
+                   model.optionDefault = !model.optionDefault;
+                  _treatmentPlanController.onTagTapped(model: model);
+                });
+              },
               child: Card(
                   elevation: 0,
-                  color: AppColors.colorSymptomsGridBg,
+                  color: model.optionDefault
+                      ? AppColors.colorCloseLight
+                      : AppColors.colorSymptomsGridBg,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),

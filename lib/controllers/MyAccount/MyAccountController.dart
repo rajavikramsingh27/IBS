@@ -1,7 +1,9 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/models/MyAccount/MyAccount.dart';
+import 'package:flutter_ibs/models/signup/SignupSendModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
@@ -14,6 +16,7 @@ import 'package:flutter_ibs/screens/TrackingOptions/TrackingOptions.dart';
 RxBool loader = false.obs;
 
 class MyAccountController extends GetxController {
+  TrackablesController trackablesController = Get.find();
 
   RxString settingType = "0".obs;
 
@@ -66,22 +69,13 @@ class MyAccountController extends GetxController {
   RxBool isabdominalPainBowelMoreLess = false.obs;
   RxBool isabdominalPainBowelAppearDifferent = false.obs;
 
-  List<TrackableItem> symptomsList = [];
-  List<TrackableItem> bowelMoveList = [];
-  List<TrackableItem> foodList = [];
-  List<TrackableItem> wellnessList = [];
-  List<TrackableItem> medicationList = [];
-  List<TrackableItem> journalList = [];
+
+  List<TrackableItem> trackingUpdatesList;
+
 
   Rx<TrackablesListModel> trackList = TrackablesListModel().obs;
   RxBool connectionStatus = false.obs;
 
-  Rx<TrackableItem> symptoms = TrackableItem().obs;
-  Rx<TrackableItem> bowelMovements = TrackableItem().obs;
-  Rx<TrackableItem> food = TrackableItem().obs;
-  Rx<TrackableItem> journal = TrackableItem().obs;
-  Rx<TrackableItem> medications = TrackableItem().obs;
-  Rx<TrackableItem> healthWellness = TrackableItem().obs;
 
   RxList<ListOption> listFoodOptions = <ListOption>[].obs;
 
@@ -117,7 +111,7 @@ class MyAccountController extends GetxController {
         }
       } catch (error) {
         CustomSnackBar().errorSnackBar(
-            title: "Error!", message: error.message.toString()
+            title: "Error!", message: error.toString()
         );
         loader.value = false;
       }
@@ -243,29 +237,23 @@ class MyAccountController extends GetxController {
   }
 
   updateTrackingOption() async {
-    symptomsList = [];
-    bowelMoveList = [];
-    foodList = [];
-    wellnessList = [];
-    medicationList = [];
-    journalList = [];
-
-    trackList.value.data.forEach((element) {
+    trackingUpdatesList = [];
+    trackablesController.trackList.value.data.forEach((element) {
       _recursivelyParseChildren(element.items);
     });
 
-    TrackingSendModel trackModel = TrackingSendModel(
-      symptoms: symptomsList,
-      bowelMovements: bowelMoveList,
-      food: foodList,
-      healthWellness: wellnessList,
-      medications: medicationList,
-    );
+    Map<String, dynamic> toSend = new Map();
+    toSend.assign("tracking", List<dynamic>.from(trackingUpdatesList.map((x) => x.toJson())) );
 
     data = await ServiceApi().updateTrackingOption(
-      bodyData: trackModel.toJson(),
+      bodyData: toSend,
     );
 
+    Get.back();
+
+    CustomSnackBar().successSnackBar(
+        title: "Success!", message:"Tracking options updated"
+    );
   }
 
 // ToDo Setting My IBS Diagnosis functions
@@ -348,6 +336,7 @@ class MyAccountController extends GetxController {
 
   }
 
+  /*
   getTrackList() async {
     if (connectionStatus.value) {
       loader.value = true;
@@ -366,6 +355,8 @@ class MyAccountController extends GetxController {
     }
   }
 
+
+
   setUITrackingOption() {
     getSymptoms();
     getBowelMovements();
@@ -374,7 +365,7 @@ class MyAccountController extends GetxController {
     getMedicationList();
     getHealthWellness();
   }
-
+*/
   // trackingDataSend(String tid) {
   //   trackList.value.data.forEach((element) {
   //     if (element.category == tid) {
@@ -386,7 +377,7 @@ class MyAccountController extends GetxController {
   //     }
   //   });
   // }
-
+/*
   getSymptoms() {
     trackList.value.data.forEach((element) {
       if (element.tid == "symptoms") {
@@ -405,7 +396,7 @@ class MyAccountController extends GetxController {
 
   getFoods() {
     trackList.value.data.forEach((element) {
-      if (element.tid == "food") {
+      if (element.tid == "foods") {
         food.value = element;
       }
     });
@@ -434,41 +425,18 @@ class MyAccountController extends GetxController {
       }
     });
   }
-
+*/
   _recursivelyParseChildren(List<TrackableItem> items){
     items.forEach((element) {
-      if (element.enabledDefault){
-        _addItemToTrackingList(element);
+        trackingUpdatesList.add(element);
         element.children.forEach( (child) {
           return _recursivelyParseChildren(child.items);
         });
-      }
+
     });
   }
 
-  _addItemToTrackingList(dynamic item){
 
-    switch(item.category){
-      case "symptoms":
-        symptomsList.add(item);
-        break;
-      case "bowelMovements":
-        bowelMoveList.add(item);
-        break;
-      case "food":
-        foodList.add(item);
-        break;
-      case "healthWellness":
-        wellnessList.add(item);
-        break;
-      case "medications":
-        medicationList.add(item);
-        break;
-      case "journal":
-        journalList.add(item);
-        break;
-    }
-  }
 
 }
 

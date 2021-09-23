@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/WavePainter.dart';
@@ -25,49 +27,56 @@ class TextInputWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Positioned.fill(
-          top: 0,
-          child: _buildWavePainter(),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-            children: [
-              Text(this.trackableItem.name.tr ?? "",
-                  textAlign: TextAlign.center,
-                  style: TextStyles.textStyleIntroDescription
-                      .apply(color: Colors.black, fontSizeDelta: -3)),
-              Card(
-                margin: ScreenConstant.spacingAllMedium,
-                shadowColor: Colors.grey,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16)),
-                child: TextFormField(
-                  //controller: textEditingController,
-                  // inputFormatters: <TextInputFormatter>[],
-                  textInputAction: TextInputAction.newline,
-                  maxLines: 4,
-                  minLines: 4,
-                  // maxLength: 100,
-                  decoration: InputDecoration(border: InputBorder.none),
+        Container(
+          color: AppColors.colorYesButton,
+          child:
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+            child: Column(
+              children: [
+                Text(this.trackableItem.name.tr ?? "",
+                    textAlign: TextAlign.center,
+                    style: TextStyles.textStyleIntroDescription
+                        .apply(color: Colors.black, fontSizeDelta: -3)),
+                Card(
+                  margin: ScreenConstant.spacingAllMedium,
+                  shadowColor: Colors.grey,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)),
+                  child: TextFormField(
+                    onChanged: (dynamic newValue) {
+                      onValueChanged(TrackableSubmitItem(
+                        tid: trackableItem.tid,
+                        category: trackableItem.category,
+                        kind: trackableItem.kind,
+                        dtype: "str",
+                        value: TrackableSubmitItemValue(str: newValue),
+                      ));
+                    },
+                    //controller: textEditingController,
+                    // inputFormatters: <TextInputFormatter>[],
+                    textInputAction: TextInputAction.newline,
+                    maxLines: 8,
+                    minLines: 7,
+                    inputFormatters: <TextInputFormatter>[
+                      LengthLimitingTextInputFormatter(500)
+                    ],
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: ScreenConstant.defaultWidthTen,
+                            vertical: ScreenConstant.defaultHeightTen)),
+
+                  ),
                 ),
-              ),
-              SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-            ],
+               // SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+              ],
+            ),
           ),
-        ),
+      )
       ],
     );
   }
 
-  _buildWavePainter() {
-    return Container(
-      margin: EdgeInsets.only(bottom: ScreenConstant.defaultHeightTwenty),
-      width: Get.context.mediaQuerySize.width,
-      child: CustomPaint(
-        size: Size(Get.context.mediaQuerySize.width, 90),
-        painter: WavePainter(),
-      ),
-    );
-  }
+
 }

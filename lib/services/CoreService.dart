@@ -42,8 +42,6 @@ class CoreService {
                 serviceName: endpoint, objectId: objectId
             );
 
-            // print('responseresponseresponseresponseresponseresponse');
-            // print(response);
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
@@ -64,7 +62,7 @@ class CoreService {
             }
           } catch (er) {
             // Catch  unknown error
-            print(er.errorMessage());
+            print(er);
           }
         }
         break;
@@ -108,7 +106,7 @@ class CoreService {
             // Check the error type as above and handle it
           } catch (er) {
             // Catch  unknown error
-print(er.toString());
+print(er);
           }
         }
         break;
@@ -165,7 +163,7 @@ print(er.toString());
             }
           } catch (er) {
             // Catch  unknown error
-            print(er.errorMessage());
+            print(er);
           }
         }
         break;
@@ -352,6 +350,7 @@ enum METHOD {
   PATCH,
   MULTIPART,
   FIND,
+  POST,
   AUTHENTICATE,
   REAUTHENTICATE
 }

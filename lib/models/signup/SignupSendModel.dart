@@ -204,9 +204,9 @@ class TrackingSendModel {
         bowelMovements: json["bowelMovements"] == null
             ? null
             : List<TrackableItem>.from(json["bowelMovements"].map((x) => x)),
-        food: json["food"] == null
+        food: json["foods"] == null
             ? null
-            : List<TrackableItem>.from(json["food"].map((x) => x)),
+            : List<TrackableItem>.from(json["foods"].map((x) => x)),
         healthWellness: json["healthWellness"] == null
             ? null
             : List<TrackableItem>.from(
