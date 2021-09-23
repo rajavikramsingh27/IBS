@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -168,6 +169,8 @@ class StartTreatmentPlan extends StatelessWidget {
                                             .planDetails.details.first.body.tr,
                                         tags: _treatmentPlanController
                                             .selectedTags,
+                                        optionList: _treatmentPlanController
+                                            .selectedOptionList,
                                       ),
                                     ],
                                   )),

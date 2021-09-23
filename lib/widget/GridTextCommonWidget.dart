@@ -39,6 +39,13 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
   final TreatmentPlanController _treatmentPlanController = Get.find();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _treatmentPlanController.selectedTagsList = <TagsDefault>[].obs;
+    _treatmentPlanController.selectedTagsList.refresh();
+  }
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -56,7 +63,7 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
         ),
         widget.dataList.tagsDefault.length > 0
             ? SizedBox(height: ScreenConstant.defaultHeightTwentyFour)
-            : Offstage,
+            : Offstage(),
         Wrap(
           children: widget.dataList.tagsDefault
               .map((item) => InkWell(
