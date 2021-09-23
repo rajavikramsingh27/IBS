@@ -85,14 +85,8 @@ class TreatmentPlanController extends GetxController {
   void onTagTapped({model}) {
     if (selectedTags.contains(model)) {
       selectedTags.remove(model);
-      (model is ListOption)
-          ? model?.optionDefault = false
-          : model?.required = false;
     } else {
       selectedTags.add(model);
-      (model is ListOption)
-          ? model?.optionDefault = true
-          : model?.required = true;
     }
   }
 

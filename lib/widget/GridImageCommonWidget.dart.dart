@@ -67,7 +67,7 @@ class _GridImageCommonWidgetState extends State<GridImageCommonWidget> {
             return InkWell(
               onTap: () {
                 setState(() {
-                  // model.option = !model.required;
+                   model.optionDefault = !model.optionDefault;
                   _treatmentPlanController.onTagTapped(model: model);
                 });
               },
