@@ -24,7 +24,10 @@ class TreatmentPlanController extends GetxController {
   RxList<TreatmentPlanItemData> treatmentPlanItemData =
       <TreatmentPlanItemData>[].obs;
 
-  RxList<dynamic> selectedTags = <dynamic>[].obs;
+  RxList<dynamic> selectedTagsList = <dynamic>[].obs;
+  RxList<TagsDefault> selectedTags = <TagsDefault>[].obs;
+  RxList<ListOption> selectedOptionList = <ListOption>[].obs;
+
   Rx<String> selectedCategory = "".obs;
   Rx<String> selectedTime = "01:00".obs;
   Rx<String> selectedDay = "option_every_day".obs;
@@ -83,11 +86,25 @@ class TreatmentPlanController extends GetxController {
   }
 
   void onTagTapped({model}) {
-    if (selectedTags.contains(model)) {
-      selectedTags.remove(model);
-    } else {
-      selectedTags.add(model);
+    if(model is TagsDefault){
+      if (selectedTags.contains(model)) {
+        selectedTags.remove(model);
+      } else {
+        selectedTags.add(model);
+      }
+    }else{
+      if (selectedOptionList.contains(model)) {
+        selectedOptionList.remove(model);
+      } else {
+        selectedOptionList.add(model);
+      }
     }
+    if (selectedTagsList.contains(model)) {
+      selectedTagsList.remove(model);
+    } else {
+      selectedTagsList.add(model);
+    }
+    selectedTagsList.refresh();
   }
 
   void addReminder() {
@@ -102,7 +119,9 @@ class TreatmentPlanController extends GetxController {
   }
 
   clearData() {
-    selectedTags = <dynamic>[].obs;
+    selectedTagsList = <dynamic>[].obs;
+    selectedOptionList = <ListOption>[].obs;
+    selectedTags = <TagsDefault>[].obs;
     selectedCategory = "".obs;
     selectedTime = "".obs;
     selectedDay = "".obs;
@@ -128,7 +147,7 @@ class TreatmentPlanController extends GetxController {
         // dtype: "arr",
         value: TrackingValue(arr: ""));*/
 
-    treatmentPlanSendModel.value.tags.addAll(selectedTags);
+    treatmentPlanSendModel.value.tags.addAll(selectedTagsList);
     treatmentPlanSendModel.value.reminders.addAll(reminderList);
     treatmentPlanSendModel.refresh();
     treatmentPlanItemData.forEach((element) {
