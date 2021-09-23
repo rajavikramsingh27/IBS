@@ -72,7 +72,9 @@ class CoreService {
         {
           try {
             final response = await flutterFeathersjs.create(
-                serviceName: endpoint, data: data);
+                serviceName: endpoint,
+                data: data
+            );
 
             return response;
             // responseJson = _returnResponse(response);
@@ -107,7 +109,6 @@ class CoreService {
             // Check the error type as above and handle it
           } catch (er) {
             // Catch  unknown error
-
           }
         }
         break;

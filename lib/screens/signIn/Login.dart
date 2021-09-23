@@ -62,7 +62,8 @@ class SignIn extends StatelessWidget {
               _buildLoginForm(),
             ],
           ),
-        )));
+        ))
+    );
   }
 
   _buildLoginForm() {

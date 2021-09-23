@@ -69,6 +69,7 @@ class IBS extends StatelessWidget {
         splashColor: Colors.transparent,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+
       localizationsDelegates: [
         // THIS CLASS WILL BE ADDED LATER
         // A class which loads the translations from JSON files
@@ -78,6 +79,7 @@ class IBS extends StatelessWidget {
         // Built-in localization for text direction LTR/RTL
         GlobalWidgetsLocalizations.delegate,
       ],
+
       translations: LocalizationService(),
       supportedLocales: LocalizationService.locales,
       fallbackLocale: LocalizationService.fallbackLocale,

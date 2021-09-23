@@ -436,6 +436,9 @@ class MyAccountController extends GetxController {
   }
 
   _recursivelyParseChildren(List<TrackableItem> items){
+    print('itemsitemsitemsitemsitemsitemsitemsitemsitemsitems');
+    print(items);
+
     items.forEach((element) {
       if (element.enabledDefault){
         _addItemToTrackingList(element);

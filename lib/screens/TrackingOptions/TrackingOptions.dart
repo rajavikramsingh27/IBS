@@ -58,6 +58,7 @@ class TrackingOptions extends StatelessWidget {
                       _buildTrackingList(),
                       SizedBox(height: ScreenConstant.screenWidthThird/4),
                       Container(
+
                           child: CustomElevatedButton2(
                             textColor: Colors.white,
                             buttonColor: AppColors.colorBackground,
@@ -67,7 +68,6 @@ class TrackingOptions extends StatelessWidget {
                             onTap: () {
                               authController.updateTrackingOption();
                             },
-
                           )
 
                       ),
