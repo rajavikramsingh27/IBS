@@ -26,12 +26,15 @@ class ServiceApi {
   Future<dynamic> signupApi({Map bodyData}) async {
     var result = await CoreService()
         .apiService(method: METHOD.CREATE, endpoint: SIGNUP, data: bodyData);
-    return SignupResponseModel.fromJson(result);
+    if (result != null){
+      return SignupResponseModel.fromJson(result);
+    }
   }
 
   Future<TrackablesListModel> getTrackables() async {
     var result = await CoreService()
         .apiService(method: METHOD.FIND, endpoint: TRACK_LIST);
+
     return TrackablesListModel.fromJson(result);
   }
 

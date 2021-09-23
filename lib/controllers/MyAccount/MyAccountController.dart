@@ -391,7 +391,7 @@ class MyAccountController extends GetxController {
 
   getFoods() {
     trackList.value.data.forEach((element) {
-      if (element.tid == "food") {
+      if (element.tid == "foods") {
         food.value = element;
       }
     });

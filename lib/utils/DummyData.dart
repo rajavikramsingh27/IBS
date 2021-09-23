@@ -64,7 +64,7 @@ class DummyData {
     TrackFlow(text: "Bowel Movements", image: Assets.bowel, category: "bowelMovements"),
     TrackFlow(text: "Medication & Supplements", image: Assets.medication, category: "medications"),
     TrackFlow(text: "Health & Wellness", image: Assets.health, category: "healthWellness"),
-    TrackFlow(text: "Food & Drink", image: Assets.food, category: "food"),
+    TrackFlow(text: "Food & Drink", image: Assets.food, category: "foods"),
     TrackFlow(text: "Daily Journal", image: Assets.journal, category: "journal"),
   ];
 

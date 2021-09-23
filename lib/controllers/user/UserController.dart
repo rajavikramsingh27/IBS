@@ -34,7 +34,7 @@ class UserController extends GetxController {
         return _testIsTracking(item, user.value.tracking.medications);
       case "healthWellness":
         return _testIsTracking(item, user.value.tracking.healthWellness);
-      case "food":
+      case "foods":
         return _testIsTracking(item, user.value.tracking.foods);
       case "journal":
         return _testIsTracking(item, user.value.tracking.journal);
@@ -57,7 +57,7 @@ class UserController extends GetxController {
         return  user.value.tracking.medications.length > 0;
       case "healthWellness":
         return user.value.tracking.healthWellness.length > 0;
-      case "food":
+      case "foods":
         return user.value.tracking.foods.length > 0;
       case "journal":
         return user.value.tracking.journal.length > 0;

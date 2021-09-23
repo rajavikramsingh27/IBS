@@ -178,7 +178,7 @@ class SignUpController extends GetxController {
         });
       }
 
-      if (element.category == "food") {
+      if (element.category == "foods") {
         element.items.forEach((el) {
           if (el.enabledDefault ?? false) {
             foodList.add(el);
@@ -255,7 +255,7 @@ class SignUpController extends GetxController {
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Registered Successfully");
     } else {
-      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+      //CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
 
   }
@@ -282,7 +282,7 @@ class SignUpController extends GetxController {
       case "bowelMovements":
         bowelMoveList.add(item);
         break;
-      case "food":
+      case "foods":
         foodList.add(item);
         break;
       case "healthWellness":
