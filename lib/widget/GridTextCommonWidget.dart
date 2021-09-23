@@ -62,7 +62,6 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
               .map((item) => InkWell(
                     onTap: () {
                       setState(() {
-                        item.required = !item.required;
                         _treatmentPlanController.onTagTapped(model: item);
                       });
                     },
