@@ -88,9 +88,13 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: Colors.white, fontSizeDelta: -3)),
                 SizedBox(height: ScreenConstant.defaultHeightTen),
-                Text(widget.trackableItem.description.tr,
-                    style: TextStyles.textStyleIntroDescription
-                        .apply(color: Colors.white, fontSizeDelta: -5)),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: ScreenConstant.defaultWidthTwenty),
+                  child: Text(widget.trackableItem.description.tr,
+                      style: TextStyles.textStyleIntroDescription
+                          .apply(color: Colors.white60, fontSizeDelta: -6)),
+                ),
 
                 SizedBox(height: ScreenConstant.defaultHeightTen),
 

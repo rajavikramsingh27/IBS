@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ibs/controllers/medication/MedicationController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/controllers/user/UserController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -21,9 +22,13 @@ import 'package:get/get.dart';
 
 class Medication extends StatelessWidget {
   final MedicationController controller = Get.put(MedicationController());
+  final UserController _userController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    int _numRendered = 0;
+    int _numSkipped = 0;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: Container(
@@ -94,19 +99,32 @@ class Medication extends StatelessWidget {
                                 physics: ClampingScrollPhysics(),
                                 itemCount: controller.formWidgetList.length,
                                 itemBuilder: (_, mainIndex) {
-                                  var isLast = false;
+                                  bool isLast = false;
+                                  // int listLength =
+                                  //controller.formWidgetList.length;
 
-                                  if (mainIndex ==  (controller.formWidgetList.length - 2)
-                                      || mainIndex ==  (controller.formWidgetList.length - 1 )){
+                                  if ( mainIndex >= (_numRendered + _numSkipped ) ){
                                     // If it's the last one or two... because additional notes could be after.
                                     isLast = true;
                                   }
-                                  return RenderWidgetByType().renderTrackableItem(
-                                      controller.formWidgetList[mainIndex],
-                                      isFirst: mainIndex == 0,
-                                      isLast: isLast,
-                                      onValueChanged: controller.valueChanged
-                                  );
+
+                                  bool isTracked =
+                                  _userController.doesUserTrack(controller
+                                      .formWidgetList[mainIndex]);
+                                  if (isTracked) {
+                                    _numRendered++;
+                                    return RenderWidgetByType()
+                                        .renderTrackableItem(
+                                        controller
+                                            .formWidgetList[mainIndex],
+                                        isFirst: _numRendered == 1,
+                                        isLast: isLast,
+                                        onValueChanged:
+                                        controller.valueChanged);
+                                  } else {
+                                    _numSkipped ++;
+                                    return Offstage();
+                                  }
                                 }),
                             Container(
                               height: 70,
