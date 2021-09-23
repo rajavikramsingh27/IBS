@@ -36,7 +36,7 @@ class FoodController extends GetxController {
 
   void doInit(){
     formWidgetList = RxList<TrackableItem>();
-    _trackablesController.food.value.items.forEach((element) {
+    _trackablesController.foods.value.items.forEach((element) {
       formWidgetList.add(element);
     });
 
