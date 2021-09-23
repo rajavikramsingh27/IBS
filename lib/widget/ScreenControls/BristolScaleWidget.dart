@@ -36,7 +36,9 @@ class _BristolScaleWidgetState extends State<BristolScaleWidget> {
 
   @override
   void initState() {
-    _currentValue = widget.trackableItem.rating.value.toDouble();
+    _currentValue = widget.trackableItem.rating.ratingDefault.toDouble();
+    widget.trackableItem.rating.value = _currentValue;
+
     // As this is tracked, set its initial tracking state:
     widget.onValueChanged(TrackableSubmitItem(
       tid: widget.trackableItem.tid,

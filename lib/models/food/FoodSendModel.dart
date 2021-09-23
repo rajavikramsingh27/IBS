@@ -4,7 +4,9 @@
 
 import 'dart:convert';
 
+import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:get/get.dart';
 
 FoodSendModel foodSendModelFromJson(String str) =>
     FoodSendModel.fromJson(json.decode(str));
@@ -15,10 +17,12 @@ class FoodSendModel {
   FoodSendModel({
     this.category = "food",
     this.items,
+    this.trackedAt,
   });
 
   String category;
   List<TrackableSubmitItem> items;
+  DateTime trackedAt;
 
   factory FoodSendModel.fromJson(Map<String, dynamic> json) => FoodSendModel(
         category: json["category"] == null ? null : json["category"],
@@ -26,14 +30,24 @@ class FoodSendModel {
             ? null
             : List<TrackableSubmitItem>.from(
                 json["items"].map((x) => TrackableSubmitItem.fromJson(x))),
+        trackedAt: json["trackedAt"] == null ? null : new DateTime(json["trackedAt"]),
       );
 
-  Map<String, dynamic> toJson() => {
-        "category": category == null ? null : category,
-        "items": items == null
-            ? null
-            : List<dynamic>.from(items.map((x) => x.toJson())),
-      };
+  Map<String, dynamic> toJson() {
+    HomeController controller = Get.find();
+    DateTime now = DateTime.now();
+    DateTime trackedAt = new DateTime(controller.selectedDate.year, controller.selectedDate.month, controller.selectedDate.day,
+        now.hour, now.minute, now.second);
+
+    Map<String, dynamic> json = {
+      "category": category == null ? null : category,
+      "items": items == null
+          ? null
+          : List<dynamic>.from(items.map((x) => x.toJson())),
+      "trackedAt": trackedAt.toUtc().toString(),
+    };
+    return json;
+  }
 }
 /*
 class FoodList {

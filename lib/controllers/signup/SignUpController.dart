@@ -220,6 +220,7 @@ class SignUpController extends GetxController {
       food: foodList,
       healthWellness: wellnessList,
       medications: medicationList,
+      journal: journalList,
     );
     // print("track: ${trackModel.toJson()}");
 

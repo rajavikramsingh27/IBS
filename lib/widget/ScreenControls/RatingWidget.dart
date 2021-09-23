@@ -38,6 +38,8 @@ class _RatingWidgetState extends State<RatingWidget> {
   @override
   void initState() {
     _currentValue = widget.trackableItem.rating.ratingDefault.toDouble();
+    widget.trackableItem.rating.value = _currentValue;
+
     // As this is tracked, set its initial tracking state:
     widget.onValueChanged(TrackableSubmitItem(
       tid: widget.trackableItem.tid,
@@ -104,6 +106,7 @@ class _RatingWidgetState extends State<RatingWidget> {
                       horizontal: ScreenConstant.defaultWidthTen),
                   child: SfSliderTheme(
                     data: SfSliderThemeData(
+                      labelOffset: Offset(0.0, 26.0),
                       thumbColor: AppColors.colorArrowButton,
                       thumbStrokeWidth: 5,
                       thumbRadius: 16,

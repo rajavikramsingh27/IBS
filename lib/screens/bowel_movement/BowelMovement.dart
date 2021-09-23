@@ -20,7 +20,7 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class BowelMovement extends StatelessWidget {
   final controller = Get.put(BowelMovementController());
-  final SignUpController _signUpController = Get.find();
+
 
   @override
   Widget build(BuildContext context) {
@@ -131,13 +131,32 @@ class BowelMovement extends StatelessWidget {
                                     onValueChanged: controller.valueChanged
                                 );
                               }),
-                          SizedBox(
-                              height: ScreenConstant.defaultHeightTwenty),
+                          Container(
+                            height: 70,
+                            child: Stack(children: [
+                              Positioned.fill(
+                                bottom: 0,
+                                child: _buildWavePainter(),
+                              ),
+                            ]),
+                          ),
+                          Text(
+                            "For best results track your bowel movements every day.",
+                            textAlign: TextAlign.center,
+                            style: TextStyles.textStyleRegular,
+                          ),
+                          SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                          Text(
+                            '''Click “Save” to log your results''',
+                            textAlign: TextAlign.center,
+                            style: TextStyles.textStyleRegular,
+                          ),
+                          SizedBox(height: ScreenConstant.defaultHeightForty)
                         ],
                       ),
                     ),
                   ),
-                  Positioned(right: 0, left: 0, child: CustomArcPainter())
+            //      Positioned(right: 0, left: 0, child: CustomArcPainter())
                 ],
               ),
             ),
@@ -148,304 +167,17 @@ class BowelMovement extends StatelessWidget {
   }
 
 
-
-  _buildUrgency({TrackableItem data}) {
-    return Container(
-      color: AppColors.white,
-      child: Stack(
-        children: [
-          AspectRatio(
-            aspectRatio: 1.3,
-            child: Card(
-              margin: EdgeInsets.zero,
-              color: AppColors.colorBackground,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              child: Padding(
-                padding: ScreenConstant.spacingAllMedium,
-                child: Column(
-                  children: [
-                    SizedBox(height: ScreenConstant.defaultHeightForty),
-                    Text(data.name.tr,
-                        style: TextStyles.textStyleIntroDescription
-                            .apply(color: Colors.white, fontSizeDelta: -3)),
-                    SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                    Text(
-                      data.description.tr,
-                      textAlign: TextAlign.center,
-                      style: TextStyles.textStyleRegular
-                          .apply(color: AppColors.colorSkipButton),
-                    ),
-                    SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ScreenConstant.defaultWidthTen),
-                      child: SfSliderTheme(
-                        data: SfSliderThemeData(
-                          thumbColor: AppColors.colorArrowButton,
-                          thumbStrokeWidth: 5,
-                          thumbRadius: 16,
-                          thumbStrokeColor: Colors.white,
-                          activeTrackHeight: 4,
-                          overlayRadius: 0,
-                          disabledActiveTrackColor: AppColors.colorTrackSlider,
-                          disabledInactiveTrackColor:
-                              AppColors.colorTrackSlider,
-                          activeDividerStrokeWidth: 2,
-                          inactiveDividerStrokeWidth: 2,
-                          inactiveTrackHeight: 4,
-                          activeTrackColor: AppColors.colorTrackSlider,
-                          inactiveTrackColor: AppColors.colorTrackSlider,
-                          inactiveDividerStrokeColor: AppColors.white,
-                          inactiveDividerRadius: 8,
-                          inactiveDividerColor:
-                              AppColors.colorInactiveDividerSlider,
-                          activeDividerColor:
-                              AppColors.colorInactiveDividerSlider,
-                          activeDividerStrokeColor: Colors.white,
-                          activeDividerRadius: 8,
-                          activeLabelStyle: TextStyles.textStyleRegular
-                              .apply(color: AppColors.colorTrackSlider),
-                          inactiveLabelStyle: TextStyles.textStyleRegular
-                              .apply(color: AppColors.colorTrackSlider),
-                        ),
-                        child: SfSlider(
-                          showDividers: true,
-                          min: 1.0,
-                          max: data.rating.range,
-                          interval: 1,
-                          stepSize: 1,
-                          showLabels: true,
-                          value: data.rating.ratingDefault,
-                          onChanged: (dynamic newValue) {
-                            data.rating.ratingDefault = newValue;
-                            /*
-                            controller.initModel(
-                                data: data,
-                                dType: "num",
-                                value: data.rating.ratingDefault);
-                            _signUpController.bowelMovements.refresh();
-                            */
-
-                          },
-                          labelFormatterCallback:
-                              (dynamic actualValue, String formattedText) {
-                            return actualValue == 1
-                                ? "Not at All"
-                                : actualValue == 2
-                                    ? ""
-                                    : actualValue == 3
-                                        ? ""
-                                        : "Extremely";
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Container(
-            height: ScreenConstant.defaultHeightOneHundred,
-            child: OvalPainterWidget(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  /*
-  _buildColorPortion({TrackableItem data}) {
-
-  }
-
-  _buildRelief({TrackableItem data}) {
-    return Container(
-      color: AppColors.white,
-      child: Column(
-        children: [
-          AspectRatio(
-            aspectRatio: 1.2,
-            child: Card(
-              margin: EdgeInsets.zero,
-              color: AppColors.colorBackground,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              child: Padding(
-                padding: ScreenConstant.spacingAllMedium,
-                child: Column(
-                  children: [
-                    SizedBox(height: ScreenConstant.sizeLarge),
-                    Text(data.name.tr,
-                        style: TextStyles.textStyleIntroDescription
-                            .apply(color: Colors.white, fontSizeDelta: -3)),
-                    SizedBox(height: ScreenConstant.sizeLarge),
-                    Text(
-                      data.description.tr,
-                      textAlign: TextAlign.center,
-                      style: TextStyles.textStyleRegular
-                          .apply(color: AppColors.colorSkipButton),
-                    ),
-                    SizedBox(height: ScreenConstant.sizeLarge),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ScreenConstant.defaultWidthTen),
-                      child: SfSliderTheme(
-                        data: SfSliderThemeData(
-                          thumbColor: AppColors.colorArrowButton,
-                          thumbStrokeWidth: 5,
-                          thumbRadius: 16,
-                          thumbStrokeColor: Colors.white,
-                          activeTrackHeight: 4,
-                          overlayRadius: 0,
-                          disabledActiveTrackColor: AppColors.colorTrackSlider,
-                          disabledInactiveTrackColor:
-                              AppColors.colorTrackSlider,
-                          activeDividerStrokeWidth: 2,
-                          inactiveDividerStrokeWidth: 2,
-                          inactiveTrackHeight: 4,
-                          activeTrackColor: AppColors.colorTrackSlider,
-                          inactiveTrackColor: AppColors.colorTrackSlider,
-                          inactiveDividerStrokeColor: AppColors.white,
-                          inactiveDividerRadius: 8,
-                          inactiveDividerColor:
-                              AppColors.colorInactiveDividerSlider,
-                          activeDividerColor:
-                              AppColors.colorInactiveDividerSlider,
-                          activeDividerStrokeColor: Colors.white,
-                          activeDividerRadius: 8,
-                          activeLabelStyle: TextStyles.textStyleRegular
-                              .apply(color: AppColors.colorTrackSlider),
-                          inactiveLabelStyle: TextStyles.textStyleRegular
-                              .apply(color: AppColors.colorTrackSlider),
-                        ),
-                        child: SfSlider(
-                          showDividers: true,
-                          min: 1.0,
-                          max: data.rating.range,
-                          interval: 1,
-                          stepSize: 1,
-                          showLabels: true,
-                          value: data.rating.ratingDefault,
-                          onChanged: (dynamic newValue) {
-                            data.rating.ratingDefault = newValue;
-                            controller.initModel(
-                              data: data,
-                              dType: "num",
-                              value: data.rating.ratingDefault,
-                            );
-                            _signUpController.bowelMovements.refresh();
-                          },
-                          labelFormatterCallback:
-                              (dynamic actualValue, String formattedText) {
-                            if (actualValue == 1) {
-                              return "Complete";
-                            }
-                            if (actualValue == data.rating.range) {
-                              return "No relief";
-                            }
-                            return "";
-                          },
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: ScreenConstant.sizeLarge),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
-                        itemCount: data.children.first.items.length,
-                        itemBuilder: (_, index) {
-                          switch (data.children.first.items[index].tid) {
-                            case "bowelMovements-relief-straining":
-                              {
-                                return Container(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        data.children.first.items[index].toggle
-                                                .toggleDefault
-                                            ? data
-                                                .children
-                                                .first
-                                                .items[index]
-                                                .toggle
-                                                .label
-                                                .tr
-                                            : data
-                                                .children
-                                                .first
-                                                .items[index]
-                                                .toggle
-                                                .label
-                                                .tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyles.textStyleRegular
-                                            .apply(
-                                                color: Colors.black,
-                                                fontSizeDelta: 2),
-                                      ),
-                                      CustomSwitch(
-                                        value: data.children.first.items[index]
-                                            .toggle.toggleDefault,
-                                        onChanged: (val) {
-                                          data.children.first.items[index]
-                                              .toggle.toggleDefault = val;
-                                          controller.initSubModel(
-                                              data: data
-                                                  .children.first.items[index],
-                                              dType: "bool",
-                                              value: data
-                                                  .children
-                                                  .first
-                                                  .items[index]
-                                                  .toggle
-                                                  .toggleDefault,
-                                              kind: data.kind,
-                                              tid: data.tid,
-                                              mainType: "num");
-                                          _signUpController.symptoms.refresh();
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  margin: ScreenConstant.spacingAllLarge,
-                                  padding: ScreenConstant.spacingAllLarge,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16),
-                                      color: Colors.white),
-                                );
-                              }
-                              break;
-                            default:
-                              {
-                                return Offstage();
-                              }
-                              break;
-                          }
-                        }),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: ScreenConstant.sizeXL),
-        ],
-      ),
-    );
-  }
-
   _buildWavePainter() {
-    return CustomPaint(
-      size: Size(
-          Get.context.mediaQuerySize.width, Get.context.mediaQuerySize.height),
-      painter: WavePainter(),
+    return Container(
+      margin:
+      EdgeInsets.only(bottom: 30), //ScreenConstant.defaultHeightSeventy),
+      width: Get.context.mediaQuerySize.width,
+      child: CustomPaint(
+        size: Size(Get.context.mediaQuerySize.width, 50),
+        painter: WavePainter(),
+      ),
     );
   }
-*/
 
 
 }
