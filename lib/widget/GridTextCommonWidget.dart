@@ -39,6 +39,13 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
   final TreatmentPlanController _treatmentPlanController = Get.find();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _treatmentPlanController.selectedTagsList = <Tag>[].obs;
+    _treatmentPlanController.selectedTagsList.refresh();
+  }
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -56,7 +63,7 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
         ),
         widget.dataList.tagsDefault.length > 0
             ? SizedBox(height: ScreenConstant.defaultHeightTwentyFour)
-            : Offstage,
+            : Offstage(),
         Wrap(
           children: widget.dataList.tagsDefault
               .map((item) => InkWell(
@@ -111,10 +118,14 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
                   SizedBox(height: ScreenConstant.defaultHeightSixteen),
                   ShowMoreWidget(
                     text: "Add relaxation technique",
-                    onTap: ()async{
-                      Tag tagsDefault = Tag(value: _treatmentPlanController.tagsController.text,key: _treatmentPlanController.tagsController.text,category: widget.dataList.tagsDefault.first.category);
+                    onTap: () async {
+                      Tag tagsDefault = Tag(
+                          value: _treatmentPlanController.tagsController.text,
+                          key: _treatmentPlanController.tagsController.text,
+                          category: widget.dataList.tagsDefault.first.category);
 
-                      if(await _treatmentPlanController.addTags(tagValue: tagsDefault)){
+                      if (await _treatmentPlanController.addTags(
+                          tagValue: tagsDefault)) {
                         setState(() {
                           widget.dataList.tagsDefault.add(tagsDefault);
                         });
