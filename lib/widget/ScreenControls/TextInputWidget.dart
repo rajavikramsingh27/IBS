@@ -44,6 +44,15 @@ class TextInputWidget extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16)),
                   child: TextFormField(
+                    onChanged: (dynamic newValue) {
+                      onValueChanged(TrackableSubmitItem(
+                        tid: trackableItem.tid,
+                        category: trackableItem.category,
+                        kind: trackableItem.kind,
+                        dtype: "str",
+                        value: TrackableSubmitItemValue(str: newValue),
+                      ));
+                    },
                     //controller: textEditingController,
                     // inputFormatters: <TextInputFormatter>[],
                     textInputAction: TextInputAction.newline,
