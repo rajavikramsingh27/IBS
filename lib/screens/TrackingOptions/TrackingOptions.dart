@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/MyAccount/MyAccountController.dart';
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
@@ -17,12 +15,9 @@ import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart'
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'dart:convert';
 
-
 class TrackingOptions extends StatelessWidget {
   // final _controller = Get.put(MyAccountController());
   final TrackablesController _trackablesController = Get.find();
-  final UserController _userController = Get.find();
-
 
   @override
   Widget build(BuildContext context) {
@@ -33,58 +28,48 @@ class TrackingOptions extends StatelessWidget {
         leading: LeadingBackButton(
           onPressed: () => Get.back(),
         ),
-
         backgroundColor: Colors.white,
         centerTitle: true,
-
         title: Text(
           "TRACKING OPTIONS",
           style: TextStyles.appBarTitle,
         ),
       ),
-
       body: GetBuilder<MyAccountController>(
           init: MyAccountController(),
           initState: (state) {
             // print('HomePageController state initialized');
           },
-
           builder: (authController) {
             //authController.getTrackList();
-            return Obx(() =>
-            false // _controller.loader.value
+            return Obx(() => false // _controller.loader.value
                 ? Center(
-              child: CircularProgressIndicator(),
-            ) : Stack(
-              children: [
-                ListView(
-                  // physics: ClampingScrollPhysics(),
-                  padding: ScreenConstant.spacingAllLarge,
-                  children: [
-                    _buildTrackingOptions(),
-                    _buildTrackingList(),
-                    SizedBox(height: ScreenConstant.screenWidthThird / 4),
-                    Container(
-                        child: CustomElevatedButton2(
-                          textColor: Colors.white,
-                          buttonColor: AppColors.colorBackground,
-                          widthFactor: 0.8,
-                          text: "Save Changes",
-
-                          onTap: () {
-                            authController.updateTrackingOption();
-                          },
-
-                        )
-
-                    ),
-
-                  ],
-                ),
-              ],
-            ));
-          }
-      ),
+                    child: CircularProgressIndicator(),
+                  )
+                : Stack(
+                    children: [
+                      ListView(
+                        // physics: ClampingScrollPhysics(),
+                        padding: ScreenConstant.spacingAllLarge,
+                        children: [
+                          _buildTrackingOptions(),
+                          _buildTrackingList(),
+                          SizedBox(height: ScreenConstant.screenWidthThird / 4),
+                          Container(
+                              child: CustomElevatedButton2(
+                            textColor: Colors.white,
+                            buttonColor: AppColors.colorBackground,
+                            widthFactor: 0.8,
+                            text: "Save Changes",
+                            onTap: () {
+                              authController.updateTrackingOption();
+                            },
+                          )),
+                        ],
+                      ),
+                    ],
+                  ));
+          }),
     );
   }
 
@@ -113,9 +98,9 @@ class TrackingOptions extends StatelessWidget {
             SizedBox(height: ScreenConstant.sizeDefault),
             Text(
               "You may change your "
-                  "tracking options at any time. Note that some of "
-                  "the tracking options could be related to a treatment plan. "
-                  "Changing the options could interfere with tracking for your treatment plan.",
+              "tracking options at any time. Note that some of "
+              "the tracking options could be related to a treatment plan. "
+              "Changing the options could interfere with tracking for your treatment plan.",
               style: TextStyle(
                 fontSize: 13,
                 fontFamily: 'Roboto-Regular',
@@ -125,8 +110,7 @@ class TrackingOptions extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ],
-        )
-    );
+        ));
   }
 
   _buildTrackingList() {
@@ -159,8 +143,9 @@ class TrackingOptions extends StatelessWidget {
                           _trackablesController.trackList.refresh();
                         },
                       ),
-                      Text("${_trackablesController.trackList.value.data[index]
-                          .name}".tr,
+                      Text(
+                          "${_trackablesController.trackList.value.data[index].name}"
+                              .tr,
                           style: TextStyles.textStyleIntroDescription
                               .apply(color: Colors.white, fontSizeDelta: -3)),
                       Spacer(),
@@ -178,9 +163,7 @@ class TrackingOptions extends StatelessWidget {
                           color: Colors.grey[50],
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(16),
-                              bottomRight: Radius.circular(16)
-                          )
-                      ),
+                              bottomRight: Radius.circular(16))),
                       child: ListView.builder(
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
@@ -189,11 +172,8 @@ class TrackingOptions extends StatelessWidget {
                           itemBuilder: (BuildContext context, int idx) {
                             return _renderSubItem(
                                 topLevelItem.items[idx], topLevelItem);
-                          })
-                  ),
-                ]
-            )
-        );
+                          })),
+                ]));
       },
     );
   }
@@ -234,9 +214,7 @@ class TrackingOptions extends StatelessWidget {
                 )
               ],
             ),
-            children: _renderChildren(item.children, item, topLevelItem)
-        )
-    );
+            children: _renderChildren(item.children, item, topLevelItem)));
   }
 
   /// Iterates over a list of TrackableChild objects
@@ -247,40 +225,40 @@ class TrackingOptions extends StatelessWidget {
       TrackableItem topLevelItem) {
     List<Widget> widgets = [];
     children.forEach((child) {
-      var listView = (
-          IgnorePointer(
-              ignoring: !parent.enabled,
-              child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(
-                      left: ScreenConstant.sizeExtraLarge),
-                  itemCount:
-                  child.items.length,
-                  itemBuilder: (BuildContext context, int idx) {
-                    // print ("Rendering child item: " + child.items[idx].tid + ", " + child.items[idx].isVisible.toString());
-                    return _renderSubItem(child.items[idx], topLevelItem);
-                  }
-              )
-          )
-      );
+      var listView = (IgnorePointer(
+          ignoring: !parent.enabled,
+          child: ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              padding: EdgeInsets.only(left: ScreenConstant.sizeExtraLarge),
+              itemCount: child.items.length,
+              itemBuilder: (BuildContext context, int idx) {
+                // print ("Rendering child item: " + child.items[idx].tid + ", " + child.items[idx].isVisible.toString());
+                return _renderSubItem(child.items[idx], topLevelItem);
+              })));
       widgets.add(listView);
     });
     return widgets;
   }
 
-  _setEnabledStateOfChildrenForTrackable(TrackableItem item,
-      TrackableItem topLevelItem) {
+  _setEnabledStateOfChildrenForTrackable(
+      TrackableItem item, TrackableItem topLevelItem) {
     // Set children:
     // Top level have item.items, which was bad data modelling, we can work around:
     item.items.forEach((nestedItem) {
-      nestedItem.enabled = item.enabled;
+      if (nestedItem.isVisible) {
+        //Don't change values the user cannot see
+        nestedItem.enabled = item.enabled;
+      }
       return _setEnabledStateOfChildrenForTrackable(nestedItem, topLevelItem);
     });
 
     item.children.forEach((child) {
       child.items.forEach((childItem) {
-        childItem.enabled = item.enabled;
+        if (childItem.isVisible) {
+          // Don't change values the user cannot see.
+          childItem.enabled = item.enabled;
+        }
         return _setEnabledStateOfChildrenForTrackable(childItem, topLevelItem);
       });
     });

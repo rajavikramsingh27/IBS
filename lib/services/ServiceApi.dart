@@ -151,7 +151,7 @@ class ServiceApi {
 
   Future<dynamic> getUserList() async {
     final result =
-        await CoreService().apiService(method: METHOD.FIND, endpoint: USERS);
+        await CoreService().apiService(method: METHOD.GET, endpoint: USERS, data: "me");
 
     print('resultresultresultresultresultresult');
     print(result);

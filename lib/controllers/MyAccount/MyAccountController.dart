@@ -111,7 +111,7 @@ class MyAccountController extends GetxController {
         }
       } catch (error) {
         CustomSnackBar().errorSnackBar(
-            title: "Error!", message: error.message.toString()
+            title: "Error!", message: error.toString()
         );
         loader.value = false;
       }
@@ -249,6 +249,11 @@ class MyAccountController extends GetxController {
       bodyData: toSend,
     );
 
+    Get.back();
+
+    CustomSnackBar().successSnackBar(
+        title: "Success!", message:"Tracking options updated"
+    );
   }
 
 // ToDo Setting My IBS Diagnosis functions
