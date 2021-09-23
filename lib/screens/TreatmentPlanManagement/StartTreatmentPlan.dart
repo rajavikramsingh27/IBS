@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -33,7 +34,7 @@ class StartTreatmentPlan extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             SizedBox(height: ScreenConstant.defaultHeightTen),
-            CustomElevatedButton(
+            _treatmentPlanController.existTreatmentPlans.contains(data.pid)?Offstage():CustomElevatedButton(
               widthFactor: 0.7,
               text: "Save Changes",
               onTap: _treatmentPlanController.onSave,
@@ -84,7 +85,7 @@ class StartTreatmentPlan extends StatelessWidget {
                           SizedBox(height: ScreenConstant.defaultHeightForty),
                           DateTimeCardWidget(),
                           SizedBox(height: ScreenConstant.sizeDefault),
-                          CustomElevatedButton2(
+                          _treatmentPlanController.existTreatmentPlans.contains(data.pid)?CustomElevatedButton2(
                             elevation: 16,
                             widthFactor: 0.7,
                             onTap: () => Get.dialog(CustomDialog3(
@@ -97,7 +98,7 @@ class StartTreatmentPlan extends StatelessWidget {
                             textColor: AppColors.colorTextStop,
                             text: data.stopPlan.tr,
                             buttonColor: AppColors.white,
-                          ),
+                          ):Offstage(),
                           SizedBox(
                               height: ScreenConstant.defaultHeightTwentyFour),
                           Stack(
@@ -168,6 +169,8 @@ class StartTreatmentPlan extends StatelessWidget {
                                             .planDetails.details.first.body.tr,
                                         tags: _treatmentPlanController
                                             .selectedTags,
+                                        optionList: _treatmentPlanController
+                                            .selectedOptionList,
                                       ),
                                     ],
                                   )),
