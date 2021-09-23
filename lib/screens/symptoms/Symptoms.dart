@@ -92,13 +92,15 @@ class Symptoms extends StatelessWidget {
                                     itemCount: controller.formWidgetList.length,
                                     itemBuilder: (_, mainIndex) {
                                       bool isLast = false;
-                                     // int listLength =
+                                      int listLength =
                                           controller.formWidgetList.length;
 
-                                      if ( mainIndex >= (_numRendered + _numSkipped ) ){
+                                      int total = (listLength -2) - ( _numSkipped ) ;
+                                      if ( mainIndex >= total ){
                                         // If it's the last one or two... because additional notes could be after.
                                         isLast = true;
                                       }
+print("IDx $mainIndex  total $total - $isLast");
 
                                       bool isTracked =
                                       _userController.doesUserTrack(controller

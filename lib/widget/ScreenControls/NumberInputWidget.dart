@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:flutter_number_picker/flutter_number_picker.dart';
 
 class NumberInputWidget extends StatefulWidget {
@@ -89,39 +88,29 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
                         .apply(color: AppColors.colorSkipButton),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 90),
+                  child: Card(
+                    margin: ScreenConstant.spacingAllMedium,
+                    shadowColor: Colors.grey,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
+                    child: TextFormField(
+                        style: TextStyle( fontSize: 24),
 
-
-                    CustomNumberPicker(
-                      valueTextStyle:
-                          TextStyle(color: Colors.white, fontSize: 30),
-                      shape: Border(top: BorderSide.none),
-                      initialValue: _currentValue,
-                      maxValue: 180,
-                      minValue: 0,
-                      step: 5,
-                      onValue: (value) {
-                        setState(() {
-                          _currentValue = value;
-                        });
-                        widget.onValueChanged(TrackableSubmitItem(
-                          tid: widget.trackableItem.tid,
-                          category: widget.trackableItem.category,
-                          kind: widget.trackableItem.kind,
-                          dtype: "num",
-                          value: TrackableSubmitItemValue(number: _currentValue),
-                        ));
-                      },
-                      customMinusButton: TextButton(
-                        child: Text("-",
-                            style:
-                                TextStyle(fontSize: 30, color: Colors.white)),
-                      ),
-                      customAddButton: TextButton(
-                        child: Text("+",
-                            style:
-                                TextStyle(fontSize: 30, color: Colors.white)),
-                      ),
+                        textAlign: TextAlign.center,
+                        cursorColor: Colors.white,
+                        //controller: _controller,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                        ],
+                        decoration: InputDecoration(
+                            hintText: "0"
+                        )
                     ),
+                  ),
+                ),
                 SizedBox(
                     height: ScreenConstant.defaultHeightTwenty,
                     width:

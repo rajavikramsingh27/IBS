@@ -93,13 +93,31 @@ class BowelMovement extends StatelessWidget {
                                   physics: ClampingScrollPhysics(),
                                   itemCount: controller.formWidgetList.length,
                                   itemBuilder: (_, mainIndex) {
+                                    bool isFirst = _numRendered == 1;
                                     bool isLast = false;
-                                  //  int listLength =
+                                    int listLength =
                                         controller.formWidgetList.length;
 
-                                    if ( mainIndex >= (_numRendered + _numSkipped ) ){
+                                    int total = (listLength -2) - ( _numSkipped ) ;
+                                    if ( mainIndex >= total ){
                                       // If it's the last one or two... because additional notes could be after.
                                       isLast = true;
+                                    }
+                                    print("IDx $mainIndex  total $total - $isLast");
+
+                                    // Check for above/below class in case of white BG:
+                                    if (mainIndex > 0){
+                                      TrackableItem previous = controller.formWidgetList[mainIndex - 1];
+                                      if (previous.style == TrackableStyle.WHITE_WHITE || previous.style == TrackableStyle.BLUE_WHITE){
+                                        isFirst = true;
+                                      }
+                                    }
+
+                                    if (mainIndex < listLength-1){
+                                      TrackableItem next = controller.formWidgetList[mainIndex + 1];
+                                      if (next.style == TrackableStyle.WHITE_WHITE || next.style == TrackableStyle.BLUE_WHITE){
+                                        isLast = true;
+                                      }
                                     }
 
                                     bool isTracked =
@@ -111,7 +129,7 @@ class BowelMovement extends StatelessWidget {
                                           .renderTrackableItem(
                                           controller
                                               .formWidgetList[mainIndex],
-                                          isFirst: _numRendered == 1,
+                                          isFirst: isFirst,
                                           isLast: isLast,
                                           onValueChanged:
                                           controller.valueChanged);
