@@ -75,6 +75,7 @@ class TrackableItem {
     this.toggle,
     this.enabled,
     this.weight,
+    this.selected,
   });
 
   String tid;
@@ -102,6 +103,7 @@ class TrackableItem {
   Toggle toggle;
   bool enabled;
   int weight;
+  bool selected = false;
 
   factory TrackableItem.fromJson(Map<String, dynamic> json) => TrackableItem(
     tid: json["tid"] == null ? null : json["tid"],
@@ -152,9 +154,9 @@ class TrackableItem {
 
   Map<String, dynamic> toJson() => {
     "tid": tid == null ? null : tid,
-    "name": name == null ? null : name,
-    "description": description == null ? null : description,
     "category": category == null ? null : category,
+ /*   "name": name == null ? null : name,
+    "description": description == null ? null : description,
     "style": style == null ? null : fluffyStyleValues.reverse[style],
     "kind": kind == null ? null : kind,
     "enabledDefault": enabledDefault == null ? null : enabledDefault,
@@ -170,8 +172,8 @@ class TrackableItem {
     "tags": tags == null ? null : tags.toJson(),
     "boolList": boolList == null ? null : boolList.toJson(),
     "condition": condition == null ? null : condition.toJson(),
-    "toggle": toggle == null ? null : toggle.toJson(),
-    "enabled": enabled == null ? null : enabled,
+    "toggle": toggle == null ? null : toggle.toJson(), */
+    "enabled": enabled == null ? false : enabled,
   };
 }
 

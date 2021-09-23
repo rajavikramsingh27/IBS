@@ -264,7 +264,7 @@ class SignUpController extends GetxController {
   /// Walk the Trackables tree adding active elements.
   _recursivelyParseChildren(List<TrackableItem> items){
     items.forEach((element) {
-      if (element.enabledDefault){
+      if (element.enabled){
         _addItemToTrackingList(element);
         element.children.forEach( (child) {
           return _recursivelyParseChildren(child.items);

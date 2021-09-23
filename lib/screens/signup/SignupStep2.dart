@@ -19,7 +19,7 @@ import 'package:get/get.dart';
 
 
 class SignupStep2 extends StatelessWidget {
-  final _controller = Get.put(SignUpController());
+  //final _controller = Get.put(SignUpController());
   final TrackablesController _trackablesController = Get.find();
 
   @override

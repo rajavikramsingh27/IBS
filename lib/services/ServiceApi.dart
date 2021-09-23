@@ -279,7 +279,7 @@ class ServiceApi {
     Map bodyData
   }) async {
     final result = await CoreService().apiService(
-      method: METHOD.CREATE,
+      method: METHOD.UPDATE,
       endpoint: TRACK_UPDATE,
       data: bodyData,
     );
