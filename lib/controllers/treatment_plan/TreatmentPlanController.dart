@@ -48,6 +48,7 @@ class TreatmentPlanController extends GetxController {
   RxString messageValue = "".obs;
   LoginResponseModel userData;
   RxList<String> existTreatmentPlans = <String>[].obs;
+
   @override
   void onInit() async {
     super.onInit();
@@ -86,13 +87,13 @@ class TreatmentPlanController extends GetxController {
   }
 
   void onTagTapped({model}) {
-    if(model is TagsDefault){
+    if (model is TagsDefault) {
       if (selectedTags.contains(model)) {
         selectedTags.remove(model);
       } else {
         selectedTags.add(model);
       }
-    }else{
+    } else {
       if (selectedOptionList.contains(model)) {
         selectedOptionList.remove(model);
       } else {
@@ -140,22 +141,29 @@ class TreatmentPlanController extends GetxController {
         tags: [],
         trackingDefaults: [],
         pid: selectedPID.value);
-    /*TrackingSendData trackTreatmentModel = TrackingSendData(
-        category: selectedCategory.value,
-        // tid: ,
-        // kind: "tags",
-        // dtype: "arr",
-        value: TrackingValue(arr: ""));*/
-
-    treatmentPlanSendModel.value.tags.addAll(selectedTagsList);
-    treatmentPlanSendModel.value.reminders.addAll(reminderList);
-    treatmentPlanSendModel.refresh();
     treatmentPlanItemData.forEach((element) {
-      if(element.pid == "plan-sleepImprovement"){
+      if (element.pid == selectedPID.value) {
+        // trackTreatmentModel.tid =
+        element.trackables.forEach((track) {
+          TrackingSendData trackTreatmentModel = TrackingSendData(
+              category: selectedCategory.value,
+              tid: track.tid,
+              kind: track.kind,
+              dtype: "str",
+              value: TrackingValue(
+                  str: track.kind == "timePicker" ? track.timePicker.timePickerDefault : "",
+                  arr: track.kind == "select" ? track.select.selectDefault.value : ""));
+          listTrackData.add(trackTreatmentModel);
+        });
       }
     });
-    print("data: ${treatmentPlanSendModel.toJson()}");
-    /*loader.value = true;
+    treatmentPlanSendModel.value.tags.addAll(selectedTagsList);
+    treatmentPlanSendModel.value.reminders.addAll(reminderList);
+    treatmentPlanSendModel.value.trackingDefaults.addAll(listTrackData);
+    treatmentPlanSendModel.refresh();
+
+    debugPrint("data: ${treatmentPlanSendModel.toJson()}",wrapWidth: 1024);
+    loader.value = true;
     final data = await ServiceApi()
         .postTreatmentPlanAPI(bodyData: treatmentPlanSendModel.toJson());
     loader.value = false;
@@ -166,7 +174,9 @@ class TreatmentPlanController extends GetxController {
     } else {
       loader.value = false;
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-    }*/
+    }
+    treatmentPlanSendModel =
+        PostTreatmentPlanSendModel().obs;
   }
 
   Future<bool> addTags({category, tagValue}) async {
