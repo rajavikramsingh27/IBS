@@ -81,7 +81,7 @@ class Foods extends StatelessWidget {
                                 SizedBox(height: ScreenConstant
                                     .defaultHeightSixty),
                                 Text(
-                                  _trackablesController.food.value.header.tr,
+                                  _trackablesController.foods.value.header.tr,
                                   style: TextStyles.textStyleIntroDescription
                                       .apply(
                                       color: Colors.black, fontSizeDelta: -2),
@@ -93,7 +93,7 @@ class Foods extends StatelessWidget {
                                 SizedBox(height: ScreenConstant
                                     .defaultHeightForty),
                                 Text(
-                                  _trackablesController.food.value.items.first
+                                  _trackablesController.foods.value.items.first
                                       .name.tr,
                                   style: TextStyles.textStyleIntroDescription
                                       .apply(

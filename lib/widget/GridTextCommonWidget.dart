@@ -42,7 +42,7 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _treatmentPlanController.selectedTagsList = <TagsDefault>[].obs;
+    _treatmentPlanController.selectedTagsList = <Tag>[].obs;
     _treatmentPlanController.selectedTagsList.refresh();
   }
   @override
@@ -119,7 +119,7 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
                   ShowMoreWidget(
                     text: "Add relaxation technique",
                     onTap: () async {
-                      TagsDefault tagsDefault = TagsDefault(
+                      Tag tagsDefault = Tag(
                           value: _treatmentPlanController.tagsController.text,
                           key: _treatmentPlanController.tagsController.text,
                           category: widget.dataList.tagsDefault.first.category);

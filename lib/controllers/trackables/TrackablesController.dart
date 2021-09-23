@@ -13,7 +13,7 @@ class TrackablesController extends GetxController {
 
   Rx<TrackableItem> symptoms = TrackableItem().obs;
   Rx<TrackableItem> bowelMovements = TrackableItem().obs;
-  Rx<TrackableItem> food = TrackableItem().obs;
+  Rx<TrackableItem> foods = TrackableItem().obs;
   Rx<TrackableItem> journal = TrackableItem().obs;
   Rx<TrackableItem> medications = TrackableItem().obs;
   Rx<TrackableItem> healthWellness = TrackableItem().obs;
@@ -64,7 +64,7 @@ class TrackablesController extends GetxController {
           bowelMovements.value = element;
           break;
         case "foods":
-          food.value = element;
+          foods.value = element;
           break;
         case "journal":
           journal.value = element;
