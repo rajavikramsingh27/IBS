@@ -43,6 +43,29 @@ class UserController extends GetxController {
     }
   }
 
+  bool doesUserTrackCategory(String category){
+    if (user.value == null){
+      print("** User is null in doesUserTrackCategory $category");
+      return true;
+    }
+    switch (category){
+      case "symptoms":
+        return user.value.tracking.symptoms.length > 0;
+      case "bowelMovements":
+        return user.value.tracking.bowelMovements.length > 0;
+      case "medications":
+        return  user.value.tracking.medications.length > 0;
+      case "healthWellness":
+        return user.value.tracking.healthWellness.length > 0;
+      case "food":
+        return user.value.tracking.foods.length > 0;
+      case "journal":
+        return user.value.tracking.journal.length > 0;
+      default:
+        throw new Exception("doesUserTrack called on unknown category $category");
+    }
+  }
+
 
    addTagToUser(Tag tag) async {
     this.user.value = await ServiceApi().createUserTag(tagData: tag.toJson());

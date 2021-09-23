@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/controllers/symptoms/SymptomsController.dart';
+import 'package:flutter_ibs/controllers/user/UserController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
 import 'package:flutter_ibs/screens/food/Foods.dart';
@@ -27,6 +29,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   final _controller = Get.put(HomeController());
   final SignUpController _signUpController = Get.find();
+  final UserController _userController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -218,6 +221,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       itemCount: DummyData.trackFlow.length,
       itemBuilder: (BuildContext context, int index) {
         var model = DummyData.trackFlow[index];
+        bool isTracked = _userController.doesUserTrackCategory(model.category);
+
+        if (!isTracked){
+          return Offstage();
+        }
+
         return GestureDetector(
           onTap: () => _returnBottomsheet(index),
           child: Container(
