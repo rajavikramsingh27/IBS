@@ -59,13 +59,13 @@ class DummyData {
     TrackingOptionsModel(title: "Duration of Symptoms"),
   ];
 
-  static List<IBSTypeModel> trackFlow = [
-    IBSTypeModel(text: "Symptoms", image: Assets.symptoms),
-    IBSTypeModel(text: "Bowel Movements", image: Assets.bowel),
-    IBSTypeModel(text: "Medication & Supplements", image: Assets.medication),
-    IBSTypeModel(text: "Health & Wellness", image: Assets.health),
-    IBSTypeModel(text: "Food & Drink", image: Assets.food),
-    IBSTypeModel(text: "Daily Journal", image: Assets.journal),
+  static List<TrackFlow> trackFlow = [
+    TrackFlow(text: "Symptoms", image: Assets.symptoms, category: "symptoms"),
+    TrackFlow(text: "Bowel Movements", image: Assets.bowel, category: "bowelMovements"),
+    TrackFlow(text: "Medication & Supplements", image: Assets.medication, category: "medications"),
+    TrackFlow(text: "Health & Wellness", image: Assets.health, category: "healthWellness"),
+    TrackFlow(text: "Food & Drink", image: Assets.food, category: "foods"),
+    TrackFlow(text: "Daily Journal", image: Assets.journal, category: "journal"),
   ];
 
   static List<IbsModel> iBsType = [
@@ -192,6 +192,15 @@ class DummyData {
 //     TrackingOptionsModel(title: "Duration of Symptoms"),
 //   ];
 }
+
+class TrackFlow {
+  TrackFlow({this.image, this.text, this.category});
+
+  String image;
+  String text;
+  String category;
+}
+
 
 class IBSTypeModel {
   IBSTypeModel({this.image, this.text});

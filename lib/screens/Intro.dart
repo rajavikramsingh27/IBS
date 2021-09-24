@@ -44,7 +44,7 @@ class _IntroState extends State<Intro> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Positioned(
+          /*Positioned(
               top: 0,
               child: Image.asset(
                 "assets/images/intro/curl1.png",
@@ -62,7 +62,7 @@ class _IntroState extends State<Intro> {
               child: Image.asset(
                 "assets/images/intro/curl3.png",
                 height: Get.mediaQuery.size.height / 2,
-              )),
+              )),*/
           Padding(
               padding: EdgeInsets.only(
                   top: context.mediaQuerySize.width > 400
@@ -82,23 +82,26 @@ class _IntroState extends State<Intro> {
                     child: Column(
                       children: [
                         _getStartedButton(),
-                        SizedBox(height: ScreenConstant.defaultHeightTen),
-                        RichText(
-                          text: TextSpan(
-                            text: 'Have an Account? ',
-                            style: TextStyles.textStyleIntroDescription.apply(
-                                fontSizeDelta: -3,
-                                color: Colors.white.withOpacity(0.36)),
-                            children: <TextSpan>[
-                              TextSpan(
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () => Get.toNamed(signIn),
-                                text: 'Log in',
-                                style: TextStyles.textStyleIntroDescription
-                                    .apply(
-                                        fontSizeDelta: -3, color: Colors.white),
-                              ),
-                            ],
+                        SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                        InkWell(
+                          onTap: () => Get.toNamed(signIn),
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'Have an Account? ',
+                              style: TextStyles.textStyleIntroDescription.apply(
+                                  fontSizeDelta: -3,
+                                  color: Colors.white.withOpacity(0.36)),
+                              children: <TextSpan>[
+                                TextSpan(
+                                 // recognizer: TapGestureRecognizer()
+                                //    ..onTap = () => Get.toNamed(signIn),
+                                  text: 'Log in',
+                                  style: TextStyles.textStyleIntroDescription
+                                      .apply(
+                                          fontSizeDelta: -2, color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(height: 40),

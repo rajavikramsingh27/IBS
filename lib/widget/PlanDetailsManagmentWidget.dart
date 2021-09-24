@@ -10,7 +10,7 @@ class PlanDetailsManagementWidget extends StatelessWidget {
   final String title;
   final String heading;
   final String body;
-  final RxList<TagsDefault> tags;
+  final RxList<Tag> tags;
   final RxList<ListOption> optionList;
 
   PlanDetailsManagementWidget(

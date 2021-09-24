@@ -30,6 +30,7 @@ const String myIbs = '/myIbs';
 const String resources = '/resources';
 
 const String resourcesArticleView = '/resourcesArticleView';
+const String resourcesAdditionalRelated = '/resourcesAdditionalRelated';
 
 const String settings = '/settings';
 

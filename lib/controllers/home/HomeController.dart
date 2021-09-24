@@ -32,10 +32,13 @@ class HomeController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxList<TrackHistoryResponseModel> trackHistoryList =
       <TrackHistoryResponseModel>[].obs;
-  RxInt selcetedDailyLogIndex = 0.obs;
-  RxString selcetedDailyLogindividualId = "".obs;
+  RxInt selectedDailyLogIndex = 0.obs;
+  RxString selectedDailyLogindividualId = "".obs;
 
-  RxString selcetedDailyLogCategory = "".obs;
+  RxString selectedDailyLogCategory = "".obs;
+
+  RxString selectedDateLabel = "".obs;
+  RxString selectedTimeLabel = "".obs;
 
   var foodValue;
   onTapped(int index) async {
@@ -47,11 +50,41 @@ class HomeController extends GetxController {
     super.onInit();
     //for login id
     print("loginId:${HiveStore().get(Keys.LOGINID)}");
-    _signUpController.getTrackList();
+    //_signUpController.getTrackList();
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+
+    selectedDate = new DateTime.now();
+
+    formatSelectedDate();
+
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();
     connectionStatus.value = isInternet;
+  }
+
+
+
+  void goForwardOneDay(){
+   // selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day + 1);
+    selectedDate = selectedDate.add(Duration(days: 1));
+    if (selectedDate.isAfter(new DateTime.now() )){
+      goBackOneDay();
+      return;
+    }
+    formatSelectedDate();
+  }
+
+  void goBackOneDay(){
+   // selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day - 1);
+    selectedDate = selectedDate.subtract(Duration(days: 1));
+    formatSelectedDate();
+  }
+
+
+  void formatSelectedDate(){
+    selectedDateLabel.value = DateFormat('EEEE, MMM d, y').format(selectedDate);
+    selectedTimeLabel.value = DateFormat('hh:mm a').format(selectedDate);
+
   }
 
   getAndroidDatePicker() {
@@ -75,9 +108,9 @@ class HomeController extends GetxController {
       },
       lastDate: DateTime(2100),
     ).then((datePicked) {
-      if (datePicked != selectedDate) {
+      if (datePicked != null && datePicked != selectedDate) {
         selectedDate = datePicked;
-        dateController.text = DateFormat.yMMMMd('en_US').format(selectedDate);
+        formatSelectedDate();
       }
     });
   }
@@ -93,15 +126,9 @@ class HomeController extends GetxController {
         child: CupertinoDatePicker(
           mode: CupertinoDatePickerMode.date,
           onDateTimeChanged: (datePicked) {
-            if (datePicked != selectedDate) {
+            if (datePicked != null && datePicked != selectedDate) {
               selectedDate = datePicked;
-              print("${dateController.text}");
-              dateController.text =
-                  DateFormat.yMMMMd('en_US').format(selectedDate);
-              // ?.toString()
-              // ?.split(' ')
-              // ?.first;
-
+              formatSelectedDate();
             }
           },
           initialDateTime: DateTime.now(),
@@ -113,6 +140,37 @@ class HomeController extends GetxController {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     );
   }
+
+
+  getCupertinoTimePicker(BuildContext context) async{
+    final TimeOfDay timeOfDay = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(this.selectedDate),
+      initialEntryMode: TimePickerEntryMode.input,
+
+    );
+    if(timeOfDay != null && timeOfDay != TimeOfDay.fromDateTime(this.selectedDate))
+    {
+      this.selectedDate = DateTime(this.selectedDate.year, this.selectedDate.month, this.selectedDate.day, timeOfDay.hour, timeOfDay.minute);
+      this.formatSelectedDate();
+    }
+  }
+
+  getAndroidTimePicker(BuildContext context) async{
+    final TimeOfDay timeOfDay = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(this.selectedDate),
+      initialEntryMode: TimePickerEntryMode.input,
+
+    );
+    if(timeOfDay != null && timeOfDay != TimeOfDay.fromDateTime(this.selectedDate))
+    {
+      this.selectedDate = DateTime(this.selectedDate.year, this.selectedDate.month, this.selectedDate.day, timeOfDay.hour, timeOfDay.minute);
+      this.formatSelectedDate();
+    }
+  }
+
+
 
   getTrackHistoryList() async {
     if (connectionStatus.value) {
@@ -152,7 +210,7 @@ class HomeController extends GetxController {
             isScrollControlled: true);
 
         break;
-      case "food":
+      case "foods":
         {
           if (connectionStatus.value) {
             loader.value = true;

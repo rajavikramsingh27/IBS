@@ -4,6 +4,10 @@
 
 import 'dart:convert';
 
+import 'package:flutter_ibs/controllers/home/HomeController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:get/get.dart';
+
 FoodSendModel foodSendModelFromJson(String str) =>
     FoodSendModel.fromJson(json.decode(str));
 
@@ -11,29 +15,41 @@ String foodSendModelToJson(FoodSendModel data) => json.encode(data.toJson());
 
 class FoodSendModel {
   FoodSendModel({
-    this.category = "food",
+    this.category = "foods",
     this.items,
+    this.trackedAt,
   });
 
   String category;
-  List<FoodList> items;
+  List<TrackableSubmitItem> items;
+  DateTime trackedAt;
 
   factory FoodSendModel.fromJson(Map<String, dynamic> json) => FoodSendModel(
         category: json["category"] == null ? null : json["category"],
         items: json["items"] == null
             ? null
-            : List<FoodList>.from(
-                json["items"].map((x) => FoodList.fromJson(x))),
+            : List<TrackableSubmitItem>.from(
+                json["items"].map((x) => TrackableSubmitItem.fromJson(x))),
+        trackedAt: json["trackedAt"] == null ? null : new DateTime(json["trackedAt"]),
       );
 
-  Map<String, dynamic> toJson() => {
-        "category": category == null ? null : category,
-        "items": items == null
-            ? null
-            : List<dynamic>.from(items.map((x) => x.toJson())),
-      };
-}
+  Map<String, dynamic> toJson() {
+    HomeController controller = Get.find();
+    DateTime now = DateTime.now();
+    DateTime trackedAt = new DateTime(controller.selectedDate.year, controller.selectedDate.month, controller.selectedDate.day,
+        now.hour, now.minute, now.second);
 
+    Map<String, dynamic> json = {
+      "category": category == null ? null : category,
+      "items": items == null
+          ? null
+          : List<dynamic>.from(items.map((x) => x.toJson())),
+      "trackedAt": trackedAt.toUtc().toString(),
+    };
+    return json;
+  }
+}
+/*
 class FoodList {
   FoodList({
     this.tid = "food-meal",
@@ -41,6 +57,7 @@ class FoodList {
     this.dtype = "str",
     this.value,
     this.children,
+    this.category,
   });
 
   String tid;
@@ -48,6 +65,7 @@ class FoodList {
   String dtype;
   FoodValue value;
   List<FoodSubList> children;
+  String category;
 
   factory FoodList.fromJson(Map<String, dynamic> json) => FoodList(
         tid: json["tid"] == null ? null : json["tid"],
@@ -58,7 +76,8 @@ class FoodList {
             ? null
             : List<FoodSubList>.from(
                 json["children"].map((x) => FoodSubList.fromJson(x))),
-      );
+        category: "foods",
+  );
 
   Map<String, dynamic> toJson() => {
         "tid": tid == null ? null : tid,
@@ -68,6 +87,7 @@ class FoodList {
         "children": children == null
             ? null
             : List<dynamic>.from(children.map((x) => x.toJson())),
+        "category": "foods",
       };
 }
 
@@ -77,12 +97,14 @@ class FoodSubList {
     this.kind = "tags",
     this.dtype = "arr",
     this.value,
+    this.category,
   });
 
   String tid;
   String kind;
   String dtype;
   FoodSubValue value;
+  String category;
 
   factory FoodSubList.fromJson(Map<String, dynamic> json) => FoodSubList(
         tid: json["tid"] == null ? null : json["tid"],
@@ -90,6 +112,7 @@ class FoodSubList {
         dtype: json["dtype"] == null ? null : json["dtype"],
         value:
             json["value"] == null ? null : FoodSubValue.fromJson(json["value"]),
+        category: "foods",
       );
 
   Map<String, dynamic> toJson() => {
@@ -97,6 +120,7 @@ class FoodSubList {
         "kind": kind == null ? null : kind,
         "dtype": dtype == null ? null : dtype,
         "value": value == null ? null : value.toJson(),
+        "category": "foods",
       };
 }
 
@@ -137,3 +161,4 @@ class FoodValue {
         "num": num == null ? null : num,
       };
 }
+*/

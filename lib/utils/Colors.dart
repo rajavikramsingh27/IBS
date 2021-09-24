@@ -16,6 +16,7 @@ class AppColors {
   static const Color textGray = const Color(0xFFCFCFCF);
   static const Color borderColor = const Color(0xFFEAEFF5);
   static const Color iconColorBlue = const Color(0xFF6191BE);
+  static const Color nestedToggle = const Color(0xFFD5C9E1);
 
   static const Color colorProfileBg = const Color(0xFFEFF3FF);
 

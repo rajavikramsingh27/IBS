@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ibs/controllers/signIn/SignInController.dart';
+import 'package:flutter_ibs/controllers/user/UserController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
@@ -22,6 +23,7 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Login Page");
     return Scaffold(
         backgroundColor: AppColors.colorBackground,
         // appBar: AppBar(
