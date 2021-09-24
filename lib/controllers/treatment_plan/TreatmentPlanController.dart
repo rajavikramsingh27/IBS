@@ -107,9 +107,9 @@ class TreatmentPlanController extends GetxController {
   }
 
   void addReminder() {
-    (selectedDay.isEmpty || selectedTime.isEmpty)
+    (selectedDay.isEmpty || selectedTime.isEmpty || noteTextController.text.isEmpty)
         ? CustomSnackBar()
-            .errorSnackBar(title: "Error", message: "Select time and day both")
+            .errorSnackBar(title: "Error", message: "Please check the given data.")
         : reminderList.add(Reminder(
             message: noteTextController.text,
             time: selectedTime.value,
@@ -190,6 +190,8 @@ class TreatmentPlanController extends GetxController {
     loader.value = false;
     if (data is TagsResponseModel) {
       tagsController.clear();
+      selectedTags.add(tagValue);
+      selectedTagsList.add(tagValue);
       CustomSnackBar()
           .successSnackBar(title: "Success", message: "Tag Added Successfully");
       return true;
