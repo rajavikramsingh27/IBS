@@ -24,7 +24,7 @@ class HomeController extends GetxController {
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   RxInt segmentedControlGroupValue = 0.obs;
-  DateTime selectedDate;
+
   TextEditingController dateController = TextEditingController();
   final SignUpController _signUpController = Get.put(SignUpController());
   RxBool loader = false.obs;
@@ -37,6 +37,7 @@ class HomeController extends GetxController {
 
   RxString selectedDailyLogCategory = "".obs;
 
+  DateTime selectedDate; // Date as set in the Home screen
   RxString selectedDateLabel = "".obs;
   RxString selectedTimeLabel = "".obs;
 
@@ -176,8 +177,8 @@ class HomeController extends GetxController {
   getTrackHistoryList() async {
     if (connectionStatus.value) {
       loader.value = true;
-      await ServiceApi().getUserHistoryList().then((value) {
-        trackHistoryList.value = value;
+      await ServiceApi().getUserHistoryList(selectedDate).then((value) {
+        value != null ? trackHistoryList.value = value : print("getUserHistoryList was null");
       });
       loader.value = false;
     }

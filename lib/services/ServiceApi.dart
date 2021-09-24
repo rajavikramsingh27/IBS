@@ -16,6 +16,7 @@ import 'package:flutter_ibs/models/user/UserModel.dart';
 import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/url.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ServiceApi {
   Future<dynamic> signupApi({Map bodyData}) async {
@@ -131,9 +132,18 @@ class ServiceApi {
     }
   }
 
-  Future<dynamic> getUserHistoryList() async {
+  Future<dynamic> getUserHistoryList(DateTime setTime) async {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    var startDate = formatter.format(setTime.subtract(Duration(days:1)) );
+    var endDate = formatter.format(setTime.add(Duration(days:1)) );
+
+    Map<String, dynamic> params = {
+      'startDate': startDate,
+      'endDate': endDate
+    };
+
     var result = await CoreService()
-        .apiService(method: METHOD.FIND, endpoint: TRACK_HISTORY);
+        .apiService(method: METHOD.FIND, endpoint: TRACK_HISTORY, data: params);
 
     if (result == null) {
       return null;

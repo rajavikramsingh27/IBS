@@ -213,7 +213,7 @@ class CoreService {
             }
           } catch (er) {
             // Catch  unknown error
-            print(er.errorMessage());
+            print(er);
           }
         }
         break;
