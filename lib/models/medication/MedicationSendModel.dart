@@ -41,12 +41,14 @@ class MedicationItem {
     this.kind,
     this.dtype,
     this.value,
+    this.category,
   });
 
   String tid;
   String kind;
   String dtype;
   MedicationValue value;
+  String category;
 
   factory MedicationItem.fromRawJson(String str) =>
       MedicationItem.fromJson(json.decode(str));
@@ -60,13 +62,15 @@ class MedicationItem {
         value: json["value"] == null
             ? null
             : MedicationValue.fromJson(json["value"]),
-      );
+        category: "medications",
+  );
 
   Map<String, dynamic> toJson() => {
         "tid": tid == null ? null : tid,
         "kind": kind == null ? null : kind,
         "dtype": dtype == null ? null : dtype,
         "value": value == null ? null : value.toJson(),
+        "category": "medications",
       };
 }
 

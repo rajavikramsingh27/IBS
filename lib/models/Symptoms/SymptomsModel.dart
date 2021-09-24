@@ -2,6 +2,11 @@
 //
 //     final symptomsModel = symptomsModelFromJson(jsonString);
 
+/*
+  IAN: All the items being submitted to the API should include the category.
+  Since this controller is dedicated to Symptoms, easiest thing for me to do
+  was hard-code "category": "symptoms".
+ */
 import 'dart:convert';
 
 SymptomsModel symptomsModelFromJson(String str) => SymptomsModel.fromJson(json.decode(str));
@@ -35,6 +40,7 @@ class Item {
     this.dtype = "num",
     this.value,
     this.children,
+    this.category,
   });
 
   String tid;
@@ -42,6 +48,7 @@ class Item {
   String dtype;
   ItemValue value;
   List<Child> children;
+  String category;
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
     tid: json["tid"] == null ? null : json["tid"],
@@ -49,6 +56,7 @@ class Item {
     dtype: json["dtype"] == null ? null : json["dtype"],
     value: json["value"] == null ? null : ItemValue.fromJson(json["value"]),
     children: json["children"] == null ? null : List<Child>.from(json["children"].map((x) => Child.fromJson(x))),
+    category: "symptoms" //json["category"] == null ? null : json["category"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -57,6 +65,7 @@ class Item {
     "dtype": dtype == null ? null : dtype,
     "value": value == null ? null : value.toJson(),
     "children": children == null ? null : List<dynamic>.from(children.map((x) => x.toJson())),
+    "category": "symptoms",
   };
 }
 
@@ -66,18 +75,21 @@ class Child {
     this.kind = "list",
     this.dtype = "arr",
     this.value,
+    this.category,
   });
 
   String tid;
   String kind;
   String dtype;
   ChildValue value;
+  String category;
 
   factory Child.fromJson(Map<String, dynamic> json) => Child(
     tid: json["tid"] == null ? null : json["tid"],
     kind: json["kind"] == null ? null : json["kind"],
     dtype: json["dtype"] == null ? null : json["dtype"],
     value: json["value"] == null ? null : ChildValue.fromJson(json["value"]),
+    category: "symptoms",
   );
 
   Map<String, dynamic> toJson() => {
@@ -85,6 +97,7 @@ class Child {
     "kind": kind == null ? null: kind,
     "dtype": dtype == null ? null : dtype,
     "value": value == null ? null : value.toJson(),
+    "category": "symptoms",
   };
 }
 

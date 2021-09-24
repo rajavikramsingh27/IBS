@@ -40,6 +40,7 @@ class JournalController extends GetxController {
     loader.value = false;
     if (data is JournalResponseModel) {
       noteTextController.clear();
+      journalSendModel.value.items = [];
       _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(

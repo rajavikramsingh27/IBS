@@ -99,14 +99,13 @@ class SignInController extends GetxController {
     try {
       final data = await ServiceApi().signInApi(bodyData: model.toJson());
 
-      print('model.toJson()model.toJson()model.toJson()model.toJson()model.toJson()');
-      print(model.toJson());
-
       if (data is LoginResponseModel) {
         HiveStore().put(Keys.USERID, data.id);
 
         CustomSnackBar().successSnackBar(
-            title: "Success", message: "SignIn Successfully");
+            title: "Success", message: "SignIn Successfully"
+        );
+
         Get.offAllNamed(home);
       } else {
         loader.value = false;
@@ -115,4 +114,5 @@ class SignInController extends GetxController {
       error.message.toString().showError();
     }
   }
+
 }

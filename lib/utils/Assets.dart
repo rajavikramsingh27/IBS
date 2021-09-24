@@ -1,3 +1,5 @@
+
+
 class Assets {
   static const String baseImage = "assets/images";
 
@@ -137,4 +139,7 @@ class Assets {
   static const String logout = "assets/images/logout.png";
 
   static const String noInternet = "assets/images/nointernet.gif";
+
+  static const String resources_1 = "$baseImage/resources/resources.png";
+  static const String resources_2 = "$baseImage/resources/resources_2.png";
 }

@@ -27,6 +27,11 @@ const String medication_supplements = '/medication_supplements';
 
 const String myIbs = '/myIbs';
 
+const String resources = '/resources';
+
+const String resourcesArticleView = '/resourcesArticleView';
+const String resourcesAdditionalRelated = '/resourcesAdditionalRelated';
+
 const String settings = '/settings';
 
 const String report = '/report';

@@ -7,6 +7,7 @@ import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessModel.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart' as HealthRsp;
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:flutter_ibs/models/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
@@ -46,6 +47,14 @@ class HealthController extends GetxController {
     "23:00",
     "24:00",
   ];
+
+  /*
+  Rx<DateTime> now = DateTime.now().obs;
+  TextEditingController noteTextController = TextEditingController();
+  RxInt formattedTime = 0.obs;
+  RxInt currentIndex = 0.obs;
+  List<String> timeList = ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00",];
+
   RxString selectedTime = "01:00".obs;
   RxBool switchValue = false.obs;
   RxBool tappedRelax = false.obs;
@@ -53,17 +62,32 @@ class HealthController extends GetxController {
   RxBool wakeTimeChanged = false.obs;
   RxBool sleepQualityChanged = false.obs;
   RxBool tirednessChanged = false.obs;
-
+*/
 
   Rx<HealthWellnessModel> healthWellnessModel = HealthWellnessModel().obs;
   SignUpController _signUpController = Get.find();
 
+  RxList<TrackableSubmitItem> _selectedItems = RxList<TrackableSubmitItem>();
+  RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
+
+  /*
   onTapped(int index) async {
     currentIndex.value = index;
   }
+*/
+
 
   @override
   void onInit() {
+    // Get the source of the data:
+    _signUpController
+        .healthWellness.value.items.forEach((element) {
+          formWidgetList.add(element);
+    });
+
+    // Refresh the local list so the form can generate:
+    formWidgetList.refresh();
+    _selectedItems = RxList<TrackableSubmitItem>();
     super.onInit();
     formattedTime = int
         .parse(DateFormat('kk').format(now.value))
@@ -71,6 +95,71 @@ class HealthController extends GetxController {
   }
 
   void onSave() async {
+   // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+  }
+
+  valueChanged(TrackableSubmitItem submitItem){
+    var count = _selectedItems.length;
+    bool isAdded = false;
+    for(var i=0; i < count; i++) {
+      if (_selectedItems[i].tid == submitItem.tid) {
+        _selectedItems[i] = submitItem;
+        isAdded = true;
+        break;
+      }
+    }
+
+    if (!isAdded){
+      _selectedItems.add(submitItem);
+    }
+
+
+/*
+    print ('-------');
+    _selectedItems.forEach((element) {
+      print(element.toJson());
+    });
+
+ */
+  }
+
+
+
+/*
+    formWidgetList.forEach((item) {
+      if (item.tid == updatedItem.tid){
+        item = updatedItem;
+
+      }else{
+        item.children.forEach((child) {
+          child.items.forEach((childItem) {
+            if(childItem.tid == updatedItem.tid){
+              childItem = updatedItem;
+            }
+          });
+        });
+      }
+    });
+*/
+
+
+/*
+  _findTrackableItemInList(TrackableItem searchItem, RxList<TrackableItem> list){
+    var count = list.length;
+    for(var i; i < count; i++){
+      if (list[i].tid == searchItem.tid){
+        return list[i];
+      }
+      list[i].children.forEach((child) {
+        return _findTrackableItemInList(searchItem, child.items);
+      });
+    }
+  }
+*/
+
+  /*
+  void onSave()async{
+>>>>>>> daced873a0ed8c88ec806ae86e913ca6cc080581
     if (healthWellnessModel.value.items == null) {
       healthWellnessModel.value.items = [];
     }
@@ -83,12 +172,18 @@ class HealthController extends GetxController {
     healthWellnessModel.refresh();
     print("DATA Model : ${json.encode(healthWellnessModel.toJson())}");
     loader.value = true;
+<<<<<<< HEAD
     final data =
     await ServiceApi().postHealthWellnessAPI(
         bodyData: healthWellnessModel.toJson());
+=======
+
+    final data = await ServiceApi().postHealthWellnessAPI(bodyData: healthWellnessModel.toJson());
+>>>>>>> daced873a0ed8c88ec806ae86e913ca6cc080581
     loader.value = false;
     if (data is HealthRsp.HealthWellnessResponseModel) {
       noteTextController.clear();
+      healthWellnessModel.value.items = [];
       _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
@@ -98,9 +193,13 @@ class HealthController extends GetxController {
     }
   }
 
+
   void onOptionTapped({ListOption model, String tid, String kind}) {
     model.optionDefault = !model.optionDefault;
+<<<<<<< HEAD
   }
+=======
+>>>>>>> daced873a0ed8c88ec806ae86e913ca6cc080581
 
     void onRelaxTapped({Default model, String tid, String kind}) {
       model.required = !model.required;
@@ -147,6 +246,16 @@ class HealthController extends GetxController {
       _signUpController.healthWellness.refresh();
       healthWellnessModel.refresh();
     }
+<<<<<<< HEAD
+=======
+
+    _signUpController.healthWellness.refresh();
+    healthWellnessModel.refresh();
+  }
+
+  void onRelaxTapped({Tag model, String tid, String kind}) {
+    model.required = !model.required;
+>>>>>>> daced873a0ed8c88ec806ae86e913ca6cc080581
 
     void onBedTimeTapped({String selectedTime, String tid, String kind}) {
       if (healthWellnessModel.value.items == null) {
@@ -239,4 +348,32 @@ class HealthController extends GetxController {
       healthWellnessModel.refresh();
     }
 
+<<<<<<< HEAD
+}
+=======
+  void onTirednessTapped({num numValue, String tid, String kind}) {
+    if (healthWellnessModel.value.items == null) {
+      healthWellnessModel.value.items = [];
+    }
+    if(!tirednessChanged.value){
+      tirednessChanged.value = true;
+      Item item = Item(
+          tid: tid,
+          kind: kind,
+          dtype: "num",
+          value: ItemValue(numValue: numValue,));
+      healthWellnessModel.value.items.add(item);
+    }else{
+      healthWellnessModel.value.items.forEach((Item element) {
+        if(element.tid == tid){
+          element.value.numValue = numValue;
+        }
+      });
+    }
+    _signUpController.healthWellness.refresh();
+    healthWellnessModel.refresh();
+  }
+
+
+   */
 }

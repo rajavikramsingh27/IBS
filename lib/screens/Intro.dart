@@ -74,7 +74,7 @@ class _IntroState extends State<Intro> {
                   Column(
                     children: [
                       _buildPageView(),
-                      SizedBox(height: 50),
+                      SizedBox(height: ScreenConstant.sizeExtraLarge),
                       _buildCircleIndicator(),
                     ],
                   ),
@@ -197,24 +197,40 @@ class _IntroState extends State<Intro> {
   }
 
   _buildCircleIndicator() {
-    return Positioned(
-      left: 0.0,
-      right: 0.0,
-      // bottom: 0.0,
-      child: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: CirclePageIndicator(
-          dotSpacing: 14,
-          size: 8,
-          selectedSize: 16,
-          borderWidth: 7,
-          // borderColor: Colors.red,
-          dotColor: AppColors.colorDotNotFocused,
-          selectedDotColor: AppColors.white,
-          selectedBorderColor: AppColors.colorDot,
-          itemCount: arrIntroText.length,
-          currentPageNotifier: _currentPageNotifier,
-        ),
+// <<<<<<< HEAD
+//     return Positioned(
+//       left: 0.0,
+//       right: 0.0,
+//       // bottom: 0.0,
+//       child: Padding(
+//         padding: EdgeInsets.all(8.0),
+//         child: CirclePageIndicator(
+//           dotSpacing: 14,
+//           size: 8,
+//           selectedSize: 16,
+//           borderWidth: 7,
+//           // borderColor: Colors.red,
+//           dotColor: AppColors.colorDotNotFocused,
+//           selectedDotColor: AppColors.white,
+//           selectedBorderColor: AppColors.colorDot,
+//           itemCount: arrIntroText.length,
+//           currentPageNotifier: _currentPageNotifier,
+//         ),
+// =======
+    return Padding(
+      padding: EdgeInsets.all(8.0),
+      child: CirclePageIndicator(
+        dotSpacing: 14,
+        size: 8,
+        selectedSize: 16,
+        borderWidth: 7,
+        // borderColor: Colors.red,
+        dotColor: AppColors.colorDotNotFocused,
+        selectedDotColor: AppColors.white,
+        selectedBorderColor: AppColors.colorDot,
+        itemCount: arrIntroText.length,
+        currentPageNotifier: _currentPageNotifier,
+// >>>>>>> daced873a0ed8c88ec806ae86e913ca6cc080581
       ),
     );
   }

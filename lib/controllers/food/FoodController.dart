@@ -4,11 +4,15 @@ import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodSendModel.dart';
+import 'package:flutter_ibs/models/tags/TagsSendModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
+import 'package:flutter_ibs/utils/DateTime.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
+
 
 class FoodController extends GetxController {
   Rx<FoodResponseModel> foodModel;
@@ -20,9 +24,10 @@ class FoodController extends GetxController {
   Rx<FoodSendModel> foodSendModel = FoodSendModel().obs;
   RxList<FoodSubList> listFoodSub = <FoodSubList>[].obs;
   RxList<FoodList> listFood = <FoodList>[].obs;
-  RxList<Default> listfoodDefault = <Default>[].obs;
+  RxList<Tag> listfoodDefault = <Tag>[].obs;
   RxInt noOfGlasses = 0.obs;
   RxString mealtid = "".obs;
+  RxBool selected = false.obs;
 
   TextEditingController noteTextController = TextEditingController();
   TextEditingController foodTextController = TextEditingController();
@@ -48,6 +53,14 @@ class FoodController extends GetxController {
     var v = homeController.trackFoodList.value;
     print("vdsdfat-- $v");
   }
+
+  // onFoodTagSave() {
+  //   TagsSendModel foodTags = TagsSendModel(
+  //     category: _signUpController.food.value.category,
+  //     key: ,
+  //     value: ,
+  //   );
+  // }
 
   onSave() async {
     if (foodSendModel.value.items == null) {
@@ -101,6 +114,7 @@ class FoodController extends GetxController {
     if (data is FoodResponseModel) {
       foodTextController.clear();
       noteTextController.clear();
+      foodSendModel.value.items = [];
       _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
@@ -128,5 +142,41 @@ class FoodController extends GetxController {
     } else {
       loader.value = false;
     }
+  }
+
+  mealOptionDefault({mealIndex}) {
+    var model =
+        _signUpController.food.value.items?.first?.list?.options[mealIndex];
+    var startTime = CustomDateTime().parseTimeAsDateTime(
+        dateTime: model.conditionalDefault.time.first.startTime,
+        returnFormat: "HH:mm");
+    var endTime = CustomDateTime().parseTimeAsDateTime(
+        dateTime: model.conditionalDefault.time.first.endTime,
+        returnFormat: "HH:mm");
+
+    var s = "${currentDateTime.value.hour}:${currentDateTime.value.minute}";
+    var u = CustomDateTime()
+        .parseTimeAsDateTime(dateTime: s, returnFormat: "HH:mm");
+
+    startTimeDifference.value = u.difference(startTime).inSeconds;
+    endTimeDifference.value = (endTime.difference(u).inSeconds);
+    if ((endTime.difference(u).inSeconds) > 0 &&
+        (u.difference(startTime).inSeconds) > 0) {
+      if (!selected.value) {
+        selected.value = true;
+        model.optionDefault = !model.optionDefault;
+        Future.delayed(Duration(seconds: 1), () {
+          _signUpController.food.refresh();
+        });
+      }
+    }
+    //   if (model.optionDefault == false &&
+    //       ((endTime.difference(u).inSeconds) > 0 &&
+    //           (u.difference(startTime).inSeconds) > 0)) {
+    //     model.optionDefault = true;
+    //     Future.delayed(Duration(seconds: 0), () {
+    //       _signUpController.food.refresh();
+    //     });
+    //   }
   }
 }
