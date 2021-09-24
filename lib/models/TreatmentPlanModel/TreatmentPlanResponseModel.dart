@@ -550,6 +550,7 @@ class Tags {
     this.autocompleteId,
     this.source,
     this.relation,
+    this.category,
   });
 
   bool userAddable;
@@ -557,6 +558,7 @@ class Tags {
   List<Tag> tagsDefault;
   String autocompleteId;
   String source;
+  String category;
   Relation relation;
 
   factory Tags.fromJson(Map<String, dynamic> json) => Tags(
@@ -568,7 +570,8 @@ class Tags {
         autocompleteId:
             json["autocompleteId"] == null ? null : json["autocompleteId"],
         source: json["source"] == null ? null : json["source"],
-        relation: json["relation"] == null
+    category: json["category"] == null ? null : json["category"],
+    relation: json["relation"] == null
             ? null
             : Relation.fromJson(json["relation"]),
       );
@@ -581,7 +584,8 @@ class Tags {
             : List<dynamic>.from(tagsDefault.map((x) => x.toJson())),
         "autocompleteId": autocompleteId == null ? null : autocompleteId,
         "source": source == null ? null : source,
-        "relation": relation == null ? null : relation.toJson(),
+    "category": category == null ? null : category,
+    "relation": relation == null ? null : relation.toJson(),
       };
 }
 
