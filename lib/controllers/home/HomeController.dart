@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/controllers/symptoms/SymptomsController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/track_history/TrackHistoryResponseModel.dart';
 import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
@@ -32,6 +33,9 @@ class HomeController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxList<TrackHistoryResponseModel> trackHistoryList =
       <TrackHistoryResponseModel>[].obs;
+
+  TrackHistoryResponseModel selectedPageData;
+
   RxInt selectedDailyLogIndex = 0.obs;
   RxString selectedDailyLogindividualId = "".obs;
 
@@ -40,6 +44,8 @@ class HomeController extends GetxController {
   DateTime selectedDate; // Date as set in the Home screen
   RxString selectedDateLabel = "".obs;
   RxString selectedTimeLabel = "".obs;
+
+  SymptomsController _symptoms;
 
   var foodValue;
   onTapped(int index) async {
@@ -179,15 +185,21 @@ class HomeController extends GetxController {
       loader.value = true;
       await ServiceApi().getUserHistoryList(selectedDate).then((value) {
         value != null ? trackHistoryList.value = value : print("getUserHistoryList was null");
+        loader.value = false;
       });
-      loader.value = false;
+
     }
   }
 
-  navigateToTrackHistory(TrackHistoryResponseModel model) {
-    switch (model.category) {
+  navigateToTrackHistory(TrackHistoryResponseModel pageData) {
+    selectedPageData = pageData;
+
+    switch (pageData.category) {
       case "symptoms":
         {
+          _symptoms = Get.find();
+          _symptoms.formData = pageData;
+
           return Get.bottomSheet(Symptoms(),
               barrierColor: AppColors.barrierColor.withOpacity(0.60),
               isScrollControlled: true);
@@ -217,7 +229,7 @@ class HomeController extends GetxController {
           if (connectionStatus.value) {
             loader.value = true;
 
-            ServiceApi().getFoodHistoryList(id: model.id).then((value) {
+            ServiceApi().getFoodHistoryList(id: pageData.id).then((value) {
               trackFoodList.value = value;
             });
             loader.value = false;

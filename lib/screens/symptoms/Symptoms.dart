@@ -14,6 +14,7 @@ class Symptoms extends StatelessWidget {
   final SymptomsController controller = Get.put(SymptomsController());
   final UserController _userController = Get.find();
 
+
   @override
   Widget build(BuildContext context) {
     int _numRendered = 0;

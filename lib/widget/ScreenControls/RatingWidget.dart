@@ -34,6 +34,10 @@ class _RatingWidgetState extends State<RatingWidget> {
   @override
   void initState() {
     _currentValue = widget.trackableItem.rating.ratingDefault.toDouble();
+    if (widget.trackableItem.rating.ratingDefault != widget.trackableItem.rating.value){
+      _currentValue = widget.trackableItem.rating.value.toDouble();
+    }
+
     widget.trackableItem.rating.value = _currentValue;
 
     // As this is tracked, set its initial tracking state:

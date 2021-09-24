@@ -213,13 +213,14 @@ class TrackableChild {
 /// Data structure for sending user Trackable item data
 class TrackableSubmitItem {
   TrackableSubmitItem(
-      {this.tid, this.category, this.kind, this.dtype, this.value});
+      {this.tid, this.category, this.kind, this.dtype, this.value, this.val});
 
   String tid;
   String category;
   String kind;
   String dtype;
   TrackableSubmitItemValue value;
+  dynamic val;
 
   factory TrackableSubmitItem.fromJson(Map<String, dynamic> json) =>
       TrackableSubmitItem(
@@ -227,7 +228,8 @@ class TrackableSubmitItem {
         category: json["category"],
         kind: json["kind"],
         dtype: json["dtype"],
-        value: json["value"],
+        value: TrackableSubmitItemValue.fromJson(json["value"]),
+        val:  json["val"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -245,12 +247,14 @@ class TrackableSubmitItemValue {
     this.arr,
     this.str,
     this.boolean,
+    this.value,
   });
 
   num number;
   String str;
   List<String> arr;
   bool boolean;
+  dynamic value;
 
   factory TrackableSubmitItemValue.fromJson(Map<String, dynamic> json) =>
       TrackableSubmitItemValue(
@@ -258,6 +262,7 @@ class TrackableSubmitItemValue {
         arr: json["arr"] == null
             ? null
             : List<String>.from(json["arr"].map((x) => x)),
+        value: json["value"]
       );
 
   Map<String, dynamic> toJson() => {

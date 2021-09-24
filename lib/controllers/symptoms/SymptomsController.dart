@@ -2,6 +2,7 @@ import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
+import 'package:flutter_ibs/models/track_history/TrackHistoryResponseModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,10 @@ class SymptomsController extends GetxController {
   TrackablesController _trackablesController = Get.find();
   RxList<TrackableItem> formWidgetList;
 
+  TrackHistoryResponseModel formData;
+
+
+
   @override
   void onInit() {
     doInit();
@@ -22,14 +27,38 @@ class SymptomsController extends GetxController {
 
   void doInit() {
     formWidgetList = RxList<TrackableItem>();
+
     // Get the source of the data:
     _trackablesController.symptoms.value.items.forEach((element) {
       formWidgetList.add(element);
     });
 
+    if (formData != null){
+      formWidgetList.forEach((item) {
+        setPreviousValue(item);
+      });
+    }
+
     // Refresh the local list so the form can generate:
     formWidgetList.refresh();
   }
+
+
+  void setPreviousValue(TrackableItem item){
+    int num = formData.items.length;
+    for (var i=0;i<num;i++){
+      if (formData.items[0].tid == item.tid){
+        switch(item.kind){
+          case 'rating':
+            item.rating.value = formData.items[0].value.number;
+            break;
+        }
+        break;
+      }
+    }
+
+  }
+
 
   void onCancel() {
     doInit();
