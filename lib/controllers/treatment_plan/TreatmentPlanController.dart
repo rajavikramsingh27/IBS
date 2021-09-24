@@ -5,7 +5,6 @@ import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanResponseM
 import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanSendModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
-import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/tags/TagsResponseModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
