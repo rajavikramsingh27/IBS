@@ -28,8 +28,8 @@ class TreatmentPlanController extends GetxController {
   RxList<ListOption> selectedOptionList = <ListOption>[].obs;
 
   Rx<String> selectedCategory = "".obs;
-  // Rx<String> selectedTime = "01:00".obs;
-  // Rx<String> selectedDay = "option_every_day".obs;
+  Rx<String> selectedTime = "01:00".obs;
+  Rx<String> selectedDay = "option_every_day".obs;
   Rx<String> selectedPID = "".obs;
   Rx<String> selectedID = "".obs;
 
