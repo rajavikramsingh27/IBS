@@ -4,7 +4,6 @@ import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseMod
 import 'package:flutter_ibs/models/MyAccount/MyAccount.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
-import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/journal/JournalResponseModel.dart';
