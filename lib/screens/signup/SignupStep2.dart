@@ -1,9 +1,5 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
-import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
@@ -15,8 +11,6 @@ import 'package:flutter_ibs/widget/CustomCheckBox.dart';
 import 'package:flutter_ibs/widget/CustomExpansionTile.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
-
-
 
 class SignupStep2 extends StatelessWidget {
   //final _controller = Get.put(SignUpController());
@@ -76,17 +70,11 @@ class SignupStep2 extends StatelessWidget {
   _buildTrackingOptions() {
     return Stack(
       children: [
-        AspectRatio(
-            aspectRatio: 1.6,
-            child: Image.asset(
-                Assets.signupBg2
-            )
-        ),
+        AspectRatio(aspectRatio: 1.6, child: Image.asset(Assets.signupBg2)),
         Positioned(
             bottom: ScreenConstant.defaultHeightTwentyFour,
             left: ScreenConstant.sizeXXXL,
             right: ScreenConstant.sizeXXXL,
-
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -105,8 +93,7 @@ class SignupStep2 extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ],
-            )
-        )
+            ))
       ],
     );
 
@@ -155,11 +142,14 @@ class SignupStep2 extends StatelessWidget {
                         value: topLevelItem.enabled,
                         onChanged: (val) {
                           topLevelItem.enabled = !topLevelItem.enabled;
-                          _setEnabledStateOfChildrenForTrackable(topLevelItem, topLevelItem);
+                          _setEnabledStateOfChildrenForTrackable(
+                              topLevelItem, topLevelItem);
                           _trackablesController.trackList.refresh();
                         },
                       ),
-                      Text("${_trackablesController.trackList.value.data[index].name}".tr,
+                      Text(
+                          "${_trackablesController.trackList.value.data[index].name}"
+                              .tr,
                           style: TextStyles.textStyleIntroDescription
                               .apply(color: Colors.white, fontSizeDelta: -3)),
                       Spacer(),
@@ -177,21 +167,17 @@ class SignupStep2 extends StatelessWidget {
                           color: Colors.grey[50],
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(16),
-                              bottomRight: Radius.circular(16)
-                          )
-                      ),
+                              bottomRight: Radius.circular(16))),
                       child: ListView.builder(
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: _trackablesController
                               .trackList.value.data[index].items.length,
                           itemBuilder: (BuildContext context, int idx) {
-                            return _renderSubItem(topLevelItem.items[idx], topLevelItem);
-                          })
-                  ),
-                ]
-            )
-        );
+                            return _renderSubItem(
+                                topLevelItem.items[idx], topLevelItem);
+                          })),
+                ]));
       },
     );
   }
@@ -232,41 +218,35 @@ class SignupStep2 extends StatelessWidget {
                 )
               ],
             ),
-            children: _renderChildren(item.children, item, topLevelItem)
-        )
-    );
+            children: _renderChildren(item.children, item, topLevelItem)));
   }
 
   /// Iterates over a list of TrackableChild objects
   /// passing the child.items back to _renderSubItem
   /// (which may in tern call _renderChildren on those
   /// items to walk down the tree)
-  _renderChildren(List<TrackableChild> children, TrackableItem parent, TrackableItem topLevelItem) {
+  _renderChildren(List<TrackableChild> children, TrackableItem parent,
+      TrackableItem topLevelItem) {
     List<Widget> widgets = [];
-    children.forEach( (child) {
-      var listView = (
-          IgnorePointer(
-            ignoring: !parent.enabled,
-            child: ListView.builder(
+    children.forEach((child) {
+      var listView = (IgnorePointer(
+          ignoring: !parent.enabled,
+          child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              padding: EdgeInsets.only(
-                  left: ScreenConstant.sizeExtraLarge),
-              itemCount:
-              child.items.length,
+              padding: EdgeInsets.only(left: ScreenConstant.sizeExtraLarge),
+              itemCount: child.items.length,
               itemBuilder: (BuildContext context, int idx) {
-               // print ("Rendering child item: " + child.items[idx].tid + ", " + child.items[idx].isVisible.toString());
+                // print ("Rendering child item: " + child.items[idx].tid + ", " + child.items[idx].isVisible.toString());
                 return _renderSubItem(child.items[idx], topLevelItem);
-              }
-            )
-          )
-      );
+              })));
       widgets.add(listView);
     });
     return widgets;
   }
 
-  _setEnabledStateOfChildrenForTrackable(TrackableItem item, TrackableItem topLevelItem){
+  _setEnabledStateOfChildrenForTrackable(
+      TrackableItem item, TrackableItem topLevelItem) {
     // Set children:
     // Top level have item.items, which was bad data modelling, we can work around:
     item.items.forEach((nestedItem) {
@@ -282,9 +262,8 @@ class SignupStep2 extends StatelessWidget {
     });
 
     // A child of a top level should always turn on the top level
-    if (item.enabled){
+    if (item.enabled) {
       topLevelItem.enabled = true;
     }
   }
-
 }

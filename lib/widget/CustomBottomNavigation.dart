@@ -50,11 +50,11 @@ class CustomBottomNavigation extends StatelessWidget {
                         imageText: Assets.report),
                     Container(width: context.mediaQuerySize.width * 0.13),
                     _buildTabItem(
-                        title: "Resources", imageText: Assets.resources,
-                      onTap: () {
-                        Get.toNamed(resources);
-                      }
-                    ),
+                        title: "Resources",
+                        imageText: Assets.resources,
+                        onTap: () {
+                          Get.toNamed(resources);
+                        }),
                     _buildTabItem(
                         onTap: () {
                           Get.toNamed(myIbs);
@@ -69,10 +69,7 @@ class CustomBottomNavigation extends StatelessWidget {
     );
   }
 
-  Widget _buildTabItem(
-      { String title,
-       String imageText,
-      Function() onTap
+  Widget _buildTabItem({String title, String imageText, Function() onTap
 
       // ValueChanged<int> onPressed,
       }) {

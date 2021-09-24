@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
-import 'package:flutter_ibs/utils/ScreenConstants.dart';
+import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/TrackableItemUtils.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
 
@@ -32,14 +31,14 @@ class RenderItemChildrenWidget extends StatelessWidget {
             color: AppColors.colorYesButton,
           ),
         ),
-
         ListView.builder(
             shrinkWrap: true,
             physics: ClampingScrollPhysics(),
             itemCount: trackableItem.children.length,
             itemBuilder: (_, childCount) {
-              bool doRender = _validateCondition(trackableItem.children[childCount], trackableItem);
-              if (!doRender){
+              bool doRender = _validateCondition(
+                  trackableItem.children[childCount], trackableItem);
+              if (!doRender) {
                 return Offstage();
               }
               return ListView.builder(
@@ -59,13 +58,13 @@ class RenderItemChildrenWidget extends StatelessWidget {
     );
   }
 
-  bool _validateCondition(TrackableChild child, TrackableItem parent){
+  bool _validateCondition(TrackableChild child, TrackableItem parent) {
     var condition = child.condition;
     var parentValue = TrackableItemUtils().getItemValue(parent);
 
-    switch (condition.conditionOperator){
-        case "ALWAYS":
-          return true;
+    switch (condition.conditionOperator) {
+      case "ALWAYS":
+        return true;
       case "GT":
         return parentValue > child.condition.value;
       case "LT":
@@ -73,11 +72,10 @@ class RenderItemChildrenWidget extends StatelessWidget {
       case "EQ":
         return parentValue == child.condition.value;
     }
-    print ("_validateCondition unmatched, returning default true for: " + parent.tid);
+    print("_validateCondition unmatched, returning default true for: " +
+        parent.tid);
     return true;
   }
 
-  _getTrackableItemValue(TrackableItem item){
-
-  }
+  _getTrackableItemValue(TrackableItem item) {}
 }

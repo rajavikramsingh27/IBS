@@ -61,11 +61,21 @@ class DummyData {
 
   static List<TrackFlow> trackFlow = [
     TrackFlow(text: "Symptoms", image: Assets.symptoms, category: "symptoms"),
-    TrackFlow(text: "Bowel Movements", image: Assets.bowel, category: "bowelMovements"),
-    TrackFlow(text: "Medication & Supplements", image: Assets.medication, category: "medications"),
-    TrackFlow(text: "Health & Wellness", image: Assets.health, category: "healthWellness"),
+    TrackFlow(
+        text: "Bowel Movements",
+        image: Assets.bowel,
+        category: "bowelMovements"),
+    TrackFlow(
+        text: "Medication & Supplements",
+        image: Assets.medication,
+        category: "medications"),
+    TrackFlow(
+        text: "Health & Wellness",
+        image: Assets.health,
+        category: "healthWellness"),
     TrackFlow(text: "Food & Drink", image: Assets.food, category: "foods"),
-    TrackFlow(text: "Daily Journal", image: Assets.journal, category: "journal"),
+    TrackFlow(
+        text: "Daily Journal", image: Assets.journal, category: "journal"),
   ];
 
   static List<IbsModel> iBsType = [
@@ -200,7 +210,6 @@ class TrackFlow {
   String text;
   String category;
 }
-
 
 class IBSTypeModel {
   IBSTypeModel({this.image, this.text});

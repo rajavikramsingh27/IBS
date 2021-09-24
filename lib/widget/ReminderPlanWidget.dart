@@ -22,19 +22,19 @@ class ReminderPlanWidget extends StatelessWidget {
 
   final String editText;
 
-  ReminderPlanWidget(
-      {Key key,
-      this.title = "Reminders set for this plan",
-      this.childText = "af",
-      this.valueReminder = false,
-      this.valueChild = false,
-      this.onChanged,
-      this.onChangedChild,
-      this.editText = "Edit",
-      this.onPressed,
-      this.listData,
-      this.listOption,})
-      : super(key: key);
+  ReminderPlanWidget({
+    Key key,
+    this.title = "Reminders set for this plan",
+    this.childText = "af",
+    this.valueReminder = false,
+    this.valueChild = false,
+    this.onChanged,
+    this.onChangedChild,
+    this.editText = "Edit",
+    this.onPressed,
+    this.listData,
+    this.listOption,
+  }) : super(key: key);
   final TreatmentPlanController _treatmentPlanController =
       Get.put(TreatmentPlanController());
   @override
@@ -84,10 +84,13 @@ class ReminderPlanWidget extends StatelessWidget {
                               color: AppColors.colorIcons,
                             ),
                             SizedBox(width: ScreenConstant.sizeDefault),
-                            Obx(()=>Text( "${listData[index].day} at ${listData[index].time}",
-                              style: TextStyles.textStyleRegular
-                                  .apply(color: Colors.white),
-                            ),),
+                            Obx(
+                              () => Text(
+                                "${listData[index].day} at ${listData[index].time}",
+                                style: TextStyles.textStyleRegular
+                                    .apply(color: Colors.white),
+                              ),
+                            ),
                             TextButton(
                                 onPressed: () {
                                   Get.dialog(CustomDialog4(

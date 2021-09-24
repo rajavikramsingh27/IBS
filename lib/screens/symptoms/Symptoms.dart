@@ -4,7 +4,6 @@ import 'package:flutter_ibs/controllers/user/UserController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
@@ -95,28 +94,30 @@ class Symptoms extends StatelessWidget {
                                       int listLength =
                                           controller.formWidgetList.length;
 
-                                      int total = (listLength -2) - ( _numSkipped ) ;
-                                      if ( mainIndex >= total ){
+                                      int total =
+                                          (listLength - 2) - (_numSkipped);
+                                      if (mainIndex >= total) {
                                         // If it's the last one or two... because additional notes could be after.
                                         isLast = true;
                                       }
-print("IDx $mainIndex  total $total - $isLast");
+                                      print(
+                                          "IDx $mainIndex  total $total - $isLast");
 
-                                      bool isTracked =
-                                      _userController.doesUserTrack(controller
-                                          .formWidgetList[mainIndex]);
+                                      bool isTracked = _userController
+                                          .doesUserTrack(controller
+                                              .formWidgetList[mainIndex]);
                                       if (isTracked) {
                                         _numRendered++;
                                         return RenderWidgetByType()
                                             .renderTrackableItem(
-                                            controller
-                                                .formWidgetList[mainIndex],
-                                            isFirst: _numRendered == 1,
-                                            isLast: isLast,
-                                            onValueChanged:
-                                            controller.valueChanged);
+                                                controller
+                                                    .formWidgetList[mainIndex],
+                                                isFirst: _numRendered == 1,
+                                                isLast: isLast,
+                                                onValueChanged:
+                                                    controller.valueChanged);
                                       } else {
-                                        _numSkipped ++;
+                                        _numSkipped++;
                                         return Offstage();
                                       }
                                     }),

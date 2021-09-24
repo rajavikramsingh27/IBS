@@ -6,26 +6,25 @@ import 'package:get/instance_manager.dart';
 class TrackableItemUtils {
   UserController _userController = Get.find();
 
-  getItemValue(TrackableItem item){
-    switch (item.kind){
+  getItemValue(TrackableItem item) {
+    switch (item.kind) {
       case "rating":
         return item.rating.value;
         break;
       case "list":
         return item.list.value;
       default:
-        print ("**** TrackableItemUtils.getItemValue called for unknown type " + item.tid + ", " + item.kind);
+        print("**** TrackableItemUtils.getItemValue called for unknown type " +
+            item.tid +
+            ", " +
+            item.kind);
     }
   }
 
-
-  List<Tag> addUserTagsToList({
-    List<Tag> tags,
-    String category
-  }){
+  List<Tag> addUserTagsToList({List<Tag> tags, String category}) {
     List<Tag> userTags;
 
-    switch (category){
+    switch (category) {
       case "breakfast":
         userTags = _userController.user.value.tags.breakfast;
         break;
@@ -53,5 +52,4 @@ class TrackableItemUtils {
 
     return ([...userTags, ...tags]);
   }
-
 }

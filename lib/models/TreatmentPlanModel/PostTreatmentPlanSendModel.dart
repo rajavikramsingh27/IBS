@@ -49,7 +49,9 @@ class PostTreatmentPlanSendModel {
         "trackingDefaults": trackingDefaults == null
             ? null
             : List<dynamic>.from(trackingDefaults.map((x) => x.toJson())),
-        "tags": tags == null ? null : List<dynamic>.from(tags.map((x) => x.toJson())),
+        "tags": tags == null
+            ? null
+            : List<dynamic>.from(tags.map((x) => x.toJson())),
         "reminders": reminders == null
             ? null
             : List<dynamic>.from(reminders.map((x) => x.toJson())),

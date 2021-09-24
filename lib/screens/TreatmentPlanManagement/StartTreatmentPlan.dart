@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
@@ -34,11 +33,13 @@ class StartTreatmentPlan extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             SizedBox(height: ScreenConstant.defaultHeightTen),
-            _treatmentPlanController.existTreatmentPlans.contains(data.pid)?Offstage():CustomElevatedButton(
-              widthFactor: 0.7,
-              text: "Save Changes",
-              onTap: _treatmentPlanController.onSave,
-            ),
+            _treatmentPlanController.existTreatmentPlans.contains(data.pid)
+                ? Offstage()
+                : CustomElevatedButton(
+                    widthFactor: 0.7,
+                    text: "Save Changes",
+                    onTap: _treatmentPlanController.onSave,
+                  ),
             TextButton(
                 onPressed: () {
                   Get.back();
@@ -85,20 +86,23 @@ class StartTreatmentPlan extends StatelessWidget {
                           SizedBox(height: ScreenConstant.defaultHeightForty),
                           DateTimeCardWidget(),
                           SizedBox(height: ScreenConstant.sizeDefault),
-                          _treatmentPlanController.existTreatmentPlans.contains(data.pid)?CustomElevatedButton2(
-                            elevation: 16,
-                            widthFactor: 0.7,
-                            onTap: () => Get.dialog(CustomDialog3(
-                              title: "Are you sure?",
-                              description:
-                                  '''Stopping the treatment plan will remove all plan notifications and tracking options associated with this plan. Any data associated with the plan will remain''',
-                              onTap:
-                                  _treatmentPlanController.onStopTreatmentPlan,
-                            )),
-                            textColor: AppColors.colorTextStop,
-                            text: data.stopPlan.tr,
-                            buttonColor: AppColors.white,
-                          ):Offstage(),
+                          _treatmentPlanController.existTreatmentPlans
+                                  .contains(data.pid)
+                              ? CustomElevatedButton2(
+                                  elevation: 16,
+                                  widthFactor: 0.7,
+                                  onTap: () => Get.dialog(CustomDialog3(
+                                    title: "Are you sure?",
+                                    description:
+                                        '''Stopping the treatment plan will remove all plan notifications and tracking options associated with this plan. Any data associated with the plan will remain''',
+                                    onTap: _treatmentPlanController
+                                        .onStopTreatmentPlan,
+                                  )),
+                                  textColor: AppColors.colorTextStop,
+                                  text: data.stopPlan.tr,
+                                  buttonColor: AppColors.white,
+                                )
+                              : Offstage(),
                           SizedBox(
                               height: ScreenConstant.defaultHeightTwentyFour),
                           Stack(

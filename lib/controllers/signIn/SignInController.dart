@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
-import 'package:flutter_ibs/controllers/user/UserController.dart';
-import 'package:flutter_ibs/models/user/UserModel.dart';
 import 'package:flutter_ibs/Store/ShareStore.dart';
-import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
+import 'package:flutter_ibs/controllers/user/UserController.dart';
 import 'package:flutter_ibs/models/login/LoginSendModel.dart';
+import 'package:flutter_ibs/models/user/UserModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:flutter_ibs/utils/Validator.dart';
 import 'package:get/get.dart';
-
-
 
 class SignInController extends GetxController {
   final UserController _userController = Get.find();
@@ -75,19 +72,19 @@ class SignInController extends GetxController {
     //   print("validate");
     //   loader.value = true;
 
-      // bool check = await ConnectionCheck().initConnectivity();
-      // if (check) {
-      //   try {
-      //     signInApi();
-      //   } catch (e) {
-      //     loader.value = false;
-      //     Get.back();
-      //   }
-      //   //Get.toNamed(home);
-      // } else {
-      //   CustomSnackBar().errorSnackBar(
-      //       title: "No Internet", message: "No internet Connection");
-      // }
+    // bool check = await ConnectionCheck().initConnectivity();
+    // if (check) {
+    //   try {
+    //     signInApi();
+    //   } catch (e) {
+    //     loader.value = false;
+    //     Get.back();
+    //   }
+    //   //Get.toNamed(home);
+    // } else {
+    //   CustomSnackBar().errorSnackBar(
+    //       title: "No Internet", message: "No internet Connection");
+    // }
 
     // } else {
     //   print("not validate");
@@ -106,10 +103,9 @@ class SignInController extends GetxController {
 
       if (data is UserModel) {
         HiveStore().put(Keys.USERID, data.id);
-        ShareStore().saveData(store: KeyStore.userprofile,object: data);
-        CustomSnackBar().successSnackBar(
-            title: "Success", message: "SignIn Successfully"
-        );
+        ShareStore().saveData(store: KeyStore.userprofile, object: data);
+        CustomSnackBar()
+            .successSnackBar(title: "Success", message: "SignIn Successfully");
         _userController.setUser(data);
 
         Get.offAllNamed(home);
@@ -118,8 +114,7 @@ class SignInController extends GetxController {
       }
     } catch (error) {
       print(error.toString());
- //     error.message.toString().showError();
+      //     error.message.toString().showError();
     }
   }
-
 }

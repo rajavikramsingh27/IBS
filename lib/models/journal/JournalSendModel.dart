@@ -30,18 +30,22 @@ class JournalSendModel {
         category: json["category"] == null ? null : json["category"],
         items: json["items"] == null
             ? null
-            : List<TrackableSubmitItem>.from(json["items"].map((x) => TrackableSubmitItem.fromJson(x))),
-        trackedAt: json["trackedAt"] == null ? null : new DateTime(
-            json["trackedAt"]),
+            : List<TrackableSubmitItem>.from(
+                json["items"].map((x) => TrackableSubmitItem.fromJson(x))),
+        trackedAt:
+            json["trackedAt"] == null ? null : new DateTime(json["trackedAt"]),
       );
 
   Map<String, dynamic> toJson() {
     HomeController controller = Get.find();
     DateTime now = DateTime.now();
     DateTime trackedAt = new DateTime(
-        controller.selectedDate.year, controller.selectedDate.month,
+        controller.selectedDate.year,
+        controller.selectedDate.month,
         controller.selectedDate.day,
-        now.hour, now.minute, now.second);
+        now.hour,
+        now.minute,
+        now.second);
 
     Map<String, dynamic> json = {
       "category": category == null ? null : category,

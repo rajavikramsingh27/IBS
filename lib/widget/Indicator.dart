@@ -3,7 +3,7 @@ import 'package:flutter_ibs/utils/Colors.dart';
 
 class Indicator extends StatelessWidget {
   Indicator({
-     this.controller,
+    this.controller,
     this.itemCount: 0,
   }) : assert(controller != null);
 

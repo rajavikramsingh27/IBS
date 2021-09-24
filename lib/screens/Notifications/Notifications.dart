@@ -1,18 +1,15 @@
-
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
+import 'package:flutter_ibs/utils/HexColor.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/CustomSwitch.dart';
+import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_ibs/widget/LeadingBackButton.dart';
-import 'package:flutter_ibs/utils/HexColor.dart';
-import 'package:flutter_ibs/widget/CustomSwitch.dart';
-
 
 class Notifications extends StatefulWidget {
   @override
@@ -20,7 +17,6 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,8 +42,7 @@ class _NotificationsState extends State<Notifications> {
             SizedBox(height: ScreenConstant.defaultHeightThirty),
             Text("App Notifications",
                 textAlign: TextAlign.center,
-                style: TextStyles.textStyleSettingQuestionaireBlue
-            ),
+                style: TextStyles.textStyleSettingQuestionaireBlue),
             SizedBox(height: ScreenConstant.defaultHeightThirty),
             _buildNotification(),
             _buildMyNotifications()
@@ -55,17 +50,15 @@ class _NotificationsState extends State<Notifications> {
         ),
       ),
     );
-
   }
 
   _buildNotification() {
     return Card(
       margin: EdgeInsets.only(
-        left: ScreenConstant.defaultHeightSixteen, right: ScreenConstant.defaultHeightSixteen
-      ),
+          left: ScreenConstant.defaultHeightSixteen,
+          right: ScreenConstant.defaultHeightSixteen),
       color: AppColors.colorBackground,
-      shape:
-      RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: ScreenConstant.defaultWidthTwenty,
@@ -74,18 +67,13 @@ class _NotificationsState extends State<Notifications> {
             children: [
               SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
               Text("Add Notifications",
-                  style: TextStyles.textStyleSettingQuestionaireBlack.apply(
-                    color: Colors.white
-                  )
-              ),
+                  style: TextStyles.textStyleSettingQuestionaireBlack
+                      .apply(color: Colors.white)),
               SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-              Text(
-                "Would you like to set up a reminder?",
-                textAlign: TextAlign.center,
-                  style: TextStyles.textStyleSettingDescription.apply(
-                      color: Colors.white.withOpacity(0.4)
-                  )
-                ),
+              Text("Would you like to set up a reminder?",
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleSettingDescription
+                      .apply(color: Colors.white.withOpacity(0.4))),
               SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
               Row(
                 children: [
@@ -93,7 +81,8 @@ class _NotificationsState extends State<Notifications> {
                     flex: 1,
                     child: Text(
                       "Remind me:",
-                      style: TextStyles.textStyleRegular.apply(color: Colors.white),
+                      style: TextStyles.textStyleRegular
+                          .apply(color: Colors.white),
                     ),
                   ),
                   Expanded(flex: 2, child: _buildDropDown())
@@ -105,7 +94,8 @@ class _NotificationsState extends State<Notifications> {
                     flex: 1,
                     child: Text(
                       "At time:",
-                      style: TextStyles.textStyleRegular.apply(color: Colors.white),
+                      style: TextStyles.textStyleRegular
+                          .apply(color: Colors.white),
                     ),
                   ),
                   Expanded(flex: 2, child: _buildDropDown())
@@ -121,7 +111,8 @@ class _NotificationsState extends State<Notifications> {
                 ),
               ),
               Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
                 child: TextFormField(
                   inputFormatters: <TextInputFormatter>[],
                   decoration: InputDecoration(
@@ -130,8 +121,8 @@ class _NotificationsState extends State<Notifications> {
                           horizontal: ScreenConstant.sizeMedium,
                           vertical: ScreenConstant.defaultHeightTwenty),
                       hintText: "It's time to...",
-                      hintStyle:
-                      TextStyles.textStyleRegular.apply(color: Colors.black)),
+                      hintStyle: TextStyles.textStyleRegular
+                          .apply(color: Colors.black)),
                   textInputAction: TextInputAction.newline,
                   maxLines: 4,
                   minLines: 4,
@@ -155,14 +146,14 @@ class _NotificationsState extends State<Notifications> {
                   SizedBox(width: ScreenConstant.sizeDefault),
                   Text(
                     "Add Notifications",
-                    style: TextStyles.textStyleRegular.apply(color: AppColors.white),
+                    style: TextStyles.textStyleRegular
+                        .apply(color: AppColors.white),
                   )
                 ],
               ),
               SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
             ],
-          )
-      ),
+          )),
     );
   }
 
@@ -173,35 +164,33 @@ class _NotificationsState extends State<Notifications> {
           height: ScreenConstant.defaultHeightForty,
         ),
         Center(
-          child: Text(
-              "My Notifications",
-              style: TextStyles.textStyleSettingTitle
-          ),
+          child:
+              Text("My Notifications", style: TextStyles.textStyleSettingTitle),
         ),
         SizedBox(
           height: ScreenConstant.defaultHeightTen,
         ),
         Padding(
           padding: EdgeInsets.only(
-              left: ScreenConstant.defaultHeightForty, right: ScreenConstant.defaultHeightForty
-          ),
+              left: ScreenConstant.defaultHeightForty,
+              right: ScreenConstant.defaultHeightForty),
           child: Text(
               "The following notifications have been set in this app. "
-                  "Some of the notifications may be in relation to your treatment plan. "
-                  "Changing your notifications here will change any notifications set for your treatment plan.",
+              "Some of the notifications may be in relation to your treatment plan. "
+              "Changing your notifications here will change any notifications set for your treatment plan.",
               textAlign: TextAlign.center,
-              style: TextStyles.textStyleSettingDescription
-          ),
+              style: TextStyles.textStyleSettingDescription),
         ),
         SizedBox(
           height: ScreenConstant.sizeExtraLarge,
         ),
         Card(
           margin: EdgeInsets.only(
-              left: ScreenConstant.defaultHeightSixteen, right: ScreenConstant.defaultHeightSixteen
-          ),
+              left: ScreenConstant.defaultHeightSixteen,
+              right: ScreenConstant.defaultHeightSixteen),
           color: AppColors.colorBackground,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: ScreenConstant.defaultWidthTwenty,
@@ -216,12 +205,10 @@ class _NotificationsState extends State<Notifications> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "All Reminders",
-                              style: TextStyles.textStyleSettingQuestionaireBlack.apply(
-                                color: AppColors.white
-                              )
-                          ),
+                          Text("All Reminders",
+                              style: TextStyles
+                                  .textStyleSettingQuestionaireBlack
+                                  .apply(color: AppColors.white)),
                           CustomSwitch(
                             value: true,
                             color: AppColors.colorYesButton,
@@ -244,10 +231,8 @@ class _NotificationsState extends State<Notifications> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "General ",
-                          style: TextStyles.textStyleSettingNotificationsTitle
-                      ),
+                      Text("General ",
+                          style: TextStyles.textStyleSettingNotificationsTitle),
                       SizedBox(
                         height: ScreenConstant.sizeExtraLarge,
                       ),
@@ -264,19 +249,16 @@ class _NotificationsState extends State<Notifications> {
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text(
-                                  "Daily at 4:00 PM",
-                                  style: TextStyles.textStyleSettingNotificationsSubTitle
-                              ),
+                              Text("Daily at 4:00 PM",
+                                  style: TextStyles
+                                      .textStyleSettingNotificationsSubTitle),
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text(
-                                  "Edit",
-                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-                                    color: HexColor('#D5C9E1')
-                                  )
-                              ),
+                              Text("Edit",
+                                  style: TextStyles
+                                      .textStyleSettingNotificationsSubTitle
+                                      .apply(color: HexColor('#D5C9E1'))),
                             ],
                           ),
                           CustomSwitch(
@@ -301,10 +283,8 @@ class _NotificationsState extends State<Notifications> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                          "Treatment Plan: Improve Sleep ",
-                          style: TextStyles.textStyleSettingNotificationsTitle
-                      ),
+                      Text("Treatment Plan: Improve Sleep ",
+                          style: TextStyles.textStyleSettingNotificationsTitle),
                       SizedBox(
                         height: ScreenConstant.sizeExtraLarge,
                       ),
@@ -321,21 +301,17 @@ class _NotificationsState extends State<Notifications> {
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text(
-                                  "Daily at 4:00 PM",
-                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-
-                                  )
-                              ),
+                              Text("Daily at 4:00 PM",
+                                  style: TextStyles
+                                      .textStyleSettingNotificationsSubTitle
+                                      .apply()),
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text(
-                                  "Edit",
-                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-                                      color: HexColor('#D5C9E1')
-                                  )
-                              ),
+                              Text("Edit",
+                                  style: TextStyles
+                                      .textStyleSettingNotificationsSubTitle
+                                      .apply(color: HexColor('#D5C9E1'))),
                             ],
                           ),
                           CustomSwitch(
@@ -367,21 +343,17 @@ class _NotificationsState extends State<Notifications> {
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text(
-                                  "Daily at 4:00 PM",
-                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-
-                                  )
-                              ),
+                              Text("Daily at 4:00 PM",
+                                  style: TextStyles
+                                      .textStyleSettingNotificationsSubTitle
+                                      .apply()),
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text(
-                                  "Edit",
-                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-                                      color: HexColor('#D5C9E1')
-                                  )
-                              ),
+                              Text("Edit",
+                                  style: TextStyles
+                                      .textStyleSettingNotificationsSubTitle
+                                      .apply(color: HexColor('#D5C9E1'))),
                             ],
                           ),
                           CustomSwitch(
@@ -406,10 +378,8 @@ class _NotificationsState extends State<Notifications> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                          "Treatment Plan: Prescription Medication",
-                          style: TextStyles.textStyleSettingNotificationsTitle
-                      ),
+                      Text("Treatment Plan: Prescription Medication",
+                          style: TextStyles.textStyleSettingNotificationsTitle),
                       SizedBox(
                         height: ScreenConstant.sizeExtraLarge,
                       ),
@@ -426,21 +396,17 @@ class _NotificationsState extends State<Notifications> {
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text(
-                                  "Daily at 4:00 PM",
-                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-
-                                  )
-                              ),
+                              Text("Daily at 4:00 PM",
+                                  style: TextStyles
+                                      .textStyleSettingNotificationsSubTitle
+                                      .apply()),
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text(
-                                  "Edit",
-                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-                                      color: HexColor('#D5C9E1')
-                                  )
-                              ),
+                              Text("Edit",
+                                  style: TextStyles
+                                      .textStyleSettingNotificationsSubTitle
+                                      .apply(color: HexColor('#D5C9E1'))),
                             ],
                           ),
                           CustomSwitch(
@@ -472,21 +438,17 @@ class _NotificationsState extends State<Notifications> {
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text(
-                                  "Daily at 4:00 PM",
-                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-
-                                  )
-                              ),
+                              Text("Daily at 4:00 PM",
+                                  style: TextStyles
+                                      .textStyleSettingNotificationsSubTitle
+                                      .apply()),
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text(
-                                  "Edit",
-                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-                                      color: HexColor('#D5C9E1')
-                                  )
-                              ),
+                              Text("Edit",
+                                  style: TextStyles
+                                      .textStyleSettingNotificationsSubTitle
+                                      .apply(color: HexColor('#D5C9E1'))),
                             ],
                           ),
                           CustomSwitch(
@@ -518,21 +480,17 @@ class _NotificationsState extends State<Notifications> {
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text(
-                                  "Daily at 4:00 PM",
-                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-
-                                  )
-                              ),
+                              Text("Daily at 4:00 PM",
+                                  style: TextStyles
+                                      .textStyleSettingNotificationsSubTitle
+                                      .apply()),
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text(
-                                  "Edit",
-                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-                                      color: HexColor('#D5C9E1')
-                                  )
-                              ),
+                              Text("Edit",
+                                  style: TextStyles
+                                      .textStyleSettingNotificationsSubTitle
+                                      .apply(color: HexColor('#D5C9E1'))),
                             ],
                           ),
                           CustomSwitch(
@@ -557,10 +515,8 @@ class _NotificationsState extends State<Notifications> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                          "Treatment Plan: Exercise",
-                          style: TextStyles.textStyleSettingNotificationsTitle
-                      ),
+                      Text("Treatment Plan: Exercise",
+                          style: TextStyles.textStyleSettingNotificationsTitle),
                       SizedBox(
                         height: ScreenConstant.sizeExtraLarge,
                       ),
@@ -577,21 +533,17 @@ class _NotificationsState extends State<Notifications> {
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text(
-                                  "Daily at 4:00 PM",
-                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-
-                                  )
-                              ),
+                              Text("Daily at 4:00 PM",
+                                  style: TextStyles
+                                      .textStyleSettingNotificationsSubTitle
+                                      .apply()),
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text(
-                                  "Edit",
-                                  style: TextStyles.textStyleSettingNotificationsSubTitle.apply(
-                                      color: HexColor('#D5C9E1')
-                                  )
-                              ),
+                              Text("Edit",
+                                  style: TextStyles
+                                      .textStyleSettingNotificationsSubTitle
+                                      .apply(color: HexColor('#D5C9E1'))),
                             ],
                           ),
                           CustomSwitch(
@@ -606,8 +558,7 @@ class _NotificationsState extends State<Notifications> {
                     height: ScreenConstant.sizeExtraLarge,
                   ),
                 ],
-              )
-          ),
+              )),
         ),
         SizedBox(
           height: ScreenConstant.sizeExtraLarge,
@@ -645,8 +596,14 @@ class _NotificationsState extends State<Notifications> {
             //   dropdownValue = newValue;
             // });
           },
-          items: <String>["Every Day", "Monday", "Tuesday", "Wednesday", "Thursday", "All Day"]
-              .map<DropdownMenuItem<String>>((String value) {
+          items: <String>[
+            "Every Day",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "All Day"
+          ].map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value.toString(),
               child: Text(value.toString(), style: TextStyles.textStyleRegular),

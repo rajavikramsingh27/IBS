@@ -1,32 +1,27 @@
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_ibs/controllers/MyAccount/MyAccountController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
-import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/LeadingBackButton.dart';
-import 'package:get/get.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_ibs/controllers/MyAccount/MyAccountController.dart';
-import 'package:flutter_ibs/widget/CustomTextFormField%20.dart';
-import 'package:flutter_ibs/utils/Validator.dart';
 import 'package:flutter_ibs/utils/ShadowContainer.dart';
+import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/utils/Validator.dart';
 import 'package:flutter_ibs/widget/CustomCheckBox.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
-
+import 'package:flutter_ibs/widget/CustomTextFormField%20.dart';
+import 'package:flutter_ibs/widget/LeadingBackButton.dart';
+import 'package:get/get.dart';
 
 final FocusNode focusEmail = FocusNode();
 final FocusNode focusPassWord = FocusNode();
 final FocusNode focusRePassWord = FocusNode();
 final FocusNode focusNone = FocusNode();
 
-
 class MyAccount extends StatelessWidget {
-  final  MyAccountController _controller = Get.put(MyAccountController());
+  final MyAccountController _controller = Get.put(MyAccountController());
 
   buildEmail() {
     return Column(
@@ -35,8 +30,7 @@ class MyAccount extends StatelessWidget {
         SizedBox(height: ScreenConstant.defaultHeightTwenty),
         Text("Email address:",
             style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.black, fontSizeDelta: -6)
-        ),
+                .apply(color: Colors.black, fontSizeDelta: -6)),
         SizedBox(height: ScreenConstant.defaultHeightTen * 0.8),
         Container(
           decoration: AppShadow().shadowSetting(),
@@ -54,13 +48,9 @@ class MyAccount extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(
-            child: Text(
-                "Change email",
-                style: TextStyles.textStyleSettingDescription
-            ),
-            onPressed: () {
-
-            },
+            child: Text("Change email",
+                style: TextStyles.textStyleSettingDescription),
+            onPressed: () {},
           ),
         )
       ],
@@ -74,8 +64,7 @@ class MyAccount extends StatelessWidget {
         SizedBox(height: ScreenConstant.defaultHeightTwenty),
         Text("Password:",
             style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.black, fontSizeDelta: -6)
-        ),
+                .apply(color: Colors.black, fontSizeDelta: -6)),
         SizedBox(height: ScreenConstant.defaultHeightTen * 0.8),
         Container(
           decoration: AppShadow().shadowSetting(),
@@ -93,13 +82,9 @@ class MyAccount extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(
-            child: Text(
-                "Change Password",
-                style: TextStyles.textStyleSettingDescription
-            ),
-            onPressed: () {
-
-            },
+            child: Text("Change Password",
+                style: TextStyles.textStyleSettingDescription),
+            onPressed: () {},
           ),
         )
       ],
@@ -113,8 +98,7 @@ class MyAccount extends StatelessWidget {
             left: ScreenConstant.defaultWidthTen,
             right: ScreenConstant.defaultWidthTen,
             top: ScreenConstant.defaultHeightTwenty,
-            bottom: ScreenConstant.defaultWidthTen
-        ),
+            bottom: ScreenConstant.defaultWidthTen),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +122,7 @@ class MyAccount extends StatelessWidget {
                       onChanged: (val) {
                         _controller.selectedGender.value = "f";
                         _controller.selectedFeMale.value =
-                        !_controller.selectedFeMale.value;
+                            !_controller.selectedFeMale.value;
                         if (_controller.selectedFeMale.value == true) {
                           _controller.selectedMale.value = false;
                           _controller.selectedOtherGender.value = false;
@@ -161,7 +145,7 @@ class MyAccount extends StatelessWidget {
                       onChanged: (val) {
                         _controller.selectedGender.value = "m";
                         _controller.selectedMale.value =
-                        !_controller.selectedMale.value;
+                            !_controller.selectedMale.value;
                         if (_controller.selectedMale.value == true) {
                           _controller.selectedFeMale.value = false;
                           _controller.selectedOtherGender.value = false;
@@ -185,7 +169,7 @@ class MyAccount extends StatelessWidget {
                       onChanged: (val) {
                         _controller.selectedGender.value = "na";
                         _controller.selectedOtherGender.value =
-                        !_controller.selectedOtherGender.value;
+                            !_controller.selectedOtherGender.value;
                         if (_controller.selectedOtherGender.value == true) {
                           _controller.selectedFeMale.value = false;
                           _controller.selectedMale.value = false;
@@ -198,8 +182,7 @@ class MyAccount extends StatelessWidget {
               ],
             ),
           ],
-        )
-    );
+        ));
   }
 
   buildFamilyIBSHistory() {
@@ -209,8 +192,7 @@ class MyAccount extends StatelessWidget {
             left: ScreenConstant.defaultWidthTen,
             right: ScreenConstant.defaultWidthTen,
             top: ScreenConstant.defaultHeightTwenty,
-            bottom: ScreenConstant.defaultWidthTen
-        ),
+            bottom: ScreenConstant.defaultWidthTen),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -234,7 +216,7 @@ class MyAccount extends StatelessWidget {
                       onChanged: (val) {
                         _controller.selectedIbsHistory.value = "yes";
                         _controller.selectedIbsHistoryYes.value =
-                        !_controller.selectedIbsHistoryYes.value;
+                            !_controller.selectedIbsHistoryYes.value;
                         if (_controller.selectedIbsHistoryYes.value == true) {
                           _controller.selectedIbsHistoryNo.value = false;
                           _controller.selectedIbsHistoryUnsure.value = false;
@@ -257,7 +239,7 @@ class MyAccount extends StatelessWidget {
                       onChanged: (val) {
                         _controller.selectedIbsHistory.value = "no";
                         _controller.selectedIbsHistoryNo.value =
-                        !_controller.selectedIbsHistoryNo.value;
+                            !_controller.selectedIbsHistoryNo.value;
                         if (_controller.selectedIbsHistoryNo.value == true) {
                           _controller.selectedIbsHistoryYes.value = false;
                           _controller.selectedIbsHistoryUnsure.value = false;
@@ -280,8 +262,9 @@ class MyAccount extends StatelessWidget {
                       onChanged: (val) {
                         _controller.selectedIbsHistory.value = "unsure";
                         _controller.selectedIbsHistoryUnsure.value =
-                        !_controller.selectedIbsHistoryUnsure.value;
-                        if (_controller.selectedIbsHistoryUnsure.value == true) {
+                            !_controller.selectedIbsHistoryUnsure.value;
+                        if (_controller.selectedIbsHistoryUnsure.value ==
+                            true) {
                           _controller.selectedIbsHistoryNo.value = false;
                           _controller.selectedIbsHistoryYes.value = false;
                         } else
@@ -293,9 +276,7 @@ class MyAccount extends StatelessWidget {
               ],
             )
           ],
-        )
-    );
-
+        ));
   }
 
   buildAgeCard() {
@@ -305,8 +286,7 @@ class MyAccount extends StatelessWidget {
             left: ScreenConstant.defaultWidthTen,
             right: ScreenConstant.defaultWidthTen,
             top: ScreenConstant.defaultHeightTwenty,
-            bottom: ScreenConstant.defaultWidthTen
-        ),
+            bottom: ScreenConstant.defaultWidthTen),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -321,8 +301,7 @@ class MyAccount extends StatelessWidget {
               margin: EdgeInsets.only(
                   left: ScreenConstant.defaultWidthTen * 1.5,
                   right: ScreenConstant.defaultWidthTen * 1.5,
-                  bottom: ScreenConstant.defaultHeightTen * 1.5
-              ),
+                  bottom: ScreenConstant.defaultHeightTen * 1.5),
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
               decoration: BoxDecoration(
                   color: AppColors.colordropdownArrowBg,
@@ -359,15 +338,13 @@ class MyAccount extends StatelessWidget {
                   }).toList()),
             ),
           ],
-        )
-    );
-
+        ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:  AppColors.colorProfileBg,
+      backgroundColor: AppColors.colorProfileBg,
       appBar: AppBar(
         elevation: 0,
         leading: LeadingBackButton(
@@ -380,50 +357,47 @@ class MyAccount extends StatelessWidget {
           style: TextStyles.appBarTitle,
         ),
       ),
-
       body: GetBuilder<MyAccountController>(
-        init: MyAccountController(),
-        initState: (state) {
-          // print('HomePageController state initialized');
-        },
+          init: MyAccountController(),
+          initState: (state) {
+            // print('HomePageController state initialized');
+          },
+          builder: (authController) {
+            authController.settingType = '0'.obs;
 
-        builder: (authController) {
-          authController.settingType = '0'.obs;
-
-          authController.getUserList();
-          return Obx(
-                () => ListView(
-              physics: ClampingScrollPhysics(),
-              padding: ScreenConstant.spacingAllLarge,
-              children: [
-                SizedBox(height: ScreenConstant.sizeExtraLarge),
-                Center(
-                  child: Text("My Account Details.",
-                    style: TextStyles.textStyleSettingTitle,
+            authController.getUserList();
+            return Obx(
+              () => ListView(
+                physics: ClampingScrollPhysics(),
+                padding: ScreenConstant.spacingAllLarge,
+                children: [
+                  SizedBox(height: ScreenConstant.sizeExtraLarge),
+                  Center(
+                    child: Text(
+                      "My Account Details.",
+                      style: TextStyles.textStyleSettingTitle,
+                    ),
                   ),
-                ),
-                SizedBox(height: ScreenConstant.defaultHeightTen),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: 40, right: 40
+                  SizedBox(height: ScreenConstant.defaultHeightTen),
+                  Padding(
+                    padding: EdgeInsets.only(left: 40, right: 40),
+                    child: Text(
+                      "You may edit your account details at any time. Changing your account’s email address and password requires email confirmation.",
+                      textAlign: TextAlign.center,
+                      style: TextStyles.textStyleSettingDescription,
+                    ),
                   ),
-                  child: Text(
-                    "You may edit your account details at any time. Changing your account’s email address and password requires email confirmation.",
-                    textAlign: TextAlign.center,
-                    style: TextStyles.textStyleSettingDescription,
-                  ),
-                ),
-                buildEmail(),
-                buildPassword(),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                buildGender(),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                buildAgeCard(),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                buildFamilyIBSHistory(),
-                SizedBox(height: ScreenConstant.screenWidthThird/4),
-                Container(
-                  child: CustomElevatedButton2(
+                  buildEmail(),
+                  buildPassword(),
+                  SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                  buildGender(),
+                  SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                  buildAgeCard(),
+                  SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                  buildFamilyIBSHistory(),
+                  SizedBox(height: ScreenConstant.screenWidthThird / 4),
+                  Container(
+                      child: CustomElevatedButton2(
                     textColor: Colors.white,
                     buttonColor: AppColors.colorBackground,
                     widthFactor: 0.8,
@@ -431,11 +405,10 @@ class MyAccount extends StatelessWidget {
                     onTap: () {
                       authController.updateUser();
                     },
-                  )
-                ),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty),
-                Container(
-                  child: CustomElevatedButton2(
+                  )),
+                  SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                  Container(
+                      child: CustomElevatedButton2(
                     textColor: Colors.black,
                     buttonColor: Colors.transparent,
                     widthFactor: 0.8,
@@ -443,18 +416,11 @@ class MyAccount extends StatelessWidget {
                     onTap: () {
                       authController.setUIDataMyAccount();
                     },
-                  )
-                ),
-              ],
-            ),
-          );
-        }
-      ),
+                  )),
+                ],
+              ),
+            );
+          }),
     );
   }
-
 }
-
-
-
-

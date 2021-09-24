@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-TreatmentPlanModel treatmentPlanModelFromJson(String str) => TreatmentPlanModel.fromJson(json.decode(str));
+TreatmentPlanModel treatmentPlanModelFromJson(String str) =>
+    TreatmentPlanModel.fromJson(json.decode(str));
 
-String treatmentPlanModelToJson(TreatmentPlanModel data) => json.encode(data.toJson());
+String treatmentPlanModelToJson(TreatmentPlanModel data) =>
+    json.encode(data.toJson());
 
 class TreatmentPlanModel {
   TreatmentPlanModel({
@@ -23,21 +25,34 @@ class TreatmentPlanModel {
   List<dynamic> tags;
   List<Reminder> reminders;
 
-  factory TreatmentPlanModel.fromJson(Map<String, dynamic> json) => TreatmentPlanModel(
-    pid: json["pid"] == null ? null : json["pid"],
-    category: json["category"] == null ? null : json["category"],
-    trackingDefaults: json["trackingDefaults"] == null ? null : List<TrackingDefault>.from(json["trackingDefaults"].map((x) => TrackingDefault.fromJson(x))),
-    tags: json["tags"] == null ? null : List<dynamic>.from(json["tags"].map((x) => x)),
-    reminders: json["reminders"] == null ? null : List<Reminder>.from(json["reminders"].map((x) => Reminder.fromJson(x))),
-  );
+  factory TreatmentPlanModel.fromJson(Map<String, dynamic> json) =>
+      TreatmentPlanModel(
+        pid: json["pid"] == null ? null : json["pid"],
+        category: json["category"] == null ? null : json["category"],
+        trackingDefaults: json["trackingDefaults"] == null
+            ? null
+            : List<TrackingDefault>.from(json["trackingDefaults"]
+                .map((x) => TrackingDefault.fromJson(x))),
+        tags: json["tags"] == null
+            ? null
+            : List<dynamic>.from(json["tags"].map((x) => x)),
+        reminders: json["reminders"] == null
+            ? null
+            : List<Reminder>.from(
+                json["reminders"].map((x) => Reminder.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "pid": pid == null ? null : pid,
-    "category": category == null ? null : category,
-    "trackingDefaults": trackingDefaults == null ? null : List<dynamic>.from(trackingDefaults.map((x) => x.toJson())),
-    "tags": tags == null ? null : List<dynamic>.from(tags.map((x) => x)),
-    "reminders": reminders == null ? null : List<dynamic>.from(reminders.map((x) => x.toJson())),
-  };
+        "pid": pid == null ? null : pid,
+        "category": category == null ? null : category,
+        "trackingDefaults": trackingDefaults == null
+            ? null
+            : List<dynamic>.from(trackingDefaults.map((x) => x.toJson())),
+        "tags": tags == null ? null : List<dynamic>.from(tags.map((x) => x)),
+        "reminders": reminders == null
+            ? null
+            : List<dynamic>.from(reminders.map((x) => x.toJson())),
+      };
 }
 
 class Reminder {
@@ -54,18 +69,18 @@ class Reminder {
   bool enabled;
 
   factory Reminder.fromJson(Map<String, dynamic> json) => Reminder(
-    day: json["day"] == null ? null : json["day"],
-    time: json["time"] == null ? null : json["minute"],
-    message: json["message"] == null ? null : json["message"],
-    enabled: json["enabled"] == null ? null : json["enabled"],
-  );
+        day: json["day"] == null ? null : json["day"],
+        time: json["time"] == null ? null : json["minute"],
+        message: json["message"] == null ? null : json["message"],
+        enabled: json["enabled"] == null ? null : json["enabled"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "day": day == null ? null : day,
-    "time": time == null ? null : time,
-    "message": message == null ? null : message,
-    "enabled": enabled == null ? null : enabled,
-  };
+        "day": day == null ? null : day,
+        "time": time == null ? null : time,
+        "message": message == null ? null : message,
+        "enabled": enabled == null ? null : enabled,
+      };
 }
 
 class TrackingDefault {
@@ -83,21 +98,22 @@ class TrackingDefault {
   String dtype;
   Value value;
 
-  factory TrackingDefault.fromJson(Map<String, dynamic> json) => TrackingDefault(
-    tid: json["tid"] == null ? null : json["tid"],
-    category: json["category"] == null ? null : json["category"],
-    kind: json["kind"] == null ? null : json["kind"],
-    dtype: json["dtype"] == null ? null : json["dtype"],
-    value: json["value"] == null ? null : Value.fromJson(json["value"]),
-  );
+  factory TrackingDefault.fromJson(Map<String, dynamic> json) =>
+      TrackingDefault(
+        tid: json["tid"] == null ? null : json["tid"],
+        category: json["category"] == null ? null : json["category"],
+        kind: json["kind"] == null ? null : json["kind"],
+        dtype: json["dtype"] == null ? null : json["dtype"],
+        value: json["value"] == null ? null : Value.fromJson(json["value"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "tid": tid == null ? null : tid,
-    "category": category == null ? null : category,
-    "kind": kind == null ? null : kind,
-    "dtype": dtype == null ? null : dtype,
-    "value": value == null ? null : value.toJson(),
-  };
+        "tid": tid == null ? null : tid,
+        "category": category == null ? null : category,
+        "kind": kind == null ? null : kind,
+        "dtype": dtype == null ? null : dtype,
+        "value": value == null ? null : value.toJson(),
+      };
 }
 
 class Value {
@@ -110,12 +126,12 @@ class Value {
   String arr;
 
   factory Value.fromJson(Map<String, dynamic> json) => Value(
-    str: json["str"] == null ? null : json["str"],
-    arr: json["arr"] == null ? null : json["arr"],
-  );
+        str: json["str"] == null ? null : json["str"],
+        arr: json["arr"] == null ? null : json["arr"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "str": str == null ? null : str,
-    "arr": arr == null ? null : arr,
-  };
+        "str": str == null ? null : str,
+        "arr": arr == null ? null : arr,
+      };
 }
