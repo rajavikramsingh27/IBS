@@ -215,7 +215,7 @@ class ServiceApi {
     if (result == null) {
       return null;
     } else {
-      return PostTreatmentPlanResponseModel.fromJson(result);
+      return UserModel.fromJson(result);
     }
   }
 
@@ -228,7 +228,7 @@ class ServiceApi {
     if (result == null) {
       return null;
     } else {
-      return PostTreatmentPlanResponseModel.fromJson(result);
+      return UserModel.fromJson(result);
     }
   }
 

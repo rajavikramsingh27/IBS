@@ -6,6 +6,7 @@ import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanSendModel
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/models/tags/TagsResponseModel.dart';
+import 'package:flutter_ibs/models/user/UserModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
@@ -154,7 +155,10 @@ class TreatmentPlanController extends GetxController {
                       : "",
                   arr: track.kind == "select"
                       ? track.select.selectDefault.value
-                      : ""));
+                      : "",
+                  numValue: track.kind == "rating"
+                      ? track.rating.ratingDefault
+                      : 0));
           listTrackData.add(trackTreatmentModel);
         });
       }
@@ -169,7 +173,8 @@ class TreatmentPlanController extends GetxController {
     final data = await ServiceApi()
         .postTreatmentPlanAPI(bodyData: treatmentPlanSendModel.toJson());
     loader.value = false;
-    if (data is PostTreatmentPlanResponseModel) {
+    if (data is UserModel) {
+      ShareStore().saveData(store: KeyStore.userprofile,object: data);
       Get.offAllNamed(home);
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Treatment Plan Added Successfully");
@@ -202,7 +207,8 @@ class TreatmentPlanController extends GetxController {
     loader.value = true;
     final data = await ServiceApi().removeTreatmentPlan(selectedPID.value);
     loader.value = false;
-    if (data is PostTreatmentPlanResponseModel) {
+    if (data is UserModel) {
+      ShareStore().saveData(store: KeyStore.userprofile,object: data);
       Get.offAllNamed(home);
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Treatment Plan Stopped Successfully");

@@ -102,10 +102,12 @@ class TrackingValue {
   TrackingValue({
     this.str,
     this.arr,
+    this.numValue,
   });
 
   String str;
   String arr;
+  num numValue;
 
   factory TrackingValue.fromRawJson(String str) =>
       TrackingValue.fromJson(json.decode(str));
@@ -115,10 +117,12 @@ class TrackingValue {
   factory TrackingValue.fromJson(Map<String, dynamic> json) => TrackingValue(
         str: json["str"] == null ? null : json["str"],
         arr: json["arr"] == null ? null : json["arr"],
+        numValue: json["num"] == null ? null : json["num"],
       );
 
   Map<String, dynamic> toJson() => {
         "str": str == null ? null : str,
         "arr": arr == null ? null : arr,
+        "num": numValue == null ? null : numValue,
       };
 }
