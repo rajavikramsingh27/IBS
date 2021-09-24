@@ -509,8 +509,7 @@ class SleepTreatmentPlan extends StatelessWidget {
                               color: AppColors.white.withOpacity(0.12)),
                           _buildTimeList()
                         ],
-                      )
-                  )
+                      ))
                 ],
               ))),
       SizedBox(

@@ -4,7 +4,6 @@ import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/Indicator.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:flutter_ibs/widget/TreatmentPlanListItem.dart';

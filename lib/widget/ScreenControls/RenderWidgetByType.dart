@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/user/UserController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/widget/ScreenControls/AddableTagListWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/BristolScaleWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/ColorPickerWidget.dart';
@@ -12,21 +14,18 @@ import 'package:flutter_ibs/widget/ScreenControls/SelectInlineWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/SelectWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/TextInputWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/TimePickerInlineWidget.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_ibs/widget/ScreenControls/ToggleInlineWidget.dart';
 import 'package:get/get.dart';
 
 class RenderWidgetByType {
-
   UserController _userController = Get.find();
 
   renderTrackableItem(TrackableItem trackableItem,
-      {bool isFirst = false, bool isLast = false, bool isChild = false,
-        int count = 0,
-        Function(TrackableSubmitItem) onValueChanged
-      }) {
-
+      {bool isFirst = false,
+      bool isLast = false,
+      bool isChild = false,
+      int count = 0,
+      Function(TrackableSubmitItem) onValueChanged}) {
 /*
     //See if the user tracks this:
     bool isTracked = _userController.doesUserTrack(trackableItem);
@@ -55,8 +54,7 @@ class RenderWidgetByType {
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
-              isChild: isChild
-          );
+              isChild: isChild);
         }
         break;
       case "tags":
@@ -67,16 +65,14 @@ class RenderWidgetByType {
                 onValueChanged: onValueChanged,
                 isFirst: isFirst,
                 isLast: isLast,
-                isChild: isChild
-            );
-          }else{
+                isChild: isChild);
+          } else {
             return AddableTagListWidget(
                 trackableItem: trackableItem,
                 onValueChanged: onValueChanged,
                 isFirst: isFirst,
                 isLast: isLast,
-                isChild: isChild
-            );
+                isChild: isChild);
           }
         }
         break;
@@ -87,9 +83,7 @@ class RenderWidgetByType {
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
-              isChild: isChild
-          );
-
+              isChild: isChild);
         }
         break;
       case "select":
@@ -99,8 +93,7 @@ class RenderWidgetByType {
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
-              isChild: isChild
-          );
+              isChild: isChild);
         }
         break;
       case "selectInline":
@@ -110,8 +103,7 @@ class RenderWidgetByType {
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
-              isChild: isChild
-          );
+              isChild: isChild);
         }
         break;
       case "textInput":
@@ -121,8 +113,7 @@ class RenderWidgetByType {
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
-              isChild: isChild
-          );
+              isChild: isChild);
         }
         break;
       case "timePickerInline":
@@ -132,8 +123,7 @@ class RenderWidgetByType {
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
-              isChild: isChild
-          );
+              isChild: isChild);
         }
       case "numberInput":
         {
@@ -142,8 +132,7 @@ class RenderWidgetByType {
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
-              isChild: isChild
-          );
+              isChild: isChild);
         }
       case "toggleInline":
         {
@@ -152,8 +141,7 @@ class RenderWidgetByType {
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
-              isChild: isChild
-          );
+              isChild: isChild);
         }
       case "bristolScale":
         {
@@ -162,8 +150,7 @@ class RenderWidgetByType {
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
-              isChild: isChild
-          );
+              isChild: isChild);
         }
       case "color":
         {
@@ -172,8 +159,7 @@ class RenderWidgetByType {
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
-              isChild: isChild
-          );
+              isChild: isChild);
         }
       case "sum":
         {
@@ -182,16 +168,15 @@ class RenderWidgetByType {
               onValueChanged: onValueChanged,
               isFirst: isFirst,
               isLast: isLast,
-              isChild: isChild
-          );
+              isChild: isChild);
         }
       default:
         {
-          print("\n\n****************> Getting offstage: " + trackableItem.kind);
+          print(
+              "\n\n****************> Getting offstage: " + trackableItem.kind);
           return Offstage();
         }
         break;
     }
   }
-
 }

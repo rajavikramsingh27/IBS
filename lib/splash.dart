@@ -33,7 +33,8 @@ class _SplashState extends State<Splash> {
         color: AppColors.colorBackground,
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: ScreenConstant.defaultWidthSixty, vertical: ScreenConstant.defaultHeightSixty),
+              horizontal: ScreenConstant.defaultWidthSixty,
+              vertical: ScreenConstant.defaultHeightSixty),
           child: Center(
             child: Image.asset("assets/images/intro/intro0.png"),
           ),

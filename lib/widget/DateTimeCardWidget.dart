@@ -16,8 +16,7 @@ class DateTimeCardWidget extends StatelessWidget {
     return Obx(() => Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(38)),
-          margin: EdgeInsets.symmetric(
-              horizontal: 40),
+          margin: EdgeInsets.symmetric(horizontal: 40),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
             child: Row(

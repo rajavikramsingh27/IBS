@@ -8,9 +8,11 @@ import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
 
-HealthWellnessModel healthWellnessModelFromJson(String str) => HealthWellnessModel.fromJson(json.decode(str));
+HealthWellnessModel healthWellnessModelFromJson(String str) =>
+    HealthWellnessModel.fromJson(json.decode(str));
 
-String healthWellnessModelToJson(HealthWellnessModel data) => json.encode(data.toJson());
+String healthWellnessModelToJson(HealthWellnessModel data) =>
+    json.encode(data.toJson());
 
 class HealthWellnessModel {
   HealthWellnessModel({
@@ -23,25 +25,27 @@ class HealthWellnessModel {
   List<TrackableSubmitItem> items = [];
   DateTime trackedAt;
 
-
   factory HealthWellnessModel.fromJson(Map<String, dynamic> json) =>
       HealthWellnessModel(
         category: json["category"] == null ? null : json["category"],
         items: json["items"] == null
             ? null
             : List<TrackableSubmitItem>.from(
-            json["items"].map((x) => TrackableSubmitItem.fromJson(x))),
-        trackedAt: json["trackedAt"] == null ? null : new DateTime(
-            json["trackedAt"]),
+                json["items"].map((x) => TrackableSubmitItem.fromJson(x))),
+        trackedAt:
+            json["trackedAt"] == null ? null : new DateTime(json["trackedAt"]),
       );
 
   Map<String, dynamic> toJson() {
     HomeController controller = Get.find();
     DateTime now = DateTime.now();
     DateTime trackedAt = new DateTime(
-        controller.selectedDate.year, controller.selectedDate.month,
+        controller.selectedDate.year,
+        controller.selectedDate.month,
         controller.selectedDate.day,
-        now.hour, now.minute, now.second);
+        now.hour,
+        now.minute,
+        now.second);
 
     Map<String, dynamic> json = {
       "category": category == null ? null : category,

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/TrackableItemUtils.dart';
 import 'package:flutter_ibs/widget/ScreenControls/TagWidget.dart';
 import 'package:get/get.dart';
-
 
 class FixedTagListWidget extends StatefulWidget {
   final TrackableItem trackableItem;
@@ -30,7 +29,6 @@ class FixedTagListWidget extends StatefulWidget {
 }
 
 class _FixedTagListWidgetState extends State<FixedTagListWidget> {
-
   List<Tag> _selectedItems;
 
   @override
@@ -101,13 +99,16 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
                   padding: EdgeInsets.symmetric(
                       horizontal: ScreenConstant.defaultWidthTen),
                   child: Wrap(
-                    children: TrackableItemUtils().addUserTagsToList(tags: widget.trackableItem.tags.tagsDefault, category: widget.trackableItem.tags.category)
+                    children: TrackableItemUtils()
+                        .addUserTagsToList(
+                            tags: widget.trackableItem.tags.tagsDefault,
+                            category: widget.trackableItem.tags.category)
                         .map((item) => InkWell(
-                      child: TagWidget(
-                        tag: item,
-                        onValueChanged: _userTagListTapped,
-                      ),
-                    ))
+                              child: TagWidget(
+                                tag: item,
+                                onValueChanged: _userTagListTapped,
+                              ),
+                            ))
                         .toList()
                         .cast<Widget>(),
                   ),
@@ -125,7 +126,6 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
       ],
     );
   }
-
 
   /// Tap of the list of tags under the input field
   _userTagListTapped(Tag tag) {
@@ -151,7 +151,7 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
       category: item.category,
       kind: item.kind,
       dtype: "arr",
-      value: TrackableSubmitItemValue(arr:flatList),
+      value: TrackableSubmitItemValue(arr: flatList),
     ));
   }
 

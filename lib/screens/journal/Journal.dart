@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/journal/JournalController.dart';
-import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
@@ -17,7 +16,6 @@ import 'package:get/get.dart';
 class Journal extends StatelessWidget {
   final JournalController _journalController = Get.put(JournalController());
   final TrackablesController _trackablesController = Get.find();
-
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +80,6 @@ class Journal extends StatelessWidget {
                           SizedBox(height: ScreenConstant.defaultHeightForty),
                           Stack(
                             children: [
-
                               Container(
                                 margin: EdgeInsets.only(
                                   left: ScreenConstant.defaultWidthTwenty,

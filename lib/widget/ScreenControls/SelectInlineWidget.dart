@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/DropDownList.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
 
 class SelectInlineWidget extends StatefulWidget {
@@ -46,11 +46,10 @@ class _SelectInlineWidgetState extends State<SelectInlineWidget> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      color:  AppColors.colorBackground,
+      color: AppColors.colorBackground,
       child: Column(
         children: [
           Row(
@@ -75,7 +74,7 @@ class _SelectInlineWidgetState extends State<SelectInlineWidget> {
                   child: CustomDropdown<SelectOption>(
                     value: _selectedOption,
                     dropdownMenuItemList:
-                    buildDropList(widget.trackableItem.select.options),
+                        buildDropList(widget.trackableItem.select.options),
                     onChanged: (SelectOption optionItem) {
                       setState(() {
                         _selectedOption = optionItem;
@@ -86,7 +85,8 @@ class _SelectInlineWidgetState extends State<SelectInlineWidget> {
                         category: widget.trackableItem.category,
                         kind: widget.trackableItem.kind,
                         dtype: "str",
-                        value: TrackableSubmitItemValue(str: _selectedOption.value),
+                        value: TrackableSubmitItemValue(
+                            str: _selectedOption.value),
                       ));
                     },
                     isEnabled: true,
@@ -104,8 +104,7 @@ class _SelectInlineWidgetState extends State<SelectInlineWidget> {
           Visibility(
               visible: !widget.isChild,
               child: Divider(
-                  thickness: 1,
-                  color: AppColors.white.withOpacity(0.12))),
+                  thickness: 1, color: AppColors.white.withOpacity(0.12))),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
         ],
       ),

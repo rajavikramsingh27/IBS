@@ -62,29 +62,25 @@ class HomeController extends GetxController {
     connectionStatus.value = isInternet;
   }
 
-
-
-  void goForwardOneDay(){
-   // selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day + 1);
+  void goForwardOneDay() {
+    // selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day + 1);
     selectedDate = selectedDate.add(Duration(days: 1));
-    if (selectedDate.isAfter(new DateTime.now() )){
+    if (selectedDate.isAfter(new DateTime.now())) {
       goBackOneDay();
       return;
     }
     formatSelectedDate();
   }
 
-  void goBackOneDay(){
-   // selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day - 1);
+  void goBackOneDay() {
+    // selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day - 1);
     selectedDate = selectedDate.subtract(Duration(days: 1));
     formatSelectedDate();
   }
 
-
-  void formatSelectedDate(){
+  void formatSelectedDate() {
     selectedDateLabel.value = DateFormat('EEEE, MMM d, y').format(selectedDate);
     selectedTimeLabel.value = DateFormat('hh:mm a').format(selectedDate);
-
   }
 
   getAndroidDatePicker() {
@@ -141,36 +137,41 @@ class HomeController extends GetxController {
     );
   }
 
-
-  getCupertinoTimePicker(BuildContext context) async{
+  getCupertinoTimePicker(BuildContext context) async {
     final TimeOfDay timeOfDay = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(this.selectedDate),
       initialEntryMode: TimePickerEntryMode.input,
-
     );
-    if(timeOfDay != null && timeOfDay != TimeOfDay.fromDateTime(this.selectedDate))
-    {
-      this.selectedDate = DateTime(this.selectedDate.year, this.selectedDate.month, this.selectedDate.day, timeOfDay.hour, timeOfDay.minute);
+    if (timeOfDay != null &&
+        timeOfDay != TimeOfDay.fromDateTime(this.selectedDate)) {
+      this.selectedDate = DateTime(
+          this.selectedDate.year,
+          this.selectedDate.month,
+          this.selectedDate.day,
+          timeOfDay.hour,
+          timeOfDay.minute);
       this.formatSelectedDate();
     }
   }
 
-  getAndroidTimePicker(BuildContext context) async{
+  getAndroidTimePicker(BuildContext context) async {
     final TimeOfDay timeOfDay = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(this.selectedDate),
       initialEntryMode: TimePickerEntryMode.input,
-
     );
-    if(timeOfDay != null && timeOfDay != TimeOfDay.fromDateTime(this.selectedDate))
-    {
-      this.selectedDate = DateTime(this.selectedDate.year, this.selectedDate.month, this.selectedDate.day, timeOfDay.hour, timeOfDay.minute);
+    if (timeOfDay != null &&
+        timeOfDay != TimeOfDay.fromDateTime(this.selectedDate)) {
+      this.selectedDate = DateTime(
+          this.selectedDate.year,
+          this.selectedDate.month,
+          this.selectedDate.day,
+          timeOfDay.hour,
+          timeOfDay.minute);
       this.formatSelectedDate();
     }
   }
-
-
 
   getTrackHistoryList() async {
     if (connectionStatus.value) {

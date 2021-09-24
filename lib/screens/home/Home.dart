@@ -1,15 +1,16 @@
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/controllers/symptoms/SymptomsController.dart';
 import 'package:flutter_ibs/controllers/user/UserController.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
 import 'package:flutter_ibs/screens/food/Foods.dart';
 import 'package:flutter_ibs/screens/health/Health.dart';
+import 'package:flutter_ibs/screens/journal/Journal.dart';
 import 'package:flutter_ibs/screens/medication/Medication.dart';
 import 'package:flutter_ibs/screens/symptoms/Symptoms.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
@@ -19,7 +20,6 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomBottomNavigation.dart';
 import 'package:get/get.dart';
-import 'package:flutter_ibs/screens/journal/Journal.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -223,7 +223,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         var model = DummyData.trackFlow[index];
         bool isTracked = _userController.doesUserTrackCategory(model.category);
 
-        if (!isTracked){
+        if (!isTracked) {
           return Offstage();
         }
 

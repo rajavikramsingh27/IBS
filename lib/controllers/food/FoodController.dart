@@ -17,7 +17,7 @@ class FoodController extends GetxController {
   Rx<FoodSendModel> foodModel = FoodSendModel(items: []).obs;
   TrackablesController _trackablesController = Get.find();
 
-  RxList<TrackableItem> formWidgetList ;
+  RxList<TrackableItem> formWidgetList;
 
   bool _isDefaultFoodSet;
 
@@ -27,14 +27,12 @@ class FoodController extends GetxController {
     super.onInit();
   }
 
-
   onCancel() {
     doInit();
     Get.back();
   }
 
-
-  void doInit(){
+  void doInit() {
     formWidgetList = RxList<TrackableItem>();
     _trackablesController.foods.value.items.forEach((element) {
       formWidgetList.add(element);
@@ -50,8 +48,7 @@ class FoodController extends GetxController {
     formWidgetList.refresh();
   }
 
-
-/// Set the meal selection based on time of day
+  /// Set the meal selection based on time of day
   mealOptionDefault(ListOption mealOption) {
     mealOption.selected = false;
 
@@ -75,7 +72,6 @@ class FoodController extends GetxController {
         formWidgetList.first.list.value = mealOption;
         _isDefaultFoodSet = true;
       }
-
     }
   }
 

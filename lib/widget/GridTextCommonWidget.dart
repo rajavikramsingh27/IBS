@@ -45,6 +45,7 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
     _treatmentPlanController.selectedTagsList = <Tag>[].obs;
     _treatmentPlanController.selectedTagsList.refresh();
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(

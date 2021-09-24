@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 class LocalizationService extends Translations {
   // Default locale
   static final locale = Locale('en');
@@ -15,7 +16,8 @@ class LocalizationService extends Translations {
   // Supported locales
   static final locales = <Locale>[];
 
-  static final Map<String, Map<String, String>> keyList = <String, Map<String, String>>{};
+  static final Map<String, Map<String, String>> keyList =
+      <String, Map<String, String>>{};
 
   // Keys and their translations
   // Translations are separated maps in `lang` file

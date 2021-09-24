@@ -97,7 +97,7 @@ class Sleep extends StatelessWidget {
             visualDensity: VisualDensity(horizontal: -4, vertical: -4),
             icon: Icon(Icons.arrow_forward_ios_outlined,
                 color: AppColors.white, size: FontSize.s14),
-            onPressed: onPressed ,
+            onPressed: onPressed,
           ),
         ),
       ),

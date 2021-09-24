@@ -8,11 +8,10 @@ import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel
 import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/tags/TagsResponseModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
-import 'package:flutter_ibs/utils/SnackBar.dart';
-import 'package:flutter_ibs/widget/CustomDialog.dart';
-import 'package:flutter_ibs/widget/TreatmentPlanListWidget.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
+import 'package:flutter_ibs/utils/SnackBar.dart';
+import 'package:flutter_ibs/widget/TreatmentPlanListWidget.dart';
 import 'package:get/get.dart';
 
 class TreatmentPlanController extends GetxController {
@@ -151,8 +150,12 @@ class TreatmentPlanController extends GetxController {
               kind: track.kind,
               dtype: "str",
               value: TrackingValue(
-                  str: track.kind == "timePicker" ? track.timePicker.timePickerDefault : "",
-                  arr: track.kind == "select" ? track.select.selectDefault.value : ""));
+                  str: track.kind == "timePicker"
+                      ? track.timePicker.timePickerDefault
+                      : "",
+                  arr: track.kind == "select"
+                      ? track.select.selectDefault.value
+                      : ""));
           listTrackData.add(trackTreatmentModel);
         });
       }
@@ -162,7 +165,7 @@ class TreatmentPlanController extends GetxController {
     treatmentPlanSendModel.value.trackingDefaults.addAll(listTrackData);
     treatmentPlanSendModel.refresh();
 
-    debugPrint("data: ${treatmentPlanSendModel.toJson()}",wrapWidth: 1024);
+    debugPrint("data: ${treatmentPlanSendModel.toJson()}", wrapWidth: 1024);
     loader.value = true;
     final data = await ServiceApi()
         .postTreatmentPlanAPI(bodyData: treatmentPlanSendModel.toJson());
@@ -175,8 +178,7 @@ class TreatmentPlanController extends GetxController {
       loader.value = false;
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
-    treatmentPlanSendModel =
-        PostTreatmentPlanSendModel().obs;
+    treatmentPlanSendModel = PostTreatmentPlanSendModel().obs;
   }
 
   Future<bool> addTags({category, tagValue}) async {

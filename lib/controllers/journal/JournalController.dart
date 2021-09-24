@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
-import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/journal/JournalResponseModel.dart';
+import 'package:flutter_ibs/models/journal/JournalSendModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
-
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter_ibs/models/journal/JournalSendModel.dart' ;
 
 class JournalController extends GetxController {
   TextEditingController noteTextController = TextEditingController();
@@ -22,8 +19,7 @@ class JournalController extends GetxController {
   @override
   void onInit() {
     // Get the source of the data:
-    _trackablesController
-        .journal.value.items.forEach((element) {
+    _trackablesController.journal.value.items.forEach((element) {
       formWidgetList.add(element);
     });
 
@@ -34,15 +30,15 @@ class JournalController extends GetxController {
     // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 
-
-  void onSave()async{
+  void onSave() async {
     print("*****  NOT YET SAVING ACTUAL DATA ****");
     return;
     loader.value = true;
-    final data = await ServiceApi().postJournalAPI(bodyData: journalModel.toJson());
+    final data =
+        await ServiceApi().postJournalAPI(bodyData: journalModel.toJson());
     loader.value = false;
     if (data is JournalResponseModel) {
-       noteTextController.clear();
+      noteTextController.clear();
       //  healthWellnessModel.value.items = [];
       //  _signUpController.getTrackList();
       Get.back();
@@ -51,14 +47,12 @@ class JournalController extends GetxController {
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
-
   }
 
-
-  void valueChanged(TrackableSubmitItem submitItem){
+  void valueChanged(TrackableSubmitItem submitItem) {
     var count = journalModel.value.items.length;
     bool isAdded = false;
-    for(var i=0; i < count; i++) {
+    for (var i = 0; i < count; i++) {
       if (journalModel.value.items[i].tid == submitItem.tid) {
         journalModel.value.items[i] = submitItem;
         isAdded = true;
@@ -66,15 +60,13 @@ class JournalController extends GetxController {
       }
     }
 
-    if (!isAdded){
+    if (!isAdded) {
       journalModel.value.items.add(submitItem);
     }
   }
-
 }
 
-
-  /*
+/*
   Rx<DateTime> now = DateTime.now().obs;
   RxDouble sliderValue = 1.0.obs;
   RxInt formattedTime = 0.obs;

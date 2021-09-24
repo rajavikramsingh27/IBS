@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/user/UserController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/TrackableItemUtils.dart';
 import 'package:flutter_ibs/widget/ScreenControls/TagWidget.dart';
 import 'package:get/get.dart';
@@ -14,7 +14,7 @@ class AddableTagListWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
- // List<Tag> _selectedItems;
+  // List<Tag> _selectedItems;
 
   AddableTagListWidget({
     //Key key,
@@ -33,7 +33,6 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
   List<Tag> selectedItems;
   UserController _userController;
 
-
   final _textController = TextEditingController();
 
   @override
@@ -43,7 +42,6 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
     _textController.dispose();
     super.dispose();
   }
-
 
   @override
   void initState() {
@@ -90,7 +88,7 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
                 SizedBox(height: ScreenConstant.defaultHeightTen),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: ScreenConstant.defaultWidthTwenty),
+                      horizontal: ScreenConstant.defaultWidthTwenty),
                   child: Text(widget.trackableItem.description.tr,
                       style: TextStyles.textStyleIntroDescription
                           .apply(color: Colors.white60, fontSizeDelta: -6)),
@@ -191,7 +189,7 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
   /// Add tag button hit:
   _addNewTag() {
     String copy = _textController.text.trim();
-    if (copy.length == 0){
+    if (copy.length == 0) {
       return;
     }
 
@@ -221,8 +219,6 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
       }
     });
 
-
-
     List<String> flatList = [];
     selectedItems.forEach((element) {
       flatList.add(element.value);
@@ -237,11 +233,7 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
     ));
   }
 
-
-  _onAddTagFieldChanged(){
-
-  }
-
+  _onAddTagFieldChanged() {}
 }
 /*
    var count = selectedItems.length;
