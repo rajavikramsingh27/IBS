@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/CustomArcPainter.dart';
-import 'package:flutter_ibs/widget/OvalPainterWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderItemChildrenWidget.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
-class RatingWidget extends StatefulWidget  {
+class RatingWidget extends StatefulWidget {
   final TrackableItem trackableItem;
   final bool isFirst;
   final bool isLast;
@@ -26,13 +24,11 @@ class RatingWidget extends StatefulWidget  {
     this.onValueChanged,
   }) : super(key: key);
 
-
   @override
   _RatingWidgetState createState() => _RatingWidgetState();
 }
 
 class _RatingWidgetState extends State<RatingWidget> {
-
   double _currentValue;
 
   @override
@@ -77,10 +73,11 @@ class _RatingWidgetState extends State<RatingWidget> {
           ),
           child: Container(
             padding: EdgeInsets.symmetric(
-                horizontal: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty, vertical: 1),
+                horizontal:
+                    widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
+                vertical: 1),
             child: Column(
               children: [
-
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
                 Text(widget.trackableItem.name.tr,
                     style: TextStyles.textStyleIntroDescription
@@ -90,11 +87,8 @@ class _RatingWidgetState extends State<RatingWidget> {
                   height: 34,
                   child: Text(
                     //trackableItem.description.tr,
-                    widget.trackableItem
-                        .rating
-                        .options[(_currentValue.toInt() - 1)]
-                        .description
-                        .tr,
+                    widget.trackableItem.rating
+                        .options[(_currentValue.toInt() - 1)].description.tr,
                     textAlign: TextAlign.center,
                     style: TextStyles.textStyleRegular
                         .apply(color: AppColors.colorSkipButton),
@@ -123,7 +117,7 @@ class _RatingWidgetState extends State<RatingWidget> {
                       inactiveDividerStrokeColor: AppColors.white,
                       inactiveDividerRadius: 8,
                       inactiveDividerColor:
-                      AppColors.colorInactiveDividerSlider,
+                          AppColors.colorInactiveDividerSlider,
                       activeDividerColor: AppColors.colorInactiveDividerSlider,
                       activeDividerStrokeColor: Colors.white,
                       activeDividerRadius: 8,
@@ -151,19 +145,19 @@ class _RatingWidgetState extends State<RatingWidget> {
                           category: widget.trackableItem.category,
                           kind: widget.trackableItem.kind,
                           dtype: "num",
-                          value: TrackableSubmitItemValue(number: _currentValue),
+                          value:
+                              TrackableSubmitItemValue(number: _currentValue),
                         ));
-
                       },
                       labelFormatterCallback:
                           (dynamic actualValue, String formattedText) {
                         return actualValue == 1
                             ? widget.trackableItem.rating.labels.min.tr
                             : actualValue == 2
-                            ? ""
-                            : actualValue == 3
-                            ? ""
-                            :  widget.trackableItem.rating.labels.max.tr;
+                                ? ""
+                                : actualValue == 3
+                                    ? ""
+                                    : widget.trackableItem.rating.labels.max.tr;
                       },
                     ),
                   ),
@@ -176,13 +170,11 @@ class _RatingWidgetState extends State<RatingWidget> {
                   isLast: false,
                   onValueChanged: widget.onValueChanged,
                 ),
-
                 Visibility(
                     visible: !widget.isChild && !widget.isLast && !hasChildren,
                     child: Divider(
                         thickness: 1,
                         color: AppColors.white.withOpacity(0.12))),
-
               ],
             ),
           ),
@@ -190,5 +182,4 @@ class _RatingWidgetState extends State<RatingWidget> {
       ],
     );
   }
-
 }

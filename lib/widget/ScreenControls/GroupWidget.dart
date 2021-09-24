@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
 import 'package:get/get.dart';
-
 
 class GroupWidget extends StatelessWidget {
   final TrackableItem trackableItem;
@@ -25,7 +24,6 @@ class GroupWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Stack(
       children: [
         Positioned.fill(
@@ -49,7 +47,7 @@ class GroupWidget extends StatelessWidget {
           ),
           child: Padding(
             padding:
-            (EdgeInsets.only(bottom: ScreenConstant.defaultHeightSixteen)),
+                (EdgeInsets.only(bottom: ScreenConstant.defaultHeightSixteen)),
             child: Column(
               children: [
                 SizedBox(height: ScreenConstant.defaultHeightTwenty),
@@ -74,10 +72,9 @@ class GroupWidget extends StatelessWidget {
                       itemBuilder: (_, count) {
                         // TODO: This is only rendering the first child for now.
                         return RenderWidgetByType().renderTrackableItem(
-                          trackableItem.children.first.items[count],
-                          isChild: true,
-                          onValueChanged: onValueChanged
-                        );
+                            trackableItem.children.first.items[count],
+                            isChild: true,
+                            onValueChanged: onValueChanged);
                       }),
                 ),
               ],

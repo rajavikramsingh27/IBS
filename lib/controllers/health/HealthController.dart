@@ -6,35 +6,32 @@ import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
-
 class HealthController extends GetxController {
   RxBool loader = false.obs;
 
-  Rx<HealthWellnessModel> healthWellnessModel = HealthWellnessModel(items: []).obs;
+  Rx<HealthWellnessModel> healthWellnessModel =
+      HealthWellnessModel(items: []).obs;
   TrackablesController _trackablesController = Get.find();
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
-
-
 
   @override
   void onInit() {
     // Get the source of the data:
-    _trackablesController
-        .healthWellness.value.items.forEach((element) {
-          formWidgetList.add(element);
+    _trackablesController.healthWellness.value.items.forEach((element) {
+      formWidgetList.add(element);
     });
 
     // Refresh the local list so the form can generate:
     formWidgetList.refresh();
 
     super.onInit();
-   // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
+    // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 
-  void valueChanged(TrackableSubmitItem submitItem){
+  void valueChanged(TrackableSubmitItem submitItem) {
     var count = healthWellnessModel.value.items.length;
     bool isAdded = false;
-    for(var i=0; i < count; i++) {
+    for (var i = 0; i < count; i++) {
       if (healthWellnessModel.value.items[i].tid == submitItem.tid) {
         healthWellnessModel.value.items[i] = submitItem;
         isAdded = true;
@@ -42,33 +39,27 @@ class HealthController extends GetxController {
       }
     }
 
-    if (!isAdded){
+    if (!isAdded) {
       healthWellnessModel.value.items.add(submitItem);
     }
-
   }
 
-  void onSave()async{
+  void onSave() async {
     loader.value = true;
-    final data = await ServiceApi().postHealthWellnessAPI(bodyData: healthWellnessModel.toJson());
+    final data = await ServiceApi()
+        .postHealthWellnessAPI(bodyData: healthWellnessModel.toJson());
     loader.value = false;
     if (data is HealthWellnessResponseModel) {
-     // noteTextController.clear();
-    //  healthWellnessModel.value.items = [];
-    //  _signUpController.getTrackList();
+      // noteTextController.clear();
+      //  healthWellnessModel.value.items = [];
+      //  _signUpController.getTrackList();
       Get.back();
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Health & Wellness Added Successfully");
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
-
-
   }
-
-
-
-
 
 /*
     formWidgetList.forEach((item) {
@@ -86,7 +77,6 @@ class HealthController extends GetxController {
       }
     });
 */
-
 
 /*
   _findTrackableItemInList(TrackableItem searchItem, RxList<TrackableItem> list){

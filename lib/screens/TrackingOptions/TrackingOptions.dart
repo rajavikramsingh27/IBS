@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/MyAccount/MyAccountController.dart';
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
-import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
-import 'package:flutter_ibs/controllers/user/UserController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/HexColor.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomCheckBox.dart';
+import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/CustomExpansionTile.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
-import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
-import 'dart:convert';
 
 class TrackingOptions extends StatelessWidget {
   // final _controller = Get.put(MyAccountController());

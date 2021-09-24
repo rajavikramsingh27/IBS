@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/DropDownList.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
 
 class SelectWidget extends StatefulWidget {
@@ -63,9 +63,7 @@ class _SelectWidgetState extends State<SelectWidget> {
                 SizedBox(
                   child: Text(
                     //trackableItem.description.tr,
-                    widget.trackableItem
-                        .description
-                        .tr,
+                    widget.trackableItem.description.tr,
                     textAlign: TextAlign.center,
                     style: TextStyles.textStyleRegular
                         .apply(color: AppColors.colorSkipButton),
@@ -75,7 +73,6 @@ class _SelectWidgetState extends State<SelectWidget> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
                     Expanded(
                       flex: 1,
                       child: Text(widget.trackableItem.name.tr,

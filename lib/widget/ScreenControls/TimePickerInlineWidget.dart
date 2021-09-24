@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
-
 
 class TimePickerInlineWidget extends StatefulWidget {
   final TrackableItem trackableItem;
@@ -22,13 +21,11 @@ class TimePickerInlineWidget extends StatefulWidget {
     this.onValueChanged,
   }) : super();
 
-
   @override
   _TimePickerInlineWidgetState createState() => _TimePickerInlineWidgetState();
 }
 
 class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
-
   TimeOfDay _selectedTime;
 
   @override
@@ -40,7 +37,10 @@ class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "str",
-      value: TrackableSubmitItemValue(str: _selectedTime.hour.toString() + ":" + _selectedTime.minute.toString() ),
+      value: TrackableSubmitItemValue(
+          str: _selectedTime.hour.toString() +
+              ":" +
+              _selectedTime.minute.toString()),
     ));
     super.initState();
   }
@@ -53,7 +53,7 @@ class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
           value: "12:00 AM",
       ),
     ];*/
-     // "02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00",];
+    // "02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00",];
 
     return Column(
       children: [
@@ -84,7 +84,6 @@ class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
                     _selectTime(context);
                   },
                   child: Text(_selectedTime.format(context)),
-
                 ),
               ),
             )
@@ -97,18 +96,13 @@ class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
     );
   }
 
-
-
-
   _selectTime(BuildContext context) async {
     final TimeOfDay timeOfDay = await showTimePicker(
       context: context,
       initialTime: _selectedTime,
       initialEntryMode: TimePickerEntryMode.input,
-
     );
-    if(timeOfDay != null && timeOfDay != _selectedTime)
-    {
+    if (timeOfDay != null && timeOfDay != _selectedTime) {
       setState(() {
         _selectedTime = timeOfDay;
       });
@@ -118,7 +112,10 @@ class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
         category: widget.trackableItem.category,
         kind: widget.trackableItem.kind,
         dtype: "str",
-        value:  TrackableSubmitItemValue(str: _selectedTime.hour.toString() + ":" + _selectedTime.minute.toString() ),
+        value: TrackableSubmitItemValue(
+            str: _selectedTime.hour.toString() +
+                ":" +
+                _selectedTime.minute.toString()),
       ));
     }
   }

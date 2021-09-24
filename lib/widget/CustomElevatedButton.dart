@@ -8,8 +8,7 @@ class CustomElevatedButton extends StatelessWidget {
   final String text;
   final double widthFactor;
 
-  const CustomElevatedButton(
-      {Key key, this.onTap, this.text, this.widthFactor})
+  const CustomElevatedButton({Key key, this.onTap, this.text, this.widthFactor})
       : super(key: key);
 
   @override
@@ -17,7 +16,7 @@ class CustomElevatedButton extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: widthFactor,
       child: ElevatedButton(
-        onPressed: onTap ,
+        onPressed: onTap,
         style: ElevatedButton.styleFrom(
             padding: ScreenConstant.spacingAllMedium,
             primary: AppColors.colorButton,
@@ -57,7 +56,7 @@ class CustomElevatedButton2 extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: widthFactor,
       child: ElevatedButton(
-        onPressed: onTap ,
+        onPressed: onTap,
         style: ElevatedButton.styleFrom(
             shadowColor: AppColors.colorInactiveDividerSlider.withOpacity(0.12),
             elevation: elevation,
@@ -90,7 +89,7 @@ class CustomElevatedButton3 extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: widthFactor,
       child: ElevatedButton(
-        onPressed: onTap ,
+        onPressed: onTap,
         style: ElevatedButton.styleFrom(
             padding: ScreenConstant.spacingAllMedium,
             primary: AppColors.colorCloseLight,
@@ -106,8 +105,6 @@ class CustomElevatedButton3 extends StatelessWidget {
     );
   }
 }
-
-
 
 class CustomElevatedButtonBlue extends StatelessWidget {
   final Function onTap;
@@ -128,9 +125,7 @@ class CustomElevatedButtonBlue extends StatelessWidget {
             padding: ScreenConstant.spacingAllMedium,
             primary: AppColors.colorBackground,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20)
-            )
-        ),
+                borderRadius: BorderRadius.circular(20))),
         child: Text(
           text,
           textAlign: TextAlign.center,

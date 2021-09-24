@@ -42,8 +42,13 @@ class SymptomsModel {
   Map<String, dynamic> toJson() {
     HomeController controller = Get.find();
     DateTime now = DateTime.now();
-    DateTime trackedAt = new DateTime(controller.selectedDate.year, controller.selectedDate.month, controller.selectedDate.day,
-        now.hour, now.minute, now.second);
+    DateTime trackedAt = new DateTime(
+        controller.selectedDate.year,
+        controller.selectedDate.month,
+        controller.selectedDate.day,
+        now.hour,
+        now.minute,
+        now.second);
 
     Map<String, dynamic> json = {
       "category": category == null ? null : category,

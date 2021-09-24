@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/ShareStore.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
-import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/PostTreatmentPlanSendModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanModel.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
-import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
 import 'package:flutter_ibs/models/tags/TagsResponseModel.dart';
+import 'package:flutter_ibs/models/user/UserModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
-import 'package:flutter_ibs/utils/SnackBar.dart';
-import 'package:flutter_ibs/widget/CustomDialog.dart';
-import 'package:flutter_ibs/widget/TreatmentPlanListWidget.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
+import 'package:flutter_ibs/utils/SnackBar.dart';
+import 'package:flutter_ibs/widget/TreatmentPlanListWidget.dart';
 import 'package:get/get.dart';
 
 class TreatmentPlanController extends GetxController {
@@ -46,7 +44,7 @@ class TreatmentPlanController extends GetxController {
   RxString dayValue = "".obs;
   RxString timeValue = "".obs;
   RxString messageValue = "".obs;
-  LoginResponseModel userData;
+  var userData;
   RxList<String> existTreatmentPlans = <String>[].obs;
 
   @override
@@ -109,9 +107,9 @@ class TreatmentPlanController extends GetxController {
   }
 
   void addReminder() {
-    (selectedDay.isEmpty || selectedTime.isEmpty)
+    (selectedDay.isEmpty || selectedTime.isEmpty || noteTextController.text.isEmpty)
         ? CustomSnackBar()
-            .errorSnackBar(title: "Error", message: "Select time and day both")
+            .errorSnackBar(title: "Error", message: "Please check the given data.")
         : reminderList.add(Reminder(
             message: noteTextController.text,
             time: selectedTime.value,
@@ -151,8 +149,15 @@ class TreatmentPlanController extends GetxController {
               kind: track.kind,
               dtype: "str",
               value: TrackingValue(
-                  str: track.kind == "timePicker" ? track.timePicker.timePickerDefault : "",
-                  arr: track.kind == "select" ? track.select.selectDefault.value : ""));
+                  str: track.kind == "timePicker"
+                      ? track.timePicker.timePickerDefault
+                      : "",
+                  arr: track.kind == "select"
+                      ? track.select.selectDefault.value
+                      : "",
+                  numValue: track.kind == "rating"
+                      ? track.rating.ratingDefault
+                      : 0));
           listTrackData.add(trackTreatmentModel);
         });
       }
@@ -162,12 +167,13 @@ class TreatmentPlanController extends GetxController {
     treatmentPlanSendModel.value.trackingDefaults.addAll(listTrackData);
     treatmentPlanSendModel.refresh();
 
-    debugPrint("data: ${treatmentPlanSendModel.toJson()}",wrapWidth: 1024);
+    debugPrint("data: ${treatmentPlanSendModel.toJson()}", wrapWidth: 1024);
     loader.value = true;
     final data = await ServiceApi()
         .postTreatmentPlanAPI(bodyData: treatmentPlanSendModel.toJson());
     loader.value = false;
-    if (data is PostTreatmentPlanResponseModel) {
+    if (data is UserModel) {
+      ShareStore().saveData(store: KeyStore.userprofile,object: data);
       Get.offAllNamed(home);
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Treatment Plan Added Successfully");
@@ -175,8 +181,7 @@ class TreatmentPlanController extends GetxController {
       loader.value = false;
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
-    treatmentPlanSendModel =
-        PostTreatmentPlanSendModel().obs;
+    treatmentPlanSendModel = PostTreatmentPlanSendModel().obs;
   }
 
   Future<bool> addTags({category, tagValue}) async {
@@ -185,6 +190,8 @@ class TreatmentPlanController extends GetxController {
     loader.value = false;
     if (data is TagsResponseModel) {
       tagsController.clear();
+      selectedTags.add(tagValue);
+      selectedTagsList.add(tagValue);
       CustomSnackBar()
           .successSnackBar(title: "Success", message: "Tag Added Successfully");
       return true;
@@ -201,7 +208,8 @@ class TreatmentPlanController extends GetxController {
     loader.value = true;
     final data = await ServiceApi().removeTreatmentPlan(selectedPID.value);
     loader.value = false;
-    if (data is PostTreatmentPlanResponseModel) {
+    if (data is UserModel) {
+      ShareStore().saveData(store: KeyStore.userprofile,object: data);
       Get.offAllNamed(home);
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Treatment Plan Stopped Successfully");

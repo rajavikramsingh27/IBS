@@ -1,5 +1,3 @@
-
-
 class Assets {
   static const String baseImage = "assets/images";
 

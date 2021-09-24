@@ -18,12 +18,12 @@ class BowelMovementController extends GetxController {
   RxBool loader = false.obs;
 
   RxBool switchValue = true.obs;
-  Rx<BowelMovementsModel> bowelMovementsModel = BowelMovementsModel(items: []).obs;
+  Rx<BowelMovementsModel> bowelMovementsModel =
+      BowelMovementsModel(items: []).obs;
 
   TrackablesController _trackablesController = Get.find();
 
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
-
 
   onTapped(int index) async {
     currentIndex.value = index;
@@ -33,8 +33,7 @@ class BowelMovementController extends GetxController {
   void onInit() {
     formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
 
-    _trackablesController
-        .bowelMovements.value.items.forEach((element) {
+    _trackablesController.bowelMovements.value.items.forEach((element) {
       formWidgetList.add(element);
     });
 
@@ -61,10 +60,10 @@ class BowelMovementController extends GetxController {
     }
   }
 
-
-  void onSave()async{
+  void onSave() async {
     loader.value = true;
-    final data = await ServiceApi().postBowelMovementAPI(bodyData: bowelMovementsModel.toJson());
+    final data = await ServiceApi()
+        .postBowelMovementAPI(bodyData: bowelMovementsModel.toJson());
     loader.value = false;
     if (data is BowelMovementsResponseModel) {
       // noteTextController.clear();
@@ -76,9 +75,7 @@ class BowelMovementController extends GetxController {
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
-
   }
-
 }
 /*
     print ('-------');

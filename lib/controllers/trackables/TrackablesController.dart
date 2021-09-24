@@ -1,4 +1,3 @@
-
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
@@ -26,8 +25,6 @@ class TrackablesController extends GetxController {
     _getTrackList();
   }
 
-
-
   _getTrackList() async {
     if (_init) {
       return;
@@ -53,10 +50,9 @@ class TrackablesController extends GetxController {
     }
   }
 
-
-  _setCategories(){
+  _setCategories() {
     trackList.value.data.forEach((element) {
-      switch (element.tid){
+      switch (element.tid) {
         case "symptoms":
           symptoms.value = element;
           break;
@@ -78,6 +74,4 @@ class TrackablesController extends GetxController {
       }
     });
   }
-
-
 }

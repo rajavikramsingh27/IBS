@@ -476,7 +476,8 @@ class ReminderResponseData {
 
   String toRawJson() => json.encode(toJson());
 
-  factory ReminderResponseData.fromJson(Map<String, dynamic> json) => ReminderResponseData(
+  factory ReminderResponseData.fromJson(Map<String, dynamic> json) =>
+      ReminderResponseData(
         id: json["_id"] == null ? null : json["_id"],
         day: json["day"] == null ? null : json["day"],
         hour: json["hour"] == null ? null : json["hour"],

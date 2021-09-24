@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/services/url.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/ScreenControls/RenderItemChildrenWidget.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
-class BristolScaleWidget extends StatefulWidget  {
+class BristolScaleWidget extends StatefulWidget {
   final TrackableItem trackableItem;
   final bool isFirst;
   final bool isLast;
@@ -25,13 +24,11 @@ class BristolScaleWidget extends StatefulWidget  {
     this.onValueChanged,
   }) : super(key: key);
 
-
   @override
   _BristolScaleWidgetState createState() => _BristolScaleWidgetState();
 }
 
 class _BristolScaleWidgetState extends State<BristolScaleWidget> {
-
   double _currentValue; // this.trackableItem.rating.value.toDouble();
 
   @override
@@ -68,8 +65,8 @@ class _BristolScaleWidgetState extends State<BristolScaleWidget> {
             child: Stack(
               children: [
                 getImage(
-                    item:  widget.trackableItem
-                        .rating.options[ widget.trackableItem.rating.value.toInt() - 1]),
+                    item: widget.trackableItem.rating.options[
+                        widget.trackableItem.rating.value.toInt() - 1]),
                 Positioned(
                   bottom: 0,
                   left: ScreenConstant.defaultWidthTwenty,
@@ -85,7 +82,8 @@ class _BristolScaleWidgetState extends State<BristolScaleWidget> {
                         horizontal: ScreenConstant.sizeExtraSmall, vertical: 1),
                     child: FittedBox(
                       fit: BoxFit.contain,
-                      child: Text("Type ${widget.trackableItem.rating.value.toInt()}",
+                      child: Text(
+                          "Type ${widget.trackableItem.rating.value.toInt()}",
                           textAlign: TextAlign.center,
                           style: TextStyles.textStyleIntroDescription
                               .apply(color: Colors.white, fontSizeDelta: -9)),
@@ -97,7 +95,8 @@ class _BristolScaleWidgetState extends State<BristolScaleWidget> {
           ),
           SizedBox(height: ScreenConstant.sizeMedium),
           getDesc(
-              item: widget.trackableItem.rating.options[widget.trackableItem.rating.value.toInt() - 1]),
+              item: widget.trackableItem.rating
+                  .options[widget.trackableItem.rating.value.toInt() - 1]),
           SizedBox(height: ScreenConstant.sizeMedium),
           Padding(
             padding: EdgeInsets.symmetric(
@@ -165,7 +164,6 @@ class _BristolScaleWidgetState extends State<BristolScaleWidget> {
       ),
     );
   }
-
 
   getImage({RatingOption item}) {
     Widget image = FadeInImage(

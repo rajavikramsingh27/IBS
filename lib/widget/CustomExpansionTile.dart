@@ -31,7 +31,7 @@ class CustomExpansionTile extends StatefulWidget {
   const CustomExpansionTile({
     Key key,
     this.leading,
-     this.title,
+    this.title,
     this.subtitle,
     this.backgroundColor,
     this.onExpansionChanged,
@@ -159,13 +159,13 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
   final ColorTween _iconColorTween = ColorTween();
   final ColorTween _backgroundColorTween = ColorTween();
 
-   AnimationController _controller;
+  AnimationController _controller;
   Animation<double> _iconTurns;
-   Animation<double> _heightFactor;
-   Animation<Color> _borderColor;
-   Animation<Color> _headerColor;
-   Animation<Color> _iconColor;
-   Animation<Color> _backgroundColor;
+  Animation<double> _heightFactor;
+  Animation<Color> _borderColor;
+  Animation<Color> _headerColor;
+  Animation<Color> _iconColor;
+  Animation<Color> _backgroundColor;
 
   bool _isExpanded = false;
 

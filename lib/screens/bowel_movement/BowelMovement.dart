@@ -98,43 +98,53 @@ class BowelMovement extends StatelessWidget {
                                     int listLength =
                                         controller.formWidgetList.length;
 
-                                    int total = (listLength -2) - ( _numSkipped ) ;
-                                    if ( mainIndex >= total ){
+                                    int total =
+                                        (listLength - 2) - (_numSkipped);
+                                    if (mainIndex >= total) {
                                       // If it's the last one or two... because additional notes could be after.
                                       isLast = true;
                                     }
-                                    print("IDx $mainIndex  total $total - $isLast");
+                                    print(
+                                        "IDx $mainIndex  total $total - $isLast");
 
                                     // Check for above/below class in case of white BG:
-                                    if (mainIndex > 0){
-                                      TrackableItem previous = controller.formWidgetList[mainIndex - 1];
-                                      if (previous.style == TrackableStyle.WHITE_WHITE || previous.style == TrackableStyle.BLUE_WHITE){
+                                    if (mainIndex > 0) {
+                                      TrackableItem previous = controller
+                                          .formWidgetList[mainIndex - 1];
+                                      if (previous.style ==
+                                              TrackableStyle.WHITE_WHITE ||
+                                          previous.style ==
+                                              TrackableStyle.BLUE_WHITE) {
                                         isFirst = true;
                                       }
                                     }
 
-                                    if (mainIndex < listLength-1){
-                                      TrackableItem next = controller.formWidgetList[mainIndex + 1];
-                                      if (next.style == TrackableStyle.WHITE_WHITE || next.style == TrackableStyle.BLUE_WHITE){
+                                    if (mainIndex < listLength - 1) {
+                                      TrackableItem next = controller
+                                          .formWidgetList[mainIndex + 1];
+                                      if (next.style ==
+                                              TrackableStyle.WHITE_WHITE ||
+                                          next.style ==
+                                              TrackableStyle.BLUE_WHITE) {
                                         isLast = true;
                                       }
                                     }
 
                                     bool isTracked =
-                                    _userController.doesUserTrack(controller
-                                        .formWidgetList[mainIndex]);
+                                        _userController.doesUserTrack(controller
+                                            .formWidgetList[mainIndex]);
                                     if (isTracked) {
                                       _numRendered++;
                                       return RenderWidgetByType()
                                           .renderTrackableItem(
-                                          controller
-                                              .formWidgetList[mainIndex],
-                                          isFirst: isFirst,
-                                          isLast: isLast,
-                                          onValueChanged:
-                                          controller.valueChanged);
+                                              controller
+                                                  .formWidgetList[mainIndex],
+                                              isFirst: isFirst,
+                                              isLast: isLast,
+                                              onValueChanged:
+                                                  controller.valueChanged);
                                     } else {
-                                      _numSkipped ++;
+                                      _numSkipped++;
                                       return Offstage();
                                     }
                                   }),

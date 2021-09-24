@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/services/url.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/ScreenControls/RenderItemChildrenWidget.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_core/theme.dart';
 
 class ColorPickerWidget extends StatefulWidget {
   final TrackableItem trackableItem;
@@ -82,11 +79,13 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                   child: Column(
                     children: [
                       Text(widget.trackableItem.name.tr,
-                          style: TextStyles.textStyleIntroDescription
-                              .apply(color: Colors.black)),// fontSizeDelta: -1)),
+                          style: TextStyles.textStyleIntroDescription.apply(
+                              color: Colors.black)), // fontSizeDelta: -1)),
                       SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-                   Text(
-                        widget.trackableItem.color.value == null ? "" : widget.trackableItem.color.value.description,
+                      Text(
+                        widget.trackableItem.color.value == null
+                            ? ""
+                            : widget.trackableItem.color.value.description,
                         textAlign: TextAlign.center,
                         style: TextStyles.textStyleRegular.apply(),
                       ),
@@ -101,14 +100,16 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                             onTap: () {
                               setState(() {
                                 widget.trackableItem.color.value =
-                                widget.trackableItem.color.options[index];
+                                    widget.trackableItem.color.options[index];
                               });
                               widget.onValueChanged(TrackableSubmitItem(
                                 tid: widget.trackableItem.tid,
                                 category: widget.trackableItem.category,
                                 kind: widget.trackableItem.kind,
                                 dtype: "str",
-                                value: TrackableSubmitItemValue(str: widget.trackableItem.color.value.toString() ),
+                                value: TrackableSubmitItemValue(
+                                    str: widget.trackableItem.color.value
+                                        .toString()),
                               ));
                             },
                             child: widget.trackableItem.color.colorDefault
@@ -154,10 +155,9 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
               ),
               SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
               Visibility(
-                  visible: true,// !widget.isChild && !widget.isLast,
+                  visible: true, // !widget.isChild && !widget.isLast,
                   child: Divider(
-                      thickness: 1,
-                      color: AppColors.white.withOpacity(0.12))),
+                      thickness: 1, color: AppColors.white.withOpacity(0.12))),
             ]),
           ))
     ]);

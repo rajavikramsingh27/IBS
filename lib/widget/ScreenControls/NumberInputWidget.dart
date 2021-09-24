@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
-import 'package:flutter_number_picker/flutter_number_picker.dart';
 
 class NumberInputWidget extends StatefulWidget {
   final TrackableItem trackableItem;
@@ -96,8 +95,7 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)),
                     child: TextFormField(
-                        style: TextStyle( fontSize: 24),
-
+                        style: TextStyle(fontSize: 24),
                         textAlign: TextAlign.center,
                         cursorColor: Colors.white,
                         //controller: _controller,
@@ -105,10 +103,7 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                         ],
-                        decoration: InputDecoration(
-                            hintText: "0"
-                        )
-                    ),
+                        decoration: InputDecoration(hintText: "0")),
                   ),
                 ),
                 SizedBox(

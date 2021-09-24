@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/WavePainter.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
 
 class TextInputWidget extends StatelessWidget {
@@ -29,8 +28,7 @@ class TextInputWidget extends StatelessWidget {
       children: [
         Container(
           color: AppColors.colorYesButton,
-          child:
-          Padding(
+          child: Padding(
             padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
             child: Column(
               children: [
@@ -66,17 +64,14 @@ class TextInputWidget extends StatelessWidget {
                         contentPadding: EdgeInsets.symmetric(
                             horizontal: ScreenConstant.defaultWidthTen,
                             vertical: ScreenConstant.defaultHeightTen)),
-
                   ),
                 ),
-               // SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                // SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
               ],
             ),
           ),
-      )
+        )
       ],
     );
   }
-
-
 }

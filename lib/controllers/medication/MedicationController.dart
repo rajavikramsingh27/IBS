@@ -13,13 +13,10 @@ class MedicationController extends GetxController {
   TrackablesController _trackablesController = Get.find();
   RxList<TrackableItem> formWidgetList = RxList<TrackableItem>();
 
-
-
   @override
   void onInit() {
     // Get the source of the data:
-    _trackablesController
-        .medications.value.items.forEach((element) {
+    _trackablesController.medications.value.items.forEach((element) {
       formWidgetList.add(element);
     });
 
@@ -44,13 +41,12 @@ class MedicationController extends GetxController {
     if (!isAdded) {
       medicationsModel.value.items.add(submitItem);
     }
-
   }
 
-
-  void onSave()async{
+  void onSave() async {
     loader.value = true;
-    final data = await ServiceApi().postMedicationAPI(bodyData: medicationsModel.toJson());
+    final data = await ServiceApi()
+        .postMedicationAPI(bodyData: medicationsModel.toJson());
     loader.value = false;
     if (data is MedicationResponseModel) {
       formWidgetList = RxList<TrackableItem>();
@@ -61,11 +57,9 @@ class MedicationController extends GetxController {
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
-
   }
 
-
-    /*
+  /*
     if (medicationSendModel.value.items == null) {
       medicationSendModel.value.items = [];
     }

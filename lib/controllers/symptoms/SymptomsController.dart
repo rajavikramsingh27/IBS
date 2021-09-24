@@ -1,5 +1,5 @@
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
-import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart' ;
+import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
@@ -7,7 +7,6 @@ import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
 class SymptomsController extends GetxController {
-
   RxBool loader = false.obs;
 
   Rx<SymptomsModel> symptomsModel = SymptomsModel(items: []).obs;
@@ -21,11 +20,10 @@ class SymptomsController extends GetxController {
     // formattedTime = int.parse(DateFormat('kk').format(now.value)).obs;
   }
 
-  void doInit(){
-    formWidgetList = RxList<TrackableItem>() ;
+  void doInit() {
+    formWidgetList = RxList<TrackableItem>();
     // Get the source of the data:
-    _trackablesController
-        .symptoms.value.items.forEach((element) {
+    _trackablesController.symptoms.value.items.forEach((element) {
       formWidgetList.add(element);
     });
 
@@ -33,15 +31,15 @@ class SymptomsController extends GetxController {
     formWidgetList.refresh();
   }
 
-
-  void onCancel(){
+  void onCancel() {
     doInit();
     Get.back();
   }
 
-  void onSave()async{
+  void onSave() async {
     loader.value = true;
-    final data = await ServiceApi().postSymptomsAPI(bodyData: symptomsModel.toJson());
+    final data =
+        await ServiceApi().postSymptomsAPI(bodyData: symptomsModel.toJson());
     loader.value = false;
     if (data is SymptomsResponseModel) {
       // noteTextController.clear();
@@ -54,14 +52,12 @@ class SymptomsController extends GetxController {
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
-
   }
 
-
-  void valueChanged(TrackableSubmitItem submitItem){
+  void valueChanged(TrackableSubmitItem submitItem) {
     var count = symptomsModel.value.items.length;
     bool isAdded = false;
-    for(var i=0; i < count; i++) {
+    for (var i = 0; i < count; i++) {
       if (symptomsModel.value.items[i].tid == submitItem.tid) {
         symptomsModel.value.items[i] = submitItem;
         isAdded = true;
@@ -69,14 +65,12 @@ class SymptomsController extends GetxController {
       }
     }
 
-    if (!isAdded){
+    if (!isAdded) {
       symptomsModel.value.items.add(submitItem);
     }
   }
-
-
 }
-  /*
+/*
   /*
   @override
   void onInit() {

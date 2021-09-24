@@ -125,4 +125,3 @@ enum CheckStatus {
   checked,
   unchecked,
 }
-

@@ -45,6 +45,7 @@ class _GridImageCommonWidgetState extends State<GridImageCommonWidget> {
     _treatmentPlanController.selectedTagsList = <ListOption>[].obs;
     _treatmentPlanController.selectedTagsList.refresh();
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -74,7 +75,7 @@ class _GridImageCommonWidgetState extends State<GridImageCommonWidget> {
             return InkWell(
               onTap: () {
                 setState(() {
-                   model.optionDefault = !model.optionDefault;
+                  model.optionDefault = !model.optionDefault;
                   _treatmentPlanController.onTagTapped(model: model);
                 });
               },

@@ -97,7 +97,7 @@ class LowDiet extends StatelessWidget {
             visualDensity: VisualDensity(horizontal: -4, vertical: -4),
             icon: Icon(Icons.arrow_forward_ios_outlined,
                 color: AppColors.colorArrowButton, size: FontSize.s14),
-            onPressed: onPressed ,
+            onPressed: onPressed,
           ),
         ),
       ),

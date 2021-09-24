@@ -140,4 +140,3 @@ class Otp extends StatelessWidget {
     );
   }
 }
-

@@ -1,29 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ibs/screens/MyAccount/MyAccount.dart';
+import 'package:flutter_ibs/screens/MyIBS_Diagnosis/MyIBS_Diagnosis.dart';
+import 'package:flutter_ibs/screens/Notifications/Notifications.dart';
+import 'package:flutter_ibs/screens/RomeQuestionnaire/RomeQuestionnaire.dart';
+import 'package:flutter_ibs/screens/TrackingOptions/TrackingOptions.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomBottomNavigation.dart';
-
-import 'package:flutter_ibs/screens/MyAccount/MyAccount.dart';
-import 'package:flutter_ibs/screens/TrackingOptions/TrackingOptions.dart';
-import 'package:flutter_ibs/screens/MyIBS_Diagnosis/MyIBS_Diagnosis.dart';
-import 'package:flutter_ibs/screens/RomeQuestionnaire/RomeQuestionnaire.dart';
-import 'package:flutter_ibs/screens/Notifications/Notifications.dart';
-
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 
-
 class Settings extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     myProfile() {
       Navigator.push(
         context,
@@ -81,13 +75,17 @@ class Settings extends StatelessWidget {
                 SizedBox(height: ScreenConstant.defaultHeightSixteen),
                 _buildSettings(Assets.myAccount, "My Account", myProfile),
                 SizedBox(height: ScreenConstant.sizeDefault),
-                _buildSettings( Assets.myAccount, "Tracking Options", trackingOptions),
+                _buildSettings(
+                    Assets.myAccount, "Tracking Options", trackingOptions),
                 SizedBox(height: ScreenConstant.sizeDefault),
-                _buildSettings( Assets.myAccount, "RomeIV Questionnaire", removeQuestion),
+                _buildSettings(
+                    Assets.myAccount, "RomeIV Questionnaire", removeQuestion),
                 SizedBox(height: ScreenConstant.sizeDefault),
-                _buildSettings( Assets.myAccount, "My IBS Diagnosis", myIBSDiagnosis),
+                _buildSettings(
+                    Assets.myAccount, "My IBS Diagnosis", myIBSDiagnosis),
                 SizedBox(height: ScreenConstant.sizeDefault),
-                _buildSettings( Assets.myAccount, "Notifications", notifications),
+                _buildSettings(
+                    Assets.myAccount, "Notifications", notifications),
                 SizedBox(height: ScreenConstant.sizeDefault),
               ],
             ),

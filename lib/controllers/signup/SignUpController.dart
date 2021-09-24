@@ -7,8 +7,8 @@
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
-import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/my_profile/MyProfileController.dart';
+import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/signup/SignupResponseModel.dart';
 import 'package:flutter_ibs/models/signup/SignupSendModel.dart';
@@ -16,9 +16,8 @@ import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
-import 'package:get/get.dart';
 import 'package:flutter_ibs/utils/Validator.dart';
-
+import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
   TrackablesController _trackablesController = Get.find();
@@ -60,8 +59,6 @@ class SignUpController extends GetxController {
   RxBool isPasswordVisible = true.obs;
   RxBool agreeToTerms = false.obs;
 
-
-
   RxList<ListOption> listFoodOptions = <ListOption>[].obs;
 
   RxBool loader = false.obs;
@@ -91,7 +88,7 @@ class SignUpController extends GetxController {
       'Password should be 6 character'.showError();
     } else if (confirmPasswordController.text.isEmpty) {
       'Enter Confirm Password'.showError();
-    }  else if (!isFormValid()) {
+    } else if (!isFormValid()) {
       debugPrint('password or terms and conditions are not selected');
     } else {
       bool check = await ConnectionCheck().initConnectivity();
@@ -107,10 +104,7 @@ class SignUpController extends GetxController {
         CustomSnackBar().errorSnackBar(
             title: "No Internet", message: "No internet Connection");
       }
-
     }
-
-
 
     // if (formKey.currentState.validate()) {
     //   print("validate");
@@ -142,14 +136,14 @@ class SignUpController extends GetxController {
 
     RomeivSendModel romeivSendModel = RomeivSendModel(
       abdominalPain:
-      _myProFileController.isDiagnoisedAbdominalPain.value ?? false,
+          _myProFileController.isDiagnoisedAbdominalPain.value ?? false,
       abdominalPainBowelAppearDifferent:
-      _myProFileController.isabdominalPainBowelAppearDifferent.value ??
-          false,
+          _myProFileController.isabdominalPainBowelAppearDifferent.value ??
+              false,
       abdominalPainBowelMoreLess:
-      _myProFileController.isabdominalPainBowelMoreLess.value ?? false,
+          _myProFileController.isabdominalPainBowelMoreLess.value ?? false,
       abdominalPainTimeBowel:
-      _myProFileController.isabdominalPainTimeBowel.value ?? false,
+          _myProFileController.isabdominalPainTimeBowel.value ?? false,
       stool: _myProFileController.selectStoolType(
           _myProFileController.selectedStoolType.value ?? null),
     );
@@ -212,8 +206,6 @@ class SignUpController extends GetxController {
     });
     */
 
-
-
     TrackingSendModel trackModel = TrackingSendModel(
       symptoms: symptomsList,
       bowelMovements: bowelMoveList,
@@ -229,8 +221,7 @@ class SignUpController extends GetxController {
         age: selectedAge.value,
         familyHistory: selectedIbsHistory.value,
         diagnosedIbs: diagnoisedModel,
-        romeiv: romeivSendModel
-    );
+        romeiv: romeivSendModel);
 
     SignupSendModel model = SignupSendModel(
       label: emailController?.text,
@@ -257,25 +248,22 @@ class SignUpController extends GetxController {
     } else {
       //CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
-
   }
 
-
   /// Walk the Trackables tree adding active elements.
-  _recursivelyParseChildren(List<TrackableItem> items){
+  _recursivelyParseChildren(List<TrackableItem> items) {
     items.forEach((element) {
-      if (element.enabled){
+      if (element.enabled) {
         _addItemToTrackingList(element);
-        element.children.forEach( (child) {
+        element.children.forEach((child) {
           return _recursivelyParseChildren(child.items);
         });
       }
     });
   }
 
-  _addItemToTrackingList(dynamic item){
-
-    switch(item.category){
+  _addItemToTrackingList(dynamic item) {
+    switch (item.category) {
       case "symptoms":
         symptomsList.add(item);
         break;
@@ -295,7 +283,6 @@ class SignUpController extends GetxController {
         journalList.add(item);
         break;
     }
-
   }
 
   bool isFormValid() {
@@ -303,7 +290,7 @@ class SignUpController extends GetxController {
       CustomSnackBar()
           .errorSnackBar(title: "Password", message: "Password do not match");
       return false;
-    } else  if (agreeToTerms.value == false) {
+    } else if (agreeToTerms.value == false) {
       CustomSnackBar().errorSnackBar(
           title: "Terms and Condition",
           message: "Agree to Terms and Condition");
@@ -329,12 +316,10 @@ class SignUpController extends GetxController {
   }
 
   navigateToNextScreen() {
-
     if (isFormStep1valid()) {
       //getTrackList();
       Get.toNamed(signup2);
     }
-
   }
 
   trackingDataSend(String tid) {
@@ -348,5 +333,4 @@ class SignUpController extends GetxController {
       }
     });
   }
-
 }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderItemChildrenWidget.dart';
 import 'package:get/get.dart';
-import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
 
 class ListWidget extends StatefulWidget {
   final TrackableItem trackableItem;
@@ -28,7 +27,7 @@ class ListWidget extends StatefulWidget {
 }
 
 class _ListWidgetState extends State<ListWidget> {
-  List<ListOption> _selectedItems ;
+  List<ListOption> _selectedItems;
 
   @override
   void initState() {
@@ -64,7 +63,8 @@ class _ListWidgetState extends State<ListWidget> {
             right: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
           ),
           padding: EdgeInsets.symmetric(
-              horizontal: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty),
+              horizontal:
+                  widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty),
           child: Column(
             children: [
               SizedBox(height: ScreenConstant.defaultHeightForty),
@@ -84,7 +84,8 @@ class _ListWidgetState extends State<ListWidget> {
               SizedBox(height: ScreenConstant.defaultHeightTwenty),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: widget.isChild ? 0 : ScreenConstant.defaultWidthTen),
+                    horizontal:
+                        widget.isChild ? 0 : ScreenConstant.defaultWidthTen),
                 child: GridView.builder(
                   //   padding: EdgeInsets.symmetric(
                   //       horizontal: ScreenConstant.defaultWidthTwenty),
@@ -148,8 +149,7 @@ class _ListWidgetState extends State<ListWidget> {
               Visibility(
                   visible: !widget.isChild,
                   child: Divider(
-                      thickness: 1,
-                      color: AppColors.white.withOpacity(0.12))),
+                      thickness: 1, color: AppColors.white.withOpacity(0.12))),
             ],
           ),
         ),
