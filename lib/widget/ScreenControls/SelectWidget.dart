@@ -27,6 +27,30 @@ class SelectWidget extends StatefulWidget {
 }
 
 class _SelectWidgetState extends State<SelectWidget> {
+  SelectOption _selectedOption;
+
+  @override
+  void initState() {
+    _selectedOption = widget.trackableItem.select.selectedOption;
+    if (_selectedOption == null){
+      _selectedOption =  widget.trackableItem.select.options.first;
+    }
+    /*_selectedOption = widget.trackableItem.select.selectDefault.label != null
+        ? widget.trackableItem.select.selectDefault
+        : widget.trackableItem.select.options.first;
+*/
+
+    // As this is tracked, set its initial tracking state:
+    widget.onValueChanged(TrackableSubmitItem(
+      tid: widget.trackableItem.tid,
+      category: widget.trackableItem.category,
+      kind: widget.trackableItem.kind,
+      dtype: "str",
+      value: TrackableSubmitItemValue(str: _selectedOption.value),
+    ));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -91,18 +115,22 @@ class _SelectWidgetState extends State<SelectWidget> {
                             color: AppColors.colordropdownArrowBg,
                             borderRadius: BorderRadius.all(Radius.circular(8))),
                         child: CustomDropdown<SelectOption>(
-                          value:
-                              widget.trackableItem.select.selectDefault.label !=
-                                      null
-                                  ? widget.trackableItem.select.selectDefault
-                                  : widget.trackableItem.select.options.first,
+                          value: _selectedOption,
                           dropdownMenuItemList: buildDropList(
                               widget.trackableItem.select.options),
                           onChanged: (SelectOption optionItem) {
                             setState(() {
-                              widget.trackableItem.select.selectDefault =
-                                  optionItem;
+                              _selectedOption = optionItem;
                             });
+
+                            widget.onValueChanged(TrackableSubmitItem(
+                              tid: widget.trackableItem.tid,
+                              category: widget.trackableItem.category,
+                              kind: widget.trackableItem.kind,
+                              dtype: "str",
+                              value: TrackableSubmitItemValue(
+                                  str: _selectedOption.value),
+                            ));
                           },
                           isEnabled: true,
                         ),

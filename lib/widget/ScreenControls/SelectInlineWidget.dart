@@ -31,9 +31,14 @@ class _SelectInlineWidgetState extends State<SelectInlineWidget> {
 
   @override
   void initState() {
-    _selectedOption = widget.trackableItem.select.selectDefault.label != null
+    _selectedOption = widget.trackableItem.select.selectedOption;
+    if (_selectedOption == null){
+      _selectedOption =  widget.trackableItem.select.options.first;
+    }
+    /*_selectedOption = widget.trackableItem.select.selectDefault.label != null
         ? widget.trackableItem.select.selectDefault
         : widget.trackableItem.select.options.first;
+*/
 
     // As this is tracked, set its initial tracking state:
     widget.onValueChanged(TrackableSubmitItem(

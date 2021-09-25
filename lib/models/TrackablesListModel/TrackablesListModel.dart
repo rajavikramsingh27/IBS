@@ -841,11 +841,13 @@ class Select {
     this.selectDefault,
     this.options,
     this.validation,
+    this.selectedOption,
   });
 
   SelectOption selectDefault;
   List<SelectOption> options;
   ListValidation validation;
+  SelectOption selectedOption;
 
   factory Select.fromJson(Map<String, dynamic> json) => Select(
         selectDefault: json["default"] == null
@@ -867,6 +869,14 @@ class Select {
             : List<dynamic>.from(options.map((x) => x.toJson())),
         "validation": validation == null ? null : validation.toJson(),
       };
+
+  void setOptionByValue(String value){
+    this.options.forEach((option) {
+      if (option.value == value){
+        this.selectedOption = option;
+      }
+    });
+  }
 }
 
 class SelectOption {
@@ -1141,6 +1151,16 @@ class FluffyList {
             ? null
             : List<dynamic>.from(options.map((x) => x.toJson())),
       };
+
+  void setOptionsByValues(List<dynamic> values){
+    values.forEach((val) {
+      this.options.forEach((option) {
+        if (option.value == val) {
+          option.selected = true;
+        }
+      });
+    });
+  }
 }
 
 class FluffyRating {

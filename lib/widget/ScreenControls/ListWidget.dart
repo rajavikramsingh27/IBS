@@ -33,10 +33,6 @@ class _ListWidgetState extends State<ListWidget> {
   void initState() {
     _selectedItems = [];
 
-    widget.trackableItem.list.options.forEach((element) {
-      element.selected = false;
-    });
-
     widget.onValueChanged(TrackableSubmitItem(
       tid: widget.trackableItem.tid,
       category: widget.trackableItem.category,

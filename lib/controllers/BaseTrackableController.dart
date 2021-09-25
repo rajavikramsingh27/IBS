@@ -16,10 +16,6 @@ class BaseTrackableController extends GetxController {
     Get.back();
   }
 
-  void onSave(){
-
-  }
-
 
   void setSavedData({TrackHistoryResponseModel pageData}){
 
@@ -27,6 +23,11 @@ class BaseTrackableController extends GetxController {
       print("Setting saved data");
       formWidgetList.forEach((item) {
         setPreviousValue(item, pageData);
+        item.children.forEach((child) {
+          child.items.forEach((childItem) {
+            setPreviousValue(childItem, pageData);
+          });
+        });
       });
     }
 
@@ -40,11 +41,25 @@ class BaseTrackableController extends GetxController {
   void setPreviousValue(TrackableItem item, TrackHistoryResponseModel pageData){
     int num = pageData.items.length;
     for (var i=0;i<num;i++){
-      if (pageData.items[0].tid == item.tid){
+      if (pageData.items[i].tid == item.tid){
+        var pageItem = pageData.items[i];
         switch(item.kind){
           case 'rating':
-            item.rating.value = pageData.items[0].value.number;
+            item.rating.value = pageItem.val;
             break;
+          case 'list':
+            item.list.setOptionsByValues(pageItem.val);
+            break;
+          case 'selectInline':
+            item.select.setOptionByValue(pageItem.val);
+          break;
+          case 'select':
+            item.select.setOptionByValue(pageItem.val);
+            break;
+          default:
+            String kind = item.kind;
+            //throw new Exception("Unknown widget type for setPreviousValue, $kind");
+          print("Unknown widget type for setPreviousValue, $kind");
         }
         break;
       }
