@@ -185,6 +185,7 @@ class SignupStep3 extends StatelessWidget {
                     .apply(color: Colors.black, fontSizeDelta: -6)),
             SizedBox(height: ScreenConstant.defaultHeightTen * 0.8),
             CustomTextFormField(
+              keyboardType: TextInputType.emailAddress,
               validationFunction: Validator().validateEmail,
               controller: _controller.emailController,
               inputFormatters: [LengthLimitingTextInputFormatter(50)],

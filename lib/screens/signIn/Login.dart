@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ibs/controllers/signIn/SignInController.dart';
@@ -80,6 +81,7 @@ class SignIn extends StatelessWidget {
                   .apply(color: Colors.white, fontSizeDelta: -6)),
           SizedBox(height: ScreenConstant.defaultHeightTen * 0.8),
           CustomTextFormField(
+            keyboardType: TextInputType.emailAddress,
             validationFunction: Validator().validateEmail,
             controller: _controller.emailController,
             inputFormatters: [LengthLimitingTextInputFormatter(50)],
