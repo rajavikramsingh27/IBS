@@ -27,11 +27,11 @@ class ServiceApi {
     }
   }
 
-  Future<TrackablesListModel> getTrackables() async {
+  Future<Map<String, dynamic>> getTrackables() async {
     var result = await CoreService()
         .apiService(method: METHOD.FIND, endpoint: TRACK_LIST);
 
-    return TrackablesListModel.fromJson(result);
+    return result;// TrackablesListModel.fromJson(result);
   }
 
   Future<dynamic> signInApi({Map bodyData}) async {

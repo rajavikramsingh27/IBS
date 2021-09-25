@@ -11,7 +11,7 @@ import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 
 class Symptoms extends StatelessWidget {
-  final SymptomsController controller = Get.put(SymptomsController());
+  final SymptomsController controller = Get.find();
   final UserController _userController = Get.find();
 
 

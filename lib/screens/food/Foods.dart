@@ -17,7 +17,7 @@ class Foods extends StatelessWidget {
 
   Foods({Key key, this.trackFoodList}) : super(key: key);
 
-  final FoodController controller = Get.put(FoodController());
+  final FoodController controller = Get.find();
   final TrackablesController _trackablesController = Get.find();
 
   @override

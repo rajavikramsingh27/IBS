@@ -14,7 +14,7 @@ import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
 
 class Journal extends StatelessWidget {
-  final JournalController _journalController = Get.put(JournalController());
+  final JournalController _journalController = Get.find();
   final TrackablesController _trackablesController = Get.find();
 
   @override

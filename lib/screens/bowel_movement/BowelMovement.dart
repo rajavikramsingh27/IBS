@@ -12,7 +12,7 @@ import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 
 class BowelMovement extends StatelessWidget {
-  final controller = Get.put(BowelMovementController());
+  final BowelMovementController controller = Get.find();
   final UserController _userController = Get.find();
 
   @override

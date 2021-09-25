@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
+import 'package:flutter_ibs/controllers/bowel_movement/BowelMovementController.dart';
+import 'package:flutter_ibs/controllers/food/FoodController.dart';
+import 'package:flutter_ibs/controllers/health/HealthController.dart';
+import 'package:flutter_ibs/controllers/journal/JournalController.dart';
+import 'package:flutter_ibs/controllers/medication/MedicationController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/controllers/symptoms/SymptomsController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
@@ -18,10 +23,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class HomeController extends GetxController {
+
   Rx<TrackablesListModel> trackFoodList = TrackablesListModel().obs;
 
   Rx<DateTime> now = DateTime.now().obs;
-  RxBool selectedDailyLogin = false.obs;
+
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   RxInt segmentedControlGroupValue = 0.obs;
@@ -36,16 +42,11 @@ class HomeController extends GetxController {
 
   TrackHistoryResponseModel selectedPageData;
 
-  RxInt selectedDailyLogIndex = 0.obs;
-  RxString selectedDailyLogindividualId = "".obs;
 
-  RxString selectedDailyLogCategory = "".obs;
 
   DateTime selectedDate; // Date as set in the Home screen
   RxString selectedDateLabel = "".obs;
   RxString selectedTimeLabel = "".obs;
-
-  SymptomsController _symptoms;
 
   var foodValue;
   onTapped(int index) async {
@@ -67,6 +68,14 @@ class HomeController extends GetxController {
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();
     connectionStatus.value = isInternet;
+
+    /// Setup trackable controllers:
+    Get.lazyPut(() => SymptomsController());
+    Get.lazyPut(() => BowelMovementController());
+    Get.lazyPut(() => MedicationController());
+    Get.lazyPut(() => HealthController());
+    Get.lazyPut(() => FoodController());
+    Get.lazyPut(() => JournalController());
   }
 
   void goForwardOneDay() {
@@ -197,8 +206,8 @@ class HomeController extends GetxController {
     switch (pageData.category) {
       case "symptoms":
         {
-          _symptoms = Get.find();
-          _symptoms.formData = pageData;
+          SymptomsController controller = Get.find();
+          controller.setup(pageData: pageData);
 
           return Get.bottomSheet(Symptoms(),
               barrierColor: AppColors.barrierColor.withOpacity(0.60),
@@ -207,18 +216,27 @@ class HomeController extends GetxController {
         break;
       case "bowelMovements":
         {
+          BowelMovementController controller = Get.find();
+          controller.setup(pageData: pageData);
+
           return Get.bottomSheet(BowelMovement(),
               barrierColor: AppColors.barrierColor.withOpacity(0.60),
               isScrollControlled: true);
         }
         break;
       case "medications":
+        MedicationController controller = Get.find();
+        controller.setup(pageData: pageData);
+
         return Get.bottomSheet(Medication(),
             barrierColor: AppColors.barrierColor.withOpacity(0.60),
             isScrollControlled: true);
 
         break;
       case "healthWellness":
+        HealthController controller = Get.find();
+        controller.setup(pageData: pageData);
+
         return Get.bottomSheet(Health(),
             barrierColor: AppColors.barrierColor.withOpacity(0.60),
             isScrollControlled: true);
@@ -226,14 +244,8 @@ class HomeController extends GetxController {
         break;
       case "foods":
         {
-          if (connectionStatus.value) {
-            loader.value = true;
-
-            ServiceApi().getFoodHistoryList(id: pageData.id).then((value) {
-              trackFoodList.value = value;
-            });
-            loader.value = false;
-          }
+          FoodController controller = Get.find();
+          controller.setup(pageData: pageData);
 
           return Get.bottomSheet(Foods(),
               settings: RouteSettings(arguments: {trackFoodList.value}),
@@ -244,6 +256,9 @@ class HomeController extends GetxController {
 
         break;
       case "journal":
+        JournalController controller = Get.find();
+        controller.setup(pageData: pageData);
+
         return Get.bottomSheet(Journal(),
             barrierColor: AppColors.barrierColor.withOpacity(0.60),
             isScrollControlled: true);

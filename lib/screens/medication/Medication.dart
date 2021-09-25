@@ -11,7 +11,7 @@ import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 
 class Medication extends StatelessWidget {
-  final MedicationController controller = Get.put(MedicationController());
+  final MedicationController controller = Get.find();
   final UserController _userController = Get.find();
 
   @override
