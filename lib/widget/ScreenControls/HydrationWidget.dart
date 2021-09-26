@@ -103,7 +103,11 @@ class _HydrationWidgetState extends State<HydrationWidget> {
         return InkWell(
           onTap: () {
             setState(() {
-              num = ind + 1;
+              if (ind == 0 && num == 1){
+                num = 0;
+              }else {
+                num = ind + 1;
+              }
             });
 
             widget.onValueChanged(TrackableSubmitItem(

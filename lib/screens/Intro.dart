@@ -128,9 +128,12 @@ class _IntroState extends State<Intro> {
                 child: Center(
                     child: Column(
                   children: [
-                    Image.asset(
-                      "assets/images/intro/intro$index.png",
-                      fit: BoxFit.cover,
+                    Padding(
+                      padding: EdgeInsets.only(left: 50, right: 50, top: 80),
+                      child: Image.asset(
+                        "assets/images/intro/intro$index.png",
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     SizedBox(height: 20),
                     Text(
