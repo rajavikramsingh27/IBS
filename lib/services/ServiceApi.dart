@@ -145,12 +145,19 @@ class ServiceApi {
       return result;
   }
 
+
+  Future<dynamic> updateMedicationAPI({String id, Map bodyData}) async {
+    var result = await CoreService().apiService(
+        method: METHOD.UPDATE, endpoint: MEDICATIONS, data: bodyData, objectId: id);
+    if (result != null) {
+      return MedicationResponseModel.fromJson(result);
+    }
+  }
+
   Future<dynamic> postMedicationAPI({Map bodyData}) async {
     var result = await CoreService().apiService(
         method: METHOD.CREATE, endpoint: MEDICATIONS, data: bodyData);
-    if (result == null) {
-      return null;
-    } else {
+    if (result != null) {
       return MedicationResponseModel.fromJson(result);
     }
   }

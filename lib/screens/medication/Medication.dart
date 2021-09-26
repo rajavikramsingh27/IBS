@@ -19,30 +19,7 @@ class Medication extends StatelessWidget {
     int _numRendered = 0;
     int _numSkipped = 0;
 
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        bottomNavigationBar: Container(
-          color: Colors.white,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              SizedBox(height: ScreenConstant.defaultHeightTen),
-              CustomElevatedButton(
-                  widthFactor: 0.7, text: "Save", onTap: controller.onSave),
-              TextButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  child: Text("Cancel",
-                      style: TextStyles.textStyleIntroDescription.apply(
-                        color: AppColors.colorskip_also_proceed,
-                      )))
-            ],
-          ),
-        ),
-        backgroundColor: AppColors.barrierColor.withOpacity(0.6),
-        body: Obx(
+    return  Obx(
           () => ListView(
             physics: ClampingScrollPhysics(),
             children: [
@@ -151,9 +128,29 @@ class Medication extends StatelessWidget {
                   ],
                 ),
               ),
+              Container(
+                color: Colors.white,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(height: ScreenConstant.defaultHeightTen),
+                    CustomElevatedButton(
+                        widthFactor: 0.7, text: "Save", onTap: controller.onSave),
+                    TextButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        child: Text("Cancel",
+                            style: TextStyles.textStyleIntroDescription.apply(
+                              color: AppColors.colorskip_also_proceed,
+                            )))
+                  ],
+                ),
+              ),
             ],
           ),
-        ));
+        );
   }
 
   _buildWavePainter() {
