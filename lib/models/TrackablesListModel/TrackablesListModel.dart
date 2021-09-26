@@ -962,6 +962,7 @@ class FluffyTags {
     this.category,
     this.relation,
     this.limit,
+    this.selectedTags,
   });
 
   String name;
@@ -975,6 +976,7 @@ class FluffyTags {
   String category;
   BoolListRelation relation;
   int limit;
+  List<Tag> selectedTags = [];
 
   factory FluffyTags.fromJson(Map<String, dynamic> json) => FluffyTags(
         name: json["name"] == null ? null : json["name"],
@@ -1011,6 +1013,18 @@ class FluffyTags {
         "relation": relation == null ? null : relation.toJson(),
         "limit": limit == null ? null : limit,
       };
+
+  void setTagsByValues(List<dynamic> values){
+    if (this.selectedTags == null){
+      this.selectedTags = [];
+    }
+
+    values.forEach((tagVal) {
+      this.selectedTags.add(
+          Tag(value: tagVal, selected: true)
+      );
+    });
+  }
 }
 
 class TimePicker {

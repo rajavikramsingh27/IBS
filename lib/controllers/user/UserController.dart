@@ -71,6 +71,14 @@ class UserController extends GetxController {
     this.user.refresh();
   }
 
+  /*
+  removeTagFromUser(Tag tag) async {
+    this.user.value = await ServiceApi().deleteUser(tagData: tag.toJson());
+    this.user.refresh();
+  }
+
+   */
+
   /// Check to see if the list contains the item in question
   bool _testIsTracking(TrackableItem item, List<UserTrackable> list) {
     int num = list.length;

@@ -40,8 +40,8 @@ class _TagWidgetState extends State<TagWidget> {
       onTap: () {
         setState(() {
           widget.tag.selected = !widget.tag.selected;
+          widget.onValueChanged(widget.tag);
         });
-        widget.onValueChanged(widget.tag);
       },
       // The custom button
       child: Card(

@@ -20,8 +20,6 @@ class BaseTrackableController extends GetxController {
   void setSavedData({TrackHistoryResponseModel pageData}){
 
     if (pageData != null){
-
-      print("Setting saved data");
       formWidgetList.forEach((item) {
         setPreviousValue(item, pageData);
         item.children.forEach((child) {
@@ -68,6 +66,9 @@ class BaseTrackableController extends GetxController {
             break;
           case 'toggleInline':
             item.toggle.value = pageItem.val;
+            break;
+          case 'tags':
+            item.tags.setTagsByValues(pageItem.val);
             break;
           default:
             String kind = item.kind;

@@ -50,6 +50,10 @@ class TrackableItemUtils {
         throw Exception("addUserTagsToList for unknown category $category");
     }
 
+    // Reset the state
+    userTags.forEach((tag) {
+      tag.selected = false;
+    });
     return ([...userTags, ...tags]);
   }
 }
