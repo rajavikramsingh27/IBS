@@ -57,6 +57,8 @@ class ServiceApi {
     }
   }
 
+
+
   Future<dynamic> getReAuthApi() async {
     var result = await CoreService().apiService(
       method: METHOD.REAUTHENTICATE,
@@ -93,6 +95,21 @@ class ServiceApi {
       return SymptomsResponseModel.fromJson(result);
     }
   }
+
+  Future<dynamic> updateSymptomsAPI({String id, Map bodyData}) async {
+    var result = await CoreService()
+        .apiService(method: METHOD.UPDATE, endpoint: SYMPTOMS,
+        objectId: id,
+        data: bodyData);
+
+    if (result == null) {
+      return null;
+    } else {
+      return SymptomsResponseModel.fromJson(result);
+    }
+  }
+
+
 
   Future<dynamic> postBowelMovementAPI({Map bodyData}) async {
     var result = await CoreService().apiService(

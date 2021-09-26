@@ -1322,16 +1322,19 @@ class TextInput {
   TextInput({
     this.textInputDefault,
     this.validation,
+    this.value,
   });
 
   String textInputDefault;
   TextInputValidation validation;
+  String value;
 
   factory TextInput.fromJson(Map<String, dynamic> json) => TextInput(
         textInputDefault: json["default"] == null ? null : json["default"],
         validation: json["validation"] == null
             ? null
             : TextInputValidation.fromJson(json["validation"]),
+        value: json["default"] == null ? "" : json["default"],
       );
 
   Map<String, dynamic> toJson() => {

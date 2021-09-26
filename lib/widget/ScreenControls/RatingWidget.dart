@@ -29,6 +29,7 @@ class RatingWidget extends StatefulWidget {
 }
 
 class _RatingWidgetState extends State<RatingWidget> {
+
   double _currentValue;
 
 

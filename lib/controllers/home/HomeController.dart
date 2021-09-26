@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/controllers/bowel_movement/BowelMovementController.dart';
+import 'package:flutter_ibs/controllers/dateTime/DateTimeCardController.dart';
 import 'package:flutter_ibs/controllers/food/FoodController.dart';
 import 'package:flutter_ibs/controllers/health/HealthController.dart';
 import 'package:flutter_ibs/controllers/journal/JournalController.dart';
@@ -76,6 +77,7 @@ class HomeController extends GetxController {
     Get.lazyPut(() => HealthController());
     Get.lazyPut(() => FoodController());
     Get.lazyPut(() => JournalController());
+    Get.lazyPut(() => DateTimeCardController() );
   }
 
   void goForwardOneDay() {

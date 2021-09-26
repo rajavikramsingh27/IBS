@@ -1,5 +1,6 @@
 import 'package:flutter_ibs/controllers/BaseTrackableController.dart';
-import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
+import 'package:flutter_ibs/controllers/dateTime/DateTimeCardController.dart';
+import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsModel.dart';
 import 'package:flutter_ibs/models/Symptoms/SymptomsResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
@@ -9,9 +10,10 @@ import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
 class SymptomsController extends BaseTrackableController {
+  HomeController homeController = Get.find();
+  DateTimeCardController dateTimeController = Get.find();
 
   Rx<SymptomsModel> symptomsModel = SymptomsModel(items: []).obs;
-
 
 
   @override
@@ -20,22 +22,37 @@ class SymptomsController extends BaseTrackableController {
   }
 
   void setup({TrackHistoryResponseModel pageData}) {
+
     formWidgetList = trackablesController.getSymptoms();
-    setSavedData(pageData: pageData);
+
+    if (pageData != null) {
+      symptomsModel.value.id = pageData.id;
+      dateTimeController.setDate(pageData.trackedAt);
+      setSavedData(pageData: pageData);
+    }
   }
 
 
   void onSave() async {
+    symptomsModel.value.trackedAt = dateTimeController.selectedDate;
+
     loader.value = true;
-    final data =
-        await ServiceApi().postSymptomsAPI(bodyData: symptomsModel.toJson());
+
+    SymptomsResponseModel data;
+    if (symptomsModel.value.id != null){
+      data = await ServiceApi().updateSymptomsAPI(id: symptomsModel.value.id, bodyData: symptomsModel.toJson());
+      homeController.getTrackHistoryList();
+    }else{
+      data = await ServiceApi().postSymptomsAPI(bodyData: symptomsModel.toJson());
+    }
+
     loader.value = false;
     if (data is SymptomsResponseModel) {
       Get.back();
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Symptoms Added Successfully");
     } else {
-      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+      CustomSnackBar().errorSnackBar(title: "Error", message: "Something went wrong");
     }
 
   }

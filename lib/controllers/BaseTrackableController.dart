@@ -20,6 +20,7 @@ class BaseTrackableController extends GetxController {
   void setSavedData({TrackHistoryResponseModel pageData}){
 
     if (pageData != null){
+
       print("Setting saved data");
       formWidgetList.forEach((item) {
         setPreviousValue(item, pageData);
@@ -55,6 +56,9 @@ class BaseTrackableController extends GetxController {
           break;
           case 'select':
             item.select.setOptionByValue(pageItem.val);
+            break;
+          case 'textInput':
+            item.textInput.value = pageItem.val;
             break;
           default:
             String kind = item.kind;
