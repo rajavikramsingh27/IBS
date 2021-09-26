@@ -116,11 +116,13 @@ class Foods extends StatelessWidget {
                                 controller.formWidgetList[
                                     controller.formWidgetList.length - 2],
                                 isLast: true,
-                                onValueChanged: controller.valueChanged),
+                                onValueChanged: controller.valueChanged,
+                                onValueRemoved: controller.onValueRemoved),
                             //Render text input:
                             RenderWidgetByType().renderTrackableItem(
                                 controller.formWidgetList.last,
-                                onValueChanged: controller.valueChanged),
+                                onValueChanged: controller.valueChanged,
+                                onValueRemoved: controller.onValueRemoved),
                             Container(
                               height: 70,
                               child: Stack(children: [
@@ -235,25 +237,29 @@ class Foods extends StatelessWidget {
         return RenderWidgetByType().renderTrackableItem(item,
             isFirst: true,
             isLast: true,
-            onValueChanged: controller.valueChanged);
+            onValueChanged: controller.valueChanged,
+            onValueRemoved: controller.onValueRemoved);
       case "lunch":
         item = controller.formWidgetList.first.children[1].items[0];
         return RenderWidgetByType().renderTrackableItem(item,
             isFirst: true,
             isLast: true,
-            onValueChanged: controller.valueChanged);
+            onValueChanged: controller.valueChanged,
+            onValueRemoved: controller.onValueRemoved);
       case "dinner":
         item = controller.formWidgetList.first.children[2].items[0];
         return RenderWidgetByType().renderTrackableItem(item,
             isFirst: true,
             isLast: true,
-            onValueChanged: controller.valueChanged);
+            onValueChanged: controller.valueChanged,
+            onValueRemoved: controller.onValueRemoved);
       case "snacks":
         item = controller.formWidgetList.first.children[3].items[0];
         return RenderWidgetByType().renderTrackableItem(item,
             isFirst: true,
             isLast: true,
-            onValueChanged: controller.valueChanged);
+            onValueChanged: controller.valueChanged,
+            onValueRemoved: controller.onValueRemoved);
       default:
         return Offstage();
     }

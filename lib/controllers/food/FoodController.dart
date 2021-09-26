@@ -82,6 +82,26 @@ class FoodController extends BaseTrackableController {
   }
 
 
+  // Removed it from our tracked list:
+  void onValueRemoved(TrackableItem item){
+    var count = foodModel.value.items.length;
+    for (var i = 0; i < count; i++) {
+      if (foodModel.value.items[i].tid == item.tid) {
+        // Remove all the children items:
+        item.children.forEach((child) {
+          child.items.forEach((childItem) {
+            onValueRemoved(childItem);
+          });
+        });
+        foodModel.value.items.removeAt(i);
+        item.reset();
+        break;
+      }
+    }
+
+  }
+
+
 
   void onSave() async {
     loader.value = true;

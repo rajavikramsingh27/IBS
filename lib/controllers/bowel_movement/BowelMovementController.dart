@@ -44,6 +44,28 @@ class BowelMovementController extends BaseTrackableController {
     }
   }
 
+
+  // Removed it from our tracked list:
+  void onValueRemoved(TrackableItem item){
+    var count = bowelMovementsModel.value.items.length;
+    for (var i = 0; i < count; i++) {
+      if (bowelMovementsModel.value.items[i].tid == item.tid) {
+        // Remove all the children items:
+        item.children.forEach((child) {
+          child.items.forEach((childItem) {
+            onValueRemoved(childItem);
+          });
+        });
+        bowelMovementsModel.value.items.removeAt(i);
+        item.reset();
+        break;
+      }
+    }
+
+  }
+
+
+
   void onSave() async {
     loader.value = true;
     final data = await ServiceApi()

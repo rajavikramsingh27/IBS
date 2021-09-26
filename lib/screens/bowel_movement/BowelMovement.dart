@@ -142,7 +142,9 @@ class BowelMovement extends StatelessWidget {
                                               isFirst: isFirst,
                                               isLast: isLast,
                                               onValueChanged:
-                                                  controller.valueChanged);
+                                                  controller.valueChanged,
+                                              onValueRemoved:
+                                                  controller.onValueRemoved);
                                     } else {
                                       _numSkipped++;
                                       return Offstage();

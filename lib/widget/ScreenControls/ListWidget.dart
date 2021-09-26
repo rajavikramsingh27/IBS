@@ -151,6 +151,7 @@ class _ListWidgetState extends State<ListWidget> {
               RenderItemChildrenWidget(
                 trackableItem: widget.trackableItem,
                 onValueChanged: widget.onValueChanged,
+                onValueRemoved: widget.onValueRemoved,
                 isChild: true,
                 isFirst: false,
                 isLast: false,

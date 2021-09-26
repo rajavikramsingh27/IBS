@@ -30,7 +30,6 @@ class ToggleInlineWidget extends StatefulWidget {
 }
 
 class _ToggleInlineWidgetState extends State<ToggleInlineWidget> {
-  double _currentValue; // this.trackableItem.ToggleInline.value.toDouble();
 
   @override
   void initState() {
@@ -100,6 +99,7 @@ class _ToggleInlineWidgetState extends State<ToggleInlineWidget> {
                   isFirst: false,
                   isLast: false,
                   onValueChanged: widget.onValueChanged,
+                  onValueRemoved: widget.onValueRemoved,
                 ),
                 SizedBox(
                     height: ScreenConstant.defaultHeightTwenty, width: 800),
