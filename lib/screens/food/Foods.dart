@@ -168,7 +168,7 @@ class Foods extends StatelessWidget {
       shrinkWrap: true,
       itemCount: foodParent.list?.options?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
-        // _controller.mealOptionDefault(mealIndex: index);
+        //controller.mealOptionDefault(mealIndex: index);
         var model = foodParent.list?.options[index];
 
         return InkWell(
@@ -181,11 +181,6 @@ class Foods extends StatelessWidget {
             model.selected = true;
             controller.formWidgetList.first.list.value = model;
             controller.formWidgetList.refresh();
-            /*    _controller.modelMealIndex.value = index;
-            _controller.mealTypeValue.value = model.value;
-            _controller.modelMealIndex.refresh();
-            _signUpController.food.refresh();
-            */
           },
           child: Container(
             decoration: BoxDecoration(

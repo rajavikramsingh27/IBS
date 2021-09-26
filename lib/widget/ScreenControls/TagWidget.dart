@@ -26,7 +26,6 @@ class TagWidget extends StatefulWidget {
 }
 
 class _TagWidgetState extends State<TagWidget> {
-  // bool _selected; // this.trackableItem.rating.value.toDouble();
 
   @override
   void initState() {

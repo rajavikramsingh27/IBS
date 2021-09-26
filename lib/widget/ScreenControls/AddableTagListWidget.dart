@@ -51,6 +51,19 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
 
   @override
   void initState() {
+    super.initState();
+    doInit();
+  }
+
+
+  @override
+  void didUpdateWidget(covariant AddableTagListWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    doInit();
+  }
+
+
+  void doInit(){
     selectedItems = RxList<Tag>();
 
     // Set the initial list of selected tags
@@ -68,7 +81,7 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
         tags: widget.trackableItem.tags.tagsDefault,
         category: widget.trackableItem.tags.category);
 
-      // Set the available tags active if they are selected:
+    // Set the available tags active if they are selected:
     combinedTags.forEach((aTag) {
       selectedItems.forEach((sTag) {
         if(sTag.value == aTag.value){
@@ -81,8 +94,9 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
 
     _userController = Get.find();
     _textController.addListener(_onAddTagFieldChanged);
-    super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {

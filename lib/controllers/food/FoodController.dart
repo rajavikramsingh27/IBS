@@ -16,7 +16,7 @@ class FoodController extends BaseTrackableController {
   Rx<FoodSendModel> foodModel = FoodSendModel(items: []).obs;
   RxList<TrackableItem> formWidgetList;
 
-  Rx<DateTime> currentDateTime = DateTime.now().obs;
+  //Rx<DateTime> currentDateTime = DateTime.now().obs;
   RxInt endTimeDifference = 0.obs;
   RxInt startTimeDifference = 0.obs;
   bool _isDefaultFoodSet = false;
@@ -35,6 +35,12 @@ class FoodController extends BaseTrackableController {
       dateTimeController.setDate(pageData.trackedAt);
       setSavedData(pageData: pageData);
     }
+
+    _isDefaultFoodSet = false;
+    formWidgetList.first.list.options.forEach((food) {
+      mealOptionDefault(food);
+    });
+
   }
 
 
@@ -54,7 +60,7 @@ class FoodController extends BaseTrackableController {
         dateTime: mealOption.conditionalDefault.time.first.endTime,
         returnFormat: "HH:mm");
 
-    var s = "${currentDateTime.value.hour}:${currentDateTime.value.minute}";
+    var s = "${dateTimeController.selectedDate.hour}:${dateTimeController.selectedDate.minute}";
     var u = CustomDateTime()
         .parseTimeAsDateTime(dateTime: s, returnFormat: "HH:mm");
 
