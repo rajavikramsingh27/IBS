@@ -226,6 +226,16 @@ class Foods extends StatelessWidget {
   _renderFoodGroup(ListOption option) {
     TrackableItem item;
 
+    controller.valueChanged(TrackableSubmitItem(
+      tid: controller.formWidgetList.first.tid,
+      category: controller.formWidgetList.first.category,
+      kind: controller.formWidgetList.first.kind,
+      dtype: "arr",
+      value: TrackableSubmitItemValue(arr: [controller.formWidgetList.first.list.value.value]),
+    ));
+
+
+
     switch (option.value) {
       case "breakfast":
         item = controller.formWidgetList.first.children[0].items[0];

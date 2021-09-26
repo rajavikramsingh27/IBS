@@ -67,13 +67,22 @@ class ServiceApi {
     return result;
   }
 
+
+  Future<dynamic> foodUpdateApi({String id, Map bodyData}) async {
+    var result = await CoreService()
+        .apiService(method: METHOD.UPDATE, endpoint: FOODS, data: bodyData, objectId: id);
+    if(result != null) {
+      return FoodResponseModel.fromJson(result);
+    }
+  }
+
+
   Future<dynamic> foodTrackApi({Map bodyData}) async {
     var result = await CoreService()
         .apiService(method: METHOD.CREATE, endpoint: FOODS, data: bodyData);
-    if (result == null) {
-      return null;
-    } else
-      return FoodResponseModel.fromJson(result);
+   if(result != null) {
+     return FoodResponseModel.fromJson(result);
+   }
   }
 
   Future<dynamic> getFoodList() async {

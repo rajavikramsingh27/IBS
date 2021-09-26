@@ -1,6 +1,6 @@
 import 'package:flutter_ibs/controllers/BaseTrackableController.dart';
 import 'package:flutter_ibs/controllers/dateTime/DateTimeCardController.dart';
-import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
+import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodSendModel.dart';
@@ -11,6 +11,7 @@ import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
 class FoodController extends BaseTrackableController {
+  HomeController homeController = Get.find();
   DateTimeCardController dateTimeController = Get.put(DateTimeCardController());
 
   Rx<FoodSendModel> foodModel = FoodSendModel(items: []).obs;
@@ -116,23 +117,33 @@ class FoodController extends BaseTrackableController {
 
 
 
+
   void onSave() async {
     foodModel.value.trackedAt = dateTimeController.selectedDate.toUtc();
-
     loader.value = true;
-    final data = await ServiceApi().foodTrackApi(bodyData: foodModel.toJson());
+
+    bool isUpdate = false;
+
+    FoodResponseModel data;
+    if (foodModel.value.id != null){
+      isUpdate = true;
+      data = await ServiceApi().foodUpdateApi(id: foodModel.value.id, bodyData: foodModel.toJson());
+      homeController.getTrackHistoryList();
+    }else{
+      data = await ServiceApi().foodTrackApi(bodyData: foodModel.toJson());
+    }
+
     loader.value = false;
-    if (data is FoodResponseModel) {
-      // noteTextController.clear();
-      //  healthWellnessModel.value.items = [];
-      //  _signUpController.getTrackList();
+    if (data != null ) {
       Get.back();
       CustomSnackBar().successSnackBar(
-          title: "Success", message: "Food Added Successfully");
-    } else {
-      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+          title: "Success", message: isUpdate ? "Food Updated Successfully" : "Food Added Successfully");
     }
+
   }
+
+
+
 }
 
 

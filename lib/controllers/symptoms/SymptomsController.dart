@@ -54,8 +54,6 @@ class SymptomsController extends BaseTrackableController {
       Get.back();
       CustomSnackBar().successSnackBar(
           title: "Success", message: isUpdate ? "Symptom Updated Successfully" : "Symptoms Added Successfully");
-    } else {
-      CustomSnackBar().errorSnackBar(title: "Error", message: "Something went wrong");
     }
 
   }
