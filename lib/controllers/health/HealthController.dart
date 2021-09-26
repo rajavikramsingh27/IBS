@@ -1,5 +1,5 @@
 import 'package:flutter_ibs/controllers/BaseTrackableController.dart';
-import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
+import 'package:flutter_ibs/controllers/dateTime/DateTimeCardController.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessModel.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
@@ -9,6 +9,7 @@ import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
 class HealthController extends BaseTrackableController {
+  DateTimeCardController dateTimeController = Get.put(DateTimeCardController());
 
   Rx<HealthWellnessModel> healthWellnessModel =
       HealthWellnessModel(items: []).obs;
@@ -20,8 +21,12 @@ class HealthController extends BaseTrackableController {
 
 
   void setup({TrackHistoryResponseModel pageData}) {
-    formWidgetList = trackablesController.getBowelMovements();
-    setSavedData(pageData: pageData);
+    formWidgetList = trackablesController.getHealthWellness();
+    if (pageData != null) {
+      healthWellnessModel.value.id = pageData.id;
+      dateTimeController.setDate(pageData.trackedAt);
+      setSavedData(pageData: pageData);
+    }
   }
 
 
@@ -45,6 +50,8 @@ class HealthController extends BaseTrackableController {
 
 
   void onSave() async {
+    healthWellnessModel.value.trackedAt = dateTimeController.selectedDate.toUtc();
+
     loader.value = true;
     final data = await ServiceApi()
         .postHealthWellnessAPI(bodyData: healthWellnessModel.toJson());
@@ -60,5 +67,26 @@ class HealthController extends BaseTrackableController {
       CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
     }
   }
+
+
+
+  // Removed it from our tracked list:
+  void onValueRemoved(TrackableItem item){
+    var count = healthWellnessModel.value.items.length;
+    for (var i = 0; i < count; i++) {
+      if (healthWellnessModel.value.items[i].tid == item.tid) {
+        // Remove all the children items:
+        item.children.forEach((child) {
+          child.items.forEach((childItem) {
+            onValueRemoved(childItem);
+          });
+        });
+        healthWellnessModel.value.items.removeAt(i);
+        item.reset();
+        break;
+      }
+    }
+  }
+
 
 }

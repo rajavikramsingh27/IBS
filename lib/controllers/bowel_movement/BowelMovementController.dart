@@ -1,4 +1,6 @@
 import 'package:flutter_ibs/controllers/BaseTrackableController.dart';
+import 'package:flutter_ibs/controllers/dateTime/DateTimeCardController.dart';
+import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsModel.dart';
 import 'package:flutter_ibs/models/BowelMovementsModel/BowelMovementsResponseModel.dart';
@@ -10,6 +12,8 @@ import 'package:get/get.dart';
 
 
 class BowelMovementController extends BaseTrackableController {
+  DateTimeCardController dateTimeController = Get.put(DateTimeCardController());
+  HomeController homeController = Get.find();
 
   Rx<BowelMovementsModel> bowelMovementsModel =
       BowelMovementsModel(items: []).obs;
@@ -23,7 +27,11 @@ class BowelMovementController extends BaseTrackableController {
 
   void setup({TrackHistoryResponseModel pageData}) {
     formWidgetList = trackablesController.getBowelMovements();
-    setSavedData(pageData: pageData);
+    if (pageData != null) {
+      bowelMovementsModel.value.id = pageData.id;
+      dateTimeController.setDate(pageData.trackedAt);
+      setSavedData(pageData: pageData);
+    }
   }
 
 
@@ -68,18 +76,26 @@ class BowelMovementController extends BaseTrackableController {
 
   void onSave() async {
     loader.value = true;
-    final data = await ServiceApi()
-        .postBowelMovementAPI(bodyData: bowelMovementsModel.toJson());
+    bowelMovementsModel.value.trackedAt = dateTimeController.selectedDate.toUtc();
+
+    bool isUpdate = false;
+    BowelMovementsResponseModel data;
+    if (bowelMovementsModel.value.id != null){
+      isUpdate = true;
+      data = await ServiceApi().updateBowelMovementAPI(id: bowelMovementsModel.value.id, bodyData: bowelMovementsModel.toJson());
+      homeController.getTrackHistoryList();
+    }else{
+      data = await ServiceApi().postBowelMovementAPI(bodyData: bowelMovementsModel.toJson());
+    }
+
     loader.value = false;
-    if (data is BowelMovementsResponseModel) {
-      // noteTextController.clear();
-      //  healthWellnessModel.value.items = [];
-      //  _signUpController.getTrackList();
+
+    if (data != null) {
       Get.back();
       CustomSnackBar().successSnackBar(
-          title: "Success", message: "Bowel Movement Added Successfully");
+          title: "Success", message: isUpdate ?  "Bowel Movement Updated Successfully" : "Bowel Movement Added Successfully");
     } else {
-      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+      CustomSnackBar().errorSnackBar(title: "Error", message: "Something went wrong");
     }
   }
 }

@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 
 class SymptomsController extends BaseTrackableController {
   HomeController homeController = Get.find();
-  DateTimeCardController dateTimeController = Get.find();
+  DateTimeCardController dateTimeController = Get.put(DateTimeCardController());
 
   Rx<SymptomsModel> symptomsModel = SymptomsModel(items: []).obs;
 
@@ -22,6 +22,7 @@ class SymptomsController extends BaseTrackableController {
   }
 
   void setup({TrackHistoryResponseModel pageData}) {
+    loader.value = false;
 
     formWidgetList = trackablesController.getSymptoms();
 
@@ -35,11 +36,13 @@ class SymptomsController extends BaseTrackableController {
 
   void onSave() async {
     symptomsModel.value.trackedAt = dateTimeController.selectedDate.toUtc();
-
     loader.value = true;
+
+    bool isUpdate = false;
 
     SymptomsResponseModel data;
     if (symptomsModel.value.id != null){
+      isUpdate = true;
       data = await ServiceApi().updateSymptomsAPI(id: symptomsModel.value.id, bodyData: symptomsModel.toJson());
       homeController.getTrackHistoryList();
     }else{
@@ -47,10 +50,10 @@ class SymptomsController extends BaseTrackableController {
     }
 
     loader.value = false;
-    if (data is SymptomsResponseModel) {
+    if (data != null ) {
       Get.back();
       CustomSnackBar().successSnackBar(
-          title: "Success", message: "Symptoms Added Successfully");
+          title: "Success", message: isUpdate ? "Symptom Updated Successfully" : "Symptoms Added Successfully");
     } else {
       CustomSnackBar().errorSnackBar(title: "Error", message: "Something went wrong");
     }

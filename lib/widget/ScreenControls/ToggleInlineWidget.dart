@@ -118,5 +118,13 @@ class _ToggleInlineWidgetState extends State<ToggleInlineWidget> {
 
   onToggleChanged(bool val) {
     widget.trackableItem.toggle.value = val;
+
+    widget.onValueChanged(TrackableSubmitItem(
+      tid: widget.trackableItem.tid,
+      category: widget.trackableItem.category,
+      kind: widget.trackableItem.kind,
+      dtype: "bool",
+      value: TrackableSubmitItemValue(boolean: val),
+    ));
   }
 }

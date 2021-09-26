@@ -12,7 +12,7 @@ class ColorPickerWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
-  final Function(TrackableItem)  onValueRemoved;
+  final Function(TrackableItem) onValueRemoved;
 
   const ColorPickerWidget({
     Key key,
@@ -33,20 +33,15 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
 
   @override
   void initState() {
-    //  _currentValue = widget.trackableItem.rating.value.toDouble();
+    if (widget.trackableItem.color.value == null) {}
     super.initState();
   }
-
-
 
   @override
   void deactivate() {
     super.deactivate();
     widget.onValueRemoved(widget.trackableItem);
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -121,14 +116,14 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                                 kind: widget.trackableItem.kind,
                                 dtype: "str",
                                 value: TrackableSubmitItemValue(
-                                    str: widget.trackableItem.color.value
+                                    str: widget.trackableItem.color.value.value
                                         .toString()),
                               ));
                             },
-                            child: widget.trackableItem.color.colorDefault
-                                        .value ==
-                                    widget.trackableItem.color.options[index]
-                                        .value
+                            child: (widget.trackableItem.color.value != null) && //Set the highlight circle
+                                    widget.trackableItem.color.value.value ==
+                                        widget.trackableItem.color
+                                            .options[index].value
                                 ? CircleAvatar(
                                     radius: 30,
                                     backgroundColor:

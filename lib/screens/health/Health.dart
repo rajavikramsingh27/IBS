@@ -115,7 +115,8 @@ class Health extends StatelessWidget {
                                                 isFirst: _numRendered == 1,
                                                 isLast: isLast,
                                                 onValueChanged:
-                                                    controller.valueChanged);
+                                                    controller.valueChanged,
+                                                onValueRemoved: controller.onValueRemoved);
                                       } else {
                                         _numSkipped++;
                                         return Offstage();

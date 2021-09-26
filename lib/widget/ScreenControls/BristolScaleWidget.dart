@@ -31,7 +31,7 @@ class BristolScaleWidget extends StatefulWidget {
 }
 
 class _BristolScaleWidgetState extends State<BristolScaleWidget> {
-  double _currentValue; // this.trackableItem.rating.value.toDouble();
+  double _currentValue;
 
   @override
   void initState() {
@@ -160,14 +160,14 @@ class _BristolScaleWidgetState extends State<BristolScaleWidget> {
                     _currentValue = newValue;
                     widget.trackableItem.rating.value = newValue;
                   });
-                  //widget.trackableItem.rating.ratingDefault = newValue;
-                  /*controller.initModel(
-                      data: data,
-                      dType: "num",
-                      value: data.rating.ratingDefault);
-                  _signUpController.bowelMovements.refresh();
-
-                   */
+                  widget.onValueChanged(TrackableSubmitItem(
+                    tid: widget.trackableItem.tid,
+                    category: widget.trackableItem.category,
+                    kind: widget.trackableItem.kind,
+                    dtype: "num",
+                    value:
+                    TrackableSubmitItemValue(number: _currentValue),
+                  ));
                 },
               ),
             ),

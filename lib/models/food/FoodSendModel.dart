@@ -15,16 +15,19 @@ String foodSendModelToJson(FoodSendModel data) => json.encode(data.toJson());
 
 class FoodSendModel {
   FoodSendModel({
+    this.id,
     this.category = "foods",
     this.items,
     this.trackedAt,
   });
 
+  String id;
   String category;
   List<TrackableSubmitItem> items;
   DateTime trackedAt;
 
   factory FoodSendModel.fromJson(Map<String, dynamic> json) => FoodSendModel(
+        id: json["_id"] == null ? null : json["_id"],
         category: json["category"] == null ? null : json["category"],
         items: json["items"] == null
             ? null
@@ -35,17 +38,8 @@ class FoodSendModel {
       );
 
   Map<String, dynamic> toJson() {
-    HomeController controller = Get.find();
-    DateTime now = DateTime.now();
-    DateTime trackedAt = new DateTime(
-        controller.selectedDate.year,
-        controller.selectedDate.month,
-        controller.selectedDate.day,
-        now.hour,
-        now.minute,
-        now.second);
-
     Map<String, dynamic> json = {
+      "_id": id == null ? null : id,
       "category": category == null ? null : category,
       "items": items == null
           ? null

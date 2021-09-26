@@ -48,6 +48,9 @@ class BaseTrackableController extends GetxController {
           case 'rating':
             item.rating.value = pageItem.val;
             break;
+          case 'bristolScale':
+            item.rating.value = pageItem.val;
+            break;
           case 'list':
             item.list.setOptionsByValues(pageItem.val);
             break;
@@ -59,6 +62,12 @@ class BaseTrackableController extends GetxController {
             break;
           case 'textInput':
             item.textInput.value = pageItem.val;
+            break;
+          case 'color':
+            item.color.setOptionsByValues(pageItem.val);
+            break;
+          case 'toggleInline':
+            item.toggle.value = pageItem.val;
             break;
           default:
             String kind = item.kind;

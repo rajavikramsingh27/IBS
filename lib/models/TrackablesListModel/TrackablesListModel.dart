@@ -350,7 +350,7 @@ class TrackableSubmitItemValue {
         "num": number == null ? null : number,
         "str": str == null ? null : str,
         "arr": arr == null ? null : List<dynamic>.from(arr.map((x) => x)),
-        "boolean": boolean == null ? null : boolean
+        "bool": boolean == null ? null : boolean
       };
 }
 
@@ -1130,8 +1130,16 @@ class ModelColor {
         "options": options == null
             ? null
             : List<dynamic>.from(options.map((x) => x.toJson())),
-        "value": value,
+        "value": value.value,
       };
+
+  void setOptionsByValues(String value){
+      this.options.forEach((option) {
+        if (option.value == value) {
+          this.value = option;
+        }
+      });
+  }
 }
 
 class ColorOption {

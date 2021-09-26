@@ -89,9 +89,7 @@ class ServiceApi {
     var result = await CoreService()
         .apiService(method: METHOD.CREATE, endpoint: SYMPTOMS, data: bodyData);
 
-    if (result == null) {
-      return null;
-    } else {
+    if (result != null) {
       return SymptomsResponseModel.fromJson(result);
     }
   }
@@ -102,9 +100,7 @@ class ServiceApi {
         objectId: id,
         data: bodyData);
 
-    if (result == null) {
-      return null;
-    } else {
+    if (result != null) {
       return SymptomsResponseModel.fromJson(result);
     }
   }
@@ -114,6 +110,16 @@ class ServiceApi {
   Future<dynamic> postBowelMovementAPI({Map bodyData}) async {
     var result = await CoreService().apiService(
         method: METHOD.CREATE, endpoint: BOWEL_MOVEMENTS, data: bodyData);
+    if (result == null) {
+      return null;
+    } else {
+      return BowelMovementsResponseModel.fromJson(result);
+    }
+  }
+
+  Future<dynamic> updateBowelMovementAPI({String id, Map bodyData}) async {
+    var result = await CoreService().apiService(
+        method: METHOD.UPDATE, endpoint: BOWEL_MOVEMENTS, data: bodyData, objectId: id);
     if (result == null) {
       return null;
     } else {

@@ -1,4 +1,5 @@
 import 'package:flutter_ibs/controllers/BaseTrackableController.dart';
+import 'package:flutter_ibs/controllers/dateTime/DateTimeCardController.dart';
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
@@ -10,6 +11,8 @@ import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
 class FoodController extends BaseTrackableController {
+  DateTimeCardController dateTimeController = Get.put(DateTimeCardController());
+
   Rx<FoodSendModel> foodModel = FoodSendModel(items: []).obs;
   RxList<TrackableItem> formWidgetList;
 
@@ -27,7 +30,11 @@ class FoodController extends BaseTrackableController {
 
   void setup({TrackHistoryResponseModel pageData}) {
     formWidgetList = trackablesController.getFoods();
-    setSavedData(pageData: pageData);
+    if (pageData != null) {
+      foodModel.value.id = pageData.id;
+      dateTimeController.setDate(pageData.trackedAt);
+      setSavedData(pageData: pageData);
+    }
   }
 
 
@@ -104,6 +111,8 @@ class FoodController extends BaseTrackableController {
 
 
   void onSave() async {
+    foodModel.value.trackedAt = dateTimeController.selectedDate.toUtc();
+
     loader.value = true;
     final data = await ServiceApi().foodTrackApi(bodyData: foodModel.toJson());
     loader.value = false;

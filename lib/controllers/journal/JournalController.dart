@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/BaseTrackableController.dart';
+import 'package:flutter_ibs/controllers/dateTime/DateTimeCardController.dart';
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/journal/JournalResponseModel.dart';
@@ -10,9 +11,9 @@ import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
 class JournalController extends BaseTrackableController {
+  DateTimeCardController dateTimeController = Get.put(DateTimeCardController());
+
   TextEditingController noteTextController = TextEditingController();
-
-
   Rx<JournalSendModel> journalModel = JournalSendModel(items: []).obs;
 
 
@@ -24,14 +25,18 @@ class JournalController extends BaseTrackableController {
 
   void setup({TrackHistoryResponseModel pageData}) {
     formWidgetList = trackablesController.getBowelMovements();
-    setSavedData(pageData: pageData);
+    if (pageData != null) {
+      journalModel.value.id = pageData.id;
+      dateTimeController.setDate(pageData.trackedAt);
+      setSavedData(pageData: pageData);
+    }
   }
 
 
 
   void onSave() async {
-    print("*****  NOT YET SAVING ACTUAL DATA ****");
-    return;
+    journalModel.value.trackedAt = dateTimeController.selectedDate.toUtc();
+
     loader.value = true;
     final data =
         await ServiceApi().postJournalAPI(bodyData: journalModel.toJson());
@@ -65,4 +70,6 @@ class JournalController extends BaseTrackableController {
       journalModel.value.items.add(submitItem);
     }
   }
+
+
 }

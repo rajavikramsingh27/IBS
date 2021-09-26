@@ -71,13 +71,13 @@ class HomeController extends GetxController {
     connectionStatus.value = isInternet;
 
     /// Setup trackable controllers:
+   // Get.lazyPut(() => DateTimeCardController() );
     Get.lazyPut(() => SymptomsController());
     Get.lazyPut(() => BowelMovementController());
     Get.lazyPut(() => MedicationController());
     Get.lazyPut(() => HealthController());
     Get.lazyPut(() => FoodController());
     Get.lazyPut(() => JournalController());
-    Get.lazyPut(() => DateTimeCardController() );
   }
 
   void goForwardOneDay() {
