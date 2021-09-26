@@ -14,7 +14,7 @@ class AddableTagListWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
-  // List<Tag> _selectedItems;
+  final Function(TrackableItem)  onValueRemoved;
 
   AddableTagListWidget({
     //Key key,
@@ -23,6 +23,7 @@ class AddableTagListWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super();
 
   @override
@@ -40,8 +41,11 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     _textController.dispose();
+    widget.onValueRemoved(widget.trackableItem);
     super.dispose();
   }
+
+
 
   @override
   void initState() {

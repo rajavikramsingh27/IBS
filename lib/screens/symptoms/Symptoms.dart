@@ -91,6 +91,9 @@ class Symptoms extends StatelessWidget {
                                     physics: ClampingScrollPhysics(),
                                     itemCount: controller.formWidgetList.length,
                                     itemBuilder: (_, mainIndex) {
+                                      var item = controller
+                                          .formWidgetList[mainIndex];
+
                                       bool isLast = false;
                                       int listLength =
                                           controller.formWidgetList.length;
@@ -110,13 +113,13 @@ class Symptoms extends StatelessWidget {
                                       if (isTracked) {
                                         _numRendered++;
                                         return RenderWidgetByType()
-                                            .renderTrackableItem(
-                                                controller
-                                                    .formWidgetList[mainIndex],
+                                            .renderTrackableItem(item,
                                                 isFirst: _numRendered == 1,
                                                 isLast: isLast,
                                                 onValueChanged:
-                                                    controller.valueChanged);
+                                                    controller.valueChanged,
+                                                onValueRemoved:
+                                                    controller.onValueRemoved);
                                       } else {
                                         _numSkipped++;
                                         return Offstage();

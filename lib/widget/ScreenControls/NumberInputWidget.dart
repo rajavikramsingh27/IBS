@@ -12,6 +12,7 @@ class NumberInputWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem)  onValueRemoved;
 
   const NumberInputWidget({
     Key key,
@@ -20,6 +21,7 @@ class NumberInputWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super(key: key);
 
   @override
@@ -42,6 +44,17 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
     ));
     super.initState();
   }
+
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {

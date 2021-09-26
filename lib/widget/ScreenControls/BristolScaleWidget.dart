@@ -14,6 +14,7 @@ class BristolScaleWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem)  onValueRemoved;
 
   const BristolScaleWidget({
     Key key,
@@ -22,6 +23,7 @@ class BristolScaleWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super(key: key);
 
   @override
@@ -47,6 +49,17 @@ class _BristolScaleWidgetState extends State<BristolScaleWidget> {
 
     super.initState();
   }
+
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {

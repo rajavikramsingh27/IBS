@@ -12,6 +12,7 @@ class ColorPickerWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem)  onValueRemoved;
 
   const ColorPickerWidget({
     Key key,
@@ -20,6 +21,7 @@ class ColorPickerWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super(key: key);
 
   @override
@@ -34,6 +36,17 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
     //  _currentValue = widget.trackableItem.rating.value.toDouble();
     super.initState();
   }
+
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {

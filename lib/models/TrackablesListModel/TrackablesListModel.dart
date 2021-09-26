@@ -206,6 +206,56 @@ class TrackableItem {
           //selected this.selected,
         );
   }
+
+  TrackableItem reset(){
+    switch (this.kind) {
+      case "rating":
+        this.rating.value = this.rating.ratingDefault;
+        break;
+      case "list":
+        this.list.options.forEach((option) {
+          option.selected = false;
+        });
+        break;
+      case "tags":
+      // trackableItem.tags.
+        break;
+      case "group":
+
+        break;
+      case "select":
+        this.select.selectedOption = null;
+        break;
+      case "selectInline":
+        this.select.selectedOption = null;
+        break;
+      case "textInput":
+        this.textInput.value = "";
+        break;
+      case "timePickerInline":
+        break;
+      case "numberInput":
+        break;
+      case "toggleInline":
+        this.toggle.value = false;
+        break;
+      case "bristolScale":
+        this.rating.value = this.rating.ratingDefault;
+        break;
+      case "color":
+        this.color.value = null;
+        break;
+      case "sum":
+        break;
+      default:
+        {
+          print(
+              "\n\n****************> Unknown widget in reset: " + this.kind);
+        }
+        break;
+    }
+    return this;
+  }
 }
 
 class TrackableChild {

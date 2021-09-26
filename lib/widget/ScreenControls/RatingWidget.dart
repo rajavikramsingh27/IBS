@@ -14,6 +14,7 @@ class RatingWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem)  onValueRemoved;
 
   const RatingWidget({
     Key key,
@@ -22,6 +23,7 @@ class RatingWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super(key: key);
 
   @override
@@ -48,6 +50,16 @@ class _RatingWidgetState extends State<RatingWidget> {
     ));
     super.initState();
   }
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -171,6 +183,7 @@ class _RatingWidgetState extends State<RatingWidget> {
                   isFirst: false,
                   isLast: false,
                   onValueChanged: widget.onValueChanged,
+                  onValueRemoved: widget.onValueRemoved,
                 ),
                 Visibility(
                     visible: !widget.isChild && !widget.isLast && !hasChildren,

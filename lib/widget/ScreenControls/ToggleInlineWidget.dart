@@ -13,6 +13,7 @@ class ToggleInlineWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem)  onValueRemoved;
 
   const ToggleInlineWidget({
     Key key,
@@ -21,6 +22,7 @@ class ToggleInlineWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super(key: key);
 
   @override
@@ -35,6 +37,16 @@ class _ToggleInlineWidgetState extends State<ToggleInlineWidget> {
     //_currentValue = widget.trackableItem.ToggleInline.value.toDouble();
     super.initState();
   }
+
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

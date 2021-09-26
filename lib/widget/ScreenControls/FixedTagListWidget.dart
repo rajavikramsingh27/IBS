@@ -13,7 +13,8 @@ class FixedTagListWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
-  List<Tag> _selectedItems;
+  final Function(TrackableItem)  onValueRemoved;
+
 
   FixedTagListWidget({
     //Key key,
@@ -22,6 +23,7 @@ class FixedTagListWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super();
 
   @override
@@ -49,6 +51,16 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
 
     super.initState();
   }
+
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

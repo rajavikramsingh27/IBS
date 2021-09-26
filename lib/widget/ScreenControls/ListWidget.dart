@@ -12,6 +12,7 @@ class ListWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem) onValueRemoved;
 
   const ListWidget({
     Key key,
@@ -20,6 +21,7 @@ class ListWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super(key: key);
 
   @override
@@ -42,6 +44,18 @@ class _ListWidgetState extends State<ListWidget> {
     ));
     super.initState();
   }
+
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    if (widget.onValueRemoved != null) {
+      widget.onValueRemoved(widget.trackableItem);
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

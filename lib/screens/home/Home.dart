@@ -25,6 +25,7 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomBottomNavigation.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -333,7 +334,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                           style: TextStyles.textStyleRegular
                               .apply(fontSizeDelta: 2, color: Colors.black)),
                       subtitle: Text(
-                          model.createdAt.toString().split(".").first ?? "",
+                          DateFormat('EEEE, MMM d, y - hh:mm a').format(model.trackedAt.toLocal()),
                           style: TextStyles.textStyleRegular.apply(
                               fontSizeDelta: -2,
                               color: Colors.black.withOpacity(0.54))),

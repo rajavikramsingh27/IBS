@@ -12,6 +12,7 @@ class SelectInlineWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem) onValueRemoved;
 
   const SelectInlineWidget({
     //Key key,
@@ -20,6 +21,7 @@ class SelectInlineWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super();
 
   @override
@@ -50,6 +52,15 @@ class _SelectInlineWidgetState extends State<SelectInlineWidget> {
     ));
     super.initState();
   }
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

@@ -11,6 +11,7 @@ class TimePickerInlineWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem)  onValueRemoved;
 
   const TimePickerInlineWidget({
     //Key key,
@@ -19,6 +20,7 @@ class TimePickerInlineWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super();
 
   @override
@@ -26,11 +28,11 @@ class TimePickerInlineWidget extends StatefulWidget {
 }
 
 class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
-  TimeOfDay _selectedTime;
+  TimeOfDay selectedTime;
 
   @override
   void initState() {
-    _selectedTime = TimeOfDay.now();
+    selectedTime = TimeOfDay.now();
     // As this is tracked, set its initial tracking state:
     widget.onValueChanged(TrackableSubmitItem(
       tid: widget.trackableItem.tid,
@@ -38,12 +40,23 @@ class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
       kind: widget.trackableItem.kind,
       dtype: "str",
       value: TrackableSubmitItemValue(
-          str: _selectedTime.hour.toString() +
+          str: selectedTime.hour.toString() +
               ":" +
-              _selectedTime.minute.toString()),
+              selectedTime.minute.toString()),
     ));
     super.initState();
   }
+
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +96,7 @@ class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
                   onPressed: () {
                     _selectTime(context);
                   },
-                  child: Text(_selectedTime.format(context)),
+                  child: Text(selectedTime.format(context)),
                 ),
               ),
             )
@@ -99,12 +112,12 @@ class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
   _selectTime(BuildContext context) async {
     final TimeOfDay timeOfDay = await showTimePicker(
       context: context,
-      initialTime: _selectedTime,
+      initialTime: selectedTime,
       initialEntryMode: TimePickerEntryMode.input,
     );
-    if (timeOfDay != null && timeOfDay != _selectedTime) {
+    if (timeOfDay != null && timeOfDay != selectedTime) {
       setState(() {
-        _selectedTime = timeOfDay;
+        selectedTime = timeOfDay;
       });
 
       widget.onValueChanged(TrackableSubmitItem(
@@ -113,9 +126,9 @@ class _TimePickerInlineWidgetState extends State<TimePickerInlineWidget> {
         kind: widget.trackableItem.kind,
         dtype: "str",
         value: TrackableSubmitItemValue(
-            str: _selectedTime.hour.toString() +
+            str: selectedTime.hour.toString() +
                 ":" +
-                _selectedTime.minute.toString()),
+                selectedTime.minute.toString()),
       ));
     }
   }

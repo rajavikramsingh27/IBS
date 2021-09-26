@@ -23,8 +23,8 @@ class DateTimeCardController extends GetxController{
   }
 
   void formatSelectedDate() {
-    selectedDateLabel.value = DateFormat('EEEE, MMM d, y').format(selectedDate);
-    selectedTimeLabel.value = DateFormat('hh:mm a').format(selectedDate);
+    selectedDateLabel.value = DateFormat('EEEE, MMM d, y').format(selectedDate.toLocal());
+    selectedTimeLabel.value = DateFormat('hh:mm a').format(selectedDate.toLocal());
   }
 
 

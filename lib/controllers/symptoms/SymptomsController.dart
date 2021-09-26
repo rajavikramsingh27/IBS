@@ -34,7 +34,7 @@ class SymptomsController extends BaseTrackableController {
 
 
   void onSave() async {
-    symptomsModel.value.trackedAt = dateTimeController.selectedDate;
+    symptomsModel.value.trackedAt = dateTimeController.selectedDate.toUtc();
 
     loader.value = true;
 
@@ -74,5 +74,24 @@ class SymptomsController extends BaseTrackableController {
     }
   }
 
+
+  // Removed it from our tracked list:
+  void onValueRemoved(TrackableItem item){
+    var count = symptomsModel.value.items.length;
+    for (var i = 0; i < count; i++) {
+      if (symptomsModel.value.items[i].tid == item.tid) {
+        // Remove all the children items:
+        item.children.forEach((child) {
+          child.items.forEach((childItem) {
+            onValueRemoved(childItem);
+          });
+        });
+        symptomsModel.value.items.removeAt(i);
+        item.reset();
+        break;
+      }
+    }
+    print("Orig $count now " + symptomsModel.value.items.length.toString());
+  }
 
 }
