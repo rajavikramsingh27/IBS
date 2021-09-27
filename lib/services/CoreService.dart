@@ -252,12 +252,23 @@ class CoreService {
         {
           try {
             print("Data: $data");
-            final response = await flutterFeathersjs.authenticate(
-              strategy: data["strategy"],
-              password: data["password"],
-              userName: data["loginId"],
-              userNameFieldName: "loginId",
-            );
+            var response;
+            if (data["email"] != null){
+              response = await flutterFeathersjs.authenticate(
+                strategy: data["strategy"],
+                password: data["password"],
+                userName: data["email"],
+                // userNameFieldName: "loginId",
+              );
+            }else{
+              await flutterFeathersjs.authenticate(
+                strategy: data["strategy"],
+                password: data["password"],
+                userName: data["loginId"],
+                // userNameFieldName: "loginId",
+              );
+            }
+
 
             debugPrint("Response: $response", wrapWidth: 1024);
 
