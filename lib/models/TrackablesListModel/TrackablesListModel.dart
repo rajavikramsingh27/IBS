@@ -336,8 +336,8 @@ class Datum {
 
 class ModelImage {
   ModelImage({
-    this.normal,
-    this.active,
+    this.normal = BLANK_PLACEHOLDER,
+    this.active = BLANK_PLACEHOLDER,
   });
 
   String normal;
@@ -353,8 +353,8 @@ class ModelImage {
       );
 
   Map<String, dynamic> toJson() => {
-        "normal": normal,
-        "active": active,
+        "normal": normal == null ? BLANK_PLACEHOLDER : normal,
+        "active": active == null ? BLANK_PLACEHOLDER : active,
       };
 }
 
@@ -938,15 +938,14 @@ class PurpleList {
 }
 
 class ListOption {
-  ListOption({
-    this.value,
-    this.label,
-    this.image,
-    this.optionDefault,
-    this.conditionalDefault,
-    this.selected,
-    this.category
-  });
+  ListOption(
+      {this.value,
+      this.label,
+      this.image,
+      this.optionDefault,
+      this.conditionalDefault,
+      this.selected,
+      this.category});
 
   String value;
   String category;
@@ -963,20 +962,19 @@ class ListOption {
             json["image"] == null ? null : ModelImage.fromJson(json["image"]),
         optionDefault: json["default"] == null ? false : json["default"],
         selected: json["default"] == null ? false : json["default"],
-    category: json["category"] == null ? null : json["category"],
-
-    conditionalDefault: json["conditionalDefault"] == null
+        category: json["category"] == null ? null : json["category"],
+        conditionalDefault: json["conditionalDefault"] == null
             ? null
             : ConditionalDefault.fromJson(json["conditionalDefault"]),
       );
 
   Map<String, dynamic> toJson() => {
-    "value": value == null ? null : value,
-    "category": category == null ? null : category,
-    "label": label == null ? null : label,
-    "image": image == null ? null : image.toJson(),
-    "default": optionDefault == null ? null : optionDefault,
-    "conditionalDefault":
+        "value": value == null ? null : value,
+        "category": category == null ? null : category,
+        "label": label == null ? null : label,
+        "image": image == null ? null : image.toJson(),
+        "default": optionDefault == null ? null : optionDefault,
+        "conditionalDefault":
             conditionalDefault == null ? null : conditionalDefault.toJson(),
       };
 }
