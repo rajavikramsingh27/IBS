@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/dateTime/DateTimeCardController.dart';
 import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
 import 'package:flutter_ibs/models/TreatmentPlanModel/TreatmentPlanResponseModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
@@ -19,6 +20,8 @@ import 'package:get/get.dart';
 class StartTreatmentPlan extends StatelessWidget {
   final TreatmentPlanController _treatmentPlanController = Get.find();
   final TreatmentPlanItemData data;
+  final DateTimeCardController dateTimeController = Get.put(DateTimeCardController());
+
 
   StartTreatmentPlan({this.data});
 
