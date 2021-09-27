@@ -61,12 +61,12 @@ class TreatmentPlanListWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
-          TreatmentPlanListItem(data.planDescription.tr, () {
+          TreatmentPlanListItem(title: data.planDescription.tr, onPressed: () {
             Get.to(() => TreatmentPlanListWidgetDetails(
                   details: data.planDetails.details,
                   title: data.planDetails.name.tr,
                 ));
-          }),
+          },tid: data.pid,),
           SizedBox(height: ScreenConstant.defaultHeightSixteen),
           CustomElevatedButton(
             text: data.startButton.tr,
@@ -94,12 +94,12 @@ class TreatmentPlanListWidget extends StatelessWidget {
             itemCount: data.additionalResources.length,
             itemBuilder: (BuildContext context, int index) {
               var model = data.additionalResources[index];
-              return TreatmentPlanListItem(model.name.tr, () {
+              return TreatmentPlanListItem(title: model.name.tr, onPressed: () {
                 Get.to(() => TreatmentPlanListWidgetDetails(
                       details: model.details,
                       title: data.planName.tr,
                     ));
-              });
+              },tid: data.pid,);
             },
             separatorBuilder: (BuildContext context, int index) => SizedBox(
               height: ScreenConstant.sizeDefault,
