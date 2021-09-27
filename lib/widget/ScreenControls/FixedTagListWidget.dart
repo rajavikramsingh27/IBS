@@ -78,6 +78,19 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
 
     _allTags.addAll(combinedTags);
 
+
+    List<String> flatList = [];
+    selectedItems.forEach((element) {
+      flatList.add(element.value);
+    });
+
+    widget.onValueChanged(TrackableSubmitItem(
+      tid: widget.trackableItem.tid,
+      category: widget.trackableItem.category,
+      kind: widget.trackableItem.kind,
+      dtype: "arr",
+      value: TrackableSubmitItemValue(arr: flatList),
+    ));
   }
 
 

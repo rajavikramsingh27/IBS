@@ -32,7 +32,7 @@ class _HydrationWidgetState extends State<HydrationWidget> {
 
   @override
   void initState() {
-    num = 0;
+    num = widget.trackableItem.sum.value;
 
     // As this is tracked, set its initial tracking state:
     widget.onValueChanged(TrackableSubmitItem(

@@ -1232,8 +1232,6 @@ class FluffyList {
       this.options.forEach((option) {
         if (option.value == val) {
           option.selected = true;
-        }else{
-          option.selected = false;
         }
       });
     });
@@ -1375,15 +1373,18 @@ class Sum {
     this.range,
     this.sumDefault,
     this.image,
+    this.value,
   });
 
   int range;
   int sumDefault;
   ModelImage image;
+  int value;
 
   factory Sum.fromJson(Map<String, dynamic> json) => Sum(
         range: json["range"] == null ? null : json["range"],
         sumDefault: json["default"] == null ? null : json["default"],
+        value: json["value"] == null ?  json["default"] : json["value"],
         image:
             json["image"] == null ? null : ModelImage.fromJson(json["image"]),
       );
@@ -1392,6 +1393,7 @@ class Sum {
         "range": range == null ? null : range,
         "default": sumDefault == null ? null : sumDefault,
         "image": image == null ? null : image.toJson(),
+        "value": value == null ? null : value,
       };
 }
 

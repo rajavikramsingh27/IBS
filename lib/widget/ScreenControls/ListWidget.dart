@@ -29,18 +29,32 @@ class ListWidget extends StatefulWidget {
 }
 
 class _ListWidgetState extends State<ListWidget> {
-  List<ListOption> _selectedItems;
+  List<ListOption> _selectedItems = [];
+
 
   @override
   void initState() {
     _selectedItems = [];
+
+    // Set the initial state:
+    widget.trackableItem.list.options.forEach((opt) {
+      if (opt.selected){
+        _selectedItems.add(opt);
+      }
+    });
+
+    List<String> flatList = [];
+
+    _selectedItems.forEach((element) {
+      flatList.add(element.value);
+    });
 
     widget.onValueChanged(TrackableSubmitItem(
       tid: widget.trackableItem.tid,
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "arr",
-      value: TrackableSubmitItemValue(arr: []),
+      value: TrackableSubmitItemValue(arr: flatList),
     ));
     super.initState();
   }

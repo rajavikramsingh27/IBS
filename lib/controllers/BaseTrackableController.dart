@@ -78,6 +78,9 @@ class BaseTrackableController extends GetxController {
             var time = pageItem.val.split(":");
             item.timePicker = new TimeOfDay(hour: int.parse(time[0]), minute: int.parse(time[1]));
             break;
+          case 'sum':
+            item.sum.value =pageItem.val;
+            break;
           default:
             String kind = item.kind;
             //throw new Exception("Unknown widget type for setPreviousValue, $kind");
