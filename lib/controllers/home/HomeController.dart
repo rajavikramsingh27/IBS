@@ -87,12 +87,16 @@ class HomeController extends GetxController {
       return;
     }
     formatSelectedDate();
+
+    // Update the tracking list if appropriate:
+    dateChangeUpdateTrackHistory();
   }
 
   void goBackOneDay() {
     // selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day - 1);
     selectedDate = selectedDate.subtract(Duration(days: 1));
     formatSelectedDate();
+    dateChangeUpdateTrackHistory();
   }
 
   void formatSelectedDate() {
@@ -124,6 +128,7 @@ class HomeController extends GetxController {
       if (datePicked != null && datePicked != selectedDate) {
         selectedDate = datePicked;
         formatSelectedDate();
+        dateChangeUpdateTrackHistory();
       }
     });
   }
@@ -169,6 +174,7 @@ class HomeController extends GetxController {
           timeOfDay.hour,
           timeOfDay.minute);
       this.formatSelectedDate();
+      dateChangeUpdateTrackHistory();
     }
   }
 
@@ -187,6 +193,15 @@ class HomeController extends GetxController {
           timeOfDay.hour,
           timeOfDay.minute);
       this.formatSelectedDate();
+    }
+  }
+
+
+
+  dateChangeUpdateTrackHistory() {
+    // Update the tracking list if appropriate:
+    if (segmentedControlGroupValue.value == 1) {
+      getTrackHistoryList();
     }
   }
 

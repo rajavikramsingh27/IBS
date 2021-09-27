@@ -174,7 +174,7 @@ class ServiceApi {
   Future<dynamic> getUserHistoryList(DateTime setTime) async {
     final DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm');
     var startDate = formatter.format(setTime.subtract(Duration(days:1)) );
-    var endDate = formatter.format(setTime.add(Duration(days:1, hours: 12)) );
+    var endDate = formatter.format(setTime.add(Duration(days:1)) );
 
     Map<String, dynamic> params = {
       'startDate': startDate,
