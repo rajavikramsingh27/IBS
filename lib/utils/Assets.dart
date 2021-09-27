@@ -141,4 +141,7 @@ class Assets {
 
   static const String resources_1 = "$baseImage/resources/resources.png";
   static const String resources_2 = "$baseImage/resources/resources_2.png";
+
+  static const String MarkDone = "$baseImage/mark.png";
+
 }
