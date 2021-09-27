@@ -67,6 +67,9 @@ class BaseTrackableController extends GetxController {
           case 'toggleInline':
             item.toggle.value = pageItem.val;
             break;
+          case 'numberInput':
+            item.numberInput.value = pageItem.val.toString();
+            break;
           case 'tags':
             item.tags.setTagsByValues(pageItem.val);
             break;

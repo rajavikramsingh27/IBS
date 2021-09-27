@@ -1,5 +1,6 @@
 import 'package:flutter_ibs/controllers/BaseTrackableController.dart';
 import 'package:flutter_ibs/controllers/dateTime/DateTimeCardController.dart';
+import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessModel.dart';
 import 'package:flutter_ibs/models/HealthWellnessModel/HealthWellnessResponseModel.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
 class HealthController extends BaseTrackableController {
+  HomeController homeController = Get.find();
   DateTimeCardController dateTimeController = Get.put(DateTimeCardController());
 
   Rx<HealthWellnessModel> healthWellnessModel =
@@ -48,25 +50,31 @@ class HealthController extends BaseTrackableController {
   }
 
 
-
   void onSave() async {
     healthWellnessModel.value.trackedAt = dateTimeController.selectedDate.toUtc();
-
     loader.value = true;
-    final data = await ServiceApi()
-        .postHealthWellnessAPI(bodyData: healthWellnessModel.toJson());
+
+    bool isUpdate = false;
+
+    HealthWellnessResponseModel data;
+    if (healthWellnessModel.value.id != null){
+      isUpdate = true;
+      data = await ServiceApi().updateHealthWellnessAPI(id: healthWellnessModel.value.id, bodyData: healthWellnessModel.toJson());
+      homeController.getTrackHistoryList();
+    }else{
+      data = await ServiceApi().postHealthWellnessAPI(bodyData: healthWellnessModel.toJson());
+    }
+
     loader.value = false;
-    if (data is HealthWellnessResponseModel) {
-      // noteTextController.clear();
-      //  healthWellnessModel.value.items = [];
-      //  _signUpController.getTrackList();
+    if (data != null ) {
       Get.back();
       CustomSnackBar().successSnackBar(
-          title: "Success", message: "Health & Wellness Added Successfully");
-    } else {
-      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
+          title: "Success", message: isUpdate ? "Health & Wellness Updated Successfully" : "Health & Wellness Added Successfully");
     }
+
   }
+
+
 
 
 

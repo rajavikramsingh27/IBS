@@ -29,18 +29,23 @@ class NumberInputWidget extends StatefulWidget {
 }
 
 class _NumberInputWidgetState extends State<NumberInputWidget> {
-  int _currentValue; // this.trackableItem.rating.value.toDouble();
+  TextEditingController textController = TextEditingController();
+
 
   @override
   void initState() {
-    _currentValue = 0;
+    textController.text = widget.trackableItem.numberInput.value.toString();
+    int numVal = 0;
+    if (textController.text != ""){
+      numVal = int.parse(textController.text);
+    }
     // As this is tracked, set its initial tracking state:
     widget.onValueChanged(TrackableSubmitItem(
       tid: widget.trackableItem.tid,
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "num",
-      value: TrackableSubmitItemValue(number: _currentValue),
+      value: TrackableSubmitItemValue(number: numVal ),
     ));
     super.initState();
   }
@@ -108,10 +113,19 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)),
                     child: TextFormField(
+                        onChanged: (dynamic newValue) {
+                          widget.onValueChanged(TrackableSubmitItem(
+                            tid: widget.trackableItem.tid,
+                            category: widget.trackableItem.category,
+                            kind: widget.trackableItem.kind,
+                            dtype: "num",
+                            value: TrackableSubmitItemValue(number: int.parse(newValue)),
+                          ));
+                        },
                         style: TextStyle(fontSize: 24),
                         textAlign: TextAlign.center,
                         cursorColor: Colors.white,
-                        //controller: _controller,
+                        controller: textController,
                         keyboardType: TextInputType.number,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),

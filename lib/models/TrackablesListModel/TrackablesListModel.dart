@@ -61,6 +61,7 @@ class TrackableItem {
     this.rating,
     this.children,
     this.textInput,
+    this.numberInput,
     this.validation,
     this.color,
     this.list,
@@ -90,6 +91,7 @@ class TrackableItem {
   List<TrackableChild> children;
   List<TrackableItem> items;
   TextInput textInput;
+  TextInput numberInput;
   ListValidation validation;
   ModelColor color;
   FluffyList list;
@@ -131,6 +133,9 @@ class TrackableItem {
         textInput: json["textInput"] == null
             ? null
             : TextInput.fromJson(json["textInput"]),
+        numberInput: json["numberInput"] == null
+            ? null
+            : TextInput.fromJson(json["numberInput"]),
         validation: json["validation"] == null
             ? null
             : ListValidation.fromJson(json["validation"]),
@@ -176,38 +181,38 @@ class TrackableItem {
         "enabled": enabled == null ? false : enabled,
       };
 
-  TrackableItem clone(){
+  TrackableItem clone() {
     return TrackableItem(
-          tid: this.tid,
-          header: this.header,
-          name: this.name,
-          description: this.description,
-          category: this.category,
-          style: this.style,
-          kind: this.kind,
-          enabledDefault: this.enabledDefault,
-          isVisible: this.isVisible,
-          rating: this.rating,
-          children: this.children,
-          textInput: this.textInput,
-          validation: this.validation,
-          color: this.color,
-          list: this.list,
-          select: this.select,
-          selectedValue: this.selectedValue,
-          sum: this.sum,
-          tags: this.tags,
-          boolList: this.boolList,
-          condition: this.condition,
-          items: this.items,
-          toggle: this.toggle,
-          enabled: this.enabled,
-          weight: this.weight,
-          //selected this.selected,
-        );
+      tid: this.tid,
+      header: this.header,
+      name: this.name,
+      description: this.description,
+      category: this.category,
+      style: this.style,
+      kind: this.kind,
+      enabledDefault: this.enabledDefault,
+      isVisible: this.isVisible,
+      rating: this.rating,
+      children: this.children,
+      textInput: this.textInput,
+      validation: this.validation,
+      color: this.color,
+      list: this.list,
+      select: this.select,
+      selectedValue: this.selectedValue,
+      sum: this.sum,
+      tags: this.tags,
+      boolList: this.boolList,
+      condition: this.condition,
+      items: this.items,
+      toggle: this.toggle,
+      enabled: this.enabled,
+      weight: this.weight,
+      //selected this.selected,
+    );
   }
 
-  TrackableItem reset(){
+  TrackableItem reset() {
     switch (this.kind) {
       case "rating":
         this.rating.value = this.rating.ratingDefault;
@@ -218,10 +223,9 @@ class TrackableItem {
         });
         break;
       case "tags":
-      // trackableItem.tags.
+        // trackableItem.tags.
         break;
       case "group":
-
         break;
       case "select":
         this.select.selectedOption = null;
@@ -249,8 +253,7 @@ class TrackableItem {
         break;
       default:
         {
-          print(
-              "\n\n****************> Unknown widget in reset: " + this.kind);
+          print("\n\n****************> Unknown widget in reset: " + this.kind);
         }
         break;
     }
@@ -310,7 +313,7 @@ class TrackableSubmitItem {
         kind: json["kind"],
         dtype: json["dtype"],
         value: TrackableSubmitItemValue.fromJson(json["value"]),
-        val:  json["val"],
+        val: json["val"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -339,12 +342,11 @@ class TrackableSubmitItemValue {
 
   factory TrackableSubmitItemValue.fromJson(Map<String, dynamic> json) =>
       TrackableSubmitItemValue(
-        number: json["num"] == null ? null : json["num"],
-        arr: json["arr"] == null
-            ? null
-            : List<String>.from(json["arr"].map((x) => x)),
-        value: json["value"]
-      );
+          number: json["num"] == null ? null : json["num"],
+          arr: json["arr"] == null
+              ? null
+              : List<String>.from(json["arr"].map((x) => x)),
+          value: json["value"]);
 
   Map<String, dynamic> toJson() => {
         "num": number == null ? null : number,
@@ -377,7 +379,6 @@ class ModelImage {
         "active": active,
       };
 }
-
 
 class BoolList {
   BoolList({
@@ -462,7 +463,6 @@ class PurpleCondition {
         "value": value,
       };
 }
-
 
 class FluffyChild {
   FluffyChild({
@@ -865,11 +865,13 @@ class NumberInput {
     this.numberInputDefault,
     this.label,
     this.validation,
+    this.value,
   });
 
   dynamic numberInputDefault;
   String label;
   ListValidation validation;
+  String value;
 
   factory NumberInput.fromJson(Map<String, dynamic> json) => NumberInput(
         numberInputDefault: json["default"],
@@ -920,9 +922,9 @@ class Select {
         "validation": validation == null ? null : validation.toJson(),
       };
 
-  void setOptionByValue(String value){
+  void setOptionByValue(String value) {
     this.options.forEach((option) {
-      if (option.value == value){
+      if (option.value == value) {
         this.selectedOption = option;
       }
     });
@@ -1014,15 +1016,13 @@ class FluffyTags {
         "limit": limit == null ? null : limit,
       };
 
-  void setTagsByValues(List<dynamic> values){
-    if (this.selectedTags == null){
+  void setTagsByValues(List<dynamic> values) {
+    if (this.selectedTags == null) {
       this.selectedTags = [];
     }
 
     values.forEach((tagVal) {
-      this.selectedTags.add(
-          Tag(value: tagVal, selected: true)
-      );
+      this.selectedTags.add(Tag(value: tagVal, selected: true));
     });
   }
 }
@@ -1147,12 +1147,12 @@ class ModelColor {
         "value": value.value,
       };
 
-  void setOptionsByValues(String value){
-      this.options.forEach((option) {
-        if (option.value == value) {
-          this.value = option;
-        }
-      });
+  void setOptionsByValues(String value) {
+    this.options.forEach((option) {
+      if (option.value == value) {
+        this.value = option;
+      }
+    });
   }
 }
 
@@ -1224,7 +1224,7 @@ class FluffyList {
             : List<dynamic>.from(options.map((x) => x.toJson())),
       };
 
-  void setOptionsByValues(List<dynamic> values){
+  void setOptionsByValues(List<dynamic> values) {
     values.forEach((val) {
       this.options.forEach((option) {
         if (option.value == val) {

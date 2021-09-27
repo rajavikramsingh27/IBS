@@ -172,9 +172,9 @@ class ServiceApi {
   }
 
   Future<dynamic> getUserHistoryList(DateTime setTime) async {
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm');
     var startDate = formatter.format(setTime.subtract(Duration(days:1)) );
-    var endDate = formatter.format(setTime.add(Duration(days:1)) );
+    var endDate = formatter.format(setTime.add(Duration(days:1, hours: 12)) );
 
     Map<String, dynamic> params = {
       'startDate': startDate,
@@ -213,11 +213,21 @@ class ServiceApi {
       return TrackablesListModel.fromJson(result);
   }
 
+  Future<dynamic> updateHealthWellnessAPI({String id, Map bodyData}) async {
+    var result = await CoreService().apiService(
+        method: METHOD.UPDATE, endpoint: HEALTH_WELLNESS, data: bodyData, objectId: id);
+    if(result != null) {
+      return HealthWellnessResponseModel.fromJson(result);
+    }
+  }
+
   Future<dynamic> postHealthWellnessAPI({Map bodyData}) async {
     var result = await CoreService().apiService(
         method: METHOD.CREATE, endpoint: HEALTH_WELLNESS, data: bodyData);
 
-    return HealthWellnessResponseModel.fromJson(result);
+    if(result != null) {
+      return HealthWellnessResponseModel.fromJson(result);
+    }
   }
 
   Future<LanguageResponseModel> getLanguage() async {
