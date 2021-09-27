@@ -945,9 +945,11 @@ class ListOption {
     this.optionDefault,
     this.conditionalDefault,
     this.selected,
+    this.category
   });
 
   String value;
+  String category;
   String label;
   ModelImage image;
   bool optionDefault;
@@ -961,17 +963,20 @@ class ListOption {
             json["image"] == null ? null : ModelImage.fromJson(json["image"]),
         optionDefault: json["default"] == null ? false : json["default"],
         selected: json["default"] == null ? false : json["default"],
-        conditionalDefault: json["conditionalDefault"] == null
+    category: json["category"] == null ? null : json["category"],
+
+    conditionalDefault: json["conditionalDefault"] == null
             ? null
             : ConditionalDefault.fromJson(json["conditionalDefault"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "value": value == null ? null : value,
-        "label": label == null ? null : label,
-        "image": image == null ? null : image.toJson(),
-        "default": optionDefault == null ? null : optionDefault,
-        "conditionalDefault":
+    "value": value == null ? null : value,
+    "category": category == null ? null : category,
+    "label": label == null ? null : label,
+    "image": image == null ? null : image.toJson(),
+    "default": optionDefault == null ? null : optionDefault,
+    "conditionalDefault":
             conditionalDefault == null ? null : conditionalDefault.toJson(),
       };
 }

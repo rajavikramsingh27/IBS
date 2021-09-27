@@ -84,7 +84,7 @@ class TreatmentPlanController extends GetxController {
         ));
   }
 
-  void onTagTapped({model}) {
+  void onTagTapped({model, category}) {
     if (model is Tag) {
       if (selectedTags.contains(model)) {
         selectedTags.remove(model);
@@ -162,7 +162,10 @@ class TreatmentPlanController extends GetxController {
         });
       }
     });
-    treatmentPlanSendModel.value.tags.addAll(selectedTagsList);
+    selectedTagsList.forEach((element) {
+      treatmentPlanSendModel.value.tags.add(Tag(category: element.category,value: element.value,));
+    });
+    //treatmentPlanSendModel.value.tags.addAll(selectedTagsList);
     treatmentPlanSendModel.value.reminders.addAll(reminderList);
     treatmentPlanSendModel.value.trackingDefaults.addAll(listTrackData);
     treatmentPlanSendModel.refresh();
