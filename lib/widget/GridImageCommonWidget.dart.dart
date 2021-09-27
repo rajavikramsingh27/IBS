@@ -71,12 +71,13 @@ class _GridImageCommonWidgetState extends State<GridImageCommonWidget> {
           physics: NeverScrollableScrollPhysics(),
           itemCount: widget.dataList.options.length,
           itemBuilder: (BuildContext context, int index) {
-            var model = widget.dataList.options[index];
+            ListOption model = widget.dataList.options[index];
             return InkWell(
               onTap: () {
                 setState(() {
                   model.optionDefault = !model.optionDefault;
-                  _treatmentPlanController.onTagTapped(model: model);
+                  model.category = widget.dataList.category;
+                  _treatmentPlanController.onTagTapped(model: model,);
                 });
               },
               child: Card(
