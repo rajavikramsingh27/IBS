@@ -1,39 +1,34 @@
-
-
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/MyAccount/MyAccountController.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/DummyData.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
+import 'package:flutter_ibs/utils/ShadowContainer.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/BottomWidget.dart';
 import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
-import 'package:flutter_ibs/utils/ShadowContainer.dart';
-import 'package:flutter_ibs/controllers/MyAccount/MyAccountController.dart';
-
-
 
 class RomeQuestionnaire extends StatelessWidget {
   MyAccountController _controller;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold (
+    return Scaffold(
       backgroundColor: AppColors.colorProfileBg,
       appBar: AppBar(
         elevation: 0,
         leading: Obx(() => _controller.pagecount2.value >= 1
             ? LeadingBackButton(
-          onPressed: () => _controller.pagecount2.value--,
-        )
+                onPressed: () => _controller.pagecount2.value--,
+              )
             : LeadingBackButton(
-          onPressed: () => Get.back(),
-        )),
+                onPressed: () => Get.back(),
+              )),
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
@@ -46,35 +41,35 @@ class RomeQuestionnaire extends StatelessWidget {
           initState: (state) {
             // print('HomePageController state initialized');
           },
-
           builder: (authController) {
             _controller = authController;
             authController.settingType = '2'.obs;
 
             authController.getUserList();
             return Obx(() => Stack(
-              fit: StackFit.expand,
-              children: [
-                _toggleView(_controller.pagecount2.value),
-                (_controller.pagecount2.value > 1) ? _buildBottom() : SizedBox(height: 1,),
-              ],
-            ));
-          }
-      ),
+                  fit: StackFit.expand,
+                  children: [
+                    _toggleView(_controller.pagecount2.value),
+                    (_controller.pagecount2.value > 1)
+                        ? _buildBottom()
+                        : SizedBox(
+                            height: 1,
+                          ),
+                  ],
+                ));
+          }),
     );
   }
 
   _buildBottom() {
     return BottomWidget(
       onContinueTap: () {
-        if (_controller.pagecount2.value <= 4)
-          _controller.pagecount2.value++;
+        if (_controller.pagecount2.value <= 4) _controller.pagecount2.value++;
         // else
         //   Get.toNamed(signup);
       },
       onCircleTap: () {
-        if (_controller.pagecount2.value <= 4)
-          _controller.pagecount2.value++;
+        if (_controller.pagecount2.value <= 4) _controller.pagecount2.value++;
         // else
         //   Get.toNamed(signup);
       },
@@ -107,177 +102,151 @@ class RomeQuestionnaire extends StatelessWidget {
   // The following questions are for informational purposes only and should not substitute
   // for the medical advice of you doctor.
 
-
-
   _buildStartQuestionnaire() {
-    return ListView(
-        padding: ScreenConstant.spacingAllLarge,
-        children: [
-          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-          Text("Rome IV Questionnaire.",
-            textAlign: TextAlign.center,
-            style: TextStyles.textStyleSettingTitle
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-          Center(
-              child: Image.asset(Assets.myProfile5,
-                  width: ScreenConstant.defaultHeightTwoHundredTen)
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightForty),
-          Card(
-            elevation: 0,
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Padding(
-                padding: EdgeInsets.only(
-                    left: ScreenConstant.defaultHeightForty-10,
-                    right: ScreenConstant.defaultHeightForty-10,
-                    top: ScreenConstant.defaultHeightForty-10,
-                    bottom: ScreenConstant.defaultHeightForty-10,
-                ),
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    text: "Physicians worldwide follow the ",
-                    style: TextStyles.textStyleSettingQuestionaireBlack,
-                    children: <TextSpan>[
-                      TextSpan(
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () => _buildAbdominalPainDialog(),
-                          text: "Rome IV criteria  ",
-                        style: TextStyles.textStyleSettingQuestionaireBlue,
-                      ),
-                      TextSpan(
-                          text:
-                          "when diagnosing IBS. \n\n"
-                              "The following questions are for informational purposes only and should not substitute"
-                              "for the medical advice of you doctor.")
-                    ],
-                  ),
-                )
-
-              // Text(
-              //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
-              //   style: TextStyles.textStyleRegular,
-              //   textAlign: TextAlign.center,
-              // ),
-            ),
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightSixteen),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                decoration: AppShadow().shadowSettingQuestionaire(),
-                height: 54,
-                width: 230,
-                child: TextButton(
-                  child: Text(
-                    "Start Questionnaire",
-                    textAlign: TextAlign.center,
-                    style: TextStyles.textStyleSettingTitle
-                  ),
-                  onPressed: () {
-                    if (_controller.pagecount2.value <= 4)
-                      _controller.pagecount2.value++;
-                    // else
-                    //   Get.toNamed(signup);
-                  },
-                ),
-              ),
-            ],
-          )
-        ]
-    );
-  }
-
-  _buildRetakeQuestionnaire() {
-    return ListView(
-        padding: ScreenConstant.spacingAllLarge,
-        children: [
-          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-          Text("Rome IV Questionnaire",
-            textAlign: TextAlign.center,
-              style: TextStyles.textStyleSettingTitle
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-          Padding(
+    return ListView(padding: ScreenConstant.spacingAllLarge, children: [
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+      Text("Rome IV Questionnaire.",
+          textAlign: TextAlign.center, style: TextStyles.textStyleSettingTitle),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+      Center(
+          child: Image.asset(Assets.myProfile5,
+              width: ScreenConstant.defaultHeightTwoHundredTen)),
+      SizedBox(height: ScreenConstant.defaultHeightForty),
+      Card(
+        elevation: 0,
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Padding(
             padding: EdgeInsets.only(
-                left: ScreenConstant.defaultHeightTwentyFour, right: ScreenConstant.defaultHeightTwentyFour
+              left: ScreenConstant.defaultHeightForty - 10,
+              right: ScreenConstant.defaultHeightForty - 10,
+              top: ScreenConstant.defaultHeightForty - 10,
+              bottom: ScreenConstant.defaultHeightForty - 10,
             ),
-            child: Text(
-              "You have taken the Rome IV.  "
-                  "You may retake the questionnaire by selecting “Retake Questionnaire” below.",
+            child: RichText(
               textAlign: TextAlign.center,
-              style: TextStyles.textStyleRegular.apply(
-                color: AppColors.colorBlue2
-              )
-            ),
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-          Center(
-              child: Image.asset(
-                  'assets/images/my_profile/retakeQuestionnaire.png',
-                  width: ScreenConstant.defaultHeightTwoHundredTen
-              )
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightForty),
-          Text(
-            "Based on the Rome IV criteria \nyou may have IBS-"+_controller.IbsTypeValue.value.toUpperCase(),
-            textAlign: TextAlign.center,
-            style: TextStyles.textStyleIntroDescription.apply(
-              color: Colors.black
-            )
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightForty),
-          Padding(
-              padding: EdgeInsets.only(
-                  left: ScreenConstant.defaultHeightTwentyFour,
-                  right: ScreenConstant.defaultHeightTwentyFour,
-                  bottom: ScreenConstant.defaultHeightTwentyFour
+              text: TextSpan(
+                text: "Physicians worldwide follow the ",
+                style: TextStyles.textStyleSettingQuestionaireBlack,
+                children: <TextSpan>[
+                  TextSpan(
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () => _buildAbdominalPainDialog(),
+                    text: "Rome IV criteria  ",
+                    style: TextStyles.textStyleSettingQuestionaireBlue,
+                  ),
+                  TextSpan(
+                      text: "when diagnosing IBS. \n\n"
+                          "The following questions are for informational purposes only and should not substitute"
+                          "for the medical advice of you doctor.")
+                ],
               ),
-              child: Text(
-                "Its important to understand that this is not a diagnosis. "
-                    "\n\nContinue to track your symptoms and take these test results "
-                    "and your symptom tracker to your next appointment With your doctor.",
-                textAlign: TextAlign.center,
-                style: TextStyles.textStyleRegular
-              )
+            )
 
             // Text(
             //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
             //   style: TextStyles.textStyleRegular,
             //   textAlign: TextAlign.center,
             // ),
+            ),
+      ),
+      SizedBox(height: ScreenConstant.defaultHeightSixteen),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            decoration: AppShadow().shadowSettingQuestionaire(),
+            height: 54,
+            width: 230,
+            child: TextButton(
+              child: Text("Start Questionnaire",
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleSettingTitle),
+              onPressed: () {
+                if (_controller.pagecount2.value <= 4)
+                  _controller.pagecount2.value++;
+                // else
+                //   Get.toNamed(signup);
+              },
+            ),
           ),
-          SizedBox(height: ScreenConstant.defaultHeightSixteen),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                decoration: AppShadow().shadowSettingQuestionaire(),
-                height: 54,
-                width: 230,
-                child: TextButton(
-                  child: Text(
-                    "Retake Questionnaire",
-                    textAlign: TextAlign.center,
-                      style: TextStyles.textStyleSettingQuestionaireButton
-                  ),
-                  onPressed: () {
-                    if (_controller.pagecount2.value <= 4)
-                      _controller.pagecount2.value++;
-                    // else
-                    //   Get.toNamed(signup);
-                  },
-                ),
-              ),
-            ],
-          )
-        ]
-    );
+        ],
+      )
+    ]);
+  }
+
+  _buildRetakeQuestionnaire() {
+    return ListView(padding: ScreenConstant.spacingAllLarge, children: [
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+      Text("Rome IV Questionnaire",
+          textAlign: TextAlign.center, style: TextStyles.textStyleSettingTitle),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+      Padding(
+        padding: EdgeInsets.only(
+            left: ScreenConstant.defaultHeightTwentyFour,
+            right: ScreenConstant.defaultHeightTwentyFour),
+        child: Text(
+            "You have taken the Rome IV.  "
+            "You may retake the questionnaire by selecting “Retake Questionnaire” below.",
+            textAlign: TextAlign.center,
+            style:
+                TextStyles.textStyleRegular.apply(color: AppColors.colorBlue2)),
+      ),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+      Center(
+          child: Image.asset('assets/images/my_profile/retakeQuestionnaire.png',
+              width: ScreenConstant.defaultHeightTwoHundredTen)),
+      SizedBox(height: ScreenConstant.defaultHeightForty),
+      Text(
+          "Based on the Rome IV criteria \nyou may have IBS-" +
+              _controller.IbsTypeValue.value.toUpperCase(),
+          textAlign: TextAlign.center,
+          style:
+              TextStyles.textStyleIntroDescription.apply(color: Colors.black)),
+      SizedBox(height: ScreenConstant.defaultHeightForty),
+      Padding(
+          padding: EdgeInsets.only(
+              left: ScreenConstant.defaultHeightTwentyFour,
+              right: ScreenConstant.defaultHeightTwentyFour,
+              bottom: ScreenConstant.defaultHeightTwentyFour),
+          child: Text(
+              "Its important to understand that this is not a diagnosis. "
+              "\n\nContinue to track your symptoms and take these test results "
+              "and your symptom tracker to your next appointment With your doctor.",
+              textAlign: TextAlign.center,
+              style: TextStyles.textStyleRegular)
+
+          // Text(
+          //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
+          //   style: TextStyles.textStyleRegular,
+          //   textAlign: TextAlign.center,
+          // ),
+          ),
+      SizedBox(height: ScreenConstant.defaultHeightSixteen),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            decoration: AppShadow().shadowSettingQuestionaire(),
+            height: 54,
+            width: 230,
+            child: TextButton(
+              child: Text("Retake Questionnaire",
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleSettingQuestionaireButton),
+              onPressed: () {
+                if (_controller.pagecount2.value <= 4)
+                  _controller.pagecount2.value++;
+                // else
+                //   Get.toNamed(signup);
+              },
+            ),
+          ),
+        ],
+      )
+    ]);
   }
 
   _buildAbdominalPain() {
@@ -318,24 +287,24 @@ class RomeQuestionnaire extends StatelessWidget {
                               fontSizeDelta: -4)),
                       TextSpan(
                           text:
-                          "for at least one day per week in the last 3 months?")
+                              "for at least one day per week in the last 3 months?")
                     ],
                   ),
                 )
 
-              // Text(
-              //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
-              //   style: TextStyles.textStyleRegular,
-              //   textAlign: TextAlign.center,
-              // ),
-            ),
+                // Text(
+                //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
+                //   style: TextStyles.textStyleRegular,
+                //   textAlign: TextAlign.center,
+                // ),
+                ),
           ),
           SizedBox(height: ScreenConstant.defaultHeightSixteen),
           Row(
             children: [
               Expanded(
                 child: Obx(
-                      () => CustomElevatedButton2(
+                  () => CustomElevatedButton2(
                     onTap: () {
                       _controller.isDiagnoisedAbdominalPain.value = true;
 
@@ -343,33 +312,33 @@ class RomeQuestionnaire extends StatelessWidget {
                     },
                     text: "Yes",
                     textColor:
-                    _controller.isDiagnoisedAbdominalPain.value == false
-                        ? AppColors.colorButton
-                        : Colors.white,
+                        _controller.isDiagnoisedAbdominalPain.value == false
+                            ? AppColors.colorButton
+                            : Colors.white,
                     buttonColor:
-                    _controller.isDiagnoisedAbdominalPain.value == false
-                        ? Colors.white
-                        : AppColors.colorYesButton,
+                        _controller.isDiagnoisedAbdominalPain.value == false
+                            ? Colors.white
+                            : AppColors.colorYesButton,
                   ),
                 ),
               ),
               SizedBox(width: ScreenConstant.defaultWidthTwenty),
               Expanded(
                 child: Obx(
-                      () => CustomElevatedButton2(
+                  () => CustomElevatedButton2(
                     onTap: () {
                       _controller.isDiagnoisedAbdominalPain.value = false;
                       _controller.updateRomeIVQuestionaire();
                     },
                     text: "No",
                     textColor:
-                    _controller.isDiagnoisedAbdominalPain.value == true
-                        ? AppColors.colorButton
-                        : Colors.white,
+                        _controller.isDiagnoisedAbdominalPain.value == true
+                            ? AppColors.colorButton
+                            : Colors.white,
                     buttonColor:
-                    _controller.isDiagnoisedAbdominalPain.value == true
-                        ? Colors.white
-                        : AppColors.colorYesButton,
+                        _controller.isDiagnoisedAbdominalPain.value == true
+                            ? Colors.white
+                            : AppColors.colorYesButton,
                   ),
                 ),
               )
@@ -385,7 +354,7 @@ class RomeQuestionnaire extends StatelessWidget {
       CustomDialog(
         title: "Abdominal Pain",
         description:
-        '''Other terms used to describe abdominal pain are stomach ache, tummy ache, gut ache, and bellyache.''',
+            '''Other terms used to describe abdominal pain are stomach ache, tummy ache, gut ache, and bellyache.''',
       ),
     );
   }
@@ -399,8 +368,7 @@ class RomeQuestionnaire extends StatelessWidget {
         Text("Rome IV Questionnaire.",
             textAlign: TextAlign.center,
             style: TextStyles.textStyleIntroDescription
-                .apply(color: Colors.black)
-        ),
+                .apply(color: Colors.black)),
         SizedBox(height: ScreenConstant.defaultHeightForty),
         Card(
             elevation: 0,
@@ -421,7 +389,7 @@ class RomeQuestionnaire extends StatelessWidget {
           children: [
             Expanded(
               child: Obx(
-                    () => CustomElevatedButton2(
+                () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainTimeBowel.value = true;
 
@@ -432,16 +400,16 @@ class RomeQuestionnaire extends StatelessWidget {
                       ? AppColors.white
                       : AppColors.colorButton,
                   buttonColor:
-                  _controller.isabdominalPainTimeBowel.value == true
-                      ? AppColors.colorYesButton
-                      : Colors.white,
+                      _controller.isabdominalPainTimeBowel.value == true
+                          ? AppColors.colorYesButton
+                          : Colors.white,
                 ),
               ),
             ),
             SizedBox(width: ScreenConstant.defaultWidthTwenty),
             Expanded(
               child: Obx(
-                    () => CustomElevatedButton2(
+                () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainTimeBowel.value = false;
 
@@ -452,9 +420,9 @@ class RomeQuestionnaire extends StatelessWidget {
                       ? AppColors.white
                       : AppColors.colorButton,
                   buttonColor:
-                  _controller.isabdominalPainTimeBowel.value == false
-                      ? AppColors.colorYesButton
-                      : Colors.white,
+                      _controller.isabdominalPainTimeBowel.value == false
+                          ? AppColors.colorYesButton
+                          : Colors.white,
                 ),
               ),
             )
@@ -480,7 +448,7 @@ class RomeQuestionnaire extends StatelessWidget {
           children: [
             Expanded(
               child: Obx(
-                    () => CustomElevatedButton2(
+                () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainBowelMoreLess.value = true;
 
@@ -488,20 +456,20 @@ class RomeQuestionnaire extends StatelessWidget {
                   },
                   text: "Yes",
                   textColor:
-                  _controller.isabdominalPainBowelMoreLess.value == true
-                      ? AppColors.white
-                      : AppColors.colorButton,
+                      _controller.isabdominalPainBowelMoreLess.value == true
+                          ? AppColors.white
+                          : AppColors.colorButton,
                   buttonColor:
-                  _controller.isabdominalPainBowelMoreLess.value == true
-                      ? AppColors.colorYesButton
-                      : Colors.white,
+                      _controller.isabdominalPainBowelMoreLess.value == true
+                          ? AppColors.colorYesButton
+                          : Colors.white,
                 ),
               ),
             ),
             SizedBox(width: ScreenConstant.defaultWidthTwenty),
             Expanded(
               child: Obx(
-                    () => CustomElevatedButton2(
+                () => CustomElevatedButton2(
                   onTap: () {
                     _controller.isabdominalPainBowelMoreLess.value = false;
 
@@ -509,13 +477,13 @@ class RomeQuestionnaire extends StatelessWidget {
                   },
                   text: "No",
                   textColor:
-                  _controller.isabdominalPainBowelMoreLess.value == false
-                      ? AppColors.white
-                      : AppColors.colorButton,
+                      _controller.isabdominalPainBowelMoreLess.value == false
+                          ? AppColors.white
+                          : AppColors.colorButton,
                   buttonColor:
-                  _controller.isabdominalPainBowelMoreLess.value == false
-                      ? AppColors.colorYesButton
-                      : Colors.white,
+                      _controller.isabdominalPainBowelMoreLess.value == false
+                          ? AppColors.colorYesButton
+                          : Colors.white,
                 ),
               ),
             )
@@ -558,7 +526,7 @@ class RomeQuestionnaire extends StatelessWidget {
                   textAlign: TextAlign.center,
                   text: TextSpan(
                     text:
-                    "When you have abdominal pain, do your bowel movements appear ",
+                        "When you have abdominal pain, do your bowel movements appear ",
                     style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
                     children: <TextSpan>[
                       TextSpan(
@@ -577,40 +545,48 @@ class RomeQuestionnaire extends StatelessWidget {
             children: [
               Expanded(
                 child: Obx(
-                      () => CustomElevatedButton2(
+                  () => CustomElevatedButton2(
                     onTap: () {
-                      _controller.isabdominalPainBowelAppearDifferent.value = true;
+                      _controller.isabdominalPainBowelAppearDifferent.value =
+                          true;
 
                       _controller.updateRomeIVQuestionaire();
                     },
                     text: "Yes",
-                    textColor: _controller.isabdominalPainBowelAppearDifferent.value == true
-                        ? AppColors.white
-                        : AppColors.colorButton,
+                    textColor:
+                        _controller.isabdominalPainBowelAppearDifferent.value ==
+                                true
+                            ? AppColors.white
+                            : AppColors.colorButton,
                     buttonColor:
-                    _controller.isabdominalPainBowelAppearDifferent.value == true
-                        ? AppColors.colorYesButton
-                        : Colors.white,
+                        _controller.isabdominalPainBowelAppearDifferent.value ==
+                                true
+                            ? AppColors.colorYesButton
+                            : Colors.white,
                   ),
                 ),
               ),
               SizedBox(width: ScreenConstant.defaultWidthTwenty),
               Expanded(
                 child: Obx(
-                      () => CustomElevatedButton2(
+                  () => CustomElevatedButton2(
                     onTap: () {
-                      _controller.isabdominalPainBowelAppearDifferent.value = false;
+                      _controller.isabdominalPainBowelAppearDifferent.value =
+                          false;
 
                       _controller.updateRomeIVQuestionaire();
                     },
                     text: "No",
-                    textColor: _controller.isabdominalPainBowelAppearDifferent.value == false
-                        ? AppColors.white
-                        : AppColors.colorButton,
+                    textColor:
+                        _controller.isabdominalPainBowelAppearDifferent.value ==
+                                false
+                            ? AppColors.white
+                            : AppColors.colorButton,
                     buttonColor:
-                    _controller.isabdominalPainBowelAppearDifferent.value == false
-                        ? AppColors.colorYesButton
-                        : Colors.white,
+                        _controller.isabdominalPainBowelAppearDifferent.value ==
+                                false
+                            ? AppColors.colorYesButton
+                            : Colors.white,
                   ),
                 ),
               )
@@ -626,7 +602,7 @@ class RomeQuestionnaire extends StatelessWidget {
       CustomDialog(
         title: "Bowel Movement Changes",
         description:
-        '''Differences can be either softer or harder than your usual bowel movements.''',
+            '''Differences can be either softer or harder than your usual bowel movements.''',
       ),
     );
   }
@@ -659,7 +635,7 @@ class RomeQuestionnaire extends StatelessWidget {
                   textAlign: TextAlign.center,
                   text: TextSpan(
                     text:
-                    'When you have abnormal bowel movements, what does your stool usually look like?\n\nReference the ',
+                        'When you have abnormal bowel movements, what does your stool usually look like?\n\nReference the ',
                     style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
                     children: <TextSpan>[
                       TextSpan(
@@ -689,14 +665,14 @@ class RomeQuestionnaire extends StatelessWidget {
       },
       child: ListView.builder(
         padding:
-        EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
+            EdgeInsets.symmetric(horizontal: ScreenConstant.defaultWidthTwenty),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemCount: DummyData.ibsTypemedium.length,
         itemBuilder: (BuildContext context, int index) {
           var model = DummyData.ibsTypemedium[index];
           return Obx(
-                () => GestureDetector(
+            () => GestureDetector(
               onTap: () {
                 _controller.selectedStoolType.value = index;
                 _controller.selectStoolType(index);
@@ -713,16 +689,14 @@ class RomeQuestionnaire extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      vertical: ScreenConstant.defaultHeightSixteen
-                  ),
+                      vertical: ScreenConstant.defaultHeightSixteen),
                   child: Text(model.text,
                       textAlign: TextAlign.center,
                       style: TextStyles.textStyleIntroDescription.apply(
                           color: _controller.selectedStoolType.value == index
                               ? Colors.white
                               : AppColors.colorBackground,
-                          fontSizeDelta: -3)
-                  ),
+                          fontSizeDelta: -3)),
                 ),
 
                 //  ListTile(
@@ -799,7 +773,7 @@ class RomeQuestionnaire extends StatelessWidget {
                               child: Image.asset(
                                 model.image,
                                 width:
-                                ScreenConstant.defaultWidthOneHundredSeven,
+                                    ScreenConstant.defaultWidthOneHundredSeven,
                                 height: ScreenConstant.defaultHeightOneHundred,
                               ),
                             ),
@@ -808,10 +782,8 @@ class RomeQuestionnaire extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 style: TextStyles.textStyleIntroDescription
                                     .apply(
-                                    color: Colors.black,
-                                    fontSizeDelta: -6
-                                )
-                            ),
+                                        color: Colors.black,
+                                        fontSizeDelta: -6)),
                             SizedBox(height: ScreenConstant.sizeExtraSmall),
                             Container(
                               decoration: BoxDecoration(
@@ -826,8 +798,8 @@ class RomeQuestionnaire extends StatelessWidget {
                                 child: Text(model.type,
                                     style: TextStyles.textStyleIntroDescription
                                         .apply(
-                                        color: Colors.white,
-                                        fontSizeDelta: -9)),
+                                            color: Colors.white,
+                                            fontSizeDelta: -9)),
                               ),
                             )
                           ],
@@ -862,6 +834,4 @@ class RomeQuestionnaire extends StatelessWidget {
       ),
     );
   }
-
 }
-

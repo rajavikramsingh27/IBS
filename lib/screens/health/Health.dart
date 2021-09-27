@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/health/HealthController.dart';
-import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/controllers/user/UserController.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
@@ -14,7 +12,7 @@ import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 
 class Health extends StatelessWidget {
-  final controller = Get.put(HealthController());
+  final HealthController controller = Get.find();
   final UserController _userController = Get.find();
 
   @override
@@ -99,26 +97,28 @@ class Health extends StatelessWidget {
                                       int listLength =
                                           controller.formWidgetList.length;
 
-                                      if ( mainIndex >= (listLength - _numSkipped ) ){
+                                      if (mainIndex >=
+                                          (listLength - _numSkipped)) {
                                         // If it's the last one or two... because additional notes could be after.
                                         isLast = true;
                                       }
 
-                                      bool isTracked =
-                                      _userController.doesUserTrack(controller
-                                          .formWidgetList[mainIndex]);
+                                      bool isTracked = _userController
+                                          .doesUserTrack(controller
+                                              .formWidgetList[mainIndex]);
                                       if (isTracked) {
                                         _numRendered++;
                                         return RenderWidgetByType()
                                             .renderTrackableItem(
-                                            controller
-                                                .formWidgetList[mainIndex],
-                                            isFirst: _numRendered == 1,
-                                            isLast: isLast,
-                                            onValueChanged:
-                                            controller.valueChanged);
+                                                controller
+                                                    .formWidgetList[mainIndex],
+                                                isFirst: _numRendered == 1,
+                                                isLast: isLast,
+                                                onValueChanged:
+                                                    controller.valueChanged,
+                                                onValueRemoved: controller.onValueRemoved);
                                       } else {
-                                        _numSkipped ++;
+                                        _numSkipped++;
                                         return Offstage();
                                       }
                                     }),
@@ -136,7 +136,8 @@ class Health extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyles.textStyleRegular,
                             ),
-                            SizedBox(height: ScreenConstant.defaultHeightTwenty),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightTwenty),
                             Text(
                               '''Click “Save” to log your results''',
                               textAlign: TextAlign.center,
@@ -159,7 +160,7 @@ class Health extends StatelessWidget {
   _buildWavePainter() {
     return Container(
       margin:
-      EdgeInsets.only(bottom: 30), //ScreenConstant.defaultHeightSeventy),
+          EdgeInsets.only(bottom: 30), //ScreenConstant.defaultHeightSeventy),
       width: Get.context.mediaQuerySize.width,
       child: CustomPaint(
         size: Size(Get.context.mediaQuerySize.width, 52),
@@ -167,6 +168,4 @@ class Health extends StatelessWidget {
       ),
     );
   }
-
-
 }

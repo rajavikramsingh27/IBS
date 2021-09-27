@@ -62,17 +62,20 @@ class TreatmentPlanListWidget extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
           TreatmentPlanListItem(data.planDescription.tr, () {
-            Get.to(()=>TreatmentPlanListWidgetDetails(
-              details: data.planDetails.details,
-              title: data.planDetails.name.tr,
-            ));
+            Get.to(() => TreatmentPlanListWidgetDetails(
+                  details: data.planDetails.details,
+                  title: data.planDetails.name.tr,
+                ));
           }),
           SizedBox(height: ScreenConstant.defaultHeightSixteen),
           CustomElevatedButton(
             text: data.startButton.tr,
             widthFactor: 0.95,
             onTap: () {
-              Get.bottomSheet(StartTreatmentPlan(data: data,),
+              Get.bottomSheet(
+                  StartTreatmentPlan(
+                    data: data,
+                  ),
                   isScrollControlled: true,
                   barrierColor: AppColors.barrierColor.withOpacity(0.60));
             },
@@ -92,10 +95,10 @@ class TreatmentPlanListWidget extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               var model = data.additionalResources[index];
               return TreatmentPlanListItem(model.name.tr, () {
-                Get.to(()=>TreatmentPlanListWidgetDetails(
-                  details: model.details,
-                  title: data.planName.tr,
-                ));
+                Get.to(() => TreatmentPlanListWidgetDetails(
+                      details: model.details,
+                      title: data.planName.tr,
+                    ));
               });
             },
             separatorBuilder: (BuildContext context, int index) => SizedBox(

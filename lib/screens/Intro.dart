@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
@@ -93,12 +92,13 @@ class _IntroState extends State<Intro> {
                                   color: Colors.white.withOpacity(0.36)),
                               children: <TextSpan>[
                                 TextSpan(
-                                 // recognizer: TapGestureRecognizer()
-                                //    ..onTap = () => Get.toNamed(signIn),
+                                  // recognizer: TapGestureRecognizer()
+                                  //    ..onTap = () => Get.toNamed(signIn),
                                   text: 'Log in',
                                   style: TextStyles.textStyleIntroDescription
                                       .apply(
-                                          fontSizeDelta: -2, color: Colors.white),
+                                          fontSizeDelta: -2,
+                                          color: Colors.white),
                                 ),
                               ],
                             ),
@@ -128,9 +128,12 @@ class _IntroState extends State<Intro> {
                 child: Center(
                     child: Column(
                   children: [
-                    Image.asset(
-                      "assets/images/intro/intro$index.png",
-                      fit: BoxFit.cover,
+                    Padding(
+                      padding: EdgeInsets.only(left: 50, right: 50, top: 80),
+                      child: Image.asset(
+                        "assets/images/intro/intro$index.png",
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     SizedBox(height: 20),
                     Text(

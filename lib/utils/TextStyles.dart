@@ -55,62 +55,62 @@ class TextStyles {
       fontWeight: FontWeight.normal);
 
   static TextStyle get textStyleSettingQuestionaireBlack => TextStyle(
-    color: Colors.black,
-    fontSize: FontSize.s16,
-    fontFamily: 'Roboto',
-    fontWeight: FontWeight.normal,
-  );
+        color: Colors.black,
+        fontSize: FontSize.s16,
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.normal,
+      );
 
   static TextStyle get textStyleSettingQuestionaireBlue => TextStyle(
-    color: AppColors.colorBackground,
-    fontSize: FontSize.s16,
-    fontFamily: 'Roboto',
-    fontWeight: FontWeight.normal,
-  );
+        color: AppColors.colorBackground,
+        fontSize: FontSize.s16,
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.normal,
+      );
 
   static TextStyle get textStyleSettingQuestionaireButton => TextStyle(
-    color: AppColors.colorBackground,
-    fontSize: FontSize.s15,
-    fontFamily: 'Roboto',
-    fontWeight: FontWeight.w500,
-  );
+        color: AppColors.colorBackground,
+        fontSize: FontSize.s15,
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w500,
+      );
 
   static TextStyle get textStyleSettingNotificationsTitle => TextStyle(
-    fontSize: 15,
-    fontWeight: FontWeight.w500,
-    fontFamily: 'Roboto-Regular',
-    color: Colors.white,
-  );
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+        fontFamily: 'Roboto-Regular',
+        color: Colors.white,
+      );
 
   static TextStyle get textStyleSettingNotificationsSubTitle => TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'Roboto-Regular',
-    color: Colors.white,
-  );
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        fontFamily: 'Roboto-Regular',
+        color: Colors.white,
+      );
 
   static TextStyle get textStyleSettingNotificationsResourceTitle => TextStyle(
-    fontFamily: 'Roboto',
-    color: Colors.black,
-    fontSize: FontSize.s20,
-    fontWeight: FontWeight.w500,
-  );
+        fontFamily: 'Roboto',
+        color: Colors.black,
+        fontSize: FontSize.s20,
+        fontWeight: FontWeight.w500,
+      );
 
-  static TextStyle get textStyleSettingNotificationsResourceSubTitle => TextStyle(
-    fontFamily: 'Roboto',
-    color: Colors.blue,
-    fontSize: FontSize.s18,
-    fontWeight: FontWeight.normal,
-  );
+  static TextStyle get textStyleSettingNotificationsResourceSubTitle =>
+      TextStyle(
+        fontFamily: 'Roboto',
+        color: Colors.blue,
+        fontSize: FontSize.s18,
+        fontWeight: FontWeight.normal,
+      );
 
   static TextStyle get textStyleSettingResourcesLink => TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'Roboto',
-    color: Colors.black,
-    decoration: TextDecoration.underline,
-    decorationColor: Colors.blue,
-    decorationThickness: 2,
-  );
-
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        fontFamily: 'Roboto',
+        color: Colors.black,
+        decoration: TextDecoration.underline,
+        decorationColor: Colors.blue,
+        decorationThickness: 2,
+      );
 }

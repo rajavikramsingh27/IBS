@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/user/UserController.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/TrackableItemUtils.dart';
 import 'package:flutter_ibs/widget/ScreenControls/TagWidget.dart';
+import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
 
 class AddableTagListWidget extends StatefulWidget {
@@ -14,7 +15,7 @@ class AddableTagListWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
- // List<Tag> _selectedItems;
+  final Function(TrackableItem)  onValueRemoved;
 
   AddableTagListWidget({
     //Key key,
@@ -23,6 +24,7 @@ class AddableTagListWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super();
 
   @override
@@ -30,9 +32,9 @@ class AddableTagListWidget extends StatefulWidget {
 }
 
 class _AddableTagListWidgetState extends State<AddableTagListWidget> {
-  List<Tag> selectedItems;
+  RxList<Tag> selectedItems;
   UserController _userController;
-
+  RxList<Tag> _allTags;
 
   final _textController = TextEditingController();
 
@@ -41,17 +43,60 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     _textController.dispose();
+    widget.onValueRemoved(widget.trackableItem);
     super.dispose();
   }
 
 
+
   @override
   void initState() {
-    selectedItems = [];
+    super.initState();
+    doInit();
+  }
+
+
+  @override
+  void didUpdateWidget(covariant AddableTagListWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    doInit();
+  }
+
+
+  void doInit(){
+    selectedItems = RxList<Tag>();
+
+    // Set the initial list of selected tags
+    if (widget.trackableItem.tags.selectedTags != null) {
+      widget.trackableItem.tags.selectedTags.forEach((selTag) {
+        selectedItems.add(selTag);
+      });
+      selectedItems.refresh();
+    }
+
+    // Combine the available tags default with the user's list:
+    _allTags = RxList<Tag>();
+    List<Tag> combinedTags = TrackableItemUtils()
+        .addUserTagsToList(
+        tags: widget.trackableItem.tags.tagsDefault,
+        category: widget.trackableItem.tags.category);
+
+    // Set the available tags active if they are selected:
+    combinedTags.forEach((aTag) {
+      selectedItems.forEach((sTag) {
+        if(sTag.value == aTag.value){
+          aTag.selected = true;
+        }
+      });
+    });
+
+    _allTags.addAll(combinedTags);
+
     _userController = Get.find();
     _textController.addListener(_onAddTagFieldChanged);
-    super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +135,7 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
                 SizedBox(height: ScreenConstant.defaultHeightTen),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: ScreenConstant.defaultWidthTwenty),
+                      horizontal: ScreenConstant.defaultWidthTwenty),
                   child: Text(widget.trackableItem.description.tr,
                       style: TextStyles.textStyleIntroDescription
                           .apply(color: Colors.white60, fontSizeDelta: -6)),
@@ -159,10 +204,7 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
                 // Available tags list
                 Obx(
                   () => Wrap(
-                    children: TrackableItemUtils()
-                        .addUserTagsToList(
-                            tags: widget.trackableItem.tags.tagsDefault,
-                            category: widget.trackableItem.tags.category)
+                    children: _allTags
                         .map((item) => InkWell(
                               child: TagWidget(
                                 tag: item,
@@ -191,15 +233,20 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
   /// Add tag button hit:
   _addNewTag() {
     String copy = _textController.text.trim();
-    if (copy.length == 0){
+    if (copy.length == 0) {
       return;
     }
+
+    dismissKeyboard(this.context);
 
     Tag tag = Tag();
     tag.value = copy;
     tag.category = widget.trackableItem.tags.category;
     _userController.addTagToUser(tag);
     tag.selected = true;
+
+    _allTags.add(tag);
+    _allTags.refresh();
 
     _onHandleToggle(widget.trackableItem, tag);
 
@@ -217,10 +264,19 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
       if (tag.selected) {
         selectedItems.add(tag);
       } else {
-        selectedItems.remove(tag);
+        for(var i=0;i<selectedItems.length;i++){
+          if (selectedItems[i].value == tag.value){
+            selectedItems.removeAt(i);
+          }
+        }
+        _allTags.forEach((aTag) {
+          if (aTag.value == tag.value){
+            aTag.selected = false;
+          }
+        });
       }
+      selectedItems.refresh();
     });
-
 
 
     List<String> flatList = [];
@@ -237,11 +293,7 @@ class _AddableTagListWidgetState extends State<AddableTagListWidget> {
     ));
   }
 
-
-  _onAddTagFieldChanged(){
-
-  }
-
+  _onAddTagFieldChanged() {}
 }
 /*
    var count = selectedItems.length;

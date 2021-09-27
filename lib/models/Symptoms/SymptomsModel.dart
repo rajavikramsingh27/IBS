@@ -20,16 +20,19 @@ String symptomsModelToJson(SymptomsModel data) => json.encode(data.toJson());
 
 class SymptomsModel {
   SymptomsModel({
+    this.id,
     this.category = "symptoms",
     this.items,
     this.trackedAt,
   });
 
+  String id;
   String category;
   List<TrackableSubmitItem> items;
   DateTime trackedAt;
 
   factory SymptomsModel.fromJson(Map<String, dynamic> json) => SymptomsModel(
+        id: json["_id"] == null ? null : json["_id"],
         category: json["category"] == null ? null : json["category"],
         items: json["items"] == null
             ? null
@@ -40,12 +43,19 @@ class SymptomsModel {
       );
 
   Map<String, dynamic> toJson() {
+    /*
     HomeController controller = Get.find();
     DateTime now = DateTime.now();
-    DateTime trackedAt = new DateTime(controller.selectedDate.year, controller.selectedDate.month, controller.selectedDate.day,
-        now.hour, now.minute, now.second);
-
+    DateTime trackedAt = new DateTime(
+        controller.selectedDate.year,
+        controller.selectedDate.month,
+        controller.selectedDate.day,
+        now.hour,
+        now.minute,
+        now.second);
+*/
     Map<String, dynamic> json = {
+      "_id": id == null ? null : id,
       "category": category == null ? null : category,
       "items": items == null
           ? null
@@ -55,113 +65,3 @@ class SymptomsModel {
     return json;
   }
 }
-/*
-class Item {
-  Item({
-    this.tid,
-    this.kind = "rating",
-    this.dtype = "num",
-    this.value,
-    this.children,
-    this.category,
-  });
-
-  String tid;
-  String kind;
-  String dtype;
-  ItemValue value;
-  List<Child> children;
-  String category;
-
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
-    tid: json["tid"] == null ? null : json["tid"],
-    kind: json["kind"] == null ? null : json["kind"],
-    dtype: json["dtype"] == null ? null : json["dtype"],
-    value: json["value"] == null ? null : ItemValue.fromJson(json["value"]),
-    children: json["children"] == null ? null : List<Child>.from(json["children"].map((x) => Child.fromJson(x))),
-    category: "symptoms" //json["category"] == null ? null : json["category"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "tid": tid == null ? null : tid,
-    "kind": kind == null ? null : kind,
-    "dtype": dtype == null ? null : dtype,
-    "value": value == null ? null : value.toJson(),
-    "children": children == null ? null : List<dynamic>.from(children.map((x) => x.toJson())),
-    "category": "symptoms",
-  };
-}
-
-class Child {
-  Child({
-    this.tid,
-    this.kind = "list",
-    this.dtype = "arr",
-    this.value,
-    this.category,
-  });
-
-  String tid;
-  String kind;
-  String dtype;
-  ChildValue value;
-  String category;
-
-  factory Child.fromJson(Map<String, dynamic> json) => Child(
-    tid: json["tid"] == null ? null : json["tid"],
-    kind: json["kind"] == null ? null : json["kind"],
-    dtype: json["dtype"] == null ? null : json["dtype"],
-    value: json["value"] == null ? null : ChildValue.fromJson(json["value"]),
-    category: "symptoms",
-  );
-
-  Map<String, dynamic> toJson() => {
-    "tid": tid == null ? null : tid,
-    "kind": kind == null ? null: kind,
-    "dtype": dtype == null ? null : dtype,
-    "value": value == null ? null : value.toJson(),
-    "category": "symptoms",
-  };
-}
-
-class ChildValue {
-  ChildValue({
-    this.arr,
-    this.str,
-  });
-
-  List<String> arr;
-  String str;
-
-  factory ChildValue.fromJson(Map<String, dynamic> json) => ChildValue(
-    arr: json["arr"] == null ? null : List<String>.from(json["arr"].map((x) => x)),
-    str: json["str"] == null ? null : json["str"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "arr": arr == null ? null : List<dynamic>.from(arr.map((x) => x)),
-    "str": str == null ? null : str,
-  };
-}
-
-class ItemValue {
-  ItemValue({
-    this.numValue,
-    this.str,
-  });
-
-  num numValue;
-  String str;
-
-  factory ItemValue.fromJson(Map<String, dynamic> json) => ItemValue(
-    numValue: json["num"] == null ? null : json["num"],
-    str: json["str"] == null ? null : json["str"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "num": numValue == null ? null : numValue,
-    "str": str == null ? null : str,
-  };
-}
-
-*/

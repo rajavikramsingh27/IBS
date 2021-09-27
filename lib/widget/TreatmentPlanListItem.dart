@@ -1,13 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 
 class TreatmentPlanListItem extends StatelessWidget {
-final title;
-final onPressed;
-TreatmentPlanListItem(this.title, this.onPressed);
+  final title;
+  final onPressed;
+  TreatmentPlanListItem(this.title, this.onPressed);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +21,7 @@ TreatmentPlanListItem(this.title, this.onPressed);
         title: Padding(
           padding: EdgeInsets.only(left: ScreenConstant.sizeXXL),
           child: Text(
-            title??"",
+            title ?? "",
             style: TextStyles.textStyleIntroDescription
                 .apply(color: Colors.black, fontSizeDelta: -6),
           ),

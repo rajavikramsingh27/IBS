@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ibs/controllers/signIn/SignInController.dart';
-import 'package:flutter_ibs/controllers/user/UserController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
@@ -49,22 +48,22 @@ class SignIn extends StatelessWidget {
         //     },
         //   ),
         // ),
-        body: Obx(()=>InkWell(
-          onTap: () {
-            dismissKeyboard(context);
-          },
-          child: ListView(
-            physics: ClampingScrollPhysics(),
-            padding: ScreenConstant.spacingAllLarge,
-            children: [
-              SizedBox(
-                  height: context.mediaQuerySize.width > 400
-                      ? ScreenConstant.defaultHeightTwoHundred
-                      : ScreenConstant.defaultHeightSixty),
-              _buildLoginForm(),
-            ],
-          ),
-        )));
+        body: Obx(() => InkWell(
+              onTap: () {
+                dismissKeyboard(context);
+              },
+              child: ListView(
+                physics: ClampingScrollPhysics(),
+                padding: ScreenConstant.spacingAllLarge,
+                children: [
+                  SizedBox(
+                      height: context.mediaQuerySize.width > 400
+                          ? ScreenConstant.defaultHeightTwoHundred
+                          : ScreenConstant.defaultHeightSixty),
+                  _buildLoginForm(),
+                ],
+              ),
+            )));
   }
 
   _buildLoginForm() {
@@ -132,15 +131,17 @@ class SignIn extends StatelessWidget {
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.5),
           Center(
-            child: _controller.loader.value ? CircularProgressIndicator():CustomElevatedButton2(
-              widthFactor: 0.7,
-              textColor: AppColors.colorBackground,
-              buttonColor: Colors.white,
-              onTap: () {
-                _controller.onAutoValidate();
-              },
-              text: "Login",
-            ),
+            child: _controller.loader.value
+                ? CircularProgressIndicator()
+                : CustomElevatedButton2(
+                    widthFactor: 0.7,
+                    textColor: AppColors.colorBackground,
+                    buttonColor: Colors.white,
+                    onTap: () {
+                      _controller.onAutoValidate();
+                    },
+                    text: "Login",
+                  ),
           ),
           SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
           Center(

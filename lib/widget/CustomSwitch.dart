@@ -1,10 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
-import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/HexColor.dart';
-
+import 'package:flutter_ibs/utils/ScreenConstants.dart';
 
 class CustomSwitch extends StatefulWidget {
   final bool value;
@@ -24,8 +21,8 @@ class CustomSwitch extends StatefulWidget {
 
 class _CustomSwitchState extends State<CustomSwitch>
     with SingleTickerProviderStateMixin {
-   Animation _circleAnimation;
-   AnimationController _animationController;
+  Animation _circleAnimation;
+  AnimationController _animationController;
 
   @override
   void initState() {
@@ -33,10 +30,12 @@ class _CustomSwitchState extends State<CustomSwitch>
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 60));
     _circleAnimation = AlignmentTween(
-            begin: widget.value ? Alignment.centerRight : Alignment.centerLeft,
-            end: widget.value ? Alignment.centerLeft : Alignment.centerRight)
+            begin: widget.value ?  Alignment.centerLeft : Alignment.centerRight,
+            end: widget.value ?  Alignment.centerRight : Alignment.centerLeft )
         .animate(CurvedAnimation(
             parent: _animationController, curve: Curves.linear));
+
+    print ("Init state: " + widget.value.toString() );
   }
 
   @override
@@ -66,10 +65,7 @@ class _CustomSwitchState extends State<CustomSwitch>
             ),
             child: Padding(
               padding: const EdgeInsets.only(
-                top: 2.0,
-                bottom: 2.0,
-                right: 4.0, left: 4.0
-              ),
+                  top: 2.0, bottom: 2.0, right: 4.0, left: 4.0),
               child: Container(
                 alignment: _circleAnimation.value == Alignment.centerLeft
                     ? Alignment.centerRight

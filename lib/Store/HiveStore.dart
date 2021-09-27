@@ -14,7 +14,6 @@ class Keys {
   static const String ISLOGIN = "ISLOGIN";
   static const String ISSOCIALLOGIN = "ISSOCIALLOGIN";
   static const String LANGUAGE = "LANGUAGE";
-
 }
 
 class HiveStore {

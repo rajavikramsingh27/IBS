@@ -43,7 +43,8 @@ class CustomArcPainter2 extends StatelessWidget {
       this.heightFactor,
       this.quarterTurns,
       this.height,
-      this.width,this.painter})
+      this.width,
+      this.painter})
       : super(key: key);
 
   @override

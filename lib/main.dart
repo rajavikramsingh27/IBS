@@ -1,20 +1,20 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_ibs/controllers/home/HomeController.dart';
+import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/user/UserController.dart';
 import 'package:flutter_ibs/routes/NavRouter.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
-import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/Strings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:flutter/services.dart';
+
 import 'Store/HiveStore.dart';
 import 'language/LocalTranslations.dart';
 
-main() async{
+main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setSystemUIOverlayStyle(
@@ -26,7 +26,8 @@ main() async{
   await HiveStore().initBox();
   await getLanguage();
 
-  Get.put(TrackablesController());//Init trackables which pulls the list together
+  Get.put(
+      TrackablesController()); //Init trackables which pulls the list together
   Get.put(UserController());
   Get.put(HomeController());
   runApp(IBS());
@@ -39,24 +40,26 @@ getLanguage() async {
   data.forEach((element) {
     LocalizationService.languages.add(element["lang"]);
     LocalizationService.locales.add(Locale(element["lang"]));
-    Map<String,String> stringParams = {};
-    element.forEach((k,v)=>stringParams[k.toString()] = v.toString());
+    Map<String, String> stringParams = {};
+    element.forEach((k, v) => stringParams[k.toString()] = v.toString());
     HiveStore().put(element["lang"], stringParams);
-    LocalizationService.keyList[element["lang"]] = HiveStore().get(element["lang"]);
-    printWrapped("KeyList: ${LocalizationService.keyList}",);
+    LocalizationService.keyList[element["lang"]] =
+        HiveStore().get(element["lang"]);
+    printWrapped(
+      "KeyList: ${LocalizationService.keyList}",
+    );
   });
 }
+
 void printWrapped(String text) {
   final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
   pattern.allMatches(text).forEach((match) => print(match.group(0)));
 }
 
 class IBS extends StatelessWidget {
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: splash,
@@ -90,6 +93,3 @@ class IBS extends StatelessWidget {
     );
   }
 }
-
-
-

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
-import 'package:flutter_ibs/utils/ScreenConstants.dart';
+import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/TrackableItemUtils.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
 
@@ -11,6 +10,7 @@ class RenderItemChildrenWidget extends StatelessWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem) onValueRemoved;
 
   const RenderItemChildrenWidget({
     Key key,
@@ -19,6 +19,7 @@ class RenderItemChildrenWidget extends StatelessWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super(key: key);
 
   @override
@@ -32,14 +33,14 @@ class RenderItemChildrenWidget extends StatelessWidget {
             color: AppColors.colorYesButton,
           ),
         ),
-
         ListView.builder(
             shrinkWrap: true,
             physics: ClampingScrollPhysics(),
             itemCount: trackableItem.children.length,
             itemBuilder: (_, childCount) {
-              bool doRender = _validateCondition(trackableItem.children[childCount], trackableItem);
-              if (!doRender){
+              bool doRender = _validateCondition(
+                  trackableItem.children[childCount], trackableItem);
+              if (!doRender) {
                 return Offstage();
               }
               return ListView.builder(
@@ -52,32 +53,47 @@ class RenderItemChildrenWidget extends StatelessWidget {
                         isChild: true,
                         isFirst: false,
                         isLast: false,
-                        onValueChanged: onValueChanged);
+                        onValueChanged: onValueChanged,
+                        onValueRemoved: onValueRemoved);
                   });
             }),
       ],
     );
   }
 
-  bool _validateCondition(TrackableChild child, TrackableItem parent){
+  bool _validateCondition(TrackableChild child, TrackableItem parent) {
     var condition = child.condition;
     var parentValue = TrackableItemUtils().getItemValue(parent);
 
-    switch (condition.conditionOperator){
-        case "ALWAYS":
-          return true;
+    bool isRendered = false;
+
+    switch (condition.conditionOperator) {
+      case "ALWAYS":
+        isRendered = true;
+        break;
       case "GT":
-        return parentValue > child.condition.value;
+        isRendered = parentValue > child.condition.value;
+        break;
       case "LT":
-        return parentValue < child.condition.value;
+        isRendered = parentValue < child.condition.value;
+        break;
       case "EQ":
-        return parentValue == child.condition.value;
+        isRendered = parentValue == child.condition.value;
+        break;
+      default:
+        print("_validateCondition unmatched, returning default true for: " +
+            parent.tid);
+        isRendered = true;
+        break;
     }
-    print ("_validateCondition unmatched, returning default true for: " + parent.tid);
-    return true;
+
+    if (!isRendered){
+      child.items.forEach((childItem) {
+        childItem.reset();
+      });
+    }
+    return isRendered;
   }
 
-  _getTrackableItemValue(TrackableItem item){
-
-  }
+  _getTrackableItemValue(TrackableItem item) {}
 }

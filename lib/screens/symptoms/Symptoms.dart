@@ -4,7 +4,6 @@ import 'package:flutter_ibs/controllers/user/UserController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
@@ -12,15 +11,16 @@ import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 
 class Symptoms extends StatelessWidget {
-  final SymptomsController controller = Get.put(SymptomsController());
+  final SymptomsController controller = Get.find();
   final UserController _userController = Get.find();
+
 
   @override
   Widget build(BuildContext context) {
     int _numRendered = 0;
     int _numSkipped = 0;
 
-    return Scaffold(
+    return /*Scaffold(
         resizeToAvoidBottomInset: false,
         bottomNavigationBar: Container(
           color: Colors.white,
@@ -44,7 +44,8 @@ class Symptoms extends StatelessWidget {
           ),
         ),
         backgroundColor: AppColors.barrierColor.withOpacity(0.6),
-        body: Obx(
+        body:*/
+      Obx(
           () => ListView(
             physics: ClampingScrollPhysics(),
             children: [
@@ -91,32 +92,37 @@ class Symptoms extends StatelessWidget {
                                     physics: ClampingScrollPhysics(),
                                     itemCount: controller.formWidgetList.length,
                                     itemBuilder: (_, mainIndex) {
+                                      var item = controller
+                                          .formWidgetList[mainIndex];
+
                                       bool isLast = false;
                                       int listLength =
                                           controller.formWidgetList.length;
 
-                                      int total = (listLength -2) - ( _numSkipped ) ;
-                                      if ( mainIndex >= total ){
+                                      int total =
+                                          (listLength - 2) - (_numSkipped);
+                                      if (mainIndex >= total) {
                                         // If it's the last one or two... because additional notes could be after.
                                         isLast = true;
                                       }
-print("IDx $mainIndex  total $total - $isLast");
+                                      print(
+                                          "IDx $mainIndex  total $total - $isLast");
 
-                                      bool isTracked =
-                                      _userController.doesUserTrack(controller
-                                          .formWidgetList[mainIndex]);
+                                      bool isTracked = _userController
+                                          .doesUserTrack(controller
+                                              .formWidgetList[mainIndex]);
                                       if (isTracked) {
                                         _numRendered++;
                                         return RenderWidgetByType()
-                                            .renderTrackableItem(
-                                            controller
-                                                .formWidgetList[mainIndex],
-                                            isFirst: _numRendered == 1,
-                                            isLast: isLast,
-                                            onValueChanged:
-                                            controller.valueChanged);
+                                            .renderTrackableItem(item,
+                                                isFirst: _numRendered == 1,
+                                                isLast: isLast,
+                                                onValueChanged:
+                                                    controller.valueChanged,
+                                                onValueRemoved:
+                                                    controller.onValueRemoved);
                                       } else {
-                                        _numSkipped ++;
+                                        _numSkipped++;
                                         return Offstage();
                                       }
                                     }),
@@ -143,7 +149,25 @@ print("IDx $mainIndex  total $total - $isLast");
                               textAlign: TextAlign.center,
                               style: TextStyles.textStyleRegular,
                             ),
-                            SizedBox(height: ScreenConstant.defaultHeightForty)
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                SizedBox(height: ScreenConstant.defaultHeightTen),
+                                CustomElevatedButton(
+                                  widthFactor: 0.7,
+                                  text: "Save",
+                                  onTap: controller.onSave,
+                                ),
+                                TextButton(
+                                    onPressed: controller.onCancel,
+                                    child: Text("Cancel",
+                                        style: TextStyles.textStyleIntroDescription.apply(
+                                          color: AppColors.colorskip_also_proceed,
+                                        )))
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -154,7 +178,7 @@ print("IDx $mainIndex  total $total - $isLast");
               ),
             ],
           ),
-        ));
+        );
   }
 
   _buildWavePainter() {

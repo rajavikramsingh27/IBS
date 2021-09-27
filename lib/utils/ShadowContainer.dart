@@ -1,7 +1,4 @@
-
-
 import 'package:flutter/material.dart';
-
 
 class AppShadow {
   shadowSetting() {
@@ -32,5 +29,3 @@ class AppShadow {
     );
   }
 }
-
-

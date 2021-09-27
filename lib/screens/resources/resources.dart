@@ -1,29 +1,21 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_ibs/screens/resources/ResourcesContents.dart';
-import 'package:flutter_ibs/screens/resourcesArticleView/resourcesArticleView.dart';
-import 'package:flutter_ibs/utils/Colors.dart';
-import 'package:flutter_ibs/utils/HexColor.dart';
-import 'package:flutter_ibs/utils/ScreenConstants.dart';
-import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/widget/LeadingBackButton.dart';
-import 'package:get/get.dart';
-import 'package:flutter_ibs/widget/CustomBottomNavigation.dart';
-
-import 'package:flutter/services.dart';
 import 'package:flutter_ibs/controllers/signIn/SignInController.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
-import 'package:flutter_ibs/utils/Assets.dart';
-import 'package:flutter_ibs/utils/Validator.dart';
-import 'package:flutter_ibs/widget/CustomTextFormField%20.dart';
 import 'package:flutter_ibs/screens/ResourcesAdditionalRelated/ResourcesAdditionalRelated.dart';
+import 'package:flutter_ibs/screens/resources/ResourcesContents.dart';
+import 'package:flutter_ibs/screens/resourcesArticleView/resourcesArticleView.dart';
+import 'package:flutter_ibs/utils/Assets.dart';
+import 'package:flutter_ibs/utils/Colors.dart';
+import 'package:flutter_ibs/utils/ScreenConstants.dart';
+import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/CustomBottomNavigation.dart';
+import 'package:flutter_ibs/widget/LeadingBackButton.dart';
+import 'package:get/get.dart';
 
 class Resources extends StatelessWidget {
   final SignInController _controller = Get.put(SignInController());
-
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +64,9 @@ class Resources extends StatelessWidget {
                     Assets.resources_1,
                   ),
                 ),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty,),
+                SizedBox(
+                  height: ScreenConstant.defaultHeightTwenty,
+                ),
                 // Text(
                 //   'Search all Resources',
                 //   style: TextStyles.textStyleSettingQuestionaireButton,
@@ -102,7 +96,9 @@ class Resources extends StatelessWidget {
                 //     ),
                 //   ),
                 // ),
-                SizedBox(height: ScreenConstant.defaultHeightTwenty,),
+                SizedBox(
+                  height: ScreenConstant.defaultHeightTwenty,
+                ),
                 buildResourcesList(),
               ],
             ),
@@ -123,64 +119,61 @@ class Resources extends StatelessWidget {
           return Container(
             height: 2,
           );
-        }, itemBuilder: (context, index) {
-      return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: Colors.transparent,
-          padding: EdgeInsets.all(0),
-          elevation: 0
-        ),
-        child: Container(
-          padding: ScreenConstant.spacingAllSmall,
-          height: 70,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            // borderRadius: BorderRadius.circular(16),
-            // border: Border.all(color: AppColors.colorBorder, width: 1)
-          ),
-          child: ListTile(
-            dense: true,
-            contentPadding: EdgeInsets.zero,
-            title: Padding(
-              padding: EdgeInsets.only(left: ScreenConstant.sizeXXL),
-              child: Text(
-                ResourcesContents().arrResources[index],
-                style: TextStyles.textStyleSettingQuestionaireBlack,
+        },
+        itemBuilder: (context, index) {
+          return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Colors.transparent,
+                padding: EdgeInsets.all(0),
+                elevation: 0),
+            child: Container(
+              padding: ScreenConstant.spacingAllSmall,
+              height: 70,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                // borderRadius: BorderRadius.circular(16),
+                // border: Border.all(color: AppColors.colorBorder, width: 1)
+              ),
+              child: ListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                title: Padding(
+                  padding: EdgeInsets.only(left: ScreenConstant.sizeXXL),
+                  child: Text(
+                    ResourcesContents().arrResources[index],
+                    style: TextStyles.textStyleSettingQuestionaireBlack,
+                  ),
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios_outlined,
+                  color: AppColors.colorArrowButton,
+                  size: FontSize.s16,
+                ),
               ),
             ),
-            trailing: Icon(
-              Icons.arrow_forward_ios_outlined,
-              color: AppColors.colorArrowButton,
-              size: FontSize.s16,
-            ),
-          ),
-        ),
-        onPressed: () {
+            onPressed: () {
+              if (index == ResourcesContents().arrResources.length - 1) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ResourcesAdditionalRelated()),
+                );
+              } else {
+                final arrResourcesArticleView = [
+                  ResourcesContents().arrResourcesImages[index],
+                  ResourcesContents().arrResources[index],
+                  ResourcesContents().arrResourcesDescription[index],
+                ];
 
-          if (index == ResourcesContents().arrResources.length-1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>
-                  ResourcesAdditionalRelated()),
-            );
-          } else {
-            final arrResourcesArticleView = [
-              ResourcesContents().arrResourcesImages[index],
-              ResourcesContents().arrResources[index],
-              ResourcesContents().arrResourcesDescription[index],
-            ];
-
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>
-                  ResourcesArticleView(
-                      arrResourcesArticleView: arrResourcesArticleView)),
-            );
-          }
-        },
-
-      );
-    });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ResourcesArticleView(
+                          arrResourcesArticleView: arrResourcesArticleView)),
+                );
+              }
+            },
+          );
+        });
   }
-
 }

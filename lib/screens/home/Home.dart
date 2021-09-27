@@ -1,15 +1,21 @@
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/bowel_movement/BowelMovementController.dart';
+import 'package:flutter_ibs/controllers/food/FoodController.dart';
+import 'package:flutter_ibs/controllers/health/HealthController.dart';
 import 'package:flutter_ibs/controllers/home/HomeController.dart';
+import 'package:flutter_ibs/controllers/journal/JournalController.dart';
+import 'package:flutter_ibs/controllers/medication/MedicationController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
 import 'package:flutter_ibs/controllers/symptoms/SymptomsController.dart';
 import 'package:flutter_ibs/controllers/user/UserController.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
 import 'package:flutter_ibs/screens/food/Foods.dart';
 import 'package:flutter_ibs/screens/health/Health.dart';
+import 'package:flutter_ibs/screens/journal/Journal.dart';
 import 'package:flutter_ibs/screens/medication/Medication.dart';
 import 'package:flutter_ibs/screens/symptoms/Symptoms.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
@@ -19,7 +25,7 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomBottomNavigation.dart';
 import 'package:get/get.dart';
-import 'package:flutter_ibs/screens/journal/Journal.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -223,7 +229,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         var model = DummyData.trackFlow[index];
         bool isTracked = _userController.doesUserTrackCategory(model.category);
 
-        if (!isTracked){
+        if (!isTracked) {
           return Offstage();
         }
 
@@ -328,7 +334,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                           style: TextStyles.textStyleRegular
                               .apply(fontSizeDelta: 2, color: Colors.black)),
                       subtitle: Text(
-                          model.createdAt.toString().split(".").first ?? "",
+                          DateFormat('EEEE, MMM d, y - hh:mm a').format(model.trackedAt.toLocal()),
                           style: TextStyles.textStyleRegular.apply(
                               fontSizeDelta: -2,
                               color: Colors.black.withOpacity(0.54))),
@@ -345,38 +351,53 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     switch (index) {
       case 0:
         {
-          SymptomsController _symptomsController =
-              Get.put(SymptomsController());
-          //_symptomsController.checkData();
+          SymptomsController controller = Get.find();
+          controller.setup();
+
           return Get.bottomSheet(Symptoms(),
               barrierColor: AppColors.barrierColor.withOpacity(0.60),
               isScrollControlled: true);
         }
       case 1:
+        BowelMovementController controller = Get.find();
+        controller.setup();
+
         return Get.bottomSheet(BowelMovement(),
             barrierColor: AppColors.barrierColor.withOpacity(0.60),
             isScrollControlled: true);
 
         break;
       case 2:
+        MedicationController controller = Get.find();
+        controller.setup();
+
         return Get.bottomSheet(Medication(),
             barrierColor: AppColors.barrierColor.withOpacity(0.60),
             isScrollControlled: true);
 
         break;
       case 3:
+        HealthController controller = Get.find();
+        controller.setup();
+
         return Get.bottomSheet(Health(),
             barrierColor: AppColors.barrierColor.withOpacity(0.60),
             isScrollControlled: true);
 
         break;
       case 4:
+        FoodController controller = Get.find();
+        controller.setup();
+
         return Get.bottomSheet(Foods(),
             barrierColor: AppColors.barrierColor.withOpacity(0.60),
             isScrollControlled: true);
 
         break;
       case 5:
+        JournalController controller = Get.find();
+        controller.setup();
+
         return Get.bottomSheet(Journal(),
             barrierColor: AppColors.barrierColor.withOpacity(0.60),
             isScrollControlled: true);

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
@@ -9,7 +7,6 @@ import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomBottomNavigation.dart';
 import 'package:flutter_ibs/widget/Indicator.dart';
 import 'package:get/get.dart';
-
 
 class Report extends StatefulWidget {
   @override

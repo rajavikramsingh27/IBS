@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/DropDownList.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:get/get.dart';
 
 class SelectInlineWidget extends StatefulWidget {
@@ -12,6 +12,7 @@ class SelectInlineWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem) onValueRemoved;
 
   const SelectInlineWidget({
     //Key key,
@@ -20,6 +21,7 @@ class SelectInlineWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super();
 
   @override
@@ -31,9 +33,14 @@ class _SelectInlineWidgetState extends State<SelectInlineWidget> {
 
   @override
   void initState() {
-    _selectedOption = widget.trackableItem.select.selectDefault.label != null
+    _selectedOption = widget.trackableItem.select.selectedOption;
+    if (_selectedOption == null){
+      _selectedOption =  widget.trackableItem.select.options.first;
+    }
+    /*_selectedOption = widget.trackableItem.select.selectDefault.label != null
         ? widget.trackableItem.select.selectDefault
         : widget.trackableItem.select.options.first;
+*/
 
     // As this is tracked, set its initial tracking state:
     widget.onValueChanged(TrackableSubmitItem(
@@ -48,9 +55,17 @@ class _SelectInlineWidgetState extends State<SelectInlineWidget> {
 
 
   @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      color:  AppColors.colorBackground,
+      color: AppColors.colorBackground,
       child: Column(
         children: [
           Row(
@@ -75,7 +90,7 @@ class _SelectInlineWidgetState extends State<SelectInlineWidget> {
                   child: CustomDropdown<SelectOption>(
                     value: _selectedOption,
                     dropdownMenuItemList:
-                    buildDropList(widget.trackableItem.select.options),
+                        buildDropList(widget.trackableItem.select.options),
                     onChanged: (SelectOption optionItem) {
                       setState(() {
                         _selectedOption = optionItem;
@@ -86,7 +101,8 @@ class _SelectInlineWidgetState extends State<SelectInlineWidget> {
                         category: widget.trackableItem.category,
                         kind: widget.trackableItem.kind,
                         dtype: "str",
-                        value: TrackableSubmitItemValue(str: _selectedOption.value),
+                        value: TrackableSubmitItemValue(
+                            str: _selectedOption.value),
                       ));
                     },
                     isEnabled: true,
@@ -104,8 +120,7 @@ class _SelectInlineWidgetState extends State<SelectInlineWidget> {
           Visibility(
               visible: !widget.isChild,
               child: Divider(
-                  thickness: 1,
-                  color: AppColors.white.withOpacity(0.12))),
+                  thickness: 1, color: AppColors.white.withOpacity(0.12))),
           SizedBox(height: ScreenConstant.defaultHeightTwenty),
         ],
       ),

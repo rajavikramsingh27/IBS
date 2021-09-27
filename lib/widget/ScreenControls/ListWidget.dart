@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/widget/ScreenControls/RenderItemChildrenWidget.dart';
 import 'package:get/get.dart';
-import 'package:flutter_ibs/widget/ScreenControls/RenderWidgetByType.dart';
 
 class ListWidget extends StatefulWidget {
   final TrackableItem trackableItem;
@@ -13,6 +12,7 @@ class ListWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem) onValueRemoved;
 
   const ListWidget({
     Key key,
@@ -21,6 +21,7 @@ class ListWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super(key: key);
 
   @override
@@ -28,14 +29,24 @@ class ListWidget extends StatefulWidget {
 }
 
 class _ListWidgetState extends State<ListWidget> {
-  List<ListOption> _selectedItems ;
+  List<ListOption> _selectedItems = [];
+
 
   @override
   void initState() {
     _selectedItems = [];
 
-    widget.trackableItem.list.options.forEach((element) {
-      element.selected = false;
+    // Set the initial state:
+    widget.trackableItem.list.options.forEach((opt) {
+      if (opt.selected){
+        _selectedItems.add(opt);
+      }
+    });
+
+    List<String> flatList = [];
+
+    _selectedItems.forEach((element) {
+      flatList.add(element.value);
     });
 
     widget.onValueChanged(TrackableSubmitItem(
@@ -43,10 +54,22 @@ class _ListWidgetState extends State<ListWidget> {
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "arr",
-      value: TrackableSubmitItemValue(arr: []),
+      value: TrackableSubmitItemValue(arr: flatList),
     ));
     super.initState();
   }
+
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    if (widget.onValueRemoved != null) {
+      widget.onValueRemoved(widget.trackableItem);
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +87,8 @@ class _ListWidgetState extends State<ListWidget> {
             right: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty,
           ),
           padding: EdgeInsets.symmetric(
-              horizontal: widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty),
+              horizontal:
+                  widget.isChild ? 0 : ScreenConstant.defaultWidthTwenty),
           child: Column(
             children: [
               SizedBox(height: ScreenConstant.defaultHeightForty),
@@ -84,7 +108,8 @@ class _ListWidgetState extends State<ListWidget> {
               SizedBox(height: ScreenConstant.defaultHeightTwenty),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: widget.isChild ? 0 : ScreenConstant.defaultWidthTen),
+                    horizontal:
+                        widget.isChild ? 0 : ScreenConstant.defaultWidthTen),
                 child: GridView.builder(
                   //   padding: EdgeInsets.symmetric(
                   //       horizontal: ScreenConstant.defaultWidthTwenty),
@@ -140,6 +165,7 @@ class _ListWidgetState extends State<ListWidget> {
               RenderItemChildrenWidget(
                 trackableItem: widget.trackableItem,
                 onValueChanged: widget.onValueChanged,
+                onValueRemoved: widget.onValueRemoved,
                 isChild: true,
                 isFirst: false,
                 isLast: false,
@@ -148,8 +174,7 @@ class _ListWidgetState extends State<ListWidget> {
               Visibility(
                   visible: !widget.isChild,
                   child: Divider(
-                      thickness: 1,
-                      color: AppColors.white.withOpacity(0.12))),
+                      thickness: 1, color: AppColors.white.withOpacity(0.12))),
             ],
           ),
         ),

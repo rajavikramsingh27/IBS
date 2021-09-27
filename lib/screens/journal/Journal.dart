@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/controllers/journal/JournalController.dart';
-import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
@@ -15,13 +14,12 @@ import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
 
 class Journal extends StatelessWidget {
-  final JournalController _journalController = Get.put(JournalController());
+  final JournalController _journalController = Get.find();
   final TrackablesController _trackablesController = Get.find();
-
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return /* Scaffold(
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: Container(
         color: Colors.white,
@@ -48,7 +46,7 @@ class Journal extends StatelessWidget {
         ),
       ),
       backgroundColor: Color(0xff1A103E).withOpacity(0.6),
-      body: InkWell(
+      body:*/ InkWell(
         onTap: () => dismissKeyboard(context),
         child: ListView(
           physics: ClampingScrollPhysics(),
@@ -82,7 +80,6 @@ class Journal extends StatelessWidget {
                           SizedBox(height: ScreenConstant.defaultHeightForty),
                           Stack(
                             children: [
-
                               Container(
                                 margin: EdgeInsets.only(
                                   left: ScreenConstant.defaultWidthTwenty,
@@ -103,6 +100,27 @@ class Journal extends StatelessWidget {
                           ),
                           SizedBox(
                               height: ScreenConstant.defaultHeightTwentyFour),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              SizedBox(height: ScreenConstant.defaultHeightTen),
+                              _journalController.loader.value
+                                  ? Offstage()
+                                  : CustomElevatedButton(
+                                  widthFactor: 0.7,
+                                  text: "Save",
+                                  onTap: _journalController.onSave),
+                              TextButton(
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  child: Text("Cancel",
+                                      style: TextStyles.textStyleIntroDescription.apply(
+                                        color: AppColors.colorskip_also_proceed,
+                                      )))
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -113,8 +131,7 @@ class Journal extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 
   _buildJournal() {

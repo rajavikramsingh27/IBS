@@ -1,17 +1,12 @@
-
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/models/MyAccount/MyAccount.dart';
-import 'package:flutter_ibs/models/signup/SignupSendModel.dart';
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
-import 'package:flutter_ibs/screens/TrackingOptions/TrackingOptions.dart';
-
 
 RxBool loader = false.obs;
 
@@ -50,7 +45,7 @@ class MyAccountController extends GetxController {
     "70+"
   ];
 
-  dynamic  data;
+  dynamic data;
 
   // ToDo Setting My IBS Diagnosis variables
 
@@ -69,13 +64,10 @@ class MyAccountController extends GetxController {
   RxBool isabdominalPainBowelMoreLess = false.obs;
   RxBool isabdominalPainBowelAppearDifferent = false.obs;
 
-
   List<TrackableItem> trackingUpdatesList;
-
 
   Rx<TrackablesListModel> trackList = TrackablesListModel().obs;
   RxBool connectionStatus = false.obs;
-
 
   RxList<ListOption> listFoodOptions = <ListOption>[].obs;
 
@@ -110,15 +102,13 @@ class MyAccountController extends GetxController {
           setUIDataRomeIV();
         }
       } catch (error) {
-        CustomSnackBar().errorSnackBar(
-            title: "Error!", message: error.toString()
-        );
+        CustomSnackBar()
+            .errorSnackBar(title: "Error!", message: error.toString());
         loader.value = false;
       }
     } else {
       CustomSnackBar().errorSnackBar(
-          title: "No Internet", message: "No internet Connection"
-      );
+          title: "No Internet", message: "No internet Connection");
     }
   }
 
@@ -171,8 +161,10 @@ class MyAccountController extends GetxController {
 
     isDiagnoisedAbdominalPain.value = data.profile.romeiv.abdominalPain;
     isabdominalPainTimeBowel.value = data.profile.romeiv.abdominalPainTimeBowel;
-    isabdominalPainBowelMoreLess.value = data.profile.romeiv.abdominalPainBowelMoreLess;
-    isabdominalPainBowelAppearDifferent.value = data.profile.romeiv.abdominalPainBowelAppearDifferent;
+    isabdominalPainBowelMoreLess.value =
+        data.profile.romeiv.abdominalPainBowelMoreLess;
+    isabdominalPainBowelAppearDifferent.value =
+        data.profile.romeiv.abdominalPainBowelAppearDifferent;
 
     selectedStoolType.value = selectStoolTypeIndex(data.profile.romeiv.stool);
   }
@@ -189,15 +181,13 @@ class MyAccountController extends GetxController {
     data = await ServiceApi().updateUser(
       bodyData: profileUser.toJson(),
     );
-
   }
 
   updateIBS() async {
     DiagnosedIbs diagnosedIbs = DiagnosedIbs(
-      // id: data.profile.diagnosedIbs.id,
+        // id: data.profile.diagnosedIbs.id,
         isDiagnosed: data.profile.diagnosedIbs.isDiagnosed,
-        ibsType: selectIbsType(selctedIbsType.value)
-    ) ;
+        ibsType: selectIbsType(selctedIbsType.value));
 
     Profile profileUser = Profile(
       sex: data.profile.sex,
@@ -210,16 +200,16 @@ class MyAccountController extends GetxController {
     data = await ServiceApi().updateIBS_RomeIV(
       bodyData: profileUser.toJson(),
     );
-
   }
 
   updateRomeIVQuestionaire() async {
     Romeiv romeiv = Romeiv(
-       abdominalPain: isDiagnoisedAbdominalPain.value,
-       abdominalPainTimeBowel: isabdominalPainTimeBowel.value,
-       abdominalPainBowelMoreLess: isabdominalPainBowelMoreLess.value,
-       abdominalPainBowelAppearDifferent: isabdominalPainBowelAppearDifferent.value,
-       stool: selectStoolType(selectedStoolType.value),
+      abdominalPain: isDiagnoisedAbdominalPain.value,
+      abdominalPainTimeBowel: isabdominalPainTimeBowel.value,
+      abdominalPainBowelMoreLess: isabdominalPainBowelMoreLess.value,
+      abdominalPainBowelAppearDifferent:
+          isabdominalPainBowelAppearDifferent.value,
+      stool: selectStoolType(selectedStoolType.value),
     );
 
     Profile profileUser = Profile(
@@ -233,7 +223,6 @@ class MyAccountController extends GetxController {
     data = await ServiceApi().updateIBS_RomeIV(
       bodyData: profileUser.toJson(),
     );
-
   }
 
   updateTrackingOption() async {
@@ -243,7 +232,8 @@ class MyAccountController extends GetxController {
     });
 
     Map<String, dynamic> toSend = new Map();
-    toSend.assign("tracking", List<dynamic>.from(trackingUpdatesList.map((x) => x.toJson())) );
+    toSend.assign("tracking",
+        List<dynamic>.from(trackingUpdatesList.map((x) => x.toJson())));
 
     data = await ServiceApi().updateTrackingOption(
       bodyData: toSend,
@@ -252,8 +242,7 @@ class MyAccountController extends GetxController {
     Get.back();
 
     CustomSnackBar().successSnackBar(
-        title: "Success!", message:"Tracking options updated"
-    );
+        title: "Success!", message: "Tracking options updated");
   }
 
 // ToDo Setting My IBS Diagnosis functions
@@ -313,7 +302,6 @@ class MyAccountController extends GetxController {
       default:
         return "both";
     }
-
   }
 
   selectStoolTypeIndex(String stoolValue) {
@@ -333,7 +321,6 @@ class MyAccountController extends GetxController {
       default:
         return 4;
     }
-
   }
 
   /*
@@ -426,18 +413,12 @@ class MyAccountController extends GetxController {
     });
   }
 */
-  _recursivelyParseChildren(List<TrackableItem> items){
+  _recursivelyParseChildren(List<TrackableItem> items) {
     items.forEach((element) {
-        trackingUpdatesList.add(element);
-        element.children.forEach( (child) {
-          return _recursivelyParseChildren(child.items);
-        });
-
+      trackingUpdatesList.add(element);
+      element.children.forEach((child) {
+        return _recursivelyParseChildren(child.items);
+      });
     });
   }
-
-
-
 }
-
-

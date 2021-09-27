@@ -1,14 +1,11 @@
-
-
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_feathersjs/flutter_feathersjs.dart';
 import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/url.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
-
 
 class CoreService {
   static final CoreService _default = new CoreService._internal();
@@ -34,13 +31,12 @@ class CoreService {
       method,
       password,
       username}) async {
-
     switch (method) {
-      case METHOD.GET: {
+      case METHOD.GET:
+        {
           try {
             final response = await flutterFeathersjs.get(
-                serviceName: endpoint, objectId: objectId
-            );
+                serviceName: endpoint, objectId: objectId);
 
             return response;
           } on SocketException {
@@ -56,9 +52,7 @@ class CoreService {
             if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
               Get.offAllNamed(signIn);
               CustomSnackBar()
-                  .errorSnackBar(title: "Error",
-                  message: e.message
-              );
+                  .errorSnackBar(title: "Error", message: e.message);
             }
           } catch (er) {
             // Catch  unknown error
@@ -84,7 +78,8 @@ class CoreService {
           } on FeatherJsError catch (e) {
             print("$e");
             if (e.type == FeatherJsErrorType.IS_SERVER_ERROR) {
-              CustomSnackBar().errorSnackBar(title: "Error", message: e.message);
+              CustomSnackBar()
+                  .errorSnackBar(title: "Error", message: e.message);
             }
 
             if (e.type == FeatherJsErrorType.IS_CONFLICT_ERROR) {
@@ -106,7 +101,7 @@ class CoreService {
             // Check the error type as above and handle it
           } catch (er) {
             // Catch  unknown error
-print(er);
+            print(er);
           }
         }
         break;
@@ -218,7 +213,7 @@ print(er);
             }
           } catch (er) {
             // Catch  unknown error
-            print(er.errorMessage());
+            print(er);
           }
         }
         break;
@@ -229,8 +224,7 @@ print(er);
 
           try {
             final response = await flutterFeathersjs.patch(
-                objectId: objectId, serviceName: endpoint, data: data
-            );
+                objectId: objectId, serviceName: endpoint, data: data);
             return response;
           } on SocketException {
             Future.delayed(const Duration(seconds: 2), () async {
@@ -252,19 +246,29 @@ print(er);
 
             print(er.message.toString());
           }
-
         }
         break;
       case METHOD.AUTHENTICATE:
         {
           try {
             print("Data: $data");
-            final response = await flutterFeathersjs.authenticate(
-              strategy: data["strategy"],
-              password: data["password"],
-              userName: data["loginId"],
-              userNameFieldName: "loginId",
-            );
+            var response;
+            if (data["email"] != null){
+              response = await flutterFeathersjs.authenticate(
+                strategy: data["strategy"],
+                password: data["password"],
+                userName: data["email"],
+                // userNameFieldName: "loginId",
+              );
+            }else{
+              await flutterFeathersjs.authenticate(
+                strategy: data["strategy"],
+                password: data["password"],
+                userName: data["loginId"],
+                // userNameFieldName: "loginId",
+              );
+            }
+
 
             debugPrint("Response: $response", wrapWidth: 1024);
 
@@ -283,11 +287,10 @@ print(er);
               Get.offAllNamed(signIn);
               CustomSnackBar()
                   .errorSnackBar(title: "Error", message: e.message);
-            }else{
+            } else {
               CustomSnackBar()
                   .errorSnackBar(title: "Error", message: e.message);
             }
-
           } catch (er) {
             // Catch  unknown error
             print(er.errorMessage());
@@ -354,5 +357,3 @@ enum METHOD {
   AUTHENTICATE,
   REAUTHENTICATE
 }
-
-

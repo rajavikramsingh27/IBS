@@ -11,9 +11,9 @@ class DeviceManager {
   static double _screenWidth;
   static double _screenHeight;
   static double _pixelRatio;
-  static  double _statusBarHeight;
+  static double _statusBarHeight;
 
-  static  double _bottomBarHeight;
+  static double _bottomBarHeight;
 
   static double _textScaleFactor;
 
