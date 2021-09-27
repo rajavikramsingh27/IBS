@@ -136,7 +136,7 @@ class TrackablesController extends GetxController {
           return a.weight.compareTo(b.weight);
         }); */
 
-       // trackList.value = value;
+        trackList.value = TrackablesListModel.fromJson(value);
         _rawTrackList = value;
 
         _setCategories();

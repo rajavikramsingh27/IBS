@@ -193,7 +193,7 @@ class HomeController extends GetxController {
   getTrackHistoryList() async {
     if (connectionStatus.value) {
       loader.value = true;
-      await ServiceApi().getUserHistoryList(selectedDate).then((value) {
+      await ServiceApi().getUserHistoryList(selectedDate.toUtc()).then((value) {
         value != null ? trackHistoryList.value = value : print("getUserHistoryList was null");
         loader.value = false;
       });
