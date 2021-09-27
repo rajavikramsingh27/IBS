@@ -32,7 +32,6 @@ class CustomBottomNavigation extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                   vertical: ScreenConstant.defaultHeightTen),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   textBaseline: TextBaseline.ideographic,
                   children: [
@@ -70,27 +69,27 @@ class CustomBottomNavigation extends StatelessWidget {
   }
 
   Widget _buildTabItem({String title, String imageText, Function() onTap
-
-      // ValueChanged<int> onPressed,
       }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image.asset(
-            imageText,
-            fit: BoxFit.fill,
-            width: ScreenConstant.defaultWidthTen * 1.5,
-          ),
-          SizedBox(height: ScreenConstant.defaultHeightTen),
-          Text(
-            title,
-            style: TextStyles.textStylebottom,
-            textAlign: TextAlign.center,
-          )
-        ],
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(
+              imageText,
+              fit: BoxFit.fill,
+              width: ScreenConstant.defaultWidthTen * 1.5,
+            ),
+            SizedBox(height: ScreenConstant.defaultHeightTen),
+            Text(
+              title,
+              style: TextStyles.textStylebottom,
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
       ),
     );
   }
