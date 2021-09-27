@@ -13,6 +13,7 @@ class ToggleInlineWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem)  onValueRemoved;
 
   const ToggleInlineWidget({
     Key key,
@@ -21,6 +22,7 @@ class ToggleInlineWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super(key: key);
 
   @override
@@ -28,13 +30,22 @@ class ToggleInlineWidget extends StatefulWidget {
 }
 
 class _ToggleInlineWidgetState extends State<ToggleInlineWidget> {
-  double _currentValue; // this.trackableItem.ToggleInline.value.toDouble();
 
   @override
   void initState() {
     //_currentValue = widget.trackableItem.ToggleInline.value.toDouble();
     super.initState();
   }
+
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +99,7 @@ class _ToggleInlineWidgetState extends State<ToggleInlineWidget> {
                   isFirst: false,
                   isLast: false,
                   onValueChanged: widget.onValueChanged,
+                  onValueRemoved: widget.onValueRemoved,
                 ),
                 SizedBox(
                     height: ScreenConstant.defaultHeightTwenty, width: 800),
@@ -106,5 +118,13 @@ class _ToggleInlineWidgetState extends State<ToggleInlineWidget> {
 
   onToggleChanged(bool val) {
     widget.trackableItem.toggle.value = val;
+
+    widget.onValueChanged(TrackableSubmitItem(
+      tid: widget.trackableItem.tid,
+      category: widget.trackableItem.category,
+      kind: widget.trackableItem.kind,
+      dtype: "bool",
+      value: TrackableSubmitItemValue(boolean: val),
+    ));
   }
 }

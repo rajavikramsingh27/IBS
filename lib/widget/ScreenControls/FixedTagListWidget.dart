@@ -13,7 +13,8 @@ class FixedTagListWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
-  List<Tag> _selectedItems;
+  final Function(TrackableItem)  onValueRemoved;
+
 
   FixedTagListWidget({
     //Key key,
@@ -22,6 +23,7 @@ class FixedTagListWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super();
 
   @override
@@ -29,14 +31,57 @@ class FixedTagListWidget extends StatefulWidget {
 }
 
 class _FixedTagListWidgetState extends State<FixedTagListWidget> {
-  List<Tag> _selectedItems;
+  RxList<Tag> selectedItems;
+  RxList<Tag> _allTags;
 
   @override
   void initState() {
-    _selectedItems = [];
+     super.initState();
+     doInit();
+  }
 
-    widget.trackableItem.tags.tagsDefault.forEach((element) {
-      element.selected = false;
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
+  void doInit(){
+    selectedItems = RxList<Tag>();
+
+    // Set the initial list of selected tags
+    if (widget.trackableItem.tags.selectedTags != null) {
+      widget.trackableItem.tags.selectedTags.forEach((selTag) {
+        selectedItems.add(selTag);
+      });
+      selectedItems.refresh();
+    }
+
+    // Combine the available tags default with the user's list:
+    _allTags = RxList<Tag>();
+    List<Tag> combinedTags = TrackableItemUtils()
+        .addUserTagsToList(
+        tags: widget.trackableItem.tags.tagsDefault,
+        category: widget.trackableItem.tags.category);
+
+    // Set the available tags active if they are selected:
+    combinedTags.forEach((aTag) {
+      selectedItems.forEach((sTag) {
+        if(sTag.value == aTag.value){
+          aTag.selected = true;
+        }
+      });
+    });
+
+    _allTags.addAll(combinedTags);
+
+
+    List<String> flatList = [];
+    selectedItems.forEach((element) {
+      flatList.add(element.value);
     });
 
     widget.onValueChanged(TrackableSubmitItem(
@@ -44,11 +89,11 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "arr",
-      value: TrackableSubmitItemValue(arr: []),
+      value: TrackableSubmitItemValue(arr: flatList),
     ));
-
-    super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -135,14 +180,25 @@ class _FixedTagListWidgetState extends State<FixedTagListWidget> {
   _onHandleToggle(TrackableItem item, Tag tag) {
     setState(() {
       if (tag.selected) {
-        _selectedItems.add(tag);
+        selectedItems.add(tag);
       } else {
-        _selectedItems.remove(tag);
+        for(var i=0;i<selectedItems.length;i++){
+          if (selectedItems[i].value == tag.value){
+            selectedItems.removeAt(i);
+          }
+        }
+        _allTags.forEach((aTag) {
+          if (aTag.value == tag.value){
+            aTag.selected = false;
+          }
+        });
       }
+      selectedItems.refresh();
     });
 
+
     List<String> flatList = [];
-    _selectedItems.forEach((element) {
+    selectedItems.forEach((element) {
       flatList.add(element.value);
     });
 

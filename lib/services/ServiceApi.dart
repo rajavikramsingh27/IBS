@@ -16,6 +16,7 @@ import 'package:flutter_ibs/models/user/UserModel.dart';
 import 'package:flutter_ibs/services/CoreService.dart';
 import 'package:flutter_ibs/services/url.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ServiceApi {
   Future<dynamic> signupApi({Map bodyData}) async {
@@ -26,11 +27,11 @@ class ServiceApi {
     }
   }
 
-  Future<TrackablesListModel> getTrackables() async {
+  Future<Map<String, dynamic>> getTrackables() async {
     var result = await CoreService()
         .apiService(method: METHOD.FIND, endpoint: TRACK_LIST);
 
-    return TrackablesListModel.fromJson(result);
+    return result;// TrackablesListModel.fromJson(result);
   }
 
   Future<dynamic> signInApi({Map bodyData}) async {
@@ -56,6 +57,8 @@ class ServiceApi {
     }
   }
 
+
+
   Future<dynamic> getReAuthApi() async {
     var result = await CoreService().apiService(
       method: METHOD.REAUTHENTICATE,
@@ -64,13 +67,22 @@ class ServiceApi {
     return result;
   }
 
+
+  Future<dynamic> foodUpdateApi({String id, Map bodyData}) async {
+    var result = await CoreService()
+        .apiService(method: METHOD.UPDATE, endpoint: FOODS, data: bodyData, objectId: id);
+    if(result != null) {
+      return FoodResponseModel.fromJson(result);
+    }
+  }
+
+
   Future<dynamic> foodTrackApi({Map bodyData}) async {
     var result = await CoreService()
         .apiService(method: METHOD.CREATE, endpoint: FOODS, data: bodyData);
-    if (result == null) {
-      return null;
-    } else
-      return FoodResponseModel.fromJson(result);
+   if(result != null) {
+     return FoodResponseModel.fromJson(result);
+   }
   }
 
   Future<dynamic> getFoodList() async {
@@ -86,16 +98,37 @@ class ServiceApi {
     var result = await CoreService()
         .apiService(method: METHOD.CREATE, endpoint: SYMPTOMS, data: bodyData);
 
-    if (result == null) {
-      return null;
-    } else {
+    if (result != null) {
       return SymptomsResponseModel.fromJson(result);
     }
   }
 
+  Future<dynamic> updateSymptomsAPI({String id, Map bodyData}) async {
+    var result = await CoreService()
+        .apiService(method: METHOD.UPDATE, endpoint: SYMPTOMS,
+        objectId: id,
+        data: bodyData);
+
+    if (result != null) {
+      return SymptomsResponseModel.fromJson(result);
+    }
+  }
+
+
+
   Future<dynamic> postBowelMovementAPI({Map bodyData}) async {
     var result = await CoreService().apiService(
         method: METHOD.CREATE, endpoint: BOWEL_MOVEMENTS, data: bodyData);
+    if (result == null) {
+      return null;
+    } else {
+      return BowelMovementsResponseModel.fromJson(result);
+    }
+  }
+
+  Future<dynamic> updateBowelMovementAPI({String id, Map bodyData}) async {
+    var result = await CoreService().apiService(
+        method: METHOD.UPDATE, endpoint: BOWEL_MOVEMENTS, data: bodyData, objectId: id);
     if (result == null) {
       return null;
     } else {
@@ -121,19 +154,35 @@ class ServiceApi {
       return result;
   }
 
-  Future<dynamic> postMedicationAPI({Map bodyData}) async {
+
+  Future<dynamic> updateMedicationAPI({String id, Map bodyData}) async {
     var result = await CoreService().apiService(
-        method: METHOD.CREATE, endpoint: MEDICATIONS, data: bodyData);
-    if (result == null) {
-      return null;
-    } else {
+        method: METHOD.UPDATE, endpoint: MEDICATIONS, data: bodyData, objectId: id);
+    if (result != null) {
       return MedicationResponseModel.fromJson(result);
     }
   }
 
-  Future<dynamic> getUserHistoryList() async {
+  Future<dynamic> postMedicationAPI({Map bodyData}) async {
+    var result = await CoreService().apiService(
+        method: METHOD.CREATE, endpoint: MEDICATIONS, data: bodyData);
+    if (result != null) {
+      return MedicationResponseModel.fromJson(result);
+    }
+  }
+
+  Future<dynamic> getUserHistoryList(DateTime setTime) async {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm');
+    var startDate = formatter.format(setTime.subtract(Duration(days:1)) );
+    var endDate = formatter.format(setTime.add(Duration(days:1)) );
+
+    Map<String, dynamic> params = {
+      'startDate': startDate,
+      'endDate': endDate
+    };
+
     var result = await CoreService()
-        .apiService(method: METHOD.FIND, endpoint: TRACK_HISTORY);
+        .apiService(method: METHOD.FIND, endpoint: TRACK_HISTORY, data: params);
 
     if (result == null) {
       return null;
@@ -164,11 +213,21 @@ class ServiceApi {
       return TrackablesListModel.fromJson(result);
   }
 
+  Future<dynamic> updateHealthWellnessAPI({String id, Map bodyData}) async {
+    var result = await CoreService().apiService(
+        method: METHOD.UPDATE, endpoint: HEALTH_WELLNESS, data: bodyData, objectId: id);
+    if(result != null) {
+      return HealthWellnessResponseModel.fromJson(result);
+    }
+  }
+
   Future<dynamic> postHealthWellnessAPI({Map bodyData}) async {
     var result = await CoreService().apiService(
         method: METHOD.CREATE, endpoint: HEALTH_WELLNESS, data: bodyData);
 
-    return HealthWellnessResponseModel.fromJson(result);
+    if(result != null) {
+      return HealthWellnessResponseModel.fromJson(result);
+    }
   }
 
   Future<LanguageResponseModel> getLanguage() async {

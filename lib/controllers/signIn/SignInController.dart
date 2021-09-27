@@ -92,11 +92,22 @@ class SignInController extends GetxController {
   }
 
   signInApi() async {
-    LoginSendModel model = LoginSendModel(
-      strategy: "local",
-      loginId: HiveStore().get(Keys.LOGINID),
-      password: passwordController?.text,
-    );
+    LoginSendModel model;
+
+    if ( emailController.text.isNotEmpty) {
+      model = LoginSendModel(
+        strategy: "local",
+        email: emailController.text.trim(),
+        password: passwordController?.text,
+      );
+
+    }else{
+      model = LoginSendModel(
+          strategy: "local",
+          loginId: HiveStore().get(Keys.LOGINID),
+          password: passwordController?.text,
+      );
+    }
 
     try {
       final data = await ServiceApi().signInApi(bodyData: model.toJson());

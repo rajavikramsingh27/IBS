@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/dateTime/DateTimeCardController.dart';
 import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
@@ -9,7 +10,8 @@ import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:get/get.dart';
 
 class DateTimeCardWidget extends StatelessWidget {
-  final HomeController _homeController = Get.find();
+  //final HomeController _homeController = Get.find();
+  final DateTimeCardController _controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +31,11 @@ class DateTimeCardWidget extends StatelessWidget {
                 TextButton(
                     onPressed: () {
                       if (Platform.isIOS)
-                        _homeController.getCupertinoTimePicker(context);
+                        _controller.getCupertinoTimePicker(context);
                       else
-                        _homeController.getAndroidTimePicker(context);
+                        _controller.getAndroidTimePicker(context);
                     },
-                    child: Text(_homeController.selectedTimeLabel.value,
+                    child: Text(_controller.selectedTimeLabel.value,
                         style: TextStyles.textStyleRegular)),
                 CircleAvatar(
                   backgroundColor: AppColors.colorTextRegular,
@@ -42,11 +44,11 @@ class DateTimeCardWidget extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     if (Platform.isIOS)
-                      _homeController.getCupertinoDatePicker();
+                      _controller.getCupertinoDatePicker();
                     else
-                      _homeController.getAndroidDatePicker();
+                      _controller.getAndroidDatePicker();
                   },
-                  child: Text(_homeController.selectedDateLabel.value,
+                  child: Text(_controller.selectedDateLabel.value,
                       style: TextStyles.textStyleRegular),
                 ),
               ],

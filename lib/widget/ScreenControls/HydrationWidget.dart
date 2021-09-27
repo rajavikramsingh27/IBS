@@ -11,6 +11,7 @@ class HydrationWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem)  onValueRemoved;
 
   const HydrationWidget({
     Key key,
@@ -19,6 +20,7 @@ class HydrationWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super(key: key);
 
   @override
@@ -30,7 +32,7 @@ class _HydrationWidgetState extends State<HydrationWidget> {
 
   @override
   void initState() {
-    num = 0;
+    num = widget.trackableItem.sum.value;
 
     // As this is tracked, set its initial tracking state:
     widget.onValueChanged(TrackableSubmitItem(
@@ -42,6 +44,17 @@ class _HydrationWidgetState extends State<HydrationWidget> {
     ));
     super.initState();
   }
+
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +103,11 @@ class _HydrationWidgetState extends State<HydrationWidget> {
         return InkWell(
           onTap: () {
             setState(() {
-              num = ind + 1;
+              if (ind == 0 && num == 1){
+                num = 0;
+              }else {
+                num = ind + 1;
+              }
             });
 
             widget.onValueChanged(TrackableSubmitItem(

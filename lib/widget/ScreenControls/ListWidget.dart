@@ -12,6 +12,7 @@ class ListWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem) onValueRemoved;
 
   const ListWidget({
     Key key,
@@ -20,6 +21,7 @@ class ListWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super(key: key);
 
   @override
@@ -27,14 +29,24 @@ class ListWidget extends StatefulWidget {
 }
 
 class _ListWidgetState extends State<ListWidget> {
-  List<ListOption> _selectedItems;
+  List<ListOption> _selectedItems = [];
+
 
   @override
   void initState() {
     _selectedItems = [];
 
-    widget.trackableItem.list.options.forEach((element) {
-      element.selected = false;
+    // Set the initial state:
+    widget.trackableItem.list.options.forEach((opt) {
+      if (opt.selected){
+        _selectedItems.add(opt);
+      }
+    });
+
+    List<String> flatList = [];
+
+    _selectedItems.forEach((element) {
+      flatList.add(element.value);
     });
 
     widget.onValueChanged(TrackableSubmitItem(
@@ -42,10 +54,22 @@ class _ListWidgetState extends State<ListWidget> {
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "arr",
-      value: TrackableSubmitItemValue(arr: []),
+      value: TrackableSubmitItemValue(arr: flatList),
     ));
     super.initState();
   }
+
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    if (widget.onValueRemoved != null) {
+      widget.onValueRemoved(widget.trackableItem);
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -141,6 +165,7 @@ class _ListWidgetState extends State<ListWidget> {
               RenderItemChildrenWidget(
                 trackableItem: widget.trackableItem,
                 onValueChanged: widget.onValueChanged,
+                onValueRemoved: widget.onValueRemoved,
                 isChild: true,
                 isFirst: false,
                 isLast: false,
