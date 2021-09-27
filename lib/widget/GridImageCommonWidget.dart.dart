@@ -71,12 +71,15 @@ class _GridImageCommonWidgetState extends State<GridImageCommonWidget> {
           physics: NeverScrollableScrollPhysics(),
           itemCount: widget.dataList.options.length,
           itemBuilder: (BuildContext context, int index) {
-            var model = widget.dataList.options[index];
+            ListOption model = widget.dataList.options[index];
             return InkWell(
               onTap: () {
                 setState(() {
                   model.optionDefault = !model.optionDefault;
-                  _treatmentPlanController.onTagTapped(model: model);
+                  model.category = widget.dataList.category;
+                  _treatmentPlanController.onTagTapped(
+                    model: model,
+                  );
                 });
               },
               child: Card(
@@ -118,6 +121,7 @@ class _GridImageCommonWidgetState extends State<GridImageCommonWidget> {
                         borderRadius: BorderRadius.circular(8)),
                     child: FractionallySizedBox(
                       child: TextFormField(
+                        controller: _treatmentPlanController.tagsController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: "Edit...",
@@ -132,6 +136,22 @@ class _GridImageCommonWidgetState extends State<GridImageCommonWidget> {
                   SizedBox(height: ScreenConstant.defaultHeightSixteen),
                   ShowMoreWidget(
                     text: "Add custom exercise",
+                    onTap: () async {
+                      ListOption tagsDefault = ListOption(
+                          image: ModelImage(),
+                          selected: true,
+                          optionDefault: true,
+                          value: _treatmentPlanController.tagsController.text,
+                          category: widget.dataList.category);
+
+                      if (await _treatmentPlanController.addTags(
+                        tagValue: tagsDefault,
+                      )) {
+                        setState(() {
+                          widget.dataList.options.add(tagsDefault);
+                        });
+                      }
+                    },
                   ),
                   SizedBox(height: ScreenConstant.defaultHeightSixteen),
                 ],

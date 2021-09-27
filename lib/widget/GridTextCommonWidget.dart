@@ -67,10 +67,11 @@ class _GridTextCommonWidgetState extends State<GridTextCommonWidget> {
             : Offstage(),
         Wrap(
           children: widget.dataList.tagsDefault
-              .map((item) => InkWell(
+              .map((Tag item) => InkWell(
                     onTap: () {
                       setState(() {
                         item.required = !item.required;
+                        item.category = widget.dataList.category;
                         _treatmentPlanController.onTagTapped(model: item);
                       });
                     },
