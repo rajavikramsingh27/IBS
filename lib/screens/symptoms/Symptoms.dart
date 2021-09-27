@@ -20,7 +20,7 @@ class Symptoms extends StatelessWidget {
     int _numRendered = 0;
     int _numSkipped = 0;
 
-    return Scaffold(
+    return /*Scaffold(
         resizeToAvoidBottomInset: false,
         bottomNavigationBar: Container(
           color: Colors.white,
@@ -44,7 +44,8 @@ class Symptoms extends StatelessWidget {
           ),
         ),
         backgroundColor: AppColors.barrierColor.withOpacity(0.6),
-        body: Obx(
+        body:*/
+      Obx(
           () => ListView(
             physics: ClampingScrollPhysics(),
             children: [
@@ -148,7 +149,25 @@ class Symptoms extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyles.textStyleRegular,
                             ),
-                            SizedBox(height: ScreenConstant.defaultHeightForty)
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                SizedBox(height: ScreenConstant.defaultHeightTen),
+                                CustomElevatedButton(
+                                  widthFactor: 0.7,
+                                  text: "Save",
+                                  onTap: controller.onSave,
+                                ),
+                                TextButton(
+                                    onPressed: controller.onCancel,
+                                    child: Text("Cancel",
+                                        style: TextStyles.textStyleIntroDescription.apply(
+                                          color: AppColors.colorskip_also_proceed,
+                                        )))
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -159,7 +178,7 @@ class Symptoms extends StatelessWidget {
               ),
             ],
           ),
-        ));
+        );
   }
 
   _buildWavePainter() {
