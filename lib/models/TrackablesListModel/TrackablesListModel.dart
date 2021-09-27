@@ -1232,6 +1232,8 @@ class FluffyList {
       this.options.forEach((option) {
         if (option.value == val) {
           option.selected = true;
+        }else{
+          option.selected = false;
         }
       });
     });

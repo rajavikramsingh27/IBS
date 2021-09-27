@@ -24,7 +24,7 @@ class Foods extends StatelessWidget {
   Widget build(BuildContext context) {
     //print("model:$trackFoodList");
 
-    return Scaffold(
+    return /* Scaffold(
         resizeToAvoidBottomInset: false,
         bottomNavigationBar: _trackablesController.loader.value
             ? Center(
@@ -54,7 +54,7 @@ class Foods extends StatelessWidget {
                 ),
               ),
         backgroundColor: Color(0xff1A103E).withOpacity(0.6),
-        body: Obx(
+        body:*/ Obx(
           () => ListView(
             physics: ClampingScrollPhysics(),
             children: [
@@ -144,18 +144,42 @@ class Foods extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyles.textStyleRegular,
                             ),
-                            SizedBox(height: ScreenConstant.defaultHeightForty)
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            Container(
+                              color: Colors.white,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  SizedBox(height: ScreenConstant.defaultHeightTen),
+                                  controller.loader.value
+                                      ? Offstage()
+                                      : CustomElevatedButton(
+                                    widthFactor: 0.7,
+                                    text: "Save",
+                                    onTap: controller.onSave,
+                                  ),
+                                  TextButton(
+                                      onPressed: controller.onCancel,
+                                      child: Text("Cancel",
+                                          style: TextStyles.textStyleIntroDescription.apply(
+                                            color: AppColors.colorskip_also_proceed,
+                                          )))
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ),
-                    Positioned(right: 0, left: 0, child: CustomArcPainter())
+                    Positioned(right: 0, left: 0, child: CustomArcPainter()),
+
                   ],
                 ),
               ),
             ],
           ),
-        ));
+        );
   }
 
   /// HACK: We're hard-coding the food selection list to save some time.

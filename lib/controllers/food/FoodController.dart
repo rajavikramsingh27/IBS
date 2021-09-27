@@ -34,17 +34,24 @@ class FoodController extends BaseTrackableController {
     formWidgetList = trackablesController.getFoods();
     dateTimeController.setTimeToCurrent();
 
+    _isDefaultFoodSet = false;
+
     if (pageData != null) {
       foodModel.value.id = pageData.id;
       dateTimeController.setDate(pageData.trackedAt);
       setSavedData(pageData: pageData);
+      // Set the selected mean option:
+      formWidgetList.first.list.options.forEach((food) {
+        if (food.selected){
+          formWidgetList.first.list.value = food;
+        }
+      });
+    }else {
+      // Set the default selected food based on time:
+      formWidgetList.first.list.options.forEach((food) {
+        mealOptionDefault(food);
+      });
     }
-
-    _isDefaultFoodSet = false;
-    formWidgetList.first.list.options.forEach((food) {
-      mealOptionDefault(food);
-    });
-
   }
 
 
