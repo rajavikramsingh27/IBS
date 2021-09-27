@@ -23,6 +23,9 @@ class MedicationController extends BaseTrackableController {
 
 
   void setup({TrackHistoryResponseModel pageData}) {
+    medicationsModel.value.id = null;
+    dateTimeController.setTimeToCurrent();
+
     formWidgetList = trackablesController.getMedications();
     if (pageData != null) {
       medicationsModel.value.id = pageData.id;

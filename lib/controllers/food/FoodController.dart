@@ -30,7 +30,10 @@ class FoodController extends BaseTrackableController {
 
 
   void setup({TrackHistoryResponseModel pageData}) {
+    foodModel.value.id = null;
     formWidgetList = trackablesController.getFoods();
+    dateTimeController.setTimeToCurrent();
+
     if (pageData != null) {
       foodModel.value.id = pageData.id;
       dateTimeController.setDate(pageData.trackedAt);

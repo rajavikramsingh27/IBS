@@ -23,8 +23,9 @@ class SymptomsController extends BaseTrackableController {
 
   void setup({TrackHistoryResponseModel pageData}) {
     loader.value = false;
-
+    symptomsModel.value.id = null;
     formWidgetList = trackablesController.getSymptoms();
+    dateTimeController.setTimeToCurrent();
 
     if (pageData != null) {
       symptomsModel.value.id = pageData.id;

@@ -24,6 +24,9 @@ class HealthController extends BaseTrackableController {
 
   void setup({TrackHistoryResponseModel pageData}) {
     formWidgetList = trackablesController.getHealthWellness();
+    healthWellnessModel.value.id = null;
+    dateTimeController.setTimeToCurrent();
+
     if (pageData != null) {
       healthWellnessModel.value.id = pageData.id;
       dateTimeController.setDate(pageData.trackedAt);

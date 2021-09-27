@@ -25,6 +25,9 @@ class JournalController extends BaseTrackableController {
 
   void setup({TrackHistoryResponseModel pageData}) {
     formWidgetList = trackablesController.getBowelMovements();
+    journalModel.value.id = null;
+    dateTimeController.setTimeToCurrent();
+
     if (pageData != null) {
       journalModel.value.id = pageData.id;
       dateTimeController.setDate(pageData.trackedAt);

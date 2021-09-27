@@ -27,6 +27,12 @@ class DateTimeCardController extends GetxController{
     selectedTimeLabel.value = DateFormat('hh:mm a').format(selectedDate.toLocal());
   }
 
+  /// Leaves the date as is, but updates the time to now.
+  void setTimeToCurrent(){
+    var now = DateTime.now();
+    selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day, now.hour, now.minute);
+    formatSelectedDate();
+  }
 
 
   getAndroidDatePicker() {

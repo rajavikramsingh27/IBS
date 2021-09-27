@@ -26,6 +26,9 @@ class BowelMovementController extends BaseTrackableController {
 
 
   void setup({TrackHistoryResponseModel pageData}) {
+    bowelMovementsModel.value.id = null;
+    dateTimeController.setTimeToCurrent();
+
     formWidgetList = trackablesController.getBowelMovements();
     if (pageData != null) {
       bowelMovementsModel.value.id = pageData.id;
