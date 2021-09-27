@@ -11,6 +11,7 @@
 //
 //     final trackablesListModel = trackablesListModelFromJson(jsonString);
 
+import 'package:flutter/material.dart';
 import 'package:flutter_ibs/services/url.dart';
 
 class TrackablesListModel {
@@ -76,6 +77,7 @@ class TrackableItem {
     this.enabled,
     this.weight,
     this.selected,
+    this.timePicker
   });
 
   String tid;
@@ -105,6 +107,7 @@ class TrackableItem {
   bool enabled;
   int weight;
   bool selected = false;
+  TimeOfDay timePicker;
 
   factory TrackableItem.fromJson(Map<String, dynamic> json) => TrackableItem(
         tid: json["tid"] == null ? null : json["tid"],

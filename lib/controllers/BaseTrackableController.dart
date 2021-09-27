@@ -1,4 +1,5 @@
 
+import 'package:flutter/material.dart';
 import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/track_history/TrackHistoryResponseModel.dart';
@@ -72,6 +73,10 @@ class BaseTrackableController extends GetxController {
             break;
           case 'tags':
             item.tags.setTagsByValues(pageItem.val);
+            break;
+          case 'timePickerInline':
+            var time = pageItem.val.split(":");
+            item.timePicker = new TimeOfDay(hour: int.parse(time[0]), minute: int.parse(time[1]));
             break;
           default:
             String kind = item.kind;
