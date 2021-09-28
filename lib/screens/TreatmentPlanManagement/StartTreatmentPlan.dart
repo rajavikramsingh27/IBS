@@ -8,6 +8,7 @@ import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:flutter_ibs/widget/CustomArcPainter.dart';
 import 'package:flutter_ibs/widget/CustomDialog.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
+import 'package:flutter_ibs/widget/CustomPainters.dart';
 import 'package:flutter_ibs/widget/DateTimeCardWidget.dart';
 import 'package:flutter_ibs/widget/DynamicWidget.dart';
 import 'package:flutter_ibs/widget/PlanDetailsManagmentWidget.dart';
@@ -20,8 +21,8 @@ import 'package:get/get.dart';
 class StartTreatmentPlan extends StatelessWidget {
   final TreatmentPlanController _treatmentPlanController = Get.find();
   final TreatmentPlanItemData data;
-  final DateTimeCardController dateTimeController = Get.put(DateTimeCardController());
-
+  final DateTimeCardController dateTimeController =
+      Get.put(DateTimeCardController());
 
   StartTreatmentPlan({this.data});
 
@@ -127,45 +128,96 @@ class StartTreatmentPlan extends StatelessWidget {
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(20)),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: ScreenConstant
-                                                .defaultWidthTwenty,
-                                          ),
-                                          child: _treatmentPlanController
-                                                  .loader.value
-                                              ? Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                )
-                                              : Column(
-                                                  children: [
-                                                    SizedBox(
-                                                        height: ScreenConstant
-                                                            .defaultHeightTen),
-                                                    DynamicWidget(
-                                                      data: data.trackables,
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Positioned(
+                                                top: -120,
+                                                child: Container(
+                                                    height: 150,
+                                                    width: 150,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: AppColors
+                                                            .colorSymptomsGridBg
+                                                            .withOpacity(
+                                                                0.5)))),
+                                            Positioned(
+                                                top: -200,
+                                                child: Container(
+                                                    height: 300,
+                                                    width: 300,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: AppColors
+                                                            .colorSymptomsGridBg
+                                                            .withOpacity(
+                                                                0.2)))),
+                                            Positioned(
+                                                bottom: -120,
+                                                child: Container(
+                                                    height: 150,
+                                                    width: 150,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: AppColors
+                                                            .colorSymptomsGridBg
+                                                            .withOpacity(
+                                                                0.5)))),
+                                            Positioned(
+                                                bottom: -200,
+                                                child: Container(
+                                                    height: 300,
+                                                    width: 300,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: AppColors
+                                                            .colorSymptomsGridBg
+                                                            .withOpacity(
+                                                                0.2)))),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: ScreenConstant
+                                                    .defaultWidthTwenty,
+                                              ),
+                                              child: _treatmentPlanController
+                                                      .loader.value
+                                                  ? Center(
+                                                      child:
+                                                          CircularProgressIndicator(),
+                                                    )
+                                                  : Column(
+                                                      children: [
+                                                        SizedBox(
+                                                            height: ScreenConstant
+                                                                .defaultHeightTen),
+                                                        DynamicWidget(
+                                                          data: data.trackables,
+                                                        ),
+                                                        Divider(
+                                                            thickness: 1,
+                                                            color: AppColors
+                                                                .white
+                                                                .withOpacity(
+                                                                    0.12)),
+                                                        ReminderWidget(
+                                                          title: data.reminders
+                                                              .name.tr,
+                                                          description: data
+                                                              .reminders
+                                                              .description
+                                                              .tr,
+                                                          data: data.reminders
+                                                              .children,
+                                                        ),
+                                                        SizedBox(
+                                                            height: ScreenConstant
+                                                                    .defaultHeightForty *
+                                                                1.4),
+                                                      ],
                                                     ),
-                                                    Divider(
-                                                        thickness: 1,
-                                                        color: AppColors.white
-                                                            .withOpacity(0.12)),
-                                                    ReminderWidget(
-                                                      title: data
-                                                          .reminders.name.tr,
-                                                      description: data
-                                                          .reminders
-                                                          .description
-                                                          .tr,
-                                                      data: data
-                                                          .reminders.children,
-                                                    ),
-                                                    SizedBox(
-                                                        height: ScreenConstant
-                                                                .defaultHeightForty *
-                                                            1.4),
-                                                  ],
-                                                ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                       PlanDetailsManagementWidget(

@@ -123,7 +123,7 @@ class _IntroState extends State<Intro> {
           controller: _pageController,
           itemBuilder: (BuildContext context, int index) {
             if (index == 0) {
-              return Container(
+              return Padding(
                 padding: EdgeInsets.only(left: 30, right: 30),
                 child: Center(
                     child: Column(
@@ -144,23 +144,25 @@ class _IntroState extends State<Intro> {
                           color: Colors.white.withOpacity(0.9)),
                     ),
                     SizedBox(height: 30),
-                    SizedBox(
-                      height: ScreenConstant.defaultHeightSixteen * 3,
-                      child: Card(
-                        color: AppColors.colorDot,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                                "assets/images/intro/candian_symbol.png",
-                                width: 12,
-                                height: 12),
-                            SizedBox(width: ScreenConstant.defaultWidthTen),
-                            Text(
-                              "Canadian Digestive Health Information",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
+                    Expanded(
+                      child: SizedBox(
+                        height: ScreenConstant.defaultHeightSixteen * 3,
+                        child: Card(
+                          color: AppColors.colorDot,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                  "assets/images/intro/candian_symbol.png",
+                                  width: 12,
+                                  height: 12),
+                              SizedBox(width: ScreenConstant.defaultWidthTen),
+                              Text(
+                                "Canadian Digestive Health Information",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
