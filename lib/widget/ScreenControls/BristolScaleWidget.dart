@@ -14,6 +14,7 @@ class BristolScaleWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem)  onValueRemoved;
 
   const BristolScaleWidget({
     Key key,
@@ -22,6 +23,7 @@ class BristolScaleWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super(key: key);
 
   @override
@@ -29,11 +31,11 @@ class BristolScaleWidget extends StatefulWidget {
 }
 
 class _BristolScaleWidgetState extends State<BristolScaleWidget> {
-  double _currentValue; // this.trackableItem.rating.value.toDouble();
+  double _currentValue;
 
   @override
   void initState() {
-    _currentValue = widget.trackableItem.rating.ratingDefault.toDouble();
+    _currentValue = widget.trackableItem.rating.value.toDouble();
     widget.trackableItem.rating.value = _currentValue;
 
     // As this is tracked, set its initial tracking state:
@@ -47,6 +49,17 @@ class _BristolScaleWidgetState extends State<BristolScaleWidget> {
 
     super.initState();
   }
+
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -147,14 +160,14 @@ class _BristolScaleWidgetState extends State<BristolScaleWidget> {
                     _currentValue = newValue;
                     widget.trackableItem.rating.value = newValue;
                   });
-                  //widget.trackableItem.rating.ratingDefault = newValue;
-                  /*controller.initModel(
-                      data: data,
-                      dType: "num",
-                      value: data.rating.ratingDefault);
-                  _signUpController.bowelMovements.refresh();
-
-                   */
+                  widget.onValueChanged(TrackableSubmitItem(
+                    tid: widget.trackableItem.tid,
+                    category: widget.trackableItem.category,
+                    kind: widget.trackableItem.kind,
+                    dtype: "num",
+                    value:
+                    TrackableSubmitItemValue(number: _currentValue),
+                  ));
                 },
               ),
             ),

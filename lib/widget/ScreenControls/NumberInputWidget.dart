@@ -12,6 +12,7 @@ class NumberInputWidget extends StatefulWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem)  onValueRemoved;
 
   const NumberInputWidget({
     Key key,
@@ -20,6 +21,7 @@ class NumberInputWidget extends StatefulWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super(key: key);
 
   @override
@@ -27,21 +29,37 @@ class NumberInputWidget extends StatefulWidget {
 }
 
 class _NumberInputWidgetState extends State<NumberInputWidget> {
-  int _currentValue; // this.trackableItem.rating.value.toDouble();
+  TextEditingController textController = TextEditingController();
+
 
   @override
   void initState() {
-    _currentValue = 0;
+    textController.text = widget.trackableItem.numberInput.value.toString();
+    int numVal = 0;
+    if (textController.text != ""){
+      numVal = int.parse(textController.text);
+    }
     // As this is tracked, set its initial tracking state:
     widget.onValueChanged(TrackableSubmitItem(
       tid: widget.trackableItem.tid,
       category: widget.trackableItem.category,
       kind: widget.trackableItem.kind,
       dtype: "num",
-      value: TrackableSubmitItemValue(number: _currentValue),
+      value: TrackableSubmitItemValue(number: numVal ),
     ));
     super.initState();
   }
+
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -95,10 +113,19 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)),
                     child: TextFormField(
+                        onChanged: (dynamic newValue) {
+                          widget.onValueChanged(TrackableSubmitItem(
+                            tid: widget.trackableItem.tid,
+                            category: widget.trackableItem.category,
+                            kind: widget.trackableItem.kind,
+                            dtype: "num",
+                            value: TrackableSubmitItemValue(number: int.parse(newValue)),
+                          ));
+                        },
                         style: TextStyle(fontSize: 24),
                         textAlign: TextAlign.center,
                         cursorColor: Colors.white,
-                        //controller: _controller,
+                        controller: textController,
                         keyboardType: TextInputType.number,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),

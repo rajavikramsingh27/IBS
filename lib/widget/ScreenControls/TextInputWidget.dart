@@ -6,12 +6,13 @@ import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
 import 'package:get/get.dart';
 
-class TextInputWidget extends StatelessWidget {
+class TextInputWidget extends StatefulWidget {
   final TrackableItem trackableItem;
   final bool isFirst;
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem)  onValueRemoved;
 
   const TextInputWidget({
     //Key key,
@@ -20,7 +21,42 @@ class TextInputWidget extends StatelessWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super();
+
+  @override
+  _TextInputWidgetState createState() => _TextInputWidgetState();
+}
+
+class _TextInputWidgetState extends State<TextInputWidget> {
+
+  TextEditingController textController = TextEditingController();
+
+  @override
+  void initState() {
+   textController.text = widget.trackableItem.textInput.value;
+
+    // As this is tracked, set its initial tracking state:
+    widget.onValueChanged(TrackableSubmitItem(
+      tid: widget.trackableItem.tid,
+      category: widget.trackableItem.category,
+      kind: widget.trackableItem.kind,
+      dtype: "str",
+      value: TrackableSubmitItemValue(str: textController.text ),
+    ));
+    super.initState();
+  }
+
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    widget.onValueRemoved(widget.trackableItem);
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +68,7 @@ class TextInputWidget extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
             child: Column(
               children: [
-                Text(this.trackableItem.name.tr ?? "",
+                Text(widget.trackableItem.name.tr ?? "",
                     textAlign: TextAlign.center,
                     style: TextStyles.textStyleIntroDescription
                         .apply(color: Colors.black, fontSizeDelta: -3)),
@@ -43,15 +79,15 @@ class TextInputWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16)),
                   child: TextFormField(
                     onChanged: (dynamic newValue) {
-                      onValueChanged(TrackableSubmitItem(
-                        tid: trackableItem.tid,
-                        category: trackableItem.category,
-                        kind: trackableItem.kind,
+                      widget.onValueChanged(TrackableSubmitItem(
+                        tid: widget.trackableItem.tid,
+                        category: widget.trackableItem.category,
+                        kind: widget.trackableItem.kind,
                         dtype: "str",
                         value: TrackableSubmitItemValue(str: newValue),
                       ));
                     },
-                    //controller: textEditingController,
+                    controller: textController,
                     // inputFormatters: <TextInputFormatter>[],
                     textInputAction: TextInputAction.newline,
                     maxLines: 8,

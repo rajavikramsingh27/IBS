@@ -1,52 +1,64 @@
-import 'package:flutter_ibs/controllers/trackables/TrackablesController.dart';
+import 'package:flutter_ibs/controllers/BaseTrackableController.dart';
+import 'package:flutter_ibs/controllers/dateTime/DateTimeCardController.dart';
+import 'package:flutter_ibs/controllers/home/HomeController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/food/FoodResponseModel.dart';
 import 'package:flutter_ibs/models/food/FoodSendModel.dart';
+import 'package:flutter_ibs/models/track_history/TrackHistoryResponseModel.dart';
 import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/DateTime.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
 
-class FoodController extends GetxController {
-  Rx<DateTime> currentDateTime = DateTime.now().obs;
-  RxInt endTimeDifference = 0.obs;
-  RxInt startTimeDifference = 0.obs;
-
-  RxBool loader = false.obs;
+class FoodController extends BaseTrackableController {
+  HomeController homeController = Get.find();
+  DateTimeCardController dateTimeController = Get.put(DateTimeCardController());
 
   Rx<FoodSendModel> foodModel = FoodSendModel(items: []).obs;
-  TrackablesController _trackablesController = Get.find();
-
   RxList<TrackableItem> formWidgetList;
 
-  bool _isDefaultFoodSet;
+  //Rx<DateTime> currentDateTime = DateTime.now().obs;
+  RxInt endTimeDifference = 0.obs;
+  RxInt startTimeDifference = 0.obs;
+  bool _isDefaultFoodSet = false;
+
 
   @override
-  void onInit() async {
-    doInit();
+  void onInit() {
     super.onInit();
   }
 
+
+  void setup({TrackHistoryResponseModel pageData}) {
+    foodModel.value.id = null;
+    formWidgetList = trackablesController.getFoods();
+    dateTimeController.setTimeToCurrent();
+
+    _isDefaultFoodSet = false;
+
+    if (pageData != null) {
+      foodModel.value.id = pageData.id;
+      dateTimeController.setDate(pageData.trackedAt);
+      setSavedData(pageData: pageData);
+      // Set the selected mean option:
+      formWidgetList.first.list.options.forEach((food) {
+        if (food.selected){
+          formWidgetList.first.list.value = food;
+        }
+      });
+    }else {
+      // Set the default selected food based on time:
+      formWidgetList.first.list.options.forEach((food) {
+        mealOptionDefault(food);
+      });
+    }
+  }
+
+
   onCancel() {
-    doInit();
     Get.back();
   }
 
-  void doInit() {
-    formWidgetList = RxList<TrackableItem>();
-    _trackablesController.foods.value.items.forEach((element) {
-      formWidgetList.add(element);
-    });
-
-    // Turn off all the selections for food type:
-    _isDefaultFoodSet = false;
-    formWidgetList.first.list.options.forEach((element) {
-      mealOptionDefault(element);
-    });
-
-    // Refresh the local list so the form can generate:
-    formWidgetList.refresh();
-  }
 
   /// Set the meal selection based on time of day
   mealOptionDefault(ListOption mealOption) {
@@ -59,7 +71,7 @@ class FoodController extends GetxController {
         dateTime: mealOption.conditionalDefault.time.first.endTime,
         returnFormat: "HH:mm");
 
-    var s = "${currentDateTime.value.hour}:${currentDateTime.value.minute}";
+    var s = "${dateTimeController.selectedDate.hour}:${dateTimeController.selectedDate.minute}";
     var u = CustomDateTime()
         .parseTimeAsDateTime(dateTime: s, returnFormat: "HH:mm");
 
@@ -74,6 +86,8 @@ class FoodController extends GetxController {
       }
     }
   }
+
+
 
   valueChanged(TrackableSubmitItem submitItem) {
     var count = foodModel.value.items.length;
@@ -91,181 +105,55 @@ class FoodController extends GetxController {
     }
   }
 
-  void onSave() async {
-    loader.value = true;
-    final data = await ServiceApi().foodTrackApi(bodyData: foodModel.toJson());
-    loader.value = false;
-    if (data is FoodResponseModel) {
-      // noteTextController.clear();
-      //  healthWellnessModel.value.items = [];
-      //  _signUpController.getTrackList();
-      doInit();
-      Get.back();
-      CustomSnackBar().successSnackBar(
-          title: "Success", message: "Food Added Successfully");
-    } else {
-      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-    }
-  }
-}
 
-/*
-  // onFoodTagSave() {
-  //   TagsSendModel foodTags = TagsSendModel(
-  //     category: _signUpController.food.value.category,
-  //     key: ,
-  //     value: ,
-  //   );
-  // }
-
-  onSave() async {
-    /*
-    if (foodSendModel.value.items == null) {
-      foodSendModel.value.items = [];
-    }
-    List<String> list = [];
-
-    listfoodDefault.forEach((element) {
-      list.add(element.value);
-    });
-    FoodSubList foodTypeModel = FoodSubList(
-        tid: mealtid.value,
-        kind: "tags",
-        dtype: "arr",
-        value: FoodSubValue(arr: list));
-    listFoodSub.add(foodTypeModel);
-    listFoodSub.refresh();
-    FoodList foodModel = FoodList(
-        children: listFoodSub,
-        tid: _signUpController.food.value.items.last.tid,
-        kind: _signUpController.food.value.items.last.kind,
-        dtype: "str",
-        value: FoodValue(str: mealTypeValue.value));
-    print("meal:${mealTypeValue.value}");
-    print("foodListTid:${mealtid.value}");
-
-    foodSendModel.value.items.add(foodModel);
-    foodSendModel.refresh();
-
-    FoodList foodItemModel = FoodList(
-        tid: "food-notes",
-        kind: "textInput",
-        dtype: "str",
-        value: FoodValue(str: noteTextController.text));
-    print("meal:${mealTypeValue.value}");
-    FoodList hydrationItemModel = FoodList(
-        tid: "food-hydration",
-        kind: "sum",
-        dtype: "num",
-        value: FoodValue(num: noOfGlasses.value, str: ""));
-    print("meal:${mealTypeValue.value}");
-    foodSendModel.value.items.add(hydrationItemModel);
-
-    foodSendModel.value.items.add(foodItemModel);
-    foodSendModel.refresh();
-    print("food_data: ${foodSendModel.toJson()}");
-    loader.value = true;
-    final data =
-        await ServiceApi().foodTrackApi(bodyData: foodSendModel.toJson());
-    loader.value = false;
-    if (data is FoodResponseModel) {
-      foodTextController.clear();
-      noteTextController.clear();
-      foodSendModel.value.items = [];
-      _signUpController.getTrackList();
-      Get.back();
-      CustomSnackBar().successSnackBar(
-          title: "Success", message: "Foods Added Successfully");
-    } else {
-      loader.value = false;
-      foodTextController.clear();
-      noteTextController.clear();
-      _signUpController.getTrackList();
-      CustomSnackBar().errorSnackBar(title: "Error", message: data.message);
-    }
-
-     */
-  }
-
-  /*
-  getFood() async {
-    final data = await ServiceApi().getFoodList();
-    if (data == null) {
-      Get.offAllNamed(signIn);
-    }
-    print("Data: $data");
-  }
-
-  void checkData() {
-    if (_signUpController.food.value == null) {
-      loader.value = true;
-    } else {
-      loader.value = false;
-    }
-  }
-
-  mealOptionDefault({mealIndex}) {
-    var model =
-        _signUpController.food.value.items?.first?.list?.options[mealIndex];
-    var startTime = CustomDateTime().parseTimeAsDateTime(
-        dateTime: model.conditionalDefault.time.first.startTime,
-        returnFormat: "HH:mm");
-    var endTime = CustomDateTime().parseTimeAsDateTime(
-        dateTime: model.conditionalDefault.time.first.endTime,
-        returnFormat: "HH:mm");
-
-    var s = "${currentDateTime.value.hour}:${currentDateTime.value.minute}";
-    var u = CustomDateTime()
-        .parseTimeAsDateTime(dateTime: s, returnFormat: "HH:mm");
-
-    startTimeDifference.value = u.difference(startTime).inSeconds;
-    endTimeDifference.value = (endTime.difference(u).inSeconds);
-    if ((endTime.difference(u).inSeconds) > 0 &&
-        (u.difference(startTime).inSeconds) > 0) {
-      if (!selected.value) {
-        selected.value = true;
-        model.optionDefault = !model.optionDefault;
-        Future.delayed(Duration(seconds: 1), () {
-          _signUpController.food.refresh();
+  // Removed it from our tracked list:
+  void onValueRemoved(TrackableItem item){
+    var count = foodModel.value.items.length;
+    for (var i = 0; i < count; i++) {
+      if (foodModel.value.items[i].tid == item.tid) {
+        // Remove all the children items:
+        item.children.forEach((child) {
+          child.items.forEach((childItem) {
+            onValueRemoved(childItem);
+          });
         });
-      }
-    }
-    //   if (model.optionDefault == false &&
-    //       ((endTime.difference(u).inSeconds) > 0 &&
-    //           (u.difference(startTime).inSeconds) > 0)) {
-    //     model.optionDefault = true;
-    //     Future.delayed(Duration(seconds: 0), () {
-    //       _signUpController.food.refresh();
-    //     });
-    //   }
-  }
-
-   */
-
-  valueChanged(TrackableSubmitItem submitItem){
-    var count = _selectedItems.length;
-    bool isAdded = false;
-    for(var i=0; i < count; i++) {
-      if (_selectedItems[i].tid == submitItem.tid) {
-        _selectedItems[i] = submitItem;
-        isAdded = true;
+        foodModel.value.items.removeAt(i);
+        item.reset();
         break;
       }
     }
 
-    if (!isAdded){
-      _selectedItems.add(submitItem);
-    }
-
-
-/*
-    print ('-------');
-    _selectedItems.forEach((element) {
-      print(element.toJson());
-    });
-
- */
   }
 
+
+
+
+  void onSave() async {
+    foodModel.value.trackedAt = dateTimeController.selectedDate.toUtc();
+    loader.value = true;
+
+    bool isUpdate = false;
+
+    FoodResponseModel data;
+    if (foodModel.value.id != null){
+      isUpdate = true;
+      data = await ServiceApi().foodUpdateApi(id: foodModel.value.id, bodyData: foodModel.toJson());
+      homeController.getTrackHistoryList();
+    }else{
+      data = await ServiceApi().foodTrackApi(bodyData: foodModel.toJson());
+    }
+
+    loader.value = false;
+    if (data != null ) {
+      Get.back();
+      CustomSnackBar().successSnackBar(
+          title: "Success", message: isUpdate ? "Food Updated Successfully" : "Food Added Successfully");
+    }
+
+  }
+
+
+
 }
-*/
+
+

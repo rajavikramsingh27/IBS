@@ -8,12 +8,17 @@ import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart'
 
 class MedicationSendModel {
   MedicationSendModel({
+    this.id,
     this.category = "medications",
     this.items,
+    this.trackedAt,
   });
 
+  String id;
   String category;
   List<TrackableSubmitItem> items;
+  DateTime trackedAt;
+
 
   factory MedicationSendModel.fromRawJson(String str) =>
       MedicationSendModel.fromJson(json.decode(str));
@@ -22,18 +27,23 @@ class MedicationSendModel {
 
   factory MedicationSendModel.fromJson(Map<String, dynamic> json) =>
       MedicationSendModel(
+        id: json["_id"] == null ? null : json["_id"],
         category: json["category"] == null ? null : json["category"],
         items: json["items"] == null
             ? null
             : List<TrackableSubmitItem>.from(
                 json["items"].map((x) => TrackableSubmitItem.fromJson(x))),
+        trackedAt:
+        json["trackedAt"] == null ? null : new DateTime(json["trackedAt"]),
       );
 
   Map<String, dynamic> toJson() => {
+        "_id": id == null ? null : id,
         "category": category == null ? null : category,
         "items": items == null
             ? null
             : List<dynamic>.from(items.map((x) => x.toJson())),
+          "trackedAt": trackedAt.toUtc().toString(),
       };
 }
 /*

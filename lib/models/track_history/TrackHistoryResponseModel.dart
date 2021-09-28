@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/services/url.dart';
 
 class TrackHistoryResponseModelList {
@@ -27,16 +28,20 @@ class TrackHistoryResponseModel {
   TrackHistoryResponseModel({
     this.id,
     this.createdAt,
+    this.trackedAt,
     this.category,
     this.title,
     this.image,
+    this.items,
   });
 
   String id;
   DateTime createdAt;
+  DateTime trackedAt;
   String category;
   String title;
   Image image;
+  List<TrackableSubmitItem> items;
 
   factory TrackHistoryResponseModel.fromRawJson(String str) =>
       TrackHistoryResponseModel.fromJson(json.decode(str));
@@ -49,9 +54,16 @@ class TrackHistoryResponseModel {
         createdAt: json["createdAt"] == null
             ? null
             : DateTime.parse(json["createdAt"]),
+          trackedAt: json["trackedAt"] == null
+              ? null
+              : DateTime.parse(json["trackedAt"]),
         category: json["category"] == null ? null : json["category"],
         title: json["title"] == null ? null : json["title"],
         image: json["image"] == null ? null : Image.fromJson(json["image"]),
+        items: json["items"] == null
+            ? []
+            : List<TrackableSubmitItem>.from(
+                json["items"].map((x) => TrackableSubmitItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

@@ -12,7 +12,7 @@ import 'package:flutter_ibs/widget/WavePainter.dart';
 import 'package:get/get.dart';
 
 class Health extends StatelessWidget {
-  final controller = Get.put(HealthController());
+  final HealthController controller = Get.find();
   final UserController _userController = Get.find();
 
   @override
@@ -115,7 +115,8 @@ class Health extends StatelessWidget {
                                                 isFirst: _numRendered == 1,
                                                 isLast: isLast,
                                                 onValueChanged:
-                                                    controller.valueChanged);
+                                                    controller.valueChanged,
+                                                onValueRemoved: controller.onValueRemoved);
                                       } else {
                                         _numSkipped++;
                                         return Offstage();

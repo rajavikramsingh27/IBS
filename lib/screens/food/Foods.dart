@@ -17,14 +17,14 @@ class Foods extends StatelessWidget {
 
   Foods({Key key, this.trackFoodList}) : super(key: key);
 
-  final FoodController controller = Get.put(FoodController());
+  final FoodController controller = Get.find();
   final TrackablesController _trackablesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     //print("model:$trackFoodList");
 
-    return Scaffold(
+    return /* Scaffold(
         resizeToAvoidBottomInset: false,
         bottomNavigationBar: _trackablesController.loader.value
             ? Center(
@@ -54,7 +54,7 @@ class Foods extends StatelessWidget {
                 ),
               ),
         backgroundColor: Color(0xff1A103E).withOpacity(0.6),
-        body: Obx(
+        body:*/ Obx(
           () => ListView(
             physics: ClampingScrollPhysics(),
             children: [
@@ -116,11 +116,13 @@ class Foods extends StatelessWidget {
                                 controller.formWidgetList[
                                     controller.formWidgetList.length - 2],
                                 isLast: true,
-                                onValueChanged: controller.valueChanged),
+                                onValueChanged: controller.valueChanged,
+                                onValueRemoved: controller.onValueRemoved),
                             //Render text input:
                             RenderWidgetByType().renderTrackableItem(
                                 controller.formWidgetList.last,
-                                onValueChanged: controller.valueChanged),
+                                onValueChanged: controller.valueChanged,
+                                onValueRemoved: controller.onValueRemoved),
                             Container(
                               height: 70,
                               child: Stack(children: [
@@ -142,18 +144,42 @@ class Foods extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyles.textStyleRegular,
                             ),
-                            SizedBox(height: ScreenConstant.defaultHeightForty)
+                            SizedBox(height: ScreenConstant.defaultHeightForty),
+                            Container(
+                              color: Colors.white,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  SizedBox(height: ScreenConstant.defaultHeightTen),
+                                  controller.loader.value
+                                      ? Offstage()
+                                      : CustomElevatedButton(
+                                    widthFactor: 0.7,
+                                    text: "Save",
+                                    onTap: controller.onSave,
+                                  ),
+                                  TextButton(
+                                      onPressed: controller.onCancel,
+                                      child: Text("Cancel",
+                                          style: TextStyles.textStyleIntroDescription.apply(
+                                            color: AppColors.colorskip_also_proceed,
+                                          )))
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ),
-                    Positioned(right: 0, left: 0, child: CustomArcPainter())
+                    Positioned(right: 0, left: 0, child: CustomArcPainter()),
+
                   ],
                 ),
               ),
             ],
           ),
-        ));
+        );
   }
 
   /// HACK: We're hard-coding the food selection list to save some time.
@@ -166,7 +192,7 @@ class Foods extends StatelessWidget {
       shrinkWrap: true,
       itemCount: foodParent.list?.options?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
-        // _controller.mealOptionDefault(mealIndex: index);
+        //controller.mealOptionDefault(mealIndex: index);
         var model = foodParent.list?.options[index];
 
         return InkWell(
@@ -179,11 +205,6 @@ class Foods extends StatelessWidget {
             model.selected = true;
             controller.formWidgetList.first.list.value = model;
             controller.formWidgetList.refresh();
-            /*    _controller.modelMealIndex.value = index;
-            _controller.mealTypeValue.value = model.value;
-            _controller.modelMealIndex.refresh();
-            _signUpController.food.refresh();
-            */
           },
           child: Container(
             decoration: BoxDecoration(
@@ -229,31 +250,45 @@ class Foods extends StatelessWidget {
   _renderFoodGroup(ListOption option) {
     TrackableItem item;
 
+    controller.valueChanged(TrackableSubmitItem(
+      tid: controller.formWidgetList.first.tid,
+      category: controller.formWidgetList.first.category,
+      kind: controller.formWidgetList.first.kind,
+      dtype: "arr",
+      value: TrackableSubmitItemValue(arr: [controller.formWidgetList.first.list.value.value]),
+    ));
+
+
+
     switch (option.value) {
       case "breakfast":
         item = controller.formWidgetList.first.children[0].items[0];
         return RenderWidgetByType().renderTrackableItem(item,
             isFirst: true,
             isLast: true,
-            onValueChanged: controller.valueChanged);
+            onValueChanged: controller.valueChanged,
+            onValueRemoved: controller.onValueRemoved);
       case "lunch":
         item = controller.formWidgetList.first.children[1].items[0];
         return RenderWidgetByType().renderTrackableItem(item,
             isFirst: true,
             isLast: true,
-            onValueChanged: controller.valueChanged);
+            onValueChanged: controller.valueChanged,
+            onValueRemoved: controller.onValueRemoved);
       case "dinner":
         item = controller.formWidgetList.first.children[2].items[0];
         return RenderWidgetByType().renderTrackableItem(item,
             isFirst: true,
             isLast: true,
-            onValueChanged: controller.valueChanged);
+            onValueChanged: controller.valueChanged,
+            onValueRemoved: controller.onValueRemoved);
       case "snacks":
         item = controller.formWidgetList.first.children[3].items[0];
         return RenderWidgetByType().renderTrackableItem(item,
             isFirst: true,
             isLast: true,
-            onValueChanged: controller.valueChanged);
+            onValueChanged: controller.valueChanged,
+            onValueRemoved: controller.onValueRemoved);
       default:
         return Offstage();
     }

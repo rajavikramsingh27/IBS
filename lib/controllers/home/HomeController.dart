@@ -1,7 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
+import 'package:flutter_ibs/controllers/bowel_movement/BowelMovementController.dart';
+import 'package:flutter_ibs/controllers/food/FoodController.dart';
+import 'package:flutter_ibs/controllers/health/HealthController.dart';
+import 'package:flutter_ibs/controllers/journal/JournalController.dart';
+import 'package:flutter_ibs/controllers/medication/MedicationController.dart';
 import 'package:flutter_ibs/controllers/signup/SignUpController.dart';
+import 'package:flutter_ibs/controllers/symptoms/SymptomsController.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/models/track_history/TrackHistoryResponseModel.dart';
 import 'package:flutter_ibs/screens/bowel_movement/BowelMovement.dart';
@@ -17,14 +23,15 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class HomeController extends GetxController {
+
   Rx<TrackablesListModel> trackFoodList = TrackablesListModel().obs;
 
   Rx<DateTime> now = DateTime.now().obs;
-  RxBool selectedDailyLogin = false.obs;
+
   RxInt formattedTime = 0.obs;
   RxInt currentIndex = 0.obs;
   RxInt segmentedControlGroupValue = 0.obs;
-  DateTime selectedDate;
+
   TextEditingController dateController = TextEditingController();
   final SignUpController _signUpController = Get.put(SignUpController());
   RxBool loader = false.obs;
@@ -32,11 +39,12 @@ class HomeController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxList<TrackHistoryResponseModel> trackHistoryList =
       <TrackHistoryResponseModel>[].obs;
-  RxInt selectedDailyLogIndex = 0.obs;
-  RxString selectedDailyLogindividualId = "".obs;
 
-  RxString selectedDailyLogCategory = "".obs;
+  TrackHistoryResponseModel selectedPageData;
 
+
+
+  DateTime selectedDate; // Date as set in the Home screen
   RxString selectedDateLabel = "".obs;
   RxString selectedTimeLabel = "".obs;
 
@@ -60,6 +68,15 @@ class HomeController extends GetxController {
     connectionStatus.value = true;
     bool isInternet = await ConnectionCheck().initConnectivity();
     connectionStatus.value = isInternet;
+
+    /// Setup trackable controllers:
+   // Get.lazyPut(() => DateTimeCardController() );
+    Get.lazyPut(() => SymptomsController());
+    Get.lazyPut(() => BowelMovementController());
+    Get.lazyPut(() => MedicationController());
+    Get.lazyPut(() => HealthController());
+    Get.lazyPut(() => FoodController());
+    Get.lazyPut(() => JournalController());
   }
 
   void goForwardOneDay() {
@@ -70,12 +87,16 @@ class HomeController extends GetxController {
       return;
     }
     formatSelectedDate();
+
+    // Update the tracking list if appropriate:
+    dateChangeUpdateTrackHistory();
   }
 
   void goBackOneDay() {
     // selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day - 1);
     selectedDate = selectedDate.subtract(Duration(days: 1));
     formatSelectedDate();
+    dateChangeUpdateTrackHistory();
   }
 
   void formatSelectedDate() {
@@ -107,6 +128,7 @@ class HomeController extends GetxController {
       if (datePicked != null && datePicked != selectedDate) {
         selectedDate = datePicked;
         formatSelectedDate();
+        dateChangeUpdateTrackHistory();
       }
     });
   }
@@ -152,6 +174,7 @@ class HomeController extends GetxController {
           timeOfDay.hour,
           timeOfDay.minute);
       this.formatSelectedDate();
+      dateChangeUpdateTrackHistory();
     }
   }
 
@@ -173,20 +196,35 @@ class HomeController extends GetxController {
     }
   }
 
-  getTrackHistoryList() async {
-    if (connectionStatus.value) {
-      loader.value = true;
-      await ServiceApi().getUserHistoryList().then((value) {
-        trackHistoryList.value = value;
-      });
-      loader.value = false;
+
+
+  dateChangeUpdateTrackHistory() {
+    // Update the tracking list if appropriate:
+    if (segmentedControlGroupValue.value == 1) {
+      getTrackHistoryList();
     }
   }
 
-  navigateToTrackHistory(TrackHistoryResponseModel model) {
-    switch (model.category) {
+  getTrackHistoryList() async {
+    if (connectionStatus.value) {
+      loader.value = true;
+      await ServiceApi().getUserHistoryList(selectedDate.toUtc()).then((value) {
+        value != null ? trackHistoryList.value = value : print("getUserHistoryList was null");
+        loader.value = false;
+      });
+
+    }
+  }
+
+  navigateToTrackHistory(TrackHistoryResponseModel pageData) {
+    selectedPageData = pageData;
+
+    switch (pageData.category) {
       case "symptoms":
         {
+          SymptomsController controller = Get.find();
+          controller.setup(pageData: pageData);
+
           return Get.bottomSheet(Symptoms(),
               barrierColor: AppColors.barrierColor.withOpacity(0.60),
               isScrollControlled: true);
@@ -194,33 +232,36 @@ class HomeController extends GetxController {
         break;
       case "bowelMovements":
         {
+          BowelMovementController controller = Get.find();
+          controller.setup(pageData: pageData);
+
           return Get.bottomSheet(BowelMovement(),
               barrierColor: AppColors.barrierColor.withOpacity(0.60),
               isScrollControlled: true);
         }
         break;
       case "medications":
+        MedicationController controller = Get.find();
+        controller.setup(pageData: pageData);
+
         return Get.bottomSheet(Medication(),
             barrierColor: AppColors.barrierColor.withOpacity(0.60),
             isScrollControlled: true);
 
         break;
       case "healthWellness":
+        HealthController controller = Get.find();
+        controller.setup(pageData: pageData);
+
         return Get.bottomSheet(Health(),
             barrierColor: AppColors.barrierColor.withOpacity(0.60),
             isScrollControlled: true);
 
         break;
-      case "foods":
+      case "food":
         {
-          if (connectionStatus.value) {
-            loader.value = true;
-
-            ServiceApi().getFoodHistoryList(id: model.id).then((value) {
-              trackFoodList.value = value;
-            });
-            loader.value = false;
-          }
+          FoodController controller = Get.find();
+          controller.setup(pageData: pageData);
 
           return Get.bottomSheet(Foods(),
               settings: RouteSettings(arguments: {trackFoodList.value}),
@@ -231,6 +272,9 @@ class HomeController extends GetxController {
 
         break;
       case "journal":
+        JournalController controller = Get.find();
+        controller.setup(pageData: pageData);
+
         return Get.bottomSheet(Journal(),
             barrierColor: AppColors.barrierColor.withOpacity(0.60),
             isScrollControlled: true);

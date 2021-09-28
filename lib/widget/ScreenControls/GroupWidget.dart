@@ -12,6 +12,7 @@ class GroupWidget extends StatelessWidget {
   final bool isLast;
   final bool isChild;
   final Function(TrackableSubmitItem) onValueChanged;
+  final Function(TrackableItem)  onValueRemoved;
 
   const GroupWidget({
     //Key key,
@@ -20,6 +21,7 @@ class GroupWidget extends StatelessWidget {
     this.isLast,
     this.isChild,
     this.onValueChanged,
+    this.onValueRemoved,
   }) : super();
 
   @override
@@ -74,7 +76,8 @@ class GroupWidget extends StatelessWidget {
                         return RenderWidgetByType().renderTrackableItem(
                             trackableItem.children.first.items[count],
                             isChild: true,
-                            onValueChanged: onValueChanged);
+                            onValueChanged: onValueChanged,
+                            onValueRemoved: onValueRemoved);
                       }),
                 ),
               ],

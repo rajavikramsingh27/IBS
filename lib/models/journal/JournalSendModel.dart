@@ -16,17 +16,20 @@ String journalSendModelToJson(JournalSendModel data) =>
 
 class JournalSendModel {
   JournalSendModel({
+    this.id,
     this.category = "journal",
     this.items,
     this.trackedAt,
   });
 
+  String id;
   String category;
   List<TrackableSubmitItem> items;
   DateTime trackedAt;
 
   factory JournalSendModel.fromJson(Map<String, dynamic> json) =>
       JournalSendModel(
+        id: json["_id"] == null ? null : json["_id"],
         category: json["category"] == null ? null : json["category"],
         items: json["items"] == null
             ? null
@@ -37,17 +40,9 @@ class JournalSendModel {
       );
 
   Map<String, dynamic> toJson() {
-    HomeController controller = Get.find();
-    DateTime now = DateTime.now();
-    DateTime trackedAt = new DateTime(
-        controller.selectedDate.year,
-        controller.selectedDate.month,
-        controller.selectedDate.day,
-        now.hour,
-        now.minute,
-        now.second);
 
     Map<String, dynamic> json = {
+      "_id": id == null ? null : id,
       "category": category == null ? null : category,
       "items": items == null
           ? null
