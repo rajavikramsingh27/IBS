@@ -84,7 +84,7 @@ class TreatmentPlanController extends GetxController {
         ));
   }
 
-  void onTagTapped({model}) {
+  void onTagTapped({model, category}) {
     if (model is Tag) {
       if (selectedTags.contains(model)) {
         selectedTags.remove(model);
@@ -107,9 +107,11 @@ class TreatmentPlanController extends GetxController {
   }
 
   void addReminder() {
-    (selectedDay.isEmpty || selectedTime.isEmpty || noteTextController.text.isEmpty)
-        ? CustomSnackBar()
-            .errorSnackBar(title: "Error", message: "Please check the given data.")
+    (selectedDay.isEmpty ||
+            selectedTime.isEmpty ||
+            noteTextController.text.isEmpty)
+        ? CustomSnackBar().errorSnackBar(
+            title: "Error", message: "Please check the given data.")
         : reminderList.add(Reminder(
             message: noteTextController.text,
             time: selectedTime.value,
@@ -155,14 +157,19 @@ class TreatmentPlanController extends GetxController {
                   arr: track.kind == "select"
                       ? track.select.selectDefault.value
                       : "",
-                  numValue: track.kind == "rating"
-                      ? track.rating.ratingDefault
-                      : 0));
+                  numValue:
+                      track.kind == "rating" ? track.rating.ratingDefault : 0));
           listTrackData.add(trackTreatmentModel);
         });
       }
     });
-    treatmentPlanSendModel.value.tags.addAll(selectedTagsList);
+    selectedTagsList.forEach((element) {
+      treatmentPlanSendModel.value.tags.add(Tag(
+        category: element.category,
+        value: element.value,
+      ));
+    });
+    //treatmentPlanSendModel.value.tags.addAll(selectedTagsList);
     treatmentPlanSendModel.value.reminders.addAll(reminderList);
     treatmentPlanSendModel.value.trackingDefaults.addAll(listTrackData);
     treatmentPlanSendModel.refresh();
@@ -173,7 +180,7 @@ class TreatmentPlanController extends GetxController {
         .postTreatmentPlanAPI(bodyData: treatmentPlanSendModel.toJson());
     loader.value = false;
     if (data is UserModel) {
-      ShareStore().saveData(store: KeyStore.userprofile,object: data);
+      ShareStore().saveData(store: KeyStore.userprofile, object: data);
       Get.offAllNamed(home);
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Treatment Plan Added Successfully");
@@ -184,24 +191,28 @@ class TreatmentPlanController extends GetxController {
     treatmentPlanSendModel = PostTreatmentPlanSendModel().obs;
   }
 
-  Future<bool> addTags({category, tagValue}) async {
-    loader.value = true;
-    final data = await ServiceApi().postTags(bodyData: tagValue.toJson());
-    loader.value = false;
-    if (data is TagsResponseModel) {
-      tagsController.clear();
-      selectedTags.add(tagValue);
-      selectedTagsList.add(tagValue);
-      CustomSnackBar()
-          .successSnackBar(title: "Success", message: "Tag Added Successfully");
-      return true;
-    } else {
-      loader.value = false;
+  bool addTags({category, tagValue}) {
+    // loader.value = true;
+    // final data = await ServiceApi().postTags(bodyData: tagValue.toJson());
+    // loader.value = false;
+    // if (data is TagsResponseModel) {
+    tagsController.clear();
+    selectedTagsList.add(tagValue);
 
-      CustomSnackBar()
-          .errorSnackBar(title: "Error", message: "Operation unsuccessful");
-      return false;
-    }
+    if (tagValue is ListOption)
+      selectedOptionList.add(tagValue);
+    else
+      selectedTags.add(tagValue);
+    //   CustomSnackBar()
+    //       .successSnackBar(title: "Success", message: "Tag Added Successfully");
+    //   return true;
+    // } else {
+    //   loader.value = false;
+
+    //   CustomSnackBar()
+    //       .errorSnackBar(title: "Error", message: "Operation unsuccessful");
+    return true;
+    // }
   }
 
   onStopTreatmentPlan() async {
@@ -209,7 +220,7 @@ class TreatmentPlanController extends GetxController {
     final data = await ServiceApi().removeTreatmentPlan(selectedPID.value);
     loader.value = false;
     if (data is UserModel) {
-      ShareStore().saveData(store: KeyStore.userprofile,object: data);
+      ShareStore().saveData(store: KeyStore.userprofile, object: data);
       Get.offAllNamed(home);
       CustomSnackBar().successSnackBar(
           title: "Success", message: "Treatment Plan Stopped Successfully");

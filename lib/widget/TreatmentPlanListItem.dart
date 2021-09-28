@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ibs/controllers/treatment_plan/TreatmentPlanController.dart';
+import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:get/get.dart';
 
 class TreatmentPlanListItem extends StatelessWidget {
   final title;
+  final tid;
   final onPressed;
-  TreatmentPlanListItem(this.title, this.onPressed);
+  final TreatmentPlanController _treatmentPlanController = Get.find();
+
+  TreatmentPlanListItem({this.title, this.onPressed, this.tid});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,9 +24,22 @@ class TreatmentPlanListItem extends StatelessWidget {
           border: Border.all(color: AppColors.colorBorder, width: 1)),
       child: ListTile(
         dense: true,
-        contentPadding: EdgeInsets.zero,
-        title: Padding(
-          padding: EdgeInsets.only(left: ScreenConstant.sizeXXL),
+        contentPadding: ScreenConstant.spacingAllExtraSmall,
+        leading: _treatmentPlanController.existTreatmentPlans.contains(tid)
+            ? Container(
+                height: ScreenConstant.sizeLarge,
+                width: ScreenConstant.sizeLarge,
+                decoration: new BoxDecoration(
+                    color: Colors.orange,
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: AssetImage(
+                          Assets.MarkDone,
+                        ),
+                        fit: BoxFit.fill)),
+              )
+            : Offstage(),
+        title: Center(
           child: Text(
             title ?? "",
             style: TextStyles.textStyleIntroDescription

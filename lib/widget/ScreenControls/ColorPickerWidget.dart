@@ -93,7 +93,7 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                       Text(
                         widget.trackableItem.color.value == null
                             ? ""
-                            : widget.trackableItem.color.value.description,
+                            : widget.trackableItem.color.value.description.tr,
                         textAlign: TextAlign.center,
                         style: TextStyles.textStyleRegular.apply(),
                       ),

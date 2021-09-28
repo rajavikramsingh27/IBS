@@ -749,10 +749,12 @@ class ListClass {
     this.userAddable,
     this.addableLabel,
     this.options,
+    this.category,
   });
 
   bool userAddable;
   String addableLabel;
+  String category;
   List<ListOption> options;
 
   factory ListClass.fromRawJson(String str) =>
@@ -764,6 +766,8 @@ class ListClass {
         userAddable: json["userAddable"] == null ? null : json["userAddable"],
         addableLabel:
             json["addableLabel"] == null ? null : json["addableLabel"],
+    category:
+    json["category"] == null ? null : json["category"],
         options: json["options"] == null
             ? null
             : List<ListOption>.from(

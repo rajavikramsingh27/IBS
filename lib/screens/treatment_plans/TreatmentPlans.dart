@@ -99,15 +99,19 @@ class TreatmentPlans extends StatelessWidget {
                                 return Column(
                                   children: [
                                     TreatmentPlanListItem(
-                                        _treatmentPlanController
+                                        title: _treatmentPlanController
                                             .treatmentPlanItemData[ind]
                                             .planName
-                                            .tr, () {
-                                      _treatmentPlanController
+                                            .tr,
+                                      onPressed: () {_treatmentPlanController
                                           .toTreatmentPlanListWidget(
                                               data: _treatmentPlanController
                                                   .treatmentPlanItemData[ind]);
-                                    }),
+                                    },
+                                      tid: _treatmentPlanController
+                                          .treatmentPlanItemData[ind]
+                                          .pid,
+                                    ),
                                     SizedBox(
                                         height: ScreenConstant.sizeDefault),
                                   ],
