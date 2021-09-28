@@ -87,6 +87,7 @@ class ForgotPassword extends StatelessWidget {
                 .apply(color: Colors.black, fontSizeDelta: -6)),
         SizedBox(height: ScreenConstant.defaultHeightTen * 0.8),
         CustomTextFormField(
+          keyboardType: TextInputType.emailAddress,
           currentFocus: focusEmail,
           nextFocus: focusPassWord,
           suffixIcon: Padding(

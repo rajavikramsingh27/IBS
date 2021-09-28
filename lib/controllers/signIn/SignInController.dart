@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/Store/ShareStore.dart';
@@ -29,7 +31,6 @@ class SignInController extends GetxController {
     super.onInit();
 
     emailController = TextEditingController();
-
     passwordController = TextEditingController();
 
     connectionStatus.value = true;

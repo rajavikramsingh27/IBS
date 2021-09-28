@@ -89,6 +89,7 @@ class ResetPassword extends StatelessWidget {
                 .apply(color: Colors.white, fontSizeDelta: -6)),
         SizedBox(height: ScreenConstant.defaultHeightTen * 0.8),
         CustomTextFormField(
+          keyboardType: TextInputType.emailAddress,
           currentFocus: focusEmail,
           nextFocus: focusPassWord,
           suffixIcon: Padding(

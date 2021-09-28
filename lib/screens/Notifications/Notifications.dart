@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -10,6 +9,16 @@ import 'package:flutter_ibs/widget/CustomSwitch.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:flutter_ibs/widget/utils.dart';
 import 'package:get/get.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ibs/widget/LeadingBackButton.dart';
+import 'package:flutter_ibs/utils/HexColor.dart';
+import 'package:flutter_ibs/widget/CustomSwitch.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_ibs/controllers/notificationsController/NotificationsController.dart';
+import 'dart:async';
+import 'dart:ui';
+import 'package:timezone/timezone.dart' as tz;
 
 class Notifications extends StatefulWidget {
   @override
@@ -17,6 +26,13 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
+  final controller = Get.put(NotificationsController());
+
+  tz.TZDateTime scheduledDate;
+
+  TextEditingController messageController = TextEditingController();
+  TimeOfDay picked;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +114,7 @@ class _NotificationsState extends State<Notifications> {
                           .apply(color: Colors.white),
                     ),
                   ),
-                  Expanded(flex: 2, child: _buildDropDown())
+                  Expanded(flex: 2, child: _buildAtTime())
                 ],
               ),
               SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
@@ -113,7 +129,8 @@ class _NotificationsState extends State<Notifications> {
               Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
-                child: TextFormField(
+                child: TextField(
+                  controller: messageController,
                   inputFormatters: <TextInputFormatter>[],
                   decoration: InputDecoration(
                       border: InputBorder.none,
@@ -131,25 +148,81 @@ class _NotificationsState extends State<Notifications> {
                 ),
               ),
               SizedBox(height: ScreenConstant.defaultHeightTen),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: ScreenConstant.defaultWidthTen * 1.5,
-                    backgroundColor: AppColors.colorArrowButton,
-                    child: Icon(
-                      Icons.add,
-                      size: FontSize.s20,
-                      color: Colors.white,
+              InkWell(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: ScreenConstant.defaultWidthTen * 1.5,
+                      backgroundColor: AppColors.colorArrowButton,
+                      child: Icon(
+                        Icons.add,
+                        size: FontSize.s20,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: ScreenConstant.sizeDefault),
-                  Text(
-                    "Add Notifications",
-                    style: TextStyles.textStyleRegular
-                        .apply(color: AppColors.white),
-                  )
-                ],
+                    SizedBox(width: ScreenConstant.sizeDefault),
+                    Text(
+                      "Add Notifications",
+                      style: TextStyles.textStyleRegular
+                          .apply(color: AppColors.white),
+                    )
+                  ],
+                ),
+                onTap: () {
+                  FocusScope.of(context).unfocus();
+
+                  if (controller.remindMeTime.value == "Select time") {
+                    return;
+                  }
+
+                  if (controller.remindMeDay.value == "Every Day") {
+                    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+
+                    print(picked.hour);
+                    print(picked.minute);
+
+                    scheduledDate = tz.TZDateTime(tz.local, now.year, now.month,
+                        now.day, picked.hour, picked.minute);
+
+                    if (scheduledDate.isBefore(now)) {
+                      scheduledDate =
+                          scheduledDate.add(const Duration(days: 1));
+                    }
+                  } else {
+                    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+                    scheduledDate = tz.TZDateTime(
+                        tz.local, now.year, now.month, now.day, 10);
+
+                    int daysForNoti = 0;
+
+                    if (controller.remindMeDay.value == "Sunday") {
+                      daysForNoti = 0;
+                    } else if (controller.remindMeDay.value == "Monday") {
+                      daysForNoti = 1;
+                    } else if (controller.remindMeDay.value == "Tuesday") {
+                      daysForNoti = 2;
+                    } else if (controller.remindMeDay.value == "Wednesday") {
+                      daysForNoti = 3;
+                    } else if (controller.remindMeDay.value == "Thursday") {
+                      daysForNoti = 4;
+                    } else if (controller.remindMeDay.value == "Friday") {
+                      daysForNoti = 5;
+                    } else if (controller.remindMeDay.value == "Saturday") {
+                      daysForNoti = 6;
+                    }
+
+                    if (scheduledDate.isBefore(now)) {
+                      scheduledDate =
+                          scheduledDate.add(Duration(days: daysForNoti));
+                    }
+                  }
+
+                  final scheduleTime =
+                      tz.TZDateTime.now(tz.local); //.add(Duration(minutes: 1));
+                  controller.scheduleRemindNotification(
+                      'title', messageController.text, scheduleTime);
+                },
               ),
               SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
             ],
@@ -210,8 +283,11 @@ class _NotificationsState extends State<Notifications> {
                                   .textStyleSettingQuestionaireBlack
                                   .apply(color: AppColors.white)),
                           CustomSwitch(
-                            value: true,
+                            value: controller.allRemindersSwitch.value,
                             color: AppColors.colorYesButton,
+                            onChanged: (isValue) {
+                              controller.allReminder();
+                            },
                           ),
                         ],
                       ),
@@ -249,21 +325,37 @@ class _NotificationsState extends State<Notifications> {
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text("Daily at 4:00 PM",
+                              Text("Daily at " + controller.general.value,
                                   style: TextStyles
                                       .textStyleSettingNotificationsSubTitle),
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text("Edit",
-                                  style: TextStyles
-                                      .textStyleSettingNotificationsSubTitle
-                                      .apply(color: HexColor('#D5C9E1'))),
+                              InkWell(
+                                child: Text("Edit",
+                                    style: TextStyles
+                                        .textStyleSettingNotificationsSubTitle
+                                        .apply(color: HexColor('#D5C9E1'))),
+                                onTap: () {
+                                  controller.pickerType.value = '1';
+                                  selectTime(context);
+                                },
+                              )
                             ],
                           ),
                           CustomSwitch(
-                            value: true,
+                            value: controller.generalSwitch.value,
                             color: AppColors.colorYesButton,
+                            onChanged: (value) {
+                              controller.generalSwitch.value =
+                                  !controller.generalSwitch.value;
+
+                              if (controller.general.value.isNotEmpty)
+                                controller.scheduleNotificationDailyAtTime(
+                                    'General',
+                                    "General Reminder",
+                                    scheduledDate);
+                            },
                           ),
                         ],
                       ),
@@ -301,22 +393,40 @@ class _NotificationsState extends State<Notifications> {
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text("Daily at 4:00 PM",
+                              Text(
+                                  "Daily at " +
+                                      controller.improveSleepOne.value,
                                   style: TextStyles
                                       .textStyleSettingNotificationsSubTitle
                                       .apply()),
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text("Edit",
-                                  style: TextStyles
-                                      .textStyleSettingNotificationsSubTitle
-                                      .apply(color: HexColor('#D5C9E1'))),
+                              InkWell(
+                                child: Text("Edit",
+                                    style: TextStyles
+                                        .textStyleSettingNotificationsSubTitle
+                                        .apply(color: HexColor('#D5C9E1'))),
+                                onTap: () {
+                                  controller.pickerType.value = '2';
+                                  selectTime(context);
+                                },
+                              )
                             ],
                           ),
                           CustomSwitch(
-                            value: true,
+                            value: controller.improveSleepOneSwitch.value,
                             color: AppColors.colorYesButton,
+                            onChanged: (value) {
+                              controller.improveSleepOneSwitch.value =
+                                  !controller.improveSleepOneSwitch.value;
+
+                              if (controller.improveSleepOne.value.isNotEmpty)
+                                controller.scheduleNotificationDailyAtTime(
+                                    'Treat Plan',
+                                    "Treat Plan: Improve Sleep",
+                                    scheduledDate);
+                            },
                           ),
                         ],
                       ),
@@ -343,22 +453,40 @@ class _NotificationsState extends State<Notifications> {
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text("Daily at 4:00 PM",
+                              Text(
+                                  "Daily at " +
+                                      controller.improveSleepTwo.value,
                                   style: TextStyles
                                       .textStyleSettingNotificationsSubTitle
                                       .apply()),
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text("Edit",
-                                  style: TextStyles
-                                      .textStyleSettingNotificationsSubTitle
-                                      .apply(color: HexColor('#D5C9E1'))),
+                              InkWell(
+                                child: Text("Edit",
+                                    style: TextStyles
+                                        .textStyleSettingNotificationsSubTitle
+                                        .apply(color: HexColor('#D5C9E1'))),
+                                onTap: () {
+                                  controller.pickerType.value = '3';
+                                  selectTime(context);
+                                },
+                              )
                             ],
                           ),
                           CustomSwitch(
-                            value: true,
+                            value: controller.improveSleepTwoSwitch.value,
                             color: AppColors.colorYesButton,
+                            onChanged: (value) {
+                              controller.improveSleepTwoSwitch.value =
+                                  !controller.improveSleepTwoSwitch.value;
+
+                              if (controller.improveSleepTwo.value.isNotEmpty)
+                                controller.scheduleNotificationDailyAtTime(
+                                    'Treat Plan',
+                                    "Treat Plan: Improve Sleep",
+                                    scheduledDate);
+                            },
                           ),
                         ],
                       ),
@@ -396,22 +524,40 @@ class _NotificationsState extends State<Notifications> {
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text("Daily at 4:00 PM",
+                              Text(
+                                  "Daily at " +
+                                      controller.prescriptionOne.value,
                                   style: TextStyles
                                       .textStyleSettingNotificationsSubTitle
                                       .apply()),
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text("Edit",
-                                  style: TextStyles
-                                      .textStyleSettingNotificationsSubTitle
-                                      .apply(color: HexColor('#D5C9E1'))),
+                              InkWell(
+                                child: Text("Edit",
+                                    style: TextStyles
+                                        .textStyleSettingNotificationsSubTitle
+                                        .apply(color: HexColor('#D5C9E1'))),
+                                onTap: () {
+                                  controller.pickerType.value = '4';
+                                  selectTime(context);
+                                },
+                              )
                             ],
                           ),
                           CustomSwitch(
-                            value: true,
+                            value: controller.prescriptionOneSwitch.value,
                             color: AppColors.colorYesButton,
+                            onChanged: (value) {
+                              controller.prescriptionOneSwitch.value =
+                                  !controller.prescriptionOneSwitch.value;
+
+                              if (controller.prescriptionOne.value.isNotEmpty)
+                                controller.scheduleNotificationDailyAtTime(
+                                    'Treat Plan',
+                                    "Treat Plan: Prescription Medication",
+                                    scheduledDate);
+                            },
                           ),
                         ],
                       ),
@@ -438,22 +584,40 @@ class _NotificationsState extends State<Notifications> {
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text("Daily at 4:00 PM",
+                              Text(
+                                  "Daily at " +
+                                      controller.prescriptionTwo.value,
                                   style: TextStyles
                                       .textStyleSettingNotificationsSubTitle
                                       .apply()),
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text("Edit",
-                                  style: TextStyles
-                                      .textStyleSettingNotificationsSubTitle
-                                      .apply(color: HexColor('#D5C9E1'))),
+                              InkWell(
+                                child: Text("Edit",
+                                    style: TextStyles
+                                        .textStyleSettingNotificationsSubTitle
+                                        .apply(color: HexColor('#D5C9E1'))),
+                                onTap: () {
+                                  controller.pickerType.value = '5';
+                                  selectTime(context);
+                                },
+                              )
                             ],
                           ),
                           CustomSwitch(
-                            value: true,
+                            value: controller.prescriptionTwoSwitch.value,
                             color: AppColors.colorYesButton,
+                            onChanged: (value) {
+                              controller.prescriptionTwoSwitch.value =
+                                  !controller.prescriptionTwoSwitch.value;
+
+                              if (controller.prescriptionTwo.value.isNotEmpty)
+                                controller.scheduleNotificationDailyAtTime(
+                                    'Treat Plan',
+                                    "Treat Plan: Prescription Medication",
+                                    scheduledDate);
+                            },
                           ),
                         ],
                       ),
@@ -480,22 +644,39 @@ class _NotificationsState extends State<Notifications> {
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text("Daily at 4:00 PM",
+                              Text(
+                                  "Daily at " +
+                                      controller.prescriptionThree.value,
                                   style: TextStyles
                                       .textStyleSettingNotificationsSubTitle
                                       .apply()),
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text("Edit",
-                                  style: TextStyles
-                                      .textStyleSettingNotificationsSubTitle
-                                      .apply(color: HexColor('#D5C9E1'))),
+                              InkWell(
+                                child: Text("Edit",
+                                    style: TextStyles
+                                        .textStyleSettingNotificationsSubTitle
+                                        .apply(color: HexColor('#D5C9E1'))),
+                                onTap: () {
+                                  controller.pickerType.value = '6';
+                                  selectTime(context);
+                                },
+                              )
                             ],
                           ),
                           CustomSwitch(
-                            value: true,
+                            value: controller.prescriptionThreeSwitch.value,
                             color: AppColors.colorYesButton,
+                            onChanged: (value) {
+                              controller.prescriptionThreeSwitch.value =
+                                  !controller.prescriptionThreeSwitch.value;
+                              if (controller.prescriptionThree.value.isNotEmpty)
+                                controller.scheduleNotificationDailyAtTime(
+                                    'Treat Plan',
+                                    "Treat Plan: Prescription Medication",
+                                    scheduledDate);
+                            },
                           ),
                         ],
                       ),
@@ -533,22 +714,37 @@ class _NotificationsState extends State<Notifications> {
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text("Daily at 4:00 PM",
+                              Text("Daily at " + controller.exercise.value,
                                   style: TextStyles
                                       .textStyleSettingNotificationsSubTitle
                                       .apply()),
                               SizedBox(
                                 width: ScreenConstant.defaultHeightTen,
                               ),
-                              Text("Edit",
-                                  style: TextStyles
-                                      .textStyleSettingNotificationsSubTitle
-                                      .apply(color: HexColor('#D5C9E1'))),
+                              InkWell(
+                                child: Text("Edit",
+                                    style: TextStyles
+                                        .textStyleSettingNotificationsSubTitle
+                                        .apply(color: HexColor('#D5C9E1'))),
+                                onTap: () {
+                                  controller.pickerType.value = '7';
+                                  selectTime(context);
+                                },
+                              )
                             ],
                           ),
                           CustomSwitch(
-                            value: true,
+                            value: controller.exerciseSwitch.value,
                             color: AppColors.colorYesButton,
+                            onChanged: (value) {
+                              controller.exerciseSwitch.value =
+                                  !controller.exerciseSwitch.value;
+                              if (controller.exercise.value.isNotEmpty)
+                                controller.scheduleNotificationDailyAtTime(
+                                    'Treat Plan',
+                                    "Treat Plan: Exercise",
+                                    scheduledDate);
+                            },
                           ),
                         ],
                       ),
@@ -580,10 +776,10 @@ class _NotificationsState extends State<Notifications> {
           color: AppColors.colordropdownArrowBg,
           borderRadius: BorderRadius.all(Radius.circular(8))),
       // dropdown below..
-      child: DropdownButton<String>(
+      child: Obx(() => DropdownButton<String>(
           isExpanded: true,
           dropdownColor: AppColors.white,
-          value: "Every Day",
+          value: controller.remindMeDay.value,
           elevation: 30,
           icon: Icon(
             Icons.keyboard_arrow_down_outlined,
@@ -592,23 +788,125 @@ class _NotificationsState extends State<Notifications> {
           iconSize: ScreenConstant.defaultHeightTwenty,
           underline: SizedBox(),
           onChanged: (String newValue) {
-            // setState(() {T
-            //   dropdownValue = newValue;
-            // });
+            controller.remindMeDay.value = newValue;
           },
           items: <String>[
             "Every Day",
+            "Sunday",
             "Monday",
             "Tuesday",
             "Wednesday",
             "Thursday",
-            "All Day"
+            "Friday",
+            "Saturday"
           ].map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value.toString(),
               child: Text(value.toString(), style: TextStyles.textStyleRegular),
             );
-          }).toList()),
+          }).toList())),
     );
+  }
+
+  _buildAtTime() {
+    return Container(
+        width: double.maxFinite,
+        height: ScreenConstant.defaultHeightForty * 1.2,
+        margin: EdgeInsets.only(
+            left: ScreenConstant.defaultWidthTen * 1.5,
+            right: ScreenConstant.defaultWidthTen * 1.5,
+            bottom: ScreenConstant.defaultHeightTen * 1.5),
+        // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+        decoration: BoxDecoration(
+            color: AppColors.colordropdownArrowBg,
+            borderRadius: BorderRadius.all(Radius.circular(8))),
+        child: Obx(() => ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.transparent, elevation: 0),
+              onPressed: () {
+                controller.pickerType.value = '0';
+                selectTime(context);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    controller.remindMeTime.value,
+                    style: TextStyles.textStyleSettingNotificationsSubTitle
+                        .apply(color: Colors.black),
+                  ),
+                  Icon(
+                    Icons.keyboard_arrow_down_outlined,
+                    color: AppColors.colordropdownArrow,
+                  ),
+                ],
+              ),
+            )));
+  }
+
+  Future<void> selectTime(BuildContext context) async {
+    picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (picked != null) {
+      String selTime =
+          picked.hour.toString() + ':' + picked.minute.toString() + ':00';
+      final selectedTime =
+          DateFormat.jm().format(DateFormat("hh:mm:ss").parse(selTime));
+
+      final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+
+      print(picked.hour);
+      print(picked.minute);
+
+      scheduledDate = tz.TZDateTime(
+          tz.local, now.year, now.month, now.day, picked.hour, picked.minute);
+
+      if (scheduledDate.isBefore(now)) {
+        scheduledDate = scheduledDate.add(const Duration(days: 1));
+      }
+
+      if (controller.pickerType.value == '0') {
+        controller.remindMeTime.value = selectedTime;
+      } else if (controller.pickerType.value == '1') {
+        controller.general.value = selectedTime;
+
+        if (controller.generalSwitch.value)
+          controller.scheduleNotificationDailyAtTime(
+              'General', "General Reminder", scheduledDate);
+      } else if (controller.pickerType.value == '2') {
+        controller.improveSleepOne.value = selectedTime;
+        if (controller.improveSleepOneSwitch.value)
+          controller.scheduleNotificationDailyAtTime(
+              'Treat Plan', "Treat Plan: Improve Sleep", scheduledDate);
+      } else if (controller.pickerType.value == '3') {
+        controller.improveSleepTwo.value = selectedTime;
+        if (controller.improveSleepTwoSwitch.value)
+          controller.scheduleNotificationDailyAtTime(
+              'Treat Plan', "Treat Plan: Improve Sleep", scheduledDate);
+      } else if (controller.pickerType.value == '4') {
+        controller.prescriptionOne.value = selectedTime;
+        if (controller.prescriptionOneSwitch.value)
+          controller.scheduleNotificationDailyAtTime('Treat Plan',
+              "Treat Plan: Prescription Medication", scheduledDate);
+      } else if (controller.pickerType.value == '5') {
+        controller.prescriptionTwo.value = selectedTime;
+        if (controller.prescriptionTwoSwitch.value)
+          controller.scheduleNotificationDailyAtTime('Treat Plan',
+              "Treat Plan: Prescription Medication", scheduledDate);
+      } else if (controller.pickerType.value == '6') {
+        controller.prescriptionThree.value = selectedTime;
+        if (controller.prescriptionThreeSwitch.value)
+          controller.scheduleNotificationDailyAtTime('Treat Plan',
+              "Treat Plan: Prescription Medication", scheduledDate);
+      } else if (controller.pickerType.value == '7') {
+        controller.exercise.value = selectedTime;
+        if (controller.exerciseSwitch.value)
+          controller.scheduleNotificationDailyAtTime(
+              'Treat Plan', "Treat Plan: Exercise", scheduledDate);
+      }
+    }
   }
 }

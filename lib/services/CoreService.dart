@@ -46,9 +46,7 @@ class CoreService {
             });
           } on FeatherJsError catch (e) {
             print("CatchError: $e");
-            // When error is FeatherJsErrorType
-            // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
-            // Check the error type as above and handle it
+
             if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
               Get.offAllNamed(signIn);
               CustomSnackBar()
@@ -65,10 +63,11 @@ class CoreService {
         {
           try {
             final response = await flutterFeathersjs.create(
-                serviceName: endpoint, data: data);
+                serviceName: endpoint,
+                data: data
+            );
 
             return response;
-            // responseJson = _returnResponse(response);
           } on SocketException {
             print("Socket");
             Future.delayed(const Duration(seconds: 2), () async {
@@ -206,6 +205,7 @@ class CoreService {
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
+
             if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
               Get.offAllNamed(signIn);
               CustomSnackBar()
@@ -248,6 +248,7 @@ class CoreService {
           }
         }
         break;
+
       case METHOD.AUTHENTICATE:
         {
           try {
