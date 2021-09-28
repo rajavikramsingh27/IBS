@@ -48,9 +48,13 @@ class MyAccount extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(
-            child: Text("Change email",
-                style: TextStyles.textStyleSettingDescription),
-            onPressed: () {},
+            child: Text(
+                "Change email",
+                style: TextStyles.textStyleSettingDescription
+            ),
+            onPressed: () {
+              _controller.changeEmail();
+            },
           ),
         )
       ],
@@ -82,9 +86,13 @@ class MyAccount extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(
-            child: Text("Change Password",
-                style: TextStyles.textStyleSettingDescription),
-            onPressed: () {},
+            child: Text(
+                "Change Password",
+                style: TextStyles.textStyleSettingDescription
+            ),
+            onPressed: () {
+              _controller.changePassword();
+            },
           ),
         )
       ],
