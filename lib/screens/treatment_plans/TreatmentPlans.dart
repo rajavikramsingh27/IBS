@@ -176,9 +176,9 @@ class _TreatmentPlansState extends State<TreatmentPlans> {
   _buildCircleIndicator() {
     return CirclePageIndicator(
       dotSpacing: 14,
-      size: 6,
-      selectedSize: 10,
-      borderWidth: 5,
+      size: 8,
+      selectedSize: 14,
+      borderWidth: 7,
       // borderColor: Colors.red,
       dotColor: AppColors.colorDotNotFocused,
       selectedDotColor: AppColors.white,
