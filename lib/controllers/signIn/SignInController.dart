@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ibs/Store/HiveStore.dart';
 import 'package:flutter_ibs/models/login/LoginResponseModel.dart';
@@ -8,7 +10,6 @@ import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:flutter_ibs/utils/Validator.dart';
 import 'package:get/get.dart';
-
 
 
 class SignInController extends GetxController {
@@ -27,7 +28,6 @@ class SignInController extends GetxController {
     super.onInit();
 
     emailController = TextEditingController();
-
     passwordController = TextEditingController();
 
     connectionStatus.value = true;

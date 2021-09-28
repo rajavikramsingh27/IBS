@@ -1,5 +1,6 @@
 
 
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_feathersjs/flutter_feathersjs.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_ibs/routes/RouteConstants.dart';
 import 'package:flutter_ibs/services/url.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
+
 
 
 class CoreService {
@@ -52,9 +53,7 @@ class CoreService {
             });
           } on FeatherJsError catch (e) {
             print("CatchError: $e");
-            // When error is FeatherJsErrorType
-            // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
-            // Check the error type as above and handle it
+
             if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
               Get.offAllNamed(signIn);
               CustomSnackBar()
@@ -77,7 +76,6 @@ class CoreService {
             );
 
             return response;
-            // responseJson = _returnResponse(response);
           } on SocketException {
             print("Socket");
             Future.delayed(const Duration(seconds: 2), () async {
@@ -213,6 +211,7 @@ class CoreService {
             // When error is FeatherJsErrorType
             // if(e.type == FeatherJsErrorType.IS_SERVER_ERROR)
             // Check the error type as above and handle it
+
             if (e.type == FeatherJsErrorType.IS_NOT_AUTHENTICATED_ERROR) {
               Get.offAllNamed(signIn);
               CustomSnackBar()
@@ -256,10 +255,12 @@ class CoreService {
 
         }
         break;
+
       case METHOD.AUTHENTICATE:
         {
           try {
             print("Data: $data");
+
             final response = await flutterFeathersjs.authenticate(
               strategy: data["strategy"],
               password: data["password"],

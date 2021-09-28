@@ -25,6 +25,7 @@ class ServiceApi {
   Future<dynamic> signupApi({Map bodyData}) async {
     var result = await CoreService()
         .apiService(method: METHOD.CREATE, endpoint: SIGNUP, data: bodyData);
+
     return SignupResponseModel.fromJson(result);
   }
 
@@ -201,6 +202,40 @@ class ServiceApi {
 
   }
 
+  Future<dynamic> updateEmailOnly({Map bodyData}) async {
+    final  MyAccountController _controller = Get.put(MyAccountController());
+
+    Map<String, dynamic> data = {
+      'label' : _controller.emailController.text
+    };
+
+    final result = await CoreService().apiService(
+      method: METHOD.PATCH,
+      endpoint: USERS,
+      data: data,
+    ) ;
+
+
+
+    return MyAccountModel.fromJson(result);
+  }
+
+  Future<dynamic> updatePasswordOnly({Map bodyData}) async {
+    final  MyAccountController _controller = Get.put(MyAccountController());
+
+    Map<String, dynamic> data = {
+      'password' : _controller.passwordController.text
+    };
+
+    final result = await CoreService().apiService(
+      method: METHOD.PATCH,
+      endpoint: USERS,
+      data: data,
+    ) ;
+
+    return MyAccountModel.fromJson(result);
+  }
+
   Future<dynamic> updateUser({Map bodyData}) async {
     final  MyAccountController _controller = Get.put(MyAccountController());
 
@@ -214,14 +249,6 @@ class ServiceApi {
         endpoint: USERS,
       data: data,
     ) ;
-
-    //     .catchError((error) {
-    //   print(error.message.toString());
-    //   Get.snackbar("Sorry", error.message.toString());
-    // }).then((value)  {
-    //   Get.snackbar("Success!", "Profile updated.");
-    // });
-
     return MyAccountModel.fromJson(result);
   }
 

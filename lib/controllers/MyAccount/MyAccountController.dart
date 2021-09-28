@@ -9,6 +9,9 @@ import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_ibs/models/TrackablesListModel/TrackablesListModel.dart';
 import 'package:flutter_ibs/screens/TrackingOptions/TrackingOptions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_ibs/routes/RouteConstants.dart';
+import 'package:flutter_ibs/utils/Validator.dart';
 
 
 RxBool loader = false.obs;
@@ -50,7 +53,6 @@ class MyAccountController extends GetxController {
   dynamic  data;
 
   // ToDo Setting My IBS Diagnosis variables
-
   RxInt pagecount = 0.obs;
   RxInt pagecount2 = 0.obs;
 
@@ -161,7 +163,9 @@ class MyAccountController extends GetxController {
         selectedIbsHistoryNo.value = false;
         selectedIbsHistoryUnsure.value = true;
       }
+
     }
+
   }
 
   setUIDataMyIBSDiagnosis() {
@@ -270,6 +274,41 @@ class MyAccountController extends GetxController {
 
 // ToDo Setting My IBS Diagnosis functions
 
+  changeEmail() async {
+    if (emailController.text.isEmpty) {
+      'Enter Email'.showError();
+    } else if (!emailController.text.isValidEmail()) {
+      'Enter Valid Email'.showError();
+    } else {
+      data = await ServiceApi().updateEmailOnly(
+        // bodyData: data.toJson(),
+      );
+
+      SharedPreferences prefs;
+      prefs = await SharedPreferences.getInstance();
+      prefs.remove('FEATHERSJS_ACCESS_TOKEN');
+      Get.toNamed(signIn);
+    }
+  }
+
+  changePassword() async {
+    if (passwordController.text.isEmpty) {
+      'Enter Password'.showError();
+    } else if (passwordController.text.length < 6) {
+      'Password should be 6 character'.showError();
+    } else {
+      data = await ServiceApi().updatePasswordOnly(
+        // bodyData: data.toJson(),
+      );
+
+      SharedPreferences prefs;
+      prefs = await SharedPreferences.getInstance();
+      prefs.remove('FEATHERSJS_ACCESS_TOKEN');
+      Get.toNamed(signIn);
+    }
+
+  }
+
   getIbsType(String selectectedIBS) {
     switch (selectectedIBS) {
       case 'c':
@@ -375,18 +414,6 @@ class MyAccountController extends GetxController {
     getHealthWellness();
   }
 
-  // trackingDataSend(String tid) {
-  //   trackList.value.data.forEach((element) {
-  //     if (element.category == tid) {
-  //       element.items.forEach((el) {
-  //         if (el.enabledDefault ?? false) {
-  //           symptomsList.add(el);
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
-
   getSymptoms() {
     trackList.value.data.forEach((element) {
       if (element.tid == "symptoms") {
@@ -435,10 +462,7 @@ class MyAccountController extends GetxController {
     });
   }
 
-  _recursivelyParseChildren(List<TrackableItem> items){
-    print('itemsitemsitemsitemsitemsitemsitemsitemsitemsitems');
-    print(items);
-
+  _recursivelyParseChildren(List<TrackableItem> items) {
     items.forEach((element) {
       if (element.enabledDefault){
         _addItemToTrackingList(element);

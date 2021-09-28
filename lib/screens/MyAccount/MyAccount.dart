@@ -19,6 +19,7 @@ import 'package:flutter_ibs/widget/CustomCheckBox.dart';
 import 'package:flutter_ibs/widget/CustomElevatedButton.dart';
 
 
+
 final FocusNode focusEmail = FocusNode();
 final FocusNode focusPassWord = FocusNode();
 final FocusNode focusRePassWord = FocusNode();
@@ -59,7 +60,7 @@ class MyAccount extends StatelessWidget {
                 style: TextStyles.textStyleSettingDescription
             ),
             onPressed: () {
-
+              _controller.changeEmail();
             },
           ),
         )
@@ -98,7 +99,7 @@ class MyAccount extends StatelessWidget {
                 style: TextStyles.textStyleSettingDescription
             ),
             onPressed: () {
-
+              _controller.changePassword();
             },
           ),
         )
