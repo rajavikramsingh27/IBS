@@ -249,6 +249,69 @@ class RomeQuestionnaire extends StatelessWidget {
     ]);
   }
 
+
+  /*_buildRomeIVCriteria() {
+    return ListView(physics: ClampingScrollPhysics(), children: [
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+      Center(
+          child: Image.asset(Assets.myProfile5,
+              width: ScreenConstant.defaultHeightTwoHundredTen)),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+      Text("No problem. This app can help you understand your IBS",
+          textAlign: TextAlign.center,
+          style:
+          TextStyles.textStyleIntroDescription.apply(color: Colors.black)),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+      Card(
+        elevation: 0,
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Padding(
+            padding: ScreenConstant.spacingAllLarge,
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                text: "Physicains worldwide follow the ",
+                style: TextStyles.textStyleRegular.apply(fontSizeDelta: 2),
+                children: <TextSpan>[
+                  TextSpan(
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => _buildRomeIVCriteriaDialog(),
+                      text: "Rome IV Criteria ",
+                      style: TextStyles.textStyleIntroDescription.apply(
+                          color: AppColors.colorBackground, fontSizeDelta: -4)),
+                  TextSpan(
+                      text:
+                      "when diagnosing IBS.\n\nThe following questions are for informational purposes only and should not substitute for the medical advice of you doctor.")
+                ],
+              ),
+            )
+
+          // Text(
+          //   "Providing detailed information about your IBS symptoms can help your health care provider recommended treatment options.",
+          //   style: TextStyles.textStyleRegular,
+          //   textAlign: TextAlign.center,
+          // ),
+        ),
+      ),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+      SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+    ]);
+  }*/
+
+  /*_buildRomeIVCriteriaDialog() {
+    Get.dialog(
+      CustomDialog(
+        title: "Rome IV Criteria",
+        description:
+        '''Symptom-based criteria of IBS were first developed in 1989 by an international working group based in Rome (the Rome criteria). These criteria have been updated in the Rome Il, III, and most recently, in 2016, the Rome IV criteria for IBS.  According to the Rome IV diagnostic criteria, IBS is characterised by recurrent abdominal pain for, on average, at least one day per week in the past three months, associated with two or more of the following: * Symptoms related to defecation. * Symptoms associated with a  change in stool frequency. * Symptoms associated with a  change in stool form or appearance, based on the Bristol Stool Form Scale (BSFS).''',
+      ),
+    );
+  }*/
+
+
   _buildAbdominalPain() {
     return Padding(
       padding: ScreenConstant.spacingAllLarge,

@@ -178,6 +178,26 @@ class SignupStep3 extends StatelessWidget {
                       .apply(color: Colors.black, fontSizeDelta: -6)),
               SizedBox(height: ScreenConstant.defaultHeightTen * 0.8),
               CustomTextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  validationFunction: Validator().validateEmail,
+                  controller: _controller.emailController,
+                  inputFormatters: [LengthLimitingTextInputFormatter(50)],
+                  currentFocus: focusEmail,
+                  nextFocus: focusPassWord,
+                  suffixIcon: Padding(
+                    padding: ScreenConstant.spacingAllSmall,
+                    child: Image.asset(
+                      Assets.verified,
+                      height: 20,
+                    ),
+                  )),
+              SizedBox(height: ScreenConstant.defaultHeightTwenty * 1.5),
+              Text("Email address:",
+                  textAlign: TextAlign.center,
+                  style: TextStyles.textStyleIntroDescription
+                      .apply(color: Colors.black, fontSizeDelta: -6)),
+              SizedBox(height: ScreenConstant.defaultHeightTen * 0.8),
+              CustomTextFormField(
                 validationFunction: Validator().validateEmail,
                 controller: _controller.emailController,
                 inputFormatters: [LengthLimitingTextInputFormatter(50)],
@@ -284,7 +304,7 @@ class SignupStep3 extends StatelessWidget {
       CustomDialog(
         title: "Terms and Privacy Policy",
         description:
-            '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet gravida augue, id eleifend mi. Morbi eget tempus felis, semper placerat erat. Sed nec ligula vestibulum, sagittis libero at, dapibus lectus. Duis fermentum diam mauris. 
+            '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet gravida augue, id eleifend mi. Morbi eget tempus felis, semper placerat erat. Sed nec ligula vestibulum, sagittis libero at, dapibus lectus. Duis fermentum diam mauris.
 
 Aliquam elementum, massa sed vulputate vestibulum, elit nunc ultrices est, eget placerat mauris orci nec sapien. Nam  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet gravida augue, id eleifend mi. Morbi eget tempus felis, semper placerat erat. Sed nec ligula vestibulum, sagittis libero at, dapibus lectus. Duis fermentum diam mauris. Aliquam''',
       ),

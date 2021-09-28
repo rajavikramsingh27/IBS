@@ -3,6 +3,7 @@ import 'package:flutter_ibs/utils/Assets.dart';
 import 'package:flutter_ibs/utils/Colors.dart';
 import 'package:flutter_ibs/utils/ScreenConstants.dart';
 import 'package:flutter_ibs/utils/TextStyles.dart';
+import 'package:flutter_ibs/widget/CustomBottomNavigation.dart';
 import 'package:flutter_ibs/widget/LeadingBackButton.dart';
 import 'package:get/get.dart';
 
@@ -22,53 +23,62 @@ class MyIbs extends StatelessWidget {
             style: TextStyles.appBarTitle,
           ),
         ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 30),
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                    vertical: ScreenConstant.defaultHeightForty),
-                decoration: BoxDecoration(
-                    color: AppColors.colorBackground,
-                    borderRadius: BorderRadius.circular(16)),
-                child: Image.asset(
-                  Assets.logo,
-                  height: ScreenConstant.defaultHeightOneHundred,
-                ),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              padding:
+                  EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 30),
+              child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenConstant.defaultHeightForty),
+                    decoration: BoxDecoration(
+                        color: AppColors.colorBackground,
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Image.asset(
+                      Assets.logo,
+                      height: ScreenConstant.defaultHeightOneHundred,
+                    ),
+                  ),
+                  SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
+                  ListView.separated(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) {
+                        return SizedBox(
+                          height: 30,
+                        );
+                      },
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("About MyIBS APP",
+                                textAlign: TextAlign.left,
+                                style: TextStyles.textStyleIntroDescription
+                                    .apply()),
+                            SizedBox(
+                                height: ScreenConstant.defaultHeightSixteen),
+                            Text(
+                              '''Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. 
+                Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
+                Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis 
+                enim velit mollit. Exercitation veniam consequat sunt nostrud amet.''',
+                              style: TextStyles.textStyleRegular,
+                            ),
+                          ],
+                        );
+                      }),
+                  SizedBox(height: ScreenConstant.defaultHeightSeventy),
+                ],
               ),
-              SizedBox(height: ScreenConstant.defaultHeightTwentyFour),
-              ListView.separated(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  separatorBuilder: (context, index) {
-                    return SizedBox(
-                      height: 30,
-                    );
-                  },
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("About MyIBS APP",
-                            textAlign: TextAlign.left,
-                            style:
-                                TextStyles.textStyleIntroDescription.apply()),
-                        SizedBox(height: ScreenConstant.defaultHeightSixteen),
-                        Text(
-                          '''Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. 
-            Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis 
-            enim velit mollit. Exercitation veniam consequat sunt nostrud amet.''',
-                          style: TextStyles.textStyleRegular,
-                        ),
-                      ],
-                    );
-                  })
-            ],
-          ),
+            ),
+            Positioned(
+                bottom: 0, left: 0, right: 0, child: CustomBottomNavigation()),
+          ],
         ));
   }
 }

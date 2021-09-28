@@ -123,7 +123,7 @@ class _IntroState extends State<Intro> {
           controller: _pageController,
           itemBuilder: (BuildContext context, int index) {
             if (index == 0) {
-              return Container(
+              return Padding(
                 padding: EdgeInsets.only(left: 30, right: 30),
                 child: Center(
                     child: Column(
@@ -144,23 +144,25 @@ class _IntroState extends State<Intro> {
                           color: Colors.white.withOpacity(0.9)),
                     ),
                     SizedBox(height: 30),
-                    SizedBox(
-                      height: ScreenConstant.defaultHeightSixteen * 3,
-                      child: Card(
-                        color: AppColors.colorDot,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                                "assets/images/intro/candian_symbol.png",
-                                width: 12,
-                                height: 12),
-                            SizedBox(width: ScreenConstant.defaultWidthTen),
-                            Text(
-                              "Canadian Digestive Health Information",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
+                    Expanded(
+                      child: SizedBox(
+                        height: ScreenConstant.defaultHeightSixteen * 3,
+                        child: Card(
+                          color: AppColors.colorDot,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                  "assets/images/intro/candian_symbol.png",
+                                  width: 12,
+                                  height: 12),
+                              SizedBox(width: ScreenConstant.defaultWidthTen),
+                              Text(
+                                "Canadian Digestive Health Information",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -203,6 +205,26 @@ class _IntroState extends State<Intro> {
   }
 
   _buildCircleIndicator() {
+// <<<<<<< HEAD
+//     return Positioned(
+//       left: 0.0,
+//       right: 0.0,
+//       // bottom: 0.0,
+//       child: Padding(
+//         padding: EdgeInsets.all(8.0),
+//         child: CirclePageIndicator(
+//           dotSpacing: 14,
+//           size: 8,
+//           selectedSize: 16,
+//           borderWidth: 7,
+//           // borderColor: Colors.red,
+//           dotColor: AppColors.colorDotNotFocused,
+//           selectedDotColor: AppColors.white,
+//           selectedBorderColor: AppColors.colorDot,
+//           itemCount: arrIntroText.length,
+//           currentPageNotifier: _currentPageNotifier,
+//         ),
+// =======
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: CirclePageIndicator(
@@ -216,6 +238,7 @@ class _IntroState extends State<Intro> {
         selectedBorderColor: AppColors.colorDot,
         itemCount: arrIntroText.length,
         currentPageNotifier: _currentPageNotifier,
+// >>>>>>> daced873a0ed8c88ec806ae86e913ca6cc080581
       ),
     );
   }

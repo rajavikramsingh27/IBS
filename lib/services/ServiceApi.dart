@@ -290,6 +290,40 @@ class ServiceApi {
     }
   }
 
+  Future<dynamic> updateEmailOnly({Map bodyData}) async {
+    final  MyAccountController _controller = Get.put(MyAccountController());
+
+    Map<String, dynamic> data = {
+      'label' : _controller.emailController.text
+    };
+
+    final result = await CoreService().apiService(
+      method: METHOD.PATCH,
+      endpoint: USERS,
+      data: data,
+    ) ;
+
+
+
+    return MyAccountModel.fromJson(result);
+  }
+
+  Future<dynamic> updatePasswordOnly({Map bodyData}) async {
+    final  MyAccountController _controller = Get.put(MyAccountController());
+
+    Map<String, dynamic> data = {
+      'password' : _controller.passwordController.text
+    };
+
+    final result = await CoreService().apiService(
+      method: METHOD.PATCH,
+      endpoint: USERS,
+      data: data,
+    ) ;
+
+    return MyAccountModel.fromJson(result);
+  }
+
   Future<dynamic> updateUser({Map bodyData}) async {
     final MyAccountController _controller = Get.put(MyAccountController());
 

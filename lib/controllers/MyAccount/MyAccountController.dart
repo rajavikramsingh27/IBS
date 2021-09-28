@@ -7,6 +7,9 @@ import 'package:flutter_ibs/services/ServiceApi.dart';
 import 'package:flutter_ibs/utils/ConnectionCheck.dart';
 import 'package:flutter_ibs/utils/SnackBar.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_ibs/routes/RouteConstants.dart';
+import 'package:flutter_ibs/utils/Validator.dart';
 
 RxBool loader = false.obs;
 
@@ -48,7 +51,6 @@ class MyAccountController extends GetxController {
   dynamic data;
 
   // ToDo Setting My IBS Diagnosis variables
-
   RxInt pagecount = 0.obs;
   RxInt pagecount2 = 0.obs;
 
@@ -185,7 +187,7 @@ class MyAccountController extends GetxController {
 
   updateIBS() async {
     DiagnosedIbs diagnosedIbs = DiagnosedIbs(
-        // id: data.profile.diagnosedIbs.id,
+      // id: data.profile.diagnosedIbs.id,
         isDiagnosed: data.profile.diagnosedIbs.isDiagnosed,
         ibsType: selectIbsType(selctedIbsType.value));
 
@@ -208,7 +210,7 @@ class MyAccountController extends GetxController {
       abdominalPainTimeBowel: isabdominalPainTimeBowel.value,
       abdominalPainBowelMoreLess: isabdominalPainBowelMoreLess.value,
       abdominalPainBowelAppearDifferent:
-          isabdominalPainBowelAppearDifferent.value,
+      isabdominalPainBowelAppearDifferent.value,
       stool: selectStoolType(selectedStoolType.value),
     );
 
@@ -246,6 +248,40 @@ class MyAccountController extends GetxController {
   }
 
 // ToDo Setting My IBS Diagnosis functions
+
+  changeEmail() async {
+    if (emailController.text.isEmpty) {
+      'Enter Email'.showError();
+    } else if (!emailController.text.isValidEmail()) {
+      'Enter Valid Email'.showError();
+    } else {
+      data = await ServiceApi().updateEmailOnly(
+        // bodyData: data.toJson(),
+      );
+
+      SharedPreferences prefs;
+      prefs = await SharedPreferences.getInstance();
+      prefs.remove('FEATHERSJS_ACCESS_TOKEN');
+      Get.toNamed(signIn);
+    }
+  }
+
+  changePassword() async {
+    if (passwordController.text.isEmpty) {
+      'Enter Password'.showError();
+    } else if (passwordController.text.length < 6) {
+      'Password should be 6 character'.showError();
+    } else {
+      data = await ServiceApi().updatePasswordOnly(
+        // bodyData: data.toJson(),
+      );
+
+      SharedPreferences prefs;
+      prefs = await SharedPreferences.getInstance();
+      prefs.remove('FEATHERSJS_ACCESS_TOKEN');
+      Get.toNamed(signIn);
+    }
+  }
 
   getIbsType(String selectectedIBS) {
     switch (selectectedIBS) {
@@ -323,6 +359,17 @@ class MyAccountController extends GetxController {
     }
   }
 
+
+  _recursivelyParseChildren(List<TrackableItem> items) {
+    items.forEach((element) {
+      trackingUpdatesList.add(element);
+      element.children.forEach((child) {
+        return _recursivelyParseChildren(child.items);
+      });
+    });
+  }
+
+}
   /*
   getTrackList() async {
     if (connectionStatus.value) {
@@ -352,19 +399,7 @@ class MyAccountController extends GetxController {
     getMedicationList();
     getHealthWellness();
   }
-*/
-  // trackingDataSend(String tid) {
-  //   trackList.value.data.forEach((element) {
-  //     if (element.category == tid) {
-  //       element.items.forEach((el) {
-  //         if (el.enabledDefault ?? false) {
-  //           symptomsList.add(el);
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
-/*
+
   getSymptoms() {
     trackList.value.data.forEach((element) {
       if (element.tid == "symptoms") {
@@ -412,13 +447,6 @@ class MyAccountController extends GetxController {
       }
     });
   }
-*/
-  _recursivelyParseChildren(List<TrackableItem> items) {
-    items.forEach((element) {
-      trackingUpdatesList.add(element);
-      element.children.forEach((child) {
-        return _recursivelyParseChildren(child.items);
-      });
-    });
-  }
-}
+
+}*/
+
